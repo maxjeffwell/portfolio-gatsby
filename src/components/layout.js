@@ -66,7 +66,13 @@ const Layout = ({ children }) => (
         >
           {children}
         </main>
-        <footer>
+        <footer
+          css={css`
+            margin: 2rem auto 4rem;
+            max-width: 90vw;
+            width: 550px;
+           `}
+        >
             Built by
           {data.site.siteMetadata.author}
             , created
