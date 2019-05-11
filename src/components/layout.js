@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
@@ -33,10 +34,21 @@ const Layout = ({ children }) => (
           * + * {
           margin-top: 1rem;
           }
+          @font-face {
+            font-family: LetterGothicStd-Bold;
+            font-style: normal;
+            font-weight: bold;
+            src: url('../../public/fonts/LetterGothicStd-Bold.otf') format('opentype');
+          }
+          @font-face {
+            font-family: LetterGothicStd;
+            font-style: normal;
+            font-weight: normal;
+            src: url('../../public/fonts/LetterGothicStd.otf') format('opentype');
+          }
           html, body {
           margin: 0;
           color: #555;
-          font-family: Roboto, Helvetica, sans-serif;
           font-size: 18px;
           line-height: 1.4;
           }
@@ -61,7 +73,7 @@ const Layout = ({ children }) => (
           css={css`
             margin: 2rem auto 4rem;
             max-width: 90vw;
-            width: 550px;
+            width: 960px;
            `}
         >
           {children}
@@ -70,14 +82,17 @@ const Layout = ({ children }) => (
           css={css`
             margin: 2rem auto 4rem;
             max-width: 90vw;
-            width: 550px;
+            width: 960px;
            `}
         >
             Built by
+          {` `}
           {data.site.siteMetadata.author}
             , created
           {` `}
           {data.site.siteMetadata.createdAt}
+          {` `}
+          with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>

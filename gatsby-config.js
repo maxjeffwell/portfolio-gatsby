@@ -19,8 +19,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `gatsby-developer-portfolio`,
+        short_name: `portfolio`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
@@ -30,5 +30,13 @@ module.exports = {
     },
     `gatsby-plugin-eslint`,
     `gatsby-plugin-emotion`,
+    {
+      resolve: `gatsby-plugin-web-font-loader`,
+      options: {
+        custom: {
+          families: ['LetterGothicStd-Bold', 'LetterGothicStd'],
+        },
+      },
+    },
   ],
 };
