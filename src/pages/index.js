@@ -17,10 +17,10 @@ const IndexPage = () => (
     </p>
     {/* eslint-disable-next-line react/no-unescaped-entities */}
     <p>Right now, I'm making myself familiar with GraphQL, React Hooks, and Gatsby.</p>
-    <Link to="/page-2/">Click here for a brief list my most recent projects</Link>
+    <Link to="/projects/">Click here for a brief list my most recent projects</Link>
     <Image />
     <p>I have a fondness for small dogs and old-school internet (namely the immortal Usenet).</p>
-    <Link to="/page-3/">
+    <Link to="/about/">
       {/* eslint-disable-next-line react/no-unescaped-entities */}
       Check out an artist's rendering of my two sidekicks and coding companions
     </Link>

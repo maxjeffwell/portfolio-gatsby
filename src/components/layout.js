@@ -6,6 +6,7 @@ import { StaticQuery, graphql } from 'gatsby';
 import { Global, css } from '@emotion/core';
 
 import Header from './header';
+import SEO from "./seo"
 
 const GET_SITE_METADATA = graphql`
   query {
@@ -25,6 +26,22 @@ const Layout = ({ children }) => (
     query={GET_SITE_METADATA}
     render={data => (
       <>
+        <SEO
+          title="Jeff Maxwell Full Stack Developer"
+          keywords={[
+            `gatsby`,
+            `application`,
+            `react`,
+            `portfolio Site`,
+            `API calling`,
+            `Axios`,
+            `Fetch`,
+            `Javascript`,
+            `Frontend Developer`,
+            `Backend Developer`,
+            `Full Stack Developer`
+          ]}
+        />
         <Global
           styles={css`
           * {
@@ -51,6 +68,8 @@ const Layout = ({ children }) => (
           color: #555;
           font-size: 18px;
           line-height: 1.4;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
           }
           /*remove margin for main div that Gatsby mounts into */
           > div {
