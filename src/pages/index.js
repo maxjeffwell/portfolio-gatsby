@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 
 import Layout from '../components/layout';
-// import Image from '../components/image';
+import Image from '../components/image';
 import SEO from '../components/seo';
 
 const IndexPage = () => (
@@ -17,9 +17,10 @@ const IndexPage = () => (
     </p>
     {/* eslint-disable-next-line react/no-unescaped-entities */}
     <p>Right now, I'm making myself familiar with GraphQL, React Hooks, and Gatsby.</p>
-    <Link to="/page-3/">Click here for a brief list my most recent projects</Link>
+    <Link to="/page-2/">Click here for a brief list my most recent projects</Link>
+    <Image />
     <p>I have a fondness for small dogs and old-school internet (namely the immortal Usenet).</p>
-    <Link to="/page-2/">
+    <Link to="/page-3/">
       {/* eslint-disable-next-line react/no-unescaped-entities */}
       Check out an artist's rendering of my two sidekicks and coding companions
     </Link>

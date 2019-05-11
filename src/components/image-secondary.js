@@ -13,12 +13,12 @@ import Img from 'gatsby-image';
  * - `StaticQuery`: https://gatsby.app/staticquery
  */
 
-const Image = () => (
+const ImageSecondary = () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <StaticQuery
     query={graphql`
       query {
-        placeholderImage: file(relativePath: { eq: "elephant_developer.jpg" }) {
+        placeholderImage: file(relativePath: { eq: "coding_companions.jpg" }) {
           childImageSharp {
             fluid(maxWidth: 300) {
               ...GatsbyImageSharpFluid
@@ -30,4 +30,4 @@ const Image = () => (
     render={data => <Img fluid={data.placeholderImage.childImageSharp.fluid} />}
   />
 );
-export default Image;
+export default ImageSecondary;
