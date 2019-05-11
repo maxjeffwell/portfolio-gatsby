@@ -1,5 +1,4 @@
 import { Link } from 'gatsby';
-// import PropTypes from 'prop-types';
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -40,16 +39,14 @@ const Header = () => (
       <NavLink to="/" fontWeight="bold" activeClassName="current-page">
         Home
       </NavLink>
+      <NavLink to="/page-2" fontWeight="bold" activeClassName="current-page">
+        About Me
+      </NavLink>
+      <NavLink to="/page-3" fontWeight="bold" activeClassName="current-page">
+        Projects
+      </NavLink>
     </nav>
   </header>
 );
-
-// Header.propTypes = {
-//   siteTitle: PropTypes.string,
-// };
-
-// Header.defaultProps = {
-//   siteTitle: `My Portfolio`,
-// };
 
 export default Header;

@@ -17,7 +17,7 @@ const IndexPage = () => (
     </p>
     {/* eslint-disable-next-line react/no-unescaped-entities */}
     <p>Right now, I'm making myself familiar with GraphQL, React Hooks, and Gatsby.</p>
-    <Link to="/page-3/">Click here for a brief list of my most recent projects</Link>
+    <Link to="/page-3/">Click here for a brief list my most recent projects</Link>
     <p>I have a fondness for small dogs and old-school internet (namely the immortal Usenet).</p>
     <Link to="/page-2/">
       {/* eslint-disable-next-line react/no-unescaped-entities */}
