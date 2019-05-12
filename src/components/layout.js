@@ -6,7 +6,6 @@ import { StaticQuery, graphql } from 'gatsby';
 import { Global, css } from '@emotion/core';
 
 import Header from './header';
-import SEO from "./seo"
 
 const GET_SITE_METADATA = graphql`
   query {
@@ -26,22 +25,6 @@ const Layout = ({ children }) => (
     query={GET_SITE_METADATA}
     render={data => (
       <>
-        <SEO
-          title="Jeff Maxwell Full Stack Developer"
-          keywords={[
-            `gatsby`,
-            `application`,
-            `react`,
-            `portfolio Site`,
-            `API calling`,
-            `Axios`,
-            `Fetch`,
-            `Javascript`,
-            `Frontend Developer`,
-            `Backend Developer`,
-            `Full Stack Developer`
-          ]}
-        />
         <Global
           styles={css`
           * {
@@ -64,16 +47,23 @@ const Layout = ({ children }) => (
             src: url('../../public/fonts/LetterGothicStd.otf') format('opentype');
           }
           html, body {
-          margin: 0;
-          color: #555;
-          font-size: 18px;
-          line-height: 1.4;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            color: #555;
+            font-size: 18px;
+            line-height: 1.4;
+            font-kerning: normal;
+            -moz-font-feature-settings: "kern", "liga", "clig", "calt";
+           -ms-font-feature-settings: "kern", "liga", "clig", "calt";
+            -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
+            font-feature-settings: "kern", "liga", "clig", "calt";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
           }
           /*remove margin for main div that Gatsby mounts into */
           > div {
-          margin-top: 0;
+            margin-top: 0;
           }
           h1, h2, h3, h4. h5, h6 {
            color: #222;
@@ -82,38 +72,75 @@ const Layout = ({ children }) => (
            margin-top: .5rem;
            }
           }
+          a {
+           background-color: transparent;
+           -webkit-text-decoration-skip: objects;
+          }
+          a:active, a:hover {
+           outline-width: 0;
+          }
+          img {
+           border-style: none;
+          }
           strong {
-          color: #222;
+            color: #222;
           }
         `}
         />
         <Header />
         <main
           css={css`
-            margin: 2rem auto 4rem;
-            max-width: 90vw;
-            width: 960px;
-           `}
+           margin: 2rem auto 4rem;
+           max-width: 90vw;
+           width: 960px;
+          `}
         >
           {children}
         </main>
         <footer
           css={css`
-            margin: 2rem auto 4rem;
-            max-width: 90vw;
-            width: 960px;
-           `}
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           grid-template-rows: 1fr;
+           padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
+           background-color: #000;
+           color: #fff;
+          `}
         >
+          <h3>Jeff Maxwell</h3>
+          <a
+            css={css`
+             color: blueviolet;
+             grid-column: 1 / 2;
+            `}
+            href="mailto:maxjeffwell@gmail.com"
+          >
+            maxjeffwell@gmail.com
+          </a>
+          <p
+            css={css`
+             grid-column: 1 / 2;
+           `}
+          >
             Built by
-          {` `}
-          {data.site.siteMetadata.author}
+            {` `}
+            {data.site.siteMetadata.author}
             , created
-          {` `}
-          {data.site.siteMetadata.createdAt}
-          {` `}
-          with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+            {` `}
+            {data.site.siteMetadata.createdAt}
+            {` `}
+            with
+            {` `}
+            <a href="https://www.gatsbyjs.org">
+              <span
+                css={css`
+                 color: blueviolet;
+                `}
+              >
+              Gatsby
+              </span>
+            </a>
+          </p>
         </footer>
       </>
     )}

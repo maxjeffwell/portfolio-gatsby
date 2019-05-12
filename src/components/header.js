@@ -24,8 +24,8 @@ const Header = () => (
   <header
     css={css`
       font-family: LetterGothicStd, serif;
-      background: #eee;
-      border-bottom: 1px solid #ddd;
+      //background: #eee;
+      //border-bottom: 1px solid #ddd;
       display: flex;
       justify-content: space-between;
       padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
@@ -40,7 +40,7 @@ const Header = () => (
         Home
       </NavLink>
       <NavLink to="/about" fontWeight="bold" activeClassName="current-page">
-        About Me
+        Bio
       </NavLink>
       <NavLink to="/projects" fontWeight="bold" activeClassName="current-page">
         Projects
