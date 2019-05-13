@@ -9,13 +9,18 @@ const ProjectCard = props => {
       css={css`
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 0.1fr 0.25fr 0.1fr;
+        grid-template-rows: 1fr 0.1fr 0.25fr auto;
         grid-column-gap: 1rem;
         border: 5px solid #121619;
         background-color: #2d3047;
         padding: 2rem 2rem 2rem 2rem;
         border-radius: 5px;
         color: #ffffff;
+        &:nth-of-type(3) {
+          img:nth-of-type(2) {
+            align-self: center;
+          }
+        }
       `}
     >
       {/* eslint-disable-next-line react/destructuring-assignment */}
@@ -91,8 +96,8 @@ const ProjectCard = props => {
           align-self: self-start;
           justify-self: self-start;
         `}
-        type="submit"
-        text="Hosted App"
+        type="button"
+        text="Live App"
         /* eslint-disable-next-line react/destructuring-assignment */
         url={props.hostedURL}
       >

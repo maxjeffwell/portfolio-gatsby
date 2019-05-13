@@ -34,8 +34,8 @@ const IndexPage = () => (
         color: #ffffff;
       `}
     >
-      I commit early and often, implement content-driven design strategies, and value the tenacity
-      required to produce readable, maintainable code.
+      I commit early and often, implement content-driven design strategies, and value readable,
+      maintainable code.
     </p>
     {/* eslint-disable-next-line react/no-unescaped-entities */}
     <p
@@ -54,8 +54,8 @@ const IndexPage = () => (
     >
       {/* eslint-disable-next-line react/no-unescaped-entities */}
       When I haven't inceptioned myself in the dev tool's component tree or naively tried to tell
-      CSS Grid what to do, I can be found either negotiating menu selection with my two dogs or
-      scouring Usenet in remembrance of Internet things past.
+      CSS Grid what to do, I can be found either skillfully arbitrating dinner menu selection with
+      my two dogs or scouring Usenet in remembrance of Internet things past.
     </p>
     <StyledLink to="/about/">
       {/* eslint-disable-next-line react/no-unescaped-entities */}
