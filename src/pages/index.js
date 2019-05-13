@@ -53,13 +53,14 @@ const IndexPage = () => (
       `}
     >
       {/* eslint-disable-next-line react/no-unescaped-entities */}
-      When I haven't inceptioned myself in the dev tool's component tree or naively tried to tell
-      CSS Grid what to do, I can be found either skillfully arbitrating dinner menu selection with
+      When I'm not inceptioning myself in the dev tool's component tree or attempting to bend CSS
+      Grid to my will, I can be found either skillfully arbitrating the dinner menu selection with
       my two dogs or scouring Usenet in remembrance of Internet things past.
     </p>
     <StyledLink to="/about/">
       {/* eslint-disable-next-line react/no-unescaped-entities */}
-      Check out a rendering of my two sidekicks and the mascot that make up my development team.
+      Click here to check out a rendering of my two sidekicks and the mascot that make up my
+      development team.
     </StyledLink>
   </Layout>
 );
