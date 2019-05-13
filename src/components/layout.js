@@ -116,7 +116,7 @@ const Layout = ({ children }) => (
           css={css`
            display: grid;
            grid-template-columns: 1fr;
-           grid-template-rows: 1fr;
+           grid-template-rows: 0.1fr 0.1fr auto;
            padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
            background-color: #121619;
            color: #f5f5f5;
