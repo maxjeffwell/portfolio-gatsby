@@ -34,7 +34,8 @@ module.exports = {
       resolve: `gatsby-plugin-web-font-loader`,
       options: {
         custom: {
-          families: ['LetterGothicStd-Bold', 'LetterGothicStd'],
+          families: [`LetterGothicStd-Bold`, `LetterGothicStd`],
+          urls: [`../public/fonts`],
         },
       },
     },

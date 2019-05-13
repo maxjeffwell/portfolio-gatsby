@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+
+const StyledLink = styled(Link)`
+  color: #fc4a1a;
+  text-decoration: none;
+`;
 
 const IndexPage = () => (
   // eslint-disable-next-line react/jsx-filename-extension
@@ -22,18 +29,38 @@ const IndexPage = () => (
     />
     {/* eslint-disable-next-line react/no-unescaped-entities */}
     <h1>My name's Jeff. I'm a full stack web developer working with Node and React.</h1>
-    <p>
+    <p
+      css={css`
+        color: #ffffff;
+      `}
+    >
       I commit early and often, implement content-driven design strategies, and value the tenacity
       required to produce readable, maintainable code.
     </p>
     {/* eslint-disable-next-line react/no-unescaped-entities */}
-    <p>Right now, I'm making myself familiar with GraphQL, React Hooks, and Gatsby.</p>
-    <Link to="/projects/">Click here for a brief list my most recent projects</Link>
-    <p>I have a fondness for small dogs and old-school internet (namely the immortal Usenet).</p>
-    <Link to="/about/">
+    <p
+      css={css`
+        color: #ffffff;
+      `}
+    >
       {/* eslint-disable-next-line react/no-unescaped-entities */}
-      Check out an artist's rendering of my two sidekicks and coding companions
-    </Link>
+      Right now, I'm familiarizing myself with GraphQL, React Hooks, and Gatsby.
+    </p>
+    <StyledLink to="/projects/">Click here for a brief list my most recent projects.</StyledLink>
+    <p
+      css={css`
+        color: #ffffff;
+      `}
+    >
+      {/* eslint-disable-next-line react/no-unescaped-entities */}
+      When I haven't inceptioned myself in the dev tool's component tree or naively tried to tell
+      CSS Grid what to do, I can be found either negotiating menu selection with my two dogs or
+      scouring Usenet in remembrance of Internet things past.
+    </p>
+    <StyledLink to="/about/">
+      {/* eslint-disable-next-line react/no-unescaped-entities */}
+      Check out a rendering of my two sidekicks and the mascot that make up my development team.
+    </StyledLink>
   </Layout>
 );
 

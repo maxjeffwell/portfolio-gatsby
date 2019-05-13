@@ -6,8 +6,7 @@ import SEO from '../components/seo';
 const SecondPage = () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <Layout>
-    <SEO title="Page two" />
-    <p>Hi from the second page</p>
+    <SEO title="bio" />
   </Layout>
 );
 

@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
 const NavLink = styled(Link)`
-  color: #222;
+  color: #ffffff;
   font-size: 1rem;
   font-weight: ${props => props.fontWeight || 'normal'};
   line-height: 1;
@@ -12,7 +12,7 @@ const NavLink = styled(Link)`
   padding: 0.25rem;
   text-decoration: none;
   &.current-page {
-    border-bottom: 2px solid #222;
+    border-bottom: 2px solid #f7b733;
   }
   &:last-of-type {
     margin-right: 0;
@@ -24,8 +24,6 @@ const Header = () => (
   <header
     css={css`
       font-family: LetterGothicStd, serif;
-      //background: #eee;
-      //border-bottom: 1px solid #ddd;
       display: flex;
       justify-content: space-between;
       padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
@@ -39,10 +37,10 @@ const Header = () => (
       <NavLink to="/" fontWeight="bold" activeClassName="current-page">
         Home
       </NavLink>
-      <NavLink to="/about" fontWeight="bold" activeClassName="current-page">
+      <NavLink to="/about" fontWeight="bold" activeClassName="current-page" partiallyActive>
         Bio
       </NavLink>
-      <NavLink to="/projects" fontWeight="bold" activeClassName="current-page">
+      <NavLink to="/projects" fontWeight="bold" activeClassName="current-page" partiallyActive>
         Projects
       </NavLink>
     </nav>

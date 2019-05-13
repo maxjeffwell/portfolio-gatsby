@@ -48,14 +48,15 @@ const Layout = ({ children }) => (
           }
           html, body {
             margin: 0;
-            color: #555;
+            color: #fc4a1a;
+            background-color: #052f5f;
             font-size: 18px;
             line-height: 1.4;
             font-kerning: normal;
-            -moz-font-feature-settings: "kern", "liga", "clig", "calt";
-           -ms-font-feature-settings: "kern", "liga", "clig", "calt";
-            -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
             font-feature-settings: "kern", "liga", "clig", "calt";
+            -moz-font-feature-settings: "kern", "liga", "clig", "calt";
+            -ms-font-feature-settings: "kern", "liga", "clig", "calt";
+            -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             -ms-text-size-adjust: 100%;
@@ -81,9 +82,23 @@ const Layout = ({ children }) => (
           }
           img {
            border-style: none;
+           &:nth-of-type(2) {
+            margin-top: 0;
+           }
           }
-          strong {
-            color: #222;
+          button {
+            background-color: #f7b733;
+            height: fit-content;
+            width: fit-content;
+            border: 2px solid #363636;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #393939;
+            cursor: pointer;
+            &:hover {
+              box-shadow: 0 12px 16px 0 rgba(0,0,0,0.25), 0 17px     
+              50px 0 rgba(0,0,0,0.19);
+            }
           }
         `}
         />
@@ -100,18 +115,20 @@ const Layout = ({ children }) => (
         <footer
           css={css`
            display: grid;
-           grid-template-columns: 1fr 1fr;
+           grid-template-columns: 1fr;
            grid-template-rows: 1fr;
            padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
-           background-color: #000;
-           color: #fff;
+           background-color: #121619;
+           color: #f5f5f5;
+           height: 100%;
           `}
         >
           <h3>Jeff Maxwell</h3>
           <a
             css={css`
-             color: blueviolet;
+             color: #f7b733;
              grid-column: 1 / 2;
+             text-decoration: none;
             `}
             href="mailto:maxjeffwell@gmail.com"
           >
@@ -131,13 +148,18 @@ const Layout = ({ children }) => (
             {` `}
             with
             {` `}
-            <a href="https://www.gatsbyjs.org">
+            <a
+              css={css`
+                text-decoration: none;
+              `}
+              href="https://www.gatsbyjs.org"
+            >
               <span
                 css={css`
-                 color: blueviolet;
+                 color: #f7b733;
                 `}
               >
-              Gatsby
+              Gatsby.
               </span>
             </a>
           </p>
