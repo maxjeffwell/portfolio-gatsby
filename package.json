@@ -13,6 +13,7 @@
     "gatsby-plugin-emotion": "^4.0.6",
     "gatsby-plugin-manifest": "^2.1.1",
     "gatsby-plugin-react-helmet": "^3.0.12",
+    "gatsby-plugin-react-svg": "^2.1.1",
     "gatsby-plugin-sharp": "^2.0.37",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-filesystem": "^2.0.33",
@@ -20,7 +21,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "react-icons": "^3.7.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

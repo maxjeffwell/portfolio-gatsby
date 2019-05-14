@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 
+import { FaReact, FaGit } from 'react-icons/fa';
+import { DiHeroku, DiTravis } from 'react-icons/di';
+
 const ProjectCard = props => {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
@@ -10,7 +13,7 @@ const ProjectCard = props => {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 0.1fr 0.25fr auto;
-        grid-column-gap: 1rem;
+        grid-column-gap: 0.75rem;
         border: 5px solid #121619;
         background-color: #2d3047;
         padding: 2rem 2rem 2rem 2rem;
@@ -139,6 +142,69 @@ const ProjectCard = props => {
       >
         Live App
       </a>
+      <div
+        css={css`
+          grid-column: 1 / 3;
+          grid-row: 5 / 6;
+          font-size: 2rem;
+          align-self: center;
+          justify-self: center;
+          justify-content: space-between;
+        `}
+      >
+        <img
+          css={css`
+            width: 31px;
+            height: 32px;
+          `}
+          /* eslint-disable-next-line react/destructuring-assignment */
+          src={props.imageSrcPath3}
+          alt="icon"
+        />
+        {` `}
+        <img
+          css={css`
+            width: 31px;
+            height: 32px;
+          `}
+          /* eslint-disable-next-line react/destructuring-assignment */
+          src={props.imageSrcPath4}
+          alt="icon"
+        />
+        {` `}
+        <img
+          css={css`
+            width: 31px;
+            height: 32px;
+          `}
+          /* eslint-disable-next-line react/destructuring-assignment */
+          src={props.imageSrcPath5}
+          alt="icon"
+        />
+        {` `}
+        <FaReact
+          css={css`
+            color: #fc4a1a;
+          `}
+        />
+        {` `}
+        <FaGit
+          css={css`
+            color: #fc4a1a;
+          `}
+        />
+        {` `}
+        <DiHeroku
+          css={css`
+            color: #fc4a1a;
+          `}
+        />
+        <DiTravis
+          css={css`
+            color: #fc4a1a;
+          `}
+        />
+      </div>
     </div>
   );
 };
@@ -151,6 +217,9 @@ ProjectCard.propTypes = {
   description: PropTypes.string.isRequired,
   sourceURL: PropTypes.string.isRequired,
   hostedURL: PropTypes.string.isRequired,
+  imageSrcPath3: PropTypes.string.isRequired,
+  imageSrcPath4: PropTypes.string.isRequired,
+  imageSrcPath5: PropTypes.string.isRequired,
 };
 
 export default ProjectCard;

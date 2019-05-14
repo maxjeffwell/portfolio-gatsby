@@ -23,9 +23,9 @@ const Header = () => (
   <header
     css={css`
       display: flex;
+      justify-content: flex-start;
       font-family: AvenirLTStd-Roman, sans-serif;
       font-size: 1.5rem;
-      justify-content: space-between;
       padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
     `}
   >

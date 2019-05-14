@@ -38,25 +38,25 @@ const Layout = ({ children }) => (
               font-family: HelveticaNeueLTStd-Bd;
               font-style: normal;
               font-weight: bold;
-              src: url('../../public/fonts/HelveticaNeueLTStd-Bd.otf') format('opentype');
+              src: url('../../static/fonts/HelveticaNeueLTStd-Bd.svg') format('svg');
             }
             @font-face {
               font-family: HelveticaNeueLTStd-Roman;
               font-style: normal;
               font-weight: normal;
-              src: url('../../public/fonts/HelveticaNeueLTStd-Roman.otf') format('opentype');
+              src: url('../../static/fonts/HelveticaNeueLTStd-Roman.svg') format('svg');
             }
             @font-face {
               font-family: AvenirLTStd-Roman;
               font-style: normal;
               font-weight: normal;
-              src: url('../../public/fonts/AvenirLTStd-Roman.otf') format('opentype');
+              src: url('../../static/fonts/AvenirLTStd-Roman.svg') format('svg');
             }
             @font-face {
               font-family: SabonLTStd-Roman;
               font-style: normal;
               font-weight: normal;
-              src: url('../../public/fonts/SabonLTStd-Roman.otf') format('opentype');
+              src: url('../../static/fonts/SabonLTStd-Roman.svg') format('svg');
             }
             html,
             body {

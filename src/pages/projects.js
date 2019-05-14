@@ -6,6 +6,15 @@ import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 
+import GraphQLIcon from '../images/graphql.svg';
+import ReduxIcon from '../images/redux.svg';
+import ZeitIcon from '../images/zeit.svg';
+import CSSIcon from '../images/css3.svg';
+import MongoDBIcon from '../images/mongodb.svg';
+import PostgresqlIcon from '../images/postgresql.svg';
+import RedisIcon from '../images/redis.svg';
+import NPMIcon from '../images/npm.svg';
+
 import project1Screenshot from '../images/educationELLy_screenshot.png';
 import project1Screenshot2 from '../images/educationELLy_screenshot2.png';
 import project2Screenshot from '../images/code-talk_screenshot.png';
@@ -44,7 +53,7 @@ const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  grid-row-gap: 1rem;
+  grid-row-gap: 2rem;
 `;
 
 export default () => (
@@ -63,6 +72,9 @@ export default () => (
         description={project1.description}
         sourceURL={project1.sourceURL}
         hostedURL={project1.hostedURL}
+        imageSrcPath3={ReduxIcon}
+        imageSrcPath4={MongoDBIcon}
+        imageSrcPath5={NPMIcon}
       />
       <ProjectCard
         css={css`
@@ -75,6 +87,9 @@ export default () => (
         description={project2.description}
         sourceURL={project2.sourceURL}
         hostedURL={project2.hostedURL}
+        imageSrcPath3={GraphQLIcon}
+        imageSrcPath4={PostgresqlIcon}
+        imageSrcPath5={RedisIcon}
       />
       <ProjectCard
         css={css`
@@ -87,6 +102,9 @@ export default () => (
         description={project3.description}
         sourceURL={project3.sourceURL}
         hostedURL={project3.hostedURL}
+        imageSrcPath3={ZeitIcon}
+        imageSrcPath4={CSSIcon}
+        imageSrcPath5={NPMIcon}
       />
     </StyledContainer>
   </Layout>

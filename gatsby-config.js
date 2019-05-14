@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Jeff Maxwell Developer Portfolio`,
+    title: 'Jeff Maxwell Developer Portfolio',
     description: `Jeff Maxwell's developer portfolio made with Gatsby`,
-    author: `Jeff Maxwell`,
+    author: 'Jeff Maxwell',
     createdAt: 2019,
   },
   plugins: [
@@ -34,8 +34,21 @@ module.exports = {
       resolve: `gatsby-plugin-web-font-loader`,
       options: {
         custom: {
-          families: [`LetterGothicStd-Bold`, `LetterGothicStd`],
-          urls: [`../public/fonts`],
+          families: [
+            'AvenirLTStd-Roman',
+            'HelveticaNeueLTStd-Bd',
+            'HelveticaNeueLTStd-Roman',
+            'SabonLTStd-Roman',
+          ],
+          urls: ['fonts.css'],
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: `src/images`,
         },
       },
     },
