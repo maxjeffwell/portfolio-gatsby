@@ -26,7 +26,7 @@ const project2 = {
   title: 'Code Talk',
   date: '2019-03-24',
   description:
-    'Code Talk is a code collaboration tool with real-time text editing and real-time messaging features.',
+    'Code Talk is a code collaboration tool with real-time text editing and real-time messaging features. It emerged from a fascination with GraphQL subscriptions as well as from the immediate satisfaction inherent to real-time applications.',
   sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
   hostedURL: 'https://jmaxwell-code-talk-client.herokuapp.com/',
 };

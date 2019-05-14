@@ -5,7 +5,6 @@ import { css } from '@emotion/core';
 
 const NavLink = styled(Link)`
   color: #ffffff;
-  font-size: 1rem;
   font-weight: ${props => props.fontWeight || 'normal'};
   line-height: 1;
   margin: 0 0.5rem 0 0;
@@ -23,8 +22,9 @@ const Header = () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <header
     css={css`
-      font-family: LetterGothicStd, serif;
       display: flex;
+      font-family: AvenirLTStd-Roman, sans-serif;
+      font-size: 1.5rem;
       justify-content: space-between;
       padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
     `}
