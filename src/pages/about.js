@@ -6,14 +6,13 @@ import { DiIntellij, DiFirefox, DiLinux, DiChrome, DiGit } from 'react-icons/di'
 import { FaPiedPiper } from 'react-icons/fa';
 
 import ElementaryIcon from '../images/elementary.svg';
-
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
 const StyledContainer = styled.div`
   display: grid;
   grid-template-rows: 0.1fr 1fr;
-  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
 `;
 
 const SecondPage = () => (
@@ -24,6 +23,15 @@ const SecondPage = () => (
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
         grid-row: 1 / 2;
+        color: #f5f5f5;
+      `}
+    >
+      Meet the Team:
+    </h2>
+    <h2
+      css={css`
+        font-family: HelveticaNeueLTStd-Roman, sans-serif;
+        grid-row: 2 / 3;
         color: #f5f5f5;
       `}
     >
