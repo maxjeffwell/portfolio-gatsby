@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import { DiIntellij, DiFirefox, DiLinux, DiChrome, DiGit } from 'react-icons/di';
+import { DiIntellij, DiMozilla, DiLinux, DiDebian, DiGithub } from 'react-icons/di';
 import { FaPiedPiper } from 'react-icons/fa';
 
 import ElementaryIcon from '../images/elementary.svg';
@@ -12,7 +12,7 @@ import SEO from '../components/seo';
 const StyledContainer = styled.div`
   display: grid;
   grid-template-rows: 0.1fr 1fr;
-  grid-row-gap: 2rem;
+  grid-row-gap: 1rem;
 `;
 
 const SecondPage = () => (
@@ -58,7 +58,7 @@ const SecondPage = () => (
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
-        <DiFirefox
+        <DiMozilla
           css={css`
             font-size: 4rem;
           `}
@@ -70,7 +70,7 @@ const SecondPage = () => (
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
-        <DiChrome
+        <DiDebian
           css={css`
             font-size: 4rem;
           `}
@@ -103,7 +103,7 @@ const SecondPage = () => (
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
-        <DiGit
+        <DiGithub
           css={css`
             font-size: 4rem;
           `}

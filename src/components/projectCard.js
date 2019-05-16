@@ -105,6 +105,8 @@ const ProjectCard = props => {
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
           }
         `}
+        target="_blank"
+        rel="noopener noreferrer"
         type="button"
         text="Source Code"
         /* eslint-disable-next-line react/destructuring-assignment */
@@ -135,6 +137,8 @@ const ProjectCard = props => {
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
           }
         `}
+        target="_blank"
+        rel="noopener noreferrer"
         type="button"
         text="Live App"
         /* eslint-disable-next-line react/destructuring-assignment */

@@ -147,6 +147,8 @@ const Layout = ({ children }) => (
               grid-column: 1 / 2;
               text-decoration: none;
             `}
+            target="_blank"
+            rel="noopener noreferrer"
             href="mailto:maxjeffwell@gmail.com"
           >
             maxjeffwell@gmail.com
@@ -170,15 +172,18 @@ const Layout = ({ children }) => (
                 text-decoration: none;
               `}
               href="https://www.gatsbyjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <span
                 css={css`
                   color: #f7b733;
                 `}
               >
-                Gatsby.
+                Gatsby
               </span>
             </a>
+            .
           </p>
         </footer>
       </>

@@ -48,7 +48,7 @@ const IndexPage = () => (
       </h1>
       <div
         css={css`
-          grid-row: 2 / 4;
+          grid-row: 2 / 3;
         `}
       >
         <p
@@ -76,25 +76,27 @@ const IndexPage = () => (
             Click here for a brief list my most recent projects.
           </StyledLink>
         </p>
-        <p
-          css={css`
-            color: #ffffff;
-            font-family: HelveticaNeueLTStd-Roman, sans-serif;
-            font-size: 1.5rem;
-          `}
-        >
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
-          When I'm not inceptioning myself in the dev tool's component tree or attempting to bend
-          CSS Grid to my will, I can be found either skillfully negotiating dinner menu selection
-          with my two dogs or scouring Usenet in remembrance of Internet things past.
-        </p>
-        <p>
-          <StyledLink to="/about/">
+        <div>
+          <p
+            css={css`
+              color: #ffffff;
+              font-family: HelveticaNeueLTStd-Roman, sans-serif;
+              font-size: 1.5rem;
+            `}
+          >
             {/* eslint-disable-next-line react/no-unescaped-entities */}
-            Click here to check out a rendering of my two sidekicks and the mascot that make up my
-            development team.
-          </StyledLink>
-        </p>
+            When I'm not inceptioning myself in the dev tool's component tree or attempting to bend
+            CSS Grid to my will, I can be found either skillfully negotiating dinner menu selection
+            with my two dogs or scouring Usenet in remembrance of Internet things past.
+          </p>
+          <p>
+            <StyledLink to="/about/">
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              Click here to check out a rendering of my two sidekicks and the mascot that make up my
+              development team.
+            </StyledLink>
+          </p>
+        </div>
       </div>
     </StyledContainer>
   </Layout>
