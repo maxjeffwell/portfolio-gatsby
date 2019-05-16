@@ -44,7 +44,7 @@ const project3 = {
   title: 'Bookmarked',
   date: '2019-05-10',
   description:
-    "Bookmarked is a lightweight bookmark manager that gives users convenient access to create and edit their bookmarks in a single page application. Additional functionality allows users to filter their bookmarks by rating and favorite status. It was built as an exploration of Reac's Context API and its use in complex state management. Furthermore, useState and useReducer hooks manage local state and state transitions, respectively. Data fetching is achieved by means of a custom React hook and side effects are implemented with the useEffect hook. Consequently, Bookmarked is composed entirely of React function components.",
+    "Bookmarked is a lightweight bookmark manager that gives users convenient access to create and edit their bookmarks in a single page application. Additional functionality allows users to filter their bookmarks by rating and favorite status. It was built as an exploration of React's Context API and its use in complex state management.",
   sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
   hostedURL: 'https://jmaxwell-bookmark-manager.herokuapp.com/',
 };

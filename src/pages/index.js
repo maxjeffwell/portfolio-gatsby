@@ -9,7 +9,7 @@ import SEO from '../components/seo';
 const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr 1fr auto;
+  grid-template-rows: auto 1fr 1fr 0.1fr;
   grid-row-gap: 2rem;
 `;
 const StyledLink = styled(Link)`
@@ -76,27 +76,31 @@ const IndexPage = () => (
             Click here for a brief list my most recent projects.
           </StyledLink>
         </p>
-        <div>
-          <p
-            css={css`
-              color: #ffffff;
-              font-family: HelveticaNeueLTStd-Roman, sans-serif;
-              font-size: 1.5rem;
-            `}
-          >
+      </div>
+      <div
+        css={css`
+          grid-row: 3 / 4;
+        `}
+      >
+        <p
+          css={css`
+            color: #ffffff;
+            font-family: HelveticaNeueLTStd-Roman, sans-serif;
+            font-size: 1.5rem;
+          `}
+        >
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
+          When I'm not inceptioning myself in the dev tool's component tree or attempting to bend
+          CSS Grid to my will, I can be found either skillfully negotiating dinner menu selection
+          with my two dogs or scouring Usenet in remembrance of Internet things past.
+        </p>
+        <p>
+          <StyledLink to="/about/">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
-            When I'm not inceptioning myself in the dev tool's component tree or attempting to bend
-            CSS Grid to my will, I can be found either skillfully negotiating dinner menu selection
-            with my two dogs or scouring Usenet in remembrance of Internet things past.
-          </p>
-          <p>
-            <StyledLink to="/about/">
-              {/* eslint-disable-next-line react/no-unescaped-entities */}
-              Click here to check out a rendering of my two sidekicks and the mascot that make up my
-              development team.
-            </StyledLink>
-          </p>
-        </div>
+            Click here to check out a rendering of my two sidekicks and the mascot that make up my
+            development team.
+          </StyledLink>
+        </p>
       </div>
     </StyledContainer>
   </Layout>
