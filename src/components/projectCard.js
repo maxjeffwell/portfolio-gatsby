@@ -190,23 +190,27 @@ const ProjectCard = props => {
           css={css`
             color: #fc4a1a;
           `}
+          title="React"
         />
         {` `}
         <FaGit
           css={css`
             color: #fc4a1a;
           `}
+          title="Github"
         />
         {` `}
         <DiHeroku
           css={css`
             color: #fc4a1a;
           `}
+          title="Heroku"
         />
         <DiTravis
           css={css`
             color: #fc4a1a;
           `}
+          title="Travis"
         />
       </div>
     </div>

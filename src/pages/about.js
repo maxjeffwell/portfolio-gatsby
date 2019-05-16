@@ -2,10 +2,9 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import { DiIntellij, DiMozilla, DiLinux, DiDebian, DiGithub } from 'react-icons/di';
-import { FaPiedPiper } from 'react-icons/fa';
+import { DiIntellij, DiMozilla, DiLinux, DiDebian } from 'react-icons/di';
+import { FaPiedPiperAlt } from 'react-icons/fa';
 
-import ElementaryIcon from '../images/elementary.svg';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
@@ -23,7 +22,7 @@ const SecondPage = () => (
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
         grid-row: 1 / 2;
-        color: #f5f5f5;
+        color: #f7b733;
       `}
     >
       Meet the Team:
@@ -32,7 +31,7 @@ const SecondPage = () => (
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
         grid-row: 2 / 3;
-        color: #f5f5f5;
+        color: #f7b733;
       `}
     >
       Some of my favorite tech:
@@ -50,6 +49,7 @@ const SecondPage = () => (
             font-size: 4rem;
             margin-top: 1rem;
           `}
+          title="JetBrains IntelliJ"
         />
       </p>
       <p
@@ -62,6 +62,7 @@ const SecondPage = () => (
           css={css`
             font-size: 4rem;
           `}
+          title="Mozilla"
         />
       </p>
       <p
@@ -74,6 +75,7 @@ const SecondPage = () => (
           css={css`
             font-size: 4rem;
           `}
+          title="Debian"
         />
       </p>
       <p
@@ -86,27 +88,7 @@ const SecondPage = () => (
           css={css`
             font-size: 4rem;
           `}
-        />
-      </p>
-      <p
-        css={css`
-          grid-row: 2 / 3;
-          width: 68px;
-          height: 50px;
-        `}
-      >
-        <img src={ElementaryIcon} alt="icon" css={css``} />
-      </p>
-      <p
-        css={css`
-          grid-row: 2 / 3;
-        `}
-      >
-        {/* eslint-disable-next-line react/jsx-no-undef */}
-        <DiGithub
-          css={css`
-            font-size: 4rem;
-          `}
+          title="Linux"
         />
       </p>
       <p
@@ -115,10 +97,11 @@ const SecondPage = () => (
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
-        <FaPiedPiper
+        <FaPiedPiperAlt
           css={css`
             font-size: 4rem;
           `}
+          title="Pied Piper"
         />
       </p>
     </StyledContainer>

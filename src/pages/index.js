@@ -73,7 +73,7 @@ const IndexPage = () => (
         </p>
         <p>
           <StyledLink to="/projects/">
-            Click here for a brief list my most recent projects.
+            Click here for a brief list of my most recent projects.
           </StyledLink>
         </p>
       </div>

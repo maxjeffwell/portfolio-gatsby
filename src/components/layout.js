@@ -4,6 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { Global, css } from '@emotion/core';
+import { FaGithubAlt, FaAngellist, FaLinkedin, FaPhone } from 'react-icons/fa';
+
 
 import Header from './header';
 
@@ -130,8 +132,10 @@ const Layout = ({ children }) => (
         <footer
           css={css`
             display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 0.1fr 0.1fr auto;
+            grid-template-columns: 0.5fr 0.5fr 0.5fr;
+            grid-template-rows: 0.1fr 0.5fr auto;
+            grid-column-gap: 1rem;
+            grid-row-gap: 2rem;
             padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
             background-color: #121619;
             font-family: AvenirLTStd-Roman, sans-serif;
@@ -140,10 +144,17 @@ const Layout = ({ children }) => (
             height: 100%;
           `}
         >
-          <h3>Jeff Maxwell</h3>
+          <h3
+            css={css`
+              margin-top: 1rem;
+              `}
+          >
+            Jeff Maxwell
+          </h3>
           <a
             css={css`
               color: #f7b733;
+              font-size: 1.5rem;
               grid-column: 1 / 2;
               text-decoration: none;
             `}
@@ -153,9 +164,78 @@ const Layout = ({ children }) => (
           >
             maxjeffwell@gmail.com
           </a>
+          <a
+            css={css`
+              grid-row: 3 / 4;
+              grid-column: 1 / 2;
+            `}
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.github.com/maxjeffwell"
+          >
+            <FaGithubAlt
+              css={css`
+                color: #fc4a1a;
+                font-size: 3rem;
+            `}
+              title="Github Profile"
+            />
+          </a>
+          <a
+            css={css`
+              grid-row: 3 / 4;
+              grid-column: 2 / 3;
+            `}
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://angel.co/maxjeffwell"
+          >
+            <FaAngellist
+              css={css`
+                color: #fc4a1a;
+                font-size: 3rem;
+              `}
+              title="AngelList Profile"
+            />
+          </a>
+          <a
+            css={css`
+              grid-row: 3 / 4;
+              grid-column: 3 / 4;
+            `}
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
+          >
+            <FaLinkedin
+              css={css`
+                color: #fc4a1a;
+                font-size: 3rem;
+              `}
+              title="LinkedIn Profile"
+            />
+          </a>
+          <a
+            css={css`
+              grid-row: 3 / 4;
+              grid-column: 4 / 5;
+            `}
+            href="tel:+01-508-395-2008"
+            rel="nofollow"
+          >
+            <FaPhone
+              css={css`
+                color: #fc4a1a;
+                font-size: 3rem;
+              `}
+              title="Phone Number"
+            />
+          </a>
           <p
             css={css`
-              grid-column: 1 / 2;
+              grid-column: 1 / 3;
+              grid-row: 4 / 5;
+              margin-bottom: 1rem;
             `}
           >
             Built by
