@@ -11,6 +11,7 @@ import SEO from '../components/seo';
 const StyledContainer = styled.div`
   display: grid;
   grid-template-rows: 0.1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-row-gap: 1rem;
 `;
 
@@ -39,8 +40,9 @@ const SecondPage = () => (
     <StyledContainer>
       <p
         css={css`
-          grid-row: 2 / 3;
-          grid-column: 2 / 3;
+          grid-row: 3 / 4;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -54,20 +56,26 @@ const SecondPage = () => (
       </p>
       <p
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
         <DiMozilla
           css={css`
             font-size: 4rem;
+            align-self: center;
+            justify-self: center;
           `}
           title="Mozilla"
         />
       </p>
       <p
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -80,7 +88,9 @@ const SecondPage = () => (
       </p>
       <p
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -93,7 +103,9 @@ const SecondPage = () => (
       </p>
       <p
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}

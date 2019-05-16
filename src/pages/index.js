@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
   grid-row-gap: 2rem;
 `;
 const StyledLink = styled(Link)`
-  color: #fc4a1a;
+  color: #f7b733;
   text-decoration: none;
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
   font-size: 1.5rem;

@@ -132,8 +132,8 @@ const Layout = ({ children }) => (
         <footer
           css={css`
             display: grid;
-            grid-template-columns: 0.5fr 0.5fr 0.5fr;
-            grid-template-rows: 0.1fr 0.5fr auto;
+            grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
+            grid-template-rows: auto 0.1fr 0.5fr auto;
             grid-column-gap: 1rem;
             grid-row-gap: 2rem;
             padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
@@ -167,7 +167,7 @@ const Layout = ({ children }) => (
           <a
             css={css`
               grid-row: 3 / 4;
-              grid-column: 1 / 2;
+              grid-column: 2 / 3;
             `}
             target="_blank"
             rel="noopener noreferrer"
@@ -184,7 +184,7 @@ const Layout = ({ children }) => (
           <a
             css={css`
               grid-row: 3 / 4;
-              grid-column: 2 / 3;
+              grid-column: 3 / 4;
             `}
             target="_blank"
             rel="noopener noreferrer"
@@ -201,7 +201,7 @@ const Layout = ({ children }) => (
           <a
             css={css`
               grid-row: 3 / 4;
-              grid-column: 3 / 4;
+              grid-column: 4 / 5;
             `}
             target="_blank"
             rel="noopener noreferrer"
@@ -218,7 +218,7 @@ const Layout = ({ children }) => (
           <a
             css={css`
               grid-row: 3 / 4;
-              grid-column: 4 / 5;
+              grid-column: 5 / 6;
             `}
             href="tel:+01-508-395-2008"
             rel="nofollow"
@@ -228,12 +228,12 @@ const Layout = ({ children }) => (
                 color: #fc4a1a;
                 font-size: 3rem;
               `}
-              title="Phone Number"
+              title="1-508-395-2008"
             />
           </a>
           <p
             css={css`
-              grid-column: 1 / 3;
+              grid-column: 1 / 4;
               grid-row: 4 / 5;
               margin-bottom: 1rem;
             `}
