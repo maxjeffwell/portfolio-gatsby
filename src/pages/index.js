@@ -90,7 +90,7 @@ const IndexPage = () => (
           `}
         >
           {/* eslint-disable-next-line react/no-unescaped-entities */}
-          When I'm not inceptioning myself in the dev tool's component tree or attempting to bend
+          When I'm not inceptioning myself in the dev tools' component tree or attempting to bend
           CSS Grid to my will, I can be found either skillfully negotiating dinner menu selection
           with my two dogs or scouring Usenet in remembrance of Internet things past.
         </p>
