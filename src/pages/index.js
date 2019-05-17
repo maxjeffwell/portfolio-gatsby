@@ -9,7 +9,7 @@ import SEO from '../components/seo';
 const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr 1fr 0.1fr;
+  grid-template-rows: auto 0.75fr 1fr 0.1fr;
   grid-row-gap: 2rem;
 `;
 const StyledLink = styled(Link)`
@@ -40,7 +40,7 @@ const IndexPage = () => (
         css={css`
           grid-row: 1 / 2;
           font-family: HelveticaNeueLTStd-Bd, sans-serif;
-          font-size: 2rem;
+          font-size: 2.25rem;
         `}
       >
         {/* eslint-disable-next-line react/no-unescaped-entities */}
