@@ -7,12 +7,13 @@ import { FaPiedPiperAlt } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import Image from '../components/image';
 
 const StyledContainer = styled.div`
   display: grid;
   grid-template-rows: 0.1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-row-gap: 1rem;
+  grid-row-gap: 0.5rem;
 `;
 
 const SecondPage = () => (
@@ -28,6 +29,7 @@ const SecondPage = () => (
     >
       Meet the Team:
     </h2>
+    <Image />
     <h2
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
