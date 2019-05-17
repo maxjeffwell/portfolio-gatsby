@@ -23,7 +23,7 @@ const IndexPage = () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <Layout>
     <SEO
-      title="Jeff Maxwell Full Stack Developer"
+      title="Home"
       keywords={[
         `gatsby`,
         `application`,
@@ -33,6 +33,8 @@ const IndexPage = () => (
         `Frontend Developer`,
         `Backend Developer`,
         `Full Stack Developer`,
+        `Jeff Maxwell`,
+        `maxjeffwell@gmail.com`,
       ]}
     />
     <StyledContainer>

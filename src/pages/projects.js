@@ -59,7 +59,7 @@ const StyledContainer = styled.div`
 export default () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <Layout>
-    <SEO title="projects" />
+    <SEO title="projects" keywords={[`educationELLy`, `code talk`, `bookmarked`]} />
     <StyledContainer>
       <ProjectCard
         css={css`
