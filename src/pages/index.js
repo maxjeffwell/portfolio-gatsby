@@ -3,6 +3,8 @@ import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
+import { IoIosArrowDropright } from 'react-icons/io';
+
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
@@ -75,7 +77,14 @@ const IndexPage = () => (
         </p>
         <p>
           <StyledLink to="/projects/">
-            Click here for a brief list of my most recent projects.
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
+            Click here for a brief list of my most recent projects
+            {` `}
+            <IoIosArrowDropright
+              css={css`
+                color: #fc4a1a;
+              `}
+            />
           </StyledLink>
         </p>
       </div>
@@ -100,7 +109,13 @@ const IndexPage = () => (
           <StyledLink to="/about/">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here to check out a rendering of my two sidekicks and the mascot that make up my
-            development team.
+            development team
+            {` `}
+            <IoIosArrowDropright
+              css={css`
+                color: #fc4a1a;
+              `}
+            />
           </StyledLink>
         </p>
       </div>

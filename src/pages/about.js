@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import { DiIntellij, DiMozilla, DiLinux, DiDebian } from 'react-icons/di';
+import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
 import { FaPiedPiperAlt } from 'react-icons/fa';
 
 import Layout from '../components/layout';
@@ -86,21 +86,6 @@ const SecondPage = () => (
             font-size: 4rem;
           `}
           title="Debian"
-        />
-      </p>
-      <p
-        css={css`
-          grid-row: 3 / 4;
-          align-self: center;
-          justify-self: center;
-        `}
-      >
-        {/* eslint-disable-next-line react/jsx-no-undef */}
-        <DiLinux
-          css={css`
-            font-size: 4rem;
-          `}
-          title="Linux"
         />
       </p>
       <p
