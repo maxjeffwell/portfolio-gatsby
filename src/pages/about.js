@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
-import { FaPiedPiperAlt, FaCodepen } from 'react-icons/fa';
+import { FaPiedPiperAlt } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -16,6 +16,7 @@ const StyledContainer = styled.div`
   grid-row-gap: 0.5rem;
 `;
 
+// eslint-disable-next-line react/prop-types
 const SecondPage = () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <Layout>
@@ -103,21 +104,6 @@ const SecondPage = () => (
             font-size: 4rem;
           `}
           title="Pied Piper"
-        />
-      </p>
-      <p
-        css={css`
-          grid-row: 3 / 4;
-          align-self: end;
-          justify-self: right;
-        `}
-      >
-        {/* eslint-disable-next-line react/jsx-no-undef */}
-        <FaCodepen
-          css={css`
-            font-size: 4rem;
-          `}
-          title="Codepen"
         />
       </p>
     </StyledContainer>
