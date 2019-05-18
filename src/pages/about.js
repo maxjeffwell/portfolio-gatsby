@@ -43,8 +43,8 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 3 / 4;
-          align-self: center;
-          justify-self: center;
+          align-self: end;
+          justify-self: right;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -59,8 +59,8 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 3 / 4;
-          align-self: center;
-          justify-self: center;
+          align-self: end;
+          justify-self: right;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -76,8 +76,8 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 3 / 4;
-          align-self: center;
-          justify-self: center;
+          align-self: end;
+          justify-self: right;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -91,8 +91,8 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 3 / 4;
-          align-self: center;
-          justify-self: center;
+          align-self: end;
+          justify-self: right;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}

@@ -22,6 +22,8 @@ const Header = () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <header
     css={css`
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       font-family: AvenirLTStd-Roman, sans-serif;
       font-size: 1.5rem;
       padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
@@ -30,6 +32,7 @@ const Header = () => (
     <nav
       css={css`
         margin-top: 0;
+        grid-column: 1 / -1;
       `}
     >
       <NavLink to="/" fontWeight="bold" activeClassName="current-page">
