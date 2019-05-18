@@ -24,9 +24,10 @@ const SecondPage = () => (
     <h2
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
+        font-size: 2.5rem;
         grid-row: 1 / 2;
         color: #f7b733;
-        border-bottom: 1px solid #fc4a1a;
+        border-bottom: 3px solid #fc4a1a;
       `}
     >
       Meet the Team
@@ -35,9 +36,10 @@ const SecondPage = () => (
     <h2
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
+        font-size: 2rem;
         grid-row: 2 / 3;
         color: #f7b733;
-        border-bottom: 1px solid #fc4a1a;
+        border-bottom: 3px solid #fc4a1a;
       `}
     >
       Some of our favorite tech

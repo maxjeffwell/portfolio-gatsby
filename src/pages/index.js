@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
-import { IoIosArrowDropright } from 'react-icons/io';
+import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -81,7 +81,7 @@ const IndexPage = () => (
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here for a brief list of my most recent projects
             {` `}
-            <IoIosArrowDropright
+            <FaRegArrowAltCircleRight
               css={css`
                 color: #fc4a1a;
                 font-size: 1.5rem;
@@ -113,7 +113,7 @@ const IndexPage = () => (
             Click here to check out a rendering of my two sidekicks and the mascot that make up my
             development team
             {` `}
-            <IoIosArrowDropright
+            <FaRegArrowAltCircleRight
               css={css`
                 color: #fc4a1a;
                 font-size: 1.5rem;
