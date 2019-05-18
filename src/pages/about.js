@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
-import { FaPiedPiperAlt } from 'react-icons/fa';
+import { FaPiedPiperAlt, FaCodepen } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -25,9 +25,10 @@ const SecondPage = () => (
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
         grid-row: 1 / 2;
         color: #f7b733;
+        border-bottom: 1px solid #fc4a1a;
       `}
     >
-      Meet the Team:
+      Meet the Team
     </h2>
     <Image />
     <h2
@@ -35,9 +36,10 @@ const SecondPage = () => (
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
         grid-row: 2 / 3;
         color: #f7b733;
+        border-bottom: 1px solid #fc4a1a;
       `}
     >
-      Some of our favorite tech:
+      Some of our favorite tech
     </h2>
     <StyledContainer>
       <p
@@ -101,6 +103,21 @@ const SecondPage = () => (
             font-size: 4rem;
           `}
           title="Pied Piper"
+        />
+      </p>
+      <p
+        css={css`
+          grid-row: 3 / 4;
+          align-self: end;
+          justify-self: right;
+        `}
+      >
+        {/* eslint-disable-next-line react/jsx-no-undef */}
+        <FaCodepen
+          css={css`
+            font-size: 4rem;
+          `}
+          title="Codepen"
         />
       </p>
     </StyledContainer>

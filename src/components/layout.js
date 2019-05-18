@@ -177,7 +177,7 @@ const Layout = ({ children }) => (
             <FaGithubAlt
               css={css`
                 color: #fc4a1a;
-                font-size: 3.25rem;
+                font-size: 3rem;
             `}
               title="Github Profile"
             />
@@ -186,7 +186,7 @@ const Layout = ({ children }) => (
             css={css`
               grid-row: 3 / 4;
               grid-column: 2 / 3;
-              align-self: center;
+              justify-self: left;
             `}
             target="_blank"
             rel="noopener noreferrer"
@@ -204,7 +204,7 @@ const Layout = ({ children }) => (
             css={css`
               grid-row: 3 / 4;
               grid-column: 3 / 4;
-              align-self: center;
+              justify-self: left;
             `}
             target="_blank"
             rel="noopener noreferrer"
@@ -222,7 +222,7 @@ const Layout = ({ children }) => (
             css={css`
               grid-row: 3 / 4;
               grid-column: 4 / 5;
-              align-self: center;
+              justify-self: left;
             `}
             href="tel:+01-508-395-2008"
             rel="nofollow"
