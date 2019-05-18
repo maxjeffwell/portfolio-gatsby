@@ -14,7 +14,8 @@
     font-family: AvenirLTStd-Roman;
     font-style: normal;
     font-weight: normal;
-    src: url('AvenirLTStd-Roman.svg') format('svg');
+    src: url('AvenirLTStd-Roman.svg') format('svg'),
+        url('AvenirLTStd-Roman.woff') format('woff');
 }
 @font-face {
     font-family: SabonLTStd-Roman;

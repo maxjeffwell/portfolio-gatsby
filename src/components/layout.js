@@ -40,25 +40,29 @@ const Layout = ({ children }) => (
               font-family: HelveticaNeueLTStd-Bd;
               font-style: normal;
               font-weight: bold;
-              src: url('../../static/fonts/HelveticaNeueLTStd-Bd.svg') format('svg');
+              src: url('../../static/fonts/HelveticaNeueLTStd-Bd.svg') format('svg'),
+                   url('../../static/fonts/HelveticaNeueLTStd-Bd.woff') format('woff');
             }
             @font-face {
               font-family: HelveticaNeueLTStd-Roman;
               font-style: normal;
               font-weight: normal;
-              src: url('../../static/fonts/HelveticaNeueLTStd-Roman.svg') format('svg');
+              src: url('../../static/fonts/HelveticaNeueLTStd-Roman.svg') format('svg'),
+                   url('../../static/fonts/HelveticaNeueLTStd-Roman.woff') format('woff');
             }
             @font-face {
               font-family: AvenirLTStd-Roman;
               font-style: normal;
               font-weight: normal;
-              src: url('../../static/fonts/AvenirLTStd-Roman.svg') format('svg');
+              src: url('../../static/fonts/AvenirLTStd-Roman.svg') format('svg'),
+                   url('../../static/fonts/AvenirLTStd-Roman.woff') format('woff');
             }
             @font-face {
               font-family: SabonLTStd-Roman;
               font-style: normal;
               font-weight: normal;
-              src: url('../../static/fonts/SabonLTStd-Roman.svg') format('svg');
+              src: url('../../static/fonts/SabonLTStd-Roman.svg') format('svg'),
+                   url('../../static/fonts/SabonLTStd-Roman.woff') format('woff');
             }
             html,
             body {
