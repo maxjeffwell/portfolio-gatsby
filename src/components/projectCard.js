@@ -75,7 +75,7 @@ const ProjectCard = props => {
       <p
         css={css`
           font-family: SabonLTStd-Roman, serif;
-          font-size: 1.5rem;
+          font-size: 1.25rem;
           grid-row: 3 / 4;
           grid-column: 1 / 3;
         `}
