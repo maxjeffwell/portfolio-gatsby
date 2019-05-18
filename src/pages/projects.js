@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
+import { graphql } from 'gatsby';
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
@@ -14,13 +15,6 @@ import MongoDBIcon from '../images/mongodb.svg';
 import PostgresqlIcon from '../images/postgresql.svg';
 import RedisIcon from '../images/redis.svg';
 import NPMIcon from '../images/npm.svg';
-
-import project1Screenshot from '../images/educationELLy_screenshot.png';
-import project1Screenshot2 from '../images/educationELLy_screenshot2.png';
-import project2Screenshot from '../images/code-talk_screenshot.png';
-import project2Screenshot2 from '../images/code-talk_screenshot2.png';
-import project3Screenshot from '../images/bookmarked_screenshot.png';
-import project3Screenshot2 from '../images/bookmarked_screenshot2.png';
 
 const project1 = {
   title: 'educationELLy',
@@ -56,7 +50,8 @@ const StyledContainer = styled.div`
   grid-row-gap: 2rem;
 `;
 
-export default () => (
+// eslint-disable-next-line react/prop-types
+export default ({ data }) => (
   // eslint-disable-next-line react/jsx-filename-extension
   <Layout>
     <SEO title="projects" keywords={[`educationELLy`, `code talk`, `bookmarked`]} />
@@ -65,8 +60,8 @@ export default () => (
         css={css`
           grid-row: 1 / 2;
         `}
-        imageSrcPath={project1Screenshot}
-        imageSrcPath2={project1Screenshot2}
+        imageSrcPath={data.project1Screenshot.childImageSharp.fixed}
+        imageSrcPath2={data.project1Screenshot2.childImageSharp.fixed}
         title={project1.title}
         date={project1.date}
         description={project1.description}
@@ -80,8 +75,8 @@ export default () => (
         css={css`
           grid-row: 2 / 3;
         `}
-        imageSrcPath={project2Screenshot}
-        imageSrcPath2={project2Screenshot2}
+        imageSrcPath={data.project2Screenshot.childImageSharp.fixed}
+        imageSrcPath2={data.project2Screenshot2.childImageSharp.fixed}
         title={project2.title}
         date={project2.date}
         description={project2.description}
@@ -95,8 +90,8 @@ export default () => (
         css={css`
           grid-row: 3 / 4;
         `}
-        imageSrcPath={project3Screenshot}
-        imageSrcPath2={project3Screenshot2}
+        imageSrcPath={data.project3Screenshot.childImageSharp.fixed}
+        imageSrcPath2={data.project3Screenshot2.childImageSharp.fixed}
         title={project3.title}
         date={project3.date}
         description={project3.description}
@@ -109,3 +104,50 @@ export default () => (
     </StyledContainer>
   </Layout>
 );
+
+export const query = graphql`
+  query {
+    project1Screenshot: file(relativePath: { eq: "educationELLy_screenshot.png" }) {
+      childImageSharp {
+        fixed(height: 340) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    project1Screenshot2: file(relativePath: { eq: "educationELLy_screenshot2.png" }) {
+      childImageSharp {
+        fixed(height: 340) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    project2Screenshot: file(relativePath: { eq: "code-talk_screenshot.png" }) {
+      childImageSharp {
+        fixed(height: 344) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    project2Screenshot2: file(relativePath: { eq: "code-talk_screenshot2.png" }) {
+      childImageSharp {
+        fixed(height: 343) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    project3Screenshot: file(relativePath: { eq: "bookmarked_screenshot.png" }) {
+      childImageSharp {
+        fixed(height: 506) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    project3Screenshot2: file(relativePath: { eq: "bookmarked_screenshot2.png" }) {
+      childImageSharp {
+        fixed(height: 287) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`;

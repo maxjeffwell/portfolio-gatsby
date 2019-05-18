@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
+import Img from 'gatsby-image';
 
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku, DiTravis } from 'react-icons/di';
@@ -19,35 +20,37 @@ const ProjectCard = props => {
         padding: 2rem 2rem 2rem 2rem;
         border-radius: 5px;
         color: #ffffff;
-        &:nth-of-type(3) {
-          img:nth-of-type(2) {
-            align-self: center;
-          }
-        }
-      `}
-    >
-      {/* eslint-disable-next-line react/destructuring-assignment */}
-      <img
-        css={css`
+        & div > img:first-of-type {
           border-radius: 5px;
           border: 2px solid #363636;
           grid-column: 1 / 2;
           grid-row: 1 / 2;
-        `}
-        /* eslint-disable-next-line react/destructuring-assignment */
-        src={props.imageSrcPath}
-        alt="Project"
-      />
-      <img
-        css={css`
+        }
+        & div > img:nth-of-type(2) {
           border-radius: 5px;
           border: 2px solid #363636;
           grid-column: 2 / 3;
           grid-row: 1 / 2;
-        `}
+        }
+        .gatsby-image-wrapper {
+          margin-top: 0;
+        }
+        &div.gatsby-image-wrapper:last-of-type img {
+          align-self: center;
+        }
+      `}
+    >
+      <Img
         /* eslint-disable-next-line react/destructuring-assignment */
-        src={props.imageSrcPath2}
-        alt="Project"
+        fixed={props.imageSrcPath}
+        title="project screenshot"
+        alt="first project screenshot"
+      />
+      <Img
+        /* eslint-disable-next-line react/destructuring-assignment */
+        fixed={props.imageSrcPath2}
+        title="project screenshot 2"
+        alt="second project screenshot"
       />
       <h3
         css={css`
@@ -218,8 +221,10 @@ const ProjectCard = props => {
 };
 
 ProjectCard.propTypes = {
-  imageSrcPath: PropTypes.string.isRequired,
-  imageSrcPath2: PropTypes.string.isRequired,
+  /* eslint-disable-next-line react/forbid-prop-types */
+  imageSrcPath: PropTypes.object.isRequired,
+  /* eslint-disable-next-line react/forbid-prop-types */
+  imageSrcPath2: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
