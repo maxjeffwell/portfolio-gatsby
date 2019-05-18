@@ -80,13 +80,15 @@ const IndexPage = () => (
           <StyledLink to="/projects/">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here for a brief list of my most recent projects
-            {` `}
-            <FaRegArrowAltCircleRight
-              css={css`
-                color: #fc4a1a;
-                font-size: 1.5rem;
-              `}
-            />
+            <p>
+              <FaRegArrowAltCircleRight
+                css={css`
+                  color: #fc4a1a;
+                  font-size: 2.75rem;
+                  padding-top: 0.5rem;
+                `}
+              />
+            </p>
           </StyledLink>
         </p>
       </div>
@@ -112,13 +114,15 @@ const IndexPage = () => (
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here to check out a rendering of my two sidekicks and the mascot that make up my
             development team
-            {` `}
-            <FaRegArrowAltCircleRight
-              css={css`
-                color: #fc4a1a;
-                font-size: 1.5rem;
-              `}
-            />
+            <p>
+              <FaRegArrowAltCircleRight
+                css={css`
+                  color: #fc4a1a;
+                  font-size: 2.75rem;
+                  padding-top: 0.5rem;
+                `}
+              />
+            </p>
           </StyledLink>
         </p>
       </div>

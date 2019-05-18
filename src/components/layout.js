@@ -155,14 +155,15 @@ const Layout = ({ children }) => (
           <h3
             css={css`
               margin-top: 1rem;
-              `}
+              font-size: 2rem;
+            `}
           >
             Jeff Maxwell
           </h3>
           <a
             css={css`
               color: #f7b733;
-              font-size: 1.5rem;
+              font-size: 1.75rem;
               grid-column: 1 / 2;
               text-decoration: none;
             `}

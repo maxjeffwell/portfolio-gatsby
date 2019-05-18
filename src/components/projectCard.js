@@ -35,9 +35,6 @@ const ProjectCard = props => {
         .gatsby-image-wrapper {
           margin-top: 0;
         }
-        &div.gatsby-image-wrapper:last-of-type img {
-          align-self: center;
-        }
       `}
     >
       <Img
@@ -55,7 +52,7 @@ const ProjectCard = props => {
       <h3
         css={css`
           font-family: AvenirLTStd-Roman, sans-serif;
-          font-size: 1.5rem;
+          font-size: 1.75rem;
           color: #f7b733;
           grid-row: 2 / 3;
           grid-column: 1 / 3;
@@ -68,7 +65,7 @@ const ProjectCard = props => {
           css={css`
             font-family: AvenirLTStd-Roman, sans-serif;
             color: #fc4a1a;
-            font-size: 1rem;
+            font-size: 1.25rem;
           `}
         >
           {/* eslint-disable-next-line react/destructuring-assignment */}
@@ -78,7 +75,7 @@ const ProjectCard = props => {
       <p
         css={css`
           font-family: SabonLTStd-Roman, serif;
-          font-size: 1.25rem;
+          font-size: 1.5rem;
           grid-row: 3 / 4;
           grid-column: 1 / 3;
         `}
