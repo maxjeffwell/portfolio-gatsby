@@ -37,7 +37,7 @@ const SecondPage = () => (
         color: #f7b733;
       `}
     >
-      Some of my (our) favorite tech:
+      Some of our favorite tech:
     </h2>
     <StyledContainer>
       <p
