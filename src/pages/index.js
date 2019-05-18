@@ -83,6 +83,8 @@ const IndexPage = () => (
             <IoIosArrowDropright
               css={css`
                 color: #fc4a1a;
+                font-size: 2rem;
+                padding-top: 10px;
               `}
             />
           </StyledLink>
@@ -114,6 +116,8 @@ const IndexPage = () => (
             <IoIosArrowDropright
               css={css`
                 color: #fc4a1a;
+                font-size: 2rem;
+                padding-top: 10px;
               `}
             />
           </StyledLink>
