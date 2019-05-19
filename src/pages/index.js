@@ -84,8 +84,8 @@ const IndexPage = () => (
               <FaRegArrowAltCircleRight
                 css={css`
                   color: #fc4a1a;
-                  font-size: 2.75rem;
-                  padding-top: 0.5rem;
+                  font-size: 3.25rem;
+                  padding-top: 0.75rem;
                 `}
               />
             </p>
@@ -118,8 +118,8 @@ const IndexPage = () => (
               <FaRegArrowAltCircleRight
                 css={css`
                   color: #fc4a1a;
-                  font-size: 2.75rem;
-                  padding-top: 0.5rem;
+                  font-size: 3.25rem;
+                  padding-top: 0.75rem;
                 `}
               />
             </p>
