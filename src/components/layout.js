@@ -112,7 +112,7 @@ const Layout = ({ children }) => (
               outline-width: 0;
             }
             img {
-              border-style: none;
+              border-radius: 5px;
               &:nth-of-type(2) {
                 margin-top: 0;
               }
