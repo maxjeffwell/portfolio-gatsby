@@ -29,8 +29,8 @@ const StyledSubContainer = styled.div`
 const StyledLogoContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 0.75fr 1fr;
-  grid-columnn-gap: 3rem;
+  grid-template-columns: 0.5fr 1fr;
+  grid-columnn-gap: 2rem;
 `;
 
 // eslint-disable-next-line react/prop-types
