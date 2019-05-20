@@ -79,12 +79,12 @@ const IndexPage = () => (
           Right now, I'm familiarizing myself with GraphQL, React Hooks, and Gatsby.
         </p>
         <p>
-          <StyledLink to="/projects/">
+          <StyledLink to="/projects/" aria-label="Check out my development projects">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here for a brief list of my most recent projects
           </StyledLink>
         </p>
-        <StyledLink to="/projects/">
+        <StyledLink to="/projects/" aria-label="Check out my development projects">
           <FaRegArrowAltCircleRight
             css={css`
               color: #fc4a1a;
@@ -113,13 +113,19 @@ const IndexPage = () => (
           with my two dogs or scouring Usenet in remembrance of Internet things past.
         </p>
         <p>
-          <StyledLink to="/about/">
+          <StyledLink
+            to="/about/"
+            aria-label="Click here to learn more about me and my development team"
+          >
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here to check out renderings of my two sidekicks and the mascot that make up my
             development team
           </StyledLink>
         </p>
-        <StyledLink to="/about/">
+        <StyledLink
+          to="/about/"
+          aria-label="Click here to learn more about me and my development team"
+        >
           <FaRegArrowAltCircleRight
             css={css`
               color: #fc4a1a;
