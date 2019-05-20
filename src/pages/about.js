@@ -78,6 +78,7 @@ const SecondPage = () => (
           css={css`
             font-size: 5rem;
             margin-top: 1rem;
+            color: #ffffff;
           `}
           title="JetBrains IntelliJ"
         />
@@ -92,6 +93,7 @@ const SecondPage = () => (
         <DiMozilla
           css={css`
             font-size: 5rem;
+            color: #ffffff;
           `}
           title="Mozilla"
         />
@@ -106,6 +108,7 @@ const SecondPage = () => (
         <DiDebian
           css={css`
             font-size: 5rem;
+            color: #ffffff;
           `}
           title="Debian"
         />
@@ -120,6 +123,7 @@ const SecondPage = () => (
         <FaPiedPiperAlt
           css={css`
             font-size: 5rem;
+            color: #ffffff;
           `}
           title="Pied Piper"
         />
