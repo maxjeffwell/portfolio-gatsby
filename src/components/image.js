@@ -9,14 +9,26 @@ const Image = () => (
       query {
         teamImage: file(relativePath: { eq: "code-companions.png" }) {
           childImageSharp {
-            fluid(maxWidth: 960, grayscale: true) {
+            fluid(maxWidth: 1260, grayscale: true) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+        teamImage2: file(relativePath: { eq: "elephant-developer.png" }) {
+          childImageSharp {
+            fluid(maxWidth: 1260) {
               ...GatsbyImageSharpFluid
             }
           }
         }
       }
     `}
-    render={data => <Img fluid={data.teamImage.childImageSharp.fluid} alt="code-companions" />}
+    render={data => (
+      <>
+        <Img fluid={data.teamImage2.childImageSharp.fluid} alt="elephant-developer" />
+        <Img fluid={data.teamImage.childImageSharp.fluid} alt="code-companions" />
+      </>
+    )}
   />
 );
 export default Image;

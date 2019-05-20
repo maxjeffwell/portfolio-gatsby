@@ -11,9 +11,10 @@ import Image from '../components/image';
 
 const StyledContainer = styled.div`
   display: grid;
-  grid-template-rows: 0.1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-row-gap: 0.5rem;
+  grid-column-gap: 2rem;
 `;
 
 // eslint-disable-next-line react/prop-types
@@ -32,7 +33,14 @@ const SecondPage = () => (
     >
       Meet the Team
     </h2>
-    <Image />
+    <StyledContainer>
+      <Image
+        css={css`
+          grid-row: 1 / 3;
+          grid-column: 1 / 5;
+        `}
+      />
+    </StyledContainer>
     <h2
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
