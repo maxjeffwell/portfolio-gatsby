@@ -14,7 +14,7 @@ const Logo = () => (
             }
           }
         }
-        aspcaLogo: file(relativePath: { eq: "aspca.jpg" }) {
+        aspcaLogo: file(relativePath: { eq: "aspca.png" }) {
           childImageSharp {
             fluid(maxWidth: 500) {
               ...GatsbyImageSharpFluid_tracedSVG
