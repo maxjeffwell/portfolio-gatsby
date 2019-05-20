@@ -19,7 +19,7 @@ const StyledContainer = styled.div`
 const StyledSubContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 2rem;
   grid-row-gap: 1rem;
 `;
@@ -61,6 +61,7 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 1 / 2;
+          grid-column: 2 / 3;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -75,16 +76,13 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 1 / 2;
-          //align-self: end;
-          //justify-self: right;
+          grid-column: 3 / 4;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
         <DiMozilla
           css={css`
             font-size: 4rem;
-            //align-self: center;
-            //justify-self: center;
           `}
           title="Mozilla"
         />
@@ -92,8 +90,7 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 1 / 2;
-          //align-self: end;
-          //justify-self: right;
+          grid-column: 4 / 5;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -107,8 +104,7 @@ const SecondPage = () => (
       <p
         css={css`
           grid-row: 1 / 2;
-          //align-self: end;
-          //justify-self: right;
+          grid-column: 5 / 6;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
