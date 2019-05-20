@@ -16,7 +16,7 @@ const Image = () => (
         }
         teamImage2: file(relativePath: { eq: "elephant-developer.png" }) {
           childImageSharp {
-            fluid(maxWidth: 1260) {
+            fluid(maxWidth: 1260, grayscale: true) {
               ...GatsbyImageSharpFluid_tracedSVG
             }
           }
