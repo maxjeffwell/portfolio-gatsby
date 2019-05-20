@@ -19,7 +19,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
   font-size: 1.5rem;
-  line-height: 1;
+  line-height: 1.2;
 `;
 
 const IndexPage = () => (
