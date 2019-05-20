@@ -10,7 +10,7 @@ import SEO from '../components/seo';
 
 const StyledContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 0.1fr;
   grid-template-rows: auto 1fr 1fr 0.1fr;
   grid-row-gap: 2rem;
 `;
@@ -44,6 +44,7 @@ const IndexPage = () => (
       <h1
         css={css`
           grid-row: 1 / 2;
+          grid-column: 1 / 3;
           font-family: HelveticaNeueLTStd-Bd, sans-serif;
           font-size: 2.25rem;
         `}
@@ -54,6 +55,7 @@ const IndexPage = () => (
       <div
         css={css`
           grid-row: 2 / 3;
+          grid-column: 1 / 3;
         `}
       >
         <p
@@ -80,21 +82,22 @@ const IndexPage = () => (
           <StyledLink to="/projects/">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here for a brief list of my most recent projects
-            <p>
-              <FaRegArrowAltCircleRight
-                css={css`
-                  color: #fc4a1a;
-                  font-size: 3.25rem;
-                  padding-top: 0.75rem;
-                `}
-              />
-            </p>
           </StyledLink>
         </p>
+        <StyledLink to="/projects/">
+          <FaRegArrowAltCircleRight
+            css={css`
+              color: #fc4a1a;
+              font-size: 3.5rem;
+              padding-top: 0.75rem;
+            `}
+          />
+        </StyledLink>
       </div>
       <div
         css={css`
           grid-row: 3 / 4;
+          grid-column: 1 / 3;
         `}
       >
         <p
@@ -114,17 +117,17 @@ const IndexPage = () => (
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             Click here to check out renderings of my two sidekicks and the mascot that make up my
             development team
-            <p>
-              <FaRegArrowAltCircleRight
-                css={css`
-                  color: #fc4a1a;
-                  font-size: 3.25rem;
-                  padding-top: 0.75rem;
-                `}
-              />
-            </p>
           </StyledLink>
         </p>
+        <StyledLink to="/about/">
+          <FaRegArrowAltCircleRight
+            css={css`
+              color: #fc4a1a;
+              font-size: 3.5rem;
+              padding-top: 0.75rem;
+            `}
+          />
+        </StyledLink>
       </div>
     </StyledContainer>
   </Layout>
