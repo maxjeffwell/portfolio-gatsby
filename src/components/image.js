@@ -10,14 +10,14 @@ const Image = () => (
         teamImage: file(relativePath: { eq: "code-companions.png" }) {
           childImageSharp {
             fluid(maxWidth: 1260, grayscale: true) {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_tracedSVG
             }
           }
         }
         teamImage2: file(relativePath: { eq: "elephant-developer.png" }) {
           childImageSharp {
             fluid(maxWidth: 1260) {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_tracedSVG
             }
           }
         }
