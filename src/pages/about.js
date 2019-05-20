@@ -8,20 +8,29 @@ import { FaPiedPiperAlt } from 'react-icons/fa';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Image from '../components/image';
+import Logo from '../components/logo';
 
 const StyledContainer = styled.div`
   display: grid;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 0.1fr;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
 `;
 
 const StyledSubContainer = styled.div`
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 0.1fr;
   grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 2rem;
-  grid-row-gap: 1rem;
+  grid-row-gap: 2rem;
+`;
+
+const StyledLogoContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 0.75fr 1fr;
+  grid-columnn-gap: 3rem;
 `;
 
 // eslint-disable-next-line react/prop-types
@@ -67,7 +76,7 @@ const SecondPage = () => (
         {/* eslint-disable-next-line react/jsx-no-undef */}
         <DiIntellij
           css={css`
-            font-size: 4rem;
+            font-size: 5rem;
             margin-top: 1rem;
           `}
           title="JetBrains IntelliJ"
@@ -82,7 +91,7 @@ const SecondPage = () => (
         {/* eslint-disable-next-line react/jsx-no-undef */}
         <DiMozilla
           css={css`
-            font-size: 4rem;
+            font-size: 5rem;
           `}
           title="Mozilla"
         />
@@ -96,7 +105,7 @@ const SecondPage = () => (
         {/* eslint-disable-next-line react/jsx-no-undef */}
         <DiDebian
           css={css`
-            font-size: 4rem;
+            font-size: 5rem;
           `}
           title="Debian"
         />
@@ -110,12 +119,20 @@ const SecondPage = () => (
         {/* eslint-disable-next-line react/jsx-no-undef */}
         <FaPiedPiperAlt
           css={css`
-            font-size: 4rem;
+            font-size: 5rem;
           `}
           title="Pied Piper"
         />
       </p>
     </StyledSubContainer>
+    <StyledLogoContainer>
+      <Logo
+        css={css`
+          grid-row: 1 / 2;
+          grid-column: 1 / 3;
+        `}
+      />
+    </StyledLogoContainer>
   </Layout>
 );
 
