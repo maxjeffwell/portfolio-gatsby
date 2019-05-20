@@ -112,7 +112,7 @@ const IndexPage = () => (
         <p>
           <StyledLink to="/about/">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
-            Click here to check out a rendering of my two sidekicks and the mascot that make up my
+            Click here to check out renderings of my two sidekicks and the mascot that make up my
             development team
             <p>
               <FaRegArrowAltCircleRight
