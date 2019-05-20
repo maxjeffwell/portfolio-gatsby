@@ -11,10 +11,17 @@ import Image from '../components/image';
 
 const StyledContainer = styled.div`
   display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2rem;
+`;
+
+const StyledSubContainer = styled.div`
+  display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-row-gap: 0.5rem;
   grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
 `;
 
 // eslint-disable-next-line react/prop-types
@@ -26,7 +33,6 @@ const SecondPage = () => (
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
         font-size: 2.5rem;
-        grid-row: 1 / 2;
         color: #f7b733;
         border-bottom: 3px solid #fc4a1a;
       `}
@@ -36,28 +42,25 @@ const SecondPage = () => (
     <StyledContainer>
       <Image
         css={css`
-          grid-row: 1 / 3;
+          grid-row: 1 / 2;
           grid-column: 1 / 5;
         `}
       />
     </StyledContainer>
-    <h2
+    <h3
       css={css`
         font-family: HelveticaNeueLTStd-Roman, sans-serif;
         font-size: 2rem;
-        grid-row: 2 / 3;
         color: #f7b733;
         border-bottom: 3px solid #fc4a1a;
       `}
     >
       Some of our favorite tech
-    </h2>
-    <StyledContainer>
+    </h3>
+    <StyledSubContainer>
       <p
         css={css`
-          grid-row: 3 / 4;
-          align-self: end;
-          justify-self: right;
+          grid-row: 1 / 2;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -71,26 +74,26 @@ const SecondPage = () => (
       </p>
       <p
         css={css`
-          grid-row: 3 / 4;
-          align-self: end;
-          justify-self: right;
+          grid-row: 1 / 2;
+          //align-self: end;
+          //justify-self: right;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
         <DiMozilla
           css={css`
             font-size: 4rem;
-            align-self: center;
-            justify-self: center;
+            //align-self: center;
+            //justify-self: center;
           `}
           title="Mozilla"
         />
       </p>
       <p
         css={css`
-          grid-row: 3 / 4;
-          align-self: end;
-          justify-self: right;
+          grid-row: 1 / 2;
+          //align-self: end;
+          //justify-self: right;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -103,9 +106,9 @@ const SecondPage = () => (
       </p>
       <p
         css={css`
-          grid-row: 3 / 4;
-          align-self: end;
-          justify-self: right;
+          grid-row: 1 / 2;
+          //align-self: end;
+          //justify-self: right;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -116,7 +119,7 @@ const SecondPage = () => (
           title="Pied Piper"
         />
       </p>
-    </StyledContainer>
+    </StyledSubContainer>
   </Layout>
 );
 
