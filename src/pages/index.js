@@ -10,7 +10,7 @@ import SEO from '../components/seo';
 
 const StyledContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 0.1fr;
+  grid-template-columns: 1fr 0.05fr;
   grid-template-rows: auto 1fr 0.75fr 0.1fr;
   grid-row-gap: 2rem;
 `;
@@ -55,7 +55,7 @@ const IndexPage = () => (
       <div
         css={css`
           grid-row: 2 / 3;
-          grid-column: 1 / 3;
+          grid-column: 1 / 2;
         `}
       >
         <p
