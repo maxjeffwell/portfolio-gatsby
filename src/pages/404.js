@@ -9,7 +9,7 @@ const NotFoundPage = () => (
     <SEO title="404: Not found" />
     <h1>NOT FOUND</h1>
     {/* eslint-disable-next-line react/no-unescaped-entities */}
-    <p>You just hit a route that doesn't exist... the sadness.</p>
+    <p>This route doesn't exist. Head back to the home page to start over.</p>
   </Layout>
 );
 
