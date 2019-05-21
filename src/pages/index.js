@@ -46,7 +46,7 @@ const IndexPage = () => (
           grid-row: 1 / 2;
           grid-column: 1 / 3;
           font-family: HelveticaNeueLTStd-Bd, sans-serif;
-          font-size: 2.5rem;
+          font-size: 2.25rem;
         `}
       >
         {/* eslint-disable-next-line react/no-unescaped-entities */}

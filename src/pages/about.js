@@ -29,9 +29,7 @@ const StyledSubContainer = styled.div`
 
 const StyledLogoContainer = styled.div`
   display: grid;
-  grid-template-rows: 1fr;
   grid-template-columns: 0.5fr 1fr;
-  grid-columnn-gap: 2rem;
   margin-top: 2rem;
 `;
 
@@ -186,8 +184,8 @@ const SecondPage = () => (
     <StyledLogoContainer>
       <Logo
         css={css`
-          grid-row: 1 / 2;
           grid-column: 1 / 3;
+          grid-row: 1 / 3;
         `}
       />
     </StyledLogoContainer>
