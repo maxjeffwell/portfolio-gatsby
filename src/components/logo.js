@@ -10,7 +10,7 @@ const Logo = () => (
         iapfLogo: file(relativePath: { eq: "iapf.png" }) {
           childImageSharp {
             fluid(maxWidth: 500) {
-              ...GatsbyImageSharpFluid_tracedSVG
+              ...GatsbyImageSharpFluid
             }
           }
         }
