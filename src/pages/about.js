@@ -21,9 +21,10 @@ const StyledContainer = styled.div`
 const StyledSubContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 0.1fr;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.25fr 1fr 1fr 1fr 1fr 0.25fr;
   grid-column-gap: 2rem;
-  grid-row-gap: 2rem;
+  font-family: AvenirLTStd-Roman, sans-serif;
+  font-weight: bolder;
 `;
 
 const StyledLogoContainer = styled.div`
@@ -67,10 +68,12 @@ const SecondPage = () => (
       Some of our favorite tech
     </h3>
     <StyledSubContainer>
-      <p
+      <span
         css={css`
           grid-row: 1 / 2;
           grid-column: 2 / 3;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -82,11 +85,24 @@ const SecondPage = () => (
           `}
           title="JetBrains IntelliJ"
         />
-      </p>
-      <p
+      </span>
+      <span
+        css={css`
+          grid-row: 2 / 3;
+          grid-column: 2 / 3;
+          justify-self: center;
+          margin-top: 0;
+          font-size: 1.25rem;
+        `}
+      >
+        IntelliJ
+      </span>
+      <span
         css={css`
           grid-row: 1 / 2;
           grid-column: 3 / 4;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -97,11 +113,24 @@ const SecondPage = () => (
           `}
           title="Mozilla"
         />
-      </p>
-      <p
+      </span>
+      <span
+        css={css`
+          grid-row: 2 / 3;
+          grid-column: 3 / 4;
+          justify-self: center;
+          margin-top: 0;
+          font-size: 1.25rem;
+        `}
+      >
+        Mozilla
+      </span>
+      <span
         css={css`
           grid-row: 1 / 2;
           grid-column: 4 / 5;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -112,11 +141,24 @@ const SecondPage = () => (
           `}
           title="Debian"
         />
-      </p>
-      <p
+      </span>
+      <span
+        css={css`
+          grid-row: 2 / 3;
+          grid-column: 4 / 5;
+          justify-self: center;
+          margin-top: 0;
+          font-size: 1.25rem;
+        `}
+      >
+        Debian
+      </span>
+      <span
         css={css`
           grid-row: 1 / 2;
           grid-column: 5 / 6;
+          align-self: center;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/jsx-no-undef */}
@@ -127,7 +169,18 @@ const SecondPage = () => (
           `}
           title="Pied Piper"
         />
-      </p>
+      </span>
+      <span
+        css={css`
+          grid-row: 2 / 3;
+          grid-column: 5 / 6;
+          justify-self: center;
+          margin-top: 0;
+          font-size: 1.25rem;
+        `}
+      >
+        Pied Piper
+      </span>
     </StyledSubContainer>
     <StyledLogoContainer>
       <Logo
