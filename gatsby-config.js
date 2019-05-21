@@ -41,7 +41,7 @@ module.exports = {
             'HelveticaNeueLTStd-Roman',
             'SabonLTStd-Roman',
           ],
-          urls: ['static/fonts/fonts.css'],
+          urls: ['./static/fonts/fonts.css'],
         },
       },
     },

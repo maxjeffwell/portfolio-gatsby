@@ -154,6 +154,7 @@ const Layout = ({ children }) => (
             font-size: 1.25rem;
             color: #f5f5f5;
             height: 100%;
+            width: 100%;
           `}
         >
           <h3
