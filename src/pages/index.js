@@ -11,14 +11,14 @@ import SEO from '../components/seo';
 const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 0.1fr;
-  grid-template-rows: auto 1fr 1fr 0.1fr;
+  grid-template-rows: auto 1fr 0.75fr 0.1fr;
   grid-row-gap: 2rem;
 `;
 const StyledLink = styled(Link)`
   color: #f7b733;
   text-decoration: none;
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   line-height: 1.2;
 `;
 
@@ -46,7 +46,7 @@ const IndexPage = () => (
           grid-row: 1 / 2;
           grid-column: 1 / 3;
           font-family: HelveticaNeueLTStd-Bd, sans-serif;
-          font-size: 2.25rem;
+          font-size: 2.5rem;
         `}
       >
         {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -62,7 +62,7 @@ const IndexPage = () => (
           css={css`
             color: #ffffff;
             font-family: HelveticaNeueLTStd-Roman, sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
           `}
         >
           I commit early and often, implement content-driven design strategies, and value readable,
@@ -72,7 +72,7 @@ const IndexPage = () => (
           css={css`
             color: #ffffff;
             font-family: HelveticaNeueLTStd-Roman, sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
           `}
         >
           {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -104,7 +104,7 @@ const IndexPage = () => (
           css={css`
             color: #ffffff;
             font-family: HelveticaNeueLTStd-Roman, sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
           `}
         >
           {/* eslint-disable-next-line react/no-unescaped-entities */}

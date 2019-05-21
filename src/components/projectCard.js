@@ -92,8 +92,6 @@ const ProjectCard = props => {
           font-weight: bold;
           font-size: 1.25rem;
           background-color: #f7b733;
-          height: fit-content;
-          width: fit-content;
           border: 2px solid #363636;
           border-radius: 5px;
           color: #393939;
@@ -101,6 +99,7 @@ const ProjectCard = props => {
           text-decoration: none;
           padding-left: 1rem;
           padding-right: 1rem;
+          padding-top: 0.25rem;
           &:hover {
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
           }
@@ -124,8 +123,6 @@ const ProjectCard = props => {
           font-weight: bold;
           font-size: 1.25rem;
           background-color: #f7b733;
-          height: fit-content;
-          width: fit-content;
           border: 2px solid #363636;
           border-radius: 5px;
           color: #393939;
@@ -133,6 +130,7 @@ const ProjectCard = props => {
           text-decoration: none;
           padding-left: 1rem;
           padding-right: 1rem;
+          padding-top: 0.25rem;
           &:hover {
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
           }
@@ -150,7 +148,7 @@ const ProjectCard = props => {
         css={css`
           grid-column: 1 / 3;
           grid-row: 5 / 6;
-          font-size: 2rem;
+          font-size: 2.5rem;
           align-self: center;
           justify-self: center;
           justify-content: space-between;
@@ -158,8 +156,8 @@ const ProjectCard = props => {
       >
         <img
           css={css`
-            width: 31px;
-            height: 32px;
+            width: 45px;
+            height: 45px;
           `}
           /* eslint-disable-next-line react/destructuring-assignment */
           src={props.imageSrcPath3}
@@ -168,8 +166,8 @@ const ProjectCard = props => {
         {` `}
         <img
           css={css`
-            width: 31px;
-            height: 32px;
+            width: 45px;
+            height: 45px;
           `}
           /* eslint-disable-next-line react/destructuring-assignment */
           src={props.imageSrcPath4}
@@ -178,8 +176,8 @@ const ProjectCard = props => {
         {` `}
         <img
           css={css`
-            width: 31px;
-            height: 32px;
+            width: 45px;
+            height: 45px;
           `}
           /* eslint-disable-next-line react/destructuring-assignment */
           src={props.imageSrcPath5}

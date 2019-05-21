@@ -144,7 +144,7 @@ const Layout = ({ children }) => (
         <footer
           css={css`
             display: grid;
-            grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             grid-template-rows: auto 0.1fr 0.5fr auto;
             grid-column-gap: 1rem;
             grid-row-gap: 2rem;
@@ -190,7 +190,7 @@ const Layout = ({ children }) => (
             <FaGithubAlt
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 4rem;
             `}
               title="Github Profile"
             />
@@ -208,7 +208,7 @@ const Layout = ({ children }) => (
             <FaAngellist
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 4rem;
               `}
               title="AngelList Profile"
             />
@@ -226,7 +226,7 @@ const Layout = ({ children }) => (
             <FaLinkedin
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 4rem;
               `}
               title="LinkedIn Profile"
             />
@@ -243,7 +243,7 @@ const Layout = ({ children }) => (
             <FaPhone
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 4rem;
               `}
               title="1-508-395-2008"
             />
@@ -253,6 +253,7 @@ const Layout = ({ children }) => (
               grid-column: 1 / 4;
               grid-row: 4 / 5;
               margin-bottom: 1rem;
+              font-size: 1.5rem;
             `}
           >
             Built by
