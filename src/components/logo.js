@@ -25,8 +25,14 @@ const Logo = () => (
     `}
     render={data => (
       <>
-        <Img fluid={data.iapfLogo.childImageSharp.fluid} alt="iapf-logo" />
-        <Img fluid={data.aspcaLogo.childImageSharp.fluid} alt="aspca-logo" />
+        <Img
+          fluid={data.iapfLogo.childImageSharp.fluid}
+          alt="International Anti Poaching Foundation logo"
+        />
+        <Img
+          fluid={data.aspcaLogo.childImageSharp.fluid}
+          alt="American Society for the Prevention of Cruelty to Animals logo"
+        />
       </>
     )}
   />

@@ -25,8 +25,8 @@ const Image = () => (
     `}
     render={data => (
       <>
-        <Img fluid={data.teamImage2.childImageSharp.fluid} alt="elephant-developer" />
-        <Img fluid={data.teamImage.childImageSharp.fluid} alt="code-companions" />
+        <Img fluid={data.teamImage2.childImageSharp.fluid} alt="See my mascot" />
+        <Img fluid={data.teamImage.childImageSharp.fluid} alt="See my two dogs" />
       </>
     )}
   />
