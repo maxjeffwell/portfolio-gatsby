@@ -4,7 +4,7 @@ module.exports = {
     description: `Jeff Maxwell's developer portfolio made with Gatsby`,
     author: 'Jeff Maxwell',
     createdAt: 2019,
-    website: 'https://www.jeffmaxwell.dev',
+    siteUrl: 'https://www.jeffmaxwell.dev',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
