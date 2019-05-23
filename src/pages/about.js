@@ -21,7 +21,7 @@ const StyledContainer = styled.div`
 const StyledSubContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 0.1fr;
-  grid-template-columns: auto 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-flow: row;
   grid-column-gap: 2rem;
   font-family: AvenirLTStd-Roman, sans-serif;
@@ -71,7 +71,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 1 / 2;
-          grid-column: 2 / 3;
+          grid-column: 1 / 2;
           align-self: center;
           justify-self: center;
         `}
@@ -89,7 +89,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 2 / 3;
-          grid-column: 2 / 3;
+          grid-column: 1 / 2;
           justify-self: center;
           margin-top: 0;
           font-size: 1.25rem;
@@ -100,7 +100,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 1 / 2;
-          grid-column: 3 / 4;
+          grid-column: 2 / 3;
           align-self: center;
           justify-self: center;
         `}
@@ -117,7 +117,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 2 / 3;
-          grid-column: 3 / 4;
+          grid-column: 2 / 3;
           justify-self: center;
           margin-top: 0;
           font-size: 1.25rem;
@@ -128,7 +128,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 1 / 2;
-          grid-column: 4 / 5;
+          grid-column: 3 / 4;
           align-self: center;
           justify-self: center;
         `}
@@ -145,7 +145,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 2 / 3;
-          grid-column: 4 / 5;
+          grid-column: 3 / 4;
           justify-self: center;
           margin-top: 0;
           font-size: 1.25rem;
@@ -156,7 +156,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 1 / 2;
-          grid-column: 5 / 6;
+          grid-column: 4 / 5;
           align-self: center;
           justify-self: center;
         `}
@@ -173,7 +173,7 @@ const SecondPage = () => (
       <span
         css={css`
           grid-row: 2 / 3;
-          grid-column: 5 / 6;
+          grid-column: 4 / 5;
           justify-self: center;
           margin-top: 0;
           font-size: 1.25rem;
