@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 0.05fr;
   grid-template-rows: auto 1fr 0.75fr 0.1fr;
-  grid-row-gap: 2rem;
+  grid-row-gap: 1rem;
 `;
 const StyledLink = styled(Link)`
   color: #f7b733;
