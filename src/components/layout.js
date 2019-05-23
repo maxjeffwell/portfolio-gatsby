@@ -116,6 +116,7 @@ const Layout = ({ children }) => (
             font-family: AvenirLTStd-Roman, sans-serif;
             font-size: 1.25rem;
             color: #f5f5f5;
+            footer: 100vh;
           `}
         >
           <h3
