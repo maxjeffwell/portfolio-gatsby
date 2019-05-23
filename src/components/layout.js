@@ -106,8 +106,9 @@ const Layout = ({ children }) => (
         <footer
           css={css`
             display: grid;
-            grid-template-columns: auto 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             grid-template-rows: auto 0.1fr 0.5fr auto;
+            grid-auto-flow: row;
             grid-column-gap: 1rem;
             grid-row-gap: 2rem;
             padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
@@ -115,12 +116,12 @@ const Layout = ({ children }) => (
             font-family: AvenirLTStd-Roman, sans-serif;
             font-size: 1.25rem;
             color: #f5f5f5;
-            height: 100%;
-            width: 100%;
           `}
         >
           <h3
             css={css`
+              grid-column: 1 / 5;
+              grid-row: 1 / 2;
               margin-top: 1rem;
               font-size: 2rem;
             `}
@@ -131,7 +132,8 @@ const Layout = ({ children }) => (
             css={css`
               color: #f7b733;
               font-size: 1.75rem;
-              grid-column: 1 / 2;
+              grid-column: 1 / 5;
+              grid-row: 2 / 3;
               text-decoration: none;
             `}
             target="_blank"
@@ -162,7 +164,7 @@ const Layout = ({ children }) => (
             css={css`
               grid-row: 3 / 4;
               grid-column: 2 / 3;
-              justify-self: left;
+              justify-self: center;
             `}
             target="_blank"
             rel="noopener noreferrer"
@@ -180,7 +182,7 @@ const Layout = ({ children }) => (
             css={css`
               grid-row: 3 / 4;
               grid-column: 3 / 4;
-              justify-self: left;
+              justify-self: center;
             `}
             target="_blank"
             rel="noopener noreferrer"
@@ -198,7 +200,7 @@ const Layout = ({ children }) => (
             css={css`
               grid-row: 3 / 4;
               grid-column: 4 / 5;
-              justify-self: left;
+              justify-self: center;
             `}
             href="tel:+01-508-395-2008"
             rel="nofollow"
@@ -213,7 +215,7 @@ const Layout = ({ children }) => (
           </a>
           <p
             css={css`
-              grid-column: 1 / 4;
+              grid-column: 1 / 5;
               grid-row: 4 / 5;
               margin-bottom: 1rem;
               font-size: 1.5rem;
