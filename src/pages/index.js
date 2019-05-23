@@ -46,7 +46,7 @@ const IndexPage = () => (
           grid-row: 1 / 2;
           grid-column: 1 / 3;
           font-family: HelveticaNeueLTStd-Bd, sans-serif;
-          font-size: 2.25rem;
+          font-size: 2rem;
         `}
       >
         {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -55,7 +55,7 @@ const IndexPage = () => (
       <div
         css={css`
           grid-row: 2 / 3;
-          grid-column: 1 / 2;
+          grid-column: 1 / 3;
         `}
       >
         <p
@@ -76,7 +76,7 @@ const IndexPage = () => (
           `}
         >
           {/* eslint-disable-next-line react/no-unescaped-entities */}
-          Right now, I'm familiarizing myself with GraphQL, React Hooks, and Gatsby.
+          Right now, I'm learning GraphQL, React Hooks, and Gatsby.
         </p>
         <p>
           <StyledLink to="/projects/" aria-label="Check out my development projects">
@@ -85,13 +85,23 @@ const IndexPage = () => (
           </StyledLink>
         </p>
         <StyledLink to="/projects/" aria-label="Check out my development projects">
-          <FaRegArrowAltCircleRight
+          <div
             css={css`
-              color: #fc4a1a;
-              font-size: 3.5rem;
-              padding-top: 0.75rem;
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
             `}
-          />
+          >
+            <FaRegArrowAltCircleRight
+              css={css`
+                grid-column: 2 / 3;
+                align-self: center;
+                justify-self: center;
+                color: #fc4a1a;
+                font-size: 3.5rem;
+                padding-top: 1rem;
+              `}
+            />
+          </div>
         </StyledLink>
       </div>
       <div
@@ -126,13 +136,23 @@ const IndexPage = () => (
           to="/about/"
           aria-label="Click here to learn more about me and my development team"
         >
-          <FaRegArrowAltCircleRight
+          <div
             css={css`
-              color: #fc4a1a;
-              font-size: 3.5rem;
-              padding-top: 0.75rem;
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
             `}
-          />
+          >
+            <FaRegArrowAltCircleRight
+              css={css`
+                grid-column: 2 / 3;
+                align-self: center;
+                justify-self: center;
+                color: #fc4a1a;
+                font-size: 3.5rem;
+                padding-top: 1rem;
+              `}
+            />
+          </div>
         </StyledLink>
       </div>
     </StyledContainer>

@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 const StyledImg = styled(Img)`
   picture {
     color: #f7b733;
+    margin-bottom: 0;
   }
 `;
 
@@ -16,7 +17,7 @@ const MyLogo = () => (
       query {
         myLogo: file(relativePath: { eq: "logo_elephant_100x100.png" }) {
           childImageSharp {
-            fixed(width: 100, height: 80) {
+            fixed(width: 100, height: 85) {
               ...GatsbyImageSharpFixed_tracedSVG
             }
           }

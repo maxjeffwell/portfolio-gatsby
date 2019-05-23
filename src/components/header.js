@@ -27,17 +27,17 @@ const Header = () => (
       display: grid;
       grid-template-columns: auto 1fr auto;
       font-family: AvenirLTStd-Roman, sans-serif;
-      font-size: 1.75rem;
+      font-size: 2rem;
       padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
     `}
   >
     <nav
       css={css`
         margin-top: 0;
-        grid-column: 1 / -1;
+        grid-column: 1 / 2;
+        align-self: end;
       `}
     >
-      <MyLogo />
       <NavLink to="/" fontWeight="bold" activeClassName="current-page">
         Home
       </NavLink>
@@ -48,6 +48,14 @@ const Header = () => (
         Projects
       </NavLink>
     </nav>
+    <div
+      css={css`
+        grid-column: 3 / 4;
+        align-content: end;
+      `}
+    >
+      <MyLogo />
+    </div>
   </header>
 );
 
