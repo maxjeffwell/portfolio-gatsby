@@ -3,6 +3,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
+import MyLogo from './myLogo';
+
 const NavLink = styled(Link)`
   color: #ffffff;
   font-weight: ${props => props.fontWeight || 'normal'};
@@ -35,6 +37,7 @@ const Header = () => (
         grid-column: 1 / -1;
       `}
     >
+      <MyLogo />
       <NavLink to="/" fontWeight="bold" activeClassName="current-page">
         Home
       </NavLink>
