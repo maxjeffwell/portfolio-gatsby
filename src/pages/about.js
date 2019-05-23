@@ -21,7 +21,7 @@ const StyledContainer = styled.div`
 const StyledSubContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 0.1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
   grid-auto-flow: row;
   grid-column-gap: 2rem;
   font-family: AvenirLTStd-Roman, sans-serif;
