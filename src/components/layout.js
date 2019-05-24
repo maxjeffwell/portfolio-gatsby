@@ -115,6 +115,8 @@ const Layout = ({ children }) => (
             font-size: 1.25rem;
             color: #f5f5f5;
             margin-top: 4rem;
+            border-top: 3px solid #f7b733;
+            overflow-x: hidden;
             @media (max-width: 1000px) {
               padding-left: 30px;
             }
@@ -127,8 +129,6 @@ const Layout = ({ children }) => (
               margin-top: 1rem;
               font-size: 2.25rem;
               align-self: end;
-              border-top: 3px solid #f7b733;
-              padding-top: 2rem;
             `}
           >
             Jeff Maxwell
