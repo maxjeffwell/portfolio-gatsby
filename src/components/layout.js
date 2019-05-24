@@ -50,7 +50,9 @@ const Layout = ({ children }) => (
               -moz-osx-font-smoothing: grayscale;
               -ms-text-size-adjust: 100%;
               -webkit-text-size-adjust: 100%;
-              overflow-x: hidden;
+              @media (max-width: 480px) {
+                overflow-x: hidden;
+              }
             }
             /*remove margin for main div that Gatsby mounts into */
             > div {
@@ -119,7 +121,7 @@ const Layout = ({ children }) => (
             border-top: 3px solid #f7b733;
             background-color: #121619;
             @media (max-width: 1000px) {
-              padding-left: 30px;
+              padding-left: 2rem;
             }
           `}
         >
