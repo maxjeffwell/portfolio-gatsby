@@ -115,7 +115,6 @@ const Layout = ({ children }) => (
             font-size: 1.25rem;
             color: #f5f5f5;
             margin-top: 4rem;
-            border-top: 3px solid #f7b733;
             @media (max-width: 1000px) {
               padding-left: 30px;
             }
@@ -123,11 +122,13 @@ const Layout = ({ children }) => (
         >
           <h3
             css={css`
-              grid-column: 1 / 4;
+              grid-column: 1 / 5;
               grid-row: 1 / 2;
               margin-top: 1rem;
               font-size: 2.25rem;
               align-self: end;
+              border-top: 3px solid #f7b733;
+              padding-top: 2rem;
             `}
           >
             Jeff Maxwell
