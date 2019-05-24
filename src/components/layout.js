@@ -171,6 +171,9 @@ const Layout = ({ children }) => (
               css={css`
                 color: #fc4a1a;
                 font-size: 3.5rem;
+                @media (max-width: 480px) {
+                  font-size: 3rem;
+                }
             `}
               title="Github Profile"
             />
@@ -189,6 +192,9 @@ const Layout = ({ children }) => (
               css={css`
                 color: #fc4a1a;
                 font-size: 3.5rem;
+                @media (max-width: 480px) {
+                  font-size: 3rem;
+                }
               `}
               title="AngelList Profile"
             />
@@ -207,6 +213,9 @@ const Layout = ({ children }) => (
               css={css`
                 color: #fc4a1a;
                 font-size: 3.5rem;
+                @media (max-width: 480px) {
+                  font-size: 3rem;
+                }
               `}
               title="LinkedIn Profile"
             />
@@ -224,6 +233,9 @@ const Layout = ({ children }) => (
               css={css`
                 color: #fc4a1a;
                 font-size: 3.5rem;
+                @media (max-width: 480px) {
+                  font-size: 3rem;
+                }
               `}
               title="1-508-395-2008"
             />

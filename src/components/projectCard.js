@@ -56,7 +56,7 @@ const ProjectCard = props => {
           color: #f7b733;
           grid-row: 2 / 3;
           grid-column: 1 / 3;
-          justify-self: center;
+          justify-self: left;
         `}
       >
         {/* eslint-disable-next-line react/destructuring-assignment */}
