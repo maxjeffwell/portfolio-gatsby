@@ -116,6 +116,7 @@ const Layout = ({ children }) => (
             color: #f5f5f5;
             margin-top: 4rem;
             border-top: 3px solid #f7b733;
+            background-color: #121619;
             overflow-x: hidden;
             @media (max-width: 1000px) {
               padding-left: 30px;
