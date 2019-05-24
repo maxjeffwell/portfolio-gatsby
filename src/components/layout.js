@@ -147,6 +147,9 @@ const Layout = ({ children }) => (
               @media (max-width: 480px) {
                 font-size: 1.75rem;
               }
+              @media (max-width: 360px) {
+                font-size: 1.5rem;
+              }
             `}
             target="_blank"
             rel="noopener noreferrer"

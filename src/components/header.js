@@ -30,6 +30,12 @@ const Header = () => (
       margin: 2rem auto 4rem;
       max-width: 90vw;
       width: 960px;
+      @media (max-width: 480px) {
+        font-size: 1.5rem;
+      }
+      @media (max-width: 360px) {
+        font-size: 1.25rem;
+      }
     `}
   >
     <nav
