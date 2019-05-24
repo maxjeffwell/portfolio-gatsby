@@ -121,7 +121,8 @@ const Layout = ({ children }) => (
             border-top: 3px solid #f7b733;
             background-color: #121619;
             @media (max-width: 1000px) {
-              padding-left: 2rem;
+              padding-left: 1rem;
+              padding-right: 1rem;
             }
           `}
         >
