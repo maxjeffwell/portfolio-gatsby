@@ -56,6 +56,7 @@ const ProjectCard = props => {
           color: #f7b733;
           grid-row: 2 / 3;
           grid-column: 1 / 3;
+          justify-self: center;
         `}
       >
         {/* eslint-disable-next-line react/destructuring-assignment */}
@@ -86,7 +87,6 @@ const ProjectCard = props => {
       <a
         css={css`
           grid-row: 4 / 5;
-          align-self: self-end;
           justify-self: self-end;
           font-family: SabonLTStd-Roman, serif;
           font-weight: bold;
@@ -117,7 +117,6 @@ const ProjectCard = props => {
       <a
         css={css`
           grid-row: 4 / 5;
-          align-self: self-start;
           justify-self: self-start;
           font-family: SabonLTStd-Roman, serif;
           font-weight: bold;
@@ -149,7 +148,7 @@ const ProjectCard = props => {
           grid-column: 1 / 3;
           grid-row: 5 / 6;
           font-size: 2.5rem;
-          justify-self: center;
+          justify-self: right;
           justify-content: space-between;
         `}
       >
