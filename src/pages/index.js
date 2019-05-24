@@ -11,7 +11,7 @@ import SEO from '../components/seo';
 const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr 0.75fr;
+  grid-template-rows: auto 1fr 1fr;
   grid-row-gap: 1rem;
 `;
 const StyledLink = styled(Link)`

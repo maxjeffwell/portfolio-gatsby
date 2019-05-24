@@ -62,7 +62,7 @@ const Layout = ({ children }) => (
             h6 {
               line-height: 1.1;
               + * {
-                margin-top: 0.5rem;
+              margin-top: 0.5rem;
               }
             }
             a {
@@ -96,7 +96,7 @@ const Layout = ({ children }) => (
         <Header />
         <main
           css={css`
-            margin: 2rem auto 4rem;
+            margin: 2rem auto 2rem;
             max-width: 90vw;
             width: 960px;
           `}
@@ -106,8 +106,8 @@ const Layout = ({ children }) => (
         <footer
           css={css`
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr auto;
-            grid-template-rows: auto 0.1fr 0.5fr auto;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 0.1fr 0.1fr 0.15fr 0.1fr;
             grid-column-gap: 1rem;
             grid-row-gap: 2rem;
             padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
@@ -116,7 +116,9 @@ const Layout = ({ children }) => (
             font-family: AvenirLTStd-Roman, sans-serif;
             font-size: 1.25rem;
             color: #f5f5f5;
-            width: 100%;
+            width: 100vw;
+            height: 100vh;
+            
           `}
         >
           <h3
@@ -156,7 +158,7 @@ const Layout = ({ children }) => (
             <FaGithubAlt
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 3.5rem;
             `}
               title="Github Profile"
             />
@@ -174,7 +176,7 @@ const Layout = ({ children }) => (
             <FaAngellist
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 3.5rem;
               `}
               title="AngelList Profile"
             />
@@ -192,7 +194,7 @@ const Layout = ({ children }) => (
             <FaLinkedin
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 3.5rem;
               `}
               title="LinkedIn Profile"
             />
@@ -209,7 +211,7 @@ const Layout = ({ children }) => (
             <FaPhone
               css={css`
                 color: #fc4a1a;
-                font-size: 3rem;
+                font-size: 3.5rem;
               `}
               title="1-508-395-2008"
             />
