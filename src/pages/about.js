@@ -12,7 +12,7 @@ import Logo from '../components/logo';
 
 const StyledContainer = styled.div`
   display: grid;
-  grid-template-rows: 1fr 0.1fr;
+  grid-template-rows: 0.1fr 1fr 0.1fr;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 2rem;
   grid-row-gap: 2rem;
@@ -20,10 +20,10 @@ const StyledContainer = styled.div`
 
 const StyledSubContainer = styled.div`
   display: grid;
-  grid-template-rows: 1fr 0.1fr;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
+  grid-template-rows: 0.1fr 1fr auto;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   grid-auto-flow: row;
-  grid-column-gap: 2rem;
+  grid-column-gap: 1.25rem;
   font-family: AvenirLTStd-Roman, sans-serif;
   font-weight: bolder;
 `;
@@ -39,38 +39,42 @@ const SecondPage = () => (
   // eslint-disable-next-line react/jsx-filename-extension
   <Layout>
     <SEO title="bio" />
-    <h2
-      css={css`
-        font-family: HelveticaNeueLTStd-Roman, sans-serif;
-        font-size: 2.5rem;
-        color: #f7b733;
-        border-bottom: 3px solid #fc4a1a;
-      `}
-    >
-      Meet the Team
-    </h2>
     <StyledContainer>
+      <h2
+        css={css`
+          grid-column: 1 / 3;
+          grid-row: 1 / 2;
+          font-family: HelveticaNeueLTStd-Roman, sans-serif;
+          font-size: 2.5rem;
+          color: #f7b733;
+          border-bottom: 3px solid #fc4a1a;
+        `}
+      >
+        Meet the Team
+      </h2>
       <Image
         css={css`
-          grid-row: 1 / 2;
-          grid-column: 1 / 5;
+          grid-row: 2 / 3;
+          grid-column: 2 / 5;
         `}
       />
     </StyledContainer>
-    <h3
-      css={css`
-        font-family: HelveticaNeueLTStd-Roman, sans-serif;
-        font-size: 2rem;
-        color: #f7b733;
-        border-bottom: 3px solid #fc4a1a;
-      `}
-    >
-      Some of our favorite tech
-    </h3>
     <StyledSubContainer>
-      <span
+      <h3
         css={css`
           grid-row: 1 / 2;
+          grid-column: 1 / 5;
+          font-family: HelveticaNeueLTStd-Roman, sans-serif;
+          font-size: 2rem;
+          color: #f7b733;
+          border-bottom: 3px solid #fc4a1a;
+        `}
+      >
+        Some of our favorite tech
+      </h3>
+      <span
+        css={css`
+          grid-row: 2 / 3;
           grid-column: 1 / 2;
           align-self: center;
           justify-self: center;
@@ -88,7 +92,7 @@ const SecondPage = () => (
       </span>
       <span
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
           grid-column: 1 / 2;
           justify-self: center;
           margin-top: 0;
@@ -99,7 +103,7 @@ const SecondPage = () => (
       </span>
       <span
         css={css`
-          grid-row: 1 / 2;
+          grid-row: 2 / 3;
           grid-column: 2 / 3;
           align-self: center;
           justify-self: center;
@@ -116,7 +120,7 @@ const SecondPage = () => (
       </span>
       <span
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
           grid-column: 2 / 3;
           justify-self: center;
           margin-top: 0;
@@ -127,7 +131,7 @@ const SecondPage = () => (
       </span>
       <span
         css={css`
-          grid-row: 1 / 2;
+          grid-row: 2 / 3;
           grid-column: 3 / 4;
           align-self: center;
           justify-self: center;
@@ -144,7 +148,7 @@ const SecondPage = () => (
       </span>
       <span
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
           grid-column: 3 / 4;
           justify-self: center;
           margin-top: 0;
@@ -155,7 +159,7 @@ const SecondPage = () => (
       </span>
       <span
         css={css`
-          grid-row: 1 / 2;
+          grid-row: 2 / 3;
           grid-column: 4 / 5;
           align-self: center;
           justify-self: center;
@@ -172,7 +176,7 @@ const SecondPage = () => (
       </span>
       <span
         css={css`
-          grid-row: 2 / 3;
+          grid-row: 3 / 4;
           grid-column: 4 / 5;
           justify-self: center;
           margin-top: 0;

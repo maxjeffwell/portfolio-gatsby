@@ -149,7 +149,6 @@ const ProjectCard = props => {
           grid-column: 1 / 3;
           grid-row: 5 / 6;
           font-size: 2.5rem;
-          align-self: center;
           justify-self: center;
           justify-content: space-between;
         `}

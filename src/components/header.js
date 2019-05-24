@@ -9,8 +9,7 @@ const NavLink = styled(Link)`
   color: #ffffff;
   font-weight: ${props => props.fontWeight || 'normal'};
   line-height: 1;
-  margin: 0 0.5rem 0 0;
-  padding: 0.25rem;
+  margin: 0 0.75rem 0 0;
   text-decoration: none;
   &.current-page {
     border-bottom: 2px solid #f7b733;
@@ -28,7 +27,10 @@ const Header = () => (
       grid-template-columns: auto 1fr auto;
       font-family: AvenirLTStd-Roman, sans-serif;
       font-size: 2rem;
-      padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
+      //padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
+      margin: 2rem auto 4rem;
+      max-width: 90vw;
+      width: 960px;
     `}
   >
     <nav
@@ -50,8 +52,7 @@ const Header = () => (
     </nav>
     <div
       css={css`
-        grid-column: 3 / 4;
-        align-content: end;
+        grid-column: 2 / 4;
       `}
     >
       <MyLogo />
