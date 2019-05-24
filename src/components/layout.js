@@ -144,6 +144,9 @@ const Layout = ({ children }) => (
               grid-column: 1 / -1;
               grid-row: 2 / 3;
               text-decoration: none;
+              @media (max-width: 480px) {
+                font-size: 1.75rem;
+              }
             `}
             target="_blank"
             rel="noopener noreferrer"
