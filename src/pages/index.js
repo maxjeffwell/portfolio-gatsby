@@ -11,7 +11,7 @@ import SEO from '../components/seo';
 const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-row-gap: 1rem;
 `;
 const StyledLink = styled(Link)`
@@ -99,6 +99,7 @@ const IndexPage = () => (
                 color: #fc4a1a;
                 font-size: 3.5rem;
                 padding-top: 1rem;
+                margin-bottom: 2rem;
               `}
             />
           </div>
