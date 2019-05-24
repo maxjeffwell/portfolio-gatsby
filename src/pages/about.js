@@ -86,6 +86,9 @@ const SecondPage = () => (
             font-size: 5rem;
             margin-top: 1rem;
             color: #ffffff;
+            @media (max-width: 480px) {
+              font-size: 3.5rem;
+            }
           `}
           title="JetBrains IntelliJ"
         />
@@ -114,6 +117,9 @@ const SecondPage = () => (
           css={css`
             font-size: 5rem;
             color: #ffffff;
+            @media (max-width: 480px) {
+              font-size: 3.5rem;
+            }
           `}
           title="Mozilla"
         />
@@ -142,6 +148,9 @@ const SecondPage = () => (
           css={css`
             font-size: 5rem;
             color: #ffffff;
+            @media (max-width: 480px) {
+              font-size: 3.5rem;
+            }
           `}
           title="Debian"
         />
@@ -170,6 +179,9 @@ const SecondPage = () => (
           css={css`
             font-size: 5rem;
             color: #ffffff;
+            @media (max-width: 480px) {
+              font-size: 3.5rem;
+            }
           `}
           title="Pied Piper"
         />
