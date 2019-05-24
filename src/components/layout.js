@@ -123,7 +123,7 @@ const Layout = ({ children }) => (
         >
           <h3
             css={css`
-              grid-column: 1 / 5;
+              grid-column: 1 / -1;
               grid-row: 1 / 2;
               margin-top: 1rem;
               font-size: 2.25rem;
@@ -135,7 +135,7 @@ const Layout = ({ children }) => (
             css={css`
               color: #f7b733;
               font-size: 2rem;
-              grid-column: 1 / 5;
+              grid-column: 1 / -1;
               grid-row: 2 / 3;
               text-decoration: none;
             `}
@@ -218,7 +218,7 @@ const Layout = ({ children }) => (
           </a>
           <p
             css={css`
-              grid-column: 1 / 5;
+              grid-column: 1 / -1;
               grid-row: 4 / 5;
               margin-bottom: 1rem;
               font-size: 1.75rem;
