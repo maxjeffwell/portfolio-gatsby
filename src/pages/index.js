@@ -150,6 +150,7 @@ const IndexPage = () => (
                 color: #fc4a1a;
                 font-size: 3.5rem;
                 padding-top: 1rem;
+                margin-bottom: 2rem;
               `}
             />
           </div>

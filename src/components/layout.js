@@ -106,27 +106,28 @@ const Layout = ({ children }) => (
         <footer
           css={css`
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr auto;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             grid-template-rows: 0.1fr 0.1fr 0.15fr 0.1fr;
             grid-column-gap: 1rem;
             grid-row-gap: 2rem;
             padding: 0.5rem calc((100vw - 960px - 0.5rem) / 2);
-            background-color: #121619;
-            background-size: cover;
             font-family: AvenirLTStd-Roman, sans-serif;
             font-size: 1.25rem;
             color: #f5f5f5;
-            width: 100vw;
-            height: 100vh;
-            
+            margin-top: 4rem;
+            border-top: 3px solid #f7b733;
+            @media (max-width: 1000px) {
+              padding-left: 30px;
+            }
           `}
         >
           <h3
             css={css`
-              grid-column: 1 / -1;
+              grid-column: 1 / 4;
               grid-row: 1 / 2;
               margin-top: 1rem;
               font-size: 2.25rem;
+              align-self: end;
             `}
           >
             Jeff Maxwell
@@ -221,7 +222,7 @@ const Layout = ({ children }) => (
               grid-column: 1 / -1;
               grid-row: 4 / 5;
               margin-bottom: 1rem;
-              font-size: 1.75rem;
+              font-size: 1.5rem;
             `}
           >
             Built by
