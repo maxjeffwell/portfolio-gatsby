@@ -106,7 +106,7 @@ const Layout = ({ children }) => (
         <footer
           css={css`
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr auto;
             grid-template-rows: 0.1fr 0.1fr 0.15fr 0.1fr;
             grid-column-gap: 1rem;
             grid-row-gap: 2rem;
@@ -126,7 +126,7 @@ const Layout = ({ children }) => (
               grid-column: 1 / 5;
               grid-row: 1 / 2;
               margin-top: 1rem;
-              font-size: 2rem;
+              font-size: 2.25rem;
             `}
           >
             Jeff Maxwell
@@ -134,7 +134,7 @@ const Layout = ({ children }) => (
           <a
             css={css`
               color: #f7b733;
-              font-size: 1.75rem;
+              font-size: 2rem;
               grid-column: 1 / 5;
               grid-row: 2 / 3;
               text-decoration: none;
@@ -221,7 +221,7 @@ const Layout = ({ children }) => (
               grid-column: 1 / 5;
               grid-row: 4 / 5;
               margin-bottom: 1rem;
-              font-size: 1.5rem;
+              font-size: 1.75rem;
             `}
           >
             Built by
