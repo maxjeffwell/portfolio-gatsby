@@ -75,6 +75,9 @@ const ProjectCard = props => {
             font-family: AvenirLTStd-Roman, sans-serif;
             color: #fc4a1a;
             font-size: 1.25rem;
+            @media (max-width: 768px) {
+              display: inline-block;
+            }
           `}
         >
           {/* eslint-disable-next-line react/destructuring-assignment */}
