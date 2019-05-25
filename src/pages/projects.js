@@ -60,8 +60,8 @@ export default ({ data }) => (
         css={css`
           grid-row: 1 / 2;
         `}
-        imageSrcPath={data.project1Screenshot.childImageSharp.fixed}
-        imageSrcPath2={data.project1Screenshot2.childImageSharp.fixed}
+        imageSrcPath={data.project1Screenshot.childImageSharp.fluid}
+        imageSrcPath2={data.project1Screenshot2.childImageSharp.fluid}
         title={project1.title}
         date={project1.date}
         description={project1.description}
@@ -75,8 +75,8 @@ export default ({ data }) => (
         css={css`
           grid-row: 2 / 3;
         `}
-        imageSrcPath={data.project2Screenshot.childImageSharp.fixed}
-        imageSrcPath2={data.project2Screenshot2.childImageSharp.fixed}
+        imageSrcPath={data.project2Screenshot.childImageSharp.fluid}
+        imageSrcPath2={data.project2Screenshot2.childImageSharp.fluid}
         title={project2.title}
         date={project2.date}
         description={project2.description}
@@ -90,8 +90,8 @@ export default ({ data }) => (
         css={css`
           grid-row: 3 / 4;
         `}
-        imageSrcPath={data.project3Screenshot.childImageSharp.fixed}
-        imageSrcPath2={data.project3Screenshot2.childImageSharp.fixed}
+        imageSrcPath={data.project3Screenshot.childImageSharp.fluid}
+        imageSrcPath2={data.project3Screenshot2.childImageSharp.fluid}
         title={project3.title}
         date={project3.date}
         description={project3.description}
@@ -109,43 +109,43 @@ export const query = graphql`
   query {
     project1Screenshot: file(relativePath: { eq: "educationELLy_screenshot.png" }) {
       childImageSharp {
-        fixed(height: 340) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
     project1Screenshot2: file(relativePath: { eq: "educationELLy_screenshot2.png" }) {
       childImageSharp {
-        fixed(height: 340) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
     project2Screenshot: file(relativePath: { eq: "code-talk_screenshot.png" }) {
       childImageSharp {
-        fixed(height: 344) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
     project2Screenshot2: file(relativePath: { eq: "code-talk_screenshot2.png" }) {
       childImageSharp {
-        fixed(height: 343) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
     project3Screenshot: file(relativePath: { eq: "bookmarked_screenshot.png" }) {
       childImageSharp {
-        fixed(height: 506) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 506) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
     project3Screenshot2: file(relativePath: { eq: "bookmarked_screenshot2.png" }) {
       childImageSharp {
-        fixed(height: 287) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
         }
       }
     }

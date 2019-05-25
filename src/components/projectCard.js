@@ -35,17 +35,25 @@ const ProjectCard = props => {
         .gatsby-image-wrapper {
           margin-top: 0;
         }
+        & .gatsby-image-wrapper:nth-of-type(2) {
+          @media (max-width: 768px) {
+            margin-top: 1rem;
+          }
+        }
+        @media (max-width: 768px) {
+          display: inline-block;
+        }
       `}
     >
       <Img
         /* eslint-disable-next-line react/destructuring-assignment */
-        fixed={props.imageSrcPath}
+        fluid={props.imageSrcPath}
         title="project screenshot"
         alt="first project screenshot"
       />
       <Img
         /* eslint-disable-next-line react/destructuring-assignment */
-        fixed={props.imageSrcPath2}
+        fluid={props.imageSrcPath2}
         title="project screenshot 2"
         alt="second project screenshot"
       />
@@ -103,6 +111,10 @@ const ProjectCard = props => {
           &:hover {
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
           }
+          @media (max-width: 768px) {
+            display: inline-block;
+            text-align: center;
+          }
         `}
         target="_blank"
         rel="noopener noreferrer"
@@ -132,6 +144,10 @@ const ProjectCard = props => {
           padding-top: 0.25rem;
           &:hover {
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+          }
+          @media (max-width: 768px) {
+            display: inline-block;
+            text-align: center;
           }
         `}
         target="_blank"
