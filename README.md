@@ -1,6 +1,6 @@
 # Jeff Maxwell's Developer Portfolio
 
-## [![Netlify Status](https://api.netlify.com/api/v1/badges/54a79ae3-eb7d-47a5-b7a0-ece69d629199/deploy-status)](https://app.netlify.com/sites/jovial-chandrasekhar-b8b6b4/deploys)
+## [![Netlify Status](https://api.netlify.com/api/v1/badges/54a79ae3-eb7d-47a5-b7a0-ece69d629199/deploy-status)](https://app.netlify.com/sites/jovial-chandrasekhar-b8b6b4/deploys)&nbsp;
 
 ## Screenshots
 
