@@ -1,8 +1,6 @@
 # Jeff Maxwell's Developer Portfolio
 
-## Status
-
-[![Website jeffmaxwell.dev](https://img.shields.io/website-up-down-green-red/http/jeffmaxwell.dev.svg)](https://www.jeffmaxwell.dev)
+## [![Netlify Status](https://api.netlify.com/api/v1/badges/54a79ae3-eb7d-47a5-b7a0-ece69d629199/deploy-status)](https://app.netlify.com/sites/jovial-chandrasekhar-b8b6b4/deploys)
 
 ## Screenshots
 
