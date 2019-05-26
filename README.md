@@ -20,7 +20,7 @@
 
 ## Meta
 
->by Jeff Maxwell <br>maxjeffwell@gmail.com |
+>by Jeff Maxwell <br>[maxjeffwell@gmail.com](mailto:maxjeffwell@gmail.com) |
 [https://github.com/maxjeffwell](https://github.com/maxjeffwell) | [https://www.jeffmaxwell.dev](https://www.jeffmaxwell.dev)
 <br>
 
