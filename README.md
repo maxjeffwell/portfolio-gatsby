@@ -1,6 +1,6 @@
 # Jeff Maxwell's Developer Portfolio
 
-## Website Status
+## Status
 
 [![Website jeffmaxwell.dev](https://img.shields.io/website-up-down-green-red/http/jeffmaxwell.dev.svg)](https://www.jeffmaxwell.dev)
 
@@ -11,6 +11,14 @@
 [![Bio](https://i.gyazo.com/2b28b3bae23de9f12e2b53439cb638d4.png)](https://gyazo.com/2b28b3bae23de9f12e2b53439cb638d4)
 
 [![Projects](https://i.gyazo.com/f69c5433c0c23028e6ea040163c99c8e.png)](https://gyazo.com/f69c5433c0c23028e6ea040163c99c8e)
+
+## Technology Stack
+
+* Gatsby
+* React Emotion
+* React Helmet
+* CSS Grid
+* Continuous Deployment with Netlify
 
 ## Meta
 
