@@ -63,6 +63,7 @@ const IndexPage = () => (
             color: #ffffff;
             font-family: HelveticaNeueLTStd-Roman, sans-serif;
             font-size: 1.75rem;
+            margin-bottom: 1rem;
           `}
         >
           I commit early and often, implement content-driven design strategies, and value readable,
@@ -73,6 +74,7 @@ const IndexPage = () => (
             color: #ffffff;
             font-family: HelveticaNeueLTStd-Roman, sans-serif;
             font-size: 1.75rem;
+            margin-bottom: 1rem;
           `}
         >
           {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -116,6 +118,7 @@ const IndexPage = () => (
             color: #ffffff;
             font-family: HelveticaNeueLTStd-Roman, sans-serif;
             font-size: 1.75rem;
+            margin-bottom: 1rem;
           `}
         >
           {/* eslint-disable-next-line react/no-unescaped-entities */}
