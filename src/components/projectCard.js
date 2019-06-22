@@ -66,6 +66,7 @@ const ProjectCard = props => {
           grid-column: 1 / 3;
           justify-self: left;
           margin-top: 1rem;
+          margin-bottom: 1rem;
         `}
       >
         {/* eslint-disable-next-line react/destructuring-assignment */}
