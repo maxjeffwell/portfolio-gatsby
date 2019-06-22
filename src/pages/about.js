@@ -68,6 +68,7 @@ const SecondPage = () => (
           font-size: 2rem;
           color: #f7b733;
           border-bottom: 3px solid #fc4a1a;
+          margin-bottom: 1rem;
         `}
       >
         Some of our favorite tech

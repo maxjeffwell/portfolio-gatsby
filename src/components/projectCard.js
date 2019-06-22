@@ -65,6 +65,7 @@ const ProjectCard = props => {
           grid-row: 2 / 3;
           grid-column: 1 / 3;
           justify-self: left;
+          margin-top: 1rem;
         `}
       >
         {/* eslint-disable-next-line react/destructuring-assignment */}
@@ -90,6 +91,7 @@ const ProjectCard = props => {
           font-size: 1.25rem;
           grid-row: 3 / 4;
           grid-column: 1 / 3;
+          margin-bottom: 1rem;
         `}
       >
         {/* eslint-disable-next-line react/destructuring-assignment */}
@@ -169,6 +171,7 @@ const ProjectCard = props => {
           font-size: 2.5rem;
           justify-self: right;
           justify-content: space-between;
+          margin-top: 1rem;
         `}
       >
         <img
