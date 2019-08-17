@@ -50,7 +50,7 @@ const SecondPage = () => (
           border-bottom: 3px solid #fc4a1a;
         `}
       >
-        Meet the Team
+        Meet the team
       </h2>
       <Image
         css={css`
