@@ -12,6 +12,7 @@
     "gatsby-image": "^2.2.8",
     "gatsby-plugin-emotion": "^4.1.2",
     "gatsby-plugin-manifest": "^2.2.5",
+    "gatsby-plugin-preconnect": "^1.0.5",
     "gatsby-plugin-react-helmet": "^3.1.3",
     "gatsby-plugin-react-svg": "^2.1.2",
     "gatsby-plugin-sharp": "^2.2.12",

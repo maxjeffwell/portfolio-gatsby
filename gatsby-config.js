@@ -52,5 +52,11 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: 'gatsby-plugin-preconnect',
+      options: {
+        domains: [`https://www.jeffmaxwell.dev`],
+      },
+    },
   ],
 };
