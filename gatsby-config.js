@@ -55,7 +55,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-preconnect',
       options: {
-        domains: [`https://www.jeffmaxwell.dev`],
+        domains: [`jeffmaxwell.dev`, `jeffmaxwell.dev/about`, `jeffmaxwell.dev/projects`],
       },
     },
   ],
