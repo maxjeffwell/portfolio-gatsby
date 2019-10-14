@@ -24,7 +24,7 @@ const Header = () => (
   <header
     css={css`
       display: grid;
-      grid-template-columns: auto 1fr 1fr auto;
+      grid-template-columns: auto 1fr .25fr auto;
       font-family: AvenirLTStd-Roman, sans-serif;
       font-size: 2rem;
       margin: 2rem auto 4rem;
