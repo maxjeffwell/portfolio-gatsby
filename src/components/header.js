@@ -41,7 +41,7 @@ const Header = () => (
     <nav
       css={css`
         margin-top: 0;
-        grid-column: 1 / 2;
+        grid-column: 2 / 4;
         align-self: end;
       `}
     >
@@ -57,7 +57,7 @@ const Header = () => (
     </nav>
     <div
       css={css`
-        grid-column: 2 / 2;
+        grid-column: 3 / 4;
         align-self: end;
       `}
     >
