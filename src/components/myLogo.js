@@ -17,7 +17,7 @@ const MyLogo = () => (
       query {
         myLogo: file(relativePath: { eq: "logo_elephant_100x100.png" }) {
           childImageSharp {
-            fixed(width: 100, height: 85) {
+            fixed(width: 100, height: 100) {
               ...GatsbyImageSharpFixed
             }
           }
