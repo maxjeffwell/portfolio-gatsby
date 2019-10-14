@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 const StyledImg = styled(Img)`
   picture {
     color: #f7b733;
-    margin-bottom: 0;
+    //margin-bottom: 0;
   }
 `;
 
