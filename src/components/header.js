@@ -42,7 +42,6 @@ const Header = () => (
       css={css`
         margin-top: 0;
         grid-column: 2 / 3;
-        align-self: end;
       `}
     >
       <NavLink to="/" fontWeight="bold" activeClassName="current-page">
@@ -58,6 +57,7 @@ const Header = () => (
     <div
       css={css`
         grid-column: 3 / 4;
+        justify-content: right;
       `}
     >
       <MyLogo />
