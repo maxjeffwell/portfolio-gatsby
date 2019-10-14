@@ -58,7 +58,7 @@ const Header = () => (
     <div
       css={css`
         grid-column: 3 / 4;
-        align-self: end;
+        align-content: end;
       `}
     >
       <MyLogo />
