@@ -57,6 +57,7 @@ const Header = () => (
     </nav>
     <div
       css={css`
+        display: grid;
         grid-column: 3 / 4;
         align-content: end;
       `}
