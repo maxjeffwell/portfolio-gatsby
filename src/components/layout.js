@@ -78,6 +78,9 @@ const Layout = ({ children }) => (
               &:nth-of-type(2) {
                 margin-top: 0;
               }
+            img:-moz-loading {
+                visibility: hidden;
+              }
             }
             button {
               background-color: #f7b733;
