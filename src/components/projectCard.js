@@ -71,7 +71,7 @@ const ProjectCard = props => {
       >
         {/* eslint-disable-next-line react/destructuring-assignment */}
         {props.title}
-        ` `
+        {` `}
         <small
           css={css`
             font-family: AvenirLTStd-Roman, sans-serif;
@@ -131,7 +131,7 @@ const ProjectCard = props => {
       >
         Source Code
       </a>
-      ` `
+      {` `}
       <a
         css={css`
           grid-row: 4 / 5;
@@ -184,7 +184,7 @@ const ProjectCard = props => {
           src={props.imageSrcPath3}
           alt="icon"
         />
-        ` `
+        {` `}
         <img
           css={css`
             width: 45px;
@@ -194,7 +194,7 @@ const ProjectCard = props => {
           src={props.imageSrcPath4}
           alt="icon"
         />
-        ` `
+        {` `}
         <img
           css={css`
             width: 45px;
@@ -204,21 +204,21 @@ const ProjectCard = props => {
           src={props.imageSrcPath5}
           alt="icon"
         />
-        ` `
+        {` `}
         <FaReact
           css={css`
             color: #fc4a1a;
           `}
           title="React"
         />
-        ` `
+        {` `}
         <FaGit
           css={css`
             color: #fc4a1a;
           `}
           title="Github"
         />
-        ` `
+        {` `}
         <DiHeroku
           css={css`
             color: #fc4a1a;
