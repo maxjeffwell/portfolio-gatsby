@@ -24,7 +24,7 @@ const MyLogo = () => (
         }
       }
     `}
-    render={data => <StyledImg fixed={data.myLogo.childImageSharp.fixed} alt="Site Logo" />}
+    render={data => <StyledImg fixed={data.myLogo.childImageSharp.fixed} />}
   />
 );
 
