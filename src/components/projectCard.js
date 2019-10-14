@@ -239,7 +239,7 @@ const ProjectCard = props => {
 ProjectCard.propTypes = {
   /* eslint-disable-next-line react/forbid-prop-types */
   imageSrcPath: PropTypes.object.isRequired,
-  /* eslint-disable-next-line react/forbid-prop-types */
+  // eslint-disable-next-line react/forbid-prop-types
   imageSrcPath2: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

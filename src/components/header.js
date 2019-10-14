@@ -56,13 +56,6 @@ const Header = () => (
       </NavLink>
       <MyLogo />
     </nav>
-    {/* <div */}
-    {/*  css={css` */}
-    {/*    grid-column: 2 / 2; */}
-    {/*  `} */}
-    {/* > */}
-    {/*  <MyLogo /> */}
-    {/* </div> */}
   </header>
 );
 
