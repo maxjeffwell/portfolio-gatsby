@@ -24,7 +24,7 @@ const Header = () => (
   <header
     css={css`
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr 1fr auto;
       font-family: AvenirLTStd-Roman, sans-serif;
       font-size: 2rem;
       margin: 2rem auto 4rem;
@@ -41,7 +41,7 @@ const Header = () => (
     <nav
       css={css`
         margin-top: 0;
-        grid-column: 2 / 4;
+        grid-column: 2 / 3;
         align-self: end;
       `}
     >
