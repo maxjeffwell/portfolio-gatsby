@@ -246,14 +246,14 @@ const Layout = ({ children }) => (
             `}
           >
             Built by
-            {` `}
+            ` `
             {data.site.siteMetadata.author}
             , created
-            {` `}
+            ` `
             {data.site.siteMetadata.createdAt}
-            {` `}
+            ` `
             with
-            {` `}
+            ` `
             <a
               css={css`
                 text-decoration: none;
