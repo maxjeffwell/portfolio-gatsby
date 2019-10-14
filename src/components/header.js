@@ -54,8 +54,14 @@ const Header = () => (
       <NavLink to="/projects" fontWeight="bold" activeClassName="current-page" partiallyActive>
         Projects
       </NavLink>
-      <MyLogo />
     </nav>
+    <div
+      css={css`
+        grid-column: 2 / 2;
+      `}
+    >
+      <MyLogo />
+    </div>
   </header>
 );
 
