@@ -57,7 +57,7 @@ const Header = () => (
     </nav>
     <div
       css={css`
-        grid-column: 2 / 4;
+        grid-column: 2 / 2;
       `}
     >
       <MyLogo />
