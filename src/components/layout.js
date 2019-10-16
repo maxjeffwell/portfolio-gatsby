@@ -186,7 +186,7 @@ const Layout = ({ children }) => (
             `}
             target="_blank"
             rel="noopener noreferrer"
-            href="https://angel.co/maxjeffwell"
+            // href="https://angel.co/maxjeffwell"
           >
             <FaAngellist
               css={css`
@@ -207,7 +207,7 @@ const Layout = ({ children }) => (
             `}
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
+            // href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
           >
             <FaLinkedin
               css={css`
