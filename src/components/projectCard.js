@@ -1,37 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku, DiTravis } from 'react-icons/di';
+import { useTheme } from '../context/ThemeContext';
 
-const ProjectCard = props => {
+const ProjectCard = (props) => {
+  const { theme } = useTheme();
+
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
-    <div
+    <article
       css={css`
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 0.1fr 0.25fr auto;
         grid-column-gap: 0.75rem;
-        border: 5px solid #121619;
-        background-color: #2d3047;
+        border: 5px solid ${theme.colors.border};
+        background-color: ${theme.colors.secondary};
         padding: 2rem 2rem 2rem 2rem;
         border-radius: 5px;
-        color: #ffffff;
-        & div > img:first-of-type {
-          border-radius: 5px;
-          border: 2px solid #363636;
-          grid-column: 1 / 2;
-          grid-row: 1 / 2;
-        }
-        & div > img:nth-of-type(2) {
-          border-radius: 5px;
-          border: 2px solid #363636;
-          grid-column: 2 / 3;
-          grid-row: 1 / 2;
-        }
+        color: ${theme.colors.text};
+        transition: all ${theme.transitions.normal};
         [data-gatsby-image-wrapper] {
           margin-top: 0;
         }
@@ -48,18 +39,30 @@ const ProjectCard = props => {
       <GatsbyImage
         /* eslint-disable-next-line react/destructuring-assignment */
         image={getImage(props.imageSrcPath)}
-        alt="first project screenshot"
+        alt={`${props.title} - Screenshot 1`}
+        loading="lazy"
+        css={css`
+          transition: opacity 0.3s ease-in-out;
+          border-radius: 5px;
+          border: 2px solid ${theme.colors.border};
+        `}
       />
       <GatsbyImage
         /* eslint-disable-next-line react/destructuring-assignment */
         image={getImage(props.imageSrcPath2)}
-        alt="second project screenshot"
+        alt={`${props.title} - Screenshot 2`}
+        loading="lazy"
+        css={css`
+          transition: opacity 0.3s ease-in-out;
+          border-radius: 5px;
+          border: 2px solid ${theme.colors.border};
+        `}
       />
       <h3
         css={css`
           font-family: AvenirLTStd-Roman, sans-serif;
           font-size: 1.75rem;
-          color: #f7b733;
+          color: ${theme.colors.accentSecondary};
           grid-row: 2 / 3;
           grid-column: 1 / 3;
           justify-self: left;
@@ -73,7 +76,7 @@ const ProjectCard = props => {
         <small
           css={css`
             font-family: AvenirLTStd-Roman, sans-serif;
-            color: #fc4a1a;
+            color: ${theme.colors.accent};
             font-size: 1.25rem;
             @media (max-width: 768px) {
               display: inline-block;
@@ -96,141 +99,168 @@ const ProjectCard = props => {
         {/* eslint-disable-next-line react/destructuring-assignment */}
         {props.description}
       </p>
-      <a
-        css={css`
-          grid-row: 4 / 5;
-          justify-self: self-end;
-          font-family: SabonLTStd-Roman, serif;
-          font-weight: bold;
-          font-size: 1.25rem;
-          background-color: #f7b733;
-          border: 2px solid #363636;
-          border-radius: 5px;
-          color: #393939;
-          cursor: pointer;
-          text-decoration: none;
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          &:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-          }
-          @media (max-width: 768px) {
-            display: inline-block;
-            text-align: center;
-          }
-        `}
-        target="_blank"
-        rel="noopener noreferrer"
-        type="button"
-        text="Source Code"
-        /* eslint-disable-next-line react/destructuring-assignment */
-        href={props.sourceURL}
-      >
-        Source Code
-      </a>
-      {` `}
-      <a
-        css={css`
-          grid-row: 4 / 5;
-          justify-self: self-start;
-          font-family: SabonLTStd-Roman, serif;
-          font-weight: bold;
-          font-size: 1.25rem;
-          background-color: #f7b733;
-          border: 2px solid #363636;
-          border-radius: 5px;
-          color: #393939;
-          cursor: pointer;
-          text-decoration: none;
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          &:hover {
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-          }
-          @media (max-width: 768px) {
-            display: inline-block;
-            text-align: center;
-          }
-        `}
-        target="_blank"
-        rel="noopener noreferrer"
-        type="button"
-        text="Live App"
-        /* eslint-disable-next-line react/destructuring-assignment */
-        href={props.hostedURL}
-      >
-        Live App
-      </a>
       <div
         css={css`
+          grid-row: 4 / 5;
           grid-column: 1 / 3;
-          grid-row: 5 / 6;
-          font-size: 2.5rem;
-          justify-self: right;
+          display: flex;
+          gap: 1rem;
           justify-content: space-between;
-          margin-top: 1rem;
+          @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
         `}
       >
-        <img
+        <a
           css={css`
-            width: 45px;
-            height: 45px;
+            font-family: SabonLTStd-Roman, serif;
+            font-weight: bold;
+            font-size: 1.25rem;
+            background-color: ${theme.colors.accentSecondary};
+            border: 2px solid ${theme.colors.border};
+            border-radius: 5px;
+            color: ${theme.colors.textInverse};
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease-in-out;
+            &:hover {
+              box-shadow: ${theme.shadows.hover};
+              transform: translateY(-2px);
+            }
+            &:focus {
+              outline: 2px solid ${theme.colors.accentSecondary};
+              outline-offset: 2px;
+            }
+            @media (max-width: 768px) {
+              text-align: center;
+            }
           `}
+          target="_blank"
+          rel="noopener noreferrer"
           /* eslint-disable-next-line react/destructuring-assignment */
-          src={props.imageSrcPath3}
-          alt="icon"
-        />
-        {` `}
-        <img
+          href={props.sourceURL}
+          aria-label={`View source code for ${props.title}`}
+        >
+          Source Code
+        </a>
+        <a
           css={css`
-            width: 45px;
-            height: 45px;
+            font-family: SabonLTStd-Roman, serif;
+            font-weight: bold;
+            font-size: 1.25rem;
+            background-color: ${theme.colors.accentSecondary};
+            border: 2px solid ${theme.colors.border};
+            border-radius: 5px;
+            color: ${theme.colors.textInverse};
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease-in-out;
+            &:hover {
+              box-shadow: ${theme.shadows.hover};
+              transform: translateY(-2px);
+            }
+            &:focus {
+              outline: 2px solid ${theme.colors.accentSecondary};
+              outline-offset: 2px;
+            }
+            @media (max-width: 768px) {
+              text-align: center;
+            }
           `}
+          target="_blank"
+          rel="noopener noreferrer"
           /* eslint-disable-next-line react/destructuring-assignment */
-          src={props.imageSrcPath4}
-          alt="icon"
-        />
-        {` `}
-        <img
-          css={css`
-            width: 45px;
-            height: 45px;
-          `}
-          /* eslint-disable-next-line react/destructuring-assignment */
-          src={props.imageSrcPath5}
-          alt="icon"
-        />
-        {` `}
-        <FaReact
-          css={css`
-            color: #fc4a1a;
-          `}
-          title="React"
-        />
-        {` `}
-        <FaGit
-          css={css`
-            color: #fc4a1a;
-          `}
-          title="Github"
-        />
-        {` `}
-        <DiHeroku
-          css={css`
-            color: #fc4a1a;
-          `}
-          title="Heroku"
-        />
-        <DiTravis
-          css={css`
-            color: #fc4a1a;
-          `}
-          title="Travis"
-        />
+          href={props.hostedURL}
+          aria-label={`View live demo of ${props.title}`}
+        >
+          Live Demo
+        </a>
       </div>
-    </div>
+      <footer>
+        <h4 className="sr-only">Technologies Used</h4>
+        <div
+          css={css`
+            grid-column: 1 / 3;
+            grid-row: 5 / 6;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            @media (max-width: 768px) {
+              justify-content: center;
+            }
+          `}
+          role="list"
+          aria-label="Technologies used in this project"
+        >
+          <img
+            css={css`
+              width: 45px;
+              height: 45px;
+            `}
+            /* eslint-disable-next-line react/destructuring-assignment */
+            src={props.imageSrcPath3}
+            alt={`Technology icon`}
+            role="listitem"
+          />
+          <img
+            css={css`
+              width: 45px;
+              height: 45px;
+            `}
+            /* eslint-disable-next-line react/destructuring-assignment */
+            src={props.imageSrcPath4}
+            alt={`Technology icon`}
+            role="listitem"
+          />
+          <img
+            css={css`
+              width: 45px;
+              height: 45px;
+            `}
+            /* eslint-disable-next-line react/destructuring-assignment */
+            src={props.imageSrcPath5}
+            alt={`Technology icon`}
+            role="listitem"
+          />
+          <FaReact
+            css={css`
+              color: ${theme.colors.accent};
+              font-size: 2.5rem;
+            `}
+            aria-label="React framework"
+            role="listitem"
+          />
+          <FaGit
+            css={css`
+              color: ${theme.colors.accent};
+              font-size: 2.5rem;
+            `}
+            aria-label="Git version control"
+            role="listitem"
+          />
+          <DiHeroku
+            css={css`
+              color: ${theme.colors.accent};
+              font-size: 2.5rem;
+            `}
+            aria-label="Heroku deployment platform"
+            role="listitem"
+          />
+          <DiTravis
+            css={css`
+              color: ${theme.colors.accent};
+              font-size: 2.5rem;
+            `}
+            aria-label="Travis CI"
+            role="listitem"
+          />
+        </div>
+      </footer>
+    </article>
   );
 };
 

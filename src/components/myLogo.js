@@ -1,30 +1,43 @@
 import React from 'react';
-import { StaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { useStaticQuery, graphql } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from '@emotion/styled';
 
-const StyledImg = styled(Img)`
+const StyledGatsbyImage = styled(GatsbyImage)`
   picture {
     color: #f7b733;
   }
 `;
 
-const MyLogo = () => (
-  // eslint-disable-next-line react/jsx-filename-extension
-  <StaticQuery
-    query={graphql`
-      query {
-        myLogo: file(relativePath: { eq: "logo_elephant_100x100.png" }) {
-          childImageSharp {
-            fixed(width: 100, height: 85) {
-              ...GatsbyImageSharpFixed_noBase64
-            }
-          }
+const MyLogo = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      myLogo: file(relativePath: { eq: "logo_elephant_100x100.png" }) {
+        childImageSharp {
+          gatsbyImageData(
+            width: 100
+            height: 85
+            quality: 95
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
       }
-    `}
-    render={data => <StyledImg fixed={data.myLogo.childImageSharp.fixed} />}
-  />
-);
+    }
+  `);
+
+  const logoImage = getImage(data.myLogo);
+
+  return (
+    <StyledGatsbyImage
+      image={logoImage}
+      alt="Jeff Maxwell logo"
+      loading="eager"
+      style={{
+        transition: 'opacity 0.3s ease-in-out',
+      }}
+    />
+  );
+};
 
 export default MyLogo;
