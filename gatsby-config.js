@@ -8,6 +8,7 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -41,14 +42,6 @@ module.exports = {
             'HelveticaNeueLTStd-Roman',
             'SabonLTStd-Roman',
           ],
-        },
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-react-svg',
-      options: {
-        rule: {
-          include: '/src/images',
         },
       },
     },

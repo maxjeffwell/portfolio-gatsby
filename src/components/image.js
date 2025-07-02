@@ -1,34 +1,31 @@
 import React from 'react';
-import { StaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { useStaticQuery, graphql } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-const Image = () => (
-  // eslint-disable-next-line react/jsx-filename-extension
-  <StaticQuery
-    query={graphql`
-      query {
-        teamImage: file(relativePath: { eq: "code-companions.png" }) {
-          childImageSharp {
-            fluid(maxWidth: 1260, grayscale: true) {
-              ...GatsbyImageSharpFluid_tracedSVG
-            }
-          }
-        }
-        teamImage2: file(relativePath: { eq: "elephant-developer.png" }) {
-          childImageSharp {
-            fluid(maxWidth: 1260, grayscale: true) {
-              ...GatsbyImageSharpFluid_tracedSVG
-            }
-          }
+const Image = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      teamImage: file(relativePath: { eq: "code-companions.png" }) {
+        childImageSharp {
+  gatsbyImageData(width: 1260, placeholder: BLURRED, transformOptions: {grayscale: true})
         }
       }
-    `}
-    render={data => (
-      <>
-        <Img fluid={data.teamImage2.childImageSharp.fluid} alt="See my mascot" />
-        <Img fluid={data.teamImage.childImageSharp.fluid} alt="See my two dogs" />
-      </>
-    )}
-  />
-);
+      teamImage2: file(relativePath: { eq: "elephant-developer.png" }) {
+        childImageSharp {
+  gatsbyImageData(width: 1260, placeholder: BLURRED, transformOptions: {grayscale: true})
+        }
+      }
+    }
+  `);
+
+  const teamImage = getImage(data.teamImage);
+  const teamImage2 = getImage(data.teamImage2);
+
+  return (
+    <>
+      <GatsbyImage image={teamImage2} alt="See my mascot" />
+      <GatsbyImage image={teamImage} alt="See my two dogs" />
+    </>
+  );
+};
 export default Image;

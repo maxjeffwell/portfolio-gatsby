@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku, DiTravis } from 'react-icons/di';
@@ -32,10 +32,10 @@ const ProjectCard = props => {
           grid-column: 2 / 3;
           grid-row: 1 / 2;
         }
-        .gatsby-image-wrapper {
+        [data-gatsby-image-wrapper] {
           margin-top: 0;
         }
-        & .gatsby-image-wrapper:nth-of-type(2) {
+        & [data-gatsby-image-wrapper]:nth-of-type(2) {
           @media (max-width: 768px) {
             margin-top: 1rem;
           }
@@ -45,16 +45,14 @@ const ProjectCard = props => {
         }
       `}
     >
-      <Img
+      <GatsbyImage
         /* eslint-disable-next-line react/destructuring-assignment */
-        fluid={props.imageSrcPath}
-        title="project screenshot"
+        image={getImage(props.imageSrcPath)}
         alt="first project screenshot"
       />
-      <Img
+      <GatsbyImage
         /* eslint-disable-next-line react/destructuring-assignment */
-        fluid={props.imageSrcPath2}
-        title="project screenshot 2"
+        image={getImage(props.imageSrcPath2)}
         alt="second project screenshot"
       />
       <h3
