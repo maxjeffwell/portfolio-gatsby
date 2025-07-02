@@ -227,4 +227,4 @@ ThemeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { lightTheme, darkTheme };
+export { ThemeContext };

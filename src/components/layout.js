@@ -6,7 +6,7 @@ import { Global, css } from '@emotion/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { FaGithubAlt, FaAngellist, FaLinkedin, FaPhone } from 'react-icons/fa';
 import WebPPreloader from './webpPreloader';
-import { ThemeProvider, useTheme } from '../context/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 import Header from './header';
 
@@ -379,16 +379,14 @@ ThemedLayout.propTypes = {
   data: PropTypes.object.isRequired,
 };
 
-// Main Layout Component with Theme Provider
+// Main Layout Component
 const Layout = ({ children }) => (
-  <ThemeProvider>
-    <HelmetProvider>
-      <StaticQuery
-        query={GET_SITE_METADATA}
-        render={(data) => <ThemedLayout data={data}>{children}</ThemedLayout>}
-      />
-    </HelmetProvider>
-  </ThemeProvider>
+  <HelmetProvider>
+    <StaticQuery
+      query={GET_SITE_METADATA}
+      render={(data) => <ThemedLayout data={data}>{children}</ThemedLayout>}
+    />
+  </HelmetProvider>
 );
 
 Layout.propTypes = {

@@ -7,7 +7,7 @@ import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import { useTheme } from '../context/ThemeContext';
+import { ThemeProvider, useTheme } from '../context/ThemeContext';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -28,12 +28,15 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const IndexPage = () => {
+function IndexPage() {
+  // eslint-disable-next-line react/jsx-filename-extension
   const { theme } = useTheme();
 
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
+    <ThemeProvider>
     <Layout>
-      <SEO
+        <SEO
         title="Home"
         description="Jeff Maxwell - Full Stack Web Developer specializing in React, Node.js, and modern web development. Explore my portfolio of innovative projects and development solutions."
         pathname="/"
@@ -212,7 +215,8 @@ const IndexPage = () => {
         </section>
       </StyledContainer>
     </Layout>
+    </ThemeProvider>
   );
-};
+}
 
 export default IndexPage;
