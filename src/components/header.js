@@ -82,13 +82,36 @@ const Header = () => {
         font-size: 2rem;
         margin: 2rem auto 4rem;
         max-width: 90vw;
-        width: 960px;
+        width: 1100px;
         align-items: center;
         gap: 1rem;
-        animation: ${theme.animations.slideUp};
-        animation-delay: 0.1s;
-        animation-fill-mode: both;
+        opacity: 1;
+        transform: translateY(0);
+        transition: all ${theme.transitions.slow};
         position: relative;
+        overflow: hidden;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(
+            circle at 30% 20%,
+            ${theme.colors.accent}08 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 80%,
+            ${theme.colors.accentSecondary}08 0%,
+            transparent 50%
+          );
+          animation: floatBackground 20s ease-in-out infinite;
+          pointer-events: none;
+          z-index: -1;
+        }
         
         &::after {
           content: '';
@@ -100,6 +123,23 @@ const Header = () => {
           height: 1px;
           background: ${theme.gradients.accent};
           opacity: 0.3;
+        }
+        
+        @keyframes floatBackground {
+          0%, 100% {
+            transform: translateX(-10px) translateY(-10px) rotate(0deg);
+          }
+          33% {
+            transform: translateX(10px) translateY(-20px) rotate(1deg);
+          }
+          66% {
+            transform: translateX(-5px) translateY(10px) rotate(-1deg);
+          }
+        }
+        
+        @media (max-width: 768px) {
+          font-size: 1.75rem;
+          width: 95vw;
         }
         
         @media (max-width: 480px) {
@@ -160,6 +200,17 @@ const Header = () => {
               theme={theme}
             >
               Projects
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              fontWeight="bold"
+              activeClassName="current-page"
+              partiallyActive
+              theme={theme}
+            >
+              Contact
             </NavLink>
           </li>
         </ul>

@@ -7,12 +7,15 @@ import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import TypingAnimation from '../components/TypingAnimation';
+import CodeSnippet from '../components/CodeSnippet';
 import { useTheme } from '../context/ThemeContext';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const StyledContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto 1fr auto;
   grid-row-gap: 1rem;
 `;
 const StyledLink = styled(Link)`
@@ -30,6 +33,10 @@ const StyledLink = styled(Link)`
 
 function IndexPage() {
   const { theme } = useTheme();
+  const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
+  const [introRef, introVisible] = useScrollAnimation({ delay: 300 });
+  const [navRef, navVisible] = useScrollAnimation({ delay: 500 });
+  const [codeRef, codeVisible] = useScrollAnimation({ delay: 200 });
 
   return (
     <Layout>
@@ -51,7 +58,7 @@ function IndexPage() {
         ]}
       />
       <StyledContainer role="main">
-        <header>
+        <header ref={headerRef}>
           <h1
             css={css`
               grid-row: 1 / 2;
@@ -63,8 +70,10 @@ function IndexPage() {
               background-clip: text;
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
-              animation: ${theme.animations.slideInLeft};
               line-height: 1.2;
+              opacity: ${headerVisible ? 1 : 0};
+              transform: ${headerVisible ? 'translateX(0)' : 'translateX(-50px)'};
+              transition: all ${theme.transitions.slow};
               @media (max-width: 768px) {
                 font-size: 2rem;
               }
@@ -73,14 +82,34 @@ function IndexPage() {
               }
             `}
           >
-            My name&apos;s Jeff. I&apos;m a full stack web developer working with Node and React.
+            My name&apos;s Jeff. I&apos;m a{' '}
+            <TypingAnimation
+              key="hero-typing"
+              texts={[
+                'full stack web developer',
+                'React specialist', 
+                'Node.js developer',
+                'GraphQL enthusiast',
+                'JAMstack architect'
+              ]}
+              typeSpeed={80}
+              deleteSpeed={40}
+              delayBetweenTexts={1500}
+              loop={true}
+              startDelay={500}
+            />
+            {' '}working with modern web technologies.
           </h1>
         </header>
         <section
+          ref={introRef}
           aria-labelledby="intro-heading"
           css={css`
             grid-row: 2 / 3;
             grid-column: 1 / 2;
+            opacity: ${introVisible ? 1 : 0};
+            transform: ${introVisible ? 'translateY(0)' : 'translateY(30px)'};
+            transition: all ${theme.transitions.slow};
           `}
         >
           <h2 id="intro-heading" className="sr-only">
@@ -93,9 +122,10 @@ function IndexPage() {
               font-size: 1.75rem;
               margin-bottom: 1.5rem;
               line-height: 1.5;
-              animation: ${theme.animations.fadeIn};
-              animation-delay: 0.2s;
-              animation-fill-mode: both;
+              opacity: ${introVisible ? 1 : 0};
+              transform: ${introVisible ? 'translateY(0)' : 'translateY(20px)'};
+              transition: all ${theme.transitions.slow};
+              transition-delay: 0.1s;
               position: relative;
               &::before {
                 content: '';
@@ -121,20 +151,22 @@ function IndexPage() {
               font-size: 1.75rem;
               margin-bottom: 2rem;
               line-height: 1.5;
-              animation: ${theme.animations.fadeIn};
-              animation-delay: 0.4s;
-              animation-fill-mode: both;
+              opacity: ${introVisible ? 1 : 0};
+              transform: ${introVisible ? 'translateY(0)' : 'translateY(20px)'};
+              transition: all ${theme.transitions.slow};
+              transition-delay: 0.2s;
             `}
           >
             Currently focused on modern web technologies including React, GraphQL, and JAMstack
             architecture.
           </p>
           <nav 
+            ref={navRef}
             aria-label="Portfolio navigation"
             css={css`
-              animation: ${theme.animations.slideUp};
-              animation-delay: 0.6s;
-              animation-fill-mode: both;
+              opacity: ${navVisible ? 1 : 0};
+              transform: ${navVisible ? 'translateY(0) scale(1)' : 'translateY(40px) scale(0.95)'};
+              transition: all ${theme.transitions.elastic};
             `}
           >
             <div
@@ -320,6 +352,58 @@ function IndexPage() {
               />
             </StyledLink>
           </nav>
+        </section>
+        
+        <section
+          ref={codeRef}
+          aria-labelledby="code-heading"
+          css={css`
+            grid-row: 4 / 5;
+            grid-column: 1 / 2;
+            margin-top: 3rem;
+            opacity: ${codeVisible ? 1 : 0};
+            transform: ${codeVisible ? 'translateY(0)' : 'translateY(30px)'};
+            transition: all ${theme.transitions.slow};
+          `}
+        >
+          <h2 
+            id="code-heading" 
+            css={css`
+              color: ${theme.colors.text};
+              font-family: HelveticaNeueLTStd-Bd, sans-serif;
+              font-size: 2rem;
+              margin-bottom: 1.5rem;
+              text-align: center;
+              background: ${theme.gradients.accent};
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            `}
+          >
+            My kind of code
+          </h2>
+          
+          <CodeSnippet
+            title="React Component with Hooks"
+            animated={codeVisible}
+            animationSpeed={25}
+            code={`const useTheme = () => {
+  const [isDark, setIsDark] = useState(false);
+  
+  useEffect(() => {
+    const stored = localStorage.getItem('theme');
+    setIsDark(stored === 'dark');
+  }, []);
+  
+  const toggleTheme = () => {
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+  };
+  
+  return { isDark, toggleTheme };
+};`}
+          />
         </section>
       </StyledContainer>
     </Layout>

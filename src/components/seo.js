@@ -19,8 +19,9 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
 
   const metaDescription = description || site.siteMetadata.description;
   const metaTitle = title ? `${title} | ${site.siteMetadata.title}` : site.siteMetadata.title;
-  const metaImage = image ? `${site.siteMetadata.siteUrl}${image}` : null;
+  const metaImage = image ? `${site.siteMetadata.siteUrl}${image}` : `${site.siteMetadata.siteUrl}/icons/icon-512x512.png`;
   const metaUrl = `${site.siteMetadata.siteUrl}${pathname || ''}`;
+  const canonical = `${site.siteMetadata.siteUrl}${pathname || ''}`;
 
   return (
     <Helmet
@@ -96,6 +97,78 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           name: `theme-color`,
           content: `#fc4a1a`,
         },
+        {
+          name: `msapplication-TileColor`,
+          content: `#fc4a1a`,
+        },
+        {
+          name: `apple-mobile-web-app-capable`,
+          content: `yes`,
+        },
+        {
+          name: `apple-mobile-web-app-status-bar-style`,
+          content: `black-translucent`,
+        },
+        {
+          name: `apple-mobile-web-app-title`,
+          content: site.siteMetadata.title,
+        },
+        {
+          name: `mobile-web-app-capable`,
+          content: `yes`,
+        },
+        {
+          name: `application-name`,
+          content: site.siteMetadata.title,
+        },
+        {
+          name: `msapplication-tooltip`,
+          content: metaDescription,
+        },
+        {
+          name: `msapplication-starturl`,
+          content: `/`,
+        },
+        {
+          name: `format-detection`,
+          content: `telephone=no`,
+        },
+        {
+          name: `HandheldFriendly`,
+          content: `True`,
+        },
+        {
+          name: `MobileOptimized`,
+          content: `320`,
+        },
+        {
+          name: `referrer`,
+          content: `no-referrer-when-downgrade`,
+        },
+        {
+          property: `og:locale`,
+          content: `en_US`,
+        },
+        {
+          property: `og:image:width`,
+          content: `1200`,
+        },
+        {
+          property: `og:image:height`,
+          content: `630`,
+        },
+        {
+          property: `og:image:alt`,
+          content: metaTitle,
+        },
+        {
+          name: `twitter:site`,
+          content: `@maxjeffwell`,
+        },
+        {
+          name: `twitter:image:alt`,
+          content: metaTitle,
+        },
       ]
         .concat(
           metaImage
@@ -120,6 +193,51 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
             : []
         )
         .concat(meta)}
+      link={[
+        {
+          rel: 'canonical',
+          href: canonical,
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.googleapis.com',
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossOrigin: 'anonymous',
+        },
+        {
+          rel: 'dns-prefetch',
+          href: 'https://www.google-analytics.com',
+        },
+        {
+          rel: 'manifest',
+          href: '/manifest.json',
+        },
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/icons/apple-touch-icon.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '32x32',
+          href: '/icons/favicon-32x32.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '16x16',
+          href: '/icons/favicon-16x16.png',
+        },
+        {
+          rel: 'mask-icon',
+          href: '/icons/safari-pinned-tab.svg',
+          color: '#fc4a1a',
+        },
+      ]}
     >
       {/* Structured Data - Person Schema */}
       <script type="application/ld+json">

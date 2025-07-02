@@ -5,6 +5,9 @@ import { Global, css } from '@emotion/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { FaGithubAlt, FaAngellist, FaLinkedin, FaPhone } from 'react-icons/fa';
 import WebPPreloader from './webpPreloader';
+import ScrollToTop from './ScrollToTop';
+import PWAInstallPrompt from './PWAInstallPrompt';
+import ServiceWorkerNotification from './ServiceWorkerNotification';
 import { useTheme } from '../context/ThemeContext';
 
 import Header from './header';
@@ -255,6 +258,9 @@ const ThemedLayout = ({ children, data }) => {
           }
         `}
       />
+      <ScrollToTop />
+      <PWAInstallPrompt />
+      <ServiceWorkerNotification />
       <Header />
       <main
         css={css`

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -6,12 +6,56 @@ import { useTheme } from '../context/ThemeContext';
 import { FaSearch, FaTimes } from 'react-icons/fa';
 
 const FilterContainer = styled.div`
-  background-color: ${(props) => props.theme.colors.secondary};
+  background: ${(props) => props.theme.gradients.secondary};
   border: 2px solid ${(props) => props.theme.colors.border};
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 3rem;
   transition: all ${(props) => props.theme.transitions.normal};
+  position: relative;
+  box-shadow: ${(props) => props.theme.shadows.medium};
+  animation: ${(props) => props.theme.animations.slideUp};
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: ${(props) => props.theme.gradients.accent};
+    border-radius: 20px 20px 0 0;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: ${(props) => props.theme.gradients.accent};
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity ${(props) => props.theme.transitions.normal};
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${(props) => props.theme.shadows.hover};
+    
+    &::after {
+      opacity: 0.3;
+    }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(400%); }
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -25,19 +69,32 @@ const SearchInput = styled.input`
   font-size: 1rem;
   font-family: SabonLTStd-Roman, serif;
   border: 2px solid ${(props) => props.theme.colors.border};
-  border-radius: 6px;
+  border-radius: 12px;
   background-color: ${(props) => props.theme.colors.surface};
   color: ${(props) => props.theme.colors.textInverse};
   transition: all ${(props) => props.theme.transitions.normal};
+  position: relative;
 
   &:focus {
     outline: none;
     border-color: ${(props) => props.theme.colors.accentSecondary};
-    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.accentSecondary}40;
+    box-shadow: 0 0 0 3px ${(props) => props.theme.colors.accentSecondary}40,
+                0 4px 12px ${(props) => props.theme.colors.accent}20;
+    transform: translateY(-1px);
+  }
+
+  &:hover:not(:focus) {
+    border-color: ${(props) => props.theme.colors.accent};
+    box-shadow: 0 2px 8px ${(props) => props.theme.colors.accent}20;
   }
 
   &::placeholder {
     color: ${(props) => props.theme.colors.textSecondary}80;
+    transition: color ${(props) => props.theme.transitions.fast};
+  }
+
+  &:focus::placeholder {
+    color: ${(props) => props.theme.colors.textSecondary}60;
   }
 `;
 
@@ -105,18 +162,57 @@ const FilterCheckbox = styled.label`
   align-items: center;
   cursor: pointer;
   padding: 0.5rem;
-  border-radius: 6px;
-  transition: all ${(props) => props.theme.transitions.fast};
+  border-radius: 8px;
+  transition: all ${(props) => props.theme.transitions.normal};
   font-family: SabonLTStd-Roman, serif;
   color: ${(props) => props.theme.colors.text};
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      ${(props) => props.theme.colors.accent}30,
+      transparent
+    );
+    transition: left ${(props) => props.theme.transitions.normal};
+  }
 
   &:hover {
     background-color: ${(props) => props.theme.colors.primary}40;
+    border-color: ${(props) => props.theme.colors.accent}60;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px ${(props) => props.theme.colors.accent}20;
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:has(input:checked) {
+    background: ${(props) => props.theme.gradients.accent};
+    color: ${(props) => props.theme.colors.textInverse};
+    border-color: ${(props) => props.theme.colors.accentSecondary};
+    box-shadow: 0 2px 8px ${(props) => props.theme.colors.accent}40;
   }
 
   input {
     margin-right: 0.5rem;
     accent-color: ${(props) => props.theme.colors.accentSecondary};
+    transform: scale(1);
+    transition: transform ${(props) => props.theme.transitions.fast};
+
+    &:checked {
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -133,8 +229,33 @@ const ResultsCount = styled.div`
 const ProjectFilter = ({ onFilterChange, totalResults }) => {
   const { theme } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
   const [selectedDateRange, setSelectedDateRange] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Debounce search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+      setIsSearching(false);
+    }, 300);
+
+    if (searchTerm !== debouncedSearchTerm) {
+      setIsSearching(true);
+    }
+
+    return () => clearTimeout(timer);
+  }, [searchTerm, debouncedSearchTerm]);
+
+  // Update filters when debounced search term changes
+  useEffect(() => {
+    onFilterChange({
+      searchTerm: debouncedSearchTerm,
+      technologies: selectedTechnologies,
+      dateRange: selectedDateRange,
+    });
+  }, [debouncedSearchTerm, selectedTechnologies, selectedDateRange, onFilterChange]);
 
   const technologies = [
     'React',
@@ -158,60 +279,37 @@ const ProjectFilter = ({ onFilterChange, totalResults }) => {
     { value: '2021', label: '2021+' },
   ];
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = useCallback((e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    onFilterChange({
-      searchTerm: value,
-      technologies: selectedTechnologies,
-      dateRange: selectedDateRange,
-    });
-  };
+  }, []);
 
-  const handleTechnologyChange = (tech) => {
+  const handleTechnologyChange = useCallback((tech) => {
     const updatedTechnologies = selectedTechnologies.includes(tech)
       ? selectedTechnologies.filter((t) => t !== tech)
       : [...selectedTechnologies, tech];
 
     setSelectedTechnologies(updatedTechnologies);
-    onFilterChange({
-      searchTerm,
-      technologies: updatedTechnologies,
-      dateRange: selectedDateRange,
-    });
-  };
+  }, [selectedTechnologies]);
 
-  const handleDateRangeChange = (e) => {
+  const handleDateRangeChange = useCallback((e) => {
     const value = e.target.value;
     setSelectedDateRange(value);
-    onFilterChange({
-      searchTerm,
-      technologies: selectedTechnologies,
-      dateRange: value,
-    });
-  };
+  }, []);
 
-  const clearSearch = () => {
+  const clearSearch = useCallback(() => {
     setSearchTerm('');
-    onFilterChange({
-      searchTerm: '',
-      technologies: selectedTechnologies,
-      dateRange: selectedDateRange,
-    });
-  };
+    setDebouncedSearchTerm('');
+  }, []);
 
-  const clearAllFilters = () => {
+  const clearAllFilters = useCallback(() => {
     setSearchTerm('');
+    setDebouncedSearchTerm('');
     setSelectedTechnologies([]);
     setSelectedDateRange('');
-    onFilterChange({
-      searchTerm: '',
-      technologies: [],
-      dateRange: '',
-    });
-  };
+  }, []);
 
-  const hasActiveFilters = searchTerm || selectedTechnologies.length > 0 || selectedDateRange;
+  const hasActiveFilters = debouncedSearchTerm || selectedTechnologies.length > 0 || selectedDateRange;
 
   return (
     <FilterContainer theme={theme}>

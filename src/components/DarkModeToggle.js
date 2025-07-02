@@ -90,8 +90,9 @@ const DarkModeToggle = () => {
             background: ${isDarkMode
               ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
               : 'linear-gradient(135deg, #ffd89b 0%, #19547b 100%)'};
-            transition: all ${theme.transitions.slow};
+            transition: background ${theme.transitions.normal};
             border-radius: 20px;
+            will-change: background;
           `}
         />
 
@@ -112,16 +113,12 @@ const DarkModeToggle = () => {
               css={css`
                 color: #ffc947;
                 font-size: 1.2rem;
-                filter: drop-shadow(0 0 4px rgba(255, 201, 71, 0.5));
-                animation: moonGlow 2s ease-in-out infinite alternate;
-
-                @keyframes moonGlow {
-                  0% {
-                    filter: drop-shadow(0 0 4px rgba(255, 201, 71, 0.3));
-                  }
-                  100% {
-                    filter: drop-shadow(0 0 8px rgba(255, 201, 71, 0.6));
-                  }
+                filter: drop-shadow(0 0 6px rgba(255, 201, 71, 0.5));
+                transition: all ${theme.transitions.normal};
+                
+                &:hover {
+                  filter: drop-shadow(0 0 8px rgba(255, 201, 71, 0.7));
+                  transform: scale(1.1);
                 }
               `}
               aria-hidden="true"
@@ -131,16 +128,12 @@ const DarkModeToggle = () => {
               css={css`
                 color: #ffa500;
                 font-size: 1.2rem;
-                filter: drop-shadow(0 0 4px rgba(255, 165, 0, 0.5));
-                animation: sunRotate 8s linear infinite;
-
-                @keyframes sunRotate {
-                  from {
-                    transform: rotate(0deg);
-                  }
-                  to {
-                    transform: rotate(360deg);
-                  }
+                filter: drop-shadow(0 0 6px rgba(255, 165, 0, 0.5));
+                transition: all ${theme.transitions.normal};
+                
+                &:hover {
+                  filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.7));
+                  transform: scale(1.1) rotate(15deg);
                 }
               `}
               aria-hidden="true"

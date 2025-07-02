@@ -165,7 +165,7 @@ const ProjectsPage = ({ data }) => {
           <h1 className="sr-only">My Development Projects</h1>
         </header>
 
-        {/* <ProjectFilter onFilterChange={handleFilterChange} totalResults={filteredProjects.length} /> */}
+        <ProjectFilter onFilterChange={handleFilterChange} totalResults={filteredProjects.length} />
 
         {filteredProjects.length === 0 ? (
           <div
@@ -175,6 +175,18 @@ const ProjectsPage = ({ data }) => {
               color: #666;
               font-family: SabonLTStd-Roman, serif;
               font-size: 1.25rem;
+              animation: fadeIn 0.4s ease-out;
+              
+              @keyframes fadeIn {
+                from {
+                  opacity: 0;
+                  transform: translateY(20px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
             `}
           >
             No projects match your current filters. Try adjusting your search criteria.
@@ -183,13 +195,33 @@ const ProjectsPage = ({ data }) => {
           <StyledContainer>
             {filteredProjects.map((project, index) => (
               <ProjectCard
-                key={project.id}
+                key={`${project.id}-${filters.searchTerm}-${filters.technologies.join(',')}-${filters.dateRange}`}
                 css={css`
                   grid-row: ${index + 1} / ${index + 2};
-                  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                  animation: slideInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                   animation-delay: ${index * 0.1}s;
                   animation-fill-mode: both;
                   opacity: 0;
+                  transform: translateY(30px);
+                  
+                  @keyframes slideInUp {
+                    0% {
+                      opacity: 0;
+                      transform: translateY(30px) scale(0.95);
+                    }
+                    60% {
+                      opacity: 0.8;
+                      transform: translateY(-5px) scale(1.02);
+                    }
+                    100% {
+                      opacity: 1;
+                      transform: translateY(0) scale(1);
+                    }
+                  }
+                  
+                  &:hover {
+                    animation-play-state: paused;
+                  }
                 `}
                 imageSrcPath={data[project.screenshots.screenshot1]}
                 imageSrcPath2={data[project.screenshots.screenshot2]}
