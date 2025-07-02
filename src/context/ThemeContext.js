@@ -44,9 +44,27 @@ const lightTheme = {
   },
 
   transitions: {
-    fast: '0.15s ease-in-out',
-    normal: '0.2s ease-in-out',
-    slow: '0.3s ease-in-out',
+    fast: '0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+    normal: '0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+    slow: '0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    bounce: '0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+    elastic: '0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+  },
+
+  animations: {
+    fadeIn: 'fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    slideUp: 'slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    slideInLeft: 'slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    slideInRight: 'slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    scaleIn: 'scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+  },
+
+  gradients: {
+    primary: 'linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%)',
+    secondary: 'linear-gradient(135deg, #052f5f 0%, #2d3047 100%)',
+    accent: 'linear-gradient(135deg, #f7b733 0%, #fc4a1a 100%)',
+    subtle: 'linear-gradient(135deg, rgba(252, 74, 26, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%)',
   },
 };
 
@@ -92,9 +110,27 @@ const darkTheme = {
   },
 
   transitions: {
-    fast: '0.15s ease-in-out',
-    normal: '0.2s ease-in-out',
-    slow: '0.3s ease-in-out',
+    fast: '0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+    normal: '0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+    slow: '0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    bounce: '0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+    elastic: '0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+  },
+
+  animations: {
+    fadeIn: 'fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    slideUp: 'slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    slideInLeft: 'slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    slideInRight: 'slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+    scaleIn: 'scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+  },
+
+  gradients: {
+    primary: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
+    secondary: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
+    accent: 'linear-gradient(135deg, #ffc947 0%, #ff6b47 100%)',
+    subtle: 'linear-gradient(135deg, rgba(255, 201, 71, 0.1) 0%, rgba(255, 107, 71, 0.1) 100%)',
   },
 };
 

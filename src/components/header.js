@@ -12,24 +12,51 @@ const NavLink = styled(Link)`
   font-weight: ${(props) => props.fontWeight || 'normal'};
   line-height: 1;
   text-decoration: none;
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
   transition: all ${(props) => props.theme.transitions.normal};
-
-  &.current-page {
-    border-bottom: 2px solid ${(props) => props.theme.colors.accentSecondary};
-    background-color: ${(props) => props.theme.colors.accentSecondary}15;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: ${(props) => props.theme.gradients.accent};
+    transition: left ${(props) => props.theme.transitions.normal};
+    z-index: -1;
   }
 
-  &:hover {
-    background-color: ${(props) => props.theme.colors.text}15;
+  &.current-page {
+    background: ${(props) => props.theme.gradients.accent};
+    color: ${(props) => props.theme.colors.textInverse};
+    box-shadow: ${(props) => props.theme.shadows.medium};
+    transform: translateY(-2px);
+    
+    &::before {
+      left: 0;
+    }
+  }
+
+  &:hover:not(.current-page) {
+    background: ${(props) => props.theme.gradients.subtle};
     color: ${(props) => props.theme.colors.accentSecondary};
+    transform: translateY(-2px);
+    box-shadow: ${(props) => props.theme.shadows.small};
+    
+    &::before {
+      left: 0;
+      opacity: 0.1;
+    }
   }
 
   &:focus {
     outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
-    outline-offset: 2px;
-    background-color: ${(props) => props.theme.colors.accentSecondary}25;
+    outline-offset: 3px;
+    transform: translateY(-2px);
   }
 
   &:focus:not(:focus-visible) {
@@ -38,7 +65,7 @@ const NavLink = styled(Link)`
 
   &:focus-visible {
     outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
-    outline-offset: 2px;
+    outline-offset: 3px;
   }
 `;
 
@@ -58,6 +85,23 @@ const Header = () => {
         width: 960px;
         align-items: center;
         gap: 1rem;
+        animation: ${theme.animations.slideUp};
+        animation-delay: 0.1s;
+        animation-fill-mode: both;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 60%;
+          height: 1px;
+          background: ${theme.gradients.accent};
+          opacity: 0.3;
+        }
+        
         @media (max-width: 480px) {
           font-size: 1.5rem;
           grid-template-columns: auto 1fr auto;

@@ -7,7 +7,18 @@ import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku, DiTravis } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
 
-const ProjectCard = (props) => {
+const ProjectCard = ({
+  imageSrcPath,
+  imageSrcPath2,
+  imageSrcPath3,
+  imageSrcPath4,
+  imageSrcPath5,
+  title,
+  date,
+  description,
+  sourceURL,
+  hostedURL,
+}) => {
   const { theme } = useTheme();
 
   return (
@@ -15,31 +26,88 @@ const ProjectCard = (props) => {
       css={css`
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 0.1fr 0.25fr auto;
-        grid-column-gap: 0.75rem;
-        border: 5px solid ${theme.colors.border};
-        background-color: ${theme.colors.secondary};
-        padding: 2rem 2rem 2rem 2rem;
-        border-radius: 5px;
+        grid-template-rows: 1fr auto auto auto;
+        grid-column-gap: 1.5rem;
+        grid-row-gap: 1.5rem;
+        background: ${theme.gradients.secondary};
+        padding: 2.5rem;
+        border-radius: 20px;
         color: ${theme.colors.text};
         transition: all ${theme.transitions.normal};
+        position: relative;
+        overflow: hidden;
+        box-shadow: ${theme.shadows.medium};
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: ${theme.gradients.accent};
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform ${theme.transitions.normal};
+        }
+        
+        &::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(
+            circle,
+            rgba(252, 74, 26, 0.03) 0%,
+            transparent 70%
+          );
+          opacity: 0;
+          transition: opacity ${theme.transitions.slow};
+          pointer-events: none;
+        }
+        
+        &:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: ${theme.shadows.hover};
+          
+          &::before {
+            transform: scaleX(1);
+          }
+          
+          &::after {
+            opacity: 1;
+          }
+        }
+        
         [data-gatsby-image-wrapper] {
           margin-top: 0;
+          border-radius: 12px;
+          overflow: hidden;
+          transition: transform ${theme.transitions.normal};
+          
+          &:hover {
+            transform: scale(1.05);
+          }
         }
+        
         & [data-gatsby-image-wrapper]:nth-of-type(2) {
           @media (max-width: 768px) {
             margin-top: 1rem;
           }
         }
+        
         @media (max-width: 768px) {
-          display: inline-block;
+          grid-template-columns: 1fr;
+          grid-row-gap: 1rem;
+          padding: 2rem;
         }
       `}
     >
       <GatsbyImage
-        /* eslint-disable-next-line react/destructuring-assignment */
-        image={getImage(props.imageSrcPath)}
-        alt={`${props.title} - Screenshot 1`}
+        image={getImage(imageSrcPath)}
+        alt={`${title} - Screenshot 1`}
         loading="lazy"
         css={css`
           transition: opacity 0.3s ease-in-out;
@@ -48,9 +116,8 @@ const ProjectCard = (props) => {
         `}
       />
       <GatsbyImage
-        /* eslint-disable-next-line react/destructuring-assignment */
-        image={getImage(props.imageSrcPath2)}
-        alt={`${props.title} - Screenshot 2`}
+        image={getImage(imageSrcPath2)}
+        alt={`${title} - Screenshot 2`}
         loading="lazy"
         css={css`
           transition: opacity 0.3s ease-in-out;
@@ -70,8 +137,7 @@ const ProjectCard = (props) => {
           margin-bottom: 1rem;
         `}
       >
-        {/* eslint-disable-next-line react/destructuring-assignment */}
-        {props.title}
+        {title}
         {` `}
         <small
           css={css`
@@ -83,8 +149,7 @@ const ProjectCard = (props) => {
             }
           `}
         >
-          {/* eslint-disable-next-line react/destructuring-assignment */}
-          {props.date}
+          {date}
         </small>
       </h3>
       <p
@@ -96,8 +161,7 @@ const ProjectCard = (props) => {
           margin-bottom: 1rem;
         `}
       >
-        {/* eslint-disable-next-line react/destructuring-assignment */}
-        {props.description}
+        {description}
       </p>
       <div
         css={css`
@@ -114,65 +178,125 @@ const ProjectCard = (props) => {
       >
         <a
           css={css`
+            position: relative;
+            display: inline-block;
             font-family: SabonLTStd-Roman, serif;
             font-weight: bold;
-            font-size: 1.25rem;
-            background-color: ${theme.colors.accentSecondary};
-            border: 2px solid ${theme.colors.border};
-            border-radius: 5px;
+            font-size: 1.125rem;
+            background: ${theme.gradients.accent};
+            border: none;
+            border-radius: 25px;
             color: ${theme.colors.textInverse};
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s ease-in-out;
-            &:hover {
-              box-shadow: ${theme.shadows.hover};
-              transform: translateY(-2px);
+            padding: 0.75rem 1.5rem;
+            transition: all ${theme.transitions.normal};
+            overflow: hidden;
+            box-shadow: ${theme.shadows.small};
+            
+            &::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+              );
+              transition: left ${theme.transitions.slow};
             }
+            
+            &:hover {
+              transform: translateY(-3px) scale(1.05);
+              box-shadow: ${theme.shadows.hover};
+              
+              &::before {
+                left: 100%;
+              }
+            }
+            
             &:focus {
               outline: 2px solid ${theme.colors.accentSecondary};
-              outline-offset: 2px;
+              outline-offset: 3px;
+              transform: translateY(-2px);
             }
+            
+            &:active {
+              transform: translateY(0) scale(0.98);
+            }
+            
             @media (max-width: 768px) {
               text-align: center;
+              width: 100%;
             }
           `}
           target="_blank"
           rel="noopener noreferrer"
-          /* eslint-disable-next-line react/destructuring-assignment */
-          href={props.sourceURL}
-          aria-label={`View source code for ${props.title}`}
+          href={sourceURL}
+          aria-label={`View source code for ${title}`}
         >
           Source Code
         </a>
         <a
           css={css`
+            position: relative;
+            display: inline-block;
             font-family: SabonLTStd-Roman, serif;
             font-weight: bold;
-            font-size: 1.25rem;
-            background-color: ${theme.colors.accentSecondary};
-            border: 2px solid ${theme.colors.border};
-            border-radius: 5px;
-            color: ${theme.colors.textInverse};
+            font-size: 1.125rem;
+            background: transparent;
+            border: 2px solid ${theme.colors.accentSecondary};
+            border-radius: 25px;
+            color: ${theme.colors.accentSecondary};
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: all 0.2s ease-in-out;
-            &:hover {
-              box-shadow: ${theme.shadows.hover};
-              transform: translateY(-2px);
+            padding: 0.75rem 1.5rem;
+            transition: all ${theme.transitions.normal};
+            overflow: hidden;
+            
+            &::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 0;
+              height: 100%;
+              background: ${theme.gradients.accent};
+              transition: width ${theme.transitions.normal};
+              z-index: -1;
             }
+            
+            &:hover {
+              color: ${theme.colors.textInverse};
+              transform: translateY(-3px) scale(1.05);
+              box-shadow: ${theme.shadows.medium};
+              
+              &::before {
+                width: 100%;
+              }
+            }
+            
             &:focus {
               outline: 2px solid ${theme.colors.accentSecondary};
-              outline-offset: 2px;
+              outline-offset: 3px;
+              transform: translateY(-2px);
             }
+            
+            &:active {
+              transform: translateY(0) scale(0.98);
+            }
+            
             @media (max-width: 768px) {
               text-align: center;
+              width: 100%;
             }
           `}
           target="_blank"
           rel="noopener noreferrer"
-          /* eslint-disable-next-line react/destructuring-assignment */
-          href={props.hostedURL}
-          aria-label={`View live demo of ${props.title}`}
+          href={hostedURL}
+          aria-label={`View live demo of ${title}`}
         >
           Live Demo
         </a>
@@ -201,9 +325,8 @@ const ProjectCard = (props) => {
               width: 45px;
               height: 45px;
             `}
-            /* eslint-disable-next-line react/destructuring-assignment */
-            src={props.imageSrcPath3}
-            alt={`Technology icon`}
+            src={imageSrcPath3}
+            alt="Technology icon"
             role="listitem"
           />
           <img
@@ -211,9 +334,8 @@ const ProjectCard = (props) => {
               width: 45px;
               height: 45px;
             `}
-            /* eslint-disable-next-line react/destructuring-assignment */
-            src={props.imageSrcPath4}
-            alt={`Technology icon`}
+            src={imageSrcPath4}
+            alt="Technology icon"
             role="listitem"
           />
           <img
@@ -221,9 +343,8 @@ const ProjectCard = (props) => {
               width: 45px;
               height: 45px;
             `}
-            /* eslint-disable-next-line react/destructuring-assignment */
-            src={props.imageSrcPath5}
-            alt={`Technology icon`}
+            src={imageSrcPath5}
+            alt="Technology icon"
             role="listitem"
           />
           <FaReact
@@ -265,9 +386,7 @@ const ProjectCard = (props) => {
 };
 
 ProjectCard.propTypes = {
-  /* eslint-disable-next-line react/forbid-prop-types */
   imageSrcPath: PropTypes.object.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   imageSrcPath2: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

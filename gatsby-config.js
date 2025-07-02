@@ -1,11 +1,13 @@
+const siteMetadata = {
+  title: 'Jeff Maxwell Developer Portfolio',
+  description: `Jeff Maxwell's developer portfolio made with Gatsby`,
+  author: 'Jeff Maxwell',
+  createdAt: 2019,
+  siteUrl: 'https://www.jeffmaxwell.dev',
+};
+
 module.exports = {
-  siteMetadata: {
-    title: 'Jeff Maxwell Developer Portfolio',
-    description: `Jeff Maxwell's developer portfolio made with Gatsby`,
-    author: 'Jeff Maxwell',
-    createdAt: 2019,
-    siteUrl: 'https://www.jeffmaxwell.dev',
-  },
+  siteMetadata,
   plugins: [
     `gatsby-plugin-react-helmet-async`,
     `gatsby-plugin-image`,
@@ -51,6 +53,15 @@ module.exports = {
         icon: 'src/images/elephant_noun_project.png', // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-preconnect`,
+      options: {
+        domains: [
+          'https://fonts.googleapis.com',
+          'https://fonts.gstatic.com',
+        ],
+      },
+    },
     // `gatsby-plugin-eslint`, // Temporarily disabled due to dependency conflicts
     `gatsby-plugin-emotion`,
     {
@@ -63,6 +74,28 @@ module.exports = {
             'HelveticaNeueLTStd-Roman',
             'SabonLTStd-Roman',
           ],
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        excludes: [],
+        query: `
+          {
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        resolveSiteUrl: () => siteMetadata.siteUrl,
+        serialize: ({ path, modifiedGmt }) => {
+          return {
+            url: path,
+            lastmod: modifiedGmt,
+          };
         },
       },
     },

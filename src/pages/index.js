@@ -7,7 +7,7 @@ import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import { ThemeProvider, useTheme } from '../context/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -29,12 +29,9 @@ const StyledLink = styled(Link)`
 `;
 
 function IndexPage() {
-  // eslint-disable-next-line react/jsx-filename-extension
   const { theme } = useTheme();
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
-    <ThemeProvider>
     <Layout>
         <SEO
         title="Home"
@@ -60,8 +57,20 @@ function IndexPage() {
               grid-row: 1 / 2;
               grid-column: 1 / 2;
               font-family: HelveticaNeueLTStd-Bd, sans-serif;
-              font-size: 2rem;
-              margin-bottom: 1rem;
+              font-size: 2.5rem;
+              margin-bottom: 1.5rem;
+              background: ${theme.gradients.accent};
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              animation: ${theme.animations.slideInLeft};
+              line-height: 1.2;
+              @media (max-width: 768px) {
+                font-size: 2rem;
+              }
+              @media (max-width: 480px) {
+                font-size: 1.75rem;
+              }
             `}
           >
             My name&apos;s Jeff. I&apos;m a full stack web developer working with Node and React.
@@ -82,8 +91,24 @@ function IndexPage() {
               color: ${theme.colors.text};
               font-family: HelveticaNeueLTStd-Roman, sans-serif;
               font-size: 1.75rem;
-              margin-bottom: 1rem;
-              line-height: 1.4;
+              margin-bottom: 1.5rem;
+              line-height: 1.5;
+              animation: ${theme.animations.fadeIn};
+              animation-delay: 0.2s;
+              animation-fill-mode: both;
+              position: relative;
+              &::before {
+                content: '';
+                position: absolute;
+                left: -1rem;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: ${theme.gradients.accent};
+                border-radius: 2px;
+                opacity: 0.7;
+              }
+              padding-left: 1.5rem;
             `}
           >
             I commit early and often, implement content-driven design strategies, and value
@@ -94,56 +119,119 @@ function IndexPage() {
               color: ${theme.colors.text};
               font-family: HelveticaNeueLTStd-Roman, sans-serif;
               font-size: 1.75rem;
-              margin-bottom: 1rem;
-              line-height: 1.4;
+              margin-bottom: 2rem;
+              line-height: 1.5;
+              animation: ${theme.animations.fadeIn};
+              animation-delay: 0.4s;
+              animation-fill-mode: both;
             `}
           >
             Currently focused on modern web technologies including React, GraphQL, and JAMstack
             architecture.
           </p>
-          <nav aria-label="Portfolio navigation">
-            <p>
+          <nav 
+            aria-label="Portfolio navigation"
+            css={css`
+              animation: ${theme.animations.slideUp};
+              animation-delay: 0.6s;
+              animation-fill-mode: both;
+            `}
+          >
+            <div
+              css={css`
+                position: relative;
+                display: inline-block;
+                margin-bottom: 2rem;
+              `}
+            >
               <StyledLink
                 to="/projects/"
                 theme={theme}
                 css={css`
+                  position: relative;
+                  display: inline-block;
+                  padding: 1rem 2rem;
+                  background: ${theme.gradients.accent};
+                  border-radius: 50px;
+                  text-decoration: none;
+                  font-weight: bold;
+                  color: ${theme.colors.textInverse} !important;
+                  box-shadow: ${theme.shadows.medium};
+                  transition: all ${theme.transitions.normal};
+                  overflow: hidden;
+                  
+                  &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(
+                      90deg,
+                      transparent,
+                      rgba(255, 255, 255, 0.2),
+                      transparent
+                    );
+                    transition: left ${theme.transitions.slow};
+                  }
+                  
+                  &:hover {
+                    transform: translateY(-3px);
+                    box-shadow: ${theme.shadows.hover};
+                    
+                    &::before {
+                      left: 100%;
+                    }
+                  }
+                  
                   &:focus {
                     outline: 2px solid ${theme.colors.accentSecondary};
-                    outline-offset: 2px;
+                    outline-offset: 4px;
                   }
                 `}
               >
                 View my development projects
               </StyledLink>
-            </p>
-            <StyledLink
-              to="/projects/"
-              theme={theme}
-              aria-label="Go to projects page"
+            </div>
+            
+            <div
               css={css`
-                display: inline-block;
-                margin-top: 1rem;
-                &:focus {
-                  outline: 2px solid ${theme.colors.accentSecondary};
-                  outline-offset: 2px;
-                  border-radius: 50%;
-                }
+                text-align: center;
               `}
             >
-              <FaRegArrowAltCircleRight
+              <StyledLink
+                to="/projects/"
+                theme={theme}
+                aria-label="Go to projects page"
                 css={css`
-                  color: ${theme.colors.accent};
-                  font-size: 3.5rem;
-                  display: block;
-                  margin: 1rem auto 2rem;
-                  transition: transform 0.2s ease-in-out;
-                  &:hover {
-                    transform: scale(1.1);
+                  display: inline-block;
+                  position: relative;
+                  &:focus {
+                    outline: 2px solid ${theme.colors.accentSecondary};
+                    outline-offset: 4px;
+                    border-radius: 50%;
                   }
                 `}
-                aria-hidden="true"
-              />
-            </StyledLink>
+              >
+                <FaRegArrowAltCircleRight
+                  css={css`
+                    color: ${theme.colors.accent};
+                    font-size: 3.5rem;
+                    display: block;
+                    margin: 0 auto;
+                    transition: all ${theme.transitions.bounce};
+                    cursor: pointer;
+                    
+                    &:hover {
+                      transform: scale(1.15) rotate(5deg);
+                      filter: drop-shadow(0 8px 16px rgba(252, 74, 26, 0.3));
+                    }
+                  `}
+                  aria-hidden="true"
+                />
+              </StyledLink>
+            </div>
           </nav>
         </section>
         <section
@@ -151,6 +239,9 @@ function IndexPage() {
           css={css`
             grid-row: 3 / 4;
             grid-column: 1 / 2;
+            animation: ${theme.animations.slideInRight};
+            animation-delay: 0.8s;
+            animation-fill-mode: both;
           `}
         >
           <h2 id="personal-heading" className="sr-only">
@@ -161,8 +252,25 @@ function IndexPage() {
               color: ${theme.colors.text};
               font-family: HelveticaNeueLTStd-Roman, sans-serif;
               font-size: 1.75rem;
-              margin-bottom: 1rem;
-              line-height: 1.4;
+              margin-bottom: 2rem;
+              line-height: 1.5;
+              position: relative;
+              padding: 1.5rem;
+              background: ${theme.gradients.subtle};
+              border-radius: 12px;
+              border-left: 4px solid ${theme.colors.accentSecondary};
+              backdrop-filter: blur(10px);
+              
+              &::before {
+                content: '"';
+                position: absolute;
+                top: -0.5rem;
+                left: 1rem;
+                font-size: 4rem;
+                color: ${theme.colors.accentSecondary};
+                opacity: 0.3;
+                font-family: serif;
+              }
             `}
           >
             When I&apos;m not debugging in dev tools or mastering CSS Grid, I can be found
@@ -215,7 +323,6 @@ function IndexPage() {
         </section>
       </StyledContainer>
     </Layout>
-    </ThemeProvider>
   );
 }
 

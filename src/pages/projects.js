@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
@@ -87,8 +88,7 @@ const StyledContainer = styled.div`
   grid-row-gap: 2rem;
 `;
 
-// eslint-disable-next-line react/prop-types
-export default ({ data }) => {
+const ProjectsPage = ({ data }) => {
   const [filters, setFilters] = useState({
     searchTerm: '',
     technologies: [],
@@ -186,6 +186,10 @@ export default ({ data }) => {
                 key={project.id}
                 css={css`
                   grid-row: ${index + 1} / ${index + 2};
+                  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                  animation-delay: ${index * 0.1}s;
+                  animation-fill-mode: both;
+                  opacity: 0;
                 `}
                 imageSrcPath={data[project.screenshots.screenshot1]}
                 imageSrcPath2={data[project.screenshots.screenshot2]}
@@ -276,3 +280,9 @@ export const query = graphql`
     }
   }
 `;
+
+ProjectsPage.propTypes = {
+  data: PropTypes.object.isRequired,
+};
+
+export default ProjectsPage;

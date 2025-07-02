@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
@@ -31,6 +30,72 @@ const ThemedLayout = ({ children, data }) => {
       <WebPPreloader />
       <Global
         styles={css`
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes slideUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes slideInLeft {
+            from {
+              opacity: 0;
+              transform: translateX(-30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+
+          @keyframes slideInRight {
+            from {
+              opacity: 0;
+              transform: translateX(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+
+          @keyframes scaleIn {
+            from {
+              opacity: 0;
+              transform: scale(0.9);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
+          @keyframes pulse {
+            0%, 100% {
+              transform: scale(1);
+              opacity: 1;
+            }
+            50% {
+              transform: scale(1.05);
+              opacity: 0.8;
+            }
+          }
+
           * {
             box-sizing: border-box;
             margin: 0;
@@ -39,7 +104,12 @@ const ThemedLayout = ({ children, data }) => {
           body {
             margin: 0;
             color: ${theme.colors.accent};
-            background-color: ${theme.colors.primary};
+            background: ${theme.colors.primary};
+            background-image: 
+              radial-gradient(circle at 25% 25%, rgba(252, 74, 26, 0.02) 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, rgba(247, 183, 51, 0.02) 0%, transparent 50%),
+              linear-gradient(135deg, transparent 0%, rgba(252, 74, 26, 0.01) 50%, transparent 100%);
+            background-attachment: fixed;
             font-size: 18px;
             line-height: 1.4;
             font-kerning: normal;
@@ -54,8 +124,36 @@ const ThemedLayout = ({ children, data }) => {
             transition:
               background-color ${theme.transitions.normal},
               color ${theme.transitions.normal};
+            position: relative;
+            
+            &::before {
+              content: '';
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              opacity: 0.03;
+              z-index: -1;
+              background-image: 
+                repeating-linear-gradient(
+                  45deg,
+                  transparent,
+                  transparent 100px,
+                  rgba(252, 74, 26, 0.1) 100px,
+                  rgba(252, 74, 26, 0.1) 101px
+                );
+              animation: float 20s ease-in-out infinite;
+            }
+            
+            @keyframes float {
+              0%, 100% { transform: translateY(0) rotate(0deg); }
+              50% { transform: translateY(-10px) rotate(1deg); }
+            }
+            
             @media (max-width: 480px) {
               overflow-x: hidden;
+              background-attachment: scroll;
             }
           }
           /*remove margin for main div that Gatsby mounts into */
@@ -68,10 +166,32 @@ const ThemedLayout = ({ children, data }) => {
           h4,
           h5,
           h6 {
-            line-height: 1.1;
+            line-height: 1.2;
+            font-weight: 600;
+            letter-spacing: -0.025em;
             + * {
-              margin-top: 0.5rem;
+              margin-top: 0.75rem;
             }
+          }
+          
+          h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+          }
+          
+          h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 1.25rem;
+          }
+          
+          h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1rem;
+          }
+          
+          p {
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
           }
           a {
             background-color: transparent;

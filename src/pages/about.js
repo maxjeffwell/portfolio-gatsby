@@ -103,7 +103,6 @@ const AboutPage = () => (
               justify-self: center;
             `}
           >
-            {/* eslint-disable-next-line react/jsx-no-undef */}
             <DiIntellij
               css={css`
                 font-size: 5rem;
@@ -135,7 +134,6 @@ const AboutPage = () => (
               justify-self: center;
             `}
           >
-            {/* eslint-disable-next-line react/jsx-no-undef */}
             <DiMozilla
               css={css`
                 font-size: 5rem;
@@ -166,7 +164,6 @@ const AboutPage = () => (
               justify-self: center;
             `}
           >
-            {/* eslint-disable-next-line react/jsx-no-undef */}
             <DiDebian
               css={css`
                 font-size: 5rem;
@@ -197,7 +194,6 @@ const AboutPage = () => (
               justify-self: center;
             `}
           >
-            {/* eslint-disable-next-line react/jsx-no-undef */}
             <FaPiedPiperAlt
               css={css`
                 font-size: 5rem;
