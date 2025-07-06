@@ -320,65 +320,80 @@ const ProjectCard = ({
           role="list"
           aria-label="Technologies used in this project"
         >
-          <img
-            css={css`
-              width: 45px;
-              height: 45px;
-            `}
+          <LazyImage
             src={imageSrcPath3}
             alt="Technology icon"
+            width="45px"
+            height="45px"
+            objectFit="contain"
+            radius="4px"
+            block={false}
+            fadeDelay="100ms"
+            css={css`
+              flex-shrink: 0;
+            `}
             role="listitem"
           />
-          <img
-            css={css`
-              width: 45px;
-              height: 45px;
-            `}
+          <LazyImage
             src={imageSrcPath4}
             alt="Technology icon"
+            width="45px"
+            height="45px"
+            objectFit="contain"
+            radius="4px"
+            block={false}
+            fadeDelay="200ms"
+            css={css`
+              flex-shrink: 0;
+            `}
             role="listitem"
           />
-          <img
-            css={css`
-              width: 45px;
-              height: 45px;
-            `}
+          <LazyImage
             src={imageSrcPath5}
             alt="Technology icon"
+            width="45px"
+            height="45px"
+            objectFit="contain"
+            radius="4px"
+            block={false}
+            fadeDelay="300ms"
+            css={css`
+              flex-shrink: 0;
+            `}
             role="listitem"
           />
-          <FaReact
+          {typeof window !== 'undefined' && <FaReact
             css={css`
               color: ${theme.colors.accent};
               font-size: 2.5rem;
             `}
             aria-label="React framework"
             role="listitem"
-          />
-          <FaGit
+          />}
+          {typeof window !== 'undefined' && <FaGit
             css={css`
               color: ${theme.colors.accent};
               font-size: 2.5rem;
             `}
             aria-label="Git version control"
             role="listitem"
-          />
-          <DiHeroku
+          />}
+          {typeof window !== 'undefined' && <DiHeroku
             css={css`
               color: ${theme.colors.accent};
               font-size: 2.5rem;
             `}
             aria-label="Heroku deployment platform"
             role="listitem"
-          />
-          <DiTravis
+          />}
+          {typeof window !== 'undefined' && <DiTravis
             css={css`
               color: ${theme.colors.accent};
               font-size: 2.5rem;
             `}
             aria-label="Travis CI"
             role="listitem"
-          />
+          />}
         </div>
       </footer>
     </article>

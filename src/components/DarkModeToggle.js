@@ -108,7 +108,7 @@ const DarkModeToggle = () => {
             height: 100%;
           `}
         >
-          {isDarkMode ? (
+          {typeof window !== 'undefined' && isDarkMode ? (
             <FaMoon
               css={css`
                 color: #ffc947;
@@ -124,7 +124,7 @@ const DarkModeToggle = () => {
               aria-hidden="true"
             />
           ) : (
-            <FaSun
+            typeof window !== 'undefined' && <FaSun
               css={css`
                 color: #ffa500;
                 font-size: 1.2rem;
@@ -176,12 +176,12 @@ const DarkModeToggle = () => {
           aria-label="Theme settings - currently following system preference"
           title="Currently following system preference"
         >
-          <FaDesktop
+          {typeof window !== 'undefined' && <FaDesktop
             css={css`
               font-size: 0.8rem;
             `}
             aria-hidden="true"
-          />
+          />}
           <span>Auto</span>
         </button>
       )}
@@ -257,7 +257,7 @@ const DarkModeToggle = () => {
             `}
             onClick={handleSystemReset}
           >
-            <FaDesktop aria-hidden="true" />
+            {typeof window !== 'undefined' && <FaDesktop aria-hidden="true" />}
             <span>Follow system preference</span>
           </button>
         </div>

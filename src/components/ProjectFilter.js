@@ -324,10 +324,10 @@ const ProjectFilter = ({ onFilterChange, totalResults }) => {
         />
         {searchTerm ? (
           <ClearButton theme={theme} onClick={clearSearch} aria-label="Clear search">
-            <FaTimes />
+            {typeof window !== 'undefined' && <FaTimes />}
           </ClearButton>
         ) : (
-          <SearchIcon theme={theme} />
+          typeof window !== 'undefined' && <SearchIcon theme={theme} />
         )}
       </SearchContainer>
 

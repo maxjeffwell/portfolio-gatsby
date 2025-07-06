@@ -320,7 +320,7 @@ const ContactForm = () => {
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label theme={theme}>
-            <FaUser />
+            {typeof window !== 'undefined' && <FaUser />}
             Name *
           </Label>
           <Input
@@ -340,14 +340,14 @@ const ContactForm = () => {
             id="name-error"
             role="alert"
           >
-            <FaExclamationTriangle />
+            {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.name}
           </ErrorMessage>
         </FormGroup>
 
         <FormGroup>
           <Label theme={theme}>
-            <FaEnvelope />
+            {typeof window !== 'undefined' && <FaEnvelope />}
             Email *
           </Label>
           <Input
@@ -367,14 +367,14 @@ const ContactForm = () => {
             id="email-error"
             role="alert"
           >
-            <FaExclamationTriangle />
+            {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.email}
           </ErrorMessage>
         </FormGroup>
 
         <FormGroup>
           <Label theme={theme}>
-            <FaCommentDots />
+            {typeof window !== 'undefined' && <FaCommentDots />}
             Subject *
           </Label>
           <Input
@@ -394,14 +394,14 @@ const ContactForm = () => {
             id="subject-error"
             role="alert"
           >
-            <FaExclamationTriangle />
+            {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.subject}
           </ErrorMessage>
         </FormGroup>
 
         <FormGroup>
           <Label theme={theme}>
-            <FaCommentDots />
+            {typeof window !== 'undefined' && <FaCommentDots />}
             Message *
           </Label>
           <TextArea
@@ -420,7 +420,7 @@ const ContactForm = () => {
             id="message-error"
             role="alert"
           >
-            <FaExclamationTriangle />
+            {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.message}
           </ErrorMessage>
           <div
@@ -461,14 +461,14 @@ const ContactForm = () => {
             </>
           ) : (
             <>
-              <FaPaperPlane />
+              {typeof window !== 'undefined' && <FaPaperPlane />}
               Send Message
             </>
           )}
         </SubmitButton>
 
         <SuccessMessage theme={theme} show={isSubmitted}>
-          <FaCheckCircle />
+          {typeof window !== 'undefined' && <FaCheckCircle />}
           Thank you! Your message has been sent successfully. I'll get back to you soon!
         </SuccessMessage>
       </Form>

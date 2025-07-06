@@ -6,7 +6,6 @@ import { graphql } from 'gatsby';
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
-import ProjectFilter from '../components/ProjectFilter';
 import SEO from '../components/seo';
 
 import GraphQLIcon from '../images/graphql.svg';
@@ -165,7 +164,15 @@ const ProjectsPage = ({ data }) => {
           <h1 className="sr-only">My Development Projects</h1>
         </header>
 
-        <ProjectFilter onFilterChange={handleFilterChange} totalResults={filteredProjects.length} />
+        <div>
+          <h3>Filter Projects (Total: {filteredProjects.length})</h3>
+          <select onChange={(e) => handleFilterChange(e.target.value)}>
+            <option value="">All Projects</option>
+            <option value="React">React</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="GraphQL">GraphQL</option>
+          </select>
+        </div>
 
         {filteredProjects.length === 0 ? (
           <div

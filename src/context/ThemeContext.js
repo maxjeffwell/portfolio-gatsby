@@ -256,6 +256,7 @@ export const ThemeProvider = ({ children }) => {
     systemPreference: getSystemPreference(),
   };
 
+  // eslint-disable-next-line react/jsx-filename-extension
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 

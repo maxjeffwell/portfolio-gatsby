@@ -191,7 +191,7 @@ const ContactPage = () => {
         >
           <ContactCard theme={theme}>
             <ContactIcon theme={theme}>
-              <FaEnvelope />
+              {typeof window !== 'undefined' && <FaEnvelope />}
             </ContactIcon>
             <ContactTitle theme={theme}>Email</ContactTitle>
             <ContactInfo theme={theme}>
@@ -208,7 +208,7 @@ const ContactPage = () => {
 
           <ContactCard theme={theme}>
             <ContactIcon theme={theme}>
-              <FaLinkedin />
+              {typeof window !== 'undefined' && <FaLinkedin />}
             </ContactIcon>
             <ContactTitle theme={theme}>LinkedIn</ContactTitle>
             <ContactInfo theme={theme}>
@@ -227,7 +227,7 @@ const ContactPage = () => {
 
           <ContactCard theme={theme}>
             <ContactIcon theme={theme}>
-              <FaGithub />
+              {typeof window !== 'undefined' && <FaGithub />}
             </ContactIcon>
             <ContactTitle theme={theme}>GitHub</ContactTitle>
             <ContactInfo theme={theme}>

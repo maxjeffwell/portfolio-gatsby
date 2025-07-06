@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { useTheme } from '../context/ThemeContext';
 import { FaCopy, FaCheck } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
 const CodeContainer = styled.div`
   position: relative;
@@ -68,13 +67,28 @@ const CodeContent = styled.pre`
   word-wrap: break-word;
 
   /* Syntax highlighting colors */
-  .keyword { color: #569cd6; }
-  .string { color: #ce9178; }
-  .comment { color: #6a9955; font-style: italic; }
-  .function { color: #dcdcaa; }
-  .variable { color: #9cdcfe; }
-  .number { color: #b5cea8; }
-  .operator { color: #d4d4d4; }
+  .keyword {
+    color: #569cd6;
+  }
+  .string {
+    color: #ce9178;
+  }
+  .comment {
+    color: #6a9955;
+    font-style: italic;
+  }
+  .function {
+    color: #dcdcaa;
+  }
+  .variable {
+    color: #9cdcfe;
+  }
+  .number {
+    color: #b5cea8;
+  }
+  .operator {
+    color: #d4d4d4;
+  }
 `;
 
 const AnimatedChar = styled.span`
@@ -82,13 +96,13 @@ const AnimatedChar = styled.span`
   transition: opacity 0.05s ease-out;
 `;
 
-const CodeSnippet = ({
+function CodeSnippet({
   code,
   title = 'Code Example',
   animated = false,
   animationSpeed = 30,
   showCopyButton = true,
-}) => {
+}) {
   const { theme } = useTheme();
   const [displayedCode, setDisplayedCode] = useState(animated ? '' : code);
   const [copied, setCopied] = useState(false);
@@ -108,6 +122,7 @@ const CodeSnippet = ({
       }
     }, animationSpeed);
 
+    // eslint-disable-next-line consistent-return
     return () => clearInterval(timer);
   }, [code, animated, animationSpeed]);
 
@@ -121,15 +136,17 @@ const CodeSnippet = ({
     }
   };
 
-  const highlightSyntax = (text) => {
-    return text
-      .replace(/\b(const|let|var|function|return|if|else|for|while|class|import|export|from|default)\b/g, '<span class="keyword">$1</span>')
+  const highlightSyntax = (text) =>
+    text
+      .replace(
+        /\b(const|let|var|function|return|if|else|for|while|class|import|export|from|default)\b/g,
+        '<span class="keyword">$1</span>'
+      )
       .replace(/(["'`])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span class="string">$1$2$1</span>')
       .replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '<span class="comment">$&</span>')
       .replace(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\()/g, '<span class="function">$1</span>')
       .replace(/\b\d+(\.\d+)?\b/g, '<span class="number">$&</span>')
       .replace(/[+\-*/%=<>!&|^~?:]/g, '<span class="operator">$&</span>');
-  };
 
   return (
     <CodeContainer theme={theme}>
@@ -137,7 +154,7 @@ const CodeSnippet = ({
         <CodeTitle theme={theme}>{title}</CodeTitle>
         {showCopyButton && (
           <CopyButton theme={theme} onClick={handleCopy}>
-            {copied ? <FaCheck /> : <FaCopy />}
+            {typeof window !== 'undefined' && (copied ? <FaCheck /> : <FaCopy />)}
             {copied ? 'Copied!' : 'Copy'}
           </CopyButton>
         )}
@@ -150,12 +167,14 @@ const CodeSnippet = ({
       />
     </CodeContainer>
   );
-};
+}
 
 CodeSnippet.propTypes = {
   code: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
   title: PropTypes.string,
   animated: PropTypes.bool,
+  // eslint-disable-next-line react/require-default-props
   animationSpeed: PropTypes.number,
   showCopyButton: PropTypes.bool,
 };

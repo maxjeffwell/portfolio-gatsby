@@ -4,10 +4,6 @@ import { StaticQuery, graphql } from 'gatsby';
 import { Global, css } from '@emotion/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { FaGithubAlt, FaAngellist, FaLinkedin, FaPhone } from 'react-icons/fa';
-import WebPPreloader from './webpPreloader';
-import ScrollToTop from './ScrollToTop';
-import PWAInstallPrompt from './PWAInstallPrompt';
-import ServiceWorkerNotification from './ServiceWorkerNotification';
 import { useTheme } from '../context/ThemeContext';
 
 import Header from './header';
@@ -25,12 +21,11 @@ const GET_SITE_METADATA = graphql`
 `;
 
 // Themed Layout Component
-const ThemedLayout = ({ children, data }) => {
+function ThemedLayout({ children, data }) {
   const { theme } = useTheme();
 
   return (
     <>
-      <WebPPreloader />
       <Global
         styles={css`
           @keyframes fadeIn {
@@ -97,6 +92,77 @@ const ThemedLayout = ({ children, data }) => {
               transform: scale(1.05);
               opacity: 0.8;
             }
+          }
+
+          /* Enhanced loading and transition states */
+          .page-loading {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+
+          .page-entering {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+
+          .page-entered {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+
+          .page-exiting {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+          }
+
+          .page-exited {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+
+          /* Smooth scrolling for the entire page */
+          html {
+            scroll-behavior: smooth;
+          }
+
+          /* Reduced motion preferences */
+          @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+              scroll-behavior: auto !important;
+            }
+            
+            .page-entering,
+            .page-entered,
+            .page-exiting {
+              transition: none !important;
+            }
+          }
+
+          /* Enhanced focus management */
+          *:focus {
+            outline: 2px solid ${theme.colors.accentSecondary};
+            outline-offset: 2px;
+          }
+
+          *:focus:not(:focus-visible) {
+            outline: none;
+          }
+
+          button:focus-visible,
+          a:focus-visible,
+          input:focus-visible,
+          textarea:focus-visible,
+          select:focus-visible {
+            outline: 2px solid ${theme.colors.accentSecondary};
+            outline-offset: 2px;
           }
 
           * {
@@ -258,9 +324,6 @@ const ThemedLayout = ({ children, data }) => {
           }
         `}
       />
-      <ScrollToTop />
-      <PWAInstallPrompt />
-      <ServiceWorkerNotification />
       <Header />
       <main
         css={css`
@@ -354,7 +417,7 @@ const ThemedLayout = ({ children, data }) => {
             href="https://www.github.com/maxjeffwell"
             aria-label="Visit Jeff Maxwell's GitHub profile"
           >
-            <FaGithubAlt
+            {typeof window !== 'undefined' && <FaGithubAlt
               css={css`
                 color: ${theme.colors.accent};
                 font-size: 3.5rem;
@@ -367,7 +430,7 @@ const ThemedLayout = ({ children, data }) => {
                 }
               `}
               aria-hidden="true"
-            />
+            />}
           </a>
           <a
             css={css`
@@ -385,7 +448,7 @@ const ThemedLayout = ({ children, data }) => {
             href="https://angel.co/maxjeffwell"
             aria-label="Visit Jeff Maxwell's AngelList profile"
           >
-            <FaAngellist
+            {typeof window !== 'undefined' && <FaAngellist
               css={css`
                 color: ${theme.colors.accent};
                 font-size: 3.5rem;
@@ -398,7 +461,7 @@ const ThemedLayout = ({ children, data }) => {
                 }
               `}
               aria-hidden="true"
-            />
+            />}
           </a>
           <a
             css={css`
@@ -416,7 +479,7 @@ const ThemedLayout = ({ children, data }) => {
             href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
             aria-label="Visit Jeff Maxwell's LinkedIn profile"
           >
-            <FaLinkedin
+            {typeof window !== 'undefined' && <FaLinkedin
               css={css`
                 color: ${theme.colors.accent};
                 font-size: 3.5rem;
@@ -429,7 +492,7 @@ const ThemedLayout = ({ children, data }) => {
                 }
               `}
               aria-hidden="true"
-            />
+            />}
           </a>
           <a
             css={css`
@@ -445,7 +508,7 @@ const ThemedLayout = ({ children, data }) => {
             href="tel:+01-508-395-2008"
             aria-label="Call Jeff Maxwell at 508-395-2008"
           >
-            <FaPhone
+            {typeof window !== 'undefined' && <FaPhone
               css={css`
                 color: ${theme.colors.accent};
                 font-size: 3.5rem;
@@ -458,7 +521,7 @@ const ThemedLayout = ({ children, data }) => {
                 }
               `}
               aria-hidden="true"
-            />
+            />}
           </a>
         </nav>
         <p
@@ -498,7 +561,7 @@ const ThemedLayout = ({ children, data }) => {
       </footer>
     </>
   );
-};
+}
 
 ThemedLayout.propTypes = {
   children: PropTypes.node.isRequired,

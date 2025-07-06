@@ -1,7 +1,8 @@
 import { Link } from 'gatsby';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 import MyLogo from './myLogo';
 import DarkModeToggle from './DarkModeToggle';
@@ -17,6 +18,14 @@ const NavLink = styled(Link)`
   transition: all ${(props) => props.theme.transitions.normal};
   position: relative;
   overflow: hidden;
+  display: block;
+  
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+  }
   
   &::before {
     content: '';
@@ -71,13 +80,32 @@ const NavLink = styled(Link)`
 
 const Header = () => {
   const { theme } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+  
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header
       role="banner"
       css={css`
         display: grid;
-        grid-template-columns: auto 1fr 0.25fr auto auto;
+        grid-template-columns: auto 1fr auto auto;
         font-family: AvenirLTStd-Roman, sans-serif;
         font-size: 2rem;
         margin: 2rem auto 4rem;
@@ -90,6 +118,12 @@ const Header = () => {
         transition: all ${theme.transitions.slow};
         position: relative;
         overflow: hidden;
+        padding: 1rem 2rem;
+        border-radius: 20px;
+        background: ${isScrolled ? `${theme.colors.surface}95` : 'transparent'};
+        backdrop-filter: ${isScrolled ? 'blur(20px)' : 'none'};
+        border: ${isScrolled ? `1px solid ${theme.colors.border}` : '1px solid transparent'};
+        box-shadow: ${isScrolled ? theme.shadows.medium : 'none'};
         
         &::before {
           content: '';
@@ -142,15 +176,57 @@ const Header = () => {
           width: 95vw;
         }
         
+        @media (max-width: 768px) {
+          grid-template-columns: auto 1fr auto auto;
+          padding: 0.75rem 1.5rem;
+        }
+        
         @media (max-width: 480px) {
           font-size: 1.5rem;
-          grid-template-columns: auto 1fr auto;
+          grid-template-columns: 1fr auto auto;
+          padding: 0.5rem 1rem;
         }
         @media (max-width: 360px) {
           font-size: 1.25rem;
         }
       `}
     >
+      {/* Mobile menu button */}
+      <button
+        css={css`
+          display: none;
+          background: none;
+          border: none;
+          color: ${theme.colors.text};
+          font-size: 1.5rem;
+          cursor: pointer;
+          padding: 0.5rem;
+          border-radius: 8px;
+          transition: all ${theme.transitions.normal};
+          grid-column: 2 / 3;
+          justify-self: end;
+          
+          &:hover {
+            background: ${theme.colors.surfaceVariant};
+            transform: scale(1.1);
+          }
+          
+          &:focus {
+            outline: 2px solid ${theme.colors.accentSecondary};
+            outline-offset: 2px;
+          }
+          
+          @media (max-width: 768px) {
+            display: block;
+          }
+        `}
+        onClick={toggleMobileMenu}
+        aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={isMobileMenuOpen}
+      >
+        {isMobileMenuOpen ? typeof window !== 'undefined' && <FaTimes /> : typeof window !== 'undefined' && <FaBars />}
+      </button>
+      
       <nav
         role="navigation"
         aria-label="Main navigation"
@@ -158,8 +234,56 @@ const Header = () => {
           margin-top: 0;
           grid-column: 2 / 3;
           align-self: end;
+          
+          @media (max-width: 768px) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: ${theme.colors.surface}98;
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: ${isMobileMenuOpen ? 1 : 0};
+            visibility: ${isMobileMenuOpen ? 'visible' : 'hidden'};
+            transition: all ${theme.transitions.normal};
+            grid-column: 1 / -1;
+          }
         `}
       >
+        {/* Close button for mobile */}
+        <button
+          css={css`
+            display: none;
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: ${theme.colors.text};
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all ${theme.transitions.normal};
+            
+            &:hover {
+              background: ${theme.colors.surfaceVariant};
+            }
+            
+            @media (max-width: 768px) {
+              display: block;
+            }
+          `}
+          onClick={closeMobileMenu}
+          aria-label="Close menu"
+        >
+          {typeof window !== 'undefined' && <FaTimes />}
+        </button>
+        
         <ul
           css={css`
             list-style: none;
@@ -167,6 +291,12 @@ const Header = () => {
             padding: 0;
             display: flex;
             gap: 0.75rem;
+            
+            @media (max-width: 768px) {
+              flex-direction: column;
+              gap: 2rem;
+              text-align: center;
+            }
           `}
         >
           <li>
@@ -176,6 +306,7 @@ const Header = () => {
               activeClassName="current-page"
               aria-current="page"
               theme={theme}
+              onClick={closeMobileMenu}
             >
               Home
             </NavLink>
@@ -187,6 +318,7 @@ const Header = () => {
               activeClassName="current-page"
               partiallyActive
               theme={theme}
+              onClick={closeMobileMenu}
             >
               Bio
             </NavLink>
@@ -198,6 +330,7 @@ const Header = () => {
               activeClassName="current-page"
               partiallyActive
               theme={theme}
+              onClick={closeMobileMenu}
             >
               Projects
             </NavLink>
@@ -209,6 +342,7 @@ const Header = () => {
               activeClassName="current-page"
               partiallyActive
               theme={theme}
+              onClick={closeMobileMenu}
             >
               Contact
             </NavLink>
@@ -220,19 +354,26 @@ const Header = () => {
           display: grid;
           grid-column: 3 / 4;
           justify-items: end;
-          @media (max-width: 480px) {
+          
+          @media (max-width: 768px) {
             display: none;
           }
         `}
       >
         <MyLogo />
       </div>
+      
       <div
         css={css`
           grid-column: 4 / 5;
           display: flex;
           align-items: center;
           justify-self: end;
+          
+          @media (max-width: 768px) {
+            grid-column: 3 / 4;
+          }
+          
           @media (max-width: 480px) {
             grid-column: 3 / 4;
           }
@@ -240,6 +381,27 @@ const Header = () => {
       >
         <DarkModeToggle />
       </div>
+      
+      {/* Mobile menu backdrop */}
+      {isMobileMenuOpen && (
+        <div
+          css={css`
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            
+            @media (max-width: 768px) {
+              display: block;
+            }
+          `}
+          onClick={closeMobileMenu}
+        />
+      )}
     </header>
   );
 };

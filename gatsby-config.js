@@ -44,13 +44,35 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-developer-portfolio`,
-        short_name: `portfolio`,
+        name: `Jeff Maxwell - Full Stack Developer Portfolio`,
+        short_name: `Jeff Maxwell`,
+        description: `Jeff Maxwell's professional developer portfolio showcasing React, Node.js, and modern web development projects`,
         start_url: `/`,
         background_color: `#052f5f`,
         theme_color: `#fc4a1a`,
-        display: `minimal-ui`,
-        icon: 'src/images/elephant_noun_project.png', // This path is relative to the root of the site.
+        display: `standalone`,
+        orientation: `portrait-primary`,
+        icon: 'src/images/elephant_noun_project.png',
+        icons: [
+          {
+            src: 'src/images/elephant_noun_project.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+          {
+            src: 'src/images/elephant_noun_project.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
+        categories: ['developer-tools', 'portfolio', 'productivity'],
+        lang: 'en',
+        dir: 'ltr',
+        prefer_related_applications: false,
+        crossOrigin: 'use-credentials',
+        cache_busting_mode: 'none',
       },
     },
     {
@@ -96,6 +118,29 @@ module.exports = {
             url: path,
             lastmod: modifiedGmt,
           };
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/`, `/about/`, `/projects/`],
+        workboxConfig: {
+          globPatterns: ['**/*'],
+          runtimeCaching: [
+            {
+              urlPattern: /(\.js$|\.css$|static\/)/,
+              handler: `CacheFirst`,
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+              handler: `StaleWhileRevalidate`,
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+              handler: `CacheFirst`,
+            },
+          ],
         },
       },
     },
