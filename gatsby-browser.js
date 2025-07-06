@@ -4,34 +4,9 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-import React from 'react';
-import { ThemeProvider } from './src/context/ThemeContext';
-import ErrorBoundary from './src/components/ErrorBoundary';
-import './static/fonts/fonts.css';
+import { wrapRootElement as wrap } from './src/wrap-root-element';
 
-// Client-only PerformanceMonitor wrapper
-const ClientOnlyPerformanceMonitor = () => {
-  const [PerformanceMonitor, setPerformanceMonitor] = React.useState(null);
-  
-  React.useEffect(() => {
-    // Only import and render PerformanceMonitor on the client
-    import('./src/components/PerformanceMonitor').then((module) => {
-      setPerformanceMonitor(() => module.default);
-    });
-  }, []);
-  
-  return PerformanceMonitor ? React.createElement(PerformanceMonitor) : null;
-};
-
-// Wrap the root element with providers
-export const wrapRootElement = ({ element }) => (
-  <ErrorBoundary>
-    <ThemeProvider>
-      <ClientOnlyPerformanceMonitor />
-      {element}
-    </ThemeProvider>
-  </ErrorBoundary>
-);
+export const wrapRootElement = wrap;
 
 // Custom scroll behavior for better UX
 export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPosition }) => {

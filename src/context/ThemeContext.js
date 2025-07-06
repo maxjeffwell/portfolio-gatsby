@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 
 // Theme configuration
 const lightTheme = {
@@ -147,6 +148,7 @@ export const useTheme = () => {
         theme: lightTheme,
         isDarkMode: false,
         isSystemPreference: true,
+        isHydrated: false,
         toggleTheme: () => {},
         resetToSystemPreference: () => {},
         systemPreference: 'light',
@@ -159,17 +161,19 @@ export const useTheme = () => {
 
 // Get system preference
 const getSystemPreference = () => {
-  if (typeof window === 'undefined') return 'light';
-
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
+  if (typeof window !== 'undefined') {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
   }
-  return 'light';
+  return 'light'; // Default to light theme on the server
 };
 
 // Get stored preference or system preference
 const getInitialTheme = () => {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') {
+    return 'light'; // Default to light theme on the server
+  }
 
   const stored = localStorage.getItem('portfolio-theme');
   if (stored && (stored === 'light' || stored === 'dark')) {
@@ -183,19 +187,22 @@ const getInitialTheme = () => {
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isSystemPreference, setIsSystemPreference] = useState(true);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   // Initialize theme on mount
   useEffect(() => {
     const initialTheme = getInitialTheme();
-    const hasStoredPreference = localStorage.getItem('portfolio-theme') !== null;
+    const hasStoredPreference =
+      typeof window !== 'undefined' && localStorage.getItem('portfolio-theme') !== null;
 
     setIsDarkMode(initialTheme === 'dark');
     setIsSystemPreference(!hasStoredPreference);
+    setIsHydrated(true);
   }, []);
 
   // Listen for system preference changes
   useEffect(() => {
-    if (!isSystemPreference) return;
+    if (!isSystemPreference || typeof window === 'undefined') return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -236,13 +243,18 @@ export const ThemeProvider = ({ children }) => {
     setIsSystemPreference(false);
 
     // Store user preference
-    localStorage.setItem('portfolio-theme', newMode ? 'dark' : 'light');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('portfolio-theme', newMode ? 'dark' : 'light');
+    }
   };
 
   const resetToSystemPreference = () => {
     setIsSystemPreference(true);
     setIsDarkMode(getSystemPreference() === 'dark');
-    localStorage.removeItem('portfolio-theme');
+
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('portfolio-theme');
+    }
   };
 
   const theme = isDarkMode ? darkTheme : lightTheme;
@@ -251,13 +263,18 @@ export const ThemeProvider = ({ children }) => {
     theme,
     isDarkMode,
     isSystemPreference,
+    isHydrated,
     toggleTheme,
     resetToSystemPreference,
     systemPreference: getSystemPreference(),
   };
 
   // eslint-disable-next-line react/jsx-filename-extension
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>
+      <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
+    </ThemeContext.Provider>
+  );
 };
 
 ThemeProvider.propTypes = {
