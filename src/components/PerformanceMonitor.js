@@ -3,7 +3,11 @@ import { useEffect } from 'react';
 const PerformanceMonitor = () => {
   useEffect(() => {
     // Only run in production and if performance API is available
-    if (process.env.NODE_ENV !== 'production' || typeof window === 'undefined' || !window.performance) {
+    if (
+      process.env.NODE_ENV !== 'production' ||
+      typeof window === 'undefined' ||
+      !window.performance
+    ) {
       return;
     }
 
@@ -12,7 +16,7 @@ const PerformanceMonitor = () => {
       const reportMetric = (metric) => {
         // In a real app, you'd send this to your analytics service
         console.log(`Performance metric: ${metric.name}`, metric.value);
-        
+
         // Optional: Send to Google Analytics or other analytics service
         if (typeof gtag !== 'undefined') {
           gtag('event', metric.name, {
@@ -30,7 +34,7 @@ const PerformanceMonitor = () => {
         const lcpObserver = new PerformanceObserver((entryList) => {
           const entries = entryList.getEntries();
           const lastEntry = entries[entries.length - 1];
-          
+
           reportMetric({
             name: 'LCP',
             value: lastEntry.startTime,
@@ -57,7 +61,7 @@ const PerformanceMonitor = () => {
               clsValue += entry.value;
             }
           }
-          
+
           reportMetric({
             name: 'CLS',
             value: clsValue,
@@ -126,9 +130,10 @@ const PerformanceMonitor = () => {
           if (entry.duration > 1000) {
             console.warn(`Slow resource detected: ${entry.name} took ${entry.duration}ms`);
           }
-          
+
           // Monitor large resources
-          if (entry.transferSize > 100000) { // 100KB
+          if (entry.transferSize > 100000) {
+            // 100KB
             console.warn(`Large resource detected: ${entry.name} is ${entry.transferSize} bytes`);
           }
         }
@@ -156,7 +161,7 @@ const PerformanceMonitor = () => {
 
         // Log memory usage every 30 seconds
         const memoryInterval = setInterval(logMemoryUsage, 30000);
-        
+
         return () => clearInterval(memoryInterval);
       }
     };
@@ -167,7 +172,7 @@ const PerformanceMonitor = () => {
         const longTaskObserver = new PerformanceObserver((entryList) => {
           for (const entry of entryList.getEntries()) {
             console.warn(`Long task detected: ${entry.duration}ms`);
-            
+
             reportMetric({
               name: 'Long Task',
               value: entry.duration,
@@ -195,7 +200,7 @@ const PerformanceMonitor = () => {
 
     // Cleanup function
     return () => {
-      cleanupFunctions.forEach(cleanup => cleanup?.());
+      cleanupFunctions.forEach((cleanup) => cleanup?.());
     };
   }, []);
 

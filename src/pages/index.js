@@ -20,7 +20,7 @@ const StyledContainer = styled.div`
   grid-template-rows: auto auto 1fr auto auto auto;
   gap: clamp(2rem, 8vw, 6rem);
   position: relative;
-  
+
   /* Add subtle background pattern */
   &::before {
     content: '';
@@ -29,21 +29,40 @@ const StyledContainer = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
-      radial-gradient(circle at 20% 30%, ${(props) => props.theme.colors.accent}08 0%, transparent 60%),
-      radial-gradient(circle at 80% 70%, ${(props) => props.theme.colors.accentSecondary}06 0%, transparent 60%),
-      radial-gradient(circle at 60% 20%, ${(props) => props.theme.colors.accent}04 0%, transparent 40%);
+    background-image:
+      radial-gradient(
+        circle at 20% 30%,
+        ${(props) => props.theme.colors.accent}08 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        ${(props) => props.theme.colors.accentSecondary}06 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        circle at 60% 20%,
+        ${(props) => props.theme.colors.accent}04 0%,
+        transparent 40%
+      );
     pointer-events: none;
     z-index: -1;
     animation: floatPattern 25s ease-in-out infinite;
   }
-  
+
   @keyframes floatPattern {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(10px, -5px) rotate(1deg); }
-    66% { transform: translate(-5px, 10px) rotate(-1deg); }
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+      transform: translate(10px, -5px) rotate(1deg);
+    }
+    66% {
+      transform: translate(-5px, 10px) rotate(-1deg);
+    }
   }
-  
+
   @media (max-width: 768px) {
     gap: clamp(1.5rem, 6vw, 4rem);
   }
@@ -96,13 +115,13 @@ function IndexPage() {
               position: relative;
               padding: clamp(1.5rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
               touch-action: manipulation;
-              
+
               @media (max-width: 768px) {
                 padding: clamp(1rem, 5vw, 2rem) clamp(0.75rem, 3vw, 1.5rem);
                 border-radius: 16px;
                 margin-bottom: 1.5rem;
               }
-              
+
               @media (max-width: 480px) {
                 padding: 1rem 0.75rem;
                 border-radius: 12px;
@@ -114,7 +133,7 @@ function IndexPage() {
               border: 1px solid ${theme.colors.border};
               margin-bottom: 2rem;
               overflow: hidden;
-              
+
               &::before {
                 content: '';
                 position: absolute;
@@ -130,7 +149,7 @@ function IndexPage() {
                 );
                 pointer-events: none;
               }
-              
+
               &::after {
                 content: '';
                 position: absolute;
@@ -144,11 +163,11 @@ function IndexPage() {
                 opacity: 0;
                 transition: opacity ${theme.transitions.slow};
               }
-              
+
               &:hover::after {
                 opacity: 0.1;
               }
-              
+
               @media (hover: none) {
                 &:active::after {
                   opacity: 0.15;
@@ -162,13 +181,13 @@ function IndexPage() {
                 z-index: 1;
                 font-family: HelveticaNeueLTStd-Bd, sans-serif;
                 font-size: clamp(1.75rem, 6vw, 3.5rem);
-                
+
                 @media (max-width: 768px) {
                   font-size: clamp(1.5rem, 8vw, 2.5rem);
                   line-height: 1.2;
                   margin-bottom: 0.75rem;
                 }
-                
+
                 @media (max-width: 480px) {
                   font-size: clamp(1.25rem, 9vw, 2rem);
                   letter-spacing: -0.01em;
@@ -181,10 +200,12 @@ function IndexPage() {
                 line-height: 1.1;
                 text-align: center;
                 opacity: ${headerVisible ? 1 : 0};
-                transform: ${headerVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)'};
+                transform: ${headerVisible
+                  ? 'translateY(0) scale(1)'
+                  : 'translateY(20px) scale(0.95)'};
                 transition: all ${theme.transitions.elastic};
                 letter-spacing: -0.02em;
-                
+
                 /* Add text shadow for depth */
                 filter: drop-shadow(0 4px 8px ${theme.colors.accent}20);
               `}
@@ -240,7 +261,7 @@ function IndexPage() {
                 crafting exceptional web experiences
               </span>
             </h1>
-            
+
             {/* Floating elements for visual interest */}
             <div
               css={css`
@@ -253,10 +274,15 @@ function IndexPage() {
                 border-radius: 50%;
                 opacity: 0.1;
                 animation: float 6s ease-in-out infinite;
-                
+
                 @keyframes float {
-                  0%, 100% { transform: translateY(0) rotate(0deg); }
-                  50% { transform: translateY(-20px) rotate(180deg); }
+                  0%,
+                  100% {
+                    transform: translateY(0) rotate(0deg);
+                  }
+                  50% {
+                    transform: translateY(-20px) rotate(180deg);
+                  }
                 }
               `}
             />
@@ -298,7 +324,7 @@ function IndexPage() {
               position: relative;
               overflow: hidden;
               margin-bottom: 2rem;
-              
+
               &::before {
                 content: '';
                 position: absolute;
@@ -315,11 +341,11 @@ function IndexPage() {
                 color: ${theme.colors.text};
                 font-family: HelveticaNeueLTStd-Roman, sans-serif;
                 font-size: clamp(1.125rem, 3vw, 1.5rem);
-                
+
                 @media (max-width: 768px) {
                   font-size: clamp(1rem, 3.5vw, 1.25rem);
                 }
-                
+
                 @media (max-width: 480px) {
                   padding-left: 0;
                 }
@@ -330,7 +356,7 @@ function IndexPage() {
                 transition: all ${theme.transitions.slow};
                 transition-delay: 0.1s;
                 position: relative;
-                
+
                 &::before {
                   content: '💡';
                   position: absolute;
@@ -338,23 +364,23 @@ function IndexPage() {
                   top: 0;
                   font-size: 1.5rem;
                   opacity: 0.6;
-                  
+
                   @media (max-width: 768px) {
                     left: -1.5rem;
                     font-size: 1.25rem;
                   }
-                  
+
                   @media (max-width: 480px) {
                     display: none;
                   }
                 }
-                
+
                 padding-left: 0.5rem;
               `}
             >
-              I believe in <strong>clean, maintainable code</strong> and 
-              <strong>user-centered design</strong>. Every line I write is 
-              crafted with performance, accessibility, and scalability in mind.
+              I believe in <strong>clean, maintainable code</strong> and
+              <strong>user-centered design</strong>. Every line I write is crafted with performance,
+              accessibility, and scalability in mind.
             </p>
             <p
               css={css`
@@ -368,14 +394,14 @@ function IndexPage() {
                 transition: all ${theme.transitions.slow};
                 transition-delay: 0.3s;
                 font-style: italic;
-                
+
                 @media (max-width: 480px) {
                   font-size: 0.9rem;
                 }
               `}
             >
-              &#34;Code is like humor. When you have to explain it, it's bad.&#34;
-              — That's why I focus on intuitive, self-documenting solutions.
+              &#34;Code is like humor. When you have to explain it, it's bad.&#34; — That's why I
+              focus on intuitive, self-documenting solutions.
             </p>
           </div>
           <nav
@@ -406,12 +432,12 @@ function IndexPage() {
                   touch-action: manipulation;
                   user-select: none;
                   -webkit-tap-highlight-color: transparent;
-                  
+
                   @media (max-width: 768px) {
                     border-radius: 40px;
                     gap: 0.5rem;
                   }
-                  
+
                   @media (max-width: 480px) {
                     border-radius: 30px;
                     padding: 0.875rem 1.75rem;
@@ -444,7 +470,7 @@ function IndexPage() {
                     );
                     transition: left ${theme.transitions.slow};
                   }
-                  
+
                   &::after {
                     content: '\u2192';
                     font-size: clamp(1rem, 2.5vw, 1.25rem);
@@ -460,24 +486,24 @@ function IndexPage() {
                       &::before {
                         left: 100%;
                       }
-                      
+
                       &::after {
                         transform: translateX(4px);
                       }
                     }
                   }
-                  
+
                   @media (hover: none) {
                     &:active {
                       transform: translateY(-2px) scale(0.98);
                       box-shadow: ${theme.shadows.small};
-                      
+
                       &::before {
                         left: 100%;
                       }
                     }
                   }
-                  
+
                   &:active {
                     transform: translateY(-2px) scale(1);
                   }
@@ -486,7 +512,7 @@ function IndexPage() {
                     outline: 3px solid ${theme.colors.accentSecondary};
                     outline-offset: 4px;
                   }
-                  
+
                   &:focus:not(:focus-visible) {
                     outline: none;
                   }
@@ -515,22 +541,24 @@ function IndexPage() {
                   }
                 `}
               >
-                {typeof window !== 'undefined' && <FaRegArrowAltCircleRight
-                  css={css`
-                    color: ${theme.colors.accent};
-                    font-size: 3.5rem;
-                    display: block;
-                    margin: 0 auto;
-                    transition: all ${theme.transitions.bounce};
-                    cursor: pointer;
+                {typeof window !== 'undefined' && (
+                  <FaRegArrowAltCircleRight
+                    css={css`
+                      color: ${theme.colors.accent};
+                      font-size: 3.5rem;
+                      display: block;
+                      margin: 0 auto;
+                      transition: all ${theme.transitions.bounce};
+                      cursor: pointer;
 
-                    &:hover {
-                      transform: scale(1.15) rotate(5deg);
-                      filter: drop-shadow(0 8px 16px rgba(252, 74, 26, 0.3));
-                    }
-                  `}
-                  aria-hidden="true"
-                />}
+                      &:hover {
+                        transform: scale(1.15) rotate(5deg);
+                        filter: drop-shadow(0 8px 16px rgba(252, 74, 26, 0.3));
+                      }
+                    `}
+                    aria-hidden="true"
+                  />
+                )}
               </StyledLink>
             </div>
           </nav>
@@ -547,14 +575,18 @@ function IndexPage() {
         >
           <div
             css={css`
-              background: linear-gradient(135deg, ${theme.colors.secondary}95 0%, ${theme.colors.tertiary}90 100%);
+              background: linear-gradient(
+                135deg,
+                ${theme.colors.secondary}95 0%,
+                ${theme.colors.tertiary}90 100%
+              );
               border-radius: 24px;
               padding: clamp(2rem, 5vw, 3rem);
               position: relative;
               overflow: hidden;
               border: 1px solid ${theme.colors.border};
               backdrop-filter: blur(20px);
-              
+
               &::before {
                 content: '';
                 position: absolute;
@@ -569,14 +601,21 @@ function IndexPage() {
                 );
                 animation: pulse 4s ease-in-out infinite;
               }
-              
+
               @keyframes pulse {
-                0%, 100% { opacity: 0.3; transform: scale(1); }
-                50% { opacity: 0.6; transform: scale(1.1); }
+                0%,
+                100% {
+                  opacity: 0.3;
+                  transform: scale(1);
+                }
+                50% {
+                  opacity: 0.6;
+                  transform: scale(1.1);
+                }
               }
             `}
           >
-            <h2 
+            <h2
               id="personal-heading"
               css={css`
                 color: ${theme.colors.accentSecondary};
@@ -584,7 +623,7 @@ function IndexPage() {
                 font-size: clamp(1.5rem, 4vw, 2rem);
                 margin-bottom: 1.5rem;
                 position: relative;
-                
+
                 &::after {
                   content: '';
                   position: absolute;
@@ -608,7 +647,7 @@ function IndexPage() {
                 line-height: 1.6;
                 position: relative;
                 z-index: 1;
-                
+
                 &::before {
                   content: '\ud83d\udc36';
                   position: absolute;
@@ -618,64 +657,71 @@ function IndexPage() {
                   opacity: 0.7;
                   animation: wiggle 3s ease-in-out infinite;
                 }
-                
+
                 @keyframes wiggle {
-                  0%, 100% { transform: rotate(0deg); }
-                  25% { transform: rotate(5deg); }
-                  75% { transform: rotate(-5deg); }
+                  0%,
+                  100% {
+                    transform: rotate(0deg);
+                  }
+                  25% {
+                    transform: rotate(5deg);
+                  }
+                  75% {
+                    transform: rotate(-5deg);
+                  }
                 }
-                
+
                 padding-left: 1rem;
               `}
             >
-              When I'm not crafting pixel-perfect interfaces or debugging complex algorithms, 
-              you'll find me negotiating dinner arrangements with my two demanding canine 
-              project managers \u2014 they're surprisingly good at code reviews!
+              When I'm not crafting pixel-perfect interfaces or debugging complex algorithms, you'll
+              find me negotiating dinner arrangements with my two demanding canine project managers
+              \u2014 they're surprisingly good at code reviews!
             </p>
-          <nav aria-label="About page navigation">
-            <p>
+            <nav aria-label="About page navigation">
+              <p>
+                <StyledLink
+                  to="/about/"
+                  theme={theme}
+                  css={css`
+                    &:focus {
+                      outline: 2px solid ${theme.colors.accentSecondary};
+                      outline-offset: 2px;
+                    }
+                  `}
+                >
+                  Meet my development team and learn more about me
+                </StyledLink>
+              </p>
               <StyledLink
                 to="/about/"
                 theme={theme}
+                aria-label="Go to about page"
                 css={css`
+                  display: inline-block;
+                  margin-top: 1rem;
                   &:focus {
                     outline: 2px solid ${theme.colors.accentSecondary};
                     outline-offset: 2px;
+                    border-radius: 50%;
                   }
                 `}
               >
-                Meet my development team and learn more about me
+                <FaRegArrowAltCircleRight
+                  css={css`
+                    color: ${theme.colors.accent};
+                    font-size: 3.5rem;
+                    display: block;
+                    margin: 1rem auto 2rem;
+                    transition: transform 0.2s ease-in-out;
+                    &:hover {
+                      transform: scale(1.1);
+                    }
+                  `}
+                  aria-hidden="true"
+                />
               </StyledLink>
-            </p>
-            <StyledLink
-              to="/about/"
-              theme={theme}
-              aria-label="Go to about page"
-              css={css`
-                display: inline-block;
-                margin-top: 1rem;
-                &:focus {
-                  outline: 2px solid ${theme.colors.accentSecondary};
-                  outline-offset: 2px;
-                  border-radius: 50%;
-                }
-              `}
-            >
-              <FaRegArrowAltCircleRight
-                css={css`
-                  color: ${theme.colors.accent};
-                  font-size: 3.5rem;
-                  display: block;
-                  margin: 1rem auto 2rem;
-                  transition: transform 0.2s ease-in-out;
-                  &:hover {
-                    transform: scale(1.1);
-                  }
-                `}
-                aria-hidden="true"
-              />
-            </StyledLink>
-          </nav>
+            </nav>
           </div>
         </section>
 
@@ -693,14 +739,18 @@ function IndexPage() {
         >
           <div
             css={css`
-              background: linear-gradient(135deg, ${theme.colors.tertiary}98 0%, ${theme.colors.secondary}95 100%);
+              background: linear-gradient(
+                135deg,
+                ${theme.colors.tertiary}98 0%,
+                ${theme.colors.secondary}95 100%
+              );
               border-radius: 24px;
               padding: clamp(2rem, 5vw, 3rem);
               position: relative;
               overflow: hidden;
               border: 1px solid ${theme.colors.border};
               backdrop-filter: blur(20px);
-              
+
               &::before {
                 content: '';
                 position: absolute;
@@ -711,7 +761,7 @@ function IndexPage() {
                 background: ${theme.gradients.accent};
                 border-radius: 24px 24px 0 0;
               }
-              
+
               &::after {
                 content: '';
                 position: absolute;
@@ -721,7 +771,7 @@ function IndexPage() {
                 height: 12px;
                 background: #ff5f56;
                 border-radius: 50%;
-                box-shadow: 
+                box-shadow:
                   20px 0 0 #ffbd2e,
                   40px 0 0 #27ca3f;
               }
@@ -740,7 +790,7 @@ function IndexPage() {
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 position: relative;
-                
+
                 &::before {
                   content: '\ud83d\udcbb';
                   position: absolute;
@@ -750,7 +800,7 @@ function IndexPage() {
                   font-size: 2rem;
                   opacity: 0.6;
                 }
-                
+
                 padding-top: 2rem;
               `}
             >
@@ -767,7 +817,8 @@ function IndexPage() {
                 font-style: italic;
               `}
             >
-              Clean, readable, and maintainable \u2014 here's how I approach modern React development:
+              Clean, readable, and maintainable \u2014 here's how I approach modern React
+              development:
             </p>
             <CodeSnippet
               title="Custom Hook Example"
@@ -790,7 +841,7 @@ function IndexPage() {
   return { isDark, toggleTheme };
 };`}
             />
-            
+
             <div
               css={css`
                 margin-top: 2rem;
@@ -819,12 +870,12 @@ function IndexPage() {
                   list-style: none;
                   padding: 0;
                   margin: 0;
-                  
+
                   li {
                     position: relative;
                     padding-left: 1.5rem;
                     margin-bottom: 0.5rem;
-                    
+
                     &::before {
                       content: '\u2713';
                       position: absolute;

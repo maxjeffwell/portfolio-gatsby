@@ -56,8 +56,12 @@ const LoadingSpinner = styled.div`
   margin-bottom: 1rem;
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `;
 
@@ -68,8 +72,13 @@ const LoadingText = styled.div`
   animation: pulse 1.5s ease-in-out infinite;
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 `;
 
@@ -89,7 +98,7 @@ const PageTransition = ({ children, location }) => {
       const loadingTimer = setTimeout(() => {
         setTransitionStage('entering');
         setPreviousLocation(location);
-        
+
         // Complete transition
         const enterTimer = setTimeout(() => {
           setTransitionStage('entered');
@@ -109,7 +118,7 @@ const PageTransition = ({ children, location }) => {
         <LoadingSpinner theme={theme} />
         <LoadingText theme={theme}>Loading...</LoadingText>
       </LoadingOverlay>
-      
+
       <TransitionContainer>
         <PageWrapper theme={theme} stage={transitionStage}>
           {children}

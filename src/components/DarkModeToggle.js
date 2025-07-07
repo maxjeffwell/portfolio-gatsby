@@ -115,7 +115,7 @@ const DarkModeToggle = () => {
                 font-size: 1.2rem;
                 filter: drop-shadow(0 0 6px rgba(255, 201, 71, 0.5));
                 transition: all ${theme.transitions.normal};
-                
+
                 &:hover {
                   filter: drop-shadow(0 0 8px rgba(255, 201, 71, 0.7));
                   transform: scale(1.1);
@@ -124,20 +124,22 @@ const DarkModeToggle = () => {
               aria-hidden="true"
             />
           ) : (
-            typeof window !== 'undefined' && <FaSun
-              css={css`
-                color: #ffa500;
-                font-size: 1.2rem;
-                filter: drop-shadow(0 0 6px rgba(255, 165, 0, 0.5));
-                transition: all ${theme.transitions.normal};
-                
-                &:hover {
-                  filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.7));
-                  transform: scale(1.1) rotate(15deg);
-                }
-              `}
-              aria-hidden="true"
-            />
+            typeof window !== 'undefined' && (
+              <FaSun
+                css={css`
+                  color: #ffa500;
+                  font-size: 1.2rem;
+                  filter: drop-shadow(0 0 6px rgba(255, 165, 0, 0.5));
+                  transition: all ${theme.transitions.normal};
+
+                  &:hover {
+                    filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.7));
+                    transform: scale(1.1) rotate(15deg);
+                  }
+                `}
+                aria-hidden="true"
+              />
+            )
           )}
         </div>
       </button>
@@ -176,12 +178,14 @@ const DarkModeToggle = () => {
           aria-label="Theme settings - currently following system preference"
           title="Currently following system preference"
         >
-          {typeof window !== 'undefined' && <FaDesktop
-            css={css`
-              font-size: 0.8rem;
-            `}
-            aria-hidden="true"
-          />}
+          {typeof window !== 'undefined' && (
+            <FaDesktop
+              css={css`
+                font-size: 0.8rem;
+              `}
+              aria-hidden="true"
+            />
+          )}
           <span>Auto</span>
         </button>
       )}

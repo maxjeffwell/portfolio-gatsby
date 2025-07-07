@@ -19,14 +19,14 @@ const NavLink = styled(Link)`
   position: relative;
   overflow: hidden;
   display: block;
-  
+
   @media (max-width: 768px) {
     padding: 1rem 2rem;
     font-size: 1.5rem;
     border-radius: 15px;
     text-align: center;
   }
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -44,7 +44,7 @@ const NavLink = styled(Link)`
     color: ${(props) => props.theme.colors.textInverse};
     box-shadow: ${(props) => props.theme.shadows.medium};
     transform: translateY(-2px);
-    
+
     &::before {
       left: 0;
     }
@@ -55,7 +55,7 @@ const NavLink = styled(Link)`
     color: ${(props) => props.theme.colors.accentSecondary};
     transform: translateY(-2px);
     box-shadow: ${(props) => props.theme.shadows.small};
-    
+
     &::before {
       left: 0;
       opacity: 0.1;
@@ -82,20 +82,20 @@ const Header = () => {
   const { theme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  
+
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
@@ -124,7 +124,7 @@ const Header = () => {
         backdrop-filter: ${isScrolled ? 'blur(20px)' : 'none'};
         border: ${isScrolled ? `1px solid ${theme.colors.border}` : '1px solid transparent'};
         box-shadow: ${isScrolled ? theme.shadows.medium : 'none'};
-        
+
         &::before {
           content: '';
           position: absolute;
@@ -132,21 +132,18 @@ const Header = () => {
           left: -50%;
           width: 200%;
           height: 200%;
-          background: radial-gradient(
-            circle at 30% 20%,
-            ${theme.colors.accent}08 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 70% 80%,
-            ${theme.colors.accentSecondary}08 0%,
-            transparent 50%
-          );
+          background:
+            radial-gradient(circle at 30% 20%, ${theme.colors.accent}08 0%, transparent 50%),
+            radial-gradient(
+              circle at 70% 80%,
+              ${theme.colors.accentSecondary}08 0%,
+              transparent 50%
+            );
           animation: floatBackground 20s ease-in-out infinite;
           pointer-events: none;
           z-index: -1;
         }
-        
+
         &::after {
           content: '';
           position: absolute;
@@ -158,9 +155,10 @@ const Header = () => {
           background: ${theme.gradients.accent};
           opacity: 0.3;
         }
-        
+
         @keyframes floatBackground {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateX(-10px) translateY(-10px) rotate(0deg);
           }
           33% {
@@ -170,17 +168,17 @@ const Header = () => {
             transform: translateX(-5px) translateY(10px) rotate(-1deg);
           }
         }
-        
+
         @media (max-width: 768px) {
           font-size: 1.75rem;
           width: 95vw;
         }
-        
+
         @media (max-width: 768px) {
           grid-template-columns: auto 1fr auto auto;
           padding: 0.75rem 1.5rem;
         }
-        
+
         @media (max-width: 480px) {
           font-size: 1.5rem;
           grid-template-columns: 1fr auto auto;
@@ -205,17 +203,17 @@ const Header = () => {
           transition: all ${theme.transitions.normal};
           grid-column: 2 / 3;
           justify-self: end;
-          
+
           &:hover {
             background: ${theme.colors.surfaceVariant};
             transform: scale(1.1);
           }
-          
+
           &:focus {
             outline: 2px solid ${theme.colors.accentSecondary};
             outline-offset: 2px;
           }
-          
+
           @media (max-width: 768px) {
             display: block;
           }
@@ -224,9 +222,11 @@ const Header = () => {
         aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isMobileMenuOpen}
       >
-        {isMobileMenuOpen ? typeof window !== 'undefined' && <FaTimes /> : typeof window !== 'undefined' && <FaBars />}
+        {isMobileMenuOpen
+          ? typeof window !== 'undefined' && <FaTimes />
+          : typeof window !== 'undefined' && <FaBars />}
       </button>
-      
+
       <nav
         role="navigation"
         aria-label="Main navigation"
@@ -234,7 +234,7 @@ const Header = () => {
           margin-top: 0;
           grid-column: 2 / 3;
           align-self: end;
-          
+
           @media (max-width: 768px) {
             position: fixed;
             top: 0;
@@ -269,11 +269,11 @@ const Header = () => {
             padding: 0.5rem;
             border-radius: 8px;
             transition: all ${theme.transitions.normal};
-            
+
             &:hover {
               background: ${theme.colors.surfaceVariant};
             }
-            
+
             @media (max-width: 768px) {
               display: block;
             }
@@ -283,7 +283,7 @@ const Header = () => {
         >
           {typeof window !== 'undefined' && <FaTimes />}
         </button>
-        
+
         <ul
           css={css`
             list-style: none;
@@ -291,7 +291,7 @@ const Header = () => {
             padding: 0;
             display: flex;
             gap: 0.75rem;
-            
+
             @media (max-width: 768px) {
               flex-direction: column;
               gap: 2rem;
@@ -354,7 +354,7 @@ const Header = () => {
           display: grid;
           grid-column: 3 / 4;
           justify-items: end;
-          
+
           @media (max-width: 768px) {
             display: none;
           }
@@ -362,18 +362,18 @@ const Header = () => {
       >
         <MyLogo />
       </div>
-      
+
       <div
         css={css`
           grid-column: 4 / 5;
           display: flex;
           align-items: center;
           justify-self: end;
-          
+
           @media (max-width: 768px) {
             grid-column: 3 / 4;
           }
-          
+
           @media (max-width: 480px) {
             grid-column: 3 / 4;
           }
@@ -381,7 +381,7 @@ const Header = () => {
       >
         <DarkModeToggle />
       </div>
-      
+
       {/* Mobile menu backdrop */}
       {isMobileMenuOpen && (
         <div
@@ -394,7 +394,7 @@ const Header = () => {
             background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             display: none;
-            
+
             @media (max-width: 768px) {
               display: block;
             }

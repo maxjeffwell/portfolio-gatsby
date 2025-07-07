@@ -183,7 +183,7 @@ const ProjectsPage = ({ data }) => {
               font-family: SabonLTStd-Roman, serif;
               font-size: 1.25rem;
               animation: fadeIn 0.4s ease-out;
-              
+
               @keyframes fadeIn {
                 from {
                   opacity: 0;
@@ -210,7 +210,7 @@ const ProjectsPage = ({ data }) => {
                   animation-fill-mode: both;
                   opacity: 0;
                   transform: translateY(30px);
-                  
+
                   @keyframes slideInUp {
                     0% {
                       opacity: 0;
@@ -225,7 +225,7 @@ const ProjectsPage = ({ data }) => {
                       transform: translateY(0) scale(1);
                     }
                   }
-                  
+
                   &:hover {
                     animation-play-state: paused;
                   }

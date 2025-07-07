@@ -28,9 +28,10 @@ const ErrorIcon = styled.div`
   justify-content: center;
   margin-bottom: 2rem;
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  
+
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
       opacity: 1;
     }
@@ -39,7 +40,7 @@ const ErrorIcon = styled.div`
       opacity: 0.8;
     }
   }
-  
+
   svg {
     color: white;
     font-size: 2rem;
@@ -55,7 +56,7 @@ const ErrorTitle = styled.h1`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
+
   @media (max-width: 768px) {
     font-size: 1.75rem;
   }
@@ -74,7 +75,7 @@ const ErrorDetails = styled.details`
   margin: 1rem 0 2rem;
   max-width: 800px;
   width: 100%;
-  
+
   summary {
     color: #ffc947;
     cursor: pointer;
@@ -83,12 +84,12 @@ const ErrorDetails = styled.details`
     padding: 0.5rem;
     border-radius: 4px;
     transition: background-color 0.2s ease;
-    
+
     &:hover {
       background-color: rgba(255, 201, 71, 0.1);
     }
   }
-  
+
   pre {
     background: #0a0a0a;
     color: #ff6b47;
@@ -114,32 +115,32 @@ const ActionButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: ${props => props.primary 
-    ? 'linear-gradient(135deg, #ffc947 0%, #ff6b47 100%)' 
-    : 'transparent'};
-  color: ${props => props.primary ? '#000000' : '#ffffff'};
-  border: 2px solid ${props => props.primary ? 'transparent' : '#404040'};
+  background: ${(props) =>
+    props.primary ? 'linear-gradient(135deg, #ffc947 0%, #ff6b47 100%)' : 'transparent'};
+  color: ${(props) => (props.primary ? '#000000' : '#ffffff')};
+  border: 2px solid ${(props) => (props.primary ? 'transparent' : '#404040')};
   border-radius: 8px;
   font-family: 'HelveticaNeueLTStd-Roman', sans-serif;
   font-size: 1rem;
-  font-weight: ${props => props.primary ? 'bold' : 'normal'};
+  font-weight: ${(props) => (props.primary ? 'bold' : 'normal')};
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    background: ${props => props.primary 
-      ? 'linear-gradient(135deg, #ffdb6b 0%, #ff8a6b 100%)' 
-      : 'rgba(255, 255, 255, 0.1)'};
+    background: ${(props) =>
+      props.primary
+        ? 'linear-gradient(135deg, #ffdb6b 0%, #ff8a6b 100%)'
+        : 'rgba(255, 255, 255, 0.1)'};
   }
-  
+
   &:focus {
     outline: 2px solid #ffc947;
     outline-offset: 2px;
   }
-  
+
   svg {
     font-size: 1rem;
   }
@@ -148,11 +149,11 @@ const ActionButton = styled.button`
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      hasError: false, 
-      error: null, 
+    this.state = {
+      hasError: false,
+      error: null,
       errorInfo: null,
-      eventId: null 
+      eventId: null,
     };
   }
 
@@ -163,7 +164,7 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
     // Log error to console
     console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
+
     // Store error details for display
     this.setState({
       error,
@@ -223,18 +224,14 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <ErrorContainer>
-          <ErrorIcon>
-            {typeof window !== 'undefined' && <FaExclamationTriangle />}
-          </ErrorIcon>
-          
-          <ErrorTitle>
-            Oops! Something went wrong
-          </ErrorTitle>
-          
+          <ErrorIcon>{typeof window !== 'undefined' && <FaExclamationTriangle />}</ErrorIcon>
+
+          <ErrorTitle>Oops! Something went wrong</ErrorTitle>
+
           <ErrorMessage>
-            I apologize for the inconvenience. An unexpected error has occurred while 
-            loading this page. This has been automatically reported and I'll work on 
-            fixing it as soon as possible.
+            I apologize for the inconvenience. An unexpected error has occurred while loading this
+            page. This has been automatically reported and I'll work on fixing it as soon as
+            possible.
           </ErrorMessage>
 
           {this.state.error && process.env.NODE_ENV === 'development' && (
@@ -252,15 +249,13 @@ class ErrorBoundary extends React.Component {
               {typeof window !== 'undefined' && <FaRedo />}
               Try Again
             </ActionButton>
-            
+
             <ActionButton onClick={this.handleGoHome}>
               {typeof window !== 'undefined' && <FaHome />}
               Go Home
             </ActionButton>
-            
-            <ActionButton onClick={this.handleReportFeedback}>
-              Report Issue
-            </ActionButton>
+
+            <ActionButton onClick={this.handleReportFeedback}>Report Issue</ActionButton>
           </ButtonGroup>
         </ErrorContainer>
       );

@@ -16,7 +16,7 @@ const FilterContainer = styled.div`
   box-shadow: ${(props) => props.theme.shadows.medium};
   animation: ${(props) => props.theme.animations.slideUp};
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -42,19 +42,24 @@ const FilterContainer = styled.div`
     opacity: 0;
     transition: opacity ${(props) => props.theme.transitions.normal};
   }
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: ${(props) => props.theme.shadows.hover};
-    
+
     &::after {
       opacity: 0.3;
     }
   }
 
   @keyframes shimmer {
-    0%, 100% { transform: translateX(-100%); }
-    50% { transform: translateX(400%); }
+    0%,
+    100% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(400%);
+    }
   }
 `;
 
@@ -78,8 +83,9 @@ const SearchInput = styled.input`
   &:focus {
     outline: none;
     border-color: ${(props) => props.theme.colors.accentSecondary};
-    box-shadow: 0 0 0 3px ${(props) => props.theme.colors.accentSecondary}40,
-                0 4px 12px ${(props) => props.theme.colors.accent}20;
+    box-shadow:
+      0 0 0 3px ${(props) => props.theme.colors.accentSecondary}40,
+      0 4px 12px ${(props) => props.theme.colors.accent}20;
     transform: translateY(-1px);
   }
 
@@ -284,13 +290,16 @@ const ProjectFilter = ({ onFilterChange, totalResults }) => {
     setSearchTerm(value);
   }, []);
 
-  const handleTechnologyChange = useCallback((tech) => {
-    const updatedTechnologies = selectedTechnologies.includes(tech)
-      ? selectedTechnologies.filter((t) => t !== tech)
-      : [...selectedTechnologies, tech];
+  const handleTechnologyChange = useCallback(
+    (tech) => {
+      const updatedTechnologies = selectedTechnologies.includes(tech)
+        ? selectedTechnologies.filter((t) => t !== tech)
+        : [...selectedTechnologies, tech];
 
-    setSelectedTechnologies(updatedTechnologies);
-  }, [selectedTechnologies]);
+      setSelectedTechnologies(updatedTechnologies);
+    },
+    [selectedTechnologies]
+  );
 
   const handleDateRangeChange = useCallback((e) => {
     const value = e.target.value;
@@ -309,7 +318,8 @@ const ProjectFilter = ({ onFilterChange, totalResults }) => {
     setSelectedDateRange('');
   }, []);
 
-  const hasActiveFilters = debouncedSearchTerm || selectedTechnologies.length > 0 || selectedDateRange;
+  const hasActiveFilters =
+    debouncedSearchTerm || selectedTechnologies.length > 0 || selectedDateRange;
 
   return (
     <FilterContainer theme={theme}>

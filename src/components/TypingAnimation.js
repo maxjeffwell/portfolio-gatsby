@@ -24,8 +24,14 @@ const Cursor = styled.span`
   vertical-align: text-top;
 
   @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
   }
 `;
 
@@ -54,7 +60,7 @@ const TypingAnimation = ({
   // Start animation after delay
   useEffect(() => {
     if (!isMounted) return;
-    
+
     const timer = setTimeout(() => {
       setIsStarted(true);
     }, startDelay);
@@ -90,7 +96,7 @@ const TypingAnimation = ({
       } else {
         // Finished deleting, move to next text
         const nextIndex = (currentTextIndex + 1) % texts.length;
-        
+
         if (loop || nextIndex !== 0) {
           setCurrentTextIndex(nextIndex);
           setIsTyping(true);
@@ -124,9 +130,7 @@ const TypingAnimation = ({
       <TypingText theme={theme}>
         {displayText || (isStarted ? '' : 'full stack web developer')}
       </TypingText>
-      {showCursor && (
-        <Cursor theme={theme} blink={cursorBlink} />
-      )}
+      {showCursor && <Cursor theme={theme} blink={cursorBlink} />}
     </TypingContainer>
   );
 };

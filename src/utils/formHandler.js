@@ -7,8 +7,8 @@
 
 export const submitContactForm = async (formData) => {
   // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   // Log form data (in production, this would be sent to your backend)
   console.log('Contact form submitted:', {
     name: formData.name,

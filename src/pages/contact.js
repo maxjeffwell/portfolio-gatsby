@@ -176,8 +176,8 @@ const ContactPage = () => {
         >
           <Title theme={theme}>Let's Work Together</Title>
           <Subtitle theme={theme}>
-            Have a project in mind? Looking for a developer to join your team? 
-            Or just want to say hello? I'd love to hear from you!
+            Have a project in mind? Looking for a developer to join your team? Or just want to say
+            hello? I'd love to hear from you!
           </Subtitle>
         </HeaderSection>
 
@@ -197,7 +197,7 @@ const ContactPage = () => {
             <ContactInfo theme={theme}>
               Send me an email for project inquiries, collaboration, or general questions.
             </ContactInfo>
-            <ContactLink 
+            <ContactLink
               theme={theme}
               href="mailto:jeff@jeffmaxwell.dev"
               aria-label="Send email to Jeff Maxwell"
@@ -214,7 +214,7 @@ const ContactPage = () => {
             <ContactInfo theme={theme}>
               Connect with me professionally and view my work experience and recommendations.
             </ContactInfo>
-            <ContactLink 
+            <ContactLink
               theme={theme}
               href="https://www.linkedin.com/in/jeffmaxwell-dev"
               target="_blank"
@@ -226,14 +226,12 @@ const ContactPage = () => {
           </ContactCard>
 
           <ContactCard theme={theme}>
-            <ContactIcon theme={theme}>
-              {typeof window !== 'undefined' && <FaGithub />}
-            </ContactIcon>
+            <ContactIcon theme={theme}>{typeof window !== 'undefined' && <FaGithub />}</ContactIcon>
             <ContactTitle theme={theme}>GitHub</ContactTitle>
             <ContactInfo theme={theme}>
               Check out my code, contribute to projects, or explore my open source work.
             </ContactInfo>
-            <ContactLink 
+            <ContactLink
               theme={theme}
               href="https://github.com/maxjeffwell"
               target="_blank"

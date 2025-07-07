@@ -15,7 +15,7 @@ const CTAContainer = styled.div`
   overflow: hidden;
   box-shadow: ${(props) => props.theme.shadows.large};
   border: 1px solid ${(props) => props.theme.colors.border};
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -23,15 +23,11 @@ const CTAContainer = styled.div`
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(
-      circle at center,
-      rgba(252, 74, 26, 0.1) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(circle at center, rgba(252, 74, 26, 0.1) 0%, transparent 70%);
     animation: rotate 20s linear infinite;
     z-index: 0;
   }
-  
+
   @keyframes rotate {
     from {
       transform: rotate(0deg);
@@ -40,16 +36,16 @@ const CTAContainer = styled.div`
       transform: rotate(360deg);
     }
   }
-  
+
   > * {
     position: relative;
     z-index: 1;
   }
-  
+
   @media (max-width: 768px) {
     padding: 3rem 2rem;
   }
-  
+
   @media (max-width: 480px) {
     padding: 2rem 1.5rem;
   }
@@ -65,7 +61,7 @@ const ContactGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   margin: 2.5rem 0;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -84,13 +80,13 @@ const ContactCard = styled.a`
   color: ${(props) => props.theme.colors.text};
   transition: all ${(props) => props.theme.transitions.normal};
   border: 1px solid ${(props) => props.theme.colors.border};
-  
+
   &:hover {
     transform: translateY(-3px);
     box-shadow: ${(props) => props.theme.shadows.hover};
     background: ${(props) => props.theme.colors.tertiary};
   }
-  
+
   &:focus {
     outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
     outline-offset: 2px;
@@ -108,7 +104,7 @@ const ContactText = styled.span`
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
   font-size: 1rem;
   font-weight: 500;
-  
+
   @media (max-width: 480px) {
     font-size: 0.9rem;
   }
@@ -131,7 +127,7 @@ const CTAButton = styled(Link)`
   margin-top: 2rem;
   position: relative;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -139,37 +135,32 @@ const CTAButton = styled(Link)`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left ${(props) => props.theme.transitions.slow};
   }
-  
+
   &:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: ${(props) => props.theme.shadows.hover};
-    
+
     &::before {
       left: 100%;
     }
-    
+
     svg {
       transform: translateX(3px);
     }
   }
-  
+
   &:focus {
     outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
     outline-offset: 4px;
   }
-  
+
   svg {
     transition: transform ${(props) => props.theme.transitions.normal};
   }
-  
+
   @media (max-width: 480px) {
     padding: 1rem 2rem;
     font-size: 1rem;
@@ -181,11 +172,11 @@ const QuickStats = styled.div`
   justify-content: center;
   gap: 3rem;
   margin: 3rem 0 2rem;
-  
+
   @media (max-width: 768px) {
     gap: 2rem;
   }
-  
+
   @media (max-width: 480px) {
     flex-direction: column;
     gap: 1.5rem;
@@ -202,7 +193,7 @@ const StatNumber = styled.div`
   font-weight: bold;
   color: ${(props) => props.theme.colors.accent};
   margin-bottom: 0.5rem;
-  
+
   @media (max-width: 480px) {
     font-size: 2rem;
   }
@@ -223,32 +214,32 @@ function CTASection({ visible }) {
       icon: FaEnvelope,
       text: 'Email Me',
       href: 'mailto:maxjeffwell@gmail.com',
-      label: 'Send email to maxjeffwell@gmail.com'
+      label: 'Send email to maxjeffwell@gmail.com',
     },
     {
       icon: FaPhone,
       text: 'Call Me',
       href: 'tel:+15083952008',
-      label: 'Call Jeff Maxwell at 508-395-2008'
+      label: 'Call Jeff Maxwell at 508-395-2008',
     },
     {
       icon: FaLinkedin,
       text: 'LinkedIn',
       href: 'https://www.linkedin.com/in/jeffrey-maxwell-553176172',
-      label: 'Connect on LinkedIn'
+      label: 'Connect on LinkedIn',
     },
     {
       icon: FaGithub,
       text: 'GitHub',
       href: 'https://github.com/maxjeffwell',
-      label: 'Visit GitHub profile'
-    }
+      label: 'Visit GitHub profile',
+    },
   ];
 
   const stats = [
     { number: '5+', label: 'Years Experience' },
     { number: '20+', label: 'Projects Completed' },
-    { number: '100%', label: 'Client Satisfaction' }
+    { number: '100%', label: 'Client Satisfaction' },
   ];
 
   return (
@@ -265,11 +256,11 @@ function CTASection({ visible }) {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.2;
-            
+
             @media (max-width: 768px) {
               font-size: 2.25rem;
             }
-            
+
             @media (max-width: 480px) {
               font-size: 2rem;
             }
@@ -278,7 +269,7 @@ function CTASection({ visible }) {
         >
           Ready to Build Something Amazing?
         </h2>
-        
+
         <p
           css={css`
             color: ${theme.colors.text};
@@ -287,14 +278,14 @@ function CTASection({ visible }) {
             line-height: 1.6;
             margin-bottom: 2rem;
             opacity: 0.9;
-            
+
             @media (max-width: 768px) {
               font-size: 1.125rem;
             }
           `}
         >
-          Let's collaborate to create exceptional web experiences that make a difference. 
-          I'm passionate about solving complex problems with clean, efficient code.
+          Let's collaborate to create exceptional web experiences that make a difference. I'm
+          passionate about solving complex problems with clean, efficient code.
         </p>
 
         <QuickStats>
@@ -318,7 +309,7 @@ function CTASection({ visible }) {
           {contactMethods.map((method, index) => {
             const IconComponent = method.icon;
             const isExternal = method.href.startsWith('http');
-            
+
             return (
               <ContactCard
                 key={method.text}

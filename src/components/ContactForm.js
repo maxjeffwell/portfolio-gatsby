@@ -3,7 +3,14 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { useTheme } from '../context/ThemeContext';
 import { submitContactForm, validateEmail } from '../utils/formHandler';
-import { FaUser, FaEnvelope, FaCommentDots, FaPaperPlane, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
+import {
+  FaUser,
+  FaEnvelope,
+  FaCommentDots,
+  FaPaperPlane,
+  FaCheckCircle,
+  FaExclamationTriangle,
+} from 'react-icons/fa';
 
 const FormContainer = styled.div`
   background: ${(props) => props.theme.gradients.secondary};
@@ -87,9 +94,10 @@ const inputStyles = (props) => css`
   &:focus {
     outline: none;
     border-color: ${props.hasError ? props.theme.colors.error : props.theme.colors.accentSecondary};
-    box-shadow: 0 0 0 3px ${props.hasError 
-      ? `${props.theme.colors.error}40` 
-      : `${props.theme.colors.accentSecondary}40`};
+    box-shadow: 0 0 0 3px
+      ${props.hasError
+        ? `${props.theme.colors.error}40`
+        : `${props.theme.colors.accentSecondary}40`};
     transform: translateY(-1px);
   }
 
@@ -154,12 +162,7 @@ const SubmitButton = styled.button`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left ${(props) => props.theme.transitions.normal};
   }
 
@@ -221,7 +224,6 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-
   const validateForm = () => {
     const newErrors = {};
 
@@ -261,14 +263,14 @@ const ContactForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
 
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
         [name]: '',
       }));
@@ -277,7 +279,7 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -286,7 +288,7 @@ const ContactForm = () => {
 
     try {
       await submitContactForm(formData);
-      
+
       setIsSubmitted(true);
       setFormData({
         name: '',
@@ -294,12 +296,11 @@ const ContactForm = () => {
         subject: '',
         message: '',
       });
-      
+
       // Hide success message after 5 seconds
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
-      
     } catch (error) {
       console.error('Error submitting form:', error);
       // In production, you could show an error message to the user
@@ -313,8 +314,8 @@ const ContactForm = () => {
     <FormContainer theme={theme}>
       <FormTitle theme={theme}>Get In Touch</FormTitle>
       <FormDescription theme={theme}>
-        I'd love to hear about your project ideas or discuss potential opportunities. 
-        Send me a message and I'll get back to you as soon as possible!
+        I'd love to hear about your project ideas or discuss potential opportunities. Send me a
+        message and I'll get back to you as soon as possible!
       </FormDescription>
 
       <Form onSubmit={handleSubmit}>
@@ -334,12 +335,7 @@ const ContactForm = () => {
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? 'name-error' : undefined}
           />
-          <ErrorMessage 
-            theme={theme} 
-            show={!!errors.name}
-            id="name-error"
-            role="alert"
-          >
+          <ErrorMessage theme={theme} show={!!errors.name} id="name-error" role="alert">
             {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.name}
           </ErrorMessage>
@@ -361,12 +357,7 @@ const ContactForm = () => {
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? 'email-error' : undefined}
           />
-          <ErrorMessage 
-            theme={theme} 
-            show={!!errors.email}
-            id="email-error"
-            role="alert"
-          >
+          <ErrorMessage theme={theme} show={!!errors.email} id="email-error" role="alert">
             {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.email}
           </ErrorMessage>
@@ -388,12 +379,7 @@ const ContactForm = () => {
             aria-invalid={!!errors.subject}
             aria-describedby={errors.subject ? 'subject-error' : undefined}
           />
-          <ErrorMessage 
-            theme={theme} 
-            show={!!errors.subject}
-            id="subject-error"
-            role="alert"
-          >
+          <ErrorMessage theme={theme} show={!!errors.subject} id="subject-error" role="alert">
             {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.subject}
           </ErrorMessage>
@@ -414,12 +400,7 @@ const ContactForm = () => {
             aria-invalid={!!errors.message}
             aria-describedby={errors.message ? 'message-error' : undefined}
           />
-          <ErrorMessage 
-            theme={theme} 
-            show={!!errors.message}
-            id="message-error"
-            role="alert"
-          >
+          <ErrorMessage theme={theme} show={!!errors.message} id="message-error" role="alert">
             {typeof window !== 'undefined' && <FaExclamationTriangle />}
             {errors.message}
           </ErrorMessage>
@@ -435,11 +416,7 @@ const ContactForm = () => {
           </div>
         </FormGroup>
 
-        <SubmitButton
-          theme={theme}
-          type="submit"
-          disabled={isSubmitting}
-        >
+        <SubmitButton theme={theme} type="submit" disabled={isSubmitting}>
           {isSubmitting ? (
             <>
               <div
@@ -452,8 +429,12 @@ const ContactForm = () => {
                   animation: spin 1s linear infinite;
 
                   @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
+                    0% {
+                      transform: rotate(0deg);
+                    }
+                    100% {
+                      transform: rotate(360deg);
+                    }
                   }
                 `}
               />

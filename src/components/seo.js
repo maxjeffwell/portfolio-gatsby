@@ -19,7 +19,9 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
 
   const metaDescription = description || site.siteMetadata.description;
   const metaTitle = title ? `${title} | ${site.siteMetadata.title}` : site.siteMetadata.title;
-  const metaImage = image ? `${site.siteMetadata.siteUrl}${image}` : `${site.siteMetadata.siteUrl}/icons/icon-512x512.png`;
+  const metaImage = image
+    ? `${site.siteMetadata.siteUrl}${image}`
+    : `${site.siteMetadata.siteUrl}/icons/icon-512x512.png`;
   const metaUrl = `${site.siteMetadata.siteUrl}${pathname || ''}`;
   const canonical = `${site.siteMetadata.siteUrl}${pathname || ''}`;
 

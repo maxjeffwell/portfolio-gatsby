@@ -37,7 +37,7 @@ const ProjectCard = ({
         position: relative;
         overflow: hidden;
         box-shadow: ${theme.shadows.medium};
-        
+
         &::before {
           content: '';
           position: absolute;
@@ -50,7 +50,7 @@ const ProjectCard = ({
           transform-origin: left;
           transition: transform ${theme.transitions.normal};
         }
-        
+
         &::after {
           content: '';
           position: absolute;
@@ -58,46 +58,42 @@ const ProjectCard = ({
           left: -50%;
           width: 200%;
           height: 200%;
-          background: radial-gradient(
-            circle,
-            rgba(252, 74, 26, 0.03) 0%,
-            transparent 70%
-          );
+          background: radial-gradient(circle, rgba(252, 74, 26, 0.03) 0%, transparent 70%);
           opacity: 0;
           transition: opacity ${theme.transitions.slow};
           pointer-events: none;
         }
-        
+
         &:hover {
           transform: translateY(-8px) scale(1.02);
           box-shadow: ${theme.shadows.hover};
-          
+
           &::before {
             transform: scaleX(1);
           }
-          
+
           &::after {
             opacity: 1;
           }
         }
-        
+
         [data-gatsby-image-wrapper] {
           margin-top: 0;
           border-radius: 12px;
           overflow: hidden;
           transition: transform ${theme.transitions.normal};
-          
+
           &:hover {
             transform: scale(1.05);
           }
         }
-        
+
         & [data-gatsby-image-wrapper]:nth-of-type(2) {
           @media (max-width: 768px) {
             margin-top: 1rem;
           }
         }
-        
+
         @media (max-width: 768px) {
           grid-template-columns: 1fr;
           grid-row-gap: 1rem;
@@ -192,7 +188,7 @@ const ProjectCard = ({
             transition: all ${theme.transitions.normal};
             overflow: hidden;
             box-shadow: ${theme.shadows.small};
-            
+
             &::before {
               content: '';
               position: absolute;
@@ -208,26 +204,26 @@ const ProjectCard = ({
               );
               transition: left ${theme.transitions.slow};
             }
-            
+
             &:hover {
               transform: translateY(-3px) scale(1.05);
               box-shadow: ${theme.shadows.hover};
-              
+
               &::before {
                 left: 100%;
               }
             }
-            
+
             &:focus {
               outline: 2px solid ${theme.colors.accentSecondary};
               outline-offset: 3px;
               transform: translateY(-2px);
             }
-            
+
             &:active {
               transform: translateY(0) scale(0.98);
             }
-            
+
             @media (max-width: 768px) {
               text-align: center;
               width: 100%;
@@ -255,7 +251,7 @@ const ProjectCard = ({
             padding: 0.75rem 1.5rem;
             transition: all ${theme.transitions.normal};
             overflow: hidden;
-            
+
             &::before {
               content: '';
               position: absolute;
@@ -267,27 +263,27 @@ const ProjectCard = ({
               transition: width ${theme.transitions.normal};
               z-index: -1;
             }
-            
+
             &:hover {
               color: ${theme.colors.textInverse};
               transform: translateY(-3px) scale(1.05);
               box-shadow: ${theme.shadows.medium};
-              
+
               &::before {
                 width: 100%;
               }
             }
-            
+
             &:focus {
               outline: 2px solid ${theme.colors.accentSecondary};
               outline-offset: 3px;
               transform: translateY(-2px);
             }
-            
+
             &:active {
               transform: translateY(0) scale(0.98);
             }
-            
+
             @media (max-width: 768px) {
               text-align: center;
               width: 100%;
@@ -362,38 +358,46 @@ const ProjectCard = ({
             `}
             role="listitem"
           />
-          {typeof window !== 'undefined' && <FaReact
-            css={css`
-              color: ${theme.colors.accent};
-              font-size: 2.5rem;
-            `}
-            aria-label="React framework"
-            role="listitem"
-          />}
-          {typeof window !== 'undefined' && <FaGit
-            css={css`
-              color: ${theme.colors.accent};
-              font-size: 2.5rem;
-            `}
-            aria-label="Git version control"
-            role="listitem"
-          />}
-          {typeof window !== 'undefined' && <DiHeroku
-            css={css`
-              color: ${theme.colors.accent};
-              font-size: 2.5rem;
-            `}
-            aria-label="Heroku deployment platform"
-            role="listitem"
-          />}
-          {typeof window !== 'undefined' && <DiTravis
-            css={css`
-              color: ${theme.colors.accent};
-              font-size: 2.5rem;
-            `}
-            aria-label="Travis CI"
-            role="listitem"
-          />}
+          {typeof window !== 'undefined' && (
+            <FaReact
+              css={css`
+                color: ${theme.colors.accent};
+                font-size: 2.5rem;
+              `}
+              aria-label="React framework"
+              role="listitem"
+            />
+          )}
+          {typeof window !== 'undefined' && (
+            <FaGit
+              css={css`
+                color: ${theme.colors.accent};
+                font-size: 2.5rem;
+              `}
+              aria-label="Git version control"
+              role="listitem"
+            />
+          )}
+          {typeof window !== 'undefined' && (
+            <DiHeroku
+              css={css`
+                color: ${theme.colors.accent};
+                font-size: 2.5rem;
+              `}
+              aria-label="Heroku deployment platform"
+              role="listitem"
+            />
+          )}
+          {typeof window !== 'undefined' && (
+            <DiTravis
+              css={css`
+                color: ${theme.colors.accent};
+                font-size: 2.5rem;
+              `}
+              aria-label="Travis CI"
+              role="listitem"
+            />
+          )}
         </div>
       </footer>
     </article>

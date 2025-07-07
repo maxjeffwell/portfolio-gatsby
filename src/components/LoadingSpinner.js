@@ -32,10 +32,14 @@ const LoadingSpinner = () => {
             border-top: 3px solid ${theme.colors.accent};
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            
+
             @keyframes spin {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
             }
           `}
         />
@@ -50,10 +54,14 @@ const LoadingSpinner = () => {
             border-bottom: 2px solid ${theme.colors.accentSecondary};
             border-radius: 50%;
             animation: spin-reverse 1.5s linear infinite;
-            
+
             @keyframes spin-reverse {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(-360deg); }
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(-360deg);
+              }
             }
           `}
         />

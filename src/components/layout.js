@@ -84,7 +84,8 @@ function ThemedLayout({ children, data }) {
           }
 
           @keyframes pulse {
-            0%, 100% {
+            0%,
+            100% {
               transform: scale(1);
               opacity: 1;
             }
@@ -138,7 +139,7 @@ function ThemedLayout({ children, data }) {
               transition-duration: 0.01ms !important;
               scroll-behavior: auto !important;
             }
-            
+
             .page-entering,
             .page-entered,
             .page-exiting {
@@ -174,7 +175,7 @@ function ThemedLayout({ children, data }) {
             margin: 0;
             color: ${theme.colors.accent};
             background: ${theme.colors.primary};
-            background-image: 
+            background-image:
               radial-gradient(circle at 25% 25%, rgba(252, 74, 26, 0.02) 0%, transparent 50%),
               radial-gradient(circle at 75% 75%, rgba(247, 183, 51, 0.02) 0%, transparent 50%),
               linear-gradient(135deg, transparent 0%, rgba(252, 74, 26, 0.01) 50%, transparent 100%);
@@ -194,7 +195,7 @@ function ThemedLayout({ children, data }) {
               background-color ${theme.transitions.normal},
               color ${theme.transitions.normal};
             position: relative;
-            
+
             &::before {
               content: '';
               position: fixed;
@@ -204,22 +205,26 @@ function ThemedLayout({ children, data }) {
               height: 100%;
               opacity: 0.03;
               z-index: -1;
-              background-image: 
-                repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 100px,
-                  rgba(252, 74, 26, 0.1) 100px,
-                  rgba(252, 74, 26, 0.1) 101px
-                );
+              background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 100px,
+                rgba(252, 74, 26, 0.1) 100px,
+                rgba(252, 74, 26, 0.1) 101px
+              );
               animation: float 20s ease-in-out infinite;
             }
-            
+
             @keyframes float {
-              0%, 100% { transform: translateY(0) rotate(0deg); }
-              50% { transform: translateY(-10px) rotate(1deg); }
+              0%,
+              100% {
+                transform: translateY(0) rotate(0deg);
+              }
+              50% {
+                transform: translateY(-10px) rotate(1deg);
+              }
             }
-            
+
             @media (max-width: 480px) {
               overflow-x: hidden;
               background-attachment: scroll;
@@ -242,22 +247,22 @@ function ThemedLayout({ children, data }) {
               margin-top: 0.75rem;
             }
           }
-          
+
           h1 {
             font-size: clamp(2rem, 5vw, 3rem);
             margin-bottom: 1.5rem;
           }
-          
+
           h2 {
             font-size: clamp(1.75rem, 4vw, 2.5rem);
             margin-bottom: 1.25rem;
           }
-          
+
           h3 {
             font-size: clamp(1.5rem, 3vw, 2rem);
             margin-bottom: 1rem;
           }
-          
+
           p {
             margin-bottom: 1.25rem;
             line-height: 1.6;
@@ -417,20 +422,22 @@ function ThemedLayout({ children, data }) {
             href="https://www.github.com/maxjeffwell"
             aria-label="Visit Jeff Maxwell's GitHub profile"
           >
-            {typeof window !== 'undefined' && <FaGithubAlt
-              css={css`
-                color: ${theme.colors.accent};
-                font-size: 3.5rem;
-                transition: transform 0.2s ease-in-out;
-                &:hover {
-                  transform: scale(1.1);
-                }
-                @media (max-width: 480px) {
-                  font-size: 3rem;
-                }
-              `}
-              aria-hidden="true"
-            />}
+            {typeof window !== 'undefined' && (
+              <FaGithubAlt
+                css={css`
+                  color: ${theme.colors.accent};
+                  font-size: 3.5rem;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                    transform: scale(1.1);
+                  }
+                  @media (max-width: 480px) {
+                    font-size: 3rem;
+                  }
+                `}
+                aria-hidden="true"
+              />
+            )}
           </a>
           <a
             css={css`
@@ -448,20 +455,22 @@ function ThemedLayout({ children, data }) {
             href="https://angel.co/maxjeffwell"
             aria-label="Visit Jeff Maxwell's AngelList profile"
           >
-            {typeof window !== 'undefined' && <FaAngellist
-              css={css`
-                color: ${theme.colors.accent};
-                font-size: 3.5rem;
-                transition: transform 0.2s ease-in-out;
-                &:hover {
-                  transform: scale(1.1);
-                }
-                @media (max-width: 480px) {
-                  font-size: 3rem;
-                }
-              `}
-              aria-hidden="true"
-            />}
+            {typeof window !== 'undefined' && (
+              <FaAngellist
+                css={css`
+                  color: ${theme.colors.accent};
+                  font-size: 3.5rem;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                    transform: scale(1.1);
+                  }
+                  @media (max-width: 480px) {
+                    font-size: 3rem;
+                  }
+                `}
+                aria-hidden="true"
+              />
+            )}
           </a>
           <a
             css={css`
@@ -479,20 +488,22 @@ function ThemedLayout({ children, data }) {
             href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
             aria-label="Visit Jeff Maxwell's LinkedIn profile"
           >
-            {typeof window !== 'undefined' && <FaLinkedin
-              css={css`
-                color: ${theme.colors.accent};
-                font-size: 3.5rem;
-                transition: transform 0.2s ease-in-out;
-                &:hover {
-                  transform: scale(1.1);
-                }
-                @media (max-width: 480px) {
-                  font-size: 3rem;
-                }
-              `}
-              aria-hidden="true"
-            />}
+            {typeof window !== 'undefined' && (
+              <FaLinkedin
+                css={css`
+                  color: ${theme.colors.accent};
+                  font-size: 3.5rem;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                    transform: scale(1.1);
+                  }
+                  @media (max-width: 480px) {
+                    font-size: 3rem;
+                  }
+                `}
+                aria-hidden="true"
+              />
+            )}
           </a>
           <a
             css={css`
@@ -508,20 +519,22 @@ function ThemedLayout({ children, data }) {
             href="tel:+01-508-395-2008"
             aria-label="Call Jeff Maxwell at 508-395-2008"
           >
-            {typeof window !== 'undefined' && <FaPhone
-              css={css`
-                color: ${theme.colors.accent};
-                font-size: 3.5rem;
-                transition: transform 0.2s ease-in-out;
-                &:hover {
-                  transform: scale(1.1);
-                }
-                @media (max-width: 480px) {
-                  font-size: 3rem;
-                }
-              `}
-              aria-hidden="true"
-            />}
+            {typeof window !== 'undefined' && (
+              <FaPhone
+                css={css`
+                  color: ${theme.colors.accent};
+                  font-size: 3.5rem;
+                  transition: transform 0.2s ease-in-out;
+                  &:hover {
+                    transform: scale(1.1);
+                  }
+                  @media (max-width: 480px) {
+                    font-size: 3rem;
+                  }
+                `}
+                aria-hidden="true"
+              />
+            )}
           </a>
         </nav>
         <p
