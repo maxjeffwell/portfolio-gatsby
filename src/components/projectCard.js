@@ -316,45 +316,54 @@ const ProjectCard = ({
           role="list"
           aria-label="Technologies used in this project"
         >
-          <LazyImage
+          <img
             src={imageSrcPath3}
             alt="Technology icon"
-            width="45px"
-            height="45px"
-            objectFit="contain"
-            radius="4px"
-            block={false}
-            fadeDelay="100ms"
+            width="45"
+            height="45"
             css={css`
               flex-shrink: 0;
+              object-fit: contain;
+              border-radius: 4px;
+              transition: transform ${theme.transitions.normal};
+              
+              &:hover {
+                transform: scale(1.1);
+              }
             `}
             role="listitem"
           />
-          <LazyImage
+          <img
             src={imageSrcPath4}
             alt="Technology icon"
-            width="45px"
-            height="45px"
-            objectFit="contain"
-            radius="4px"
-            block={false}
-            fadeDelay="200ms"
+            width="45"
+            height="45"
             css={css`
               flex-shrink: 0;
+              object-fit: contain;
+              border-radius: 4px;
+              transition: transform ${theme.transitions.normal};
+              
+              &:hover {
+                transform: scale(1.1);
+              }
             `}
             role="listitem"
           />
-          <LazyImage
+          <img
             src={imageSrcPath5}
             alt="Technology icon"
-            width="45px"
-            height="45px"
-            objectFit="contain"
-            radius="4px"
-            block={false}
-            fadeDelay="300ms"
+            width="45"
+            height="45"
             css={css`
               flex-shrink: 0;
+              object-fit: contain;
+              border-radius: 4px;
+              transition: transform ${theme.transitions.normal};
+              
+              &:hover {
+                transform: scale(1.1);
+              }
             `}
             role="listitem"
           />
