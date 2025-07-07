@@ -347,7 +347,7 @@ function CTASection({ visible }) {
           `}
         >
           View My Projects
-          <FaArrowRight />
+          {typeof window !== 'undefined' && <FaArrowRight />}
         </CTAButton>
       </CTAContent>
     </CTAContainer>

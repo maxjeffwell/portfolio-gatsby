@@ -11,8 +11,8 @@ import TypingAnimation from '../components/TypingAnimation';
 import CodeSnippet from '../components/CodeSnippet';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-// import SkillsSection from '../components/SkillsSection';
-// import CTASection from '../components/CTASection';
+import SkillsSection from '../components/SkillsSection';
+import CTASection from '../components/CTASection';
 
 const StyledContainer = styled.div`
   display: grid;
@@ -220,7 +220,7 @@ function IndexPage() {
                   transition-delay: 0.3s;
                 `}
               >
-                Hi there! My name's Jeff.
+                My name's Jeff.
               </span>
               <span
                 css={css`
@@ -895,7 +895,6 @@ function IndexPage() {
           </div>
         </section>
 
-        {/* Temporarily disabled for build fix
         <section
           ref={skillsRef}
           aria-labelledby="skills-heading"
@@ -925,7 +924,6 @@ function IndexPage() {
         >
           <CTASection visible={ctaVisible} />
         </section>
-        */}
       </StyledContainer>
     </Layout>
   );

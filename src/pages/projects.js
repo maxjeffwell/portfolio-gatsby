@@ -7,6 +7,7 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
+import { useTheme } from '../context/ThemeContext';
 
 import GraphQLIcon from '../images/graphql.svg';
 import ReduxIcon from '../images/redux.svg';
@@ -88,6 +89,7 @@ const StyledContainer = styled.div`
 `;
 
 const ProjectsPage = ({ data }) => {
+  const { theme } = useTheme();
   const [filters, setFilters] = useState({
     searchTerm: '',
     technologies: [],
@@ -164,9 +166,55 @@ const ProjectsPage = ({ data }) => {
           <h1 className="sr-only">My Development Projects</h1>
         </header>
 
-        <div>
-          <h3>Filter Projects (Total: {filteredProjects.length})</h3>
-          <select onChange={(e) => handleFilterChange(e.target.value)}>
+        <div
+          css={css`
+            background: ${theme.gradients.secondary};
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid ${theme.colors.border};
+          `}
+        >
+          <h3
+            css={css`
+              color: ${theme.colors.text};
+              font-family: HelveticaNeueLTStd-Bd, sans-serif;
+              font-size: 1.5rem;
+              margin-bottom: 1rem;
+              background: ${theme.gradients.accent};
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            `}
+          >
+            Filter Projects (Total: {filteredProjects.length})
+          </h3>
+          <select 
+            css={css`
+              background: ${theme.colors.secondary};
+              color: ${theme.colors.text};
+              border: 1px solid ${theme.colors.border};
+              border-radius: 8px;
+              padding: 0.75rem 1rem;
+              font-family: HelveticaNeueLTStd-Roman, sans-serif;
+              font-size: 1rem;
+              transition: all ${theme.transitions.normal};
+              
+              &:focus {
+                outline: 2px solid ${theme.colors.accentSecondary};
+                outline-offset: 2px;
+              }
+              
+              &:hover {
+                border-color: ${theme.colors.accentSecondary};
+              }
+            `}
+            onChange={(e) => handleFilterChange({
+              ...filters,
+              technologies: e.target.value ? [e.target.value] : []
+            })}
+            value={filters.technologies[0] || ''}
+          >
             <option value="">All Projects</option>
             <option value="React">React</option>
             <option value="JavaScript">JavaScript</option>
@@ -179,8 +227,8 @@ const ProjectsPage = ({ data }) => {
             css={css`
               text-align: center;
               padding: 3rem 1rem;
-              color: #666;
-              font-family: SabonLTStd-Roman, serif;
+              color: ${theme.colors.textSecondary};
+              font-family: HelveticaNeueLTStd-Roman, sans-serif;
               font-size: 1.25rem;
               animation: fadeIn 0.4s ease-out;
 
