@@ -19,7 +19,7 @@ const lightTheme = {
     textInverse: '#052f5f',
 
     // Accent colors
-    accent: '#fc4a1a',
+    accent: '#4A4A4A',
     accentSecondary: '#f7b733',
 
     // Interactive colors
@@ -62,10 +62,10 @@ const lightTheme = {
   },
 
   gradients: {
-    primary: 'linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%)',
+    primary: 'linear-gradient(135deg, #4A4A4A 0%, #f7b733 100%)',
     secondary: 'linear-gradient(135deg, #052f5f 0%, #2d3047 100%)',
-    accent: 'linear-gradient(135deg, #f7b733 0%, #fc4a1a 100%)',
-    subtle: 'linear-gradient(135deg, rgba(252, 74, 26, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%)',
+    accent: 'linear-gradient(135deg, #f7b733 0%, #4A4A4A 100%)',
+    subtle: 'linear-gradient(135deg, rgba(74, 74, 74, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%)',
   },
 };
 
@@ -233,7 +233,7 @@ export const ThemeProvider = ({ children }) => {
     // Update meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', isDarkMode ? '#0a0a0a' : '#fc4a1a');
+      metaThemeColor.setAttribute('content', isDarkMode ? '#0a0a0a' : '#4A4A4A');
     }
   }, [isDarkMode]);
 

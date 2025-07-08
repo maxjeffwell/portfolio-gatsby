@@ -97,11 +97,11 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
         },
         {
           name: `theme-color`,
-          content: `#fc4a1a`,
+          content: `#4A4A4A`,
         },
         {
           name: `msapplication-TileColor`,
-          content: `#fc4a1a`,
+          content: `#4A4A4A`,
         },
         {
           name: `apple-mobile-web-app-capable`,
@@ -237,7 +237,7 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
         {
           rel: 'mask-icon',
           href: '/icons/safari-pinned-tab.svg',
-          color: '#fc4a1a',
+          color: '#4A4A4A',
         },
       ]}
     >

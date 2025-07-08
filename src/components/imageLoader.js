@@ -75,7 +75,7 @@ const ProgressiveImage = ({
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #fc4a1a;
+          color: #4a4a4a;
           font-family: HelveticaNeueLTStd-Roman, sans-serif;
           font-size: 0.9rem;
         `}

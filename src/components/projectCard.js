@@ -326,7 +326,7 @@ const ProjectCard = ({
               object-fit: contain;
               border-radius: 4px;
               transition: transform ${theme.transitions.normal};
-              
+
               &:hover {
                 transform: scale(1.1);
               }
@@ -343,7 +343,7 @@ const ProjectCard = ({
               object-fit: contain;
               border-radius: 4px;
               transition: transform ${theme.transitions.normal};
-              
+
               &:hover {
                 transform: scale(1.1);
               }
@@ -360,7 +360,7 @@ const ProjectCard = ({
               object-fit: contain;
               border-radius: 4px;
               transition: transform ${theme.transitions.normal};
-              
+
               &:hover {
                 transform: scale(1.1);
               }

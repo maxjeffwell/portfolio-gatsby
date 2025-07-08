@@ -189,7 +189,7 @@ const ProjectsPage = ({ data }) => {
           >
             Filter Projects (Total: {filteredProjects.length})
           </h3>
-          <select 
+          <select
             css={css`
               background: ${theme.colors.secondary};
               color: ${theme.colors.text};
@@ -199,20 +199,22 @@ const ProjectsPage = ({ data }) => {
               font-family: HelveticaNeueLTStd-Roman, sans-serif;
               font-size: 1rem;
               transition: all ${theme.transitions.normal};
-              
+
               &:focus {
                 outline: 2px solid ${theme.colors.accentSecondary};
                 outline-offset: 2px;
               }
-              
+
               &:hover {
                 border-color: ${theme.colors.accentSecondary};
               }
             `}
-            onChange={(e) => handleFilterChange({
-              ...filters,
-              technologies: e.target.value ? [e.target.value] : []
-            })}
+            onChange={(e) =>
+              handleFilterChange({
+                ...filters,
+                technologies: e.target.value ? [e.target.value] : [],
+              })
+            }
             value={filters.technologies[0] || ''}
           >
             <option value="">All Projects</option>
