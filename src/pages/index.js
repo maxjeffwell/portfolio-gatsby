@@ -229,22 +229,31 @@ function IndexPage() {
                 `}
               >
                 I'm a{' '}
-                <TypingAnimation
-                  key="hero-typing"
-                  texts={[
-                    'Full Stack Developer',
-                    'React Specialist',
-                    'Node.js Expert',
-                    'GraphQL Enthusiast',
-                    'JAMstack Architect',
-                    'Problem Solver',
-                  ]}
-                  typeSpeed={80}
-                  deleteSpeed={40}
-                  delayBetweenTexts={1500}
-                  loop
-                  startDelay={800}
-                />
+                <span
+                  css={css`
+                    color: white !important;
+                    -webkit-text-fill-color: white !important;
+                    background-clip: initial !important;
+                    -webkit-background-clip: initial !important;
+                  `}
+                >
+                  <TypingAnimation
+                    key="hero-typing"
+                    texts={[
+                      'Full Stack Developer',
+                      'React Specialist',
+                      'Node.js Expert',
+                      'GraphQL Enthusiast',
+                      'JAMstack Architect',
+                      'Problem Solver',
+                    ]}
+                    typeSpeed={80}
+                    deleteSpeed={40}
+                    delayBetweenTexts={1500}
+                    loop
+                    startDelay={800}
+                  />
+                </span>
               </span>
               <span
                 css={css`
@@ -678,8 +687,24 @@ function IndexPage() {
               find me negotiating dinner arrangements with my two demanding canine project managers
               \u2014 they're surprisingly good at code reviews!
             </p>
-            <nav aria-label="About page navigation">
-              <p>
+            <nav 
+              aria-label="About page navigation"
+              css={css`
+                text-align: center;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+                margin: 0;
+              `}
+            >
+              <p
+                css={css`
+                  text-align: center;
+                  margin: 0 0 1rem 0;
+                `}
+              >
                 <StyledLink
                   to="/about/"
                   theme={theme}
@@ -693,34 +718,45 @@ function IndexPage() {
                   Meet my development team and learn more about me
                 </StyledLink>
               </p>
-              <StyledLink
-                to="/about/"
-                theme={theme}
-                aria-label="Go to about page"
+              <div
                 css={css`
-                  display: inline-block;
-                  margin-top: 1rem;
-                  &:focus {
-                    outline: 2px solid ${theme.colors.accentSecondary};
-                    outline-offset: 2px;
-                    border-radius: 50%;
-                  }
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 100%;
+                  margin: 1rem 0;
+                  position: relative;
+                  left: 50%;
+                  transform: translateX(-50%);
                 `}
               >
-                <FaRegArrowAltCircleRight
+                <StyledLink
+                  to="/about/"
+                  theme={theme}
+                  aria-label="Go to about page"
                   css={css`
-                    color: ${theme.colors.accent};
-                    font-size: 3.5rem;
-                    display: block;
-                    margin: 1rem auto 2rem;
-                    transition: transform 0.2s ease-in-out;
-                    &:hover {
-                      transform: scale(1.1);
+                    display: inline-block;
+                    &:focus {
+                      outline: 2px solid ${theme.colors.accentSecondary};
+                      outline-offset: 2px;
+                      border-radius: 50%;
                     }
                   `}
-                  aria-hidden="true"
-                />
-              </StyledLink>
+                >
+                  <FaRegArrowAltCircleRight
+                    css={css`
+                      color: ${theme.colors.accent};
+                      font-size: 3.5rem;
+                      display: block;
+                      transition: transform 0.2s ease-in-out;
+                      &:hover {
+                        transform: scale(1.1);
+                      }
+                    `}
+                    aria-hidden="true"
+                  />
+                </StyledLink>
+              </div>
             </nav>
           </div>
         </section>
@@ -731,7 +767,7 @@ function IndexPage() {
           css={css`
             grid-row: 4 / 5;
             grid-column: 1 / 2;
-            opacity: ${codeVisible ? 1 : 0};
+            opacity: 1;
             transform: ${codeVisible ? 'translateY(0)' : 'translateY(30px)'};
             transition: all ${theme.transitions.slow};
             position: relative;
