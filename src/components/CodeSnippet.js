@@ -54,8 +54,8 @@ function CodeSnippet({
 
   const containerStyle = {
     position: 'relative',
-    background: theme.colors.secondary,
-    border: `1px solid ${theme.colors.border}`,
+    background: theme.name === 'light' ? '#ffffff' : theme.colors.secondary,
+    border: `1px solid ${theme.name === 'light' ? '#e2e8f0' : theme.colors.border}`,
     borderRadius: '12px',
     overflow: 'hidden',
     boxShadow: theme.shadows.medium,
@@ -67,8 +67,8 @@ function CodeSnippet({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0.75rem 1rem',
-    background: theme.colors.tertiary,
-    borderBottom: `1px solid ${theme.colors.border}`,
+    background: theme.name === 'light' ? '#f1f5f9' : theme.colors.tertiary,
+    borderBottom: `1px solid ${theme.name === 'light' ? '#e2e8f0' : theme.colors.border}`,
   };
 
   const titleStyle = {
@@ -100,8 +100,8 @@ function CodeSnippet({
     overflowX: 'auto',
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word',
-    backgroundColor: theme.colors.tertiary,
-    color: theme.colors.text,
+    backgroundColor: theme.name === 'light' ? '#f8f9fa' : theme.colors.tertiary,
+    color: theme.name === 'light' ? '#2d3748' : theme.colors.text,
     border: 'none',
   };
 

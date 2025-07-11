@@ -8,15 +8,15 @@ const lightTheme = {
   colors: {
     // Background colors
     primary: '#052f5f',
-    secondary: '#2d3047',
-    tertiary: '#121619',
+    secondary: '#f8f9fa',
+    tertiary: '#f8f9fa',
     surface: '#ffffff',
     surfaceVariant: '#f5f5f5',
 
     // Text colors
-    text: '#ffffff',
-    textSecondary: '#f5f5f5',
-    textInverse: '#052f5f',
+    text: '#1a1a1a',
+    textSecondary: '#666666',
+    textInverse: '#ffffff',
 
     // Accent colors
     accent: '#4A4A4A',

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'gatsby';
 import styled from '@emotion/styled';
@@ -220,7 +221,7 @@ function IndexPage() {
                   transition-delay: 0.3s;
                 `}
               >
-                My name's Jeff.
+                My name&#39;s Jeff.
               </span>
               <span
                 css={css`
@@ -409,7 +410,7 @@ function IndexPage() {
                 }
               `}
             >
-              &#34;Code is like humor. When you have to explain it, it's bad.&#34; — That's why I
+              &#34;Code is like humor. When you have to explain it, it&#39;s bad.&#34; — That&#39;s why I
               focus on intuitive, self-documenting solutions.
             </p>
           </div>
@@ -531,45 +532,6 @@ function IndexPage() {
               </StyledLink>
             </div>
 
-            <div
-              css={css`
-                text-align: center;
-              `}
-            >
-              <StyledLink
-                to="/projects/"
-                theme={theme}
-                aria-label="Go to projects page"
-                css={css`
-                  display: inline-block;
-                  position: relative;
-                  &:focus {
-                    outline: 2px solid ${theme.colors.accentSecondary};
-                    outline-offset: 4px;
-                    border-radius: 50%;
-                  }
-                `}
-              >
-                {typeof window !== 'undefined' && (
-                  <FaRegArrowAltCircleRight
-                    css={css`
-                      color: ${theme.colors.accent};
-                      font-size: 3.5rem;
-                      display: block;
-                      margin: 0 auto;
-                      transition: all ${theme.transitions.bounce};
-                      cursor: pointer;
-
-                      &:hover {
-                        transform: scale(1.15) rotate(5deg);
-                        filter: drop-shadow(0 8px 16px rgba(252, 74, 26, 0.3));
-                      }
-                    `}
-                    aria-hidden="true"
-                  />
-                )}
-              </StyledLink>
-            </div>
           </nav>
         </section>
         <section
@@ -702,7 +664,7 @@ function IndexPage() {
               <p
                 css={css`
                   text-align: center;
-                  margin: 0 0 1rem 0;
+                  margin: 0;
                 `}
               >
                 <StyledLink
@@ -718,45 +680,6 @@ function IndexPage() {
                   Meet my development team and learn more about me
                 </StyledLink>
               </p>
-              <div
-                css={css`
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  width: 100%;
-                  margin: 1rem 0;
-                  position: relative;
-                  left: 50%;
-                  transform: translateX(-50%);
-                `}
-              >
-                <StyledLink
-                  to="/about/"
-                  theme={theme}
-                  aria-label="Go to about page"
-                  css={css`
-                    display: inline-block;
-                    &:focus {
-                      outline: 2px solid ${theme.colors.accentSecondary};
-                      outline-offset: 2px;
-                      border-radius: 50%;
-                    }
-                  `}
-                >
-                  <FaRegArrowAltCircleRight
-                    css={css`
-                      color: ${theme.colors.accent};
-                      font-size: 3.5rem;
-                      display: block;
-                      transition: transform 0.2s ease-in-out;
-                      &:hover {
-                        transform: scale(1.1);
-                      }
-                    `}
-                    aria-hidden="true"
-                  />
-                </StyledLink>
-              </div>
             </nav>
           </div>
         </section>
