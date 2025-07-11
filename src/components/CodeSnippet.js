@@ -1,100 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 import { FaCopy, FaCheck } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
-
-const CodeContainer = styled.div`
-  position: relative;
-  background: ${(props) => props.theme.colors.secondary};
-  border: 1px solid ${(props) => props.theme.colors.border};
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: ${(props) => props.theme.shadows.medium};
-  margin: 1.5rem 0;
-`;
-
-const CodeHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  background: ${(props) => props.theme.colors.tertiary};
-  border-bottom: 1px solid ${(props) => props.theme.colors.border};
-`;
-
-const CodeTitle = styled.div`
-  color: ${(props) => props.theme.colors.text};
-  font-family: 'Courier New', monospace;
-  font-size: 0.875rem;
-  font-weight: bold;
-`;
-
-const CopyButton = styled.button`
-  background: none;
-  border: 1px solid ${(props) => props.theme.colors.accent};
-  color: ${(props) => props.theme.colors.accent};
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  transition: all ${(props) => props.theme.transitions.fast};
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-
-  &:hover {
-    background: ${(props) => props.theme.colors.accent};
-    color: ${(props) => props.theme.colors.textInverse};
-  }
-
-  &:focus {
-    outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
-    outline-offset: 2px;
-  }
-`;
-
-const CodeContent = styled.pre`
-  margin: 0;
-  padding: 1rem;
-  background: ${(props) => props.theme.colors.surface};
-  color: ${(props) => props.theme.colors.textInverse};
-  font-family: 'Courier New', monospace;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-
-  /* Syntax highlighting colors */
-  .keyword {
-    color: #569cd6;
-  }
-  .string {
-    color: #ce9178;
-  }
-  .comment {
-    color: #6a9955;
-    font-style: italic;
-  }
-  .function {
-    color: #dcdcaa;
-  }
-  .variable {
-    color: #9cdcfe;
-  }
-  .number {
-    color: #b5cea8;
-  }
-  .operator {
-    color: #d4d4d4;
-  }
-`;
-
-const AnimatedChar = styled.span`
-  opacity: ${(props) => (props.show ? 1 : 0)};
-  transition: opacity 0.05s ease-out;
-`;
 
 function CodeSnippet({
   code,
@@ -104,9 +11,18 @@ function CodeSnippet({
   showCopyButton = true,
 }) {
   const { theme } = useTheme();
-  const [displayedCode, setDisplayedCode] = useState(animated ? '' : code);
-  const [copied, setCopied] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(!animated);
+  
+  // Simple fallback to ensure something renders
+  if (!code) {
+    return <div style={{backgroundColor: '#ff0000', color: '#00ff00', padding: '20px', fontSize: '20px'}}>
+      ERROR: No code provided to CodeSnippet
+    </div>;
+  }
+
+  try {
+    const [displayedCode, setDisplayedCode] = useState(animated ? '' : code);
+    const [copied, setCopied] = useState(false);
+    const [animationComplete, setAnimationComplete] = useState(!animated);
 
   useEffect(() => {
     if (!animated) return;
@@ -136,37 +52,81 @@ function CodeSnippet({
     }
   };
 
-  const highlightSyntax = (text) =>
-    text
-      .replace(
-        /\b(const|let|var|function|return|if|else|for|while|class|import|export|from|default)\b/g,
-        '<span class="keyword">$1</span>'
-      )
-      .replace(/(["'`])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span class="string">$1$2$1</span>')
-      .replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '<span class="comment">$&</span>')
-      .replace(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\()/g, '<span class="function">$1</span>')
-      .replace(/\b\d+(\.\d+)?\b/g, '<span class="number">$&</span>')
-      .replace(/[+\-*/%=<>!&|^~?:]/g, '<span class="operator">$&</span>');
+  const containerStyle = {
+    position: 'relative',
+    background: theme.colors.secondary,
+    border: `1px solid ${theme.colors.border}`,
+    borderRadius: '12px',
+    overflow: 'hidden',
+    boxShadow: theme.shadows.medium,
+    margin: '1.5rem 0',
+  };
+
+  const headerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0.75rem 1rem',
+    background: theme.colors.tertiary,
+    borderBottom: `1px solid ${theme.colors.border}`,
+  };
+
+  const titleStyle = {
+    color: theme.colors.text,
+    fontFamily: 'Courier New, monospace',
+    fontSize: '0.875rem',
+    fontWeight: 'bold',
+  };
+
+  const buttonStyle = {
+    background: 'none',
+    border: `1px solid ${theme.colors.accentSecondary}`,
+    color: theme.colors.accentSecondary,
+    padding: '0.25rem 0.5rem',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '0.75rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.25rem',
+  };
+
+  const codeStyle = {
+    margin: 0,
+    padding: '1rem',
+    fontFamily: 'Courier New, monospace',
+    fontSize: '0.875rem',
+    lineHeight: '1.5',
+    overflowX: 'auto',
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+    backgroundColor: theme.colors.tertiary,
+    color: theme.colors.text,
+    border: 'none',
+  };
 
   return (
-    <CodeContainer theme={theme}>
-      <CodeHeader theme={theme}>
-        <CodeTitle theme={theme}>{title}</CodeTitle>
+    <div style={containerStyle}>
+      <div style={headerStyle}>
+        <div style={titleStyle}>{title}</div>
         {showCopyButton && (
-          <CopyButton theme={theme} onClick={handleCopy}>
+          <button style={buttonStyle} onClick={handleCopy}>
             {typeof window !== 'undefined' && (copied ? <FaCheck /> : <FaCopy />)}
             {copied ? 'Copied!' : 'Copy'}
-          </CopyButton>
+          </button>
         )}
-      </CodeHeader>
-      <CodeContent
-        theme={theme}
-        dangerouslySetInnerHTML={{
-          __html: highlightSyntax(displayedCode),
-        }}
-      />
-    </CodeContainer>
+      </div>
+      <pre style={codeStyle}>
+        {displayedCode}
+      </pre>
+    </div>
   );
+  } catch (error) {
+    console.error('CodeSnippet error:', error);
+    return <div style={{backgroundColor: '#ff0000', color: '#00ff00', padding: '20px', fontSize: '20px'}}>
+      ERROR: CodeSnippet failed to render: {error.message}
+    </div>;
+  }
 }
 
 CodeSnippet.propTypes = {

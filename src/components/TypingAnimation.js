@@ -10,13 +10,14 @@ const TypingContainer = styled.span`
 
 const TypingText = styled.span`
   font-family: inherit;
-  color: ${(props) => props.theme.colors.accentSecondary};
+  color: #ffffff;
   font-weight: bold;
+  font-size: 1.5rem;
 `;
 
 const Cursor = styled.span`
   display: inline-block;
-  background-color: ${(props) => props.theme.colors.accent};
+  background-color: ${(props) => props.theme.colors.accentSecondary};
   width: 2px;
   height: 1em;
   margin-left: 2px;
@@ -74,6 +75,7 @@ const TypingAnimation = ({
 
     const currentText = texts[currentTextIndex];
     let timeout;
+    
 
     if (isTyping) {
       // Typing phase
