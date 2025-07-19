@@ -574,8 +574,6 @@ function ThemedLayout({ children, data }) {
           {` `}
           {data.site.siteMetadata.author}, created
           {` `}
-          {data.site.siteMetadata.createdAt}
-          {` `}
           with
           {` `}
           <a
