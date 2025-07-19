@@ -31,6 +31,10 @@ self.__precacheManifest = [
     "revision": "1a671ce1741280073414ca6ceac6c8c9"
   },
   {
+    "url": "_redirects",
+    "revision": "9d70648ed92ffc8583ce371e00ca01ad"
+  },
+  {
     "url": "~partytown/debug/partytown-atomics.js"
   },
   {
