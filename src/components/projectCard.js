@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 import { FaReact, FaGit } from 'react-icons/fa';
-import { DiHeroku, DiTravis } from 'react-icons/di';
+import { DiHeroku } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
 
 function ProjectCard({
