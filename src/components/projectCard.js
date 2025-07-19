@@ -7,7 +7,7 @@ import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku, DiTravis } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
 
-const ProjectCard = ({
+function ProjectCard({
   imageSrcPath,
   imageSrcPath2,
   imageSrcPath3,
@@ -18,10 +18,11 @@ const ProjectCard = ({
   description,
   sourceURL,
   hostedURL,
-}) => {
+}) {
   const { theme } = useTheme();
 
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
     <article
       css={css`
         display: grid;
@@ -397,24 +398,16 @@ const ProjectCard = ({
               role="listitem"
             />
           )}
-          {typeof window !== 'undefined' && (
-            <DiTravis
-              css={css`
-                color: ${theme.colors.accent};
-                font-size: 2.5rem;
-              `}
-              aria-label="Travis CI"
-              role="listitem"
-            />
-          )}
         </div>
       </footer>
     </article>
   );
-};
+}
 
 ProjectCard.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   imageSrcPath: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   imageSrcPath2: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

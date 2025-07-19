@@ -96,6 +96,7 @@ function ThemedLayout({ children, data }) {
           }
 
           /* Enhanced loading and transition states */
+
           .page-loading {
             opacity: 0;
             transform: translateY(20px);
@@ -125,6 +126,7 @@ function ThemedLayout({ children, data }) {
           }
 
           /* Smooth scrolling for the entire page */
+
           html {
             scroll-behavior: smooth;
           }
@@ -148,6 +150,7 @@ function ThemedLayout({ children, data }) {
           }
 
           /* Enhanced focus management */
+
           *:focus {
             outline: 2px solid ${theme.colors.accentSecondary};
             outline-offset: 2px;
@@ -170,16 +173,18 @@ function ThemedLayout({ children, data }) {
             box-sizing: border-box;
             margin: 0;
           }
+
           html,
           body {
             margin: 0;
             color: ${theme.colors.accent};
             background: ${theme.colors.primary};
-            background-image:
+            background-attachment: fixed;
+            background:
               radial-gradient(circle at 25% 25%, rgba(252, 74, 26, 0.02) 0%, transparent 50%),
               radial-gradient(circle at 75% 75%, rgba(247, 183, 51, 0.02) 0%, transparent 50%),
-              linear-gradient(135deg, transparent 0%, rgba(252, 74, 26, 0.01) 50%, transparent 100%);
-            background-attachment: fixed;
+              linear-gradient(135deg, transparent 0%, rgba(252, 74, 26, 0.01) 50%, transparent 100%)
+                fixed;
             font-size: 18px;
             line-height: 1.4;
             font-kerning: normal;
@@ -230,10 +235,13 @@ function ThemedLayout({ children, data }) {
               background-attachment: scroll;
             }
           }
+
           /*remove margin for main div that Gatsby mounts into */
+
           > div {
             margin-top: 0;
           }
+
           h1,
           h2,
           h3,
@@ -243,6 +251,7 @@ function ThemedLayout({ children, data }) {
             line-height: 1.2;
             font-weight: 600;
             letter-spacing: -0.025em;
+
             + * {
               margin-top: 0.75rem;
             }
@@ -267,37 +276,50 @@ function ThemedLayout({ children, data }) {
             margin-bottom: 1.25rem;
             line-height: 1.6;
           }
+
           a {
             background-color: transparent;
             -webkit-text-decoration-skip: objects;
           }
+
           a:active,
           a:hover {
             outline-width: 0;
           }
+
           img {
             border-radius: 5px;
+
             &:nth-of-type(2) {
               margin-top: 0;
             }
+
             &:-moz-loading {
               visibility: hidden;
             }
           }
+
           /* Progressive loading and performance optimizations */
+
           [data-gatsby-image-wrapper] {
             /* Ensure smooth transitions for all Gatsby images */
             transition: opacity 0.3s ease-in-out;
           }
+
           /* Preload critical images */
+
           .critical-image {
             loading: eager !important;
           }
+
           /* Lazy load non-critical images */
+
           .lazy-image {
             loading: lazy !important;
           }
+
           /* Screen reader only content */
+
           .sr-only {
             position: absolute;
             width: 1px;
@@ -309,6 +331,7 @@ function ThemedLayout({ children, data }) {
             white-space: nowrap;
             border: 0;
           }
+
           button {
             background-color: ${theme.colors.accentSecondary};
             height: fit-content;
@@ -318,10 +341,12 @@ function ThemedLayout({ children, data }) {
             color: ${theme.colors.textInverse};
             cursor: pointer;
             transition: all ${theme.transitions.normal};
+
             &:hover {
               box-shadow: ${theme.shadows.hover};
               transform: translateY(-2px);
             }
+
             &:focus {
               outline: 2px solid ${theme.colors.accentSecondary};
               outline-offset: 2px;
@@ -582,14 +607,16 @@ ThemedLayout.propTypes = {
 };
 
 // Main Layout Component
-const Layout = ({ children }) => (
-  <HelmetProvider>
-    <StaticQuery
-      query={GET_SITE_METADATA}
-      render={(data) => <ThemedLayout data={data}>{children}</ThemedLayout>}
-    />
-  </HelmetProvider>
-);
+function Layout({ children }) {
+  return (
+    <HelmetProvider>
+      <StaticQuery
+        query={GET_SITE_METADATA}
+        render={(data) => <ThemedLayout data={data}>{children}</ThemedLayout>}
+      />
+    </HelmetProvider>
+  );
+}
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
