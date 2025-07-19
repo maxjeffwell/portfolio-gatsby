@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { useTheme } from '../context/ThemeContext';
-import { submitContactForm, validateEmail } from '../utils/formHandler';
+import { submitToNetlify, validateEmail } from '../utils/formHandler';
 import {
   FaUser,
   FaEnvelope,
@@ -287,7 +287,7 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      await submitContactForm(formData);
+      await submitToNetlify(formData);
 
       setIsSubmitted(true);
       setFormData({
@@ -318,7 +318,15 @@ const ContactForm = () => {
         message and I'll get back to you as soon as possible!
       </FormDescription>
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        {/* Hidden fields for Netlify Forms */}
+        <input type="hidden" name="form-name" value="contact" />
+        <div style={{ display: 'none' }}>
+          <label>
+            Don't fill this out if you're human:
+            <input name="bot-field" />
+          </label>
+        </div>
         <FormGroup>
           <Label theme={theme}>
             {typeof window !== 'undefined' && <FaUser />}

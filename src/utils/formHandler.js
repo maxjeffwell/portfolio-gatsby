@@ -39,22 +39,31 @@ export const submitContactForm = async (formData) => {
   return { success: true, message: 'Form submitted successfully!' };
 };
 
-// For Netlify Forms integration, you would add:
+// Netlify Forms integration
 export const submitToNetlify = async (formData) => {
-  const response = await fetch('/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      'form-name': 'contact',
-      ...formData,
-    }).toString(),
-  });
+  try {
+    const response = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        'form-name': 'contact',
+        'bot-field': '', // Honeypot field for spam protection
+        ...formData,
+      }).toString(),
+    });
 
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
+    if (!response.ok) {
+      throw new Error(`Form submission failed: ${response.statusText}`);
+    }
+
+    return { 
+      success: true, 
+      message: 'Thank you! Your message has been sent successfully.' 
+    };
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    throw new Error('Failed to submit form. Please try again later.');
   }
-
-  return response;
 };
 
 // Email validation utility
