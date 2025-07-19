@@ -7,7 +7,7 @@ const lightTheme = {
   name: 'light',
   colors: {
     // Background colors
-    primary: '#4d7ea8',
+    primary: '#052f5f',
     secondary: '#f8f9fa',
     tertiary: '#f8f9fa',
     surface: '#ffffff',
@@ -63,7 +63,7 @@ const lightTheme = {
 
   gradients: {
     primary: 'linear-gradient(135deg, #4A4A4A 0%, #f7b733 100%)',
-    secondary: 'linear-gradient(135deg, #4d7ea8 0%, #2d3047 100%)',
+    secondary: 'linear-gradient(135deg, #052f5f 0%, #2d3047 100%)',
     accent: 'linear-gradient(135deg, #f7b733 0%, #4A4A4A 100%)',
     subtle: 'linear-gradient(135deg, rgba(74, 74, 74, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%)',
   },
