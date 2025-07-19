@@ -261,9 +261,9 @@ function IndexPage() {
                   opacity: ${headerVisible ? 0.8 : 0};
                   transition: opacity ${theme.transitions.slow};
                   transition-delay: 0.6s;
-                  color: ${theme.colors.textSecondary};
+                  color: ${theme.name === 'dark' ? theme.colors.accent : theme.colors.textSecondary};
                   background: none;
-                  -webkit-text-fill-color: ${theme.colors.textSecondary};
+                  -webkit-text-fill-color: ${theme.name === 'dark' ? theme.colors.accent : theme.colors.textSecondary};
                 `}
               >
                 crafting exceptional web experiences

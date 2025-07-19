@@ -9,7 +9,7 @@ import DarkModeToggle from './DarkModeToggle';
 import { useTheme } from '../context/ThemeContext';
 
 const NavLink = styled(Link)`
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.name === 'dark' ? '#000000' : props.theme.colors.text};
   font-weight: ${(props) => props.fontWeight || 'normal'};
   line-height: 1;
   text-decoration: none;
@@ -195,7 +195,7 @@ const Header = () => {
           display: none;
           background: none;
           border: none;
-          color: ${theme.colors.text};
+          color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
           font-size: 1.5rem;
           cursor: pointer;
           padding: 0.5rem;
@@ -263,7 +263,7 @@ const Header = () => {
             right: 2rem;
             background: none;
             border: none;
-            color: ${theme.colors.text};
+            color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
             font-size: 1.5rem;
             cursor: pointer;
             padding: 0.5rem;

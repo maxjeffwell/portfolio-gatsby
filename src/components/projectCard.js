@@ -156,6 +156,7 @@ function ProjectCard({
           grid-row: 3 / 4;
           grid-column: 1 / 3;
           margin-bottom: 1rem;
+          color: ${theme.name === 'light' ? '#ffffff' : theme.colors.text};
         `}
       >
         {description}

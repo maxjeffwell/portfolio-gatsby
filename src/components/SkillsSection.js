@@ -40,7 +40,7 @@ const SkillItem = styled.div`
 const SkillName = styled.span`
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
   font-size: 1.1rem;
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.name === 'dark' ? '#000000' : props.theme.colors.text};
   font-weight: 500;
 `;
 
@@ -88,7 +88,7 @@ const SkillProgress = styled.div`
 const SkillLevel = styled.span`
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
   font-size: 0.9rem;
-  color: ${(props) => props.theme.colors.textSecondary};
+  color: ${(props) => props.theme.name === 'dark' ? '#000000' : props.theme.colors.textSecondary};
   min-width: 40px;
   text-align: right;
 `;
@@ -125,7 +125,7 @@ function SkillsSection({ visible }) {
     <SkillsContainer theme={theme}>
       <h2
         css={css`
-          color: ${theme.colors.text};
+          color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
           font-family: HelveticaNeueLTStd-Bd, sans-serif;
           font-size: 2.25rem;
           margin-bottom: 2rem;
@@ -148,7 +148,7 @@ function SkillsSection({ visible }) {
         <SkillCategory key={category}>
           <h3
             css={css`
-              color: ${theme.colors.text};
+              color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
               font-family: HelveticaNeueLTStd-Bd, sans-serif;
               font-size: 1.5rem;
               margin-bottom: 1.5rem;
