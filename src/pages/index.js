@@ -4,8 +4,6 @@ import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import { FaRegArrowAltCircleRight } from 'react-icons/fa';
-
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import TypingAnimation from '../components/TypingAnimation';
@@ -649,7 +647,7 @@ function IndexPage() {
               find me negotiating dinner arrangements with my two demanding canine project managers
               \u2014 they're surprisingly good at code reviews!
             </p>
-            <nav 
+            <nav
               aria-label="About page navigation"
               css={css`
                 text-align: center;
@@ -818,7 +816,7 @@ function IndexPage() {
                   margin-bottom: 0.75rem;
                 `}
               >
-                Why I Love This Pattern
+                Why I Like This Pattern
               </h3>
               <ul
                 css={css`
