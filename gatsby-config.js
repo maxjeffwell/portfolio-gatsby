@@ -48,7 +48,7 @@ module.exports = {
         short_name: `Jeff Maxwell`,
         description: `Jeff Maxwell's professional developer portfolio showcasing React, Node.js, and modern web development projects`,
         start_url: `/`,
-        background_color: `#052f5f`,
+        background_color: `#4d7ea8`,
         theme_color: `#fc4a1a`,
         display: `standalone`,
         orientation: `portrait-primary`,

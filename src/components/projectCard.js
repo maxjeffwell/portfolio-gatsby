@@ -371,7 +371,7 @@ function ProjectCard({
           {typeof window !== 'undefined' && (
             <FaReact
               css={css`
-                color: ${theme.colors.accent};
+                color: #4A4A4A;
                 font-size: 2.5rem;
               `}
               aria-label="React framework"
@@ -381,7 +381,7 @@ function ProjectCard({
           {typeof window !== 'undefined' && (
             <FaGit
               css={css`
-                color: ${theme.colors.accent};
+                color: #4A4A4A;
                 font-size: 2.5rem;
               `}
               aria-label="Git version control"
@@ -391,7 +391,7 @@ function ProjectCard({
           {typeof window !== 'undefined' && (
             <DiHeroku
               css={css`
-                color: ${theme.colors.accent};
+                color: #4A4A4A;
                 font-size: 2.5rem;
               `}
               aria-label="Heroku deployment platform"
