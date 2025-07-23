@@ -121,28 +121,29 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/`, `/about/`, `/projects/`],
-        workboxConfig: {
-          globPatterns: ['**/*'],
-          runtimeCaching: [
-            {
-              urlPattern: /(\.js$|\.css$|static\/)/,
-              handler: `CacheFirst`,
-            },
-            {
-              urlPattern: /^https:\/\/fonts\.googleapis\.com/,
-              handler: `StaleWhileRevalidate`,
-            },
-            {
-              urlPattern: /^https:\/\/fonts\.gstatic\.com/,
-              handler: `CacheFirst`,
-            },
-          ],
-        },
-      },
-    },
+    // Temporarily removed gatsby-plugin-offline due to security vulnerabilities in workbox-build
+    // {
+    //   resolve: `gatsby-plugin-offline`,
+    //   options: {
+    //     precachePages: [`/`, `/about/`, `/projects/`],
+    //     workboxConfig: {
+    //       globPatterns: ['**/*'],
+    //       runtimeCaching: [
+    //         {
+    //           urlPattern: /(\.js$|\.css$|static\/)/,
+    //           handler: `CacheFirst`,
+    //         },
+    //         {
+    //           urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+    //           handler: `StaleWhileRevalidate`,
+    //         },
+    //         {
+    //           urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+    //           handler: `CacheFirst`,
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
   ],
 };
