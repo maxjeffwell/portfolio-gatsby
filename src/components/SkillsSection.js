@@ -2,15 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-// Theme is already imported from @mui/material above
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Fade from '@mui/material/Fade';
 
 const SkillsContainer = styled.div`
-  background: ${(props) => props.theme.gradients.subtle};
+  background: ${(props) => props.theme.palette.mode === 'dark' 
+    ? 'rgba(255, 255, 255, 0.05)' 
+    : 'rgba(0, 0, 0, 0.02)'};
   border-radius: 16px;
   padding: 3rem 2rem;
   backdrop-filter: blur(10px);
-  border: 1px solid ${(props) => props.theme.colors.border};
-  box-shadow: ${(props) => props.theme.shadows.medium};
+  border: 1px solid ${(props) => props.theme.palette.divider};
+  box-shadow: ${(props) => props.theme.shadows[2]};
 
   @media (max-width: 768px) {
     padding: 2rem 1.5rem;
@@ -40,14 +45,14 @@ const SkillItem = styled.div`
 const SkillName = styled.span`
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
   font-size: 1.1rem;
-  color: ${(props) => props.theme.name === 'dark' ? '#000000' : props.theme.colors.text};
+  color: ${(props) => props.theme.palette.mode === 'dark' ? '#000000' : props.theme.palette.text.primary};
   font-weight: 500;
 `;
 
 const SkillBar = styled.div`
   flex: 1;
   height: 8px;
-  background: ${(props) => props.theme.colors.secondary};
+  background: ${(props) => props.theme.palette.action.disabledBackground};
   border-radius: 4px;
   margin: 0 1rem;
   overflow: hidden;
@@ -56,7 +61,7 @@ const SkillBar = styled.div`
 
 const SkillProgress = styled.div`
   height: 100%;
-  background: ${(props) => props.theme.gradients.accent};
+  background: linear-gradient(135deg, ${(props) => props.theme.palette.primary.main} 0%, ${(props) => props.theme.palette.secondary.main} 100%);
   border-radius: 4px;
   width: ${(props) => props.level}%;
   transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -88,10 +93,21 @@ const SkillProgress = styled.div`
 const SkillLevel = styled.span`
   font-family: HelveticaNeueLTStd-Roman, sans-serif;
   font-size: 0.9rem;
-  color: ${(props) => props.theme.name === 'dark' ? '#000000' : props.theme.colors.textSecondary};
+  color: ${(props) => props.theme.palette.mode === 'dark' ? '#000000' : props.theme.palette.text.secondary};
   min-width: 40px;
   text-align: right;
 `;
+
+const GradientText = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Avenir',
+  background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+  textFillColor: 'transparent',
+  fontWeight: 700,
+  marginBottom: theme.spacing(3),
+}));
 
 const skills = {
   'Frontend Development': [
@@ -159,13 +175,17 @@ function SkillsSection({ visible }) {
                     {category}
                   </Typography>
                   {categorySkills.map((skill, skillIndex) => (
-                    <SkillItem
-                      key={skill.name}
-                      name={skill.name}
-                      level={visible ? skill.level : 0}
-                      delay={categoryIndex * 200 + skillIndex * 100}
-                      theme={theme}
-                    />
+                    <SkillItem key={skill.name}>
+                      <SkillName theme={theme}>{skill.name}</SkillName>
+                      <SkillBar theme={theme}>
+                        <SkillProgress 
+                          level={visible ? skill.level : 0}
+                          delay={categoryIndex * 200 + skillIndex * 100}
+                          theme={theme}
+                        />
+                      </SkillBar>
+                      <SkillLevel theme={theme}>{skill.level}%</SkillLevel>
+                    </SkillItem>
                   ))}
                 </Box>
               </Fade>
