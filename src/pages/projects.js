@@ -72,9 +72,9 @@ const projectsData = [
     technologies: ['React', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
     techIcons: {
       icon3: GraphQLIcon,
-      icon5: NPMIcon,
-      icon6: RedisIcon,
-      icon7: PostgresqlIcon
+      icon4: NPMIcon,
+      icon5: RedisIcon,
+      icon6: PostgresqlIcon
     },
     screenshots: {
       screenshot1: 'project2Screenshot',
@@ -98,9 +98,8 @@ const projectsData = [
     techIcons: {
       icon3: MongoDBIcon,
       icon4: NPMIcon,
-      icon5: NPMIcon,
-      icon6: ApolloClientIcon,
-      icon7: GraphQLIcon
+      icon5: ApolloClientIcon,
+      icon6: GraphQLIcon
     },
     screenshots: {
       screenshot1: 'project3Screenshot',
