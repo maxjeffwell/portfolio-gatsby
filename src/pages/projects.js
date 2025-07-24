@@ -33,6 +33,7 @@ import NodeJSIcon from '../images/nodejs.svg';
 const projectsData = [
   {
     id: 'project1',
+    date: '2018-2025',
     title: 'educationELLy',
     year: '2025',
     description:
@@ -60,6 +61,7 @@ const projectsData = [
   {
     id: 'project2',
     title: 'Code Talk',
+    date: '2018-2025',
     year: '2025',
     description:
       'Code Talk is a real-time collaborative code editor and messaging platform that enables developers to write\n' +
@@ -86,6 +88,7 @@ const projectsData = [
   {
     id: 'project3',
     title: 'educationELLy (GraphQL version)',
+    date: '2021-2025',
     year: '2025',
     description:
       'educationELLy GraphQL is an education management system for English Language Learner (ELL) students. It\n' +
@@ -111,6 +114,7 @@ const projectsData = [
   {
     id: 'project4',
     title: 'FireBook',
+    date: '2018-2025',
     year: '2025',
     description:
       'FireBook is a feature-rich web application that transforms how users save and organize their favorite\n' +
@@ -135,6 +139,7 @@ const projectsData = [
   {
     id: 'project5',
     title: 'Bookmarked',
+    date: '2020-2025',
     year: '2025',
     description:
       'Bookmarked is a modern bookmark manager application built with React Hooks. It lets users save, organize,\n' +
