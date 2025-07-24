@@ -13,7 +13,7 @@ import {
   Grid,
   useTheme,
 } from '@mui/material';
-import { GitHub, Launch, Code, Storage, Cloud } from '@mui/icons-material';
+import { GitHub, Launch } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
@@ -90,7 +90,7 @@ function ProjectCard({
             <GatsbyImage
               image={getImage(imageSrcPath)}
               alt={`${title} - Screenshot 1`}
-              loading="lazy"
+              loading="eager"
               style={{ borderRadius: '8px' }}
             />
           </ImageContainer>
@@ -100,7 +100,7 @@ function ProjectCard({
             <GatsbyImage
               image={getImage(imageSrcPath2)}
               alt={`${title} - Screenshot 2`}
-              loading="lazy"
+              loading="eager"
               style={{ borderRadius: '8px' }}
             />
           </ImageContainer>

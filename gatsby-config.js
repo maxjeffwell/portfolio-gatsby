@@ -2,8 +2,8 @@ const siteMetadata = {
   title: 'Jeff Maxwell Developer Portfolio',
   description: `Jeff Maxwell's developer portfolio made with Gatsby`,
   author: 'Jeff Maxwell',
-  createdAt: 2019,
-  siteUrl: 'https://www.jeffmaxwell.dev',
+  createdAt: 2019 - 2025,
+  siteUrl: 'https://www.el-jefe.me',
 };
 
 module.exports = {
@@ -25,8 +25,8 @@ module.exports = {
         defaults: {
           formats: [`auto`, `webp`, `avif`],
           placeholder: `blurred`,
-          quality: 90,
-          breakpoints: [480, 768, 1024, 1200, 1920],
+          quality: 85,
+          breakpoints: [750, 1080, 1366, 1920],
           backgroundColor: `transparent`,
           tracedSVGOptions: {},
           blurredOptions: {},
@@ -69,10 +69,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-preconnect`,
       options: {
-        domains: [
-          'https://fonts.googleapis.com',
-          'https://fonts.gstatic.com',
-        ],
+        domains: ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
       },
     },
     // `gatsby-plugin-eslint`, // Temporarily disabled due to dependency conflicts
