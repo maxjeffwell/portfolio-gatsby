@@ -4,9 +4,20 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
+import React from 'react';
+import { CacheProvider } from '@emotion/react';
+import createEmotionCache from '@emotion/cache';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
-export const wrapRootElement = wrap;
+const cache = createEmotionCache({ key: 'mui' });
+
+export const wrapRootElement = ({ element }) => {
+  return (
+    <CacheProvider value={cache}>
+      {wrap({ element })}
+    </CacheProvider>
+  );
+};
 
 // Custom scroll behavior for better UX
 export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPosition }) => {

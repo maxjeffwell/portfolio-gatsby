@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { useTheme } from '../context/ThemeContext';
+// Theme is already imported from @mui/material above
 
 const SkillsContainer = styled.div`
   background: ${(props) => props.theme.gradients.subtle};
@@ -121,74 +121,58 @@ function SkillsSection({ visible }) {
   const { theme } = useTheme();
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
-    <SkillsContainer theme={theme}>
-      <h2
-        css={css`
-          color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
-          font-family: HelveticaNeueLTStd-Bd, sans-serif;
-          font-size: 2.25rem;
-          margin-bottom: 2rem;
-          text-align: center;
-          background: ${theme.gradients.accent};
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+    <SkillsContainer elevation={2}>
+      <Fade in={visible} timeout={800}>
+        <Box>
+          <GradientText variant="h4" component="h2" align="center" id="skills-heading" gutterBottom>
+            Technical Skills
+          </GradientText>
 
-          @media (max-width: 768px) {
-            font-size: 1.875rem;
-          }
-        `}
-        id="skills-heading"
-      >
-        Technical Skills
-      </h2>
-
-      {Object.entries(skills).map(([category, categorySkills], categoryIndex) => (
-        <SkillCategory key={category}>
-          <h3
-            css={css`
-              color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
-              font-family: HelveticaNeueLTStd-Bd, sans-serif;
-              font-size: 1.5rem;
-              margin-bottom: 1.5rem;
-              padding-bottom: 0.5rem;
-              border-bottom: 2px solid ${theme.colors.accentSecondary};
-              position: relative;
-
-              &::after {
-                content: '';
-                position: absolute;
-                bottom: -2px;
-                left: 0;
-                width: 50px;
-                height: 2px;
-                background: ${theme.gradients.accent};
-              }
-
-              @media (max-width: 768px) {
-                font-size: 1.25rem;
-              }
-            `}
-          >
-            {category}
-          </h3>
-
-          {categorySkills.map((skill, skillIndex) => (
-            <SkillItem key={skill.name}>
-              <SkillName theme={theme}>{skill.name}</SkillName>
-              <SkillBar theme={theme}>
-                <SkillProgress
-                  theme={theme}
-                  level={visible ? skill.level : 0}
-                  delay={categoryIndex * 200 + skillIndex * 100}
-                />
-              </SkillBar>
-              <SkillLevel theme={theme}>{skill.level}%</SkillLevel>
-            </SkillItem>
+          {Object.entries(skills).map(([category, categorySkills], categoryIndex) => (
+            <SkillCategory key={category}>
+              <Fade 
+                in={visible} 
+                timeout={800} 
+                style={{ transitionDelay: `${categoryIndex * 200}ms` }}
+              >
+                <Box>
+                  <Typography 
+                    variant="h5" 
+                    gutterBottom 
+                    sx={{ 
+                      mb: 2,
+                      pb: 1,
+                      borderBottom: 2,
+                      borderColor: 'primary.main',
+                      position: 'relative',
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        bottom: -2,
+                        left: 0,
+                        width: 50,
+                        height: 2,
+                        background: theme => `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                      }
+                    }}
+                  >
+                    {category}
+                  </Typography>
+                  {categorySkills.map((skill, skillIndex) => (
+                    <SkillItem
+                      key={skill.name}
+                      name={skill.name}
+                      level={visible ? skill.level : 0}
+                      delay={categoryIndex * 200 + skillIndex * 100}
+                      theme={theme}
+                    />
+                  ))}
+                </Box>
+              </Fade>
+            </SkillCategory>
           ))}
-        </SkillCategory>
-      ))}
+        </Box>
+      </Fade>
     </SkillsContainer>
   );
 }

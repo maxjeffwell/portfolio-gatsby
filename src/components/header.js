@@ -1,86 +1,74 @@
 import { Link } from 'gatsby';
 import React, { useState, useEffect } from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Drawer,
+  useTheme,
+  useMediaQuery,
+  Box,
+  Container,
+} from '@mui/material';
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
 
 import MyLogo from './myLogo';
 import DarkModeToggle from './DarkModeToggle';
-import { useTheme } from '../context/ThemeContext';
 
-const NavLink = styled(Link)`
-  color: ${(props) => props.theme.name === 'dark' ? '#000000' : props.theme.colors.text};
-  font-weight: ${(props) => props.fontWeight || 'normal'};
-  line-height: 1;
-  text-decoration: none;
-  padding: 0.75rem 1.25rem;
-  border-radius: 25px;
-  transition: all ${(props) => props.theme.transitions.normal};
-  position: relative;
-  overflow: hidden;
-  display: block;
+const StyledAppBar = styled(AppBar)(({ theme, scrolled }) => ({
+  background: scrolled
+    ? theme.palette.mode === 'dark'
+      ? 'rgba(30, 30, 30, 0.95)'
+      : 'rgba(255, 255, 255, 0.95)'
+    : 'transparent',
+  backdropFilter: scrolled ? 'blur(20px)' : 'none',
+  boxShadow: scrolled ? theme.shadows[4] : 'none',
+  transition: theme.transitions.create(['background', 'backdrop-filter', 'box-shadow'], {
+    duration: theme.transitions.duration.standard,
+  }),
+}));
 
-  @media (max-width: 768px) {
-    padding: 1rem 2rem;
-    font-size: 1.5rem;
-    border-radius: 15px;
-    text-align: center;
-  }
+const NavButton = styled(Button)(({ theme }) => ({
+  borderRadius: 20,
+  padding: '8px 24px',
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+  textTransform: 'none',
+  fontSize: '1rem',
+  fontWeight: 500,
+  transition: theme.transitions.create(['background-color', 'transform', 'box-shadow'], {
+    duration: theme.transitions.duration.short,
+  }),
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: theme.shadows[2],
+  },
+  '&.active': {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    boxShadow: theme.shadows[4],
+  },
+}));
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: ${(props) => props.theme.gradients.accent};
-    transition: left ${(props) => props.theme.transitions.normal};
-    z-index: -1;
-  }
-
-  &.current-page {
-    background: ${(props) => props.theme.gradients.accent};
-    color: ${(props) => props.theme.colors.textInverse};
-    box-shadow: ${(props) => props.theme.shadows.medium};
-    transform: translateY(-2px);
-
-    &::before {
-      left: 0;
-    }
-  }
-
-  &:hover:not(.current-page) {
-    background: ${(props) => props.theme.gradients.subtle};
-    color: ${(props) => props.theme.colors.accentSecondary};
-    transform: translateY(-2px);
-    box-shadow: ${(props) => props.theme.shadows.small};
-
-    &::before {
-      left: 0;
-      opacity: 0.1;
-    }
-  }
-
-  &:focus {
-    outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
-    outline-offset: 3px;
-    transform: translateY(-2px);
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
-    outline-offset: 3px;
-  }
-`;
+const StyledDrawer = styled(Drawer)(({ theme }) => ({
+  '& .MuiDrawer-paper': {
+    width: '80%',
+    maxWidth: 300,
+    backgroundColor: theme.palette.background.paper,
+    backgroundImage:
+      theme.palette.mode === 'dark'
+        ? 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))'
+        : 'none',
+  },
+}));
 
 const Header = () => {
-  const { theme } = useTheme();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -92,317 +80,105 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const menuItems = [
+    { text: 'Home', to: '/' },
+    { text: 'Bio', to: '/about' },
+    { text: 'Projects', to: '/projects' },
+    { text: 'Contact', to: '/contact' },
+  ];
+
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+        <IconButton>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
+        {menuItems.map((item) => (
+          <Button
+            key={item.text}
+            component={Link}
+            to={item.to}
+            fullWidth
+            sx={{ 
+              py: 2, 
+              fontSize: '1.25rem',
+              textTransform: 'none',
+              color: 'text.primary',
+              '&:hover': {
+                backgroundColor: 'action.hover',
+              },
+            }}
+          >
+            {item.text}
+          </Button>
+        ))}
+      </Box>
+    </Box>
+  );
 
   return (
-    <header
-      role="banner"
-      css={css`
-        display: grid;
-        grid-template-columns: auto 1fr auto auto;
-        font-family: AvenirLTStd-Roman, sans-serif;
-        font-size: 2rem;
-        margin: 2rem auto 4rem;
-        max-width: 90vw;
-        width: 1100px;
-        align-items: center;
-        gap: 1rem;
-        opacity: 1;
-        transform: translateY(0);
-        transition: all ${theme.transitions.slow};
-        position: relative;
-        overflow: hidden;
-        padding: 1rem 2rem;
-        border-radius: 20px;
-        background: ${isScrolled ? `${theme.colors.surface}95` : 'transparent'};
-        backdrop-filter: ${isScrolled ? 'blur(20px)' : 'none'};
-        border: ${isScrolled ? `1px solid ${theme.colors.border}` : '1px solid transparent'};
-        box-shadow: ${isScrolled ? theme.shadows.medium : 'none'};
+    <>
+      <StyledAppBar position="fixed" scrolled={isScrolled ? 1 : 0} elevation={0}>
+        <Container maxWidth="lg">
+          <Toolbar sx={{ justifyContent: 'space-between', padding: { xs: 1, sm: 2 } }}>
+            {isMobile && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
 
-        &::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background:
-            radial-gradient(circle at 30% 20%, ${theme.colors.accent}08 0%, transparent 50%),
-            radial-gradient(
-              circle at 70% 80%,
-              ${theme.colors.accentSecondary}08 0%,
-              transparent 50%
-            );
-          animation: floatBackground 20s ease-in-out infinite;
-          pointer-events: none;
-          z-index: -1;
-        }
+            {!isMobile && (
+              <Box component="nav" sx={{ display: 'flex', alignItems: 'center' }}>
+                {menuItems.map((item) => (
+                  <NavButton
+                    key={item.text}
+                    component={Link}
+                    to={item.to}
+                    className={
+                      typeof window !== 'undefined' && window.location.pathname === item.to
+                        ? 'active'
+                        : ''
+                    }
+                  >
+                    {item.text}
+                  </NavButton>
+                ))}
+              </Box>
+            )}
 
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -1rem;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 60%;
-          height: 1px;
-          background: ${theme.gradients.accent};
-          opacity: 0.3;
-        }
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              {!isMobile && <MyLogo />}
+              <DarkModeToggle />
+            </Box>
+          </Toolbar>
+        </Container>
+      </StyledAppBar>
 
-        @keyframes floatBackground {
-          0%,
-          100% {
-            transform: translateX(-10px) translateY(-10px) rotate(0deg);
-          }
-          33% {
-            transform: translateX(10px) translateY(-20px) rotate(1deg);
-          }
-          66% {
-            transform: translateX(-5px) translateY(10px) rotate(-1deg);
-          }
-        }
-
-        @media (max-width: 768px) {
-          font-size: 1.75rem;
-          width: 95vw;
-        }
-
-        @media (max-width: 768px) {
-          grid-template-columns: auto 1fr auto auto;
-          padding: 0.75rem 1.5rem;
-        }
-
-        @media (max-width: 480px) {
-          font-size: 1.5rem;
-          grid-template-columns: 1fr auto auto;
-          padding: 0.5rem 1rem;
-        }
-        @media (max-width: 360px) {
-          font-size: 1.25rem;
-        }
-      `}
-    >
-      {/* Mobile menu button */}
-      <button
-        css={css`
-          display: none;
-          background: none;
-          border: none;
-          color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
-          font-size: 1.5rem;
-          cursor: pointer;
-          padding: 0.5rem;
-          border-radius: 8px;
-          transition: all ${theme.transitions.normal};
-          grid-column: 2 / 3;
-          justify-self: end;
-
-          &:hover {
-            background: ${theme.colors.surfaceVariant};
-            transform: scale(1.1);
-          }
-
-          &:focus {
-            outline: 2px solid ${theme.colors.accentSecondary};
-            outline-offset: 2px;
-          }
-
-          @media (max-width: 768px) {
-            display: block;
-          }
-        `}
-        onClick={toggleMobileMenu}
-        aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={isMobileMenuOpen}
+      <StyledDrawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
       >
-        {isMobileMenuOpen
-          ? typeof window !== 'undefined' && <FaTimes />
-          : typeof window !== 'undefined' && <FaBars />}
-      </button>
+        {drawer}
+      </StyledDrawer>
 
-      <nav
-        role="navigation"
-        aria-label="Main navigation"
-        css={css`
-          margin-top: 0;
-          grid-column: 2 / 3;
-          align-self: end;
-
-          @media (max-width: 768px) {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: ${theme.colors.surface}98;
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: ${isMobileMenuOpen ? 1 : 0};
-            visibility: ${isMobileMenuOpen ? 'visible' : 'hidden'};
-            transition: all ${theme.transitions.normal};
-            grid-column: 1 / -1;
-          }
-        `}
-      >
-        {/* Close button for mobile */}
-        <button
-          css={css`
-            display: none;
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: none;
-            border: none;
-            color: ${theme.name === 'dark' ? '#000000' : theme.colors.text};
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all ${theme.transitions.normal};
-
-            &:hover {
-              background: ${theme.colors.surfaceVariant};
-            }
-
-            @media (max-width: 768px) {
-              display: block;
-            }
-          `}
-          onClick={closeMobileMenu}
-          aria-label="Close menu"
-        >
-          {typeof window !== 'undefined' && <FaTimes />}
-        </button>
-
-        <ul
-          css={css`
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 0.75rem;
-
-            @media (max-width: 768px) {
-              flex-direction: column;
-              gap: 2rem;
-              text-align: center;
-            }
-          `}
-        >
-          <li>
-            <NavLink
-              to="/"
-              fontWeight="bold"
-              activeClassName="current-page"
-              aria-current="page"
-              theme={theme}
-              onClick={closeMobileMenu}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/about"
-              fontWeight="bold"
-              activeClassName="current-page"
-              partiallyActive
-              theme={theme}
-              onClick={closeMobileMenu}
-            >
-              Bio
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/projects"
-              fontWeight="bold"
-              activeClassName="current-page"
-              partiallyActive
-              theme={theme}
-              onClick={closeMobileMenu}
-            >
-              Projects
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/contact"
-              fontWeight="bold"
-              activeClassName="current-page"
-              partiallyActive
-              theme={theme}
-              onClick={closeMobileMenu}
-            >
-              Contact
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-      <div
-        css={css`
-          display: grid;
-          grid-column: 3 / 4;
-          justify-items: end;
-
-          @media (max-width: 768px) {
-            display: none;
-          }
-        `}
-      >
-        <MyLogo />
-      </div>
-
-      <div
-        css={css`
-          grid-column: 4 / 5;
-          display: flex;
-          align-items: center;
-          justify-self: end;
-
-          @media (max-width: 768px) {
-            grid-column: 3 / 4;
-          }
-
-          @media (max-width: 480px) {
-            grid-column: 3 / 4;
-          }
-        `}
-      >
-        <DarkModeToggle />
-      </div>
-
-      {/* Mobile menu backdrop */}
-      {isMobileMenuOpen && (
-        <div
-          css={css`
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
-
-            @media (max-width: 768px) {
-              display: block;
-            }
-          `}
-          onClick={closeMobileMenu}
-        />
-      )}
-    </header>
+      {/* Toolbar spacer */}
+      <Toolbar sx={{ mb: 4 }} />
+    </>
   );
 };
 

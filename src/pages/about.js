@@ -1,134 +1,110 @@
 import React from 'react';
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-
+import {
+  Container,
+  Typography,
+  Paper,
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  useTheme,
+  Fade,
+  Slide,
+} from '@mui/material';
+import {
+  Code as CodeIcon,
+  Coffee,
+  Pets,
+  Computer,
+  Language,
+  Storage,
+} from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
-import { FaPiedPiperAlt, FaCode, FaCoffee, FaDog } from 'react-icons/fa';
+import { FaPiedPiperAlt } from 'react-icons/fa';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Image from '../components/image';
 import Logo from '../components/logo';
-import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
-const StyledContainer = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+const GradientText = styled(Typography)(({ theme }) => ({
+  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  display: 'inline-block',
+}));
 
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 3rem;
-  }
-`;
+const TechSection = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  borderRadius: theme.shape.borderRadius * 2,
+  background: theme.palette.mode === 'dark'
+    ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
+    : 'linear-gradient(135deg, rgba(240,240,240,0.95) 0%, rgba(250,250,250,0.9) 100%)',
+  backdropFilter: 'blur(10px)',
+}));
 
-const StyledSubContainer = styled.div`
-  background: ${(props) => props.theme.gradients.subtle};
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  border: 1px solid ${(props) => props.theme.colors.border};
-  box-shadow: ${(props) => props.theme.shadows.medium};
-  backdrop-filter: blur(10px);
-`;
+const PersonalCard = styled(Card)(({ theme }) => ({
+  padding: theme.spacing(3),
+  borderRadius: theme.shape.borderRadius * 3,
+  background: `linear-gradient(135deg, ${theme.palette.primary.main}10 0%, ${theme.palette.secondary.main}10 100%)`,
+  position: 'relative',
+  overflow: 'hidden',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: `radial-gradient(circle at 30% 20%, ${theme.palette.primary.main}10 0%, transparent 70%)`,
+    zIndex: 0,
+  },
+  '& > *': {
+    position: 'relative',
+    zIndex: 1,
+  },
+}));
 
-const TechGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+const TechCard = styled(Card)(({ theme }) => ({
+  textAlign: 'center',
+  padding: theme.spacing(3, 2),
+  height: '100%',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  '&:hover': {
+    transform: 'translateY(-8px)',
+    boxShadow: theme.shadows[8],
+  },
+}));
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-`;
+const InterestItem = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  padding: theme.spacing(2),
+  borderRadius: theme.shape.borderRadius * 1.5,
+  backgroundColor: theme.palette.action.hover,
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.action.selected,
+    transform: 'translateY(-2px)',
+  },
+}));
 
-const TechItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 1.5rem 1rem;
-  background: ${(props) => props.theme.colors.surface};
-  border-radius: 12px;
-  border: 1px solid ${(props) => props.theme.colors.border};
-  transition: all ${(props) => props.theme.transitions.normal};
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: ${(props) => props.theme.shadows.hover};
-    background: ${(props) => props.theme.colors.tertiary};
-  }
-`;
-
-const PersonalSection = styled.div`
-  background: ${(props) => props.theme.gradients.primary};
-  border-radius: 20px;
-  padding: 3rem 2.5rem;
-  margin: 3rem 0;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(252, 74, 26, 0.1) 0%, transparent 70%);
-    z-index: 0;
-  }
-
-  > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
-  }
-`;
-
-const InterestGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-`;
-
-const InterestCard = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: ${(props) => props.theme.colors.secondary};
-  border-radius: 12px;
-  border: 1px solid ${(props) => props.theme.colors.border};
-  transition: all ${(props) => props.theme.transitions.normal};
-
-  &:hover {
-    transform: translateY(-2px);
-    background: ${(props) => props.theme.colors.tertiary};
-  }
-
-  svg {
-    color: ${(props) => props.theme.colors.accent};
-    font-size: 1.5rem;
-    flex-shrink: 0;
-  }
-`;
-
-const StyledLogoContainer = styled.div`
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  margin-top: 2rem;
-`;
+const StyledIcon = styled(Box)(({ theme }) => ({
+  fontSize: '3.5rem',
+  color: theme.palette.primary.main,
+  marginBottom: theme.spacing(2),
+  transition: 'transform 0.3s ease',
+  '.MuiCard-root:hover &': {
+    transform: 'scale(1.1) rotate(5deg)',
+  },
+}));
 
 const AboutPage = () => {
-  const { theme } = useTheme();
+  const theme = useTheme();
   const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
   const [techRef, techVisible] = useScrollAnimation({ delay: 300 });
   const [personalRef, personalVisible] = useScrollAnimation({ delay: 500 });
@@ -148,443 +124,194 @@ const AboutPage = () => {
           `full stack developer profile`,
         ]}
       />
-      <main role="main">
-        <StyledContainer>
-          <header ref={headerRef}>
-            <h1
-              css={css`
-                font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                font-size: 2.75rem;
-                background: ${theme.gradients.accent};
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                margin-bottom: 2rem;
-                text-align: center;
-                opacity: ${headerVisible ? 1 : 0};
-                transform: ${headerVisible ? 'translateY(0)' : 'translateY(-20px)'};
-                transition: all ${theme.transitions.slow};
-
-                @media (max-width: 768px) {
-                  font-size: 2.25rem;
-                }
-              `}
-            >
-              About Jeff Maxwell
-            </h1>
-            <p
-              css={css`
-                font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                font-size: 1.25rem;
-                color: ${theme.colors.text};
-                text-align: center;
-                line-height: 1.6;
-                max-width: 600px;
-                margin: 0 auto 3rem;
-                opacity: ${headerVisible ? 1 : 0};
-                transform: ${headerVisible ? 'translateY(0)' : 'translateY(20px)'};
-                transition: all ${theme.transitions.slow};
-                transition-delay: 0.2s;
-              `}
-            >
-              Full stack developer passionate about creating elegant solutions to complex problems.
-              When I'm not coding, I'm exploring new technologies and perfecting my craft.
-            </p>
-          </header>
-          <section
-            ref={personalRef}
-            aria-labelledby="personal-info"
-            css={css`
-              opacity: ${personalVisible ? 1 : 0};
-              transform: ${personalVisible ? 'translateY(0)' : 'translateY(30px)'};
-              transition: all ${theme.transitions.slow};
-            `}
-          >
-            <PersonalSection theme={theme}>
-              <h2
-                id="personal-info"
-                css={css`
-                  font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                  font-size: 2rem;
-                  color: ${theme.colors.text};
-                  margin-bottom: 2rem;
-                  text-align: center;
-
-                  @media (max-width: 768px) {
-                    font-size: 1.75rem;
-                  }
-                `}
+      <Container maxWidth="lg">
+        <Box ref={headerRef} sx={{ mb: 6 }}>
+          <Fade in={headerVisible} timeout={1000}>
+            <div>
+              <GradientText variant="h2" component="h1" align="center" gutterBottom>
+                About Jeff Maxwell
+              </GradientText>
+              <Typography 
+                variant="h5" 
+                align="center" 
+                color="text.secondary" 
+                sx={{ maxWidth: 600, mx: 'auto' }}
               >
+                Full stack developer passionate about creating elegant solutions to complex problems.
+                When I'm not coding, I'm exploring new technologies and perfecting my craft.
+              </Typography>
+            </div>
+          </Fade>
+        </Box>
+        <Box ref={personalRef} sx={{ mb: 6 }}>
+          <Slide direction="up" in={personalVisible} timeout={800}>
+            <PersonalCard elevation={3}>
+              <Typography variant="h4" component="h2" gutterBottom align="center">
                 Beyond the Code
-              </h2>
-              <p
-                css={css`
-                  font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                  font-size: 1.125rem;
-                  color: ${theme.colors.text};
-                  line-height: 1.7;
-                  text-align: center;
-                  margin-bottom: 2rem;
-                  opacity: 0.9;
-                `}
+              </Typography>
+              <Typography 
+                variant="body1" 
+                paragraph 
+                align="center"
+                sx={{ mb: 4, fontSize: '1.125rem' }}
               >
                 When I'm not debugging or mastering the latest frameworks, you'll find me
                 negotiating dinner menus with my two dogs, exploring vintage internet archives, or
                 diving deep into the philosophy of clean code architecture.
-              </p>
+              </Typography>
 
-              <InterestGrid>
-                <InterestCard theme={theme}>
-                  {typeof window !== 'undefined' && <FaCode />}
-                  <div>
-                    <h3
-                      css={css`
-                        font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                        font-size: 1rem;
-                        color: ${theme.colors.text};
-                        margin-bottom: 0.25rem;
-                      `}
-                    >
-                      Clean Code
-                    </h3>
-                    <p
-                      css={css`
-                        font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                        font-size: 0.9rem;
-                        color: ${theme.colors.textSecondary};
-                        margin: 0;
-                      `}
-                    >
-                      Readable, maintainable solutions
-                    </p>
-                  </div>
-                </InterestCard>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={4}>
+                  <InterestItem>
+                    <CodeIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle1" fontWeight="bold">
+                        Clean Code
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Readable, maintainable solutions
+                      </Typography>
+                    </Box>
+                  </InterestItem>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <InterestItem>
+                    <Coffee sx={{ fontSize: 32, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle1" fontWeight="bold">
+                        Coffee & Code
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Fuel for late-night debugging
+                      </Typography>
+                    </Box>
+                  </InterestItem>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <InterestItem>
+                    <Pets sx={{ fontSize: 32, color: 'primary.main' }} />
+                    <Box>
+                      <Typography variant="subtitle1" fontWeight="bold">
+                        Dog Parent
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Expert at dinner negotiations
+                      </Typography>
+                    </Box>
+                  </InterestItem>
+                </Grid>
+              </Grid>
+            </PersonalCard>
+          </Slide>
+        </Box>
 
-                <InterestCard theme={theme}>
-                  {typeof window !== 'undefined' && <FaCoffee />}
-                  <div>
-                    <h3
-                      css={css`
-                        font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                        font-size: 1rem;
-                        color: ${theme.colors.text};
-                        margin-bottom: 0.25rem;
-                      `}
-                    >
-                      Coffee & Code
-                    </h3>
-                    <p
-                      css={css`
-                        font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                        font-size: 0.9rem;
-                        color: ${theme.colors.textSecondary};
-                        margin: 0;
-                      `}
-                    >
-                      Fuel for late-night debugging
-                    </p>
-                  </div>
-                </InterestCard>
-
-                <InterestCard theme={theme}>
-                  {typeof window !== 'undefined' && <FaDog />}
-                  <div>
-                    <h3
-                      css={css`
-                        font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                        font-size: 1rem;
-                        color: ${theme.colors.text};
-                        margin-bottom: 0.25rem;
-                      `}
-                    >
-                      Dog Parent
-                    </h3>
-                    <p
-                      css={css`
-                        font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                        font-size: 0.9rem;
-                        color: ${theme.colors.textSecondary};
-                        margin: 0;
-                      `}
-                    >
-                      Expert at dinner negotiations
-                    </p>
-                  </div>
-                </InterestCard>
-              </InterestGrid>
-            </PersonalSection>
-
-            <div
-              css={css`
-                text-align: center;
-                margin-top: 2rem;
-              `}
-            >
-              <Image
-                css={css`
-                  max-width: 400px;
-                  margin: 0 auto;
-                  border-radius: 12px;
-                  box-shadow: ${theme.shadows.medium};
-                `}
-              />
-            </div>
-          </section>
-        </StyledContainer>
-
-        <section
-          ref={techRef}
-          aria-labelledby="tech-stack"
-          css={css`
-            opacity: ${techVisible ? 1 : 0};
-            transform: ${techVisible ? 'translateY(0)' : 'translateY(30px)'};
-            transition: all ${theme.transitions.slow};
-          `}
-        >
-          <StyledSubContainer theme={theme}>
-            <h2
-              id="tech-stack"
-              css={css`
-                font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                font-size: 2.25rem;
-                background: ${theme.gradients.accent};
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                margin-bottom: 0.5rem;
-                text-align: center;
-
-                @media (max-width: 768px) {
-                  font-size: 1.875rem;
-                }
-              `}
-            >
-              Technology Stack & Tools
-            </h2>
-            <p
-              css={css`
-                font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                font-size: 1.125rem;
-                color: ${theme.colors.textSecondary};
-                text-align: center;
-                margin-bottom: 1rem;
-                line-height: 1.6;
-              `}
-            >
-              The tools and technologies that power my development workflow
-            </p>
-
-            <TechGrid>
-              <TechItem theme={theme}>
-                {typeof window !== 'undefined' && (
-                  <DiIntellij
-                    css={css`
-                      font-size: 4rem;
-                      color: ${theme.colors.accent};
-                      margin-bottom: 1rem;
-                      transition: all ${theme.transitions.normal};
-
-                      ${TechItem}:hover & {
-                        transform: scale(1.1);
-                      }
-
-                      @media (max-width: 480px) {
-                        font-size: 3rem;
-                      }
-                    `}
-                    title="JetBrains IntelliJ"
-                  />
-                )}
-                <h3
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                    font-size: 1.125rem;
-                    color: ${theme.colors.text};
-                    margin-bottom: 0.5rem;
-                  `}
-                >
-                  IntelliJ IDEA
-                </h3>
-                <p
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                    font-size: 0.9rem;
-                    color: ${theme.colors.textSecondary};
-                    margin: 0;
-                    text-align: center;
-                  `}
-                >
-                  Primary development environment
-                </p>
-              </TechItem>
-
-              <TechItem theme={theme}>
-                {typeof window !== 'undefined' && (
-                  <DiMozilla
-                    css={css`
-                      font-size: 4rem;
-                      color: ${theme.colors.accent};
-                      margin-bottom: 1rem;
-                      transition: all ${theme.transitions.normal};
-
-                      ${TechItem}:hover & {
-                        transform: scale(1.1);
-                      }
-
-                      @media (max-width: 480px) {
-                        font-size: 3rem;
-                      }
-                    `}
-                    title="Mozilla Firefox"
-                  />
-                )}
-                <h3
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                    font-size: 1.125rem;
-                    color: ${theme.colors.text};
-                    margin-bottom: 0.5rem;
-                  `}
-                >
-                  Firefox
-                </h3>
-                <p
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                    font-size: 0.9rem;
-                    color: ${theme.colors.textSecondary};
-                    margin: 0;
-                    text-align: center;
-                  `}
-                >
-                  Development & testing browser
-                </p>
-              </TechItem>
-
-              <TechItem theme={theme}>
-                {typeof window !== 'undefined' && (
-                  <DiDebian
-                    css={css`
-                      font-size: 4rem;
-                      color: ${theme.colors.accent};
-                      margin-bottom: 1rem;
-                      transition: all ${theme.transitions.normal};
-
-                      ${TechItem}:hover & {
-                        transform: scale(1.1);
-                      }
-
-                      @media (max-width: 480px) {
-                        font-size: 3rem;
-                      }
-                    `}
-                    title="Debian Linux"
-                  />
-                )}
-                <h3
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                    font-size: 1.125rem;
-                    color: ${theme.colors.text};
-                    margin-bottom: 0.5rem;
-                  `}
-                >
-                  Debian Linux
-                </h3>
-                <p
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                    font-size: 0.9rem;
-                    color: ${theme.colors.textSecondary};
-                    margin: 0;
-                    text-align: center;
-                  `}
-                >
-                  Preferred operating system
-                </p>
-              </TechItem>
-
-              <TechItem theme={theme}>
-                {typeof window !== 'undefined' && (
-                  <FaPiedPiperAlt
-                    css={css`
-                      font-size: 4rem;
-                      color: ${theme.colors.accent};
-                      margin-bottom: 1rem;
-                      transition: all ${theme.transitions.normal};
-
-                      ${TechItem}:hover & {
-                        transform: scale(1.1);
-                      }
-
-                      @media (max-width: 480px) {
-                        font-size: 3rem;
-                      }
-                    `}
-                    title="Pied Piper (Silicon Valley Reference)"
-                  />
-                )}
-                <h3
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Bd, sans-serif;
-                    font-size: 1.125rem;
-                    color: ${theme.colors.text};
-                    margin-bottom: 0.5rem;
-                  `}
-                >
-                  Pied Piper
-                </h3>
-                <p
-                  css={css`
-                    font-family: HelveticaNeueLTStd-Roman, sans-serif;
-                    font-size: 0.9rem;
-                    color: ${theme.colors.textSecondary};
-                    margin: 0;
-                    text-align: center;
-                  `}
-                >
-                  Optimal compression algorithm
-                </p>
-              </TechItem>
-            </TechGrid>
-          </StyledSubContainer>
-        </section>
-
-        <section
-          aria-labelledby="supported-organizations"
-          css={css`
-            text-align: center;
-            margin-top: 4rem;
-          `}
-        >
-          <h2
-            id="supported-organizations"
-            css={css`
-              font-family: HelveticaNeueLTStd-Bd, sans-serif;
-              font-size: 2rem;
-              background: ${theme.gradients.accent};
-              background-clip: text;
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              margin-bottom: 2rem;
-
-              @media (max-width: 768px) {
-                font-size: 1.75rem;
-              }
-            `}
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Box
+            sx={{
+              maxWidth: 400,
+              mx: 'auto',
+              borderRadius: 2,
+              overflow: 'hidden',
+              boxShadow: 3,
+            }}
           >
+            <Image />
+          </Box>
+        </Box>
+
+        <Box ref={techRef} sx={{ mb: 6 }}>
+          <Fade in={techVisible} timeout={1000}>
+            <TechSection elevation={2}>
+              <GradientText variant="h3" component="h2" align="center" gutterBottom>
+                Technology Stack & Tools
+              </GradientText>
+              <Typography 
+                variant="h6" 
+                align="center" 
+                color="text.secondary" 
+                paragraph
+              >
+                The tools and technologies that power my development workflow
+              </Typography>
+
+              <Grid container spacing={3} sx={{ mt: 2 }}>
+                <Grid item xs={6} md={3}>
+                  <TechCard elevation={1}>
+                    {typeof window !== 'undefined' && (
+                      <StyledIcon>
+                        <DiIntellij />
+                      </StyledIcon>
+                    )}
+                    <Typography variant="h6" gutterBottom>
+                      IntelliJ IDEA
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Primary development environment
+                    </Typography>
+                  </TechCard>
+                </Grid>
+
+                <Grid item xs={6} md={3}>
+                  <TechCard elevation={1}>
+                    {typeof window !== 'undefined' && (
+                      <StyledIcon>
+                        <DiMozilla />
+                      </StyledIcon>
+                    )}
+                    <Typography variant="h6" gutterBottom>
+                      Firefox
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Development & testing browser
+                    </Typography>
+                  </TechCard>
+                </Grid>
+
+                <Grid item xs={6} md={3}>
+                  <TechCard elevation={1}>
+                    {typeof window !== 'undefined' && (
+                      <StyledIcon>
+                        <DiDebian />
+                      </StyledIcon>
+                    )}
+                    <Typography variant="h6" gutterBottom>
+                      Debian Linux
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Preferred operating system
+                    </Typography>
+                  </TechCard>
+                </Grid>
+
+                <Grid item xs={6} md={3}>
+                  <TechCard elevation={1}>
+                    {typeof window !== 'undefined' && (
+                      <StyledIcon>
+                        <FaPiedPiperAlt />
+                      </StyledIcon>
+                    )}
+                    <Typography variant="h6" gutterBottom>
+                      Pied Piper
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Optimal compression algorithm
+                    </Typography>
+                  </TechCard>
+                </Grid>
+              </Grid>
+            </TechSection>
+          </Fade>
+        </Box>
+
+        <Box sx={{ textAlign: 'center', mt: 6 }}>
+          <GradientText variant="h4" component="h2" gutterBottom>
             Supported Organizations
-          </h2>
-          <div
-            css={css`
-              max-width: 300px;
-              margin: 0 auto;
-            `}
-          >
+          </GradientText>
+          <Box sx={{ maxWidth: 300, mx: 'auto' }}>
             <Logo />
-          </div>
-        </section>
-      </main>
+          </Box>
+        </Box>
+      </Container>
     </Layout>
   );
 };

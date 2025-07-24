@@ -1,139 +1,252 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
+import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-// Theme configuration
-const lightTheme = {
-  name: 'light',
-  colors: {
-    // Background colors
-    primary: '#052f5f',
-    secondary: '#f8f9fa',
-    tertiary: '#f8f9fa',
-    surface: '#ffffff',
-    surfaceVariant: '#f5f5f5',
-
-    // Text colors
-    text: '#1a1a1a',
-    textSecondary: '#666666',
-    textInverse: '#ffffff',
-
-    // Accent colors
-    accent: '#4A4A4A',
-    accentSecondary: '#f7b733',
-
-    // Interactive colors
-    link: '#f7b733',
-    linkHover: '#ffffff',
-
-    // Border colors
-    border: '#363636',
-    borderAccent: '#f7b733',
-
-    // Status colors
-    success: '#4caf50',
-    warning: '#ff9800',
-    error: '#f44336',
-    info: '#2196f3',
+// Material Design color palette
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#1976d2',
+      light: '#42a5f5',
+      dark: '#1565c0',
+    },
+    secondary: {
+      main: '#dc004e',
+      light: '#e33371',
+      dark: '#9a0036',
+    },
+    background: {
+      default: '#fafafa',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: 'rgba(0, 0, 0, 0.87)',
+      secondary: 'rgba(0, 0, 0, 0.6)',
+    },
+    divider: 'rgba(0, 0, 0, 0.12)',
   },
-
-  shadows: {
-    small: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    medium: '0 4px 8px rgba(0, 0, 0, 0.15)',
-    large: '0 8px 16px rgba(0, 0, 0, 0.2)',
-    hover: '0 12px 16px 0 rgba(0, 0, 0, 0.25), 0 17px 50px 0 rgba(0, 0, 0, 0.19)',
+  typography: {
+    fontFamily: [
+      'Roboto',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+    h1: {
+      fontSize: '6rem',
+      fontWeight: 300,
+      letterSpacing: '-0.01562em',
+    },
+    h2: {
+      fontSize: '3.75rem',
+      fontWeight: 300,
+      letterSpacing: '-0.00833em',
+    },
+    h3: {
+      fontSize: '3rem',
+      fontWeight: 400,
+      letterSpacing: 0,
+    },
+    h4: {
+      fontSize: '2.125rem',
+      fontWeight: 400,
+      letterSpacing: '0.00735em',
+    },
+    h5: {
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      letterSpacing: 0,
+    },
+    h6: {
+      fontSize: '1.25rem',
+      fontWeight: 500,
+      letterSpacing: '0.0075em',
+    },
+    body1: {
+      fontSize: '1rem',
+      fontWeight: 400,
+      letterSpacing: '0.00938em',
+    },
+    body2: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      letterSpacing: '0.01071em',
+    },
   },
-
+  shape: {
+    borderRadius: 4,
+  },
+  shadows: [
+    'none',
+    '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
+    '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+    '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
+    '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
+    '0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)',
+    '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
+    '0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12)',
+    '0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)',
+    '0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12)',
+    '0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12)',
+    '0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12)',
+    '0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12)',
+    '0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)',
+    '0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12)',
+    '0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12)',
+    '0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12)',
+    '0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12)',
+    '0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12)',
+    '0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12)',
+    '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)',
+    '0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12)',
+    '0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12)',
+    '0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)',
+    '0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)',
+  ],
   transitions: {
-    fast: '0.15s cubic-bezier(0.4, 0, 0.2, 1)',
-    normal: '0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-    slow: '0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    bounce: '0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-    elastic: '0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+    easing: {
+      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
+      easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
+    },
+    duration: {
+      shortest: 150,
+      shorter: 200,
+      short: 250,
+      standard: 300,
+      complex: 375,
+      enteringScreen: 225,
+      leavingScreen: 195,
+    },
   },
+});
 
-  animations: {
-    fadeIn: 'fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    slideUp: 'slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    slideInLeft: 'slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    slideInRight: 'slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    scaleIn: 'scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#90caf9',
+      light: '#e3f2fd',
+      dark: '#42a5f5',
+    },
+    secondary: {
+      main: '#f48fb1',
+      light: '#ffc1e3',
+      dark: '#bf5f82',
+    },
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+    text: {
+      primary: '#ffffff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+    },
+    divider: 'rgba(255, 255, 255, 0.12)',
   },
-
-  gradients: {
-    primary: 'linear-gradient(135deg, #4A4A4A 0%, #f7b733 100%)',
-    secondary: 'linear-gradient(135deg, #052f5f 0%, #2d3047 100%)',
-    accent: 'linear-gradient(135deg, #f7b733 0%, #4A4A4A 100%)',
-    subtle: 'linear-gradient(135deg, rgba(74, 74, 74, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%)',
+  typography: {
+    fontFamily: [
+      'Roboto',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+    h1: {
+      fontSize: '6rem',
+      fontWeight: 300,
+      letterSpacing: '-0.01562em',
+    },
+    h2: {
+      fontSize: '3.75rem',
+      fontWeight: 300,
+      letterSpacing: '-0.00833em',
+    },
+    h3: {
+      fontSize: '3rem',
+      fontWeight: 400,
+      letterSpacing: 0,
+    },
+    h4: {
+      fontSize: '2.125rem',
+      fontWeight: 400,
+      letterSpacing: '0.00735em',
+    },
+    h5: {
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      letterSpacing: 0,
+    },
+    h6: {
+      fontSize: '1.25rem',
+      fontWeight: 500,
+      letterSpacing: '0.0075em',
+    },
+    body1: {
+      fontSize: '1rem',
+      fontWeight: 400,
+      letterSpacing: '0.00938em',
+    },
+    body2: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      letterSpacing: '0.01071em',
+    },
   },
-};
-
-const darkTheme = {
-  name: 'dark',
-  colors: {
-    // Background colors
-    primary: '#0a0a0a',
-    secondary: '#1a1a1a',
-    tertiary: '#2a2a2a',
-    surface: '#121212',
-    surfaceVariant: '#1e1e1e',
-
-    // Text colors
-    text: '#ffffff',
-    textSecondary: '#e0e0e0',
-    textInverse: '#000000',
-
-    // Accent colors (keeping brand colors but adjusted for dark mode)
-    accent: '#ff6b47',
-    accentSecondary: '#ffc947',
-
-    // Interactive colors
-    link: '#ffc947',
-    linkHover: '#ffffff',
-
-    // Border colors
-    border: '#404040',
-    borderAccent: '#ffc947',
-
-    // Status colors (adjusted for dark mode)
-    success: '#66bb6a',
-    warning: '#ffb74d',
-    error: '#ef5350',
-    info: '#42a5f5',
+  shape: {
+    borderRadius: 4,
   },
-
-  shadows: {
-    small: '0 2px 4px rgba(0, 0, 0, 0.3)',
-    medium: '0 4px 8px rgba(0, 0, 0, 0.4)',
-    large: '0 8px 16px rgba(0, 0, 0, 0.5)',
-    hover: '0 12px 16px 0 rgba(0, 0, 0, 0.4), 0 17px 50px 0 rgba(0, 0, 0, 0.3)',
-  },
-
+  shadows: [
+    'none',
+    '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
+    '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+    '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
+    '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
+    '0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)',
+    '0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)',
+    '0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12)',
+    '0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)',
+    '0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12)',
+    '0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12)',
+    '0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12)',
+    '0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12)',
+    '0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)',
+    '0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12)',
+    '0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12)',
+    '0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12)',
+    '0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12)',
+    '0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12)',
+    '0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12)',
+    '0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)',
+    '0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12)',
+    '0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12)',
+    '0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)',
+    '0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)',
+  ],
   transitions: {
-    fast: '0.15s cubic-bezier(0.4, 0, 0.2, 1)',
-    normal: '0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-    slow: '0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    bounce: '0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-    elastic: '0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+    easing: {
+      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
+      easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
+    },
+    duration: {
+      shortest: 150,
+      shorter: 200,
+      short: 250,
+      standard: 300,
+      complex: 375,
+      enteringScreen: 225,
+      leavingScreen: 195,
+    },
   },
-
-  animations: {
-    fadeIn: 'fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    slideUp: 'slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    slideInLeft: 'slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    slideInRight: 'slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    scaleIn: 'scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-  },
-
-  gradients: {
-    primary: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
-    secondary: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
-    accent: 'linear-gradient(135deg, #ffc947 0%, #ff6b47 100%)',
-    subtle: 'linear-gradient(135deg, rgba(255, 201, 71, 0.1) 0%, rgba(255, 107, 71, 0.1) 100%)',
-  },
-};
+});
 
 // Create context
 const ThemeContext = createContext();
@@ -216,24 +329,14 @@ export const ThemeProvider = ({ children }) => {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [isSystemPreference]);
 
-  // Update document class and localStorage when theme changes
+  // Update localStorage when theme changes
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
-    const root = document.documentElement;
-
-    if (isDarkMode) {
-      root.classList.add('dark-mode');
-      root.classList.remove('light-mode');
-    } else {
-      root.classList.add('light-mode');
-      root.classList.remove('dark-mode');
-    }
 
     // Update meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', isDarkMode ? '#0a0a0a' : '#4A4A4A');
+      metaThemeColor.setAttribute('content', isDarkMode ? '#121212' : '#1976d2');
     }
   }, [isDarkMode]);
 
@@ -257,22 +360,27 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
-  const theme = isDarkMode ? darkTheme : lightTheme;
+  const theme = useMemo(() => (isDarkMode ? darkTheme : lightTheme), [isDarkMode]);
 
-  const value = {
-    theme,
-    isDarkMode,
-    isSystemPreference,
-    isHydrated,
-    toggleTheme,
-    resetToSystemPreference,
-    systemPreference: getSystemPreference(),
-  };
+  const value = useMemo(
+    () => ({
+      theme,
+      isDarkMode,
+      isSystemPreference,
+      isHydrated,
+      toggleTheme,
+      resetToSystemPreference,
+      systemPreference: getSystemPreference(),
+    }),
+    [theme, isDarkMode, isSystemPreference, isHydrated]
+  );
 
-  // eslint-disable-next-line react/jsx-filename-extension
   return (
     <ThemeContext.Provider value={value}>
-      <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };

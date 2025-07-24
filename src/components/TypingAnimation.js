@@ -1,40 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
-import { useTheme } from '../context/ThemeContext';
+import { Box, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const TypingContainer = styled.span`
-  display: inline-block;
-  position: relative;
-`;
+const TypingContainer = styled('span')(() => ({
+  display: 'inline-block',
+  position: 'relative',
+}));
 
-const TypingText = styled.span`
-  font-family: inherit;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 1.5rem;
-`;
+const TypingText = styled('span')(({ theme }) => ({
+  fontFamily: 'inherit',
+  color: theme.palette.primary.main,
+  fontWeight: 'bold',
+  fontSize: 'inherit',
+}));
 
-const Cursor = styled.span`
-  display: inline-block;
-  background-color: ${(props) => props.theme.colors.accentSecondary};
-  width: 2px;
-  height: 1em;
-  margin-left: 2px;
-  animation: ${(props) => (props.blink ? 'blink 1s infinite' : 'none')};
-  vertical-align: text-top;
-
-  @keyframes blink {
-    0%,
-    50% {
-      opacity: 1;
-    }
-    51%,
-    100% {
-      opacity: 0;
-    }
-  }
-`;
+const Cursor = styled('span')(({ theme, blink }) => ({
+  display: 'inline-block',
+  backgroundColor: theme.palette.secondary.main,
+  width: 2,
+  height: '1em',
+  marginLeft: 2,
+  animation: blink ? 'blink 1s infinite' : 'none',
+  verticalAlign: 'text-top',
+  '@keyframes blink': {
+    '0%, 50%': {
+      opacity: 1,
+    },
+    '51%, 100%': {
+      opacity: 0,
+    },
+  },
+}));
 
 const TypingAnimation = ({
   texts,
@@ -46,7 +43,7 @@ const TypingAnimation = ({
   cursorBlink = true,
   startDelay = 0,
 }) => {
-  const { theme } = useTheme();
+  const theme = useTheme();
   const [displayText, setDisplayText] = useState('');
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -122,17 +119,17 @@ const TypingAnimation = ({
 
   // Show fallback text during SSR or before animation starts
   if (!isMounted) {
-    return <TypingText theme={theme}>full stack web developer</TypingText>;
+    return <TypingText>full stack web developer</TypingText>;
   }
 
   if (!texts.length) return null;
 
   return (
     <TypingContainer>
-      <TypingText theme={theme}>
+      <TypingText>
         {displayText || (isStarted ? '' : 'full stack web developer')}
       </TypingText>
-      {showCursor && <Cursor theme={theme} blink={cursorBlink} />}
+      {showCursor && <Cursor blink={cursorBlink} />}
     </TypingContainer>
   );
 };

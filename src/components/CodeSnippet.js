@@ -1,7 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FaCopy, FaCheck } from 'react-icons/fa';
-import { useTheme } from '../context/ThemeContext';
+import {
+  Paper,
+  Box,
+  Typography,
+  IconButton,
+  useTheme,
+  Tooltip,
+} from '@mui/material';
+import { ContentCopy, Check } from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
+
+const StyledPre = styled('pre')(({ theme }) => ({
+  margin: 0,
+  padding: theme.spacing(2),
+  fontFamily: 'Courier New, monospace',
+  fontSize: '0.875rem',
+  lineHeight: 1.5,
+  overflowX: 'auto',
+  whiteSpace: 'pre-wrap',
+  wordWrap: 'break-word',
+  backgroundColor: theme.palette.mode === 'dark' 
+    ? theme.palette.grey?.[900] || '#212121'
+    : theme.palette.grey?.[50] || '#fafafa',
+  color: theme.palette.text.primary,
+  border: 'none',
+}));
 
 function CodeSnippet({
   code,
@@ -10,19 +34,10 @@ function CodeSnippet({
   animationSpeed = 30,
   showCopyButton = true,
 }) {
-  const { theme } = useTheme();
-  
-  // Simple fallback to ensure something renders
-  if (!code) {
-    return <div style={{backgroundColor: '#ff0000', color: '#00ff00', padding: '20px', fontSize: '20px'}}>
-      ERROR: No code provided to CodeSnippet
-    </div>;
-  }
-
-  try {
-    const [displayedCode, setDisplayedCode] = useState(animated ? '' : code);
-    const [copied, setCopied] = useState(false);
-    const [animationComplete, setAnimationComplete] = useState(!animated);
+  const theme = useTheme();
+  const [displayedCode, setDisplayedCode] = useState(animated ? '' : code);
+  const [copied, setCopied] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(!animated);
 
   useEffect(() => {
     if (!animated) return;
@@ -38,7 +53,6 @@ function CodeSnippet({
       }
     }, animationSpeed);
 
-    // eslint-disable-next-line consistent-return
     return () => clearInterval(timer);
   }, [code, animated, animationSpeed]);
 
@@ -52,91 +66,85 @@ function CodeSnippet({
     }
   };
 
-  const containerStyle = {
-    position: 'relative',
-    background: theme.name === 'light' ? '#ffffff' : theme.colors.secondary,
-    border: `1px solid ${theme.name === 'light' ? '#e2e8f0' : theme.colors.border}`,
-    borderRadius: '12px',
-    overflow: 'hidden',
-    boxShadow: theme.shadows.medium,
-    margin: '1.5rem 0',
-  };
-
-  const headerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0.75rem 1rem',
-    background: theme.name === 'light' ? '#f1f5f9' : theme.colors.tertiary,
-    borderBottom: `1px solid ${theme.name === 'light' ? '#e2e8f0' : theme.colors.border}`,
-  };
-
-  const titleStyle = {
-    color: theme.colors.text,
-    fontFamily: 'Courier New, monospace',
-    fontSize: '0.875rem',
-    fontWeight: 'bold',
-  };
-
-  const buttonStyle = {
-    background: 'none',
-    border: `1px solid ${theme.colors.accentSecondary}`,
-    color: theme.colors.accentSecondary,
-    padding: '0.25rem 0.5rem',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '0.75rem',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.25rem',
-  };
-
-  const codeStyle = {
-    margin: 0,
-    padding: '1rem',
-    fontFamily: 'Courier New, monospace',
-    fontSize: '0.875rem',
-    lineHeight: '1.5',
-    overflowX: 'auto',
-    whiteSpace: 'pre-wrap',
-    wordWrap: 'break-word',
-    backgroundColor: theme.name === 'light' ? '#f8f9fa' : theme.colors.tertiary,
-    color: theme.name === 'light' ? '#2d3748' : theme.colors.text,
-    border: 'none',
-  };
+  if (!code) {
+    return (
+      <Paper sx={{ p: 2, bgcolor: 'error.main', color: 'error.contrastText' }}>
+        <Typography>ERROR: No code provided to CodeSnippet</Typography>
+      </Paper>
+    );
+  }
 
   return (
-    <div style={containerStyle}>
-      <div style={headerStyle}>
-        <div style={titleStyle}>{title}</div>
+    <Paper
+      elevation={2}
+      sx={{
+        borderRadius: 2,
+        overflow: 'hidden',
+        my: 2,
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          px: 2,
+          py: 1,
+          bgcolor: theme.palette.mode === 'dark' 
+            ? theme.palette.grey?.[800] || '#424242'
+            : theme.palette.grey?.[100] || '#f5f5f5',
+          borderBottom: `1px solid ${theme.palette.divider}`,
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            fontFamily: 'Courier New, monospace',
+            fontWeight: 'bold',
+          }}
+        >
+          {title}
+        </Typography>
         {showCopyButton && (
-          <button style={buttonStyle} onClick={handleCopy}>
-            {typeof window !== 'undefined' && (copied ? <FaCheck /> : <FaCopy />)}
-            {copied ? 'Copied!' : 'Copy'}
-          </button>
+          <Tooltip title={copied ? 'Copied!' : 'Copy code'}>
+            <IconButton
+              size="small"
+              onClick={handleCopy}
+              sx={{
+                color: theme.palette.secondary.main,
+                border: `1px solid ${theme.palette.secondary.main}`,
+                borderRadius: 1,
+                '&:hover': {
+                  bgcolor: theme.palette.secondary.main,
+                  color: theme.palette.secondary.contrastText,
+                },
+              }}
+            >
+              {copied ? <Check fontSize="small" /> : <ContentCopy fontSize="small" />}
+            </IconButton>
+          </Tooltip>
         )}
-      </div>
-      <pre style={codeStyle}>
+      </Box>
+      <StyledPre>
         {displayedCode}
-      </pre>
-    </div>
+      </StyledPre>
+    </Paper>
   );
-  } catch (error) {
-    console.error('CodeSnippet error:', error);
-    return <div style={{backgroundColor: '#ff0000', color: '#00ff00', padding: '20px', fontSize: '20px'}}>
-      ERROR: CodeSnippet failed to render: {error.message}
-    </div>;
-  }
 }
 
 CodeSnippet.propTypes = {
   code: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/require-default-props
   title: PropTypes.string,
   animated: PropTypes.bool,
-  // eslint-disable-next-line react/require-default-props
   animationSpeed: PropTypes.number,
   showCopyButton: PropTypes.bool,
+};
+
+CodeSnippet.defaultProps = {
+  title: 'Code Example',
+  animated: false,
+  animationSpeed: 30,
+  showCopyButton: true,
 };
 
 export default CodeSnippet;

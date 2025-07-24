@@ -1,261 +1,276 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+import {
+  Container,
+  Typography,
+  Paper,
+  Box,
+  TextField,
+  Button,
+  Grid,
+  Link,
+  useTheme,
+  Alert,
+} from '@mui/material';
+import {
+  Email,
+  Phone,
+  LinkedIn,
+  GitHub,
+  Send,
+} from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import ContactForm from '../components/ContactForm';
-import { useTheme } from '../context/ThemeContext';
-import useScrollAnimation from '../hooks/useScrollAnimation';
-import { FaLinkedin, FaGithub, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
-const StyledContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-`;
+const GradientText = styled(Typography)(({ theme }) => ({
+  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  display: 'inline-block',
+}));
 
-const HeaderSection = styled.section`
-  text-align: center;
-  margin-bottom: 2rem;
-`;
+const ContactCard = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  borderRadius: theme.shape.borderRadius * 2,
+  background: theme.palette.mode === 'dark'
+    ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
+    : theme.palette.background.paper,
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    transform: 'translateY(-4px)',
+    boxShadow: theme.shadows[8],
+  },
+}));
 
-const Title = styled.h1`
-  font-family: HelveticaNeueLTStd-Bd, sans-serif;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  background: ${(props) => props.theme.gradients.accent};
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1.2;
+const ContactMethod = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+  marginBottom: theme.spacing(2),
+  padding: theme.spacing(2),
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.action.hover,
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.action.selected,
+    transform: 'translateX(8px)',
+  },
+}));
 
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
+const Contact = () => {
+  const theme = useTheme();
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [formStatus, setFormStatus] = React.useState('');
 
-  @media (max-width: 480px) {
-    font-size: 2rem;
-  }
-`;
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-const Subtitle = styled.p`
-  color: ${(props) => props.theme.colors.textSecondary};
-  font-family: SabonLTStd-Roman, serif;
-  font-size: 1.25rem;
-  line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-const ContactOptionsSection = styled.section`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-`;
-
-const ContactCard = styled.div`
-  background: ${(props) => props.theme.gradients.secondary};
-  border: 2px solid ${(props) => props.theme.colors.border};
-  border-radius: 16px;
-  padding: 2rem;
-  text-align: center;
-  transition: all ${(props) => props.theme.transitions.normal};
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: ${(props) => props.theme.gradients.accent};
-    transform: scaleX(0);
-    transition: transform ${(props) => props.theme.transitions.normal};
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: ${(props) => props.theme.shadows.hover};
-    border-color: ${(props) => props.theme.colors.accent};
-
-    &::before {
-      transform: scaleX(1);
-    }
-  }
-`;
-
-const ContactIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: ${(props) => props.theme.gradients.accent};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  font-size: 1.5rem;
-  color: ${(props) => props.theme.colors.textInverse};
-  transition: transform ${(props) => props.theme.transitions.normal};
-
-  ${ContactCard}:hover & {
-    transform: scale(1.1) rotate(5deg);
-  }
-`;
-
-const ContactTitle = styled.h3`
-  color: ${(props) => props.theme.colors.text};
-  font-family: HelveticaNeueLTStd-Bd, sans-serif;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-`;
-
-const ContactInfo = styled.p`
-  color: ${(props) => props.theme.colors.textSecondary};
-  font-family: SabonLTStd-Roman, serif;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  line-height: 1.4;
-`;
-
-const ContactLink = styled.a`
-  color: ${(props) => props.theme.colors.accent};
-  text-decoration: none;
-  font-family: SabonLTStd-Roman, serif;
-  font-weight: bold;
-  transition: color ${(props) => props.theme.transitions.fast};
-
-  &:hover {
-    color: ${(props) => props.theme.colors.accentSecondary};
-    text-decoration: underline;
-  }
-
-  &:focus {
-    outline: 2px solid ${(props) => props.theme.colors.accentSecondary};
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-`;
-
-const ContactPage = () => {
-  const { theme } = useTheme();
-  const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
-  const [cardsRef, cardsVisible] = useScrollAnimation({ delay: 200 });
-  const [formRef, formVisible] = useScrollAnimation({ delay: 300 });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Form submission logic would go here
+    setFormStatus('success');
+    setTimeout(() => setFormStatus(''), 5000);
+  };
 
   return (
     <Layout>
       <SEO
         title="Contact"
-        description="Get in touch with Jeff Maxwell. Send a message about your project ideas, collaboration opportunities, or just say hello. I'd love to hear from you!"
+        description="Get in touch with Jeff Maxwell for web development projects, collaborations, or opportunities. Available for freelance and full-time positions."
         pathname="/contact/"
         keywords={[
-          'contact Jeff Maxwell',
-          'web developer contact',
-          'project inquiry',
-          'collaboration',
-          'freelance developer',
-          'hire developer',
-          'contact form',
-          'get in touch',
-          'project consultation',
+          `contact web developer`,
+          `hire full stack developer`,
+          `freelance developer`,
+          `web development services`,
+          `Jeff Maxwell contact`,
         ]}
       />
+      <Container maxWidth="lg">
+        <Box sx={{ mb: 6 }}>
+          <GradientText variant="h2" component="h1" align="center" gutterBottom>
+            Let's Connect
+          </GradientText>
+          <Typography variant="h5" align="center" color="text.secondary" paragraph>
+            I'm always interested in new opportunities and collaborations
+          </Typography>
+        </Box>
 
-      <StyledContainer>
-        <HeaderSection
-          ref={headerRef}
-          css={css`
-            opacity: ${headerVisible ? 1 : 0};
-            transform: ${headerVisible ? 'translateY(0)' : 'translateY(30px)'};
-            transition: all ${theme.transitions.slow};
-          `}
-        >
-          <Title theme={theme}>Let's Work Together</Title>
-          <Subtitle theme={theme}>
-            Have a project in mind? Looking for a developer to join your team? Or just want to say
-            hello? I'd love to hear from you!
-          </Subtitle>
-        </HeaderSection>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <ContactCard elevation={3}>
+              <Typography variant="h4" gutterBottom>
+                Get in Touch
+              </Typography>
+              <Typography variant="body1" color="text.secondary" paragraph>
+                Whether you have a project in mind, need technical expertise, or just want to say hello, 
+                I'd love to hear from you. Feel free to reach out through any of these channels:
+              </Typography>
 
-        <ContactOptionsSection
-          ref={cardsRef}
-          css={css`
-            opacity: ${cardsVisible ? 1 : 0};
-            transform: ${cardsVisible ? 'translateY(0)' : 'translateY(30px)'};
-            transition: all ${theme.transitions.slow};
-          `}
-        >
-          <ContactCard theme={theme}>
-            <ContactIcon theme={theme}>
-              {typeof window !== 'undefined' && <FaEnvelope />}
-            </ContactIcon>
-            <ContactTitle theme={theme}>Email</ContactTitle>
-            <ContactInfo theme={theme}>
-              Send me an email for project inquiries, collaboration, or general questions.
-            </ContactInfo>
-            <ContactLink
-              theme={theme}
-              href="mailto:jeff@jeffmaxwell.dev"
-              aria-label="Send email to Jeff Maxwell"
-            >
-              jeff@jeffmaxwell.dev
-            </ContactLink>
-          </ContactCard>
+              <Box sx={{ mt: 4 }}>
+                <ContactMethod>
+                  <Email color="primary" />
+                  <Box>
+                    <Typography variant="subtitle2" color="text.secondary">
+                      Email
+                    </Typography>
+                    <Link
+                      href="mailto:maxjeffwell@gmail.com"
+                      color="primary"
+                      underline="hover"
+                      variant="body1"
+                    >
+                      maxjeffwell@gmail.com
+                    </Link>
+                  </Box>
+                </ContactMethod>
 
-          <ContactCard theme={theme}>
-            <ContactIcon theme={theme}>
-              {typeof window !== 'undefined' && <FaLinkedin />}
-            </ContactIcon>
-            <ContactTitle theme={theme}>LinkedIn</ContactTitle>
-            <ContactInfo theme={theme}>
-              Connect with me professionally and view my work experience and recommendations.
-            </ContactInfo>
-            <ContactLink
-              theme={theme}
-              href="https://www.linkedin.com/in/jeffmaxwell-dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit Jeff Maxwell's LinkedIn profile"
-            >
-              linkedin.com/in/jeffmaxwell-dev
-            </ContactLink>
-          </ContactCard>
+                <ContactMethod>
+                  <Phone color="primary" />
+                  <Box>
+                    <Typography variant="subtitle2" color="text.secondary">
+                      Phone
+                    </Typography>
+                    <Link
+                      href="tel:+01-508-395-2008"
+                      color="primary"
+                      underline="hover"
+                      variant="body1"
+                    >
+                      (508) 395-2008
+                    </Link>
+                  </Box>
+                </ContactMethod>
 
-          <ContactCard theme={theme}>
-            <ContactIcon theme={theme}>{typeof window !== 'undefined' && <FaGithub />}</ContactIcon>
-            <ContactTitle theme={theme}>GitHub</ContactTitle>
-            <ContactInfo theme={theme}>
-              Check out my code, contribute to projects, or explore my open source work.
-            </ContactInfo>
-            <ContactLink
-              theme={theme}
-              href="https://github.com/maxjeffwell"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit Jeff Maxwell's GitHub profile"
-            >
-              github.com/maxjeffwell
-            </ContactLink>
-          </ContactCard>
-        </ContactOptionsSection>
+                <ContactMethod>
+                  <LinkedIn color="primary" />
+                  <Box>
+                    <Typography variant="subtitle2" color="text.secondary">
+                      LinkedIn
+                    </Typography>
+                    <Link
+                      href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      color="primary"
+                      underline="hover"
+                      variant="body1"
+                    >
+                      Connect on LinkedIn
+                    </Link>
+                  </Box>
+                </ContactMethod>
 
-        <section
-          ref={formRef}
-          css={css`
-            opacity: ${formVisible ? 1 : 0};
-            transform: ${formVisible ? 'translateY(0)' : 'translateY(30px)'};
-            transition: all ${theme.transitions.slow};
-          `}
-        >
-          <ContactForm />
-        </section>
-      </StyledContainer>
+                <ContactMethod>
+                  <GitHub color="primary" />
+                  <Box>
+                    <Typography variant="subtitle2" color="text.secondary">
+                      GitHub
+                    </Typography>
+                    <Link
+                      href="https://github.com/maxjeffwell"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      color="primary"
+                      underline="hover"
+                      variant="body1"
+                    >
+                      View my projects
+                    </Link>
+                  </Box>
+                </ContactMethod>
+              </Box>
+            </ContactCard>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <ContactCard elevation={3}>
+              <Typography variant="h4" gutterBottom>
+                Send a Message
+              </Typography>
+              <Typography variant="body1" color="text.secondary" paragraph>
+                Have a specific question or project in mind? Drop me a message and I'll get back to you as soon as possible.
+              </Typography>
+
+              {formStatus === 'success' && (
+                <Alert severity="success" sx={{ mb: 3 }}>
+                  Thank you for your message! I'll get back to you soon.
+                </Alert>
+              )}
+
+              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <TextField
+                  fullWidth
+                  label="Your Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  margin="normal"
+                  variant="outlined"
+                />
+                <TextField
+                  fullWidth
+                  label="Your Email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  margin="normal"
+                  variant="outlined"
+                />
+                <TextField
+                  fullWidth
+                  label="Your Message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  multiline
+                  rows={4}
+                  margin="normal"
+                  variant="outlined"
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  endIcon={<Send />}
+                  sx={{
+                    mt: 3,
+                    borderRadius: 20,
+                    textTransform: 'none',
+                    px: 4,
+                  }}
+                >
+                  Send Message
+                </Button>
+              </Box>
+            </ContactCard>
+          </Grid>
+        </Grid>
+
+        <Box sx={{ mt: 6, textAlign: 'center' }}>
+          <Typography variant="body2" color="text.secondary">
+            Currently open to new opportunities and exciting projects.
+            Let's build something amazing together!
+          </Typography>
+        </Box>
+      </Container>
     </Layout>
   );
 };
 
-export default ContactPage;
+export default Contact;

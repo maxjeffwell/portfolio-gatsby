@@ -1,13 +1,22 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
+import {
+  Container,
+  Typography,
+  Select,
+  MenuItem,
+  Box,
+  Grid,
+  Paper,
+  useTheme,
+  Fade,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
-import { useTheme } from '../context/ThemeContext';
 
 import GraphQLIcon from '../images/graphql.svg';
 import ReduxIcon from '../images/redux.svg';
@@ -48,11 +57,11 @@ const projectsData = [
       'Code Talk is a code collaboration tool with real-time text editing and real-time messaging features. It emerged from a fascination with GraphQL subscriptions as well as from the immediate satisfaction inherent to real-time applications.',
     sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
     hostedURL: 'https://jmaxwell-code-talk-client.herokuapp.com/',
-    technologies: ['React', 'GraphQL', 'PostgreSQL', 'Redis', 'Git', 'Heroku', 'Travis CI'],
+    technologies: ['React', 'GraphQL', 'Zeit', 'Git', 'Heroku', 'Netlify'],
     techIcons: {
       icon3: GraphQLIcon,
-      icon4: PostgresqlIcon,
-      icon5: RedisIcon,
+      icon4: ZeitIcon,
+      icon5: NPMIcon,
     },
     screenshots: {
       screenshot1: 'project2Screenshot',
@@ -61,17 +70,17 @@ const projectsData = [
   },
   {
     id: 'project3',
-    title: 'Bookmarked',
-    date: '2019-05-10',
-    year: '2019',
+    title: 'Simply Conceptual',
+    date: '2018-10-24',
+    year: '2018',
     description:
-      "Bookmarked is a lightweight bookmark manager that gives users convenient access to create and edit their bookmarks in a single page application. Additional functionality allows users to filter their bookmarks by rating and favorite status. It was built as an exploration of React's Context API and its use in complex state management.",
-    sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
-    hostedURL: 'https://jmaxwell-bookmark-manager.herokuapp.com/',
-    technologies: ['React', 'Vercel', 'CSS', 'NPM', 'Git', 'Heroku', 'Travis CI'],
+      'Simply Conceptual offers spaced repetition learning software specifically geared towards learning programming concepts. It was built to gain experience with PostgreSQL as well as to satisfy my curiosity about the spaced repetition learning technique and its application in a programming context.',
+    sourceURL: 'https://github.com/maxjeffwell/spaced-repetition-client',
+    hostedURL: 'https://simplyconceptual.herokuapp.com/',
+    technologies: ['React', 'CSS', 'PostgreSQL', 'Git', 'Heroku'],
     techIcons: {
-      icon3: ZeitIcon,
-      icon4: CSSIcon,
+      icon3: CSSIcon,
+      icon4: PostgresqlIcon,
       icon5: NPMIcon,
     },
     screenshots: {
@@ -79,299 +88,202 @@ const projectsData = [
       screenshot2: 'project3Screenshot2',
     },
   },
+  {
+    id: 'project4',
+    title: 'BookTank',
+    date: '2018-05-31',
+    year: '2018',
+    description:
+      'BookTank is an application that allows users to maintain and organize their personal library catalogue. Users search for books via the Google Books API and receive formatted results that can be saved to user-created folders.',
+    sourceURL: 'https://github.com/maxjeffwell/bookfinder-react-capstone',
+    hostedURL: 'https://mysterious-tundra-22728.herokuapp.com/',
+    technologies: ['React', 'CSS', 'MongoDB', 'Git', 'Heroku'],
+    techIcons: {
+      icon3: CSSIcon,
+      icon4: MongoDBIcon,
+      icon5: NPMIcon,
+    },
+    screenshots: {
+      screenshot1: 'project4Screenshot',
+      screenshot2: 'project4Screenshot2',
+    },
+  },
+  {
+    id: 'project5',
+    title: 'News Flash API',
+    date: '2018-02-28',
+    year: '2018',
+    description:
+      'News Flash connects users with current, topical political news. Users search by topic or by politician and receive a list of recent related news articles from major news media outlets.',
+    sourceURL: 'https://github.com/maxjeffwell/news-flash-jQuery',
+    hostedURL: 'https://maxjeffwell.github.io/news-flash-jQuery/',
+    technologies: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Git', 'GitHub Pages'],
+    techIcons: {
+      icon3: CSSIcon,
+      icon4: NPMIcon,
+      icon5: GraphQLIcon,
+    },
+    screenshots: {
+      screenshot1: 'project5Screenshot',
+      screenshot2: 'project5Screenshot2',
+    },
+  },
 ];
 
-const StyledContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-row-gap: 2rem;
-`;
+const GradientText = styled(Typography)(({ theme }) => ({
+  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  display: 'inline-block',
+}));
 
-const ProjectsPage = ({ data }) => {
-  const { theme } = useTheme();
+const Projects = ({ data }) => {
+  const theme = useTheme();
   const [filters, setFilters] = useState({
-    searchTerm: '',
     technologies: [],
-    dateRange: '',
   });
-
-  const filteredProjects = useMemo(() => {
-    return projectsData.filter((project) => {
-      // Search term filter
-      if (filters.searchTerm) {
-        const searchLower = filters.searchTerm.toLowerCase();
-        const titleMatch = project.title.toLowerCase().includes(searchLower);
-        const descriptionMatch = project.description.toLowerCase().includes(searchLower);
-        if (!titleMatch && !descriptionMatch) {
-          return false;
-        }
-      }
-
-      // Technology filter
-      if (filters.technologies.length > 0) {
-        const hasMatchingTech = filters.technologies.some((tech) =>
-          project.technologies.includes(tech)
-        );
-        if (!hasMatchingTech) {
-          return false;
-        }
-      }
-
-      // Date range filter
-      if (filters.dateRange) {
-        if (filters.dateRange === '2021') {
-          // For 2021+ projects (none exist yet, but future-proofing)
-          if (parseInt(project.year) < 2021) {
-            return false;
-          }
-        } else {
-          // Exact year match
-          if (project.year !== filters.dateRange) {
-            return false;
-          }
-        }
-      }
-
-      return true;
-    });
-  }, [filters]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
   };
 
+  const filteredProjects = useMemo(() => {
+    return projectsData.filter((project) => {
+      if (filters.technologies.length > 0) {
+        return filters.technologies.some((tech) => project.technologies.includes(tech));
+      }
+      return true;
+    });
+  }, [filters]);
+
+  const enhancedProjects = useMemo(() => {
+    return filteredProjects.map((project) => ({
+      ...project,
+      imageSrcPath: data.allImageSharp.edges.find(
+        (edge) => edge.node.fluid.src.includes(project.screenshots.screenshot1)
+      )?.node,
+      imageSrcPath2: data.allImageSharp.edges.find(
+        (edge) => edge.node.fluid.src.includes(project.screenshots.screenshot2)
+      )?.node,
+      imageSrcPath3: project.techIcons.icon3,
+      imageSrcPath4: project.techIcons.icon4,
+      imageSrcPath5: project.techIcons.icon5,
+    }));
+  }, [filteredProjects, data]);
+
   return (
     <Layout>
       <SEO
         title="Projects"
-        description="Explore Jeff Maxwell's web development projects featuring React, Node.js, GraphQL, and modern JavaScript applications. View live demos and source code. Filter by technology and search projects."
+        description="Explore Jeff Maxwell's portfolio of web development projects showcasing expertise in React, Node.js, GraphQL, and modern JavaScript. View live demos and source code."
         pathname="/projects/"
         keywords={[
           `web development projects`,
-          `react applications`,
-          `node.js projects`,
-          `graphql`,
-          `javascript portfolio`,
-          `full stack development`,
-          `educationELLy`,
-          `code talk`,
-          `bookmarked`,
-          `project search`,
-          `filter projects`,
+          `React applications`,
+          `full stack projects`,
+          `JavaScript portfolio`,
+          `GraphQL applications`,
+          `open source projects`,
+          `Jeff Maxwell projects`,
         ]}
       />
-      <main role="main">
-        <header>
-          <h1 className="sr-only">My Development Projects</h1>
-        </header>
+      <Container maxWidth="lg">
+        <Box sx={{ mb: 6 }}>
+          <GradientText variant="h2" component="h1" align="center" gutterBottom>
+            Featured Projects
+          </GradientText>
+          <Typography variant="h5" align="center" color="text.secondary" paragraph>
+            A collection of my work demonstrating modern web development
+          </Typography>
+        </Box>
 
-        <div
-          css={css`
-            background: ${theme.gradients.secondary};
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid ${theme.colors.border};
-          `}
-        >
-          <h3
-            css={css`
-              color: ${theme.colors.text};
-              font-family: HelveticaNeueLTStd-Bd, sans-serif;
-              font-size: 1.5rem;
-              margin-bottom: 1rem;
-              background: ${theme.gradients.accent};
-              background-clip: text;
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-            `}
-          >
-            Filter Projects (Total: {filteredProjects.length})
-          </h3>
-          <select
-            css={css`
-              background: ${theme.colors.secondary};
-              color: ${theme.colors.text};
-              border: 1px solid ${theme.colors.border};
-              border-radius: 8px;
-              padding: 0.75rem 1rem;
-              font-family: HelveticaNeueLTStd-Roman, sans-serif;
-              font-size: 1rem;
-              transition: all ${theme.transitions.normal};
-
-              &:focus {
-                outline: 2px solid ${theme.colors.accentSecondary};
-                outline-offset: 2px;
+        <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
+            <Typography variant="h6">
+              Filter Projects (Total: {filteredProjects.length})
+            </Typography>
+            <Select
+              value={filters.technologies[0] || ''}
+              onChange={(e) =>
+                handleFilterChange({
+                  ...filters,
+                  technologies: e.target.value ? [e.target.value] : [],
+                })
               }
-
-              &:hover {
-                border-color: ${theme.colors.accentSecondary};
-              }
-            `}
-            onChange={(e) =>
-              handleFilterChange({
-                ...filters,
-                technologies: e.target.value ? [e.target.value] : [],
-              })
-            }
-            value={filters.technologies[0] || ''}
-          >
-            <option value="">All Projects</option>
-            <option value="React">React</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="GraphQL">GraphQL</option>
-          </select>
-        </div>
+              displayEmpty
+              sx={{ minWidth: 200 }}
+            >
+              <MenuItem value="">All Projects</MenuItem>
+              <MenuItem value="React">React</MenuItem>
+              <MenuItem value="JavaScript">JavaScript</MenuItem>
+              <MenuItem value="GraphQL">GraphQL</MenuItem>
+            </Select>
+          </Box>
+        </Paper>
 
         {filteredProjects.length === 0 ? (
-          <div
-            css={css`
-              text-align: center;
-              padding: 3rem 1rem;
-              color: ${theme.colors.textSecondary};
-              font-family: HelveticaNeueLTStd-Roman, sans-serif;
-              font-size: 1.25rem;
-              animation: fadeIn 0.4s ease-out;
-
-              @keyframes fadeIn {
-                from {
-                  opacity: 0;
-                  transform: translateY(20px);
-                }
-                to {
-                  opacity: 1;
-                  transform: translateY(0);
-                }
-              }
-            `}
-          >
-            No projects match your current filters. Try adjusting your search criteria.
-          </div>
+          <Box sx={{ textAlign: 'center', py: 6 }}>
+            <Typography variant="h6" color="text.secondary">
+              No projects match your current filters. Try adjusting your search criteria.
+            </Typography>
+          </Box>
         ) : (
-          <StyledContainer>
-            {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={`${project.id}-${filters.searchTerm}-${filters.technologies.join(',')}-${filters.dateRange}`}
-                css={css`
-                  grid-row: ${index + 1} / ${index + 2};
-                  animation: slideInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                  animation-delay: ${index * 0.1}s;
-                  animation-fill-mode: both;
-                  opacity: 0;
-                  transform: translateY(30px);
-
-                  @keyframes slideInUp {
-                    0% {
-                      opacity: 0;
-                      transform: translateY(30px) scale(0.95);
-                    }
-                    60% {
-                      opacity: 0.8;
-                      transform: translateY(-5px) scale(1.02);
-                    }
-                    100% {
-                      opacity: 1;
-                      transform: translateY(0) scale(1);
-                    }
-                  }
-
-                  &:hover {
-                    animation-play-state: paused;
-                  }
-                `}
-                imageSrcPath={data[project.screenshots.screenshot1]}
-                imageSrcPath2={data[project.screenshots.screenshot2]}
-                title={project.title}
-                date={project.date}
-                description={project.description}
-                sourceURL={project.sourceURL}
-                hostedURL={project.hostedURL}
-                imageSrcPath3={project.techIcons.icon3}
-                imageSrcPath4={project.techIcons.icon4}
-                imageSrcPath5={project.techIcons.icon5}
-              />
+          <Grid container spacing={4}>
+            {enhancedProjects.map((project, index) => (
+              <Fade key={project.id} in timeout={800 + index * 200}>
+                <Grid item xs={12}>
+                  <ProjectCard
+                    title={project.title}
+                    date={project.date}
+                    description={project.description}
+                    sourceURL={project.sourceURL}
+                    hostedURL={project.hostedURL}
+                    imageSrcPath={project.imageSrcPath}
+                    imageSrcPath2={project.imageSrcPath2}
+                    imageSrcPath3={project.imageSrcPath3}
+                    imageSrcPath4={project.imageSrcPath4}
+                    imageSrcPath5={project.imageSrcPath5}
+                  />
+                </Grid>
+              </Fade>
             ))}
-          </StyledContainer>
+          </Grid>
         )}
-      </main>
+      </Container>
     </Layout>
   );
 };
 
-export const query = graphql`
+Projects.propTypes = {
+  data: PropTypes.shape({
+    allImageSharp: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            fluid: PropTypes.shape({
+              src: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default Projects;
+
+export const pageQuery = graphql`
   query {
-    project1Screenshot: file(relativePath: { eq: "educationELLy_screenshot.png" }) {
-      childImageSharp {
-        gatsbyImageData(
-          width: 500
-          quality: 95
-          placeholder: BLURRED
-          formats: [AUTO, WEBP, AVIF]
-          breakpoints: [480, 768, 1024, 1200]
-        )
-      }
-    }
-    project1Screenshot2: file(relativePath: { eq: "educationELLy_screenshot2.png" }) {
-      childImageSharp {
-        gatsbyImageData(
-          width: 500
-          quality: 95
-          placeholder: BLURRED
-          formats: [AUTO, WEBP, AVIF]
-          breakpoints: [480, 768, 1024, 1200]
-        )
-      }
-    }
-    project2Screenshot: file(relativePath: { eq: "code-talk_screenshot.png" }) {
-      childImageSharp {
-        gatsbyImageData(
-          width: 500
-          quality: 95
-          placeholder: BLURRED
-          formats: [AUTO, WEBP, AVIF]
-          breakpoints: [480, 768, 1024, 1200]
-        )
-      }
-    }
-    project2Screenshot2: file(relativePath: { eq: "code-talk_screenshot2.png" }) {
-      childImageSharp {
-        gatsbyImageData(
-          width: 500
-          quality: 95
-          placeholder: BLURRED
-          formats: [AUTO, WEBP, AVIF]
-          breakpoints: [480, 768, 1024, 1200]
-        )
-      }
-    }
-    project3Screenshot: file(relativePath: { eq: "bookmarked_screenshot.png" }) {
-      childImageSharp {
-        gatsbyImageData(
-          width: 506
-          quality: 95
-          placeholder: BLURRED
-          formats: [AUTO, WEBP, AVIF]
-          breakpoints: [480, 768, 1024, 1200]
-        )
-      }
-    }
-    project3Screenshot2: file(relativePath: { eq: "bookmarked_screenshot2.png" }) {
-      childImageSharp {
-        gatsbyImageData(
-          width: 500
-          quality: 95
-          placeholder: BLURRED
-          formats: [AUTO, WEBP, AVIF]
-          breakpoints: [480, 768, 1024, 1200]
-        )
+    allImageSharp {
+      edges {
+        node {
+          fluid(maxWidth: 1200) {
+            ...GatsbyImageSharpFluid
+            src
+          }
+        }
       }
     }
   }
 `;
-
-ProjectsPage.propTypes = {
-  data: PropTypes.object.isRequired,
-};
-
-export default ProjectsPage;
