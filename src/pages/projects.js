@@ -27,6 +27,8 @@ import MongoDBIcon from '../images/mongodb.svg';
 import PostgresqlIcon from '../images/postgresql.svg';
 import RedisIcon from '../images/redis.svg';
 import NPMIcon from '../images/npm.svg';
+import VercelIcon from '../images/vercel.svg';
+import NodeJSIcon from '../images/nodejs.svg';
 
 const projectsData = [
   {
@@ -142,8 +144,11 @@ const projectsData = [
       '  on a 5-star scale, mark favorites, and filter their collection by rating or favorite status.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     hostedURL: 'https://bookmarks-react-hooks.vercel.app/',
-    technologies: ['React', 'Git'],
+    technologies: ['React', 'Git', 'Vercel', 'NodeJS'],
     techIcons: {
+      icon3: NPMIcon,
+      icon4: VercelIcon,
+      icon5: NodeJSIcon,
     },
     screenshots: {
       screenshot1: 'project5Screenshot',
