@@ -12,13 +12,7 @@ import {
   Alert,
   NoSsr,
 } from '@mui/material';
-import {
-  Email,
-  Phone,
-  LinkedIn,
-  GitHub,
-  Send,
-} from '@mui/icons-material';
+import { Email, Phone, GitHub, Send } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 import Layout from '../components/layout';
@@ -35,9 +29,10 @@ const GradientText = styled(Typography)(({ theme }) => ({
 const ContactCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   borderRadius: theme.shape.borderRadius * 2,
-  background: theme.palette.mode === 'dark'
-    ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-    : theme.palette.background.paper,
+  background:
+    theme.palette.mode === 'dark'
+      ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
+      : theme.palette.background.paper,
   transition: 'all 0.3s ease',
   '&:hover': {
     transform: 'translateY(-4px)',
@@ -60,7 +55,7 @@ const ContactMethod = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Contact = () => {
+function Contact() {
   const theme = useTheme();
   const [formData, setFormData] = React.useState({
     name: '',
@@ -100,10 +95,10 @@ const Contact = () => {
       <Container maxWidth="lg">
         <Box sx={{ mb: 6 }}>
           <GradientText variant="h2" component="h1" align="center" gutterBottom>
-            Let's Connect
+            Let&#39;s Connect
           </GradientText>
           <Typography variant="h5" align="center" color="text.secondary" paragraph>
-            I'm always interested in new opportunities and collaborations
+            I&#39;m always interested in new opportunities and collaborations
           </Typography>
         </Box>
 
@@ -114,8 +109,9 @@ const Contact = () => {
                 Get in Touch
               </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
-                Whether you have a project in mind, need technical expertise, or just want to say hello, 
-                I'd love to hear from you. Feel free to reach out through any of these channels:
+                Whether you have a project in mind, need technical expertise, or just want to say
+                hello, hello, I&#39;d love to hear from you. Feel free to reach out through any of
+                these channels:
               </Typography>
 
               <Box sx={{ mt: 4 }}>
@@ -153,24 +149,24 @@ const Contact = () => {
                   </Box>
                 </ContactMethod>
 
-                <ContactMethod>
-                  <LinkedIn color="primary" />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      LinkedIn
-                    </Typography>
-                    <Link
-                      href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      color="primary"
-                      underline="hover"
-                      variant="body1"
-                    >
-                      Connect on LinkedIn
-                    </Link>
-                  </Box>
-                </ContactMethod>
+                {/* <ContactMethod> */}
+                {/*   <LinkedIn color="primary" /> */}
+                {/*   <Box> */}
+                {/*     <Typography variant="subtitle2" color="text.secondary"> */}
+                {/*       LinkedIn */}
+                {/*     </Typography> */}
+                {/*     <Link */}
+                {/*       href="https://www.linkedin.com/in/jeffrey-maxwell-553176172" */}
+                {/*       target="_blank" */}
+                {/*       rel="noopener noreferrer" */}
+                {/*       color="primary" */}
+                {/*       underline="hover" */}
+                {/*       variant="body1" */}
+                {/*     > */}
+                {/*       Connect on LinkedIn */}
+                {/*     </Link> */}
+                {/*   </Box> */}
+                {/* </ContactMethod> */}
 
                 <ContactMethod>
                   <GitHub color="primary" />
@@ -200,12 +196,13 @@ const Contact = () => {
                 Send a Message
               </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
-                Have a specific question or project in mind? Drop me a message and I'll get back to you as soon as possible.
+                Have a specific question or project in mind? Drop me a message and I&#39;ll get back to
+                you as soon as possible.
               </Typography>
 
               {formStatus === 'success' && (
                 <Alert severity="success" sx={{ mb: 3 }}>
-                  Thank you for your message! I'll get back to you soon.
+                  Thank you for your message! I&#39;ll get back to you soon.
                 </Alert>
               )}
 
@@ -267,13 +264,13 @@ const Contact = () => {
 
         <Box sx={{ mt: 6, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">
-            Currently open to new opportunities and exciting projects.
-            Let's build something amazing together!
+            Currently open to new opportunities and exciting projects. Let&#39;s build something
+            together!
           </Typography>
         </Box>
       </Container>
     </Layout>
   );
-};
+}
 
 export default Contact;

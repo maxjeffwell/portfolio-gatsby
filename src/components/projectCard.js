@@ -13,13 +13,7 @@ import {
   Grid,
   useTheme,
 } from '@mui/material';
-import {
-  GitHub,
-  Launch,
-  Code,
-  Storage,
-  Cloud,
-} from '@mui/icons-material';
+import { GitHub, Launch, Code, Storage, Cloud } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
@@ -31,9 +25,10 @@ const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius * 2,
   overflow: 'hidden',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  background: theme.palette.mode === 'dark'
-    ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-    : theme.palette.background.paper,
+  background:
+    theme.palette.mode === 'dark'
+      ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
+      : theme.palette.background.paper,
   '&:hover': {
     transform: 'translateY(-8px)',
     boxShadow: theme.shadows[12],
@@ -110,20 +105,17 @@ function ProjectCard({
           </ImageContainer>
         </Grid>
       </Grid>
-      
+
       <CardContent sx={{ flexGrow: 1, pt: 2 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', mb: 2 }}>
+        <Box
+          sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', mb: 2 }}
+        >
           <Typography variant="h5" component="h3" color="primary" fontWeight="bold">
             {title}
           </Typography>
-          <Chip 
-            label={date} 
-            size="small" 
-            color="secondary"
-            variant="outlined"
-          />
+          <Chip label={date} size="small" color="secondary" variant="outlined" />
         </Box>
-        
+
         <Typography variant="body1" color="text.secondary" paragraph>
           {description}
         </Typography>
@@ -185,7 +177,7 @@ function ProjectCard({
           href={sourceURL}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{ 
+          sx={{
             borderRadius: 20,
             textTransform: 'none',
             px: 3,
@@ -200,7 +192,7 @@ function ProjectCard({
           href={hostedURL}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{ 
+          sx={{
             borderRadius: 20,
             textTransform: 'none',
             px: 3,

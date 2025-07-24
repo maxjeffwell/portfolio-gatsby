@@ -20,8 +20,8 @@ import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 
 import GraphQLIcon from '../images/graphql.svg';
+import ApolloClientIcon from '../images/apolloclient.svg'
 import ReduxIcon from '../images/redux.svg';
-import ZeitIcon from '../images/zeit.svg';
 import CSSIcon from '../images/css3.svg';
 import MongoDBIcon from '../images/mongodb.svg';
 import PostgresqlIcon from '../images/postgresql.svg';
@@ -32,13 +32,19 @@ const projectsData = [
   {
     id: 'project1',
     title: 'educationELLy',
-    date: '2019-01-30',
-    year: '2019',
+    year: '2025',
     description:
-      "educationELLy aims to engage regular classroom teachers in the English language learning process by providing them with quick access to relevant information about the ELL students in their classes. By making ELL student information accessible to mainstream teachers and ELL teachers alike, educationELLy keeps an ELL student's teachers updated on his or her English language proficiency and provides a centralized platform through which all teachers can participate in the feedback process.",
+      "educationELLy is a full-stack web application for managing English Language Learner (ELL) students in\n" +
+      "  educational settings. It provides a collaborative platform for ELL and mainstream teachers to track\n" +
+      "  student information, English proficiency levels, and academic progress.\n" +
+      "\n" +
+      "  Built with React/Redux frontend and Node.js/Express/MongoDB backend, it features secure JWT\n" +
+      "  authentication, comprehensive student profile management (demographics, language details, academic\n" +
+      "  status), and a responsive interface with real-time data access for improved teacher collaboration and\n" +
+      "  student support.",
     sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
-    hostedURL: 'https://jmaxwell-fullstack-client.herokuapp.com/',
-    technologies: ['React', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Travis CI'],
+    hostedURL: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/',
+    technologies: ['React', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
     techIcons: {
       icon3: ReduxIcon,
       icon4: MongoDBIcon,
@@ -52,17 +58,23 @@ const projectsData = [
   {
     id: 'project2',
     title: 'Code Talk',
-    date: '2019-03-24',
-    year: '2019',
+    year: '2025',
     description:
-      'Code Talk is a code collaboration tool with real-time text editing and real-time messaging features. It emerged from a fascination with GraphQL subscriptions as well as from the immediate satisfaction inherent to real-time applications.',
+      'Code Talk is a real-time collaborative code editor and messaging platform that enables developers to write\n' +
+      '   code together while communicating seamlessly. Built with React and GraphQL, it features live\n' +
+      '  collaborative editing where multiple users can work on the same code simultaneously, integrated instant\n' +
+      '  messaging with room-based organization, and secure JWT authentication. The app leverages WebSocket\n' +
+      '  subscriptions for real-time updates, Redis pub/sub for scalability, and includes performance optimizations\n' +
+      '   like virtualized lists and code splitting. Perfect for remote pair programming, code reviews, or team\n' +
+      '  collaboration sessions.',
     sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
-    hostedURL: 'https://jmaxwell-code-talk-client.herokuapp.com/',
-    technologies: ['React', 'GraphQL', 'Zeit', 'Git', 'Heroku', 'Netlify'],
+    hostedURL: 'https://code-talk-client-c46118c24c30.herokuapp.com/',
+    technologies: ['React', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
     techIcons: {
       icon3: GraphQLIcon,
-      icon4: ZeitIcon,
       icon5: NPMIcon,
+      icon6: RedisIcon,
+      icon7: PostgresqlIcon
     },
     screenshots: {
       screenshot1: 'project2Screenshot',
@@ -71,18 +83,24 @@ const projectsData = [
   },
   {
     id: 'project3',
-    title: 'Simply Conceptual',
-    date: '2018-10-24',
-    year: '2018',
+    title: 'educationELLy (GraphQL version)',
+    year: '2025',
     description:
-      'Simply Conceptual offers spaced repetition learning software specifically geared towards learning programming concepts. It was built to gain experience with PostgreSQL as well as to satisfy my curiosity about the spaced repetition learning technique and its application in a programming context.',
-    sourceURL: 'https://github.com/maxjeffwell/spaced-repetition-client',
-    hostedURL: 'https://simplyconceptual.herokuapp.com/',
-    technologies: ['React', 'CSS', 'PostgreSQL', 'Git', 'Heroku'],
+      'educationELLy GraphQL is an education management system for English Language Learner (ELL) students. It\n' +
+      '  features a React frontend with Apollo Client for GraphQL integration and a Node.js backend with Apollo\n' +
+      '  Server, Express, and MongoDB. The app provides user authentication, full CRUD operations for managing ELL\n' +
+      '  student records (including personal info, educational details, native language, proficiency levels), and\n' +
+      '  role-based access control for teachers and administrators to track and manage their ELL student\n' +
+      '  population.',
+    sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
+    hostedURL: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/',
+    technologies: ['React', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Apollo Client', 'GraphQL'],
     techIcons: {
-      icon3: CSSIcon,
-      icon4: PostgresqlIcon,
+      icon3: MongoDBIcon,
+      icon4: NPMIcon,
       icon5: NPMIcon,
+      icon6: ApolloClientIcon,
+      icon7: GraphQLIcon
     },
     screenshots: {
       screenshot1: 'project3Screenshot',
@@ -91,17 +109,21 @@ const projectsData = [
   },
   {
     id: 'project4',
-    title: 'BookTank',
-    date: '2018-05-31',
-    year: '2018',
+    title: 'FireBook',
+    year: '2025',
     description:
-      'BookTank is an application that allows users to maintain and organize their personal library catalogue. Users search for books via the Google Books API and receive formatted results that can be saved to user-created folders.',
-    sourceURL: 'https://github.com/maxjeffwell/bookfinder-react-capstone',
-    hostedURL: 'https://mysterious-tundra-22728.herokuapp.com/',
-    technologies: ['React', 'CSS', 'MongoDB', 'Git', 'Heroku'],
+      'FireBook is a feature-rich web application that transforms how users save and organize their favorite\n' +
+      '  websites. Originally developed as a frontend-only application for Thinkful\'s Engineering Immersion\n' +
+      '  program, it has evolved into a full-stack solution powered by Firebase, offering secure authentication,\n' +
+      '  real-time synchronization, and personal bookmark collections. FireBook exemplifies how traditional web technologies can be enhanced with modern cloud services to create\n' +
+      '   a secure, scalable, and user-friendly application that works seamlessly across devices while maintaining\n' +
+      '  the simplicity of its original educational goals.',
+    sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
+    hostedURL: 'https://marmoset-c2870.firebaseapp.com',
+    technologies: ['React', 'CSS', 'PostgreSQL', 'Git', 'NPM'],
     techIcons: {
       icon3: CSSIcon,
-      icon4: MongoDBIcon,
+      icon4: PostgresqlIcon,
       icon5: NPMIcon,
     },
     screenshots: {
@@ -111,18 +133,18 @@ const projectsData = [
   },
   {
     id: 'project5',
-    title: 'News Flash API',
-    date: '2018-02-28',
-    year: '2018',
+    title: 'Bookmarked',
+    year: '2025',
     description:
-      'News Flash connects users with current, topical political news. Users search by topic or by politician and receive a list of recent related news articles from major news media outlets.',
-    sourceURL: 'https://github.com/maxjeffwell/news-flash-jQuery',
-    hostedURL: 'https://maxjeffwell.github.io/news-flash-jQuery/',
-    technologies: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Git', 'GitHub Pages'],
+      'Bookmarked is a modern bookmark manager application built with React Hooks. It lets users save, organize,\n' +
+      '  and manage their favorite web links with features like ratings, favorites, and smart filtering. The app\n' +
+      '  uses React\'s Context API and useReducer for state management, Emotion for styling, and connects to a REST\n' +
+      '  API backend for data persistence. Users can add bookmarks with titles, URLs, and descriptions, rate them\n' +
+      '  on a 5-star scale, mark favorites, and filter their collection by rating or favorite status.',
+    sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
+    hostedURL: 'https://bookmarks-react-hooks.vercel.app/',
+    technologies: ['React', 'Git'],
     techIcons: {
-      icon3: CSSIcon,
-      icon4: NPMIcon,
-      icon5: GraphQLIcon,
     },
     screenshots: {
       screenshot1: 'project5Screenshot',

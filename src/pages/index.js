@@ -17,7 +17,6 @@ import {
 } from '@mui/material';
 import {
   ArrowForward,
-  Code,
   Pets,
   CheckCircle,
   Computer,
@@ -315,19 +314,19 @@ function IndexPage() {
                         'Easy to test in isolation',
                         'Performance optimized with useCallback',
                       ].map((text, index) => (
-                        <Box 
-                          key={index} 
-                          component="li" 
-                          sx={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            mb: 0.5 
+                        <Box
+                          key={index}
+                          component="li"
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            mb: 0.5
                           }}
                         >
-                          <CheckCircle 
-                            fontSize="small" 
-                            color="secondary" 
-                            sx={{ mr: 1 }} 
+                          <CheckCircle
+                            fontSize="small"
+                            color="secondary"
+                            sx={{ mr: 1 }}
                           />
                           <Typography variant="body2">{text}</Typography>
                         </Box>

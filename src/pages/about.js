@@ -6,20 +6,12 @@ import {
   Box,
   Grid,
   Card,
-  CardContent,
   useTheme,
   Fade,
   Slide,
   NoSsr,
 } from '@mui/material';
-import {
-  Code as CodeIcon,
-  Coffee,
-  Pets,
-  Computer,
-  Language,
-  Storage,
-} from '@mui/icons-material';
+import { Code as CodeIcon, Coffee, Pets } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
 import { FaPiedPiperAlt } from 'react-icons/fa';
@@ -41,9 +33,10 @@ const GradientText = styled(Typography)(({ theme }) => ({
 const TechSection = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   borderRadius: theme.shape.borderRadius * 2,
-  background: theme.palette.mode === 'dark'
-    ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-    : 'linear-gradient(135deg, rgba(240,240,240,0.95) 0%, rgba(250,250,250,0.9) 100%)',
+  background:
+    theme.palette.mode === 'dark'
+      ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
+      : 'linear-gradient(135deg, rgba(240,240,240,0.95) 0%, rgba(250,250,250,0.9) 100%)',
   backdropFilter: 'blur(10px)',
 }));
 
@@ -104,7 +97,7 @@ const StyledIcon = styled(Box)(({ theme }) => ({
   },
 }));
 
-const AboutPage = () => {
+function AboutPage() {
   const theme = useTheme();
   const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
   const [techRef, techVisible] = useScrollAnimation({ delay: 300 });
@@ -132,14 +125,15 @@ const AboutPage = () => {
               <GradientText variant="h2" component="h1" align="center" gutterBottom>
                 About Jeff Maxwell
               </GradientText>
-              <Typography 
-                variant="h5" 
-                align="center" 
-                color="text.secondary" 
+              <Typography
+                variant="h5"
+                align="center"
+                color="text.secondary"
                 sx={{ maxWidth: 600, mx: 'auto' }}
               >
-                Full stack developer passionate about creating elegant solutions to complex problems.
-                When I'm not coding, I'm exploring new technologies and perfecting my craft.
+                Full stack developer passionate about creating elegant solutions to complex
+                problems. When I&#39;m not coding, I&#39;m exploring new technologies and perfecting my
+                craft.
               </Typography>
             </div>
           </Fade>
@@ -148,61 +142,61 @@ const AboutPage = () => {
           <NoSsr>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
-              <Typography variant="h4" component="h2" gutterBottom align="center">
-                Beyond the Code
-              </Typography>
-              <Typography 
-                variant="body1" 
-                paragraph 
-                align="center"
-                sx={{ mb: 4, fontSize: '1.125rem' }}
-              >
-                When I'm not debugging or mastering the latest frameworks, you'll find me
-                negotiating dinner menus with my two dogs, exploring vintage internet archives, or
-                diving deep into the philosophy of clean code architecture.
-              </Typography>
+                <Typography variant="h4" component="h2" gutterBottom align="center">
+                  Beyond the Code
+                </Typography>
+                <Typography
+                  variant="body1"
+                  paragraph
+                  align="center"
+                  sx={{ mb: 4, fontSize: '1.125rem' }}
+                >
+                  When I&#39;m not debugging or mastering the latest frameworks, you&#39;ll find me
+                  negotiating dinner menus with my two dogs, exploring vintage internet archives, or
+                  diving deep into the philosophy of clean code architecture.
+                </Typography>
 
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={4}>
-                  <InterestItem>
-                    <CodeIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                    <Box>
-                      <Typography variant="subtitle1" fontWeight="bold">
-                        Clean Code
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Readable, maintainable solutions
-                      </Typography>
-                    </Box>
-                  </InterestItem>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={4}>
+                    <InterestItem>
+                      <CodeIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+                      <Box>
+                        <Typography variant="subtitle1" fontWeight="bold">
+                          Clean Code
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Readable, maintainable solutions
+                        </Typography>
+                      </Box>
+                    </InterestItem>
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <InterestItem>
+                      <Coffee sx={{ fontSize: 32, color: 'primary.main' }} />
+                      <Box>
+                        <Typography variant="subtitle1" fontWeight="bold">
+                          Coffee & Code
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Fuel for late-night debugging
+                        </Typography>
+                      </Box>
+                    </InterestItem>
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <InterestItem>
+                      <Pets sx={{ fontSize: 32, color: 'primary.main' }} />
+                      <Box>
+                        <Typography variant="subtitle1" fontWeight="bold">
+                          Dog Parent
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Expert at dinner negotiations
+                        </Typography>
+                      </Box>
+                    </InterestItem>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} md={4}>
-                  <InterestItem>
-                    <Coffee sx={{ fontSize: 32, color: 'primary.main' }} />
-                    <Box>
-                      <Typography variant="subtitle1" fontWeight="bold">
-                        Coffee & Code
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Fuel for late-night debugging
-                      </Typography>
-                    </Box>
-                  </InterestItem>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <InterestItem>
-                    <Pets sx={{ fontSize: 32, color: 'primary.main' }} />
-                    <Box>
-                      <Typography variant="subtitle1" fontWeight="bold">
-                        Dog Parent
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Expert at dinner negotiations
-                      </Typography>
-                    </Box>
-                  </InterestItem>
-                </Grid>
-              </Grid>
               </PersonalCard>
             </Slide>
           </NoSsr>
@@ -226,83 +220,78 @@ const AboutPage = () => {
           <NoSsr>
             <Fade in={techVisible} timeout={1000}>
               <TechSection elevation={2}>
-              <GradientText variant="h3" component="h2" align="center" gutterBottom>
-                Technology Stack & Tools
-              </GradientText>
-              <Typography 
-                variant="h6" 
-                align="center" 
-                color="text.secondary" 
-                paragraph
-              >
-                The tools and technologies that power my development workflow
-              </Typography>
+                <GradientText variant="h3" component="h2" align="center" gutterBottom>
+                  Technology Stack & Tools
+                </GradientText>
+                <Typography variant="h6" align="center" color="text.secondary" paragraph>
+                  The tools and technologies that power my development workflow
+                </Typography>
 
-              <Grid container spacing={3} sx={{ mt: 2 }}>
-                <Grid item xs={6} md={3}>
-                  <TechCard elevation={1}>
-                    {typeof window !== 'undefined' && (
-                      <StyledIcon>
-                        <DiIntellij />
-                      </StyledIcon>
-                    )}
-                    <Typography variant="h6" gutterBottom>
-                      IntelliJ IDEA
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Primary development environment
-                    </Typography>
-                  </TechCard>
-                </Grid>
+                <Grid container spacing={3} sx={{ mt: 2 }}>
+                  <Grid item xs={6} md={3}>
+                    <TechCard elevation={1}>
+                      {typeof window !== 'undefined' && (
+                        <StyledIcon>
+                          <DiIntellij />
+                        </StyledIcon>
+                      )}
+                      <Typography variant="h6" gutterBottom>
+                        IntelliJ IDEA
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Primary development environment
+                      </Typography>
+                    </TechCard>
+                  </Grid>
 
-                <Grid item xs={6} md={3}>
-                  <TechCard elevation={1}>
-                    {typeof window !== 'undefined' && (
-                      <StyledIcon>
-                        <DiMozilla />
-                      </StyledIcon>
-                    )}
-                    <Typography variant="h6" gutterBottom>
-                      Firefox
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Development & testing browser
-                    </Typography>
-                  </TechCard>
-                </Grid>
+                  <Grid item xs={6} md={3}>
+                    <TechCard elevation={1}>
+                      {typeof window !== 'undefined' && (
+                        <StyledIcon>
+                          <DiMozilla />
+                        </StyledIcon>
+                      )}
+                      <Typography variant="h6" gutterBottom>
+                        Firefox
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Development & testing browser
+                      </Typography>
+                    </TechCard>
+                  </Grid>
 
-                <Grid item xs={6} md={3}>
-                  <TechCard elevation={1}>
-                    {typeof window !== 'undefined' && (
-                      <StyledIcon>
-                        <DiDebian />
-                      </StyledIcon>
-                    )}
-                    <Typography variant="h6" gutterBottom>
-                      Debian Linux
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Preferred operating system
-                    </Typography>
-                  </TechCard>
-                </Grid>
+                  <Grid item xs={6} md={3}>
+                    <TechCard elevation={1}>
+                      {typeof window !== 'undefined' && (
+                        <StyledIcon>
+                          <DiDebian />
+                        </StyledIcon>
+                      )}
+                      <Typography variant="h6" gutterBottom>
+                        Debian Linux
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Preferred operating system
+                      </Typography>
+                    </TechCard>
+                  </Grid>
 
-                <Grid item xs={6} md={3}>
-                  <TechCard elevation={1}>
-                    {typeof window !== 'undefined' && (
-                      <StyledIcon>
-                        <FaPiedPiperAlt />
-                      </StyledIcon>
-                    )}
-                    <Typography variant="h6" gutterBottom>
-                      Pied Piper
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Optimal compression algorithm
-                    </Typography>
-                  </TechCard>
+                  <Grid item xs={6} md={3}>
+                    <TechCard elevation={1}>
+                      {typeof window !== 'undefined' && (
+                        <StyledIcon>
+                          <FaPiedPiperAlt />
+                        </StyledIcon>
+                      )}
+                      <Typography variant="h6" gutterBottom>
+                        Pied Piper
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Optimal compression algorithm
+                      </Typography>
+                    </TechCard>
+                  </Grid>
                 </Grid>
-              </Grid>
               </TechSection>
             </Fade>
           </NoSsr>
@@ -319,6 +308,6 @@ const AboutPage = () => {
       </Container>
     </Layout>
   );
-};
+}
 
 export default AboutPage;
