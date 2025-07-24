@@ -1,102 +1,96 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import { useTheme } from '../context/ThemeContext';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
 
-const SkillsContainer = styled.div`
-  background: ${(props) => props.theme.palette.mode === 'dark' 
+const SkillsContainer = styled('div')(({ theme }) => ({
+  background: theme.palette.mode === 'dark' 
     ? 'rgba(255, 255, 255, 0.05)' 
-    : 'rgba(0, 0, 0, 0.02)'};
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid ${(props) => props.theme.palette.divider};
-  box-shadow: ${(props) => props.theme.shadows[2]};
+    : 'rgba(0, 0, 0, 0.02)',
+  borderRadius: '16px',
+  padding: '3rem 2rem',
+  backdropFilter: 'blur(10px)',
+  border: `1px solid ${theme.palette.divider}`,
+  boxShadow: theme.shadows[2],
+  [theme.breakpoints.down('md')]: {
+    padding: '2rem 1.5rem',
+  },
+}));
 
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
-  }
-`;
+const SkillCategory = styled('div')({
+  marginBottom: '2.5rem',
+  '&:last-child': {
+    marginBottom: 0,
+  },
+});
 
-const SkillCategory = styled.div`
-  margin-bottom: 2.5rem;
+const SkillItem = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: '1rem',
+  padding: '0.75rem 0',
+  '&:last-child': {
+    marginBottom: 0,
+  },
+});
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
+const SkillName = styled('span')(({ theme }) => ({
+  fontFamily: 'HelveticaNeueLTStd-Roman, sans-serif',
+  fontSize: '1.1rem',
+  color: theme.palette.mode === 'dark' ? '#000000' : theme.palette.text.primary,
+  fontWeight: 500,
+}));
 
-const SkillItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  padding: 0.75rem 0;
+const SkillBar = styled('div')(({ theme }) => ({
+  flex: 1,
+  height: '8px',
+  background: theme.palette.action.disabledBackground,
+  borderRadius: '4px',
+  margin: '0 1rem',
+  overflow: 'hidden',
+  position: 'relative',
+}));
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
+const SkillProgress = styled('div')(({ theme, level, delay }) => ({
+  height: '100%',
+  background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+  borderRadius: '4px',
+  width: `${level}%`,
+  transition: 'width 2s cubic-bezier(0.4, 0, 0.2, 1)',
+  transitionDelay: `${delay}ms`,
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+    transform: 'translateX(-100%)',
+    animation: 'shimmer 2s ease-in-out',
+    animationDelay: `${delay + 500}ms`,
+  },
+  '@keyframes shimmer': {
+    '0%': {
+      transform: 'translateX(-100%)',
+    },
+    '100%': {
+      transform: 'translateX(100%)',
+    },
+  },
+}));
 
-const SkillName = styled.span`
-  font-family: HelveticaNeueLTStd-Roman, sans-serif;
-  font-size: 1.1rem;
-  color: ${(props) => props.theme.palette.mode === 'dark' ? '#000000' : props.theme.palette.text.primary};
-  font-weight: 500;
-`;
-
-const SkillBar = styled.div`
-  flex: 1;
-  height: 8px;
-  background: ${(props) => props.theme.palette.action.disabledBackground};
-  border-radius: 4px;
-  margin: 0 1rem;
-  overflow: hidden;
-  position: relative;
-`;
-
-const SkillProgress = styled.div`
-  height: 100%;
-  background: linear-gradient(135deg, ${(props) => props.theme.palette.primary.main} 0%, ${(props) => props.theme.palette.secondary.main} 100%);
-  border-radius: 4px;
-  width: ${(props) => props.level}%;
-  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: ${(props) => props.delay}ms;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    animation: shimmer 2s ease-in-out;
-    animation-delay: ${(props) => props.delay + 500}ms;
-  }
-
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-`;
-
-const SkillLevel = styled.span`
-  font-family: HelveticaNeueLTStd-Roman, sans-serif;
-  font-size: 0.9rem;
-  color: ${(props) => props.theme.palette.mode === 'dark' ? '#000000' : props.theme.palette.text.secondary};
-  min-width: 40px;
-  text-align: right;
-`;
+const SkillLevel = styled('span')(({ theme }) => ({
+  fontFamily: 'HelveticaNeueLTStd-Roman, sans-serif',
+  fontSize: '0.9rem',
+  color: theme.palette.mode === 'dark' ? '#000000' : theme.palette.text.secondary,
+  minWidth: '40px',
+  textAlign: 'right',
+}));
 
 const GradientText = styled(Typography)(({ theme }) => ({
   fontFamily: 'Avenir',
@@ -133,67 +127,130 @@ const skills = {
   ],
 };
 
-function SkillsSection({ visible }) {
+function SkillsSection({ visible = true }) {
   const { theme } = useTheme();
 
   return (
-    <SkillsContainer elevation={2}>
-      <Fade in={visible} timeout={800}>
-        <Box>
-          <GradientText variant="h4" component="h2" align="center" id="skills-heading" gutterBottom>
-            Technical Skills
-          </GradientText>
+    <Box sx={{
+      background: theme.palette.mode === 'dark' 
+        ? 'rgba(255, 255, 255, 0.05)' 
+        : 'rgba(0, 0, 0, 0.02)',
+      borderRadius: 2,
+      p: { xs: 3, md: 4 },
+      backdropFilter: 'blur(10px)',
+      border: `1px solid ${theme.palette.divider}`,
+      boxShadow: theme.shadows[2],
+    }}>
+      <Typography 
+        variant="h4" 
+        component="h2" 
+        align="center" 
+        gutterBottom
+        sx={{
+          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          fontWeight: 700,
+          mb: 4,
+        }}
+      >
+        Technical Skills
+      </Typography>
 
-          {Object.entries(skills).map(([category, categorySkills], categoryIndex) => (
-            <SkillCategory key={category}>
-              <Fade 
-                in={visible} 
-                timeout={800} 
-                style={{ transitionDelay: `${categoryIndex * 200}ms` }}
+      {Object.entries(skills).map(([category, categorySkills], categoryIndex) => (
+        <Box key={category} sx={{ mb: 4, '&:last-child': { mb: 0 } }}>
+          <Fade 
+            in={visible} 
+            timeout={800} 
+            style={{ transitionDelay: `${categoryIndex * 200}ms` }}
+          >
+            <Box>
+              <Typography 
+                variant="h5" 
+                gutterBottom 
+                sx={{ 
+                  mb: 3,
+                  pb: 1,
+                  borderBottom: 2,
+                  borderColor: 'primary.main',
+                  position: 'relative',
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: -2,
+                    left: 0,
+                    width: 50,
+                    height: 2,
+                    background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                  }
+                }}
               >
-                <Box>
+                {category}
+              </Typography>
+              
+              {categorySkills.map((skill, skillIndex) => (
+                <Box 
+                  key={skill.name}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    mb: 2,
+                    py: 1,
+                    '&:last-child': { mb: 0 },
+                  }}
+                >
                   <Typography 
-                    variant="h5" 
-                    gutterBottom 
                     sx={{ 
-                      mb: 2,
-                      pb: 1,
-                      borderBottom: 2,
-                      borderColor: 'primary.main',
-                      position: 'relative',
-                      '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        bottom: -2,
-                        left: 0,
-                        width: 50,
-                        height: 2,
-                        background: theme => `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                      }
+                      fontSize: '1.1rem',
+                      color: theme.palette.text.primary,
+                      fontWeight: 500,
                     }}
                   >
-                    {category}
+                    {skill.name}
                   </Typography>
-                  {categorySkills.map((skill, skillIndex) => (
-                    <SkillItem key={skill.name}>
-                      <SkillName theme={theme}>{skill.name}</SkillName>
-                      <SkillBar theme={theme}>
-                        <SkillProgress 
-                          level={visible ? skill.level : 0}
-                          delay={categoryIndex * 200 + skillIndex * 100}
-                          theme={theme}
-                        />
-                      </SkillBar>
-                      <SkillLevel theme={theme}>{skill.level}%</SkillLevel>
-                    </SkillItem>
-                  ))}
+                  
+                  <Box 
+                    sx={{ 
+                      flex: 1, 
+                      height: 8, 
+                      bgcolor: theme.palette.action.disabledBackground,
+                      borderRadius: 1,
+                      mx: 2,
+                      overflow: 'hidden',
+                      position: 'relative',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        height: '100%',
+                        background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+                        borderRadius: 1,
+                        width: visible ? `${skill.level}%` : '0%',
+                        transition: 'width 2s cubic-bezier(0.4, 0, 0.2, 1)',
+                        transitionDelay: `${categoryIndex * 200 + skillIndex * 100}ms`,
+                      }}
+                    />
+                  </Box>
+                  
+                  <Typography 
+                    sx={{ 
+                      fontSize: '0.9rem',
+                      color: theme.palette.text.secondary,
+                      minWidth: 40,
+                      textAlign: 'right',
+                    }}
+                  >
+                    {skill.level}%
+                  </Typography>
                 </Box>
-              </Fade>
-            </SkillCategory>
-          ))}
+              ))}
+            </Box>
+          </Fade>
         </Box>
-      </Fade>
-    </SkillsContainer>
+      ))}
+    </Box>
   );
 }
 
