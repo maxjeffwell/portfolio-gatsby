@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-const Logo = () => {
+function Logo() {
   const data = useStaticQuery(graphql`
     query {
       iapfLogo: file(relativePath: { eq: "iapf.png" }) {
@@ -51,6 +51,6 @@ const Logo = () => {
       />
     </>
   );
-};
+}
 
 export default Logo;

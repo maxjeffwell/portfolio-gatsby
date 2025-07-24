@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-const Image = () => {
+function Image() {
   const data = useStaticQuery(graphql`
     query {
       teamImage: file(relativePath: { eq: "code-companions.png" }) {
@@ -55,5 +55,5 @@ const Image = () => {
       />
     </>
   );
-};
+}
 export default Image;

@@ -297,7 +297,7 @@ const getInitialTheme = () => {
 };
 
 // Theme Provider Component
-export const ThemeProvider = ({ children }) => {
+export function ThemeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isSystemPreference, setIsSystemPreference] = useState(true);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -383,7 +383,7 @@ export const ThemeProvider = ({ children }) => {
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );
-};
+}
 
 ThemeProvider.propTypes = {
   children: PropTypes.node.isRequired,

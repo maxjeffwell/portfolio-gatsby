@@ -20,7 +20,7 @@ import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 
 import GraphQLIcon from '../images/graphql.svg';
-import ApolloClientIcon from '../images/apolloclient.svg'
+import ApolloClientIcon from '../images/apolloclient.svg';
 import ReduxIcon from '../images/redux.svg';
 import CSSIcon from '../images/css3.svg';
 import MongoDBIcon from '../images/mongodb.svg';
@@ -37,14 +37,14 @@ const projectsData = [
     title: 'educationELLy',
     year: '2025',
     description:
-      "educationELLy is a full-stack web application for managing English Language Learner (ELL) students in\n" +
-      "  educational settings. It provides a collaborative platform for ELL and mainstream teachers to track\n" +
-      "  student information, English proficiency levels, and academic progress.\n" +
-      "\n" +
-      "  Built with React/Redux frontend and Node.js/Express/MongoDB backend, it features secure JWT\n" +
-      "  authentication, comprehensive student profile management (demographics, language details, academic\n" +
-      "  status), and a responsive interface with real-time data access for improved teacher collaboration and\n" +
-      "  student support.",
+      'educationELLy is a full-stack web application for managing English Language Learner (ELL) students in\n' +
+      '  educational settings. It provides a collaborative platform for ELL and mainstream teachers to track\n' +
+      '  student information, English proficiency levels, and academic progress.\n' +
+      '\n' +
+      '  Built with React/Redux frontend and Node.js/Express/MongoDB backend, it features secure JWT\n' +
+      '  authentication, comprehensive student profile management (demographics, language details, academic\n' +
+      '  status), and a responsive interface with real-time data access for improved teacher collaboration and\n' +
+      '  student support.',
     sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
     hostedURL: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/',
     technologies: ['React', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
@@ -54,8 +54,8 @@ const projectsData = [
       icon5: NPMIcon,
     },
     screenshots: {
-      screenshot1: 'project1Screenshot',
-      screenshot2: 'project1Screenshot2',
+      screenshot1: 'educationELLy_screenshot',
+      screenshot2: 'educationELLy_screenshot2',
     },
   },
   {
@@ -78,11 +78,11 @@ const projectsData = [
       icon3: GraphQLIcon,
       icon4: NPMIcon,
       icon5: RedisIcon,
-      icon6: PostgresqlIcon
+      icon6: PostgresqlIcon,
     },
     screenshots: {
-      screenshot1: 'project2Screenshot',
-      screenshot2: 'project2Screenshot2',
+      screenshot1: 'code-talk_screenshot',
+      screenshot2: 'code-talk_screenshot2',
     },
   },
   {
@@ -104,11 +104,11 @@ const projectsData = [
       icon3: MongoDBIcon,
       icon4: NPMIcon,
       icon5: ApolloClientIcon,
-      icon6: GraphQLIcon
+      icon6: GraphQLIcon,
     },
     screenshots: {
-      screenshot1: 'project3Screenshot',
-      screenshot2: 'project3Screenshot2',
+      screenshot1: 'educationELLy_screenshot',
+      screenshot2: 'educationELLy_screenshot2',
     },
   },
   {
@@ -118,7 +118,7 @@ const projectsData = [
     year: '2025',
     description:
       'FireBook is a feature-rich web application that transforms how users save and organize their favorite\n' +
-      '  websites. Originally developed as a frontend-only application for Thinkful\'s Engineering Immersion\n' +
+      "  websites. Originally developed as a frontend-only application for Thinkful's Engineering Immersion\n" +
       '  program, it has evolved into a full-stack solution powered by Firebase, offering secure authentication,\n' +
       '  real-time synchronization, and personal bookmark collections. FireBook exemplifies how traditional web technologies can be enhanced with modern cloud services to create\n' +
       '   a secure, scalable, and user-friendly application that works seamlessly across devices while maintaining\n' +
@@ -132,8 +132,8 @@ const projectsData = [
       icon5: NPMIcon,
     },
     screenshots: {
-      screenshot1: 'project4Screenshot',
-      screenshot2: 'project4Screenshot2',
+      screenshot1: 'bookmarked_screenshot',
+      screenshot2: 'bookmarked_screenshot2',
     },
   },
   {
@@ -144,7 +144,7 @@ const projectsData = [
     description:
       'Bookmarked is a modern bookmark manager application built with React Hooks. It lets users save, organize,\n' +
       '  and manage their favorite web links with features like ratings, favorites, and smart filtering. The app\n' +
-      '  uses React\'s Context API and useReducer for state management, Emotion for styling, and connects to a REST\n' +
+      "  uses React's Context API and useReducer for state management, Emotion for styling, and connects to a REST\n" +
       '  API backend for data persistence. Users can add bookmarks with titles, URLs, and descriptions, rate them\n' +
       '  on a 5-star scale, mark favorites, and filter their collection by rating or favorite status.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
@@ -156,8 +156,8 @@ const projectsData = [
       icon5: NodeJSIcon,
     },
     screenshots: {
-      screenshot1: 'project5Screenshot',
-      screenshot2: 'project5Screenshot2',
+      screenshot1: 'bookmarked_screenshot',
+      screenshot2: 'bookmarked_screenshot2',
     },
   },
 ];
@@ -192,11 +192,11 @@ const Projects = ({ data }) => {
   const enhancedProjects = useMemo(() => {
     return filteredProjects.map((project) => ({
       ...project,
-      imageSrcPath: data.allImageSharp.edges.find(
-        (edge) => edge.node.fluid.src.includes(project.screenshots.screenshot1)
+      imageSrcPath: data.allImageSharp.edges.find((edge) =>
+        edge.node.fixed.src.includes(project.screenshots.screenshot1)
       )?.node,
-      imageSrcPath2: data.allImageSharp.edges.find(
-        (edge) => edge.node.fluid.src.includes(project.screenshots.screenshot2)
+      imageSrcPath2: data.allImageSharp.edges.find((edge) =>
+        edge.node.fixed.src.includes(project.screenshots.screenshot2)
       )?.node,
       imageSrcPath3: project.techIcons.icon3,
       imageSrcPath4: project.techIcons.icon4,
@@ -231,10 +231,16 @@ const Projects = ({ data }) => {
         </Box>
 
         <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
-            <Typography variant="h6">
-              Filter Projects (Total: {filteredProjects.length})
-            </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: 2,
+            }}
+          >
+            <Typography variant="h6">Filter Projects (Total: {filteredProjects.length})</Typography>
             <NoSsr>
               <Select
                 value={filters.technologies[0] || ''}
@@ -273,6 +279,7 @@ const Projects = ({ data }) => {
                     description={project.description}
                     sourceURL={project.sourceURL}
                     hostedURL={project.hostedURL}
+                    technologies={project.technologies}
                     imageSrcPath={project.imageSrcPath}
                     imageSrcPath2={project.imageSrcPath2}
                     imageSrcPath3={project.imageSrcPath3}
@@ -295,7 +302,8 @@ Projects.propTypes = {
       edges: PropTypes.arrayOf(
         PropTypes.shape({
           node: PropTypes.shape({
-            fluid: PropTypes.shape({
+            gatsbyImageData: PropTypes.object.isRequired,
+            fixed: PropTypes.shape({
               src: PropTypes.string.isRequired,
             }).isRequired,
           }).isRequired,
@@ -312,8 +320,8 @@ export const pageQuery = graphql`
     allImageSharp {
       edges {
         node {
-          fluid(maxWidth: 1200) {
-            ...GatsbyImageSharpFluid
+          gatsbyImageData(width: 1200, layout: CONSTRAINED)
+          fixed {
             src
           }
         }

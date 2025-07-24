@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { useTheme } from '../context/ThemeContext';
 import { FaSearch, FaTimes } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
 const FilterContainer = styled.div`
   background: ${(props) => props.theme.gradients.secondary};
@@ -232,7 +232,7 @@ const ResultsCount = styled.div`
   border-top: 1px solid ${(props) => props.theme.colors.border};
 `;
 
-const ProjectFilter = ({ onFilterChange, totalResults }) => {
+function ProjectFilter({ onFilterChange, totalResults }) {
   const { theme } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
@@ -286,7 +286,7 @@ const ProjectFilter = ({ onFilterChange, totalResults }) => {
   ];
 
   const handleSearchChange = useCallback((e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setSearchTerm(value);
   }, []);
 
@@ -302,7 +302,7 @@ const ProjectFilter = ({ onFilterChange, totalResults }) => {
   );
 
   const handleDateRangeChange = useCallback((e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setSelectedDateRange(value);
   }, []);
 
@@ -426,7 +426,7 @@ const ProjectFilter = ({ onFilterChange, totalResults }) => {
       </ResultsCount>
     </FilterContainer>
   );
-};
+}
 
 ProjectFilter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,

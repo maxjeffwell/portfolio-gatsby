@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Paper,
-  Box,
-  Typography,
-  IconButton,
-  useTheme,
-  Tooltip,
-} from '@mui/material';
+import { Paper, Box, Typography, IconButton, useTheme, Tooltip } from '@mui/material';
 import { ContentCopy, Check } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
@@ -20,9 +13,10 @@ const StyledPre = styled('pre')(({ theme }) => ({
   overflowX: 'auto',
   whiteSpace: 'pre-wrap',
   wordWrap: 'break-word',
-  backgroundColor: theme.palette.mode === 'dark' 
-    ? theme.palette.grey?.[900] || '#212121'
-    : theme.palette.grey?.[50] || '#fafafa',
+  backgroundColor:
+    theme.palette.mode === 'dark'
+      ? theme.palette.grey?.[900] || '#212121'
+      : theme.palette.grey?.[50] || '#fafafa',
   color: theme.palette.text.primary,
   border: 'none',
 }));
@@ -90,9 +84,10 @@ function CodeSnippet({
           justifyContent: 'space-between',
           px: 2,
           py: 1,
-          bgcolor: theme.palette.mode === 'dark' 
-            ? theme.palette.grey?.[800] || '#424242'
-            : theme.palette.grey?.[100] || '#f5f5f5',
+          bgcolor:
+            theme.palette.mode === 'dark'
+              ? theme.palette.grey?.[800] || '#424242'
+              : theme.palette.grey?.[100] || '#f5f5f5',
           borderBottom: `1px solid ${theme.palette.divider}`,
         }}
       >
@@ -125,9 +120,7 @@ function CodeSnippet({
           </Tooltip>
         )}
       </Box>
-      <StyledPre>
-        {displayedCode}
-      </StyledPre>
+      <StyledPre>{displayedCode}</StyledPre>
     </Paper>
   );
 }

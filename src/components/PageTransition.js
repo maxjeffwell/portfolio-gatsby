@@ -82,7 +82,7 @@ const LoadingText = styled.div`
   }
 `;
 
-const PageTransition = ({ children, location }) => {
+function PageTransition({ children, location }) {
   const { theme } = useTheme();
   const [transitionStage, setTransitionStage] = useState('entered');
   const [showLoading, setShowLoading] = useState(false);
@@ -126,7 +126,7 @@ const PageTransition = ({ children, location }) => {
       </TransitionContainer>
     </>
   );
-};
+}
 
 PageTransition.propTypes = {
   children: PropTypes.node.isRequired,

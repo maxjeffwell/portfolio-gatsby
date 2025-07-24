@@ -33,7 +33,7 @@ const Cursor = styled('span')(({ theme, blink }) => ({
   },
 }));
 
-const TypingAnimation = ({
+function TypingAnimation({
   texts,
   typeSpeed = 100,
   deleteSpeed = 50,
@@ -42,7 +42,7 @@ const TypingAnimation = ({
   showCursor = true,
   cursorBlink = true,
   startDelay = 0,
-}) => {
+}) {
   const theme = useTheme();
   const [displayText, setDisplayText] = useState('');
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -72,7 +72,6 @@ const TypingAnimation = ({
 
     const currentText = texts[currentTextIndex];
     let timeout;
-    
 
     if (isTyping) {
       // Typing phase
@@ -126,13 +125,11 @@ const TypingAnimation = ({
 
   return (
     <TypingContainer>
-      <TypingText>
-        {displayText || (isStarted ? '' : 'full stack web developer')}
-      </TypingText>
+      <TypingText>{displayText || (isStarted ? '' : 'full stack web developer')}</TypingText>
       {showCursor && <Cursor blink={cursorBlink} />}
     </TypingContainer>
   );
-};
+}
 
 TypingAnimation.propTypes = {
   texts: PropTypes.arrayOf(PropTypes.string).isRequired,

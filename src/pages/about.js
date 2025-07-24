@@ -132,8 +132,8 @@ function AboutPage() {
                 sx={{ maxWidth: 600, mx: 'auto' }}
               >
                 Full stack developer passionate about creating elegant solutions to complex
-                problems. When I&#39;m not coding, I&#39;m exploring new technologies and perfecting my
-                craft.
+                problems. When I&#39;m not coding, I&#39;m exploring new technologies and perfecting
+                my craft.
               </Typography>
             </div>
           </Fade>

@@ -2,23 +2,47 @@
 // This prevents react-icons from being processed during server-side rendering
 
 // Export commonly used icons as empty components
-export const FaExclamationTriangle = () => null;
-export const FaRedo = () => null;
-export const FaHome = () => null;
-export const FaBars = () => null;
-export const FaTimes = () => null;
-export const FaGithubAlt = () => null;
-export const FaAngellist = () => null;
-export const FaLinkedin = () => null;
-export const FaPhone = () => null;
-export const FaRegArrowAltCircleRight = () => null;
+export function FaExclamationTriangle() {
+  return null;
+}
+export function FaRedo() {
+  return null;
+}
+export function FaHome() {
+  return null;
+}
+export function FaBars() {
+  return null;
+}
+export function FaTimes() {
+  return null;
+}
+export function FaGithubAlt() {
+  return null;
+}
+export function FaAngellist() {
+  return null;
+}
+export function FaLinkedin() {
+  return null;
+}
+export function FaPhone() {
+  return null;
+}
+export function FaRegArrowAltCircleRight() {
+  return null;
+}
 
 // Define LazyImage to resolve the mysterious error
 if (typeof window === 'undefined') {
-  global.LazyImage = () => null;
+  global.LazyImage = function () {
+    return null;
+  };
 }
 
 // Default export for any other icons
-const DummyIcon = () => null;
+function DummyIcon() {
+  return null;
+}
 
 export default DummyIcon;

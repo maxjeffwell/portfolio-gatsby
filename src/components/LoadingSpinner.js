@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, CircularProgress, useTheme } from '@mui/material';
 
-const LoadingSpinner = () => {
+function LoadingSpinner() {
   const theme = useTheme();
 
   return (
@@ -21,6 +21,6 @@ const LoadingSpinner = () => {
       />
     </Box>
   );
-};
+}
 
 export default LoadingSpinner;

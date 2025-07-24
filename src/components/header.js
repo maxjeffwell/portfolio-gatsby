@@ -66,7 +66,7 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
   },
 }));
 
-const Header = () => {
+function Header() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -106,8 +106,8 @@ const Header = () => {
             component={Link}
             to={item.to}
             fullWidth
-            sx={{ 
-              py: 2, 
+            sx={{
+              py: 2,
               fontSize: '1.25rem',
               textTransform: 'none',
               color: 'text.primary',
@@ -183,6 +183,6 @@ const Header = () => {
       <Toolbar sx={{ mb: 4 }} />
     </>
   );
-};
+}
 
 export default Header;

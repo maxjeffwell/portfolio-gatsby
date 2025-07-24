@@ -25,9 +25,10 @@ const StyledFooter = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   paddingBottom: theme.spacing(4),
   borderTop: `3px solid ${theme.palette.secondary.main}`,
-  backgroundColor: theme.palette.mode === 'dark' 
-    ? theme.palette.grey?.[900] || '#212121' 
-    : theme.palette.grey?.[100] || '#f5f5f5',
+  backgroundColor:
+    theme.palette.mode === 'dark'
+      ? theme.palette.grey?.[900] || '#212121'
+      : theme.palette.grey?.[100] || '#f5f5f5',
 }));
 
 const SocialLink = styled(IconButton)(({ theme }) => ({

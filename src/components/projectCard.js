@@ -77,6 +77,7 @@ function ProjectCard({
   description,
   sourceURL,
   hostedURL,
+  technologies = [],
 }) {
   const theme = useTheme();
 
@@ -131,7 +132,11 @@ function ProjectCard({
                 alt="Technology icon"
                 width="24"
                 height="24"
-                style={{ objectFit: 'contain' }}
+                style={{
+                  objectFit: 'contain',
+                  filter:
+                    'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
+                }}
               />
             </TechIcon>
             <TechIcon>
@@ -140,7 +145,11 @@ function ProjectCard({
                 alt="Technology icon"
                 width="24"
                 height="24"
-                style={{ objectFit: 'contain' }}
+                style={{
+                  objectFit: 'contain',
+                  filter:
+                    'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
+                }}
               />
             </TechIcon>
             <TechIcon>
@@ -149,20 +158,26 @@ function ProjectCard({
                 alt="Technology icon"
                 width="24"
                 height="24"
-                style={{ objectFit: 'contain' }}
+                style={{
+                  objectFit: 'contain',
+                  filter:
+                    'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
+                }}
               />
             </TechIcon>
             {typeof window !== 'undefined' && (
               <>
                 <TechIcon>
-                  <FaReact size={24} color={theme.palette.text.secondary} />
+                  <FaReact size={24} color="red" />
                 </TechIcon>
                 <TechIcon>
-                  <FaGit size={24} color={theme.palette.text.secondary} />
+                  <FaGit size={24} color="red" />
                 </TechIcon>
-                <TechIcon>
-                  <DiHeroku size={24} color={theme.palette.text.secondary} />
-                </TechIcon>
+                {technologies.includes('Heroku') && (
+                  <TechIcon>
+                    <DiHeroku size={24} color="red" />
+                  </TechIcon>
+                )}
               </>
             )}
           </Stack>
@@ -216,6 +231,7 @@ ProjectCard.propTypes = {
   imageSrcPath3: PropTypes.string.isRequired,
   imageSrcPath4: PropTypes.string.isRequired,
   imageSrcPath5: PropTypes.string.isRequired,
+  technologies: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ProjectCard;

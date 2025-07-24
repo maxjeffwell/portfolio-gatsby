@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { useTheme } from '../context/ThemeContext';
-import { submitToNetlify, validateEmail } from '../utils/formHandler';
 import {
   FaUser,
   FaEnvelope,
@@ -11,6 +9,8 @@ import {
   FaCheckCircle,
   FaExclamationTriangle,
 } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
+import { submitToNetlify, validateEmail } from '../utils/formHandler';
 
 const FormContainer = styled.div`
   background: ${(props) => props.theme.gradients.secondary};
@@ -212,7 +212,7 @@ const SuccessMessage = styled.div`
   }
 `;
 
-const ContactForm = () => {
+function ContactForm() {
   const { theme } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
@@ -318,7 +318,13 @@ const ContactForm = () => {
         message and I'll get back to you as soon as possible!
       </FormDescription>
 
-      <Form onSubmit={handleSubmit} name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <Form
+        onSubmit={handleSubmit}
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+      >
         {/* Hidden fields for Netlify Forms */}
         <input type="hidden" name="form-name" value="contact" />
         <div style={{ display: 'none' }}>
@@ -463,6 +469,6 @@ const ContactForm = () => {
       </Form>
     </FormContainer>
   );
-};
+}
 
 export default ContactForm;

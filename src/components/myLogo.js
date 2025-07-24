@@ -9,7 +9,7 @@ const StyledGatsbyImage = styled(GatsbyImage)`
   }
 `;
 
-const MyLogo = () => {
+function MyLogo() {
   const data = useStaticQuery(graphql`
     query {
       myLogo: file(relativePath: { eq: "logo_elephant_100x100.png" }) {
@@ -38,6 +38,6 @@ const MyLogo = () => {
       }}
     />
   );
-};
+}
 
 export default MyLogo;

@@ -13,21 +13,23 @@ const shimmer = keyframes`
   }
 `;
 
-const SkeletonLoader = ({ width = '100%', height = '200px' }) => (
-  <div
-    css={css`
-      width: ${width};
-      height: ${height};
-      background: linear-gradient(90deg, #2d3047 25%, #3d4266 50%, #2d3047 75%);
-      background-size: 400% 100%;
-      animation: ${shimmer} 1.2s ease-in-out infinite;
-      border-radius: 5px;
-      border: 2px solid #363636;
-    `}
-  />
-);
+function SkeletonLoader({ width = '100%', height = '200px' }) {
+  return (
+    <div
+      css={css`
+        width: ${width};
+        height: ${height};
+        background: linear-gradient(90deg, #2d3047 25%, #3d4266 50%, #2d3047 75%);
+        background-size: 400% 100%;
+        animation: ${shimmer} 1.2s ease-in-out infinite;
+        border-radius: 5px;
+        border: 2px solid #363636;
+      `}
+    />
+  );
+}
 
-const ProgressiveImage = ({
+function ProgressiveImage({
   image,
   alt,
   loading = 'lazy',
@@ -37,7 +39,7 @@ const ProgressiveImage = ({
   skeletonHeight = '200px',
   enableWebP = true,
   ...props
-}) => {
+}) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [formatSupport, setFormatSupport] = useState({
@@ -140,7 +142,7 @@ const ProgressiveImage = ({
       )}
     </div>
   );
-};
+}
 
 ProgressiveImage.propTypes = {
   image: PropTypes.object.isRequired,

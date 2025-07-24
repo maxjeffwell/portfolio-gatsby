@@ -151,7 +151,7 @@ const PerformanceMonitor = () => {
     const monitorMemoryUsage = () => {
       if ('memory' in performance) {
         const logMemoryUsage = () => {
-          const memory = performance.memory;
+          const { memory } = performance;
           console.log('Memory usage:', {
             used: `${(memory.usedJSHeapSize / 1048576).toFixed(2)} MB`,
             total: `${(memory.totalJSHeapSize / 1048576).toFixed(2)} MB`,

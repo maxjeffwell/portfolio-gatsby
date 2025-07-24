@@ -1,22 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import {
-  Box,
-  Typography,
-  Button,
-  Paper,
-  Grid,
-  useTheme,
-  Fade,
-} from '@mui/material';
-import {
-  Email,
-  Phone,
-  LinkedIn,
-  GitHub,
-  ArrowForward,
-} from '@mui/icons-material';
+import { Box, Typography, Button, Paper, Grid, useTheme, Fade } from '@mui/material';
+import { Email, Phone, LinkedIn, GitHub, ArrowForward } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 const CTASection = styled(Paper)(({ theme }) => ({
@@ -159,12 +145,7 @@ function CTASectionComponent({ visible }) {
           Ready to Build Something Amazing?
         </GradientText>
 
-        <Typography 
-          variant="h6" 
-          paragraph 
-          sx={{ mb: 4, opacity: 0.9 }}
-          color="text.secondary"
-        >
+        <Typography variant="h6" paragraph sx={{ mb: 4, opacity: 0.9 }} color="text.secondary">
           Let's collaborate to create exceptional web experiences that make a difference. I'm
           passionate about solving complex problems with clean, efficient code.
         </Typography>
@@ -172,11 +153,7 @@ function CTASectionComponent({ visible }) {
         <Grid container spacing={4} sx={{ mb: 4 }}>
           {stats.map((stat, index) => (
             <Grid item xs={12} sm={4} key={stat.label}>
-              <Fade 
-                in={visible} 
-                timeout={800} 
-                style={{ transitionDelay: `${index * 200}ms` }}
-              >
+              <Fade in={visible} timeout={800} style={{ transitionDelay: `${index * 200}ms` }}>
                 <StatBox>
                   <Typography className="stat-number">{stat.number}</Typography>
                   <Typography className="stat-label">{stat.label}</Typography>
@@ -193,9 +170,9 @@ function CTASectionComponent({ visible }) {
 
             return (
               <Grid item xs={12} sm={6} md={3} key={method.text}>
-                <Fade 
-                  in={visible} 
-                  timeout={800} 
+                <Fade
+                  in={visible}
+                  timeout={800}
                   style={{ transitionDelay: `${index * 100 + 400}ms` }}
                 >
                   <ContactButton
@@ -220,10 +197,7 @@ function CTASectionComponent({ visible }) {
         <Fade in={visible} timeout={1000} style={{ transitionDelay: '800ms' }}>
           <Box>
             <StyledLink to="/projects/">
-              <MainButton
-                size="large"
-                endIcon={<ArrowForward />}
-              >
+              <MainButton size="large" endIcon={<ArrowForward />}>
                 View My Projects
               </MainButton>
             </StyledLink>

@@ -196,8 +196,8 @@ function Contact() {
                 Send a Message
               </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
-                Have a specific question or project in mind? Drop me a message and I&#39;ll get back to
-                you as soon as possible.
+                Have a specific question or project in mind? Drop me a message and I&#39;ll get back
+                to you as soon as possible.
               </Typography>
 
               {formStatus === 'success' && (

@@ -15,13 +15,7 @@ import {
   Grow,
   NoSsr,
 } from '@mui/material';
-import {
-  ArrowForward,
-  Pets,
-  CheckCircle,
-  Computer,
-  LightbulbOutlined,
-} from '@mui/icons-material';
+import { ArrowForward, Pets, CheckCircle, Computer, LightbulbOutlined } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 import Layout from '../components/layout';
@@ -29,7 +23,6 @@ import SEO from '../components/seo';
 import TypingAnimation from '../components/TypingAnimation';
 import CodeSnippet from '../components/CodeSnippet';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import SkillsSection from '../components/SkillsSection';
 import CTASection from '../components/CTASection';
 
 const HeroSection = styled(Paper)(({ theme }) => ({
@@ -89,7 +82,6 @@ function IndexPage() {
   const [introRef, introVisible] = useScrollAnimation({ delay: 300 });
   const [navRef, navVisible] = useScrollAnimation({ delay: 500 });
   const [codeRef, codeVisible] = useScrollAnimation({ delay: 200 });
-  const [skillsRef, skillsVisible] = useScrollAnimation({ delay: 300 });
   const [ctaRef, ctaVisible] = useScrollAnimation({ delay: 400 });
 
   return (
@@ -169,7 +161,9 @@ function IndexPage() {
             <Card elevation={2} sx={{ borderRadius: 3, overflow: 'visible' }}>
               <CardContent sx={{ p: 4 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <LightbulbOutlined sx={{ fontSize: 40, color: muiTheme.palette.primary.main, mr: 2 }} />
+                  <LightbulbOutlined
+                    sx={{ fontSize: 40, color: muiTheme.palette.primary.main, mr: 2 }}
+                  />
                   <Typography variant="body1" sx={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
                     I believe in <strong>clean, maintainable code</strong> and{' '}
                     <strong>user-centered design</strong>. Every line I write is crafted with
@@ -212,9 +206,10 @@ function IndexPage() {
                 sx={{
                   height: '100%',
                   borderRadius: 3,
-                  background: muiTheme.palette.mode === 'dark'
-                    ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-                    : 'linear-gradient(135deg, rgba(240,240,240,0.95) 0%, rgba(250,250,250,0.9) 100%)',
+                  background:
+                    muiTheme.palette.mode === 'dark'
+                      ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
+                      : 'linear-gradient(135deg, rgba(240,240,240,0.95) 0%, rgba(250,250,250,0.9) 100%)',
                 }}
               >
                 <CardContent sx={{ p: 4 }}>
@@ -320,14 +315,10 @@ function IndexPage() {
                           sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            mb: 0.5
+                            mb: 0.5,
                           }}
                         >
-                          <CheckCircle
-                            fontSize="small"
-                            color="secondary"
-                            sx={{ mr: 1 }}
-                          />
+                          <CheckCircle fontSize="small" color="secondary" sx={{ mr: 1 }} />
                           <Typography variant="body2">{text}</Typography>
                         </Box>
                       ))}
@@ -338,12 +329,6 @@ function IndexPage() {
             </Fade>
           </Grid>
         </Grid>
-
-        <NoSsr>
-          <Box ref={skillsRef} sx={{ mb: 6 }}>
-            <SkillsSection visible={skillsVisible} />
-          </Box>
-        </NoSsr>
 
         <NoSsr>
           <Box ref={ctaRef}>
