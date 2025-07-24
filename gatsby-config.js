@@ -53,20 +53,11 @@ module.exports = {
         display: `standalone`,
         orientation: `portrait-primary`,
         icon: 'src/images/elephant_noun_project.png',
-        icons: [
-          {
-            src: 'src/images/elephant_noun_project.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
-          {
-            src: 'src/images/elephant_noun_project.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
-        ],
+        icon_options: {
+          purpose: `any maskable`,
+        },
+        include_favicon: true,
+        legacy: true,
         categories: ['developer-tools', 'portfolio', 'productivity'],
         lang: 'en',
         dir: 'ltr',

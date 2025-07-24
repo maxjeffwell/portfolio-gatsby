@@ -11,6 +11,7 @@ import {
   Paper,
   useTheme,
   Fade,
+  NoSsr,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -203,22 +204,24 @@ const Projects = ({ data }) => {
             <Typography variant="h6">
               Filter Projects (Total: {filteredProjects.length})
             </Typography>
-            <Select
-              value={filters.technologies[0] || ''}
-              onChange={(e) =>
-                handleFilterChange({
-                  ...filters,
-                  technologies: e.target.value ? [e.target.value] : [],
-                })
-              }
-              displayEmpty
-              sx={{ minWidth: 200 }}
-            >
-              <MenuItem value="">All Projects</MenuItem>
-              <MenuItem value="React">React</MenuItem>
-              <MenuItem value="JavaScript">JavaScript</MenuItem>
-              <MenuItem value="GraphQL">GraphQL</MenuItem>
-            </Select>
+            <NoSsr>
+              <Select
+                value={filters.technologies[0] || ''}
+                onChange={(e) =>
+                  handleFilterChange({
+                    ...filters,
+                    technologies: e.target.value ? [e.target.value] : [],
+                  })
+                }
+                displayEmpty
+                sx={{ minWidth: 200 }}
+              >
+                <MenuItem value="">All Projects</MenuItem>
+                <MenuItem value="React">React</MenuItem>
+                <MenuItem value="JavaScript">JavaScript</MenuItem>
+                <MenuItem value="GraphQL">GraphQL</MenuItem>
+              </Select>
+            </NoSsr>
           </Box>
         </Paper>
 

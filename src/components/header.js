@@ -11,6 +11,7 @@ import {
   useMediaQuery,
   Box,
   Container,
+  NoSsr,
 } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
@@ -165,16 +166,18 @@ const Header = () => {
         </Container>
       </StyledAppBar>
 
-      <StyledDrawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-      >
-        {drawer}
-      </StyledDrawer>
+      <NoSsr>
+        <StyledDrawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </StyledDrawer>
+      </NoSsr>
 
       {/* Toolbar spacer */}
       <Toolbar sx={{ mb: 4 }} />

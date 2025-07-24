@@ -13,6 +13,7 @@ import {
   Fade,
   Slide,
   Grow,
+  NoSsr,
 } from '@mui/material';
 import {
   ArrowForward,
@@ -339,13 +340,17 @@ function IndexPage() {
           </Grid>
         </Grid>
 
-        <Box ref={skillsRef} sx={{ mb: 6 }}>
-          <SkillsSection visible={skillsVisible} />
-        </Box>
+        <NoSsr>
+          <Box ref={skillsRef} sx={{ mb: 6 }}>
+            <SkillsSection visible={skillsVisible} />
+          </Box>
+        </NoSsr>
 
-        <Box ref={ctaRef}>
-          <CTASection visible={ctaVisible} />
-        </Box>
+        <NoSsr>
+          <Box ref={ctaRef}>
+            <CTASection visible={ctaVisible} />
+          </Box>
+        </NoSsr>
       </Container>
     </Layout>
   );

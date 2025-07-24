@@ -10,6 +10,7 @@ import {
   Link,
   useTheme,
   Alert,
+  NoSsr,
 } from '@mui/material';
 import {
   Email,
@@ -208,56 +209,58 @@ const Contact = () => {
                 </Alert>
               )}
 
-              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <TextField
-                  fullWidth
-                  label="Your Name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  margin="normal"
-                  variant="outlined"
-                />
-                <TextField
-                  fullWidth
-                  label="Your Email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  margin="normal"
-                  variant="outlined"
-                />
-                <TextField
-                  fullWidth
-                  label="Your Message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  multiline
-                  rows={4}
-                  margin="normal"
-                  variant="outlined"
-                />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  endIcon={<Send />}
-                  sx={{
-                    mt: 3,
-                    borderRadius: 20,
-                    textTransform: 'none',
-                    px: 4,
-                  }}
-                >
-                  Send Message
-                </Button>
-              </Box>
+              <NoSsr>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                  <TextField
+                    fullWidth
+                    label="Your Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    margin="normal"
+                    variant="outlined"
+                  />
+                  <TextField
+                    fullWidth
+                    label="Your Email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    margin="normal"
+                    variant="outlined"
+                  />
+                  <TextField
+                    fullWidth
+                    label="Your Message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    multiline
+                    rows={4}
+                    margin="normal"
+                    variant="outlined"
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    endIcon={<Send />}
+                    sx={{
+                      mt: 3,
+                      borderRadius: 20,
+                      textTransform: 'none',
+                      px: 4,
+                    }}
+                  >
+                    Send Message
+                  </Button>
+                </Box>
+              </NoSsr>
             </ContactCard>
           </Grid>
         </Grid>

@@ -10,6 +10,7 @@ import {
   useTheme,
   Fade,
   Slide,
+  NoSsr,
 } from '@mui/material';
 import {
   Code as CodeIcon,
@@ -144,8 +145,9 @@ const AboutPage = () => {
           </Fade>
         </Box>
         <Box ref={personalRef} sx={{ mb: 6 }}>
-          <Slide direction="up" in={personalVisible} timeout={800}>
-            <PersonalCard elevation={3}>
+          <NoSsr>
+            <Slide direction="up" in={personalVisible} timeout={800}>
+              <PersonalCard elevation={3}>
               <Typography variant="h4" component="h2" gutterBottom align="center">
                 Beyond the Code
               </Typography>
@@ -201,8 +203,9 @@ const AboutPage = () => {
                   </InterestItem>
                 </Grid>
               </Grid>
-            </PersonalCard>
-          </Slide>
+              </PersonalCard>
+            </Slide>
+          </NoSsr>
         </Box>
 
         <Box sx={{ textAlign: 'center', mb: 6 }}>
@@ -220,8 +223,9 @@ const AboutPage = () => {
         </Box>
 
         <Box ref={techRef} sx={{ mb: 6 }}>
-          <Fade in={techVisible} timeout={1000}>
-            <TechSection elevation={2}>
+          <NoSsr>
+            <Fade in={techVisible} timeout={1000}>
+              <TechSection elevation={2}>
               <GradientText variant="h3" component="h2" align="center" gutterBottom>
                 Technology Stack & Tools
               </GradientText>
@@ -299,8 +303,9 @@ const AboutPage = () => {
                   </TechCard>
                 </Grid>
               </Grid>
-            </TechSection>
-          </Fade>
+              </TechSection>
+            </Fade>
+          </NoSsr>
         </Box>
 
         <Box sx={{ textAlign: 'center', mt: 6 }}>

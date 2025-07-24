@@ -7,7 +7,7 @@
 
 A modern, performant developer portfolio built with Gatsby and React, featuring a Material-UI design system, optimized images, and responsive layouts.
 
-🌐 **Live Site**: [https://www.jeffmaxwell.dev](https://www.jeffmaxwell.dev)
+🌐 **Live Site**: [https://www.el-jefe.me](https://www.el-jefe.me)
 
 ## 📸 Screenshots
 
@@ -226,8 +226,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Email: [maxjeffwell@gmail.com](mailto:maxjeffwell@gmail.com)
 - GitHub: [@maxjeffwell](https://github.com/maxjeffwell)
-- LinkedIn: [Jeff Maxwell](https://www.linkedin.com/in/maxjeffwell)
-- Portfolio: [https://www.jeffmaxwell.dev](https://www.jeffmaxwell.dev)
+- Portfolio: [https://www.el-jefe.me](https://www.el-jefe.me)
 
 ---
 

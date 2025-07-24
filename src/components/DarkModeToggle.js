@@ -8,6 +8,7 @@ import {
   Tooltip,
   Box,
   useTheme as useMuiTheme,
+  NoSsr,
 } from '@mui/material';
 import {
   Brightness4,
@@ -46,9 +47,10 @@ const DarkModeToggle = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Tooltip title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
-        <IconButton
+    <NoSsr>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Tooltip title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
+          <IconButton
           onClick={handleClick}
           color="inherit"
           sx={{
@@ -113,8 +115,9 @@ const DarkModeToggle = () => {
           </ListItemIcon>
           <ListItemText>Follow system preference</ListItemText>
         </MenuItem>
-      </Menu>
-    </Box>
+        </Menu>
+      </Box>
+    </NoSsr>
   );
 };
 
