@@ -130,10 +130,17 @@ function Header() {
           <Toolbar sx={{ justifyContent: 'space-between', padding: { xs: 1, sm: 2 } }}>
             {isMobile && (
               <IconButton
-                color="inherit"
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
+                sx={{
+                  color: theme.palette.mode === 'dark' 
+                    ? theme.palette.text.primary 
+                    : theme.palette.text.primary,
+                  '&:hover': {
+                    backgroundColor: theme.palette.action.hover,
+                  },
+                }}
               >
                 <MenuIcon />
               </IconButton>

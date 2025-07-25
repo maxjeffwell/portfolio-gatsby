@@ -131,22 +131,30 @@ function IndexPage() {
               </Typography>
               <GradientText variant="h2" component="h1" gutterBottom>
                 I'm a{' '}
-                <Box component="span" sx={{ color: muiTheme.palette.text.primary }}>
-                  <TypingAnimation
-                    texts={[
-                      'Full Stack Developer',
-                      'React Specialist',
-                      'Node.js Expert',
-                      'GraphQL Enthusiast',
-                      'JAMstack Architect',
-                      'Problem Solver',
-                    ]}
-                    typeSpeed={80}
-                    deleteSpeed={40}
-                    delayBetweenTexts={1500}
-                    loop
-                    startDelay={800}
-                  />
+                <Box 
+                  component="span" 
+                  sx={{ 
+                    color: muiTheme.palette.primary.main,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  <NoSsr fallback={<span>Full Stack Developer</span>}>
+                    <TypingAnimation
+                      texts={[
+                        'Full Stack Developer',
+                        'React Specialist',
+                        'Node.js Expert',
+                        'GraphQL Enthusiast',
+                        'JAMstack Architect',
+                        'Problem Solver',
+                      ]}
+                      typeSpeed={80}
+                      deleteSpeed={40}
+                      delayBetweenTexts={1500}
+                      loop
+                      startDelay={800}
+                    />
+                  </NoSsr>
                 </Box>
               </GradientText>
               <Typography variant="h6" color="text.secondary" sx={{ mt: 2 }}>

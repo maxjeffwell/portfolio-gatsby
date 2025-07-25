@@ -10,9 +10,11 @@ const TypingContainer = styled('span')(() => ({
 
 const TypingText = styled('span')(({ theme }) => ({
   fontFamily: 'inherit',
-  color: theme.palette.primary.main,
+  color: 'inherit',
   fontWeight: 'bold',
   fontSize: 'inherit',
+  minHeight: '1em',
+  display: 'inline-block',
 }));
 
 const Cursor = styled('span')(({ theme, blink }) => ({
@@ -117,16 +119,21 @@ function TypingAnimation({
   ]);
 
   // Show fallback text during SSR or before animation starts
-  if (!isMounted) {
-    return <TypingText>full stack web developer</TypingText>;
+  if (!isMounted || !texts.length) {
+    return (
+      <TypingContainer>
+        <TypingText>Full Stack Developer</TypingText>
+        {showCursor && <Cursor blink={false} />}
+      </TypingContainer>
+    );
   }
 
-  if (!texts.length) return null;
+  const currentDisplayText = displayText || (isStarted ? '' : texts[0] || 'Full Stack Developer');
 
   return (
     <TypingContainer>
-      <TypingText>{displayText || (isStarted ? '' : 'full stack web developer')}</TypingText>
-      {showCursor && <Cursor blink={cursorBlink} />}
+      <TypingText>{currentDisplayText}</TypingText>
+      {showCursor && <Cursor blink={cursorBlink && isStarted} />}
     </TypingContainer>
   );
 }
