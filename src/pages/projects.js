@@ -223,6 +223,7 @@ const Projects = ({ data }) => {
       imageSrcPath3: project.techIcons.icon3,
       imageSrcPath4: project.techIcons.icon4,
       imageSrcPath5: project.techIcons.icon5,
+      imageSrcPath6: project.techIcons.icon6,
     }));
   }, [filteredProjects, data]);
 
@@ -307,6 +308,7 @@ const Projects = ({ data }) => {
                     imageSrcPath3={project.imageSrcPath3}
                     imageSrcPath4={project.imageSrcPath4}
                     imageSrcPath5={project.imageSrcPath5}
+                    imageSrcPath6={project.imageSrcPath6}
                   />
                 </Grid>
               </Fade>

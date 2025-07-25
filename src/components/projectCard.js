@@ -72,6 +72,7 @@ function ProjectCard({
   imageSrcPath3,
   imageSrcPath4,
   imageSrcPath5,
+  imageSrcPath6,
   title,
   date,
   description,
@@ -165,6 +166,21 @@ function ProjectCard({
                 }}
               />
             </TechIcon>
+            {imageSrcPath6 && (
+              <TechIcon>
+                <img
+                  src={imageSrcPath6}
+                  alt="Technology icon"
+                  width="24"
+                  height="24"
+                  style={{
+                    objectFit: 'contain',
+                    filter:
+                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
+                  }}
+                />
+              </TechIcon>
+            )}
             {typeof window !== 'undefined' && (
               <>
                 <TechIcon>
@@ -231,6 +247,7 @@ ProjectCard.propTypes = {
   imageSrcPath3: PropTypes.string.isRequired,
   imageSrcPath4: PropTypes.string.isRequired,
   imageSrcPath5: PropTypes.string.isRequired,
+  imageSrcPath6: PropTypes.string,
   technologies: PropTypes.arrayOf(PropTypes.string),
 };
 
