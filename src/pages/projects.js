@@ -29,6 +29,8 @@ import RedisIcon from '../images/redis.svg';
 import NPMIcon from '../images/npm.svg';
 import VercelIcon from '../images/vercel.svg';
 import NodeJSIcon from '../images/nodejs.svg';
+import FirebaseIcon from '../images/firebase.svg';
+import NeonTechIcon from '../images/neon-tech.svg';
 
 const projectsData = [
   {
@@ -125,10 +127,21 @@ const projectsData = [
       '  the simplicity of its original educational goals.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
     hostedURL: 'https://marmoset-c2870.firebaseapp.com',
-    technologies: ['React', 'CSS', 'PostgreSQL', 'Git', 'NPM'],
+    technologies: [
+      'React',
+      'CSS',
+      'PostgreSQL',
+      'Git',
+      'NPM',
+      'Google Cloud',
+      'Firebase',
+      'Firebase Studio',
+      'Firebase Firestore',
+      'Cloud Firestore',
+    ],
     techIcons: {
       icon3: CSSIcon,
-      icon4: PostgresqlIcon,
+      icon4: FirebaseIcon,
       icon5: NPMIcon,
     },
     screenshots: {
@@ -149,11 +162,20 @@ const projectsData = [
       '  on a 5-star scale, mark favorites, and filter their collection by rating or favorite status.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     hostedURL: 'https://bookmarks-react-hooks.vercel.app/',
-    technologies: ['React', 'Git', 'Vercel', 'NodeJS'],
+    technologies: [
+      'React',
+      'Git',
+      'Vercel',
+      'NodeJS',
+      'Neon',
+      'Neon Serverless Postgres',
+      'Neon Database',
+    ],
     techIcons: {
       icon3: NPMIcon,
       icon4: VercelIcon,
       icon5: NodeJSIcon,
+      icon6: NeonTechIcon,
     },
     screenshots: {
       screenshot1: 'bookmarked_screenshot',
