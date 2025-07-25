@@ -42,7 +42,7 @@ const GradientText = styled(Typography)(({ theme }) => ({
   background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
   backgroundClip: 'text',
   WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
+  WebkitTextFillColor: '#1565c0',
   display: 'inline-block',
 }));
 

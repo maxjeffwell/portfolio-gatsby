@@ -210,7 +210,7 @@ function AboutPage() {
               borderRadius: 2,
               overflow: 'hidden',
               boxShadow: 3,
-              backgroundColor: '#1976d2',
+              backgroundColor: 'rgb(0, 89, 149)',
             }}
           >
             <Image />
