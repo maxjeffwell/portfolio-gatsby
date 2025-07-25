@@ -227,7 +227,20 @@ function IndexPage() {
                     gutterBottom
                     sx={{ display: 'flex', alignItems: 'center' }}
                   >
-                    <Pets sx={{ mr: 2 }} />
+                    <Box
+                      component="span"
+                      sx={{
+                        mr: 2,
+                        width: 24,
+                        height: 24,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      aria-hidden="true"
+                    >
+                      🐾
+                    </Box>
                     Beyond the Code
                   </Typography>
                   <Typography variant="body1" sx={{ mb: 3 }}>
