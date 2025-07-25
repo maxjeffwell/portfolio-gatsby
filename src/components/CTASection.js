@@ -119,12 +119,6 @@ function CTASectionComponent({ visible }) {
       label: 'Call Jeff Maxwell at 508-395-2008',
     },
     {
-      icon: LinkedIn,
-      text: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/jeffrey-maxwell-553176172',
-      label: 'Connect on LinkedIn',
-    },
-    {
       icon: GitHub,
       text: 'GitHub',
       href: 'https://github.com/maxjeffwell',

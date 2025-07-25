@@ -11,22 +11,23 @@ const PerformanceMonitor = () => {
       return;
     }
 
-    const reportPerformanceMetrics = () => {
-      // Core Web Vitals monitoring
-      const reportMetric = (metric) => {
-        // In a real app, you'd send this to your analytics service
-        console.log(`Performance metric: ${metric.name}`, metric.value);
+    // Core Web Vitals monitoring - define reportMetric at top level
+    const reportMetric = (metric) => {
+      // In a real app, you'd send this to your analytics service
+      console.log(`Performance metric: ${metric.name}`, metric.value);
 
-        // Optional: Send to Google Analytics or other analytics service
-        if (typeof gtag !== 'undefined') {
-          gtag('event', metric.name, {
-            event_category: 'Web Vitals',
-            value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-            event_label: metric.id,
-            non_interaction: true,
-          });
-        }
-      };
+      // Optional: Send to Google Analytics or other analytics service
+      if (typeof gtag !== 'undefined') {
+        gtag('event', metric.name, {
+          event_category: 'Web Vitals',
+          value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+          event_label: metric.id,
+          non_interaction: true,
+        });
+      }
+    };
+
+    const reportPerformanceMetrics = () => {
 
       // Monitor Core Web Vitals
       if ('PerformanceObserver' in window) {

@@ -253,7 +253,6 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           knowsAbout: ['JavaScript', 'React', 'Node.js', 'Full Stack Development'],
           sameAs: [
             'https://github.com/maxjeffwell',
-            'https://linkedin.com/in/jeffrey-maxwell-553176172',
             'https://angel.co/maxjeffwell',
           ],
         })}

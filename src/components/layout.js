@@ -100,15 +100,6 @@ function ThemedLayout({ children, data }) {
               <Language fontSize="large" />
             </SocialLink>
             <SocialLink
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.linkedin.com/in/jeffrey-maxwell-553176172"
-              aria-label="Visit Jeff Maxwell's LinkedIn profile"
-              size="large"
-            >
-              <LinkedIn fontSize="large" />
-            </SocialLink>
-            <SocialLink
               href="tel:+01-508-395-2008"
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
