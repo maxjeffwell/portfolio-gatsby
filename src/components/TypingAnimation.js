@@ -15,6 +15,8 @@ const TypingText = styled('span')(({ theme }) => ({
   fontSize: 'inherit',
   minHeight: '1em',
   display: 'inline-block',
+  minWidth: '280px',
+  textAlign: 'left',
 }));
 
 const Cursor = styled('span')(({ theme, blink }) => ({

@@ -211,6 +211,8 @@ function AboutPage() {
               overflow: 'hidden',
               boxShadow: 3,
               backgroundColor: 'rgb(0, 89, 149)',
+              aspectRatio: '1 / 1',
+              position: 'relative',
             }}
           >
             <Image />

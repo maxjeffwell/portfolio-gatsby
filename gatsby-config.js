@@ -84,6 +84,7 @@ module.exports = {
             'HelveticaNeueLTStd-Roman',
             'SabonLTStd-Roman',
           ],
+          urls: ['/fonts/fonts.css'],
         },
       },
     },

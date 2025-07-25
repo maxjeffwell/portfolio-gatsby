@@ -33,6 +33,7 @@ const HeroSection = styled(Paper)(({ theme }) => ({
   marginBottom: theme.spacing(4),
   position: 'relative',
   overflow: 'hidden',
+  contain: 'layout',
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(4, 2),
   },
@@ -66,6 +67,7 @@ const FloatingShape = styled(Box)(({ theme }) => ({
   borderRadius: '50%',
   opacity: 0.1,
   animation: 'float 6s ease-in-out infinite',
+  willChange: 'transform',
   '@keyframes float': {
     '0%, 100%': {
       transform: 'translateY(0) rotate(0deg)',
