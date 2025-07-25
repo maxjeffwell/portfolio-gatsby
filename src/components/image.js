@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-function Image() {
+function Image({ imageType }) {
   const data = useStaticQuery(graphql`
     query {
       teamImage: file(relativePath: { eq: "code-companions.png" }) {
@@ -35,6 +36,37 @@ function Image() {
   const teamImage = getImage(data.teamImage);
   const teamImage2 = getImage(data.teamImage2);
 
+  if (imageType === 'dogs') {
+    return (
+      <GatsbyImage
+        image={teamImage}
+        alt="See my two dogs"
+        loading="lazy"
+        style={{
+          transition: 'opacity 0.3s ease-in-out',
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    );
+  }
+
+  if (imageType === 'mascot') {
+    return (
+      <GatsbyImage
+        image={teamImage2}
+        alt="See my mascot"
+        loading="eager"
+        style={{
+          transition: 'opacity 0.3s ease-in-out',
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    );
+  }
+
+  // Default behavior (fallback)
   return (
     <>
       <GatsbyImage
@@ -56,4 +88,13 @@ function Image() {
     </>
   );
 }
+
+Image.propTypes = {
+  imageType: PropTypes.oneOf(['dogs', 'mascot']),
+};
+
+Image.defaultProps = {
+  imageType: null,
+};
+
 export default Image;

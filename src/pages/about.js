@@ -202,22 +202,40 @@ function AboutPage() {
           </NoSsr>
         </Box>
 
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Box
-            sx={{
-              maxWidth: 400,
-              mx: 'auto',
-              borderRadius: 2,
-              overflow: 'hidden',
-              boxShadow: 3,
-              backgroundColor: 'rgb(0, 89, 149)',
-              aspectRatio: '1 / 1',
-              position: 'relative',
-            }}
-          >
-            <Image />
-          </Box>
-        </Box>
+        <Grid container spacing={4} sx={{ mb: 6 }}>
+          <Grid item xs={12} md={6}>
+            <Card
+              elevation={3}
+              sx={{
+                borderRadius: 3,
+                overflow: 'hidden',
+                backgroundColor: 'rgb(0, 89, 149)',
+                aspectRatio: '1 / 1',
+                position: 'relative',
+              }}
+            >
+              <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Image imageType="mascot" />
+              </Box>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card
+              elevation={3}
+              sx={{
+                borderRadius: 3,
+                overflow: 'hidden', 
+                backgroundColor: 'rgb(0, 89, 149)',
+                aspectRatio: '1 / 1',
+                position: 'relative',
+              }}
+            >
+              <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Image imageType="dogs" />
+              </Box>
+            </Card>
+          </Grid>
+        </Grid>
 
         <Box ref={techRef} sx={{ mb: 6 }}>
           <NoSsr>
