@@ -34,14 +34,14 @@ function extractInlineScriptsAndStyles(htmlContent) {
 function generateCSPForFiles() {
   const publicDir = path.join(__dirname, '..', 'public');
   const htmlFiles = [];
-  
+
   // Find all HTML files
   function findHtmlFiles(dir) {
     const files = fs.readdirSync(dir);
-    files.forEach(file => {
+    files.forEach((file) => {
       const filePath = path.join(dir, file);
       const stat = fs.statSync(filePath);
-      
+
       if (stat.isDirectory()) {
         findHtmlFiles(filePath);
       } else if (file.endsWith('.html')) {
@@ -56,40 +56,40 @@ function generateCSPForFiles() {
   const allStyleHashes = new Set();
 
   // Process each HTML file
-  htmlFiles.forEach(filePath => {
+  htmlFiles.forEach((filePath) => {
     const htmlContent = fs.readFileSync(filePath, 'utf8');
     const { scriptHashes, styleHashes } = extractInlineScriptsAndStyles(htmlContent);
-    
-    scriptHashes.forEach(hash => allScriptHashes.add(hash));
-    styleHashes.forEach(hash => allStyleHashes.add(hash));
+
+    scriptHashes.forEach((hash) => allScriptHashes.add(hash));
+    styleHashes.forEach((hash) => allStyleHashes.add(hash));
   });
 
   // Generate CSP
-  const scriptSrc = `'self' ${Array.from(allScriptHashes).join(' ')} 'strict-dynamic'`;
-  const styleSrc = `'self' ${Array.from(allStyleHashes).join(' ')} fonts.googleapis.com`;
-  
-  const csp = [
+  const scriptSrc = `'self', 'unsafe-inline' ${Array.from(allScriptHashes).join(' ')} 'strict-dynamic'`;
+  const styleSrc = `'self', 'unsafe-inline' ${Array.from(allStyleHashes).join(' ')} fonts.googleapis.com`;
+
+  const csp = `${[
     "default-src 'self'",
     `script-src ${scriptSrc}`,
     `style-src ${styleSrc}`,
     "font-src 'self' fonts.gstatic.com data:",
     "img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com",
     "connect-src 'self' *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com *.posthog.com plausible.io",
-    "frame-src *.hotjar.com *.clarity.ms",
+    "frame-src *.hotjar.com *.clarity.ms 'self'",
     "object-src 'none'",
     "frame-ancestors 'none'",
     "base-uri 'self'",
-    "form-action 'self' https://jeffmaxwell.dev",
-    "upgrade-insecure-requests"
-  ].join('; ') + ';';
+    "form-action 'self' https://el-jefe.me",
+    'upgrade-insecure-requests',
+  ].join('; ')};`;
 
   console.log('Generated CSP:');
   console.log(csp);
-  
+
   // Update _headers file
   const headersPath = path.join(publicDir, '_headers');
   let headersContent = fs.readFileSync(headersPath, 'utf8');
-  
+
   // Find the security headers section and add CSP
   if (headersContent.includes('Permissions-Policy:')) {
     headersContent = headersContent.replace(
@@ -100,7 +100,7 @@ function generateCSPForFiles() {
     // Add CSP at the end of the file
     headersContent += `\n# Hash-based Content Security Policy\n/*\n  Content-Security-Policy: ${csp}\n`;
   }
-  
+
   fs.writeFileSync(headersPath, headersContent);
   console.log('Updated _headers file with hash-based CSP');
 }
