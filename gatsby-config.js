@@ -14,7 +14,7 @@ module.exports = {
     imageCDN: false,
   }),
   plugins: [
-    `gatsby-plugin-webpack-bundle-analyser-v2`,
+    // `gatsby-plugin-webpack-bundle-analyser-v2`, // Only enable when needed
     `gatsby-plugin-react-helmet-async`,
     `gatsby-plugin-image`,
     {
@@ -29,10 +29,10 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {
-          formats: [`auto`, `webp`, `avif`],
-          placeholder: `blurred`,
-          quality: 85,
-          breakpoints: [750, 1080, 1366, 1920],
+          formats: [`auto`, `webp`], // Removed avif for faster builds
+          placeholder: `none`, // Disable blur for faster builds
+          quality: 80,
+          breakpoints: [750, 1080], // Reduced breakpoints
           backgroundColor: `transparent`,
           tracedSVGOptions: {},
           blurredOptions: {},
@@ -41,9 +41,9 @@ module.exports = {
           webpOptions: {
             quality: 85,
           },
-          avifOptions: {
-            quality: 80,
-          },
+          // avifOptions: {
+          //   quality: 80,
+          // },
         },
       },
     },
@@ -117,9 +117,10 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-html-minifier`,
-      options: {
+    // Disable HTML minification to speed up builds
+    // {
+    //   resolve: `gatsby-plugin-html-minifier`,
+    //   options: {
         caseSensitive: true,
         collapseBooleanAttributes: true,
         collapseInlineTagWhitespace: true,
@@ -158,8 +159,8 @@ module.exports = {
         sortClassName: true,
         trimCustomFragments: true,
         useShortDoctype: true,
-      },
-    },
+    //   },
+    // },
     // gatsby-plugin-netlify must be last in the plugins array
     `gatsby-plugin-netlify`,
   ],
