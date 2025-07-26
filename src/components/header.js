@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography,
   Button,
   IconButton,
   Drawer,
@@ -20,12 +19,13 @@ import { styled } from '@mui/material/styles';
 import MyLogo from './myLogo';
 import DarkModeToggle from './DarkModeToggle';
 
+const getAppBarBackground = (theme, scrolled) => {
+  if (!scrolled) return 'transparent';
+  return theme.palette.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+};
+
 const StyledAppBar = styled(AppBar)(({ theme, scrolled }) => ({
-  background: scrolled
-    ? theme.palette.mode === 'dark'
-      ? 'rgba(30, 30, 30, 0.95)'
-      : 'rgba(255, 255, 255, 0.95)'
-    : 'transparent',
+  background: getAppBarBackground(theme, scrolled),
   backdropFilter: scrolled ? 'blur(20px)' : 'none',
   boxShadow: scrolled ? theme.shadows[4] : 'none',
   transition: theme.transitions.create(['background', 'backdrop-filter', 'box-shadow'], {
@@ -110,7 +110,12 @@ function Header() {
           <CloseIcon />
         </IconButton>
       </Box>
-      <Box component="nav" role="navigation" aria-label="Mobile navigation" sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
+      <Box
+        component="nav"
+        role="navigation"
+        aria-label="Mobile navigation"
+        sx={{ display: 'flex', flexDirection: 'column', p: 2 }}
+      >
         {menuItems.map((item) => (
           <Button
             key={item.text}
@@ -136,7 +141,13 @@ function Header() {
 
   return (
     <>
-      <StyledAppBar position="fixed" scrolled={isScrolled ? 1 : 0} elevation={0} component="header" role="banner">
+      <StyledAppBar
+        position="fixed"
+        scrolled={isScrolled ? 1 : 0}
+        elevation={0}
+        component="header"
+        role="banner"
+      >
         <Container maxWidth="lg">
           <Toolbar sx={{ justifyContent: 'space-between', padding: { xs: 1, sm: 2 } }}>
             {isMobile && (
@@ -160,7 +171,12 @@ function Header() {
             )}
 
             {!isMobile && (
-              <Box component="nav" role="navigation" aria-label="Main navigation" sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box
+                component="nav"
+                role="navigation"
+                aria-label="Main navigation"
+                sx={{ display: 'flex', alignItems: 'center' }}
+              >
                 {menuItems.map((item) => (
                   <NavButton
                     key={item.text}
