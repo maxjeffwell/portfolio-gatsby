@@ -18,7 +18,28 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
   `);
 
   const metaDescription = description || site.siteMetadata.description;
-  const metaTitle = title ? `${title} | ${site.siteMetadata.title}` : site.siteMetadata.title;
+
+  // Create longer, more SEO-optimized titles based on page
+  const createOptimizedTitle = (pageTitle) => {
+    const baseBrand = 'Jeff Maxwell';
+    const primarySkills = 'Full Stack React & Node.js Developer';
+    const location = 'Portfolio 2025';
+
+    if (!pageTitle) {
+      return `${baseBrand} - ${primarySkills} | ${location}`;
+    }
+
+    const titleMap = {
+      Home: `${baseBrand} - ${primarySkills} | Modern Web Development ${location}`,
+      Projects: `${pageTitle} - React & Node.js Portfolio | Full Stack Web Development by ${baseBrand}`,
+      About: `${pageTitle} ${baseBrand} - ${primarySkills} | Professional Developer Bio & Team`,
+      Contact: `${pageTitle} ${baseBrand} - Hire ${primarySkills} | Freelance Web Development Services`,
+    };
+
+    return titleMap[pageTitle] || `${pageTitle} | ${baseBrand} - ${primarySkills}`;
+  };
+
+  const metaTitle = createOptimizedTitle(title);
   const metaImage = image
     ? `${site.siteMetadata.siteUrl}${image}`
     : `${site.siteMetadata.siteUrl}/icons/icon-512x512.png`;
@@ -266,7 +287,7 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
             'Responsive Web Design',
             'API Development',
             'Database Design',
-            'Web Application Development'
+            'Web Application Development',
           ],
           sameAs: ['https://github.com/maxjeffwell', 'https://angel.co/maxjeffwell'],
         })}

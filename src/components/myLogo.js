@@ -31,7 +31,7 @@ function MyLogo() {
   return (
     <StyledGatsbyImage
       image={logoImage}
-      alt="Jeff Maxwell logo"
+      alt="Jeff Maxwell portfolio logo featuring an elephant design"
       loading="eager"
       style={{
         transition: 'opacity 0.3s ease-in-out',

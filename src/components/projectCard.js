@@ -206,7 +206,7 @@ function ProjectCard({
               <TechIcon role="img" aria-label="Technology used in project">
                 <img
                   src={imageSrcPath3}
-                  alt=""
+                  alt="Primary technology logo used in this project"
                   width="24"
                   height="24"
                   style={{
@@ -221,7 +221,7 @@ function ProjectCard({
               <TechIcon role="img" aria-label="Technology used in project">
                 <img
                   src={imageSrcPath4}
-                  alt=""
+                  alt="Secondary technology logo used in this project"
                   width="24"
                   height="24"
                   style={{
@@ -236,7 +236,7 @@ function ProjectCard({
               <TechIcon role="img" aria-label="Technology used in project">
                 <img
                   src={imageSrcPath5}
-                  alt=""
+                  alt="Third technology logo used in this project"
                   width="24"
                   height="24"
                   style={{
@@ -251,7 +251,7 @@ function ProjectCard({
               <TechIcon role="img" aria-label="Technology used in project">
                 <img
                   src={imageSrcPath6}
-                  alt=""
+                  alt="Additional technology logo used in this project"
                   width="24"
                   height="24"
                   style={{

@@ -103,7 +103,7 @@ function AboutPage() {
     <Layout>
       <SEO
         title="About"
-        description="Meet Jeff Maxwell and his development team. Learn about the technologies, tools, and creative process behind his full stack web development work."
+        description="Meet Jeff Maxwell, Full Stack Developer. Technology stack, development process, and the team behind innovative web solutions and modern applications."
         pathname="/about/"
         keywords={[
           `about jeff maxwell`,
@@ -116,7 +116,11 @@ function AboutPage() {
       />
       <Container maxWidth="lg">
         <Box component="section" aria-labelledby="about-header" ref={headerRef} sx={{ mb: 6 }}>
-          <Fade in={headerVisible} timeout={600} style={{ transitionDelay: headerVisible ? '0ms' : '0ms' }}>
+          <Fade
+            in={headerVisible}
+            timeout={600}
+            style={{ transitionDelay: headerVisible ? '0ms' : '0ms' }}
+          >
             <div style={{ willChange: 'opacity' }}>
               <GradientText
                 variant="h2"
@@ -269,7 +273,11 @@ function AboutPage() {
 
         <Box component="section" aria-labelledby="tech-stack" ref={techRef} sx={{ mb: 6 }}>
           <NoSsr fallback={<Box sx={{ minHeight: '400px', backgroundColor: 'action.hover' }} />}>
-            <Fade in={techVisible} timeout={600} style={{ transitionDelay: techVisible ? '0ms' : '0ms' }}>
+            <Fade
+              in={techVisible}
+              timeout={600}
+              style={{ transitionDelay: techVisible ? '0ms' : '0ms' }}
+            >
               <TechSection elevation={2} sx={{ willChange: 'transform' }}>
                 <GradientText
                   variant="h2"

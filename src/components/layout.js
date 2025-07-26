@@ -72,12 +72,12 @@ function ThemedLayout({ children, data }) {
         }}
       />
       <Header />
-      <Container 
-        maxWidth="lg" 
-        component="main" 
-        role="main" 
-        sx={{ 
-          mt: 8, 
+      <Container
+        maxWidth="lg"
+        component="main"
+        role="main"
+        sx={{
+          mt: 8,
           mb: 4,
           '@media (max-width: 360px)': {
             mt: 6,
