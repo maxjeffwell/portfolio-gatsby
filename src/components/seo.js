@@ -215,7 +215,7 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
         },
         {
           rel: 'manifest',
-          href: '/manifest.json',
+          href: '/manifest.webmanifest',
         },
         {
           rel: 'apple-touch-icon',
