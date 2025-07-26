@@ -9,6 +9,13 @@ import { CacheProvider } from '@emotion/react';
 import createEmotionCache from '@emotion/cache';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
+// Fix for React 18 ContextRegistry issue
+if (typeof window !== 'undefined' && React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) {
+  if (!React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry) {
+    React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry = {};
+  }
+}
+
 const cache = createEmotionCache({ key: 'mui' });
 
 export const wrapRootElement = ({ element }) => {

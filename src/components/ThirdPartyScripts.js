@@ -158,23 +158,46 @@ const ThirdPartyScripts = () => {
             }
 
             // Load web-vitals library and observe Core Web Vitals
-            import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
-              .then((webVitals) => {
-                // Use the correct web-vitals v3 API
-                webVitals.onFCP(reportWebVitals);
-                webVitals.onLCP(reportWebVitals);
-                webVitals.onFID(reportWebVitals);
-                webVitals.onCLS(reportWebVitals);
-                webVitals.onTTFB(reportWebVitals);
-                
-                // Also monitor additional metrics if available
-                if (webVitals.onINP) {
-                  webVitals.onINP(reportWebVitals);
-                }
-              })
-              .catch((error) => {
-                console.warn('Failed to load web-vitals:', error);
+            // Delay the dynamic import until after the page is fully loaded
+            if (document.readyState === 'complete') {
+              import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
+                .then((webVitals) => {
+                  // Use the correct web-vitals v3 API
+                  webVitals.onFCP(reportWebVitals);
+                  webVitals.onLCP(reportWebVitals);
+                  webVitals.onFID(reportWebVitals);
+                  webVitals.onCLS(reportWebVitals);
+                  webVitals.onTTFB(reportWebVitals);
+                  
+                  // Also monitor additional metrics if available
+                  if (webVitals.onINP) {
+                    webVitals.onINP(reportWebVitals);
+                  }
+                })
+                .catch((error) => {
+                  console.warn('Failed to load web-vitals:', error);
+                });
+            } else {
+              window.addEventListener('load', () => {
+                import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
+                  .then((webVitals) => {
+                    // Use the correct web-vitals v3 API
+                    webVitals.onFCP(reportWebVitals);
+                    webVitals.onLCP(reportWebVitals);
+                    webVitals.onFID(reportWebVitals);
+                    webVitals.onCLS(reportWebVitals);
+                    webVitals.onTTFB(reportWebVitals);
+                    
+                    // Also monitor additional metrics if available
+                    if (webVitals.onINP) {
+                      webVitals.onINP(reportWebVitals);
+                    }
+                  })
+                  .catch((error) => {
+                    console.warn('Failed to load web-vitals:', error);
+                  });
               });
+            }
           }
         `}
       </Script>
