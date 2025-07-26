@@ -26,7 +26,7 @@ const CodeSnippet = React.lazy(() => import('../components/CodeSnippet'));
 const HeroSection = styled('div')(({ theme }) => ({
   padding: theme.spacing(6, 4),
   textAlign: 'center',
-  background: '#f5f7fa',
+  background: '#e8eaf6',
   borderRadius: theme.shape.borderRadius * 3,
   marginBottom: theme.spacing(4),
   position: 'relative',
@@ -130,7 +130,7 @@ function IndexPage() {
                 }}
               />
             </NoSsr>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontSize: '1.25rem' }}>
+            <Typography variant="body1" color="text.primary" sx={{ mb: 2, fontSize: '1.25rem', fontWeight: 500 }}>
               My name's Jeff.
             </Typography>
             <GradientText variant="h1" gutterBottom sx={{ minHeight: '4.5rem' }} id="hero-title">
@@ -145,6 +145,7 @@ function IndexPage() {
                   width: '320px',
                   minHeight: '1.2em',
                   textAlign: 'left',
+                  fontSize: '0.7em',
                 }}
               >
                 <Box
@@ -158,6 +159,7 @@ function IndexPage() {
                     opacity: 0,
                     pointerEvents: 'none',
                     visibility: 'hidden',
+                    fontSize: 'inherit',
                   }}
                   aria-hidden="true"
                 >
@@ -189,8 +191,8 @@ function IndexPage() {
             </GradientText>
             <Typography
               variant="body1"
-              color="text.secondary"
-              sx={{ mt: 2, minHeight: '1.75rem', fontSize: '1.125rem' }}
+              color="text.primary"
+              sx={{ mt: 2, minHeight: '1.75rem', fontSize: '1.125rem', fontWeight: 400 }}
             >
               crafting exceptional web experiences
             </Typography>

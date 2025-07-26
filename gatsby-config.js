@@ -11,6 +11,11 @@ module.exports = {
   adapter: require(`gatsby-adapter-netlify`).default({
     excludeDatastoreFromEngineFunction: false,
     imageCDN: false,
+    headers: {
+      "/*": [
+        "Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com data:; img-src 'self' data: *.githubusercontent.com *.gravatar.com; connect-src 'self' *.google-analytics.com *.googletagmanager.com; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+      ]
+    }
   }),
   plugins: [
     `gatsby-plugin-webpack-bundle-analyser-v2`,
