@@ -1,19 +1,28 @@
 {
   "name": "portfolio",
   "private": true,
-  "description": "developer portfolio built with Gatsby",
+  "description": "Developer portfolio built with Gatsby",
   "version": "0.2.0",
   "author": "Jeff Maxwell",
-  "browserslist": [
-    "extends browserslist-config-baseline"
-  ],
-  "browserslist-config-baseline": {
-    "logConfigToConsole": true
-  },
+  "homepage": "https://www.el-jefe.me",
+
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
   },
+
+  "scripts": {
+    "build": "NODE_ENV=production gatsby build && node scripts/generate-csp-hashes.js",
+    "build:netlify": "gatsby build",
+    "build:secure": "NODE_ENV=production GENERATE_SOURCEMAP=false gatsby build && node scripts/build-secure.js && node scripts/generate-csp-hashes.js",
+    "build:analyze": "NODE_ENV=production ANALYZE=true gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+  },
+
   "dependencies": {
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
@@ -45,6 +54,7 @@
     "react-icons": "^5.5.0",
     "webpack-bundle-analyzer": "^4.10.2"
   },
+
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
@@ -71,16 +81,11 @@
     "gatsby"
   ],
   "license": "MIT",
-  "scripts": {
-    "build": "NODE_ENV=production gatsby build && node scripts/generate-csp-hashes.js",
-    "build:netlify": "gatsby build",
-    "build:secure": "NODE_ENV=production GENERATE_SOURCEMAP=false gatsby build && node scripts/build-secure.js && node scripts/generate-csp-hashes.js",
-    "build:analyze": "NODE_ENV=production ANALYZE=true gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+  "browserslist": [
+    "extends browserslist-config-baseline"
+  ],
+  "browserslist-config-baseline": {
+    "logConfigToConsole": true
   },
   "repository": {
     "type": "git",
