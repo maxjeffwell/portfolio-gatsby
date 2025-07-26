@@ -67,7 +67,7 @@ function generateCSPForFiles() {
   // Generate CSP with simpler rules to avoid header length issues
   const csp = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google-analytics.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com",
     "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
     "font-src 'self' fonts.gstatic.com data:",
     "img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com",
