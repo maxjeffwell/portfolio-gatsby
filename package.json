@@ -2,13 +2,17 @@
   "name": "portfolio",
   "private": true,
   "description": "developer portfolio built with Gatsby",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Jeff Maxwell",
   "browserslist": [
     "extends browserslist-config-baseline"
   ],
   "browserslist-config-baseline": {
     "logConfigToConsole": true
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -61,6 +65,7 @@
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.32",
     "html-minifier": "^4.0.0",
     "html-minifier-terser": "^7.2.0",
+    "netlify-plugin-cache": "^1.0.3",
     "prettier": "^3.2.5",
     "terser-webpack-plugin": "^5.3.14"
   },
