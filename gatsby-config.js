@@ -8,7 +8,8 @@ const siteMetadata = {
 
 module.exports = {
   siteMetadata,
-  adapter: require(`gatsby-adapter-netlify`).default({
+  // eslint-disable-next-line prettier/prettier
+  adapter: require(`gatsby-adapter-netlify`).default({ // eslint-disable-line global-require
     excludeDatastoreFromEngineFunction: false,
     imageCDN: false,
   }),
@@ -158,30 +159,5 @@ module.exports = {
         useShortDoctype: true,
       },
     },
-    // Temporarily removed gatsby-plugin-offline due to security vulnerabilities in workbox-build
-    // {
-    //   resolve: `gatsby-plugin-offline`,
-    //   options: {
-    //     precachePages: [`/`, `/about/`, `/projects/`],
-    //     workboxConfig: {
-    //       globPatterns: ['**/*'],
-    //       runtimeCaching: [
-    //         {
-    //           urlPattern: /(\.js$|\.css$|static\/)/,
-    //           handler: `CacheFirst`,
-    //         },
-    //         {
-    //           urlPattern: /^https:\/\/fonts\.googleapis\.com/,
-    //           handler: `StaleWhileRevalidate`,
-    //         },
-    //         {
-    //           urlPattern: /^https:\/\/fonts\.gstatic\.com/,
-    //           handler: `CacheFirst`,
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
-    // gatsby-plugin-netlify removed - not compatible with gatsby-adapter-netlify
   ],
 };
