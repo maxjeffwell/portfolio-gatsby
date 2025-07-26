@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Box, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const TypingContainer = styled('span')(() => ({
@@ -8,7 +7,7 @@ const TypingContainer = styled('span')(() => ({
   position: 'relative',
 }));
 
-const TypingText = styled('span')(({ theme }) => ({
+const TypingText = styled('span')(() => ({
   fontFamily: 'inherit',
   color: 'inherit',
   fontWeight: 'bold',
@@ -38,69 +37,71 @@ const Cursor = styled('span')(({ theme, blink }) => ({
   },
 }));
 
-const TypingAnimation = React.memo(function TypingAnimation({
-  texts,
-  typeSpeed = 100,
-  deleteSpeed = 50,
-  delayBetweenTexts = 2000,
-  loop = true,
-  showCursor = true,
-  cursorBlink = true,
-  startDelay = 0,
-}) {
-  const theme = useTheme();
-  
-  // Memoize configuration to prevent unnecessary re-renders
-  const config = useMemo(() => ({
-    typeSpeed,
-    deleteSpeed,
-    delayBetweenTexts,
-    loop
-  }), [typeSpeed, deleteSpeed, delayBetweenTexts, loop]);
-  const [displayText, setDisplayText] = useState('');
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
-  const [isStarted, setIsStarted] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+const TypingAnimation = React.memo(
+  ({
+    texts,
+    typeSpeed = 100,
+    deleteSpeed = 50,
+    delayBetweenTexts = 2000,
+    loop = true,
+    showCursor = true,
+    cursorBlink = true,
+    startDelay = 0,
+  }) => {
+    // Memoize configuration to prevent unnecessary re-renders
+    const config = useMemo(
+      () => ({
+        typeSpeed,
+        deleteSpeed,
+        delayBetweenTexts,
+        loop,
+      }),
+      [typeSpeed, deleteSpeed, delayBetweenTexts, loop]
+    );
+    const [displayText, setDisplayText] = useState('');
+    const [currentTextIndex, setCurrentTextIndex] = useState(0);
+    const [isTyping, setIsTyping] = useState(true);
+    const [isStarted, setIsStarted] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
-  // Handle client-side mounting
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    // Handle client-side mounting
+    useEffect(() => {
+      setIsMounted(true);
+      return undefined;
+    }, []);
 
-  // Start animation after delay
-  useEffect(() => {
-    if (!isMounted) return;
+    // Start animation after delay
+    useEffect(() => {
+      if (!isMounted) return undefined;
 
-    const timer = setTimeout(() => {
-      setIsStarted(true);
-    }, startDelay);
+      const timer = setTimeout(() => {
+        setIsStarted(true);
+      }, startDelay);
 
-    return () => clearTimeout(timer);
-  }, [isMounted, startDelay]);
+      return () => clearTimeout(timer);
+    }, [isMounted, startDelay]);
 
-  // Main typing effect
-  useEffect(() => {
-    if (!isStarted || !texts.length || !isMounted) return;
+    // Main typing effect
+    useEffect(() => {
+      if (!isStarted || !texts.length || !isMounted) return undefined;
 
-    const currentText = texts[currentTextIndex];
-    let timeout;
+      const currentText = texts[currentTextIndex];
+      let timeout;
 
-    if (isTyping) {
-      // Typing phase
-      if (displayText.length < currentText.length) {
-        timeout = setTimeout(() => {
-          setDisplayText(currentText.slice(0, displayText.length + 1));
-        }, config.typeSpeed);
-      } else {
-        // Finished typing, wait then start deleting
-        timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, config.delayBetweenTexts);
-      }
-    } else {
-      // Deleting phase
-      if (displayText.length > 0) {
+      if (isTyping) {
+        // Typing phase
+        if (displayText.length < currentText.length) {
+          timeout = setTimeout(() => {
+            setDisplayText(currentText.slice(0, displayText.length + 1));
+          }, config.typeSpeed);
+        } else {
+          // Finished typing, wait then start deleting
+          timeout = setTimeout(() => {
+            setIsTyping(false);
+          }, config.delayBetweenTexts);
+        }
+      } else if (displayText.length > 0) {
+        // Deleting phase
         timeout = setTimeout(() => {
           setDisplayText(displayText.slice(0, -1));
         }, config.deleteSpeed);
@@ -113,38 +114,32 @@ const TypingAnimation = React.memo(function TypingAnimation({
           setIsTyping(true);
         }
       }
+
+      return () => clearTimeout(timeout);
+    }, [displayText, currentTextIndex, isTyping, isStarted, isMounted, texts, config]);
+
+    // Show fallback text during SSR or before animation starts
+    if (!isMounted || !texts.length) {
+      return (
+        <TypingContainer>
+          <TypingText>{texts[0] || 'React Specialist'}</TypingText>
+          {showCursor && <Cursor blink={false} />}
+        </TypingContainer>
+      );
     }
 
-    return () => clearTimeout(timeout);
-  }, [
-    displayText,
-    currentTextIndex,
-    isTyping,
-    isStarted,
-    isMounted,
-    texts,
-    config,
-  ]);
+    const currentDisplayText = isStarted ? displayText : '';
 
-  // Show fallback text during SSR or before animation starts
-  if (!isMounted || !texts.length) {
     return (
       <TypingContainer>
-        <TypingText>{texts[0] || 'React Specialist'}</TypingText>
-        {showCursor && <Cursor blink={false} />}
+        <TypingText>{currentDisplayText}</TypingText>
+        {showCursor && <Cursor blink={cursorBlink && isStarted} />}
       </TypingContainer>
     );
   }
+);
 
-  const currentDisplayText = isStarted ? displayText : '';
-
-  return (
-    <TypingContainer>
-      <TypingText>{currentDisplayText}</TypingText>
-      {showCursor && <Cursor blink={cursorBlink && isStarted} />}
-    </TypingContainer>
-  );
-});
+TypingAnimation.displayName = 'TypingAnimation';
 
 TypingAnimation.propTypes = {
   texts: PropTypes.arrayOf(PropTypes.string).isRequired,

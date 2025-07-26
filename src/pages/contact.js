@@ -10,8 +10,8 @@ import {
   useTheme,
   Alert,
   NoSsr,
+  Grid,
 } from '@mui/material';
-import { Grid } from '@mui/material';
 import { Email, Phone, GitHub, Send } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
@@ -74,34 +74,34 @@ function Contact() {
 
   const encode = (data) => {
     return Object.keys(data)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
       .join('&');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
         'form-name': 'contact',
-        ...formData
+        ...formData,
+      }),
+    })
+      .then(() => {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', message: '' });
       })
-    })
-    .then(() => {
-      setFormStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    })
-    .catch((error) => {
-      console.error('Form submission error:', error);
-      setFormStatus('error');
-    })
-    .finally(() => {
-      setIsSubmitting(false);
-      setTimeout(() => setFormStatus(''), 8000);
-    });
+      .catch((error) => {
+        console.error('Form submission error:', error);
+        setFormStatus('error');
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+        setTimeout(() => setFormStatus(''), 8000);
+      });
   };
 
   return (
@@ -122,7 +122,7 @@ function Contact() {
       <form name="contact" netlify="true" netlify-honeypot="bot-field" hidden>
         <input type="text" name="name" />
         <input type="email" name="email" />
-        <textarea name="message"></textarea>
+        <textarea name="message" />
       </form>
       <Container maxWidth="lg">
         <Box component="section" aria-labelledby="contact-header" sx={{ mb: 6 }}>
@@ -135,7 +135,17 @@ function Contact() {
         </Box>
 
         <Box component="section" aria-labelledby="contact-methods">
-          <Typography variant="h2" id="contact-methods" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+          <Typography
+            variant="h2"
+            id="contact-methods"
+            sx={{
+              position: 'absolute',
+              left: '-10000px',
+              width: '1px',
+              height: '1px',
+              overflow: 'hidden',
+            }}
+          >
             Contact Information and Methods
           </Typography>
           <Grid container spacing={4}>
@@ -144,200 +154,218 @@ function Contact() {
                 <Typography variant="h3" component="h3" id="get-in-touch" gutterBottom>
                   Get in Touch
                 </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph>
-                Whether you have a project in mind, need technical expertise, or just want to say
-                hello, hello, I&#39;d love to hear from you. Feel free to reach out through any of
-                these channels:
-              </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  Whether you have a project in mind, need technical expertise, or just want to say
+                  hello, hello, I&#39;d love to hear from you. Feel free to reach out through any of
+                  these channels:
+                </Typography>
 
-              <Box sx={{ mt: 4 }}>
-                <ContactMethod>
-                  <Email color="primary" />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Email
-                    </Typography>
-                    <Link
-                      href="mailto:maxjeffwell@gmail.com"
-                      color="primary"
-                      underline="always"
-                      variant="body1"
-                      sx={{
-                        textDecorationThickness: '2px',
-                        textUnderlineOffset: '3px',
-                        '&:hover': {
-                          textDecorationColor: theme.palette.primary.dark,
-                        },
-                      }}
-                    >
-                      maxjeffwell@gmail.com
-                    </Link>
-                  </Box>
-                </ContactMethod>
+                <Box sx={{ mt: 4 }}>
+                  <ContactMethod>
+                    <Email color="primary" />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Email
+                      </Typography>
+                      <Link
+                        href="mailto:maxjeffwell@gmail.com"
+                        color="primary"
+                        underline="always"
+                        variant="body1"
+                        sx={{
+                          textDecorationThickness: '2px',
+                          textUnderlineOffset: '3px',
+                          '&:hover': {
+                            textDecorationColor: theme.palette.primary.dark,
+                          },
+                        }}
+                      >
+                        maxjeffwell@gmail.com
+                      </Link>
+                    </Box>
+                  </ContactMethod>
 
-                <ContactMethod>
-                  <Phone color="primary" />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Phone
-                    </Typography>
-                    <Link
-                      href="tel:+01-508-395-2008"
-                      color="primary"
-                      underline="always"
-                      variant="body1"
-                      sx={{
-                        textDecorationThickness: '2px',
-                        textUnderlineOffset: '3px',
-                        '&:hover': {
-                          textDecorationColor: theme.palette.primary.dark,
-                        },
-                      }}
-                    >
-                      (508) 395-2008
-                    </Link>
-                  </Box>
-                </ContactMethod>
+                  <ContactMethod>
+                    <Phone color="primary" />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Phone
+                      </Typography>
+                      <Link
+                        href="tel:+01-508-395-2008"
+                        color="primary"
+                        underline="always"
+                        variant="body1"
+                        sx={{
+                          textDecorationThickness: '2px',
+                          textUnderlineOffset: '3px',
+                          '&:hover': {
+                            textDecorationColor: theme.palette.primary.dark,
+                          },
+                        }}
+                      >
+                        (508) 395-2008
+                      </Link>
+                    </Box>
+                  </ContactMethod>
 
-                {/* <ContactMethod> */}
-                {/*   <LinkedIn color="primary" /> */}
-                {/*   <Box> */}
-                {/*     <Typography variant="subtitle2" color="text.secondary"> */}
-                {/*       LinkedIn */}
-                {/*     </Typography> */}
-                {/*     <Link */}
-                {/*       href="https://www.linkedin.com/in/jeffrey-maxwell-553176172" */}
-                {/*       target="_blank" */}
-                {/*       rel="noopener noreferrer" */}
-                {/*       color="primary" */}
-                {/*       underline="hover" */}
-                {/*       variant="body1" */}
-                {/*     > */}
-                {/*       Connect on LinkedIn */}
-                {/*     </Link> */}
-                {/*   </Box> */}
-                {/* </ContactMethod> */}
+                  {/* <ContactMethod> */}
+                  {/*   <LinkedIn color="primary" /> */}
+                  {/*   <Box> */}
+                  {/*     <Typography variant="subtitle2" color="text.secondary"> */}
+                  {/*       LinkedIn */}
+                  {/*     </Typography> */}
+                  {/*     <Link */}
+                  {/*       href="https://www.linkedin.com/in/jeffrey-maxwell-553176172" */}
+                  {/*       target="_blank" */}
+                  {/*       rel="noopener noreferrer" */}
+                  {/*       color="primary" */}
+                  {/*       underline="hover" */}
+                  {/*       variant="body1" */}
+                  {/*     > */}
+                  {/*       Connect on LinkedIn */}
+                  {/*     </Link> */}
+                  {/*   </Box> */}
+                  {/* </ContactMethod> */}
 
-                <ContactMethod>
-                  <GitHub color="primary" />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      GitHub
-                    </Typography>
-                    <Link
-                      href="https://github.com/maxjeffwell"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      color="primary"
-                      underline="always"
-                      variant="body1"
-                      sx={{
-                        textDecorationThickness: '2px',
-                        textUnderlineOffset: '3px',
-                        '&:hover': {
-                          textDecorationColor: theme.palette.primary.dark,
-                        },
-                      }}
-                    >
-                      View my projects
-                    </Link>
-                  </Box>
-                </ContactMethod>
-              </Box>
-            </ContactCard>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <ContactCard elevation={3}>
-              <Typography variant="h3" component="h3" id="send-message" gutterBottom>
-                Send a Message
-              </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph>
-                Have a specific question or project in mind? Drop me a message and I&#39;ll get back
-                to you as soon as possible.
-              </Typography>
-
-              {formStatus === 'success' && (
-                <Alert severity="success" sx={{ mb: 3 }}>
-                  Thank you for your message! I&#39;ll get back to you as soon as possible.
-                </Alert>
-              )}
-              
-              {formStatus === 'error' && (
-                <Alert severity="error" sx={{ mb: 3 }}>
-                  Sorry, there was an error sending your message. Please try again or contact me directly at maxjeffwell@gmail.com.
-                </Alert>
-              )}
-
-              <NoSsr>
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }} name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                  {/* Honeypot field to prevent spam */}
-                  <input type="hidden" name="form-name" value="contact" />
-                  <Box sx={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-                    <input type="text" name="bot-field" tabIndex="-1" />
-                  </Box>
-                  
-                  <TextField
-                    fullWidth
-                    label="Your Name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    margin="normal"
-                    variant="outlined"
-                    disabled={isSubmitting}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Your Email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    margin="normal"
-                    variant="outlined"
-                    disabled={isSubmitting}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Your Message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    multiline
-                    rows={4}
-                    margin="normal"
-                    variant="outlined"
-                    disabled={isSubmitting}
-                  />
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    endIcon={<Send />}
-                    disabled={isSubmitting}
-                    sx={{
-                      mt: 3,
-                      borderRadius: 20,
-                      textTransform: 'none',
-                      px: 4,
-                    }}
-                  >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </Button>
+                  <ContactMethod>
+                    <GitHub color="primary" />
+                    <Box>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        GitHub
+                      </Typography>
+                      <Link
+                        href="https://github.com/maxjeffwell"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        color="primary"
+                        underline="always"
+                        variant="body1"
+                        sx={{
+                          textDecorationThickness: '2px',
+                          textUnderlineOffset: '3px',
+                          '&:hover': {
+                            textDecorationColor: theme.palette.primary.dark,
+                          },
+                        }}
+                      >
+                        View my projects
+                      </Link>
+                    </Box>
+                  </ContactMethod>
                 </Box>
-              </NoSsr>
-            </ContactCard>
-          </Grid>
+              </ContactCard>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <ContactCard elevation={3}>
+                <Typography variant="h3" component="h3" id="send-message" gutterBottom>
+                  Send a Message
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  Have a specific question or project in mind? Drop me a message and I&#39;ll get
+                  back to you as soon as possible.
+                </Typography>
+
+                {formStatus === 'success' && (
+                  <Alert severity="success" sx={{ mb: 3 }}>
+                    Thank you for your message! I&#39;ll get back to you as soon as possible.
+                  </Alert>
+                )}
+
+                {formStatus === 'error' && (
+                  <Alert severity="error" sx={{ mb: 3 }}>
+                    Sorry, there was an error sending your message. Please try again or contact me
+                    directly at maxjeffwell@gmail.com.
+                  </Alert>
+                )}
+
+                <NoSsr>
+                  <Box
+                    component="form"
+                    onSubmit={handleSubmit}
+                    sx={{ mt: 3 }}
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
+                  >
+                    <input type="hidden" name="form-name" value="contact" />
+                    <Box sx={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                      <input type="text" name="bot-field" tabIndex="-1" />
+                    </Box>
+
+                    <TextField
+                      fullWidth
+                      label="Your Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      margin="normal"
+                      variant="outlined"
+                      disabled={isSubmitting}
+                    />
+                    <TextField
+                      fullWidth
+                      label="Your Email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      margin="normal"
+                      variant="outlined"
+                      disabled={isSubmitting}
+                    />
+                    <TextField
+                      fullWidth
+                      label="Your Message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      multiline
+                      rows={4}
+                      margin="normal"
+                      variant="outlined"
+                      disabled={isSubmitting}
+                    />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      endIcon={<Send />}
+                      disabled={isSubmitting}
+                      sx={{
+                        mt: 3,
+                        borderRadius: 20,
+                        textTransform: 'none',
+                        px: 4,
+                      }}
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </Button>
+                  </Box>
+                </NoSsr>
+              </ContactCard>
+            </Grid>
           </Grid>
         </Box>
 
         <Box component="section" aria-labelledby="availability" sx={{ mt: 6, textAlign: 'center' }}>
-          <Typography variant="h2" id="availability" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+          <Typography
+            variant="h2"
+            id="availability"
+            sx={{
+              position: 'absolute',
+              left: '-10000px',
+              width: '1px',
+              height: '1px',
+              overflow: 'hidden',
+            }}
+          >
             Current Availability
           </Typography>
           <Typography variant="body2" color="text.secondary">

@@ -38,8 +38,8 @@ self.onmessage = function (e) {
 
     // Sort by date (newest first)
     filteredProjects.sort((a, b) => {
-      const yearA = parseInt(a.year) || 0;
-      const yearB = parseInt(b.year) || 0;
+      const yearA = parseInt(a.year, 10) || 0;
+      const yearB = parseInt(b.year, 10) || 0;
       return yearB - yearA;
     });
 

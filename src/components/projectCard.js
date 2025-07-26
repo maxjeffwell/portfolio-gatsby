@@ -10,7 +10,6 @@ import {
   Box,
   Chip,
   Stack,
-  useTheme,
 } from '@mui/material';
 import { GitHub, Launch } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
@@ -90,8 +89,6 @@ function ProjectCard({
   hostedURL,
   technologies = [],
 }) {
-  const theme = useTheme();
-
   return (
     <StyledCard elevation={3}>
       <ColoredBar />

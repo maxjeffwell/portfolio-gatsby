@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -349,7 +349,7 @@ export function ThemeProvider({ children }) {
 
   // Listen for system preference changes
   useEffect(() => {
-    if (!isSystemPreference || typeof window === 'undefined') return;
+    if (!isSystemPreference || typeof window === 'undefined') return undefined;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -374,7 +374,7 @@ export function ThemeProvider({ children }) {
     }
   }, [isDarkMode]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     setIsSystemPreference(false);
@@ -383,16 +383,16 @@ export function ThemeProvider({ children }) {
     if (typeof window !== 'undefined') {
       localStorage.setItem('portfolio-theme', newMode ? 'dark' : 'light');
     }
-  };
+  }, [isDarkMode]);
 
-  const resetToSystemPreference = () => {
+  const resetToSystemPreference = useCallback(() => {
     setIsSystemPreference(true);
     setIsDarkMode(getSystemPreference() === 'dark');
 
     if (typeof window !== 'undefined') {
       localStorage.removeItem('portfolio-theme');
     }
-  };
+  }, []);
 
   const theme = useMemo(() => (isDarkMode ? darkTheme : lightTheme), [isDarkMode]);
 
@@ -406,7 +406,7 @@ export function ThemeProvider({ children }) {
       resetToSystemPreference,
       systemPreference: getSystemPreference(),
     }),
-    [theme, isDarkMode, isSystemPreference, isHydrated]
+    [theme, isDarkMode, isSystemPreference, isHydrated, toggleTheme, resetToSystemPreference]
   );
 
   return (

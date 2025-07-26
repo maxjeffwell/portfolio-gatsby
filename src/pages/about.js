@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-  Container,
-  Typography,
-  Paper,
-  Box,
-  Card,
-  useTheme,
-  Fade,
-  Slide,
-  NoSsr,
-  Grid,
-} from '@mui/material';
+import { Container, Typography, Paper, Box, Card, Fade, Slide, NoSsr, Grid } from '@mui/material';
 import { Code as CodeIcon, Coffee, Pets } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
@@ -67,7 +56,8 @@ const TechCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(3, 2),
   height: '100%',
   minHeight: '160px',
-  transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  transition:
+    'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   willChange: 'transform, box-shadow',
   '&:hover': {
     transform: 'translateY(-8px)',
@@ -101,7 +91,6 @@ const StyledIcon = styled(Box)(({ theme }) => ({
 }));
 
 function AboutPage() {
-  const theme = useTheme();
   const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
   const [techRef, techVisible] = useScrollAnimation({ delay: 300 });
   const [personalRef, personalVisible] = useScrollAnimation({ delay: 500 });
@@ -125,11 +114,11 @@ function AboutPage() {
         <Box component="section" aria-labelledby="about-header" ref={headerRef} sx={{ mb: 6 }}>
           <Fade in={headerVisible} timeout={1000}>
             <div>
-              <GradientText 
-                variant="h2" 
-                component="h1" 
-                id="about-header" 
-                align="center" 
+              <GradientText
+                variant="h2"
+                component="h1"
+                id="about-header"
+                align="center"
                 gutterBottom
                 sx={{ fontSize: { xs: '2.125rem', sm: '3rem', md: '3.75rem' } }}
               >
@@ -149,11 +138,22 @@ function AboutPage() {
             </div>
           </Fade>
         </Box>
-        <Box component="section" aria-labelledby="personal-section" ref={personalRef} sx={{ mb: 6 }}>
+        <Box
+          component="section"
+          aria-labelledby="personal-section"
+          ref={personalRef}
+          sx={{ mb: 6 }}
+        >
           <NoSsr fallback={<Box sx={{ minHeight: '300px', backgroundColor: 'action.hover' }} />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
-                <Typography variant="h4" component="h2" id="personal-section" gutterBottom align="center">
+                <Typography
+                  variant="h4"
+                  component="h2"
+                  id="personal-section"
+                  gutterBottom
+                  align="center"
+                >
                   Beyond the Code
                 </Typography>
                 <Typography
@@ -214,17 +214,17 @@ function AboutPage() {
         </Box>
 
         <Box component="section" aria-labelledby="illustrations-section">
-          <Typography 
-            variant="h2" 
+          <Typography
+            variant="h2"
             component="h2"
-            id="illustrations-section" 
-            sx={{ 
-              position: 'absolute', 
-              left: '-10000px', 
-              width: '1px', 
-              height: '1px', 
+            id="illustrations-section"
+            sx={{
+              position: 'absolute',
+              left: '-10000px',
+              width: '1px',
+              height: '1px',
               overflow: 'hidden',
-              fontSize: '1.5rem'
+              fontSize: '1.5rem',
             }}
           >
             Development Team Illustrations
@@ -232,54 +232,54 @@ function AboutPage() {
           <Grid container spacing={4} sx={{ mb: 6 }}>
             <Grid item xs={12} md={6}>
               <Card
-              elevation={3}
-              sx={{
-                borderRadius: 3,
-                overflow: 'hidden',
-                backgroundColor: 'rgb(0, 89, 149)',
-                aspectRatio: '1 / 1',
-                minHeight: { xs: '300px', sm: '400px' },
-                position: 'relative',
-                willChange: 'transform',
-              }}
-            >
-              <Box
+                elevation={3}
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  backgroundColor: 'rgb(0, 89, 149)',
+                  aspectRatio: '1 / 1',
+                  minHeight: { xs: '300px', sm: '400px' },
+                  position: 'relative',
+                  willChange: 'transform',
                 }}
               >
-                <Image imageType="mascot" />
-              </Box>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Card
-              elevation={3}
-              sx={{
-                borderRadius: 3,
-                overflow: 'hidden',
-                backgroundColor: 'rgb(0, 89, 149)',
-                aspectRatio: '1 / 1',
-                minHeight: { xs: '300px', sm: '400px' },
-                position: 'relative',
-                willChange: 'transform',
-              }}
-            >
-              <Box
+                <Box
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Image imageType="mascot" />
+                </Box>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card
+                elevation={3}
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  backgroundColor: 'rgb(0, 89, 149)',
+                  aspectRatio: '1 / 1',
+                  minHeight: { xs: '300px', sm: '400px' },
+                  position: 'relative',
+                  willChange: 'transform',
                 }}
               >
-                <Image imageType="dogs" />
-              </Box>
-            </Card>
-          </Grid>
+                <Box
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Image imageType="dogs" />
+                </Box>
+              </Card>
+            </Grid>
           </Grid>
         </Box>
 
@@ -287,7 +287,13 @@ function AboutPage() {
           <NoSsr fallback={<Box sx={{ minHeight: '400px', backgroundColor: 'action.hover' }} />}>
             <Fade in={techVisible} timeout={1000}>
               <TechSection elevation={2}>
-                <GradientText variant="h2" component="h2" id="tech-stack" align="center" gutterBottom>
+                <GradientText
+                  variant="h2"
+                  component="h2"
+                  id="tech-stack"
+                  align="center"
+                  gutterBottom
+                >
                   Technology Stack & Tools
                 </GradientText>
                 <Typography
@@ -370,7 +376,11 @@ function AboutPage() {
           </NoSsr>
         </Box>
 
-        <Box component="section" aria-labelledby="organizations" sx={{ textAlign: 'center', mt: 6 }}>
+        <Box
+          component="section"
+          aria-labelledby="organizations"
+          sx={{ textAlign: 'center', mt: 6 }}
+        >
           <GradientText variant="h2" component="h2" id="organizations" gutterBottom>
             Supported Organizations
           </GradientText>

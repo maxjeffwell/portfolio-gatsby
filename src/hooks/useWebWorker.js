@@ -12,35 +12,42 @@ function useWebWorker(workerScript) {
 
   // Initialize worker
   useEffect(() => {
+    const callbacks = callbacksRef.current;
+
     if (typeof Worker !== 'undefined') {
       try {
         // Create worker from URL or inline script
         const workerUrl = new URL(workerScript, import.meta.url);
         workerRef.current = new Worker(workerUrl);
-        
+
         // Handle messages from worker
         workerRef.current.onmessage = (e) => {
           const { messageId, ...data } = e.data;
           const callback = callbacksRef.current.get(messageId);
-          
+
           if (callback) {
             callback(data);
             callbacksRef.current.delete(messageId);
           }
         };
-        
+
         // Handle worker errors
         workerRef.current.onerror = (error) => {
-          console.error('Web Worker error:', error);
+          if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line no-console
+            console.error('Web Worker error:', error);
+          }
           // Reject all pending callbacks
-          callbacksRef.current.forEach(callback => {
+          callbacksRef.current.forEach((callback) => {
             callback({ success: false, error: 'Worker error' });
           });
           callbacksRef.current.clear();
         };
-        
       } catch (error) {
-        console.warn('Web Worker not supported or failed to initialize:', error);
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn('Web Worker not supported or failed to initialize:', error);
+        }
       }
     }
 
@@ -50,7 +57,7 @@ function useWebWorker(workerScript) {
         workerRef.current.terminate();
         workerRef.current = null;
       }
-      callbacksRef.current.clear();
+      callbacks.clear();
     };
   }, [workerScript]);
 
@@ -63,8 +70,9 @@ function useWebWorker(workerScript) {
         return;
       }
 
-      const messageId = messageIdRef.current++;
-      
+      const messageId = messageIdRef.current;
+      messageIdRef.current += 1;
+
       // Store callback for this message
       callbacksRef.current.set(messageId, (result) => {
         if (result.success) {
@@ -76,7 +84,7 @@ function useWebWorker(workerScript) {
 
       // Send task to worker
       workerRef.current.postMessage({ messageId, ...data });
-      
+
       // Set timeout to prevent hanging
       setTimeout(() => {
         if (callbacksRef.current.has(messageId)) {

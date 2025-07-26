@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import { Box, Typography, Button, Paper, useTheme, Fade } from '@mui/material';
+import { Box, Typography, Button, Paper, Fade } from '@mui/material';
 import { Email, Phone, GitHub, ArrowForward } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
@@ -74,7 +74,7 @@ const StatBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
+const StyledLink = styled(Link)(() => ({
   textDecoration: 'none',
 }));
 
@@ -94,8 +94,7 @@ const MainButton = styled(Button)(({ theme }) => ({
 }));
 
 function CTASectionComponent({ visible }) {
-  const theme = useTheme();
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [, setHoveredCard] = useState(null);
 
   const contactMethods = [
     {
@@ -137,16 +136,20 @@ function CTASectionComponent({ visible }) {
           sx={{ mb: 4, opacity: 0.9, fontSize: '1.125rem' }}
           color="text.secondary"
         >
-          Whether you have a project in mind, need technical expertise, or just want to say hello, I'd love to hear from you. Let's collaborate to create exceptional web experiences that make a difference.
+          Whether you have a project in mind, need technical expertise, or just want to say hello,
+          I&apos;d love to hear from you. Let&apos;s collaborate to create exceptional web
+          experiences that make a difference.
         </Typography>
 
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 4, 
-          mb: 4,
-          justifyContent: 'center'
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            gap: 4,
+            mb: 4,
+            justifyContent: 'center',
+          }}
+        >
           {stats.map((stat, index) => (
             <Box key={stat.label} sx={{ flex: 1, textAlign: 'center' }}>
               <Fade in={visible} timeout={400} style={{ transitionDelay: `${index * 50}ms` }}>
@@ -159,13 +162,15 @@ function CTASectionComponent({ visible }) {
           ))}
         </Box>
 
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: 2, 
-          mb: 4,
-          justifyContent: 'center'
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            gap: 2,
+            mb: 4,
+            justifyContent: 'center',
+          }}
+        >
           {contactMethods.map((method, index) => {
             const IconComponent = method.icon;
             const isExternal = method.href.startsWith('http');

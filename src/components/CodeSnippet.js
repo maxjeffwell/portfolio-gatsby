@@ -31,23 +31,27 @@ function CodeSnippet({
   const theme = useTheme();
   const [displayedCode, setDisplayedCode] = useState(animated ? '' : code);
   const [copied, setCopied] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(!animated);
+  const [, setAnimationComplete] = useState(!animated);
 
   useEffect(() => {
-    if (!animated) return;
+    if (!animated) {
+      return undefined;
+    }
 
     let index = 0;
     const timer = setInterval(() => {
       if (index <= code.length) {
         setDisplayedCode(code.slice(0, index));
-        index++;
+        index += 1;
       } else {
         setAnimationComplete(true);
         clearInterval(timer);
       }
     }, animationSpeed);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+    };
   }, [code, animated, animationSpeed]);
 
   const handleCopy = async () => {
@@ -57,6 +61,7 @@ function CodeSnippet({
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
         console.error('Failed to copy code:', err);
       }
     }
