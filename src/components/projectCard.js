@@ -10,7 +10,6 @@ import {
   Box,
   Chip,
   Stack,
-  Grid,
   useTheme,
 } from '@mui/material';
 import { GitHub, Launch } from '@mui/icons-material';
@@ -85,8 +84,14 @@ function ProjectCard({
   return (
     <StyledCard elevation={3}>
       <ColoredBar />
-      <Grid container spacing={2} sx={{ p: 2, pb: 0 }}>
-        <Grid item xs={12} md={6}>
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: ['column', null, 'row'], 
+        gap: 2, 
+        p: 2, 
+        pb: 0 
+      }}>
+        <Box sx={{ flex: 1 }}>
           <ImageContainer>
             <GatsbyImage
               image={getImage(imageSrcPath)}
@@ -95,8 +100,8 @@ function ProjectCard({
               style={{ borderRadius: '8px' }}
             />
           </ImageContainer>
-        </Grid>
-        <Grid item xs={12} md={6}>
+        </Box>
+        <Box sx={{ flex: 1 }}>
           <ImageContainer>
             <GatsbyImage
               image={getImage(imageSrcPath2)}
@@ -105,8 +110,8 @@ function ProjectCard({
               style={{ borderRadius: '8px' }}
             />
           </ImageContainer>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
 
       <CardContent sx={{ flexGrow: 1, pt: 2 }}>
         <Box
@@ -127,45 +132,51 @@ function ProjectCard({
             Technologies Used:
           </Typography>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-            <TechIcon role="img" aria-label="Technology used in project">
-              <img
-                src={imageSrcPath3}
-                alt=""
-                width="24"
-                height="24"
-                style={{
-                  objectFit: 'contain',
-                  filter:
-                    'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                }}
-              />
-            </TechIcon>
-            <TechIcon role="img" aria-label="Technology used in project">
-              <img
-                src={imageSrcPath4}
-                alt=""
-                width="24"
-                height="24"
-                style={{
-                  objectFit: 'contain',
-                  filter:
-                    'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                }}
-              />
-            </TechIcon>
-            <TechIcon role="img" aria-label="Technology used in project">
-              <img
-                src={imageSrcPath5}
-                alt=""
-                width="24"
-                height="24"
-                style={{
-                  objectFit: 'contain',
-                  filter:
-                    'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                }}
-              />
-            </TechIcon>
+            {imageSrcPath3 && (
+              <TechIcon role="img" aria-label="Technology used in project">
+                <img
+                  src={imageSrcPath3}
+                  alt=""
+                  width="24"
+                  height="24"
+                  style={{
+                    objectFit: 'contain',
+                    filter:
+                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
+                  }}
+                />
+              </TechIcon>
+            )}
+            {imageSrcPath4 && (
+              <TechIcon role="img" aria-label="Technology used in project">
+                <img
+                  src={imageSrcPath4}
+                  alt=""
+                  width="24"
+                  height="24"
+                  style={{
+                    objectFit: 'contain',
+                    filter:
+                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
+                  }}
+                />
+              </TechIcon>
+            )}
+            {imageSrcPath5 && (
+              <TechIcon role="img" aria-label="Technology used in project">
+                <img
+                  src={imageSrcPath5}
+                  alt=""
+                  width="24"
+                  height="24"
+                  style={{
+                    objectFit: 'contain',
+                    filter:
+                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
+                  }}
+                />
+              </TechIcon>
+            )}
             {imageSrcPath6 && (
               <TechIcon role="img" aria-label="Technology used in project">
                 <img

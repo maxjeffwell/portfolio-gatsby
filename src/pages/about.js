@@ -4,12 +4,12 @@ import {
   Typography,
   Paper,
   Box,
-  Grid,
   Card,
   useTheme,
   Fade,
   Slide,
   NoSsr,
+  Grid,
 } from '@mui/material';
 import { Code as CodeIcon, Coffee, Pets } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';

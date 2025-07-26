@@ -7,7 +7,6 @@ import {
   Select,
   MenuItem,
   Box,
-  Grid,
   Paper,
   useTheme,
   NoSsr,
@@ -219,10 +218,10 @@ const Projects = ({ data }) => {
       imageSrcPath2: data.allFile.edges.find((edge) =>
         edge.node.relativePath.includes(project.screenshots.screenshot2)
       )?.node.childImageSharp,
-      imageSrcPath3: project.techIcons.icon3,
-      imageSrcPath4: project.techIcons.icon4,
-      imageSrcPath5: project.techIcons.icon5,
-      imageSrcPath6: project.techIcons.icon6,
+      imageSrcPath3: project.techIcons.icon3 || '',
+      imageSrcPath4: project.techIcons.icon4 || '',
+      imageSrcPath5: project.techIcons.icon5 || '',
+      imageSrcPath6: project.techIcons.icon6 || '',
     }));
   }, [filteredProjects, data]);
 
@@ -242,7 +241,8 @@ const Projects = ({ data }) => {
           `Jeff Maxwell projects`,
         ]}
       />
-      <Container maxWidth="lg">
+      <NoSsr>
+        <Container maxWidth="lg">
         <Box component="section" aria-labelledby="projects-header" sx={{ mb: 6 }}>
           <GradientText variant="h2" component="h1" id="projects-header" align="center" gutterBottom>
             Featured Projects
@@ -303,9 +303,9 @@ const Projects = ({ data }) => {
             </Typography>
           </Box>
         ) : (
-          <Grid container spacing={4}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {enhancedProjects.map((project, index) => (
-              <Grid key={project.id} item xs={12}>
+              <Box key={project.id}>
                 <ProjectCard
                   title={project.title}
                   date={project.date}
@@ -320,12 +320,13 @@ const Projects = ({ data }) => {
                   imageSrcPath5={project.imageSrcPath5}
                   imageSrcPath6={project.imageSrcPath6}
                 />
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         )}
         </Box>
-      </Container>
+        </Container>
+      </NoSsr>
     </Layout>
   );
 };
