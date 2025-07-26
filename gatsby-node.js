@@ -10,14 +10,77 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // Advanced webpack configuration for bundle optimization
-exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getConfig }) => {
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   const config = getConfig();
+
+  // Fix for React 18 ContextRegistry issue
+  if (stage === 'build-javascript' || stage === 'develop') {
+    config.plugins.push({
+      apply(compiler) {
+        compiler.hooks.compilation.tap('ReactContextRegistryFix', (compilation) => {
+          compilation.hooks.processAssets.tap(
+            {
+              name: 'ReactContextRegistryFix',
+              stage: compilation.constructor.PROCESS_ASSETS_STAGE_ADDITIONS,
+            },
+            () => {
+              // Add polyfill to the beginning of the app bundle
+              const polyfill = `
+// React 18 ContextRegistry polyfill
+(function() {
+  if (typeof window !== 'undefined') {
+    const patchReact = function(React) {
+      if (React && React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) {
+        if (!React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry) {
+          React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry = {};
+        }
+      }
+    };
+    
+    // Try to patch immediately if React is available
+    if (window.React) {
+      patchReact(window.React);
+    }
+    
+    // Also patch when modules are loaded
+    const originalDefine = window.define;
+    if (originalDefine) {
+      window.define = function() {
+        const result = originalDefine.apply(this, arguments);
+        if (window.React) {
+          patchReact(window.React);
+        }
+        return result;
+      };
+    }
+  }
+})();
+`;
+
+              // Find the app bundle and prepend the polyfill
+              for (const [filename, asset] of compilation.assets) {
+                if (filename.startsWith('app-') && filename.endsWith('.js')) {
+                  const source = asset.source();
+                  const newSource = polyfill + source;
+                  compilation.assets[filename] = {
+                    source: () => newSource,
+                    size: () => newSource.length,
+                  };
+                  break;
+                }
+              }
+            }
+          );
+        });
+      },
+    });
+  }
 
   // Production optimizations
   if (stage === 'build-javascript') {
     // Disable source maps in production for security (prevents library detection)
     config.devtool = process.env.GENERATE_SOURCEMAP === 'true' ? 'source-map' : false;
-    
+
     // Add bundle analyzer only when ANALYZE=true
     if (process.env.ANALYZE === 'true') {
       config.plugins.push(
@@ -148,7 +211,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
               semicolons: true,
             },
             // Remove source map comments in production
-            sourceMap: process.env.GENERATE_SOURCEMAP === 'false' ? false : true,
+            sourceMap: process.env.GENERATE_SOURCEMAP !== 'false',
           },
           parallel: true,
           extractComments: false,
@@ -161,7 +224,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
               {
                 discardComments: { removeAll: true },
                 normalizeWhitespace: true,
-                colormin: true,
+                colorMin: true,
                 convertValues: true,
                 discardDuplicates: true,
                 discardEmpty: true,
@@ -236,7 +299,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@images': path.resolve(__dirname, 'src/images'),
       // Alias common libraries to generic names (makes detection harder)
-      'react': 'react',
+      react: 'react',
       'react-dom': 'react-dom',
       '@mui/material': '@mui/material',
       '@emotion/react': '@emotion/react',
@@ -269,7 +332,7 @@ exports.onCreatePage = ({ page, actions }) => {
 // Service Worker optimizations
 exports.onPostBuild = ({ reporter }) => {
   reporter.info('🚀 Build completed with optimizations');
-  
+
   if (process.env.ANALYZE === 'true') {
     reporter.info('📊 Bundle analysis report generated at ./public/bundle-analyzer-report.html');
   }
@@ -282,7 +345,7 @@ exports.onCreateDevServer = ({ app }) => {
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     next();
   });
-  
+
   // Cache fonts
   app.use('/fonts', (req, res, next) => {
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
