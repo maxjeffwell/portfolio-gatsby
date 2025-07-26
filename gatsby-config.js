@@ -14,7 +14,7 @@ module.exports = {
     imageCDN: false,
   }),
   plugins: [
-    `gatsby-plugin-webpack-bundle-analyser-v2`, // Only enable when needed
+    // `gatsby-plugin-webpack-bundle-analyser-v2`, // Only enable when needed
     `gatsby-plugin-react-helmet-async`,
     `gatsby-plugin-image`,
     {
