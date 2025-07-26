@@ -63,6 +63,7 @@ function Contact() {
     message: '',
   });
   const [formStatus, setFormStatus] = React.useState('');
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -71,11 +72,36 @@ function Contact() {
     });
   };
 
+  const encode = (data) => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form submission logic would go here
-    setFormStatus('success');
-    setTimeout(() => setFormStatus(''), 5000);
+    setIsSubmitting(true);
+    
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': 'contact',
+        ...formData
+      })
+    })
+    .then(() => {
+      setFormStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    })
+    .catch((error) => {
+      console.error('Form submission error:', error);
+      setFormStatus('error');
+    })
+    .finally(() => {
+      setIsSubmitting(false);
+      setTimeout(() => setFormStatus(''), 8000);
+    });
   };
 
   return (
@@ -92,6 +118,12 @@ function Contact() {
           `Jeff Maxwell contact`,
         ]}
       />
+      {/* Hidden form for Netlify to detect */}
+      <form name="contact" netlify="true" netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
+      </form>
       <Container maxWidth="lg">
         <Box component="section" aria-labelledby="contact-header" sx={{ mb: 6 }}>
           <GradientText variant="h2" component="h1" id="contact-header" align="center" gutterBottom>
@@ -227,12 +259,24 @@ function Contact() {
 
               {formStatus === 'success' && (
                 <Alert severity="success" sx={{ mb: 3 }}>
-                  Thank you for your message! I&#39;ll get back to you soon.
+                  Thank you for your message! I&#39;ll get back to you as soon as possible.
+                </Alert>
+              )}
+              
+              {formStatus === 'error' && (
+                <Alert severity="error" sx={{ mb: 3 }}>
+                  Sorry, there was an error sending your message. Please try again or contact me directly at maxjeffwell@gmail.com.
                 </Alert>
               )}
 
               <NoSsr>
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }} name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                  {/* Honeypot field to prevent spam */}
+                  <input type="hidden" name="form-name" value="contact" />
+                  <Box sx={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                    <input type="text" name="bot-field" tabIndex="-1" />
+                  </Box>
+                  
                   <TextField
                     fullWidth
                     label="Your Name"
@@ -242,6 +286,7 @@ function Contact() {
                     required
                     margin="normal"
                     variant="outlined"
+                    disabled={isSubmitting}
                   />
                   <TextField
                     fullWidth
@@ -253,6 +298,7 @@ function Contact() {
                     required
                     margin="normal"
                     variant="outlined"
+                    disabled={isSubmitting}
                   />
                   <TextField
                     fullWidth
@@ -265,6 +311,7 @@ function Contact() {
                     rows={4}
                     margin="normal"
                     variant="outlined"
+                    disabled={isSubmitting}
                   />
                   <Button
                     type="submit"
@@ -272,6 +319,7 @@ function Contact() {
                     color="primary"
                     size="large"
                     endIcon={<Send />}
+                    disabled={isSubmitting}
                     sx={{
                       mt: 3,
                       borderRadius: 20,
@@ -279,7 +327,7 @@ function Contact() {
                       px: 4,
                     }}
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </Box>
               </NoSsr>
