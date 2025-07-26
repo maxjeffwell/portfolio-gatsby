@@ -336,11 +336,13 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      id="contact-name"
                       InputLabelProps={{
-                        htmlFor: 'contact-name-input',
+                        htmlFor: 'contact-name',
                       }}
                       inputProps={{
-                        id: 'contact-name-input',
+                        id: 'contact-name',
+                        name: 'name',
                       }}
                     />
                     <TextField
@@ -355,11 +357,13 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      id="contact-email"
                       InputLabelProps={{
-                        htmlFor: 'contact-email-input',
+                        htmlFor: 'contact-email',
                       }}
                       inputProps={{
-                        id: 'contact-email-input',
+                        id: 'contact-email',
+                        name: 'email',
                       }}
                     />
                     <TextField
@@ -375,11 +379,13 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      id="contact-message"
                       InputLabelProps={{
-                        htmlFor: 'contact-message-textarea',
+                        htmlFor: 'contact-message',
                       }}
                       inputProps={{
-                        id: 'contact-message-textarea',
+                        id: 'contact-message',
+                        name: 'message',
                       }}
                     />
                     <Button
