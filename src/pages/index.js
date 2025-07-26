@@ -111,15 +111,21 @@ const IndexPage = React.memo(() => {
         pathname="/"
         keywords={[
           `full stack developer`,
-          `web developer`,
           `react developer`,
           `node.js developer`,
           `javascript developer`,
-          `portfolio`,
+          `web developer portfolio`,
+          `mern stack developer`,
+          `react specialist`,
+          `modern web development`,
+          `frontend developer`,
+          `backend developer`,
           `Jeff Maxwell`,
-          `frontend development`,
-          `backend development`,
-          `web development`,
+          `JAMstack developer`,
+          `graphql developer`,
+          `experienced react developer`,
+          `professional web developer`,
+          `hire react developer`,
         ]}
       />
       <Container maxWidth="lg">

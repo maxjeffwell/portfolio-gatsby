@@ -32,7 +32,10 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
       }}
       title={metaTitle}
       meta={[
-        // Basic meta tags
+        {
+          name: `google_site_verification`,
+          content: `uswhTGfqJrK0VsQwtyZFriGk6lW4wUMB`,
+        },
         {
           name: `description`,
           content: metaDescription,
@@ -250,7 +253,21 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           jobTitle: 'Full Stack Web Developer',
           url: site.siteMetadata.siteUrl,
           email: 'maxjeffwell@gmail.com',
-          knowsAbout: ['JavaScript', 'React', 'Node.js', 'Full Stack Development'],
+          knowsAbout: [
+            'JavaScript Programming',
+            'React Development',
+            'Node.js Development',
+            'Full Stack Web Development',
+            'Frontend Development',
+            'Backend Development',
+            'GraphQL APIs',
+            'MERN Stack',
+            'Modern Web Development',
+            'Responsive Web Design',
+            'API Development',
+            'Database Design',
+            'Web Application Development'
+          ],
           sameAs: ['https://github.com/maxjeffwell', 'https://angel.co/maxjeffwell'],
         })}
       </script>

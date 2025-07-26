@@ -101,6 +101,21 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ['G-NL37L9SVQ0'],
+        gtagConfig: {
+          optimize_id: 'GTM-N8HJBQM7',
+          cookie_expires: 0,
+        },
+        pluginConfig: {
+          head: true,
+          // Delays processing pageview events on route update (in milliseconds)
+          delayOnRouteUpdate: 0,
+        },
+      },
+    },
+    {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         excludes: [`/dev-404-page`, `/404`, `/404.html`, `/offline-plugin-app-shell-fallback`],
@@ -120,34 +135,34 @@ module.exports = {
         serialize: ({ path, modifiedGmt }, { site }) => {
           // Define page priorities and change frequencies
           const buildTime = site?.buildTime || new Date().toISOString().split('T')[0];
-          
+
           const pageMetadata = {
-            '/': { 
-              priority: 1.0, 
+            '/': {
+              priority: 1.0,
               changefreq: 'weekly',
-              lastmod: buildTime 
+              lastmod: buildTime,
             },
-            '/about/': { 
-              priority: 0.8, 
+            '/about/': {
+              priority: 0.8,
               changefreq: 'monthly',
-              lastmod: buildTime 
+              lastmod: buildTime,
             },
-            '/projects/': { 
-              priority: 0.9, 
+            '/projects/': {
+              priority: 0.9,
               changefreq: 'weekly',
-              lastmod: buildTime 
+              lastmod: buildTime,
             },
-            '/contact/': { 
-              priority: 0.7, 
+            '/contact/': {
+              priority: 0.7,
               changefreq: 'monthly',
-              lastmod: buildTime 
+              lastmod: buildTime,
             },
           };
 
-          const meta = pageMetadata[path] || { 
-            priority: 0.5, 
+          const meta = pageMetadata[path] || {
+            priority: 0.5,
             changefreq: 'monthly',
-            lastmod: modifiedGmt || buildTime 
+            lastmod: modifiedGmt || buildTime,
           };
 
           return {

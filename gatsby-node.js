@@ -4,7 +4,6 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
@@ -14,7 +13,7 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
     actions.setWebpackConfig({
       // Disable source maps in production
       devtool: false,
-      
+
       optimization: {
         minimize: true,
         minimizer: [

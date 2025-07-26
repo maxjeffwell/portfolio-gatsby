@@ -246,12 +246,20 @@ const Projects = ({ data }) => {
         description="Explore Jeff Maxwell's portfolio of web development projects showcasing expertise in React, Node.js, GraphQL, and modern JavaScript. View live demos and source code."
         pathname="/projects/"
         keywords={[
-          `web development projects`,
-          `React applications`,
+          `react projects`,
+          `node.js projects`,
+          `web development portfolio`,
+          `javascript projects`,
           `full stack projects`,
-          `JavaScript portfolio`,
-          `GraphQL applications`,
-          `open source projects`,
+          `graphql projects`,
+          `mern stack examples`,
+          `react portfolio`,
+          `web app development`,
+          `api development`,
+          `react project examples`,
+          `node.js portfolio projects`,
+          `full stack web applications`,
+          `javascript portfolio examples`,
           `Jeff Maxwell projects`,
         ]}
       />
