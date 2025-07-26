@@ -22,8 +22,8 @@ const lightTheme = createTheme({
       paper: '#ffffff',
     },
     text: {
-      primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.75)',
+      primary: '#212121',
+      secondary: '#424242',
     },
     divider: 'rgba(0, 0, 0, 0.12)',
   },
@@ -162,7 +162,7 @@ const darkTheme = createTheme({
     },
     text: {
       primary: '#ffffff',
-      secondary: 'rgba(255, 255, 255, 0.85)',
+      secondary: '#e0e0e0',
     },
     divider: 'rgba(255, 255, 255, 0.12)',
   },
