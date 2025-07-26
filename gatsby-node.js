@@ -149,10 +149,30 @@ exports.onCreatePage = ({ page, actions }) => {
 };
 
 // Service Worker optimizations
-exports.onPostBuild = () => {
-  console.log('🚀 Build completed with optimizations');
+exports.onPostBuild = ({ reporter }) => {
+  reporter.info('🚀 Build completed with optimizations');
   
   if (process.env.ANALYZE === 'true') {
-    console.log('📊 Bundle analysis report generated at ./public/bundle-analyzer-report.html');
+    reporter.info('📊 Bundle analysis report generated at ./public/bundle-analyzer-report.html');
   }
+};
+
+// Configure cache headers for static assets
+exports.onCreateDevServer = ({ app }) => {
+  // Cache static assets in development
+  app.use('/static', (req, res, next) => {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    next();
+  });
+  
+  // Cache fonts
+  app.use('/fonts', (req, res, next) => {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    next();
+  });
+};
+
+// Add custom headers to build output
+exports.onPostBootstrap = ({ reporter }) => {
+  reporter.info('Cache headers configured for optimal performance');
 };

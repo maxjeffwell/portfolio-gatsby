@@ -9,6 +9,7 @@ const siteMetadata = {
 module.exports = {
   siteMetadata,
   plugins: [
+    `gatsby-plugin-webpack-bundle-analyser-v2`,
     `gatsby-plugin-react-helmet-async`,
     `gatsby-plugin-image`,
     {
@@ -134,5 +135,88 @@ module.exports = {
     //     },
     //   },
     // },
+    {
+      resolve: `gatsby-plugin-netlify`,
+      options: {
+        headers: {
+          // Cache static assets for 1 year
+          "/static/*": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.js": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.css": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/fonts/*": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.woff": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.woff2": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.ttf": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.eot": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.otf": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/images/*": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.jpg": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.jpeg": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.png": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.gif": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.svg": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.webp": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          "/*.avif": [
+            "Cache-Control: public, max-age=31536000, immutable",
+          ],
+          // HTML files should not be cached
+          "/*.html": [
+            "Cache-Control: public, max-age=0, must-revalidate",
+          ],
+          "/": [
+            "Cache-Control: public, max-age=0, must-revalidate",
+          ],
+          // Page data and app data
+          "/page-data/*": [
+            "Cache-Control: public, max-age=0, must-revalidate",
+          ],
+          "/app-data.json": [
+            "Cache-Control: public, max-age=0, must-revalidate",
+          ],
+        },
+        allPageHeaders: [
+          "X-Frame-Options: DENY",
+          "X-Content-Type-Options: nosniff",
+          "Referrer-Policy: strict-origin-when-cross-origin",
+          "Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()",
+        ],
+        mergeSecurityHeaders: true,
+        mergeCachingHeaders: true,
+        transformHeaders: (headers, path) => headers,
+        generateMatchPathRewrites: true,
+      },
+    },
   ],
 };
