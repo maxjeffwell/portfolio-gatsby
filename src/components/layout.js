@@ -47,7 +47,7 @@ function ThemedLayout({ children, data }) {
   return (
     <>
       <Header />
-      <Container maxWidth="lg" component="main" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="lg" component="main" role="main" sx={{ mt: 4, mb: 4 }}>
         {children}
       </Container>
       <StyledFooter component="footer" role="contentinfo">
@@ -57,14 +57,18 @@ function ThemedLayout({ children, data }) {
           </Typography>
           <Link
             href="mailto:maxjeffwell@gmail.com"
-            underline="hover"
+            underline="always"
             sx={{
               fontSize: '1.5rem',
               color: muiTheme.palette.secondary.main,
               display: 'block',
               mb: 3,
+              textDecorationColor: muiTheme.palette.secondary.main,
+              textDecorationThickness: '2px',
+              textUnderlineOffset: '4px',
               '&:hover': {
                 color: muiTheme.palette.primary.main,
+                textDecorationColor: muiTheme.palette.primary.main,
               },
             }}
             aria-label="Send email to maxjeffwell@gmail.com"
@@ -113,8 +117,15 @@ function ThemedLayout({ children, data }) {
               href="https://www.gatsbyjs.org"
               target="_blank"
               rel="noopener noreferrer"
-              underline="hover"
-              sx={{ color: muiTheme.palette.secondary.main }}
+              underline="always"
+              sx={{
+                color: muiTheme.palette.secondary.main,
+                textDecorationColor: muiTheme.palette.secondary.main,
+                textUnderlineOffset: '2px',
+                '&:hover': {
+                  textDecorationThickness: '2px',
+                },
+              }}
             >
               Gatsby
             </Link>

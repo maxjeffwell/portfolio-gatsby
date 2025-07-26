@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -71,6 +71,7 @@ function Header() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +83,15 @@ function Header() {
   }, []);
 
   const handleDrawerToggle = () => {
+    const wasOpen = mobileOpen;
     setMobileOpen(!mobileOpen);
+
+    // Focus management: when drawer closes, restore focus to menu button
+    if (wasOpen && menuButtonRef.current) {
+      setTimeout(() => {
+        menuButtonRef.current.focus();
+      }, 100);
+    }
   };
 
   const menuItems = [
@@ -93,13 +102,13 @@ function Header() {
   ];
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box sx={{ textAlign: 'center' }}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
-        <IconButton>
+        <IconButton onClick={handleDrawerToggle} aria-label="close drawer">
           <CloseIcon />
         </IconButton>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
+      <Box component="nav" role="navigation" aria-label="Mobile navigation" sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
         {menuItems.map((item) => (
           <Button
             key={item.text}
@@ -125,7 +134,7 @@ function Header() {
 
   return (
     <>
-      <StyledAppBar position="fixed" scrolled={isScrolled ? 1 : 0} elevation={0}>
+      <StyledAppBar position="fixed" scrolled={isScrolled ? 1 : 0} elevation={0} component="header" role="banner">
         <Container maxWidth="lg">
           <Toolbar sx={{ justifyContent: 'space-between', padding: { xs: 1, sm: 2 } }}>
             {isMobile && (
@@ -133,10 +142,12 @@ function Header() {
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
+                ref={menuButtonRef}
                 sx={{
-                  color: theme.palette.mode === 'dark' 
-                    ? theme.palette.text.primary 
-                    : theme.palette.text.primary,
+                  color:
+                    theme.palette.mode === 'dark'
+                      ? theme.palette.text.primary
+                      : theme.palette.text.primary,
                   '&:hover': {
                     backgroundColor: theme.palette.action.hover,
                   },
@@ -147,7 +158,7 @@ function Header() {
             )}
 
             {!isMobile && (
-              <Box component="nav" sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box component="nav" role="navigation" aria-label="Main navigation" sx={{ display: 'flex', alignItems: 'center' }}>
                 {menuItems.map((item) => (
                   <NavButton
                     key={item.text}
@@ -157,6 +168,11 @@ function Header() {
                       typeof window !== 'undefined' && window.location.pathname === item.to
                         ? 'active'
                         : ''
+                    }
+                    aria-current={
+                      typeof window !== 'undefined' && window.location.pathname === item.to
+                        ? 'page'
+                        : undefined
                     }
                   >
                     {item.text}

@@ -93,8 +93,8 @@ function Contact() {
         ]}
       />
       <Container maxWidth="lg">
-        <Box sx={{ mb: 6 }}>
-          <GradientText variant="h2" component="h1" align="center" gutterBottom>
+        <Box component="section" aria-labelledby="contact-header" sx={{ mb: 6 }}>
+          <GradientText variant="h2" component="h1" id="contact-header" align="center" gutterBottom>
             Let&#39;s Connect
           </GradientText>
           <Typography variant="h5" align="center" color="text.secondary" paragraph>
@@ -102,12 +102,16 @@ function Contact() {
           </Typography>
         </Box>
 
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <ContactCard elevation={3}>
-              <Typography variant="h4" gutterBottom>
-                Get in Touch
-              </Typography>
+        <Box component="section" aria-labelledby="contact-methods">
+          <Typography variant="h2" id="contact-methods" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Contact Information and Methods
+          </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <ContactCard elevation={3}>
+                <Typography variant="h3" id="get-in-touch" gutterBottom>
+                  Get in Touch
+                </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
                 Whether you have a project in mind, need technical expertise, or just want to say
                 hello, hello, I&#39;d love to hear from you. Feel free to reach out through any of
@@ -124,8 +128,15 @@ function Contact() {
                     <Link
                       href="mailto:maxjeffwell@gmail.com"
                       color="primary"
-                      underline="hover"
+                      underline="always"
                       variant="body1"
+                      sx={{
+                        textDecorationThickness: '2px',
+                        textUnderlineOffset: '3px',
+                        '&:hover': {
+                          textDecorationColor: theme.palette.primary.dark,
+                        },
+                      }}
                     >
                       maxjeffwell@gmail.com
                     </Link>
@@ -141,8 +152,15 @@ function Contact() {
                     <Link
                       href="tel:+01-508-395-2008"
                       color="primary"
-                      underline="hover"
+                      underline="always"
                       variant="body1"
+                      sx={{
+                        textDecorationThickness: '2px',
+                        textUnderlineOffset: '3px',
+                        '&:hover': {
+                          textDecorationColor: theme.palette.primary.dark,
+                        },
+                      }}
                     >
                       (508) 395-2008
                     </Link>
@@ -179,8 +197,15 @@ function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       color="primary"
-                      underline="hover"
+                      underline="always"
                       variant="body1"
+                      sx={{
+                        textDecorationThickness: '2px',
+                        textUnderlineOffset: '3px',
+                        '&:hover': {
+                          textDecorationColor: theme.palette.primary.dark,
+                        },
+                      }}
                     >
                       View my projects
                     </Link>
@@ -192,7 +217,7 @@ function Contact() {
 
           <Grid item xs={12} md={6}>
             <ContactCard elevation={3}>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h3" id="send-message" gutterBottom>
                 Send a Message
               </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
@@ -260,9 +285,13 @@ function Contact() {
               </NoSsr>
             </ContactCard>
           </Grid>
-        </Grid>
+          </Grid>
+        </Box>
 
-        <Box sx={{ mt: 6, textAlign: 'center' }}>
+        <Box component="section" aria-labelledby="availability" sx={{ mt: 6, textAlign: 'center' }}>
+          <Typography variant="h2" id="availability" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Current Availability
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             Currently open to new opportunities and exciting projects. Let&#39;s build something
             together!

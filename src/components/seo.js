@@ -251,10 +251,7 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           url: site.siteMetadata.siteUrl,
           email: 'maxjeffwell@gmail.com',
           knowsAbout: ['JavaScript', 'React', 'Node.js', 'Full Stack Development'],
-          sameAs: [
-            'https://github.com/maxjeffwell',
-            'https://angel.co/maxjeffwell',
-          ],
+          sameAs: ['https://github.com/maxjeffwell', 'https://angel.co/maxjeffwell'],
         })}
       </script>
 

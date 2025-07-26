@@ -28,7 +28,6 @@ const PerformanceMonitor = () => {
     };
 
     const reportPerformanceMetrics = () => {
-
       // Monitor Core Web Vitals
       if ('PerformanceObserver' in window) {
         // Largest Contentful Paint (LCP)

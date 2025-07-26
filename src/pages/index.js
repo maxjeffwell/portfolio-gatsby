@@ -10,9 +10,6 @@ import {
   Card,
   CardContent,
   useTheme as useMuiTheme,
-  Fade,
-  Slide,
-  Grow,
   NoSsr,
 } from '@mui/material';
 import { ArrowForward, Pets, CheckCircle, Computer, LightbulbOutlined } from '@mui/icons-material';
@@ -25,15 +22,17 @@ import CodeSnippet from '../components/CodeSnippet';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import CTASection from '../components/CTASection';
 
-const HeroSection = styled(Paper)(({ theme }) => ({
+const HeroSection = styled('div')(({ theme }) => ({
   padding: theme.spacing(6, 4),
   textAlign: 'center',
-  background: `linear-gradient(135deg, ${theme.palette.primary.main}10 0%, ${theme.palette.secondary.main}10 100%)`,
+  background: '#f5f7fa',
   borderRadius: theme.shape.borderRadius * 3,
   marginBottom: theme.spacing(4),
   position: 'relative',
   overflow: 'hidden',
   contain: 'layout',
+  boxShadow:
+    '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(4, 2),
   },
@@ -106,9 +105,9 @@ function IndexPage() {
         ]}
       />
       <Container maxWidth="lg">
-        <Box ref={headerRef}>
-          <Fade in={headerVisible} timeout={1000}>
-            <HeroSection elevation={3}>
+        <Box component="section" role="banner" aria-labelledby="hero-title" ref={headerRef}>
+          <HeroSection sx={{ opacity: headerVisible ? 1 : 0, transition: 'opacity 0.4s ease-out' }}>
+            <NoSsr>
               <FloatingShape
                 sx={{
                   width: 60,
@@ -128,19 +127,26 @@ function IndexPage() {
                   borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
                 }}
               />
-              <Typography variant="h5" color="text.secondary" gutterBottom>
-                My name's Jeff.
-              </Typography>
-              <GradientText variant="h2" component="h1" gutterBottom>
-                I'm a{' '}
-                <Box 
-                  component="span" 
-                  sx={{ 
-                    color: muiTheme.palette.primary.main,
-                    fontWeight: 'bold'
-                  }}
-                >
-                  <NoSsr fallback={<span>Full Stack Developer</span>}>
+            </NoSsr>
+            <GradientText variant="h1" gutterBottom sx={{ minHeight: '4.5rem' }} id="hero-title">
+              I'm a{' '}
+              <Box
+                component="span"
+                sx={{
+                  color: muiTheme.palette.primary.main,
+                  fontWeight: 'bold',
+                  position: 'relative',
+                  display: 'inline-block',
+                  minWidth: '280px',
+                  minHeight: '1.2em',
+                }}
+              >
+                <span style={{ visibility: 'hidden' }}>Full Stack Developer</span>
+                <NoSsr>
+                  <Box
+                    component="span"
+                    sx={{ position: 'absolute', left: 0, top: 0, width: '100%' }}
+                  >
                     <TypingAnimation
                       texts={[
                         'Full Stack Developer',
@@ -156,62 +162,79 @@ function IndexPage() {
                       loop
                       startDelay={800}
                     />
-                  </NoSsr>
-                </Box>
-              </GradientText>
-              <Typography variant="h6" color="text.secondary" sx={{ mt: 2 }}>
-                crafting exceptional web experiences
+                  </Box>
+                </NoSsr>
+              </Box>
+            </GradientText>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontSize: '1.25rem' }}>
+              My name's Jeff.
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{ mt: 2, minHeight: '1.75rem', fontSize: '1.125rem' }}
+            >
+              crafting exceptional web experiences
+            </Typography>
+          </HeroSection>
+        </Box>
+
+        <Box component="section" aria-labelledby="intro-title" ref={introRef} sx={{ mb: 4, minHeight: '240px' }}>
+          <Card
+            elevation={2}
+            sx={{
+              borderRadius: 3,
+              overflow: 'visible',
+              opacity: introVisible ? 1 : 0,
+              transform: introVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+            }}
+          >
+            <CardContent sx={{ p: 4 }}>
+              <Typography variant="h2" id="intro-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+                About My Development Philosophy
               </Typography>
-            </HeroSection>
-          </Fade>
-        </Box>
-
-        <Box ref={introRef} sx={{ mb: 4 }}>
-          <Slide direction="up" in={introVisible} timeout={800}>
-            <Card elevation={2} sx={{ borderRadius: 3, overflow: 'visible' }}>
-              <CardContent sx={{ p: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <LightbulbOutlined
-                    sx={{ fontSize: 40, color: muiTheme.palette.primary.main, mr: 2 }}
-                  />
-                  <Typography variant="body1" sx={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
-                    I believe in <strong>clean, maintainable code</strong> and{' '}
-                    <strong>user-centered design</strong>. Every line I write is crafted with
-                    performance, accessibility, and scalability in mind.
-                  </Typography>
-                </Box>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ fontStyle: 'italic', mt: 2 }}
-                >
-                  "Code is like humor. When you have to explain it, it's bad." — That's why I focus
-                  on intuitive, self-documenting solutions.
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <LightbulbOutlined
+                  sx={{ fontSize: 40, color: muiTheme.palette.primary.main, mr: 2 }}
+                />
+                <Typography variant="body1" sx={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
+                  I believe in <strong>clean, maintainable code</strong> and{' '}
+                  <strong>user-centered design</strong>. Every line I write is crafted with
+                  performance, accessibility, and scalability in mind.
                 </Typography>
-              </CardContent>
-            </Card>
-          </Slide>
-        </Box>
-
-        <Box ref={navRef} sx={{ mb: 6, textAlign: 'center' }}>
-          <Grow in={navVisible} timeout={1000}>
-            <div>
-              <StyledButton
-                component={Link}
-                to="/projects/"
-                endIcon={<ArrowForward />}
-                size="large"
+              </Box>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ fontStyle: 'italic', mt: 2 }}
               >
-                View My Projects
-              </StyledButton>
-            </div>
-          </Grow>
+                "Code is like humor. When you have to explain it, it's bad." — That's why I focus on
+                intuitive, self-documenting solutions.
+              </Typography>
+            </CardContent>
+          </Card>
         </Box>
 
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <Fade in={introVisible} timeout={1200}>
-              <Card
+        <Box component="section" aria-labelledby="cta-title" ref={navRef} sx={{ mb: 6, textAlign: 'center', minHeight: '64px' }}>
+          <Typography variant="h2" id="cta-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Portfolio Navigation
+          </Typography>
+          <div style={{ opacity: navVisible ? 1 : 0, transition: 'opacity 0.5s ease-out' }}>
+            <StyledButton component={Link} to="/projects/" endIcon={<ArrowForward />} size="large">
+              View My Projects
+            </StyledButton>
+          </div>
+        </Box>
+
+        <Box component="section" aria-labelledby="content-sections-title">
+          <Typography variant="h2" id="content-sections-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Featured Content
+          </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <Box component="article" aria-labelledby="beyond-code-title" sx={{ opacity: introVisible ? 1 : 0, transition: 'opacity 0.6s ease-out' }}>
+                <Card
                 elevation={2}
                 sx={{
                   height: '100%',
@@ -227,6 +250,7 @@ function IndexPage() {
                     variant="h4"
                     color="secondary"
                     gutterBottom
+                    id="beyond-code-title"
                     sx={{ display: 'flex', alignItems: 'center' }}
                   >
                     <Box
@@ -260,11 +284,11 @@ function IndexPage() {
                   </Button>
                 </CardContent>
               </Card>
-            </Fade>
+            </Box>
           </Grid>
 
           <Grid item xs={12} md={6} ref={codeRef}>
-            <Fade in={codeVisible} timeout={1200}>
+            <Box component="article" aria-labelledby="code-philosophy-title" sx={{ opacity: codeVisible ? 1 : 0, transition: 'opacity 0.6s ease-out' }}>
               <Card
                 elevation={2}
                 sx={{
@@ -284,6 +308,7 @@ function IndexPage() {
                   <Typography
                     variant="h4"
                     gutterBottom
+                    id="code-philosophy-title"
                     sx={{ display: 'flex', alignItems: 'center' }}
                   >
                     <Computer sx={{ mr: 2 }} />
@@ -349,12 +374,16 @@ function IndexPage() {
                   </Paper>
                 </CardContent>
               </Card>
-            </Fade>
+            </Box>
           </Grid>
         </Grid>
+        </Box>
 
         <NoSsr>
-          <Box ref={ctaRef}>
+          <Box component="section" aria-labelledby="cta-section-title" ref={ctaRef}>
+            <Typography variant="h2" id="cta-section-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+              Contact and Call to Action
+            </Typography>
             <CTASection visible={ctaVisible} />
           </Box>
         </NoSsr>

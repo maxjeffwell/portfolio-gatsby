@@ -119,14 +119,15 @@ function AboutPage() {
         ]}
       />
       <Container maxWidth="lg">
-        <Box ref={headerRef} sx={{ mb: 6 }}>
+        <Box component="section" aria-labelledby="about-header" ref={headerRef} sx={{ mb: 6 }}>
           <Fade in={headerVisible} timeout={1000}>
             <div>
-              <GradientText variant="h2" component="h1" align="center" gutterBottom>
+              <GradientText variant="h2" component="h1" id="about-header" align="center" gutterBottom>
                 About Jeff Maxwell
               </GradientText>
               <Typography
                 variant="h5"
+                component="h2"
                 align="center"
                 color="text.secondary"
                 sx={{ maxWidth: 600, mx: 'auto' }}
@@ -138,11 +139,11 @@ function AboutPage() {
             </div>
           </Fade>
         </Box>
-        <Box ref={personalRef} sx={{ mb: 6 }}>
+        <Box component="section" aria-labelledby="personal-section" ref={personalRef} sx={{ mb: 6 }}>
           <NoSsr>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
-                <Typography variant="h4" component="h2" gutterBottom align="center">
+                <Typography variant="h4" component="h3" id="personal-section" gutterBottom align="center">
                   Beyond the Code
                 </Typography>
                 <Typography
@@ -202,7 +203,34 @@ function AboutPage() {
           </NoSsr>
         </Box>
 
-        <Grid container spacing={4} sx={{ mb: 6 }}>
+        <Box component="section" aria-labelledby="illustrations-section">
+          <Typography variant="h2" id="illustrations-section" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Development Team Illustrations
+          </Typography>
+          <Grid container spacing={4} sx={{ mb: 6 }}>
+            <Grid item xs={12} md={6}>
+              <Card
+              elevation={3}
+              sx={{
+                borderRadius: 3,
+                overflow: 'hidden',
+                backgroundColor: 'rgb(0, 89, 149)',
+                aspectRatio: '1 / 1',
+                position: 'relative',
+              }}
+            >
+              <Box
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Image imageType="mascot" />
+              </Box>
+            </Card>
+          </Grid>
           <Grid item xs={12} md={6}>
             <Card
               elevation={3}
@@ -214,37 +242,35 @@ function AboutPage() {
                 position: 'relative',
               }}
             >
-              <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Image imageType="mascot" />
-              </Box>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Card
-              elevation={3}
-              sx={{
-                borderRadius: 3,
-                overflow: 'hidden', 
-                backgroundColor: 'rgb(0, 89, 149)',
-                aspectRatio: '1 / 1',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Box
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 <Image imageType="dogs" />
               </Box>
             </Card>
           </Grid>
-        </Grid>
+          </Grid>
+        </Box>
 
-        <Box ref={techRef} sx={{ mb: 6 }}>
+        <Box component="section" aria-labelledby="tech-stack" ref={techRef} sx={{ mb: 6 }}>
           <NoSsr>
             <Fade in={techVisible} timeout={1000}>
               <TechSection elevation={2}>
-                <GradientText variant="h3" component="h2" align="center" gutterBottom>
+                <GradientText variant="h2" id="tech-stack" align="center" gutterBottom>
                   Technology Stack & Tools
                 </GradientText>
-                <Typography variant="h6" align="center" color="text.secondary" paragraph>
+                <Typography
+                  variant="body1"
+                  align="center"
+                  color="text.secondary"
+                  paragraph
+                  sx={{ fontSize: '1.125rem' }}
+                >
                   The tools and technologies that power my development workflow
                 </Typography>
 
@@ -256,7 +282,7 @@ function AboutPage() {
                           <DiIntellij />
                         </StyledIcon>
                       )}
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="h3" gutterBottom>
                         IntelliJ IDEA
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -272,7 +298,7 @@ function AboutPage() {
                           <DiMozilla />
                         </StyledIcon>
                       )}
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="h3" gutterBottom>
                         Firefox
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -288,7 +314,7 @@ function AboutPage() {
                           <DiDebian />
                         </StyledIcon>
                       )}
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="h3" gutterBottom>
                         Debian Linux
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -304,7 +330,7 @@ function AboutPage() {
                           <FaPiedPiperAlt />
                         </StyledIcon>
                       )}
-                      <Typography variant="h6" gutterBottom>
+                      <Typography variant="h3" gutterBottom>
                         Pied Piper
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -318,8 +344,8 @@ function AboutPage() {
           </NoSsr>
         </Box>
 
-        <Box sx={{ textAlign: 'center', mt: 6 }}>
-          <GradientText variant="h4" component="h2" gutterBottom>
+        <Box component="section" aria-labelledby="organizations" sx={{ textAlign: 'center', mt: 6 }}>
+          <GradientText variant="h2" id="organizations" gutterBottom>
             Supported Organizations
           </GradientText>
           <Box sx={{ maxWidth: 300, mx: 'auto' }}>

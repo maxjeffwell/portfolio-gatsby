@@ -127,10 +127,10 @@ function ProjectCard({
             Technologies Used:
           </Typography>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-            <TechIcon>
+            <TechIcon role="img" aria-label="Technology used in project">
               <img
                 src={imageSrcPath3}
-                alt="Technology icon"
+                alt=""
                 width="24"
                 height="24"
                 style={{
@@ -140,10 +140,10 @@ function ProjectCard({
                 }}
               />
             </TechIcon>
-            <TechIcon>
+            <TechIcon role="img" aria-label="Technology used in project">
               <img
                 src={imageSrcPath4}
-                alt="Technology icon"
+                alt=""
                 width="24"
                 height="24"
                 style={{
@@ -153,10 +153,10 @@ function ProjectCard({
                 }}
               />
             </TechIcon>
-            <TechIcon>
+            <TechIcon role="img" aria-label="Technology used in project">
               <img
                 src={imageSrcPath5}
-                alt="Technology icon"
+                alt=""
                 width="24"
                 height="24"
                 style={{
@@ -167,10 +167,10 @@ function ProjectCard({
               />
             </TechIcon>
             {imageSrcPath6 && (
-              <TechIcon>
+              <TechIcon role="img" aria-label="Technology used in project">
                 <img
                   src={imageSrcPath6}
-                  alt="Technology icon"
+                  alt=""
                   width="24"
                   height="24"
                   style={{
@@ -181,20 +181,16 @@ function ProjectCard({
                 />
               </TechIcon>
             )}
-            {typeof window !== 'undefined' && (
-              <>
-                <TechIcon>
-                  <FaReact size={24} color="red" />
-                </TechIcon>
-                <TechIcon>
-                  <FaGit size={24} color="red" />
-                </TechIcon>
-                {technologies.includes('Heroku') && (
-                  <TechIcon>
-                    <DiHeroku size={24} color="red" />
-                  </TechIcon>
-                )}
-              </>
+            <TechIcon role="img" aria-label="React technology">
+              <FaReact size={24} color="red" />
+            </TechIcon>
+            <TechIcon role="img" aria-label="Git version control">
+              <FaGit size={24} color="red" />
+            </TechIcon>
+            {technologies.includes('Heroku') && (
+              <TechIcon role="img" aria-label="Heroku deployment platform">
+                <DiHeroku size={24} color="red" />
+              </TechIcon>
             )}
           </Stack>
         </Box>

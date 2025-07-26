@@ -10,7 +10,6 @@ import {
   Grid,
   Paper,
   useTheme,
-  Fade,
   NoSsr,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -214,12 +213,12 @@ const Projects = ({ data }) => {
   const enhancedProjects = useMemo(() => {
     return filteredProjects.map((project) => ({
       ...project,
-      imageSrcPath: data.allImageSharp.edges.find((edge) =>
-        edge.node.fixed.src.includes(project.screenshots.screenshot1)
-      )?.node,
-      imageSrcPath2: data.allImageSharp.edges.find((edge) =>
-        edge.node.fixed.src.includes(project.screenshots.screenshot2)
-      )?.node,
+      imageSrcPath: data.allFile.edges.find((edge) =>
+        edge.node.relativePath.includes(project.screenshots.screenshot1)
+      )?.node.childImageSharp,
+      imageSrcPath2: data.allFile.edges.find((edge) =>
+        edge.node.relativePath.includes(project.screenshots.screenshot2)
+      )?.node.childImageSharp,
       imageSrcPath3: project.techIcons.icon3,
       imageSrcPath4: project.techIcons.icon4,
       imageSrcPath5: project.techIcons.icon5,
@@ -244,16 +243,20 @@ const Projects = ({ data }) => {
         ]}
       />
       <Container maxWidth="lg">
-        <Box sx={{ mb: 6 }}>
-          <GradientText variant="h2" component="h1" align="center" gutterBottom>
+        <Box component="section" aria-labelledby="projects-header" sx={{ mb: 6 }}>
+          <GradientText variant="h2" component="h1" id="projects-header" align="center" gutterBottom>
             Featured Projects
           </GradientText>
-          <Typography variant="h5" align="center" color="text.secondary" paragraph>
+          <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
             A collection of my work demonstrating modern web development
           </Typography>
         </Box>
 
-        <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
+        <Box component="section" aria-labelledby="project-filters">
+          <Typography variant="h2" id="project-filters" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Project Filters
+          </Typography>
+          <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
           <Box
             sx={{
               display: 'flex',
@@ -263,7 +266,9 @@ const Projects = ({ data }) => {
               gap: 2,
             }}
           >
-            <Typography variant="h6">Filter Projects (Total: {filteredProjects.length})</Typography>
+            <Typography variant="h6" component="h3">
+              Filter Projects (Total: {filteredProjects.length})
+            </Typography>
             <NoSsr>
               <Select
                 value={filters.technologies[0] || ''}
@@ -275,6 +280,7 @@ const Projects = ({ data }) => {
                 }
                 displayEmpty
                 sx={{ minWidth: 200 }}
+                aria-label="Filter projects by technology"
               >
                 <MenuItem value="">All Projects</MenuItem>
                 <MenuItem value="React">React</MenuItem>
@@ -283,38 +289,42 @@ const Projects = ({ data }) => {
               </Select>
             </NoSsr>
           </Box>
-        </Paper>
+          </Paper>
+        </Box>
 
-        {filteredProjects.length === 0 ? (
+        <Box component="section" aria-labelledby="projects-list">
+          <Typography variant="h2" id="projects-list" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Projects Portfolio
+          </Typography>
+          {filteredProjects.length === 0 ? (
           <Box sx={{ textAlign: 'center', py: 6 }}>
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
               No projects match your current filters. Try adjusting your search criteria.
             </Typography>
           </Box>
         ) : (
           <Grid container spacing={4}>
             {enhancedProjects.map((project, index) => (
-              <Fade key={project.id} in timeout={800 + index * 200}>
-                <Grid item xs={12}>
-                  <ProjectCard
-                    title={project.title}
-                    date={project.date}
-                    description={project.description}
-                    sourceURL={project.sourceURL}
-                    hostedURL={project.hostedURL}
-                    technologies={project.technologies}
-                    imageSrcPath={project.imageSrcPath}
-                    imageSrcPath2={project.imageSrcPath2}
-                    imageSrcPath3={project.imageSrcPath3}
-                    imageSrcPath4={project.imageSrcPath4}
-                    imageSrcPath5={project.imageSrcPath5}
-                    imageSrcPath6={project.imageSrcPath6}
-                  />
-                </Grid>
-              </Fade>
+              <Grid key={project.id} item xs={12}>
+                <ProjectCard
+                  title={project.title}
+                  date={project.date}
+                  description={project.description}
+                  sourceURL={project.sourceURL}
+                  hostedURL={project.hostedURL}
+                  technologies={project.technologies}
+                  imageSrcPath={project.imageSrcPath}
+                  imageSrcPath2={project.imageSrcPath2}
+                  imageSrcPath3={project.imageSrcPath3}
+                  imageSrcPath4={project.imageSrcPath4}
+                  imageSrcPath5={project.imageSrcPath5}
+                  imageSrcPath6={project.imageSrcPath6}
+                />
+              </Grid>
             ))}
           </Grid>
         )}
+        </Box>
       </Container>
     </Layout>
   );
@@ -322,14 +332,14 @@ const Projects = ({ data }) => {
 
 Projects.propTypes = {
   data: PropTypes.shape({
-    allImageSharp: PropTypes.shape({
+    allFile: PropTypes.shape({
       edges: PropTypes.arrayOf(
         PropTypes.shape({
           node: PropTypes.shape({
-            gatsbyImageData: PropTypes.object.isRequired,
-            fixed: PropTypes.shape({
-              src: PropTypes.string.isRequired,
-            }).isRequired,
+            relativePath: PropTypes.string.isRequired,
+            childImageSharp: PropTypes.shape({
+              gatsbyImageData: PropTypes.object.isRequired,
+            }),
           }).isRequired,
         })
       ).isRequired,
@@ -341,12 +351,14 @@ export default Projects;
 
 export const pageQuery = graphql`
   query {
-    allImageSharp {
+    allFile(
+      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(jpg|jpeg|png)/" } }
+    ) {
       edges {
         node {
-          gatsbyImageData(width: 1200, layout: CONSTRAINED)
-          fixed {
-            src
+          relativePath
+          childImageSharp {
+            gatsbyImageData(width: 1200, layout: CONSTRAINED, placeholder: BLURRED)
           }
         }
       }

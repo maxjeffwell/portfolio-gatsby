@@ -139,7 +139,12 @@ function CTASectionComponent({ visible }) {
           Ready to Build Something Amazing?
         </GradientText>
 
-        <Typography variant="h6" paragraph sx={{ mb: 4, opacity: 0.9 }} color="text.secondary">
+        <Typography
+          variant="body1"
+          paragraph
+          sx={{ mb: 4, opacity: 0.9, fontSize: '1.125rem' }}
+          color="text.secondary"
+        >
           Let's collaborate to create exceptional web experiences that make a difference. I'm
           passionate about solving complex problems with clean, efficient code.
         </Typography>

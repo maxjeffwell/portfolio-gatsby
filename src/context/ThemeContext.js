@@ -29,6 +29,7 @@ const lightTheme = createTheme({
   },
   typography: {
     fontFamily: [
+      'AvenirLTStd-Roman',
       'Roboto',
       '-apple-system',
       'BlinkMacSystemFont',
@@ -122,6 +123,22 @@ const lightTheme = createTheme({
       complex: 375,
       enteringScreen: 225,
       leavingScreen: 195,
+    },
+  },
+  components: {
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          '&:focus': {
+            outline: '3px solid #1976d2',
+            outlineOffset: '2px',
+            borderRadius: '2px',
+          },
+          '&:focus:not(:focus-visible)': {
+            outline: 'none',
+          },
+        },
+      },
     },
   },
 });
@@ -151,6 +168,7 @@ const darkTheme = createTheme({
   },
   typography: {
     fontFamily: [
+      'AvenirLTStd-Roman',
       'Roboto',
       '-apple-system',
       'BlinkMacSystemFont',
@@ -244,6 +262,22 @@ const darkTheme = createTheme({
       complex: 375,
       enteringScreen: 225,
       leavingScreen: 195,
+    },
+  },
+  components: {
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          '&:focus': {
+            outline: '3px solid #1976d2',
+            outlineOffset: '2px',
+            borderRadius: '2px',
+          },
+          '&:focus:not(:focus-visible)': {
+            outline: 'none',
+          },
+        },
+      },
     },
   },
 });
