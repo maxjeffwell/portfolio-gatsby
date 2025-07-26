@@ -125,8 +125,8 @@ function Contact() {
       {/* Hidden form for Netlify to detect */}
       <NoSsr>
         <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-          <input type="text" name="name" />
-          <input type="email" name="email" />
+          <input type="text" name="name" autoComplete="name" />
+          <input type="email" name="email" autoComplete="email" />
           <textarea name="message" id="hidden-message-textarea" />
         </form>
       </NoSsr>
@@ -322,7 +322,7 @@ function Contact() {
                   >
                     <input type="hidden" name="form-name" value="contact" />
                     <Box sx={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-                      <input type="text" name="bot-field" tabIndex="-1" />
+                      <input type="text" name="bot-field" tabIndex="-1" autoComplete="off" />
                     </Box>
 
                     <TextField
@@ -330,6 +330,7 @@ function Contact() {
                       fullWidth
                       label="Your Name"
                       name="name"
+                      autoComplete="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -343,6 +344,7 @@ function Contact() {
                       label="Your Email"
                       name="email"
                       type="email"
+                      autoComplete="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -355,6 +357,7 @@ function Contact() {
                       fullWidth
                       label="Your Message"
                       name="message"
+                      autoComplete="off"
                       value={formData.message}
                       onChange={handleChange}
                       required
