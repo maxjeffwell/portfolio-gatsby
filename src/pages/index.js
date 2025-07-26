@@ -12,7 +12,7 @@ import {
   useTheme as useMuiTheme,
   NoSsr,
 } from '@mui/material';
-import { ArrowForward, Pets, CheckCircle, Computer, LightbulbOutlined } from '@mui/icons-material';
+import { ArrowForward, CheckCircle, Computer, LightbulbOutlined } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 import Layout from '../components/layout';
