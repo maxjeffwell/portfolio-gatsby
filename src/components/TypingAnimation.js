@@ -131,7 +131,7 @@ function TypingAnimation({
     );
   }
 
-  const currentDisplayText = displayText || (isStarted ? '' : texts[0] || 'React Specialist');
+  const currentDisplayText = isStarted ? displayText : '';
 
   return (
     <TypingContainer>

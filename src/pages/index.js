@@ -163,7 +163,6 @@ function IndexPage() {
                 >
                   JAMstack Architect
                 </Box>
-                React Specialist
                 <NoSsr fallback={null}>
                   <Box
                     component="span"
