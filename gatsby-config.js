@@ -24,6 +24,14 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://www.el-jefe.me',
+        sitemap: 'https://www.el-jefe.me/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -41,9 +49,6 @@ module.exports = {
           webpOptions: {
             quality: 85,
           },
-          // avifOptions: {
-          //   quality: 80,
-          // },
         },
       },
     },
