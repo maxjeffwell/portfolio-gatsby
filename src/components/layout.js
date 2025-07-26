@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { HelmetProvider } from 'react-helmet-async';
-import { Box, Container, Typography, Link, IconButton, useTheme, GlobalStyles } from '@mui/material';
+import {
+  Box,
+  Container,
+  Typography,
+  Link,
+  IconButton,
+  useTheme,
+  GlobalStyles,
+} from '@mui/material';
 import { GitHub, Phone, Language } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
@@ -53,7 +61,7 @@ function ThemedLayout({ children, data }) {
           '*': {
             fontDisplay: 'swap',
           },
-          'body': {
+          body: {
             overflowX: 'hidden',
           },
           '[data-gatsby-image-wrapper]': {
@@ -107,7 +115,7 @@ function ThemedLayout({ children, data }) {
             <SocialLink
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.github.com/maxjeffwell"
+              url="https://www.github.com/maxjeffwell"
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
             >
@@ -116,7 +124,7 @@ function ThemedLayout({ children, data }) {
             <SocialLink
               target="_blank"
               rel="noopener noreferrer"
-              href="https://angel.co/maxjeffwell"
+              url="https://angel.co/maxjeffwell"
               aria-label="Visit Jeff Maxwell's AngelList profile"
               size="large"
             >
