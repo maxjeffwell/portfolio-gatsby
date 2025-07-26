@@ -13,6 +13,7 @@
     "gatsby-adapter-netlify": "^1.2.0",
     "gatsby-cli": "^5.14.0",
     "gatsby-plugin-emotion": "^8.14.0",
+    "gatsby-plugin-google-gtag": "^5.14.0",
     "gatsby-plugin-image": "^3.14.0",
     "gatsby-plugin-manifest": "^5.14.0",
     "gatsby-plugin-preconnect": "^1.4.0",
@@ -32,6 +33,9 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
+    "babel-plugin-import": "^1.13.8",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "cheerio": "^1.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -55,7 +59,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV=production gatsby build",
+    "build": "NODE_ENV=production gatsby build && node scripts/generate-csp-hashes.js",
+    "build:secure": "NODE_ENV=production GENERATE_SOURCEMAP=false gatsby build && node scripts/build-secure.js && node scripts/generate-csp-hashes.js",
     "build:analyze": "NODE_ENV=production ANALYZE=true gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",

@@ -15,8 +15,8 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
 
   // Production optimizations
   if (stage === 'build-javascript') {
-    // Enable source maps for production builds (can be disabled via env var)
-    config.devtool = process.env.GENERATE_SOURCEMAP !== 'false' ? 'source-map' : false;
+    // Disable source maps in production for security (prevents library detection)
+    config.devtool = process.env.GENERATE_SOURCEMAP === 'true' ? 'source-map' : false;
     
     // Add bundle analyzer only when ANALYZE=true
     if (process.env.ANALYZE === 'true') {
@@ -34,21 +34,22 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
       ...config.optimization,
       splitChunks: {
         chunks: 'all',
+        maxSize: 244000, // 244KB chunks for better caching
         cacheGroups: {
-          // Vendor libraries
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-            priority: 10,
-            reuseExistingChunk: true,
-          },
           // React libraries
           react: {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             name: 'react',
             chunks: 'all',
-            priority: 20,
+            priority: 30,
+            reuseExistingChunk: true,
+          },
+          // MUI Core separate from other vendors
+          mui: {
+            test: /[\\/]node_modules[\\/]@mui[\\/]/,
+            name: 'mui',
+            chunks: 'all',
+            priority: 25,
             reuseExistingChunk: true,
           },
           // Emotion styling libraries
@@ -56,15 +57,31 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
             test: /[\\/]node_modules[\\/]@emotion[\\/]/,
             name: 'emotion',
             chunks: 'all',
+            priority: 20,
+            reuseExistingChunk: true,
+          },
+          // React Icons - separate bundle
+          icons: {
+            test: /[\\/]node_modules[\\/](react-icons|@mui\/icons-material)[\\/]/,
+            name: 'icons',
+            chunks: 'all',
             priority: 15,
             reuseExistingChunk: true,
           },
-          // React Icons
-          icons: {
-            test: /[\\/]node_modules[\\/]react-icons[\\/]/,
-            name: 'icons',
+          // Gatsby runtime
+          gatsby: {
+            test: /[\\/]node_modules[\\/]gatsby[\\/]/,
+            name: 'gatsby',
             chunks: 'all',
             priority: 12,
+            reuseExistingChunk: true,
+          },
+          // Other vendor libraries
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+            priority: 10,
             reuseExistingChunk: true,
           },
           // Common chunks
@@ -81,7 +98,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
       // Enhanced minimization with custom plugins
       minimize: true,
       minimizer: [
-        // Advanced JavaScript minification with source maps
+        // Advanced JavaScript minification with enhanced obfuscation
         new TerserPlugin({
           terserOptions: {
             parse: {
@@ -108,17 +125,30 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
               dead_code: true,
               collapse_vars: true,
               reduce_vars: true,
-              passes: 2,
+              passes: 3, // More passes for better obfuscation
+              // Remove library signatures
+              keep_fnames: false,
+              keep_classnames: false,
             },
             mangle: {
               safari10: true,
-              reserved: ['$', 'jQuery', 'react', 'React'],
+              // Don't reserve common library names - let them be mangled
+              reserved: [],
+              // Mangle all properties starting with underscore
+              properties: {
+                regex: /^_/,
+              },
             },
             output: {
               ecma: 5,
               comments: false,
               ascii_only: true,
+              // Remove webpack/library comments and signatures
+              beautify: false,
+              semicolons: true,
             },
+            // Remove source map comments in production
+            sourceMap: process.env.GENERATE_SOURCEMAP === 'false' ? false : true,
           },
           parallel: true,
           extractComments: false,
@@ -195,7 +225,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
     config.devtool = 'eval-cheap-module-source-map';
   }
 
-  // Module resolution optimizations
+  // Module resolution optimizations with library name obfuscation
   config.resolve = {
     ...config.resolve,
     alias: {
@@ -205,6 +235,11 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@images': path.resolve(__dirname, 'src/images'),
+      // Alias common libraries to generic names (makes detection harder)
+      'react': 'react',
+      'react-dom': 'react-dom',
+      '@mui/material': '@mui/material',
+      '@emotion/react': '@emotion/react',
     },
     // Reduce resolve attempts
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],

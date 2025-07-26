@@ -18,11 +18,9 @@ import { styled } from '@mui/material/styles';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import TypingAnimation from '../components/TypingAnimation';
+import CodeSnippet from '../components/CodeSnippet';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import CTASection from '../components/CTASection';
-
-const CodeSnippet = React.lazy(() => import('../components/CodeSnippet'));
-const TypingAnimationLazy = React.lazy(() => import('../components/TypingAnimation'));
 
 const HeroSection = styled('div')(({ theme }) => ({
   padding: theme.spacing(6, 4),
@@ -186,16 +184,14 @@ const IndexPage = React.memo(function IndexPage() {
                     component="span"
                     sx={{ position: 'absolute', left: 0, top: 0, width: '100%' }}
                   >
-                    <React.Suspense fallback={<span>React Specialist</span>}>
-                      <TypingAnimationLazy
-                        texts={typingTexts}
-                        typeSpeed={60}
-                        deleteSpeed={30}
-                        delayBetweenTexts={1200}
-                        loop
-                        startDelay={100}
-                      />
-                    </React.Suspense>
+                    <TypingAnimation
+                      texts={typingTexts}
+                      typeSpeed={60}
+                      deleteSpeed={30}
+                      delayBetweenTexts={1200}
+                      loop
+                      startDelay={100}
+                    />
                   </Box>
                 </NoSsr>
               </Box>
@@ -349,12 +345,11 @@ const IndexPage = React.memo(function IndexPage() {
                     Clean, readable, and maintainable — here's how I approach modern React
                     development:
                   </Typography>
-                  <React.Suspense fallback={<Box sx={{ height: '300px', backgroundColor: 'action.hover' }} />}>
-                    <CodeSnippet
-                      title="Custom Hook Example"
-                      animated={codeVisible}
-                      animationSpeed={25}
-                      code={`const useTheme = () => {
+                  <CodeSnippet
+                    title="Custom Hook Example"
+                    animated={codeVisible}
+                    animationSpeed={25}
+                    code={`const useTheme = () => {
   const [isDark, setIsDark] = useState(false);
   
   useEffect(() => {
@@ -370,8 +365,7 @@ const IndexPage = React.memo(function IndexPage() {
   
   return { isDark, toggleTheme };
 };`}
-                    />
-                  </React.Suspense>
+                  />
                   <Paper
                     sx={{
                       mt: 3,

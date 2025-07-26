@@ -139,40 +139,43 @@ const ThirdPartyScripts = () => {
       {/* Custom performance monitoring script - Load off-main-thread */}
       <Script id="performance-monitor" strategy="off-main-thread">
         {`
-          // Enhanced Web Vitals monitoring
-          function reportWebVitals(metric) {
-            // Send to your analytics service
-            console.log('Web Vital:', metric);
-            
-            // Example: Send to Google Analytics
-            if (typeof gtag !== 'undefined') {
-              gtag('event', metric.name, {
-                event_category: 'Web Vitals',
-                value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-                event_label: metric.id,
-                non_interaction: true,
-              });
-            }
-          }
-
-          // Load web-vitals library and observe Core Web Vitals
-          import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
-            .then((webVitals) => {
-              // Use the correct web-vitals v3 API
-              webVitals.onFCP(reportWebVitals);
-              webVitals.onLCP(reportWebVitals);
-              webVitals.onFID(reportWebVitals);
-              webVitals.onCLS(reportWebVitals);
-              webVitals.onTTFB(reportWebVitals);
+          // Only run in browser environment
+          if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+            // Enhanced Web Vitals monitoring
+            function reportWebVitals(metric) {
+              // Send to your analytics service
+              console.log('Web Vital:', metric);
               
-              // Also monitor additional metrics if available
-              if (webVitals.onINP) {
-                webVitals.onINP(reportWebVitals);
+              // Example: Send to Google Analytics
+              if (typeof gtag !== 'undefined') {
+                gtag('event', metric.name, {
+                  event_category: 'Web Vitals',
+                  value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+                  event_label: metric.id,
+                  non_interaction: true,
+                });
               }
-            })
-            .catch((error) => {
-              console.warn('Failed to load web-vitals:', error);
-            });
+            }
+
+            // Load web-vitals library and observe Core Web Vitals
+            import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
+              .then((webVitals) => {
+                // Use the correct web-vitals v3 API
+                webVitals.onFCP(reportWebVitals);
+                webVitals.onLCP(reportWebVitals);
+                webVitals.onFID(reportWebVitals);
+                webVitals.onCLS(reportWebVitals);
+                webVitals.onTTFB(reportWebVitals);
+                
+                // Also monitor additional metrics if available
+                if (webVitals.onINP) {
+                  webVitals.onINP(reportWebVitals);
+                }
+              })
+              .catch((error) => {
+                console.warn('Failed to load web-vitals:', error);
+              });
+          }
         `}
       </Script>
 

@@ -125,7 +125,14 @@ function AboutPage() {
         <Box component="section" aria-labelledby="about-header" ref={headerRef} sx={{ mb: 6 }}>
           <Fade in={headerVisible} timeout={1000}>
             <div>
-              <GradientText variant="h2" component="h1" id="about-header" align="center" gutterBottom>
+              <GradientText 
+                variant="h2" 
+                component="h1" 
+                id="about-header" 
+                align="center" 
+                gutterBottom
+                sx={{ fontSize: { xs: '2.125rem', sm: '3rem', md: '3.75rem' } }}
+              >
                 About Jeff Maxwell
               </GradientText>
               <Typography
@@ -207,7 +214,19 @@ function AboutPage() {
         </Box>
 
         <Box component="section" aria-labelledby="illustrations-section">
-          <Typography variant="h2" id="illustrations-section" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+          <Typography 
+            variant="h2" 
+            component="h2"
+            id="illustrations-section" 
+            sx={{ 
+              position: 'absolute', 
+              left: '-10000px', 
+              width: '1px', 
+              height: '1px', 
+              overflow: 'hidden',
+              fontSize: '1.5rem'
+            }}
+          >
             Development Team Illustrations
           </Typography>
           <Grid container spacing={4} sx={{ mb: 6 }}>
