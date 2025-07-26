@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { FaExclamationTriangle, FaRedo, FaHome } from 'react-icons/fa';
 
 const ErrorContainer = styled.div`
@@ -157,13 +156,14 @@ class ErrorBoundary extends React.Component {
     };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_error) {
     return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
     // Log error to console
     if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
       console.error('ErrorBoundary caught an error:', error, errorInfo);
     }
 
@@ -186,44 +186,52 @@ class ErrorBoundary extends React.Component {
     }
 
     // Report to Google Analytics if available
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'exception', {
+    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'exception', {
         description: error.toString(),
         fatal: true,
       });
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   handleRefresh = () => {
-    window.location.reload();
+    if (typeof window !== 'undefined') {
+      window.location.reload();
+    }
   };
 
+  // eslint-disable-next-line class-methods-use-this
   handleGoHome = () => {
-    window.location.href = '/';
+    if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
   };
 
   handleReportFeedback = () => {
-    if (this.state.eventId && window.Sentry) {
-      window.Sentry.showReportDialog({ eventId: this.state.eventId });
-    } else {
+    const { eventId, error, errorInfo } = this.state;
+    if (eventId && typeof window !== 'undefined' && window.Sentry) {
+      window.Sentry.showReportDialog({ eventId });
+    } else if (typeof window !== 'undefined') {
       // Fallback to email
       const subject = encodeURIComponent('Portfolio Error Report');
       const body = encodeURIComponent(`
-        Error: ${this.state.error?.toString() || 'Unknown error'}
+        Error: ${error?.toString() || 'Unknown error'}
         
         Browser: ${navigator.userAgent}
         URL: ${window.location.href}
         Timestamp: ${new Date().toISOString()}
         
         Additional details:
-        ${this.state.errorInfo?.componentStack || 'No component stack available'}
+        ${errorInfo?.componentStack || 'No component stack available'}
       `);
       window.open(`mailto:maxjeffwell@gmail.com?subject=${subject}&body=${body}`);
     }
   };
 
   render() {
-    if (this.state.hasError) {
+    const { hasError, error, errorInfo } = this.state;
+    if (hasError) {
       return (
         <ErrorContainer>
           <ErrorIcon>{typeof window !== 'undefined' && <FaExclamationTriangle />}</ErrorIcon>
@@ -232,16 +240,16 @@ class ErrorBoundary extends React.Component {
 
           <ErrorMessage>
             I apologize for the inconvenience. An unexpected error has occurred while loading this
-            page. This has been automatically reported and I'll work on fixing it as soon as
+            page. This has been automatically reported and I&apos;ll work on fixing it as soon as
             possible.
           </ErrorMessage>
 
-          {this.state.error && process.env.NODE_ENV === 'development' && (
+          {error && process.env.NODE_ENV === 'development' && (
             <ErrorDetails>
               <summary>View technical details</summary>
               <pre>
-                {this.state.error.toString()}
-                {this.state.errorInfo?.componentStack}
+                {error.toString()}
+                {errorInfo?.componentStack}
               </pre>
             </ErrorDetails>
           )}
@@ -263,7 +271,8 @@ class ErrorBoundary extends React.Component {
       );
     }
 
-    return this.props.children;
+    const { children } = this.props;
+    return children;
   }
 }
 
