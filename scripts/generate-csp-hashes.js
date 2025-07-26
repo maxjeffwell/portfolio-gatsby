@@ -64,14 +64,11 @@ function generateCSPForFiles() {
     styleHashes.forEach((hash) => allStyleHashes.add(hash));
   });
 
-  // Generate CSP
-  const scriptSrc = `'self', 'unsafe-inline' ${Array.from(allScriptHashes).join(' ')} 'strict-dynamic'`;
-  const styleSrc = `'self', 'unsafe-inline' ${Array.from(allStyleHashes).join(' ')} fonts.googleapis.com`;
-
-  const csp = `${[
+  // Generate CSP with simpler rules to avoid header length issues
+  const csp = [
     "default-src 'self'",
-    `script-src ${scriptSrc}`,
-    `style-src ${styleSrc}`,
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic'",
+    "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
     "font-src 'self' fonts.gstatic.com data:",
     "img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com",
     "connect-src 'self' *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com *.posthog.com plausible.io",
@@ -82,7 +79,7 @@ function generateCSPForFiles() {
     "base-uri 'self'",
     "form-action 'self' https://el-jefe.me",
     'upgrade-insecure-requests',
-  ].join('; ')};`;
+  ].join('; ');
 
   console.log('Generated CSP:');
   console.log(csp);
@@ -90,6 +87,9 @@ function generateCSPForFiles() {
   // Update _headers file
   const headersPath = path.join(publicDir, '_headers');
   let headersContent = fs.readFileSync(headersPath, 'utf8');
+
+  // Remove any existing CSP line first
+  headersContent = headersContent.replace(/\s*Content-Security-Policy:.*?\n/g, '');
 
   // Find the security headers section and add CSP
   if (headersContent.includes('Permissions-Policy:')) {
