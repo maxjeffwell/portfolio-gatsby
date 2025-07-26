@@ -120,4 +120,6 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    # Simplified Permissions-Policy to avoid unrecognized feature warnings
+    # Only include widely supported features
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
