@@ -150,7 +150,7 @@ const IndexPage = React.memo(() => {
                 color: muiTheme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.87)' : 'text.primary'
               }}
             >
-              My name&apos;s Jeff.
+              My name&apos;s Jeff 😏
             </Typography>
             <GradientText variant="h1" gutterBottom sx={{ minHeight: '4.5rem' }} id="hero-title">
               I&apos;m a{' '}

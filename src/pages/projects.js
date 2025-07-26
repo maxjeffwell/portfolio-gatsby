@@ -179,6 +179,10 @@ const GradientText = styled(Typography)(({ theme }) => ({
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
   display: 'inline-block',
+  willChange: 'transform',
+  backfaceVisibility: 'hidden',
+  transform: 'translateZ(0)',
+  WebkitFontSmoothing: 'antialiased',
 }));
 
 const Projects = ({ data }) => {
@@ -210,14 +214,24 @@ const Projects = ({ data }) => {
   }, [filters]);
 
   const enhancedProjects = useMemo(() => {
+    if (!data?.allFile?.edges) return filteredProjects;
+    
+    // Create a map for faster lookups
+    const imageMap = new Map();
+    data.allFile.edges.forEach(edge => {
+      if (edge.node.relativePath) {
+        imageMap.set(edge.node.relativePath, edge.node.childImageSharp);
+      }
+    });
+    
     return filteredProjects.map((project) => ({
       ...project,
-      imageSrcPath: data.allFile.edges.find((edge) =>
-        edge.node.relativePath.includes(project.screenshots.screenshot1)
-      )?.node.childImageSharp,
-      imageSrcPath2: data.allFile.edges.find((edge) =>
-        edge.node.relativePath.includes(project.screenshots.screenshot2)
-      )?.node.childImageSharp,
+      imageSrcPath: Array.from(imageMap.entries()).find(([path]) =>
+        path.includes(project.screenshots.screenshot1)
+      )?.[1],
+      imageSrcPath2: Array.from(imageMap.entries()).find(([path]) =>
+        path.includes(project.screenshots.screenshot2)
+      )?.[1],
       imageSrcPath3: project.techIcons.icon3 || '',
       imageSrcPath4: project.techIcons.icon4 || '',
       imageSrcPath5: project.techIcons.icon5 || '',
@@ -241,16 +255,15 @@ const Projects = ({ data }) => {
           `Jeff Maxwell projects`,
         ]}
       />
-      <NoSsr>
-        <Container maxWidth="lg">
-          <Box component="section" sx={{ mb: 6 }}>
-            <GradientText variant="h2" component="h1" align="center" gutterBottom>
-              Featured Projects
-            </GradientText>
-            <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
-              A collection of my work demonstrating modern web development
-            </Typography>
-          </Box>
+      <Container maxWidth="lg">
+        <Box component="section" sx={{ mb: 6 }}>
+          <GradientText variant="h2" component="h1" align="center" gutterBottom>
+            Featured Projects
+          </GradientText>
+          <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
+            A collection of my work demonstrating modern web development
+          </Typography>
+        </Box>
 
           <Box component="section">
             <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
@@ -324,8 +337,7 @@ const Projects = ({ data }) => {
               </Box>
             )}
           </Box>
-        </Container>
-      </NoSsr>
+      </Container>
     </Layout>
   );
 };

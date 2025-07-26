@@ -17,6 +17,10 @@ const GradientText = styled(Typography)(({ theme }) => ({
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
   display: 'inline-block',
+  willChange: 'transform',
+  backfaceVisibility: 'hidden',
+  transform: 'translateZ(0)',
+  WebkitFontSmoothing: 'antialiased',
 }));
 
 const TechSection = styled(Paper)(({ theme }) => ({
@@ -112,8 +116,8 @@ function AboutPage() {
       />
       <Container maxWidth="lg">
         <Box component="section" aria-labelledby="about-header" ref={headerRef} sx={{ mb: 6 }}>
-          <Fade in={headerVisible} timeout={1000}>
-            <div>
+          <Fade in={headerVisible} timeout={600} style={{ transitionDelay: headerVisible ? '0ms' : '0ms' }}>
+            <div style={{ willChange: 'opacity' }}>
               <GradientText
                 variant="h2"
                 component="h1"
@@ -265,8 +269,8 @@ function AboutPage() {
 
         <Box component="section" aria-labelledby="tech-stack" ref={techRef} sx={{ mb: 6 }}>
           <NoSsr fallback={<Box sx={{ minHeight: '400px', backgroundColor: 'action.hover' }} />}>
-            <Fade in={techVisible} timeout={1000}>
-              <TechSection elevation={2}>
+            <Fade in={techVisible} timeout={600} style={{ transitionDelay: techVisible ? '0ms' : '0ms' }}>
+              <TechSection elevation={2} sx={{ willChange: 'transform' }}>
                 <GradientText
                   variant="h2"
                   component="h2"
