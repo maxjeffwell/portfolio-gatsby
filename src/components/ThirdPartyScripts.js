@@ -155,22 +155,20 @@ const ThirdPartyScripts = () => {
             }
           }
 
-          // Monitor Core Web Vitals
-          function observeWebVitals() {
-            if ('web-vitals' in window) {
-              window.webVitals.getFCP(reportWebVitals);
-              window.webVitals.getLCP(reportWebVitals);
-              window.webVitals.getFID(reportWebVitals);
-              window.webVitals.getCLS(reportWebVitals);
-              window.webVitals.getTTFB(reportWebVitals);
-            }
-          }
-
-          // Load web-vitals library and observe
+          // Load web-vitals library and observe Core Web Vitals
           import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
             .then((webVitals) => {
-              window.webVitals = webVitals;
-              observeWebVitals();
+              // Use the correct web-vitals v3 API
+              webVitals.onFCP(reportWebVitals);
+              webVitals.onLCP(reportWebVitals);
+              webVitals.onFID(reportWebVitals);
+              webVitals.onCLS(reportWebVitals);
+              webVitals.onTTFB(reportWebVitals);
+              
+              // Also monitor additional metrics if available
+              if (webVitals.onINP) {
+                webVitals.onINP(reportWebVitals);
+              }
             })
             .catch((error) => {
               console.warn('Failed to load web-vitals:', error);

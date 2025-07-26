@@ -15,6 +15,9 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
 
   // Production optimizations
   if (stage === 'build-javascript') {
+    // Enable source maps for production builds (can be disabled via env var)
+    config.devtool = process.env.GENERATE_SOURCEMAP !== 'false' ? 'source-map' : false;
+    
     // Add bundle analyzer only when ANALYZE=true
     if (process.env.ANALYZE === 'true') {
       config.plugins.push(
@@ -78,7 +81,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
       // Enhanced minimization with custom plugins
       minimize: true,
       minimizer: [
-        // Advanced JavaScript minification
+        // Advanced JavaScript minification with source maps
         new TerserPlugin({
           terserOptions: {
             parse: {
@@ -89,8 +92,8 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
               warnings: false,
               comparisons: false,
               inline: 2,
-              drop_console: true,
-              drop_debugger: true,
+              drop_console: process.env.NODE_ENV === 'production',
+              drop_debugger: process.env.NODE_ENV === 'production',
               pure_getters: true,
               unsafe: true,
               unsafe_comps: true,
@@ -120,7 +123,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
           parallel: true,
           extractComments: false,
         }),
-        // Advanced CSS minification
+        // Advanced CSS minification with source maps
         new CssMinimizerPlugin({
           minimizerOptions: {
             preset: [
@@ -155,6 +158,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
                 reduceTransforms: true,
                 svgo: true,
                 uniqueSelectors: true,
+                map: process.env.GENERATE_SOURCEMAP !== 'false', // Enable source maps for CSS
               },
             ],
           },
@@ -187,7 +191,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
       },
     };
 
-    // Faster source maps
+    // Faster source maps for development
     config.devtool = 'eval-cheap-module-source-map';
   }
 
