@@ -78,8 +78,9 @@ module.exports = {
         domains: ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
       },
     },
-    // `gatsby-plugin-eslint`, // Temporarily disabled due to dependency conflicts
-    `gatsby-plugin-emotion`,
+    {
+      resolve: `gatsby-plugin-emotion`,
+    },
     {
       resolve: `gatsby-plugin-web-font-loader`,
       options: {
