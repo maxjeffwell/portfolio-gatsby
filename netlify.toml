@@ -108,6 +108,12 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# 404 redirect to handle Gatsby's dual 404 generation
+[[redirects]]
+  from = "/404"
+  to = "/404.html"
+  status = 200
+
 # Security headers
 [[headers]]
   for = "/*"
