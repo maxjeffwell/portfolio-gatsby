@@ -4,7 +4,9 @@ const crypto = require('crypto');
 const cheerio = require('cheerio');
 
 function generateHash(content, algorithm = 'sha256') {
-  return `'${algorithm}-${crypto.createHash(algorithm).update(content, 'utf8').digest('base64')}'`;
+  const hash = crypto.createHash(algorithm);
+  hash.update(content, 'utf8');
+  return `'${algorithm}-${hash.digest('base64')}'`;
 }
 
 function extractInlineScriptsAndStyles(htmlContent) {

@@ -11,6 +11,7 @@ const { glob } = require('glob');
 const PUBLIC_DIR = path.join(__dirname, '../public');
 
 async function removeLibrarySignatures() {
+  // eslint-disable-next-line no-console
   console.log('🔒 Removing library signatures from built files...');
 
   // Find all JavaScript files
@@ -39,10 +40,12 @@ async function removeLibrarySignatures() {
     fs.writeFileSync(file, content);
   }
 
+  // eslint-disable-next-line no-console
   console.log(`✅ Processed ${jsFiles.length} JavaScript files`);
 }
 
 async function removeSourceMaps() {
+  // eslint-disable-next-line no-console
   console.log('🗑️  Removing source map files...');
 
   const sourceMapFiles = await glob(`${PUBLIC_DIR}/**/*.map`);
@@ -51,10 +54,13 @@ async function removeSourceMaps() {
     fs.unlinkSync(file);
   }
 
+  // eslint-disable-next-line no-console
   console.log(`✅ Removed ${sourceMapFiles.length} source map files`);
 }
 
+// eslint-disable-next-line no-unused-vars
 async function obfuscateFilenames() {
+  // eslint-disable-next-line no-console
   console.log('🎭 Obfuscating revealing filenames...');
 
   // This would rename files with obvious library names
@@ -62,12 +68,13 @@ async function obfuscateFilenames() {
   const files = await glob(`${PUBLIC_DIR}/**/react-*.js`);
 
   for (const file of files) {
-    const dir = path.dirname(file);
+    // const dir = path.dirname(file);
     const ext = path.extname(file);
     const newName = `lib-${Math.random().toString(36).substr(2, 8)}${ext}`;
-    const newPath = path.join(dir, newName);
+    // const newPath = path.join(dir, newName);
 
     // Would need to update references in HTML files too
+    // eslint-disable-next-line no-console
     console.log(`Would rename: ${path.basename(file)} -> ${newName}`);
   }
 }
@@ -78,8 +85,10 @@ async function main() {
     await removeSourceMaps();
     // await obfuscateFilenames(); // Commented out - requires careful implementation
 
+    // eslint-disable-next-line no-console
     console.log('🔐 Secure build completed!');
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('❌ Error during secure build:', error);
     process.exit(1);
   }

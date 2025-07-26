@@ -69,7 +69,7 @@
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=production gatsby build && node scripts/generate-csp-hashes.js",
-    "build:netlify": "gatsby build && node scripts/generate-csp-hashes.js",
+    "build:netlify": "gatsby build",
     "build:secure": "NODE_ENV=production GENERATE_SOURCEMAP=false gatsby build && node scripts/build-secure.js && node scripts/generate-csp-hashes.js",
     "build:analyze": "NODE_ENV=production ANALYZE=true gatsby build",
     "develop": "gatsby develop",
