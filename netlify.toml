@@ -7,7 +7,7 @@
   GATSBY_CPU_COUNT = "4"
   NODE_OPTIONS = "--max-old-space-size=8192"
   GATSBY_TELEMETRY_DISABLED = "1"
-  CI = "true"
+  CI = ""
 
 [[plugins]]
   package = "@netlify/plugin-gatsby"

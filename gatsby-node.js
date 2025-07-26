@@ -58,11 +58,13 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 
               // Apply polyfill to webpack runtime and React-related bundles
               for (const [filename, asset] of compilation.assets) {
-                if (filename.endsWith('.js') && 
-                    (filename.includes('webpack-runtime') || 
-                     filename.startsWith('app-') || 
-                     filename.startsWith('vendors-') ||
-                     filename.includes('react'))) {
+                if (
+                  filename.endsWith('.js') &&
+                  (filename.includes('webpack-runtime') ||
+                    filename.startsWith('app-') ||
+                    filename.startsWith('vendors-') ||
+                    filename.includes('react'))
+                ) {
                   const source = asset.source();
                   if (!source.includes('ContextRegistry')) {
                     const newSource = polyfill + source;
