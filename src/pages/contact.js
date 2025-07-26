@@ -337,6 +337,10 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      inputProps={{
+                        id: 'contact-name-input',
+                        name: 'name',
+                      }}
                     />
                     <TextField
                       id="contact-email"
@@ -351,6 +355,10 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      inputProps={{
+                        id: 'contact-email-input',
+                        name: 'email',
+                      }}
                     />
                     <TextField
                       id="contact-message"
@@ -366,6 +374,10 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      inputProps={{
+                        id: 'contact-message-textarea',
+                        name: 'message',
+                      }}
                     />
                     <Button
                       type="submit"
