@@ -69,12 +69,13 @@ function generateCSPForFiles() {
   const styleSrc = `'self', 'unsafe-inline' ${Array.from(allStyleHashes).join(' ')} fonts.googleapis.com`;
 
   const csp = `${[
-    "default-src 'unsafe-inline'",
+    "default-src 'self'",
     `script-src ${scriptSrc}`,
     `style-src ${styleSrc}`,
     "font-src 'self' fonts.gstatic.com data:",
     "img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com",
     "connect-src 'self' *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com *.posthog.com plausible.io",
+    "manifest-src 'self'",
     "frame-src *.hotjar.com *.clarity.ms 'self'",
     "object-src 'none'",
     "frame-ancestors 'none'",
