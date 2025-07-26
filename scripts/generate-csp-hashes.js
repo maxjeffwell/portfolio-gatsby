@@ -69,7 +69,7 @@ function generateCSPForFiles() {
   const styleSrc = `'self', 'unsafe-inline' ${Array.from(allStyleHashes).join(' ')} fonts.googleapis.com`;
 
   const csp = `${[
-    "default-src 'self'",
+    "default-src 'unsafe-inline'",
     `script-src ${scriptSrc}`,
     `style-src ${styleSrc}`,
     "font-src 'self' fonts.gstatic.com data:",
