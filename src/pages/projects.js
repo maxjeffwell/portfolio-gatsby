@@ -288,12 +288,16 @@ const Projects = ({ data }) => {
                       Filter by Technology:
                     </Typography>
                     <Select
+                      id="technology-filter"
+                      name="technologyFilter"
                       value={filters.technologies[0] || ''}
                       onChange={handleTechnologyChange}
                       displayEmpty
                       sx={{ minWidth: 200 }}
                       inputProps={{
                         'aria-label': 'Filter projects by technology',
+                        id: 'technology-filter-input',
+                        name: 'technologyFilterInput',
                       }}
                     >
                       <MenuItem value="">All Projects</MenuItem>

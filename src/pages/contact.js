@@ -127,7 +127,7 @@ function Contact() {
         <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
           <input type="text" name="name" />
           <input type="email" name="email" />
-          <textarea name="message" />
+          <textarea name="message" id="hidden-message-textarea" />
         </form>
       </NoSsr>
       <Container maxWidth="lg">
@@ -326,6 +326,7 @@ function Contact() {
                     </Box>
 
                     <TextField
+                      id="contact-name"
                       fullWidth
                       label="Your Name"
                       name="name"
@@ -337,6 +338,7 @@ function Contact() {
                       disabled={isSubmitting}
                     />
                     <TextField
+                      id="contact-email"
                       fullWidth
                       label="Your Email"
                       name="email"
@@ -349,6 +351,7 @@ function Contact() {
                       disabled={isSubmitting}
                     />
                     <TextField
+                      id="contact-message"
                       fullWidth
                       label="Your Message"
                       name="message"
