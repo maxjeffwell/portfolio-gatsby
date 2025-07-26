@@ -81,8 +81,8 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
     // Disable source maps in production for security (prevents library detection)
     config.devtool = process.env.GENERATE_SOURCEMAP === 'true' ? 'source-map' : false;
 
-    // Add bundle analyzer only when ANALYZE=true
-    if (process.env.ANALYZE === 'true') {
+    // Add bundle analyzer only when ANALYZE=true and not in Netlify
+    if (process.env.ANALYZE === 'true' && !process.env.NETLIFY) {
       config.plugins.push(
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',

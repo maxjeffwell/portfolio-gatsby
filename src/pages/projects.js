@@ -1,16 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import {
-  Container,
-  Typography,
-  Select,
-  MenuItem,
-  Box,
-  Paper,
-  useTheme,
-  NoSsr,
-} from '@mui/material';
+import { Container, Typography, Select, MenuItem, Box, Paper, NoSsr } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import Layout from '../components/layout';
@@ -191,7 +182,6 @@ const GradientText = styled(Typography)(({ theme }) => ({
 }));
 
 const Projects = ({ data }) => {
-  const theme = useTheme();
   const [filters, setFilters] = useState({
     technologies: [],
   });
@@ -200,12 +190,15 @@ const Projects = ({ data }) => {
     setFilters(newFilters);
   }, []);
 
-  const handleTechnologyChange = useCallback((e) => {
-    handleFilterChange({
-      ...filters,
-      technologies: e.target.value ? [e.target.value] : [],
-    });
-  }, [filters, handleFilterChange]);
+  const handleTechnologyChange = useCallback(
+    (e) => {
+      handleFilterChange({
+        ...filters,
+        technologies: e.target.value ? [e.target.value] : [],
+      });
+    },
+    [filters, handleFilterChange]
+  );
 
   const filteredProjects = useMemo(() => {
     return projectsData.filter((project) => {
@@ -250,87 +243,87 @@ const Projects = ({ data }) => {
       />
       <NoSsr>
         <Container maxWidth="lg">
-        <Box component="section" sx={{ mb: 6 }}>
-          <GradientText variant="h2" component="h1" align="center" gutterBottom>
-            Featured Projects
-          </GradientText>
-          <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
-            A collection of my work demonstrating modern web development
-          </Typography>
-        </Box>
-
-        <Box component="section">
-          <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
-            Filter Projects
-          </Typography>
-          <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: 2,
-            }}
-          >
-            <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-              Total Projects: {filteredProjects.length}
+          <Box component="section" sx={{ mb: 6 }}>
+            <GradientText variant="h2" component="h1" align="center" gutterBottom>
+              Featured Projects
+            </GradientText>
+            <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
+              A collection of my work demonstrating modern web development
             </Typography>
-            <NoSsr>
-              <Box>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  Filter by Technology:
+          </Box>
+
+          <Box component="section">
+            <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
+              Filter Projects
+            </Typography>
+            <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: 2,
+                }}
+              >
+                <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                  Total Projects: {filteredProjects.length}
                 </Typography>
-                <Select
-                  value={filters.technologies[0] || ''}
-                  onChange={handleTechnologyChange}
-                  displayEmpty
-                  sx={{ minWidth: 200 }}
-                  inputProps={{
-                    'aria-label': 'Filter projects by technology',
-                  }}
-                >
-                  <MenuItem value="">All Projects</MenuItem>
-                  <MenuItem value="React">React</MenuItem>
-                  <MenuItem value="JavaScript">JavaScript</MenuItem>
-                  <MenuItem value="GraphQL">GraphQL</MenuItem>
-                </Select>
+                <NoSsr>
+                  <Box>
+                    <Typography variant="body2" sx={{ mb: 1 }}>
+                      Filter by Technology:
+                    </Typography>
+                    <Select
+                      value={filters.technologies[0] || ''}
+                      onChange={handleTechnologyChange}
+                      displayEmpty
+                      sx={{ minWidth: 200 }}
+                      inputProps={{
+                        'aria-label': 'Filter projects by technology',
+                      }}
+                    >
+                      <MenuItem value="">All Projects</MenuItem>
+                      <MenuItem value="React">React</MenuItem>
+                      <MenuItem value="JavaScript">JavaScript</MenuItem>
+                      <MenuItem value="GraphQL">GraphQL</MenuItem>
+                    </Select>
+                  </Box>
+                </NoSsr>
               </Box>
-            </NoSsr>
+            </Paper>
           </Box>
-          </Paper>
-        </Box>
 
-        <Box component="section">
-          {filteredProjects.length === 0 ? (
-          <Box sx={{ textAlign: 'center', py: 6 }}>
-            <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
-              No projects match your current filters. Try adjusting your search criteria.
-            </Typography>
-          </Box>
-        ) : (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {enhancedProjects.map((project, index) => (
-              <Box key={project.id}>
-                <ProjectCard
-                  title={project.title}
-                  date={project.date}
-                  description={project.description}
-                  sourceURL={project.sourceURL}
-                  hostedURL={project.hostedURL}
-                  technologies={project.technologies}
-                  imageSrcPath={project.imageSrcPath}
-                  imageSrcPath2={project.imageSrcPath2}
-                  imageSrcPath3={project.imageSrcPath3}
-                  imageSrcPath4={project.imageSrcPath4}
-                  imageSrcPath5={project.imageSrcPath5}
-                  imageSrcPath6={project.imageSrcPath6}
-                />
+          <Box component="section">
+            {filteredProjects.length === 0 ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
+                  No projects match your current filters. Try adjusting your search criteria.
+                </Typography>
               </Box>
-            ))}
+            ) : (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {enhancedProjects.map((project) => (
+                  <Box key={project.id}>
+                    <ProjectCard
+                      title={project.title}
+                      date={project.date}
+                      description={project.description}
+                      sourceURL={project.sourceURL}
+                      hostedURL={project.hostedURL}
+                      technologies={project.technologies}
+                      imageSrcPath={project.imageSrcPath}
+                      imageSrcPath2={project.imageSrcPath2}
+                      imageSrcPath3={project.imageSrcPath3}
+                      imageSrcPath4={project.imageSrcPath4}
+                      imageSrcPath5={project.imageSrcPath5}
+                      imageSrcPath6={project.imageSrcPath6}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            )}
           </Box>
-        )}
-        </Box>
         </Container>
       </NoSsr>
     </Layout>

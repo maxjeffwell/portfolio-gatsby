@@ -1,10 +1,15 @@
 [build]
   publish = "public"
-  command = "npm run build"
+  command = "npm run build:netlify"
 
 [build.environment]
-  NODE_VERSION = "18"
-  NPM_VERSION = "9"
+  NODE_VERSION = "20"
+  GATSBY_CPU_COUNT = "2"
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  GATSBY_TELEMETRY_DISABLED = "1"
+
+[[plugins]]
+  package = "@netlify/plugin-gatsby"
 
 # Cache control headers for static assets
 [[headers]]

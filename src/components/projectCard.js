@@ -23,7 +23,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   borderRadius: theme.shape.borderRadius * 2,
   overflow: 'hidden',
-  transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  transition:
+    'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   willChange: 'transform, box-shadow',
   background:
     theme.palette.mode === 'dark'
@@ -94,13 +95,15 @@ function ProjectCard({
   return (
     <StyledCard elevation={3}>
       <ColoredBar />
-      <Box sx={{ 
-        display: 'flex', 
-        flexDirection: { xs: 'column', md: 'row' }, 
-        gap: { xs: 1.5, md: 2 }, 
-        p: { xs: 1.5, md: 2 }, 
-        pb: 0 
-      }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: { xs: 1.5, md: 2 },
+          p: { xs: 1.5, md: 2 },
+          pb: 0,
+        }}
+      >
         <Box sx={{ flex: 1 }}>
           <ImageContainer>
             {getImage(imageSrcPath) ? (
@@ -108,8 +111,8 @@ function ProjectCard({
                 image={getImage(imageSrcPath)}
                 alt={`${title} main screenshot showing the application interface`}
                 loading="eager"
-                style={{ 
-                  borderRadius: '8px', 
+                style={{
+                  borderRadius: '8px',
                   width: '100%',
                   height: '100%',
                 }}
@@ -119,15 +122,15 @@ function ProjectCard({
                 }}
               />
             ) : (
-              <Box 
-                sx={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  display: 'flex', 
-                  alignItems: 'center', 
+              <Box
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: 'action.hover',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
                 }}
               >
                 <Typography variant="body2" color="text.secondary">
@@ -144,8 +147,8 @@ function ProjectCard({
                 image={getImage(imageSrcPath2)}
                 alt={`${title} secondary screenshot showing additional features`}
                 loading="lazy"
-                style={{ 
-                  borderRadius: '8px', 
+                style={{
+                  borderRadius: '8px',
                   width: '100%',
                   height: '100%',
                 }}
@@ -155,15 +158,15 @@ function ProjectCard({
                 }}
               />
             ) : (
-              <Box 
-                sx={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  display: 'flex', 
-                  alignItems: 'center', 
+              <Box
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: 'action.hover',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
                 }}
               >
                 <Typography variant="body2" color="text.secondary">
