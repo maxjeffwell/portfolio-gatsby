@@ -160,5 +160,7 @@ module.exports = {
         useShortDoctype: true,
       },
     },
+    // gatsby-plugin-netlify must be last in the plugins array
+    `gatsby-plugin-netlify`,
   ],
 };
