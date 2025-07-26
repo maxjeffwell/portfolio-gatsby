@@ -6,6 +6,8 @@
 
 const path = require('path');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const TerserPlugin = require('terser-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // Advanced webpack configuration for bundle optimization
 exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getConfig }) => {
@@ -73,8 +75,92 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
           },
         },
       },
-      // Advanced minimization
+      // Enhanced minimization with custom plugins
       minimize: true,
+      minimizer: [
+        // Advanced JavaScript minification
+        new TerserPlugin({
+          terserOptions: {
+            parse: {
+              ecma: 8,
+            },
+            compress: {
+              ecma: 5,
+              warnings: false,
+              comparisons: false,
+              inline: 2,
+              drop_console: true,
+              drop_debugger: true,
+              pure_getters: true,
+              unsafe: true,
+              unsafe_comps: true,
+              unsafe_Function: true,
+              unsafe_math: true,
+              unsafe_symbols: true,
+              unsafe_methods: true,
+              unsafe_proto: true,
+              unsafe_regexp: true,
+              unsafe_undefined: true,
+              unused: true,
+              dead_code: true,
+              collapse_vars: true,
+              reduce_vars: true,
+              passes: 2,
+            },
+            mangle: {
+              safari10: true,
+              reserved: ['$', 'jQuery', 'react', 'React'],
+            },
+            output: {
+              ecma: 5,
+              comments: false,
+              ascii_only: true,
+            },
+          },
+          parallel: true,
+          extractComments: false,
+        }),
+        // Advanced CSS minification
+        new CssMinimizerPlugin({
+          minimizerOptions: {
+            preset: [
+              'default',
+              {
+                discardComments: { removeAll: true },
+                normalizeWhitespace: true,
+                colormin: true,
+                convertValues: true,
+                discardDuplicates: true,
+                discardEmpty: true,
+                discardOverridden: true,
+                discardUnused: true,
+                mergeIdents: true,
+                mergeLonghand: true,
+                mergeRules: true,
+                minifyFontValues: true,
+                minifyGradients: true,
+                minifyParams: true,
+                minifySelectors: true,
+                normalizeCharset: true,
+                normalizeDisplayValues: true,
+                normalizePositions: true,
+                normalizeRepeatStyle: true,
+                normalizeString: true,
+                normalizeTimingFunctions: true,
+                normalizeUnicode: true,
+                normalizeUrl: true,
+                orderedValues: true,
+                reduceIdents: true,
+                reduceInitial: true,
+                reduceTransforms: true,
+                svgo: true,
+                uniqueSelectors: true,
+              },
+            ],
+          },
+          parallel: true,
+        }),
+      ],
       usedExports: true,
       sideEffects: false,
     };
