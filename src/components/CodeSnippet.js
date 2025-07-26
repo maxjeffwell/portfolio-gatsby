@@ -56,7 +56,9 @@ function CodeSnippet({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy code:', err);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Failed to copy code:', err);
+      }
     }
   };
 

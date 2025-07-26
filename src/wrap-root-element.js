@@ -17,7 +17,9 @@ const ClientOnlyPerformanceMonitor = () => {
       })
       .catch(() => {
         // Ignore errors if PerformanceMonitor doesn't exist
-        console.log('PerformanceMonitor component not found');
+        if (process.env.NODE_ENV === 'development') {
+          console.log('PerformanceMonitor component not found');
+        }
       });
   }, []);
 

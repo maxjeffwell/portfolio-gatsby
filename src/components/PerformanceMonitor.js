@@ -14,7 +14,9 @@ const PerformanceMonitor = () => {
     // Core Web Vitals monitoring - define reportMetric at top level
     const reportMetric = (metric) => {
       // In a real app, you'd send this to your analytics service
-      console.log(`Performance metric: ${metric.name}`, metric.value);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Performance metric: ${metric.name}`, metric.value);
+      }
 
       // Optional: Send to Google Analytics or other analytics service
       if (typeof gtag !== 'undefined') {
@@ -89,7 +91,9 @@ const PerformanceMonitor = () => {
           ttfbObserver.observe({ entryTypes: ['navigation'] });
         } catch (error) {
           // Some browsers might not support all entry types
-          console.warn('Performance monitoring setup error:', error);
+          if (process.env.NODE_ENV === 'development') {
+            console.warn('Performance monitoring setup error:', error);
+          }
         }
 
         // Clean up observers on unmount
@@ -128,13 +132,17 @@ const PerformanceMonitor = () => {
         for (const entry of entryList.getEntries()) {
           // Monitor slow loading resources
           if (entry.duration > 1000) {
-            console.warn(`Slow resource detected: ${entry.name} took ${entry.duration}ms`);
+            if (process.env.NODE_ENV === 'development') {
+              console.warn(`Slow resource detected: ${entry.name} took ${entry.duration}ms`);
+            }
           }
 
           // Monitor large resources
           if (entry.transferSize > 100000) {
             // 100KB
-            console.warn(`Large resource detected: ${entry.name} is ${entry.transferSize} bytes`);
+            if (process.env.NODE_ENV === 'development') {
+              console.warn(`Large resource detected: ${entry.name} is ${entry.transferSize} bytes`);
+            }
           }
         }
       });
@@ -143,7 +151,9 @@ const PerformanceMonitor = () => {
         resourceObserver.observe({ entryTypes: ['resource'] });
         return () => resourceObserver.disconnect();
       } catch (error) {
-        console.warn('Resource performance monitoring setup error:', error);
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('Resource performance monitoring setup error:', error);
+        }
       }
     };
 
@@ -152,11 +162,13 @@ const PerformanceMonitor = () => {
       if ('memory' in performance) {
         const logMemoryUsage = () => {
           const { memory } = performance;
-          console.log('Memory usage:', {
-            used: `${(memory.usedJSHeapSize / 1048576).toFixed(2)} MB`,
-            total: `${(memory.totalJSHeapSize / 1048576).toFixed(2)} MB`,
-            limit: `${(memory.jsHeapSizeLimit / 1048576).toFixed(2)} MB`,
-          });
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Memory usage:', {
+              used: `${(memory.usedJSHeapSize / 1048576).toFixed(2)} MB`,
+              total: `${(memory.totalJSHeapSize / 1048576).toFixed(2)} MB`,
+              limit: `${(memory.jsHeapSizeLimit / 1048576).toFixed(2)} MB`,
+            });
+          }
         };
 
         // Log memory usage every 30 seconds
@@ -171,7 +183,9 @@ const PerformanceMonitor = () => {
       if ('PerformanceObserver' in window) {
         const longTaskObserver = new PerformanceObserver((entryList) => {
           for (const entry of entryList.getEntries()) {
-            console.warn(`Long task detected: ${entry.duration}ms`);
+            if (process.env.NODE_ENV === 'development') {
+              console.warn(`Long task detected: ${entry.duration}ms`);
+            }
 
             reportMetric({
               name: 'Long Task',
@@ -185,7 +199,9 @@ const PerformanceMonitor = () => {
           longTaskObserver.observe({ entryTypes: ['longtask'] });
           return () => longTaskObserver.disconnect();
         } catch (error) {
-          console.warn('Long task monitoring setup error:', error);
+          if (process.env.NODE_ENV === 'development') {
+            console.warn('Long task monitoring setup error:', error);
+          }
         }
       }
     };
