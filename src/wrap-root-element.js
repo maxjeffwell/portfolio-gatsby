@@ -1,4 +1,5 @@
 import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import '../static/fonts/fonts.css';
@@ -32,9 +33,11 @@ const ClientOnlyPerformanceMonitor = () => {
 // Wrap the root element with providers
 export const wrapRootElement = ({ element }) => (
   <ErrorBoundary>
-    <ThemeProvider>
-      <ClientOnlyPerformanceMonitor />
-      {element}
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <ClientOnlyPerformanceMonitor />
+        {element}
+      </ThemeProvider>
+    </HelmetProvider>
   </ErrorBoundary>
 );

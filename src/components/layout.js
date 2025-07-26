@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
-import { HelmetProvider } from 'react-helmet-async';
 import {
   Box,
   Container,
@@ -115,7 +114,7 @@ function ThemedLayout({ children, data }) {
             <SocialLink
               target="_blank"
               rel="noopener noreferrer"
-              url="https://www.github.com/maxjeffwell"
+              href="https://www.github.com/maxjeffwell"
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
             >
@@ -124,7 +123,7 @@ function ThemedLayout({ children, data }) {
             <SocialLink
               target="_blank"
               rel="noopener noreferrer"
-              url="https://angel.co/maxjeffwell"
+              href="https://angel.co/maxjeffwell"
               aria-label="Visit Jeff Maxwell's AngelList profile"
               size="large"
             >
@@ -172,12 +171,10 @@ ThemedLayout.propTypes = {
 // Main Layout Component
 function Layout({ children }) {
   return (
-    <HelmetProvider>
-      <StaticQuery
-        query={GET_SITE_METADATA}
-        render={(data) => <ThemedLayout data={data}>{children}</ThemedLayout>}
-      />
-    </HelmetProvider>
+    <StaticQuery
+      query={GET_SITE_METADATA}
+      render={(data) => <ThemedLayout data={data}>{children}</ThemedLayout>}
+    />
   );
 }
 
