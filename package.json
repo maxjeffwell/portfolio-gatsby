@@ -5,6 +5,10 @@
   "version": "0.2.0",
   "author": "Jeff Maxwell",
   "homepage": "https://www.el-jefe.me",
+  "license": "MIT",
+  "keywords": [
+    "gatsby"
+  ],
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
@@ -27,7 +31,6 @@
     "@gatsbyjs/reach-router": "^2.0.1",
     "@mui/icons-material": "^5.18.0",
     "@mui/material": "^5.18.0",
-    "browserslist-config-baseline": "^0.4.0",
     "cheerio": "^1.1.2",
     "gatsby": "^5.14.5",
     "gatsby-adapter-netlify": "^1.2.0",
@@ -55,6 +58,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
+    "browserslist-config-baseline": "^0.4.0",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -74,16 +78,7 @@
     "prettier": "^3.2.5",
     "terser-webpack-plugin": "^5.3.14"
   },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "browserslist": [
-    "extends browserslist-config-baseline"
-  ],
-  "browserslist-config-baseline": {
-    "logConfigToConsole": true
-  },
+
   "repository": {
     "type": "git",
     "url": "https://github.com/maxjeffwell/portfolio-gatsby"

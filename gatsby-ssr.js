@@ -12,11 +12,7 @@ import { wrapRootElement as wrap } from './src/wrap-root-element';
 const cache = createEmotionCache({ key: 'mui' });
 
 export const wrapRootElement = ({ element }) => {
-  return (
-    <CacheProvider value={cache}>
-      {wrap({ element })}
-    </CacheProvider>
-  );
+  return <CacheProvider value={cache}>{wrap({ element })}</CacheProvider>;
 };
 
 // Inject theme detection script to prevent flash of unstyled content
@@ -52,6 +48,7 @@ export const onRenderBody = ({ setPreBodyComponents }) => {
   setPreBodyComponents([
     <script
       key="theme-script"
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: themeScript,
       }}
