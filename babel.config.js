@@ -9,8 +9,5 @@ module.exports = {
       },
     ],
   ],
-  plugins: [
-    // MUI v5 already has tree-shaking support with named imports, so we don't need transform-imports
-    // React Icons already tree-shake properly with named imports
-  ],
+  plugins: [],
 };
