@@ -13,7 +13,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   const config = getConfig();
 
-  // Fix for React 18 ContextRegistry issue - use resolve alias instead of build-time injection
+  // Fix for React 18 ContextRegistry issue - use resolve alias and webpack runtime patch
   if (stage === 'build-javascript' || stage === 'develop') {
     config.resolve = config.resolve || {};
     config.resolve.alias = config.resolve.alias || {};
@@ -21,6 +21,63 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
     // Force all React imports to use the same instance
     config.resolve.alias.react = path.resolve('./node_modules/react');
     config.resolve.alias['react-dom'] = path.resolve('./node_modules/react-dom');
+
+    // Add webpack plugin to patch runtime
+    config.plugins.push({
+      apply(compiler) {
+        compiler.hooks.compilation.tap('ReactContextRegistryRuntimeFix', (compilation) => {
+          compilation.hooks.processAssets.tap(
+            {
+              name: 'ReactContextRegistryRuntimeFix',
+              stage: compilation.constructor.PROCESS_ASSETS_STAGE_ADDITIONS,
+            },
+            () => {
+              const polyfill = `
+// React 18 ContextRegistry polyfill for webpack runtime
+(function() {
+  if (typeof window !== 'undefined') {
+    var patchReact = function(reactObj) {
+      if (reactObj && reactObj.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) {
+        if (!reactObj.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry) {
+          reactObj.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry = {};
+        }
+      }
+    };
+    if (window.React) patchReact(window.React);
+    if (window.__webpack_require__ && window.__webpack_require__.cache) {
+      Object.keys(window.__webpack_require__.cache).forEach(function(key) {
+        var module = window.__webpack_require__.cache[key];
+        if (module && module.exports && module.exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) {
+          patchReact(module.exports);
+        }
+      });
+    }
+  }
+})();
+`;
+
+              // Apply polyfill to webpack runtime and React-related bundles
+              for (const [filename, asset] of compilation.assets) {
+                if (filename.endsWith('.js') && 
+                    (filename.includes('webpack-runtime') || 
+                     filename.startsWith('app-') || 
+                     filename.startsWith('vendors-') ||
+                     filename.includes('react'))) {
+                  const source = asset.source();
+                  if (!source.includes('ContextRegistry')) {
+                    const newSource = polyfill + source;
+                    compilation.assets[filename] = {
+                      source: () => newSource,
+                      size: () => newSource.length,
+                    };
+                  }
+                }
+              }
+            }
+          );
+        });
+      },
+    });
   }
 
   // Production optimizations
