@@ -57,6 +57,10 @@ const ImageContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     aspectRatio: '4 / 3',
   },
+  '@media (max-width: 360px)': {
+    aspectRatio: '3 / 2',
+    borderRadius: '6px',
+  },
 }));
 
 const TechIcon = styled(Box)(({ theme }) => ({
@@ -99,6 +103,10 @@ function ProjectCard({
           gap: { xs: 1.5, md: 2 },
           p: { xs: 1.5, md: 2 },
           pb: 0,
+          '@media (max-width: 360px)': {
+            p: 1,
+            gap: 1,
+          },
         }}
       >
         <Box sx={{ flex: 1 }}>

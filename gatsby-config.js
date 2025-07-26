@@ -103,7 +103,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
-        excludes: [],
+        excludes: [`/dev-404-page`, `/404`, `/404.html`, `/offline-plugin-app-shell-fallback`],
         query: `
           {
             allSitePage {
@@ -111,15 +111,53 @@ module.exports = {
                 path
               }
             }
+            site {
+              buildTime(formatString: "YYYY-MM-DD")
+            }
           }
         `,
         resolveSiteUrl: () => siteMetadata.siteUrl,
-        serialize: ({ path, modifiedGmt }) => {
+        serialize: ({ path, modifiedGmt }, { site }) => {
+          // Define page priorities and change frequencies
+          const buildTime = site?.buildTime || new Date().toISOString().split('T')[0];
+          
+          const pageMetadata = {
+            '/': { 
+              priority: 1.0, 
+              changefreq: 'weekly',
+              lastmod: buildTime 
+            },
+            '/about/': { 
+              priority: 0.8, 
+              changefreq: 'monthly',
+              lastmod: buildTime 
+            },
+            '/projects/': { 
+              priority: 0.9, 
+              changefreq: 'weekly',
+              lastmod: buildTime 
+            },
+            '/contact/': { 
+              priority: 0.7, 
+              changefreq: 'monthly',
+              lastmod: buildTime 
+            },
+          };
+
+          const meta = pageMetadata[path] || { 
+            priority: 0.5, 
+            changefreq: 'monthly',
+            lastmod: modifiedGmt || buildTime 
+          };
+
           return {
             url: path,
-            lastmod: modifiedGmt,
+            lastmod: meta.lastmod,
+            priority: meta.priority,
+            changefreq: meta.changefreq,
           };
         },
+        createLinkInHead: true,
       },
     },
     // Disable HTML minification to speed up builds

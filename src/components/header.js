@@ -64,6 +64,10 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
       theme.palette.mode === 'dark'
         ? 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))'
         : 'none',
+    '@media (max-width: 360px)': {
+      width: '85%',
+      maxWidth: 280,
+    },
   },
 }));
 
@@ -149,7 +153,14 @@ function Header() {
         role="banner"
       >
         <Container maxWidth="lg">
-          <Toolbar sx={{ justifyContent: 'space-between', padding: { xs: 1, sm: 2 } }}>
+          <Toolbar sx={{ 
+            justifyContent: 'space-between', 
+            padding: { xs: 1, sm: 2 },
+            '@media (max-width: 360px)': {
+              padding: '0.5rem 0.75rem',
+              minHeight: 48,
+            },
+          }}>
             {isMobile && (
               <IconButton
                 aria-label="open drawer"

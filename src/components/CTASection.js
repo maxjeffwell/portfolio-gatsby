@@ -32,6 +32,10 @@ const CTASection = styled(Paper)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(3, 2),
   },
+  '@media (max-width: 360px)': {
+    padding: theme.spacing(2.5, 1.5),
+    borderRadius: theme.shape.borderRadius * 2,
+  },
 }));
 
 const GradientText = styled(Typography)(({ theme }) => ({

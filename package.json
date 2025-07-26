@@ -54,6 +54,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
+    "cheerio": "^1.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",

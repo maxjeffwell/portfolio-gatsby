@@ -5,6 +5,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 // Material Design color palette
 const lightTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      xxs: 360,      // Custom breakpoint for 360x640
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   palette: {
     mode: 'light',
     primary: {
@@ -41,41 +51,73 @@ const lightTheme = createTheme({
       fontSize: '6rem',
       fontWeight: 300,
       letterSpacing: '-0.01562em',
+      '@media (max-width: 360px)': {
+        fontSize: '3.5rem',
+        lineHeight: 1.1,
+      },
     },
     h2: {
       fontSize: '3.75rem',
       fontWeight: 300,
       letterSpacing: '-0.00833em',
+      '@media (max-width: 360px)': {
+        fontSize: '2.5rem',
+        lineHeight: 1.2,
+      },
     },
     h3: {
       fontSize: '3rem',
       fontWeight: 400,
       letterSpacing: 0,
+      '@media (max-width: 360px)': {
+        fontSize: '2rem',
+        lineHeight: 1.2,
+      },
     },
     h4: {
       fontSize: '2.125rem',
       fontWeight: 400,
       letterSpacing: '0.00735em',
+      '@media (max-width: 360px)': {
+        fontSize: '1.5rem',
+        lineHeight: 1.3,
+      },
     },
     h5: {
       fontSize: '1.5rem',
       fontWeight: 400,
       letterSpacing: 0,
+      '@media (max-width: 360px)': {
+        fontSize: '1.25rem',
+        lineHeight: 1.3,
+      },
     },
     h6: {
       fontSize: '1.25rem',
       fontWeight: 500,
       letterSpacing: '0.0075em',
+      '@media (max-width: 360px)': {
+        fontSize: '1.125rem',
+        lineHeight: 1.4,
+      },
     },
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
       letterSpacing: '0.00938em',
+      '@media (max-width: 360px)': {
+        fontSize: '0.9rem',
+        lineHeight: 1.5,
+      },
     },
     body2: {
       fontSize: '0.875rem',
       fontWeight: 400,
       letterSpacing: '0.01071em',
+      '@media (max-width: 360px)': {
+        fontSize: '0.8rem',
+        lineHeight: 1.4,
+      },
     },
   },
   shape: {
@@ -144,6 +186,16 @@ const lightTheme = createTheme({
 });
 
 const darkTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      xxs: 360,      // Custom breakpoint for 360x640
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   palette: {
     mode: 'dark',
     primary: {
@@ -180,41 +232,73 @@ const darkTheme = createTheme({
       fontSize: '6rem',
       fontWeight: 300,
       letterSpacing: '-0.01562em',
+      '@media (max-width: 360px)': {
+        fontSize: '3.5rem',
+        lineHeight: 1.1,
+      },
     },
     h2: {
       fontSize: '3.75rem',
       fontWeight: 300,
       letterSpacing: '-0.00833em',
+      '@media (max-width: 360px)': {
+        fontSize: '2.5rem',
+        lineHeight: 1.2,
+      },
     },
     h3: {
       fontSize: '3rem',
       fontWeight: 400,
       letterSpacing: 0,
+      '@media (max-width: 360px)': {
+        fontSize: '2rem',
+        lineHeight: 1.2,
+      },
     },
     h4: {
       fontSize: '2.125rem',
       fontWeight: 400,
       letterSpacing: '0.00735em',
+      '@media (max-width: 360px)': {
+        fontSize: '1.5rem',
+        lineHeight: 1.3,
+      },
     },
     h5: {
       fontSize: '1.5rem',
       fontWeight: 400,
       letterSpacing: 0,
+      '@media (max-width: 360px)': {
+        fontSize: '1.25rem',
+        lineHeight: 1.3,
+      },
     },
     h6: {
       fontSize: '1.25rem',
       fontWeight: 500,
       letterSpacing: '0.0075em',
+      '@media (max-width: 360px)': {
+        fontSize: '1.125rem',
+        lineHeight: 1.4,
+      },
     },
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
       letterSpacing: '0.00938em',
+      '@media (max-width: 360px)': {
+        fontSize: '0.9rem',
+        lineHeight: 1.5,
+      },
     },
     body2: {
       fontSize: '0.875rem',
       fontWeight: 400,
       letterSpacing: '0.01071em',
+      '@media (max-width: 360px)': {
+        fontSize: '0.8rem',
+        lineHeight: 1.4,
+      },
     },
   },
   shape: {
