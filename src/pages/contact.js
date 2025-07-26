@@ -61,13 +61,13 @@ const ContactMethod = styled(Box)(({ theme }) => ({
 
 function Contact() {
   const theme = useTheme();
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = React.useState(() => ({
     name: '',
     email: '',
     message: '',
-  });
-  const [formStatus, setFormStatus] = React.useState('');
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  }));
+  const [formStatus, setFormStatus] = React.useState(() => '');
+  const [isSubmitting, setIsSubmitting] = React.useState(() => false);
 
   const handleChange = (e) => {
     setFormData({
@@ -123,11 +123,13 @@ function Contact() {
         ]}
       />
       {/* Hidden form for Netlify to detect */}
-      <form name="contact" netlify="true" netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <textarea name="message" />
-      </form>
+      <NoSsr>
+        <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+          <input type="text" name="name" />
+          <input type="email" name="email" />
+          <textarea name="message" />
+        </form>
+      </NoSsr>
       <Container maxWidth="lg">
         <Box component="section" aria-labelledby="contact-header" sx={{ mb: 6 }}>
           <GradientText variant="h2" component="h1" id="contact-header" align="center" gutterBottom>
@@ -316,7 +318,7 @@ function Contact() {
                     name="contact"
                     method="POST"
                     data-netlify="true"
-                    netlify-honeypot="bot-field"
+                    data-netlify-honeypot="bot-field"
                   >
                     <input type="hidden" name="form-name" value="contact" />
                     <Box sx={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
