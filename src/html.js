@@ -30,31 +30,57 @@ export default function HTML(props) {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // React 18 ContextRegistry polyfill
+              // Enhanced React 18 ContextRegistry polyfill
               (function() {
-                var attempts = 0;
-                var maxAttempts = 50;
-                
-                function checkAndPatchReact() {
-                  if (typeof window !== 'undefined' && window.React && window.React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) {
-                    if (!window.React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry) {
-                      window.React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry = {};
-                      console.log('React ContextRegistry polyfill applied');
+                // Patch function
+                function patchReact(reactObj) {
+                  if (reactObj && reactObj.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) {
+                    if (!reactObj.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry) {
+                      reactObj.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry = {};
+                      return true;
                     }
-                    return true;
                   }
                   return false;
                 }
                 
-                // Try immediately
-                if (!checkAndPatchReact()) {
-                  // If React isn't available yet, keep trying
-                  var interval = setInterval(function() {
-                    attempts++;
-                    if (checkAndPatchReact() || attempts >= maxAttempts) {
-                      clearInterval(interval);
+                // Patch immediately if React is already available
+                if (typeof window !== 'undefined') {
+                  if (window.React) {
+                    patchReact(window.React);
+                  }
+                  
+                  // Monitor for React being loaded
+                  var originalDefine = window.define;
+                  var originalRequire = window.require;
+                  
+                  // Patch AMD/RequireJS modules
+                  if (originalDefine) {
+                    window.define = function() {
+                      var result = originalDefine.apply(this, arguments);
+                      if (window.React) patchReact(window.React);
+                      return result;
+                    };
+                  }
+                  
+                  // Patch CommonJS requires
+                  if (originalRequire) {
+                    window.require = function() {
+                      var result = originalRequire.apply(this, arguments);
+                      if (window.React) patchReact(window.React);
+                      return result;
+                    };
+                  }
+                  
+                  // Watch for React on window object
+                  var attempts = 0;
+                  var checkInterval = setInterval(function() {
+                    if (window.React && patchReact(window.React)) {
+                      clearInterval(checkInterval);
                     }
-                  }, 10);
+                    if (++attempts > 100) {
+                      clearInterval(checkInterval);
+                    }
+                  }, 50);
                 }
               })();
             `,

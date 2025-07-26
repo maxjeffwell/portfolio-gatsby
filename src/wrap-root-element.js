@@ -18,6 +18,7 @@ const ClientOnlyPerformanceMonitor = () => {
       .catch(() => {
         // Ignore errors if PerformanceMonitor doesn't exist
         if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
           console.log('PerformanceMonitor component not found');
         }
       });

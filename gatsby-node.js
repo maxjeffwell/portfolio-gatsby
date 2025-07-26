@@ -13,67 +13,14 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   const config = getConfig();
 
-  // Fix for React 18 ContextRegistry issue
+  // Fix for React 18 ContextRegistry issue - use resolve alias instead of build-time injection
   if (stage === 'build-javascript' || stage === 'develop') {
-    config.plugins.push({
-      apply(compiler) {
-        compiler.hooks.compilation.tap('ReactContextRegistryFix', (compilation) => {
-          compilation.hooks.processAssets.tap(
-            {
-              name: 'ReactContextRegistryFix',
-              stage: compilation.constructor.PROCESS_ASSETS_STAGE_ADDITIONS,
-            },
-            () => {
-              // Add polyfill to the beginning of the app bundle
-              const polyfill = `
-// React 18 ContextRegistry polyfill
-(function() {
-  if (typeof window !== 'undefined') {
-    const patchReact = function(React) {
-      if (React && React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) {
-        if (!React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry) {
-          React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ContextRegistry = {};
-        }
-      }
-    };
-    
-    // Try to patch immediately if React is available
-    if (window.React) {
-      patchReact(window.React);
-    }
-    
-    // Also patch when modules are loaded
-    const originalDefine = window.define;
-    if (originalDefine) {
-      window.define = function() {
-        const result = originalDefine.apply(this, arguments);
-        if (window.React) {
-          patchReact(window.React);
-        }
-        return result;
-      };
-    }
-  }
-})();
-`;
+    config.resolve = config.resolve || {};
+    config.resolve.alias = config.resolve.alias || {};
 
-              // Find the app bundle and prepend the polyfill
-              for (const [filename, asset] of compilation.assets) {
-                if (filename.startsWith('app-') && filename.endsWith('.js')) {
-                  const source = asset.source();
-                  const newSource = polyfill + source;
-                  compilation.assets[filename] = {
-                    source: () => newSource,
-                    size: () => newSource.length,
-                  };
-                  break;
-                }
-              }
-            }
-          );
-        });
-      },
-    });
+    // Force all React imports to use the same instance
+    config.resolve.alias.react = path.resolve('./node_modules/react');
+    config.resolve.alias['react-dom'] = path.resolve('./node_modules/react-dom');
   }
 
   // Production optimizations
