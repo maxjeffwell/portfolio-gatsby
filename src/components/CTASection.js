@@ -20,16 +20,8 @@ const CTASection = styled(Paper)(({ theme }) => ({
     width: '200%',
     height: '200%',
     background: `radial-gradient(circle at center, ${theme.palette.primary.main}10 0%, transparent 70%)`,
-    animation: 'rotate 20s linear infinite',
     zIndex: 0,
-  },
-  '@keyframes rotate': {
-    from: {
-      transform: 'rotate(0deg)',
-    },
-    to: {
-      transform: 'rotate(360deg)',
-    },
+    willChange: 'auto',
   },
   '& > *': {
     position: 'relative',
@@ -145,8 +137,7 @@ function CTASectionComponent({ visible }) {
           sx={{ mb: 4, opacity: 0.9, fontSize: '1.125rem' }}
           color="text.secondary"
         >
-          Let's collaborate to create exceptional web experiences that make a difference. I'm
-          passionate about solving complex problems with clean, efficient code.
+          Whether you have a project in mind, need technical expertise, or just want to say hello, I'd love to hear from you. Let's collaborate to create exceptional web experiences that make a difference.
         </Typography>
 
         <Box sx={{ 
@@ -158,7 +149,7 @@ function CTASectionComponent({ visible }) {
         }}>
           {stats.map((stat, index) => (
             <Box key={stat.label} sx={{ flex: 1, textAlign: 'center' }}>
-              <Fade in={visible} timeout={800} style={{ transitionDelay: `${index * 200}ms` }}>
+              <Fade in={visible} timeout={400} style={{ transitionDelay: `${index * 50}ms` }}>
                 <StatBox>
                   <Typography className="stat-number">{stat.number}</Typography>
                   <Typography className="stat-label">{stat.label}</Typography>
@@ -183,8 +174,8 @@ function CTASectionComponent({ visible }) {
               <Box key={method.text} sx={{ flex: 1 }}>
                 <Fade
                   in={visible}
-                  timeout={800}
-                  style={{ transitionDelay: `${index * 100 + 400}ms` }}
+                  timeout={400}
+                  style={{ transitionDelay: `${index * 50 + 200}ms` }}
                 >
                   <ContactButton
                     component="a"
@@ -205,7 +196,7 @@ function CTASectionComponent({ visible }) {
           })}
         </Box>
 
-        <Fade in={visible} timeout={1000} style={{ transitionDelay: '800ms' }}>
+        <Fade in={visible} timeout={400} style={{ transitionDelay: '400ms' }}>
           <Box>
             <StyledLink to="/projects/">
               <MainButton size="large" endIcon={<ArrowForward />}>

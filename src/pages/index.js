@@ -19,8 +19,8 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import TypingAnimation from '../components/TypingAnimation';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import CTASection from '../components/CTASection';
 
-const CTASection = React.lazy(() => import('../components/CTASection'));
 const CodeSnippet = React.lazy(() => import('../components/CodeSnippet'));
 
 const HeroSection = styled('div')(({ theme }) => ({
@@ -399,16 +399,12 @@ function IndexPage() {
         </Grid>
         </Box>
 
-        <NoSsr>
-          <Box component="section" aria-labelledby="cta-section-title" ref={ctaRef} sx={{ mt: 6 }}>
-            <Typography variant="h2" id="cta-section-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
-              Contact and Call to Action
-            </Typography>
-            <React.Suspense fallback={<Box sx={{ minHeight: '400px' }} />}>
-              <CTASection visible={ctaVisible} />
-            </React.Suspense>
-          </Box>
-        </NoSsr>
+        <Box component="section" aria-labelledby="cta-section-title" ref={ctaRef} sx={{ mt: 6 }}>
+          <Typography variant="h2" id="cta-section-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            Contact and Call to Action
+          </Typography>
+          <CTASection visible={ctaVisible} />
+        </Box>
       </Container>
     </Layout>
   );
