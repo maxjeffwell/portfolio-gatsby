@@ -249,7 +249,7 @@ function IndexPage() {
               >
                 <CardContent sx={{ p: 4 }}>
                   <Typography
-                    variant="h4"
+                    variant="h3"
                     color="secondary"
                     gutterBottom
                     id="beyond-code-title"
@@ -308,7 +308,7 @@ function IndexPage() {
                 />
                 <CardContent sx={{ p: 4 }}>
                   <Typography
-                    variant="h4"
+                    variant="h3"
                     gutterBottom
                     id="code-philosophy-title"
                     sx={{ display: 'flex', alignItems: 'center' }}
@@ -351,7 +351,7 @@ function IndexPage() {
                       backgroundColor: muiTheme.palette.action.hover,
                     }}
                   >
-                    <Typography variant="subtitle2" color="secondary" gutterBottom>
+                    <Typography variant="h4" color="secondary" gutterBottom>
                       Why I Like This Pattern
                     </Typography>
                     <Box component="ul" sx={{ pl: 0, m: 0, listStyle: 'none' }}>
