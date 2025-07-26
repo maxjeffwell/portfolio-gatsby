@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import { useLocation } from '@reach/router';
+import { useLocation } from '@gatsbyjs/reach-router';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   AppBar,
