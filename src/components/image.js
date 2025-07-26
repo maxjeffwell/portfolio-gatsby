@@ -45,7 +45,7 @@ function Image({ imageType }) {
       <GatsbyImage
         image={teamImage}
         alt="Jeff Maxwell's two dogs - code companions and loyal debugging partners"
-        loading="lazy"
+        loading="eager"
         sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
         style={{
           transition: 'opacity 0.3s ease-in-out',
