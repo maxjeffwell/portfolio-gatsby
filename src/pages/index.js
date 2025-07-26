@@ -130,6 +130,9 @@ function IndexPage() {
                 }}
               />
             </NoSsr>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontSize: '1.25rem' }}>
+              My name's Jeff.
+            </Typography>
             <GradientText variant="h1" gutterBottom sx={{ minHeight: '4.5rem' }} id="hero-title">
               I'm a{' '}
               <Box
@@ -185,9 +188,6 @@ function IndexPage() {
                 </NoSsr>
               </Box>
             </GradientText>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 2, fontSize: '1.25rem' }}>
-              My name's Jeff.
-            </Typography>
             <Typography
               variant="body1"
               color="text.secondary"
