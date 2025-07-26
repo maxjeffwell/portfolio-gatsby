@@ -80,13 +80,6 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions, getC
     };
   }
 
-  // Replace react-icons with a dummy module during SSR
-  if (stage === 'build-html') {
-    const webpack = require('webpack');
-    config.plugins.push(
-      new webpack.NormalModuleReplacementPlugin(/react-icons/, path.resolve(__dirname, 'src/utils/dummy-react-icons.js'))
-    );
-  }
   if (stage === 'develop') {
     // Faster rebuilds in development
     config.optimization = {

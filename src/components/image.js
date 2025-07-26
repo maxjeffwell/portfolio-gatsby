@@ -46,6 +46,11 @@ function Image({ imageType }) {
           transition: 'opacity 0.3s ease-in-out',
           width: '100%',
           height: '100%',
+          willChange: 'opacity',
+        }}
+        imgStyle={{
+          objectFit: 'contain',
+          objectPosition: 'center',
         }}
       />
     );
@@ -61,6 +66,11 @@ function Image({ imageType }) {
           transition: 'opacity 0.3s ease-in-out',
           width: '100%',
           height: '100%',
+          willChange: 'opacity',
+        }}
+        imgStyle={{
+          objectFit: 'contain',
+          objectPosition: 'center',
         }}
       />
     );

@@ -124,13 +124,13 @@ function TypingAnimation({
   if (!isMounted || !texts.length) {
     return (
       <TypingContainer>
-        <TypingText>Full Stack Developer</TypingText>
+        <TypingText>React Specialist</TypingText>
         {showCursor && <Cursor blink={false} />}
       </TypingContainer>
     );
   }
 
-  const currentDisplayText = displayText || (isStarted ? '' : texts[0] || 'Full Stack Developer');
+  const currentDisplayText = displayText || (isStarted ? '' : texts[0] || 'React Specialist');
 
   return (
     <TypingContainer>

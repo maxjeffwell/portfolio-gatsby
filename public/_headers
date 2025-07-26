@@ -1,0 +1,147 @@
+# Cache static assets for 1 year
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache JavaScript and CSS files for 1 year with immutable flag
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache images for 1 year
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.gif
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache fonts for 1 year
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+/*.otf
+  Cache-Control: public, max-age=31536000, immutable
+/*.eot
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache manifest and service worker files for shorter period
+/manifest.json
+  Cache-Control: public, max-age=3600, must-revalidate
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+# HTML files should not be cached (or cached with revalidation)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Page data and app data should be revalidated
+/page-data/*
+  Cache-Control: public, max-age=0, must-revalidate
+/app-data.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Set security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+# gatsby-adapter-netlify start
+/*
+  cache-control: public, max-age=0, must-revalidate
+  x-xss-protection: 1; mode=block
+  x-content-type-options: nosniff
+  referrer-policy: same-origin
+  x-frame-options: DENY
+/static/*
+  cache-control: public, max-age=31536000, immutable
+/vendors-f6e04c7ed0bb7d48acb0.js
+  cache-control: public, max-age=31536000, immutable
+/vendors-f6e04c7ed0bb7d48acb0.js.LICENSE.txt
+  cache-control: public, max-age=31536000, immutable
+/vendors-f6e04c7ed0bb7d48acb0.js.map
+  cache-control: public, max-age=31536000, immutable
+/react-5ce288d634586d4bbf45.js
+  cache-control: public, max-age=31536000, immutable
+/react-5ce288d634586d4bbf45.js.LICENSE.txt
+  cache-control: public, max-age=31536000, immutable
+/react-5ce288d634586d4bbf45.js.map
+  cache-control: public, max-age=31536000, immutable
+/app-4bec3296484b4bcd7c97.js
+  cache-control: public, max-age=31536000, immutable
+/app-4bec3296484b4bcd7c97.js.map
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-projects-js-a49420a46bde234dff72.js
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-projects-js-a49420a46bde234dff72.js.map
+  cache-control: public, max-age=31536000, immutable
+/icons-741c3171c3e4a79faf22.js
+  cache-control: public, max-age=31536000, immutable
+/icons-741c3171c3e4a79faf22.js.map
+  cache-control: public, max-age=31536000, immutable
+/emotion-d438cfe11d67de7bc2cc.js
+  cache-control: public, max-age=31536000, immutable
+/emotion-d438cfe11d67de7bc2cc.js.map
+  cache-control: public, max-age=31536000, immutable
+/common-71bcd3e51fd81c23f7bb.js
+  cache-control: public, max-age=31536000, immutable
+/common-71bcd3e51fd81c23f7bb.js.map
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-index-js-d813d1a02d4a8bf0a0cb.js
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-index-js-d813d1a02d4a8bf0a0cb.js.map
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-about-js-09cff549d9a829c4a08a.js
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-about-js-09cff549d9a829c4a08a.js.map
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-contact-js-61e64a437d27a2780e90.js
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-contact-js-61e64a437d27a2780e90.js.map
+  cache-control: public, max-age=31536000, immutable
+/474-1076cbdc328861f8df14.js
+  cache-control: public, max-age=31536000, immutable
+/474-1076cbdc328861f8df14.js.map
+  cache-control: public, max-age=31536000, immutable
+/476-dc4c5cd1048280fdc069.js
+  cache-control: public, max-age=31536000, immutable
+/476-dc4c5cd1048280fdc069.js.map
+  cache-control: public, max-age=31536000, immutable
+/webpack-runtime-d580769c3c7867d9dfd4.js
+  cache-control: public, max-age=31536000, immutable
+/webpack-runtime-d580769c3c7867d9dfd4.js.map
+  cache-control: public, max-age=31536000, immutable
+/265-fc8b6a917470d023d7cb.js
+  cache-control: public, max-age=31536000, immutable
+/265-fc8b6a917470d023d7cb.js.map
+  cache-control: public, max-age=31536000, immutable
+/391-a75ce3c5011cb04b7a98.js
+  cache-control: public, max-age=31536000, immutable
+/391-a75ce3c5011cb04b7a98.js.map
+  cache-control: public, max-age=31536000, immutable
+/app.a8ad031f1b782bc2f66f.css/
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-404-js-f11d63ea29b6d93b90cb.js
+  cache-control: public, max-age=31536000, immutable
+/component---src-pages-404-js-f11d63ea29b6d93b90cb.js.map
+  cache-control: public, max-age=31536000, immutable
+
+# gatsby-adapter-netlify end

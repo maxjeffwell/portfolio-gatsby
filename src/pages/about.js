@@ -66,7 +66,9 @@ const TechCard = styled(Card)(({ theme }) => ({
   textAlign: 'center',
   padding: theme.spacing(3, 2),
   height: '100%',
-  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  minHeight: '160px',
+  transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  willChange: 'transform, box-shadow',
   '&:hover': {
     transform: 'translateY(-8px)',
     boxShadow: theme.shadows[8],
@@ -92,6 +94,7 @@ const StyledIcon = styled(Box)(({ theme }) => ({
   color: theme.palette.primary.main,
   marginBottom: theme.spacing(2),
   transition: 'transform 0.3s ease',
+  willChange: 'transform',
   '.MuiCard-root:hover &': {
     transform: 'scale(1.1) rotate(5deg)',
   },
@@ -140,7 +143,7 @@ function AboutPage() {
           </Fade>
         </Box>
         <Box component="section" aria-labelledby="personal-section" ref={personalRef} sx={{ mb: 6 }}>
-          <NoSsr>
+          <NoSsr fallback={<Box sx={{ minHeight: '300px', backgroundColor: 'action.hover' }} />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
                 <Typography variant="h4" component="h2" id="personal-section" gutterBottom align="center">
@@ -216,7 +219,9 @@ function AboutPage() {
                 overflow: 'hidden',
                 backgroundColor: 'rgb(0, 89, 149)',
                 aspectRatio: '1 / 1',
+                minHeight: { xs: '300px', sm: '400px' },
                 position: 'relative',
+                willChange: 'transform',
               }}
             >
               <Box
@@ -239,7 +244,9 @@ function AboutPage() {
                 overflow: 'hidden',
                 backgroundColor: 'rgb(0, 89, 149)',
                 aspectRatio: '1 / 1',
+                minHeight: { xs: '300px', sm: '400px' },
                 position: 'relative',
+                willChange: 'transform',
               }}
             >
               <Box
@@ -258,7 +265,7 @@ function AboutPage() {
         </Box>
 
         <Box component="section" aria-labelledby="tech-stack" ref={techRef} sx={{ mb: 6 }}>
-          <NoSsr>
+          <NoSsr fallback={<Box sx={{ minHeight: '400px', backgroundColor: 'action.hover' }} />}>
             <Fade in={techVisible} timeout={1000}>
               <TechSection elevation={2}>
                 <GradientText variant="h2" component="h2" id="tech-stack" align="center" gutterBottom>
