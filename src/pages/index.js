@@ -400,7 +400,7 @@ function IndexPage() {
         </Box>
 
         <NoSsr>
-          <Box component="section" aria-labelledby="cta-section-title" ref={ctaRef}>
+          <Box component="section" aria-labelledby="cta-section-title" ref={ctaRef} sx={{ mt: 6 }}>
             <Typography variant="h2" id="cta-section-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
               Contact and Call to Action
             </Typography>
