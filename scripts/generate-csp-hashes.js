@@ -81,7 +81,9 @@ function generateCSPForFiles() {
     'upgrade-insecure-requests',
   ].join('; ');
 
+  // eslint-disable-next-line no-console
   console.log('Generated CSP:');
+  // eslint-disable-next-line no-console
   console.log(csp);
 
   // Update _headers file
@@ -103,6 +105,7 @@ function generateCSPForFiles() {
   }
 
   fs.writeFileSync(headersPath, headersContent);
+  // eslint-disable-next-line no-console
   console.log('Updated _headers file with hash-based CSP');
 }
 

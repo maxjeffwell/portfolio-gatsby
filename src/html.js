@@ -2,8 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function HTML(props) {
+  const {
+    htmlAttributes,
+    headComponents,
+    bodyAttributes,
+    preBodyComponents,
+    body,
+    postBodyComponents,
+  } = props;
+
   return (
-    <html {...props.htmlAttributes} lang="en">
+    <html {...htmlAttributes} lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -13,10 +22,11 @@ export default function HTML(props) {
           name="description"
           content="Jeff Maxwell - Full Stack Web Developer specializing in React, Node.js, and modern web development. Explore my portfolio of innovative projects and development solutions."
         />
-        {props.headComponents}
+        {headComponents}
       </head>
-      <body {...props.bodyAttributes}>
-        {props.preBodyComponents}
+      <body {...bodyAttributes}>
+        {preBodyComponents}
+        {/* eslint-disable-next-line react/no-danger */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -50,8 +60,9 @@ export default function HTML(props) {
             `,
           }}
         />
-        <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: props.body }} />
-        {props.postBodyComponents}
+        {/* eslint-disable-next-line react/no-danger */}
+        <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: body }} />
+        {postBodyComponents}
       </body>
     </html>
   );

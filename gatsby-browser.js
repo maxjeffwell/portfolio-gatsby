@@ -66,7 +66,11 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
 // Performance optimization for page transitions
 export const onRouteUpdate = ({ location }) => {
   // Track page views in analytics
-  if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined' && process.env.GATSBY_GA_TRACKING_ID) {
+  if (
+    typeof window !== 'undefined' &&
+    typeof window.gtag !== 'undefined' &&
+    process.env.GATSBY_GA_TRACKING_ID
+  ) {
     window.gtag('config', process.env.GATSBY_GA_TRACKING_ID, {
       page_path: location.pathname,
       page_title: document.title,
