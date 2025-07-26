@@ -143,8 +143,12 @@ const IndexPage = React.memo(() => {
             </NoSsr>
             <Typography
               variant="body1"
-              color="text.primary"
-              sx={{ mb: 2, fontSize: '1.25rem', fontWeight: 500 }}
+              sx={{ 
+                mb: 2, 
+                fontSize: '1.25rem', 
+                fontWeight: 500,
+                color: muiTheme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.87)' : 'text.primary'
+              }}
             >
               My name&apos;s Jeff.
             </Typography>
@@ -199,8 +203,13 @@ const IndexPage = React.memo(() => {
             </GradientText>
             <Typography
               variant="body1"
-              color="text.primary"
-              sx={{ mt: 2, minHeight: '1.75rem', fontSize: '1.125rem', fontWeight: 400 }}
+              sx={{ 
+                mt: 2, 
+                minHeight: '1.75rem', 
+                fontSize: '1.125rem', 
+                fontWeight: 400,
+                color: muiTheme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.87)' : 'text.primary'
+              }}
             >
               crafting exceptional web experiences
             </Typography>
@@ -328,7 +337,7 @@ const IndexPage = React.memo(() => {
                       <Box
                         component="span"
                         sx={{
-                          mr: 2,
+                          mr: 4,
                           width: 24,
                           height: 24,
                           display: 'inline-flex',

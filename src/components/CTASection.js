@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
 import { Box, Typography, Button, Paper, Fade } from '@mui/material';
-import { Email, Phone, GitHub, ArrowForward } from '@mui/icons-material';
+import { Email, Phone, GitHub } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 const CTASection = styled(Paper)(({ theme }) => ({
@@ -74,24 +73,6 @@ const StatBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const StyledLink = styled(Link)(() => ({
-  textDecoration: 'none',
-}));
-
-const MainButton = styled(Button)(({ theme }) => ({
-  borderRadius: 30,
-  padding: theme.spacing(1.5, 4),
-  fontSize: '1.1rem',
-  textTransform: 'none',
-  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-  color: theme.palette.common.white,
-  boxShadow: theme.shadows[4],
-  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  '&:hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[8],
-  },
-}));
 
 function CTASectionComponent({ visible }) {
   const [, setHoveredCard] = useState(null);
@@ -200,16 +181,6 @@ function CTASectionComponent({ visible }) {
             );
           })}
         </Box>
-
-        <Fade in={visible} timeout={400} style={{ transitionDelay: '400ms' }}>
-          <Box>
-            <StyledLink to="/projects/">
-              <MainButton size="large" endIcon={<ArrowForward />}>
-                View My Projects
-              </MainButton>
-            </StyledLink>
-          </Box>
-        </Fade>
       </Box>
     </CTASection>
   );

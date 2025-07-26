@@ -147,26 +147,6 @@ function AboutPage() {
           <NoSsr fallback={<Box sx={{ minHeight: '300px', backgroundColor: 'action.hover' }} />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
-                <Typography
-                  variant="h4"
-                  component="h2"
-                  id="personal-section"
-                  gutterBottom
-                  align="center"
-                >
-                  Beyond the Code
-                </Typography>
-                <Typography
-                  variant="body1"
-                  paragraph
-                  align="center"
-                  sx={{ mb: 4, fontSize: '1.125rem' }}
-                >
-                  When I&#39;m not debugging or mastering the latest frameworks, you&#39;ll find me
-                  negotiating dinner menus with my two dogs, exploring vintage internet archives, or
-                  diving deep into the philosophy of clean code architecture.
-                </Typography>
-
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={4}>
                     <InterestItem>

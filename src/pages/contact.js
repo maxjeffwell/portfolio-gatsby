@@ -47,10 +47,14 @@ const ContactMethod = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
   padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.action.hover,
+  backgroundColor: theme.palette.mode === 'dark' 
+    ? 'rgba(255, 255, 255, 0.08)' 
+    : 'rgba(0, 0, 0, 0.04)',
   transition: 'all 0.3s ease',
   '&:hover': {
-    backgroundColor: theme.palette.action.selected,
+    backgroundColor: theme.palette.mode === 'dark' 
+      ? 'rgba(255, 255, 255, 0.12)' 
+      : 'rgba(0, 0, 0, 0.08)',
     transform: 'translateX(8px)',
   },
 }));
@@ -164,7 +168,15 @@ function Contact() {
                   <ContactMethod>
                     <Email color="primary" />
                     <Box>
-                      <Typography variant="subtitle2" color="text.secondary">
+                      <Typography 
+                        variant="subtitle2" 
+                        sx={{ 
+                          color: theme.palette.mode === 'dark' 
+                            ? 'rgba(255, 255, 255, 0.7)' 
+                            : 'rgba(0, 0, 0, 0.6)',
+                          fontWeight: 500
+                        }}
+                      >
                         Email
                       </Typography>
                       <Link
@@ -188,7 +200,15 @@ function Contact() {
                   <ContactMethod>
                     <Phone color="primary" />
                     <Box>
-                      <Typography variant="subtitle2" color="text.secondary">
+                      <Typography 
+                        variant="subtitle2" 
+                        sx={{ 
+                          color: theme.palette.mode === 'dark' 
+                            ? 'rgba(255, 255, 255, 0.7)' 
+                            : 'rgba(0, 0, 0, 0.6)',
+                          fontWeight: 500
+                        }}
+                      >
                         Phone
                       </Typography>
                       <Link
@@ -231,7 +251,15 @@ function Contact() {
                   <ContactMethod>
                     <GitHub color="primary" />
                     <Box>
-                      <Typography variant="subtitle2" color="text.secondary">
+                      <Typography 
+                        variant="subtitle2" 
+                        sx={{ 
+                          color: theme.palette.mode === 'dark' 
+                            ? 'rgba(255, 255, 255, 0.7)' 
+                            : 'rgba(0, 0, 0, 0.6)',
+                          fontWeight: 500
+                        }}
+                      >
                         GitHub
                       </Typography>
                       <Link
