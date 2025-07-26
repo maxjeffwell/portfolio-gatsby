@@ -289,7 +289,7 @@ function AboutPage() {
                           <DiIntellij />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" component="h3" gutterBottom>
+                      <Typography variant="h6" component="h3" gutterBottom>
                         IntelliJ IDEA
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -305,7 +305,7 @@ function AboutPage() {
                           <DiMozilla />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" component="h3" gutterBottom>
+                      <Typography variant="h6" component="h3" gutterBottom>
                         Firefox
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -321,7 +321,7 @@ function AboutPage() {
                           <DiDebian />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" component="h3" gutterBottom>
+                      <Typography variant="h6" component="h3" gutterBottom>
                         Debian Linux
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -337,7 +337,7 @@ function AboutPage() {
                           <FaPiedPiperAlt />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" component="h3" gutterBottom>
+                      <Typography variant="h6" component="h3" gutterBottom>
                         Pied Piper
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
