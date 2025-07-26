@@ -13,10 +13,11 @@ const TypingText = styled('span')(({ theme }) => ({
   color: 'inherit',
   fontWeight: 'bold',
   fontSize: 'inherit',
-  minHeight: '1em',
+  minHeight: '1.2em',
   display: 'inline-block',
-  minWidth: '280px',
+  width: '100%',
   textAlign: 'left',
+  contain: 'layout',
 }));
 
 const Cursor = styled('span')(({ theme, blink }) => ({
@@ -124,7 +125,7 @@ function TypingAnimation({
   if (!isMounted || !texts.length) {
     return (
       <TypingContainer>
-        <TypingText>React Specialist</TypingText>
+        <TypingText>{texts[0] || 'React Specialist'}</TypingText>
         {showCursor && <Cursor blink={false} />}
       </TypingContainer>
     );

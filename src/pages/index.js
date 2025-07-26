@@ -139,10 +139,27 @@ function IndexPage() {
                   fontWeight: 'bold',
                   position: 'relative',
                   display: 'inline-block',
-                  minWidth: '280px',
+                  width: '320px',
                   minHeight: '1.2em',
+                  textAlign: 'left',
                 }}
               >
+                <Box
+                  component="span"
+                  sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    visibility: 'hidden',
+                  }}
+                  aria-hidden="true"
+                >
+                  JAMstack Architect
+                </Box>
                 React Specialist
                 <NoSsr fallback={null}>
                   <Box
