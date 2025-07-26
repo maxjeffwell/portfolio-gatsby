@@ -14,7 +14,7 @@ import {
 import { styled } from '@mui/material/styles';
 
 import Layout from '../components/layout';
-import ProjectCard from '../components/projectCard';
+const ProjectCard = React.lazy(() => import('../components/projectCard'));
 import SEO from '../components/seo';
 
 import GraphQLIcon from '../images/graphql.svg';
@@ -306,20 +306,22 @@ const Projects = ({ data }) => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {enhancedProjects.map((project, index) => (
               <Box key={project.id}>
-                <ProjectCard
-                  title={project.title}
-                  date={project.date}
-                  description={project.description}
-                  sourceURL={project.sourceURL}
-                  hostedURL={project.hostedURL}
-                  technologies={project.technologies}
-                  imageSrcPath={project.imageSrcPath}
-                  imageSrcPath2={project.imageSrcPath2}
-                  imageSrcPath3={project.imageSrcPath3}
-                  imageSrcPath4={project.imageSrcPath4}
-                  imageSrcPath5={project.imageSrcPath5}
-                  imageSrcPath6={project.imageSrcPath6}
-                />
+                <React.Suspense fallback={<Box sx={{ height: '400px', backgroundColor: 'action.hover', borderRadius: 2 }} />}>
+                  <ProjectCard
+                    title={project.title}
+                    date={project.date}
+                    description={project.description}
+                    sourceURL={project.sourceURL}
+                    hostedURL={project.hostedURL}
+                    technologies={project.technologies}
+                    imageSrcPath={project.imageSrcPath}
+                    imageSrcPath2={project.imageSrcPath2}
+                    imageSrcPath3={project.imageSrcPath3}
+                    imageSrcPath4={project.imageSrcPath4}
+                    imageSrcPath5={project.imageSrcPath5}
+                    imageSrcPath6={project.imageSrcPath6}
+                  />
+                </React.Suspense>
               </Box>
             ))}
           </Box>

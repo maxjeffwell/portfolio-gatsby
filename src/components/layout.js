@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { HelmetProvider } from 'react-helmet-async';
-import { Box, Container, Typography, Link, IconButton, useTheme } from '@mui/material';
-import { GitHub, LinkedIn, Phone, Language } from '@mui/icons-material';
+import { Box, Container, Typography, Link, IconButton, useTheme, GlobalStyles } from '@mui/material';
+import { GitHub, Phone, Language } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 import Header from './header';
@@ -34,6 +34,7 @@ const StyledFooter = styled(Box)(({ theme }) => ({
 const SocialLink = styled(IconButton)(({ theme }) => ({
   color: theme.palette.text.primary,
   transition: 'transform 0.2s ease-in-out, color 0.2s ease-in-out',
+  willChange: 'transform, color',
   '&:hover': {
     transform: 'scale(1.1)',
     color: theme.palette.primary.main,
@@ -46,6 +47,22 @@ function ThemedLayout({ children, data }) {
 
   return (
     <>
+      <GlobalStyles
+        styles={{
+          '*': {
+            fontDisplay: 'swap',
+          },
+          'body': {
+            overflowX: 'hidden',
+          },
+          '[data-gatsby-image-wrapper]': {
+            willChange: 'auto',
+          },
+          '.gatsby-image-wrapper': {
+            willChange: 'auto',
+          },
+        }}
+      />
       <Header />
       <Container maxWidth="lg" component="main" role="main" sx={{ mt: 4, mb: 4 }}>
         {children}

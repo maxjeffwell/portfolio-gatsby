@@ -6,11 +6,11 @@ import {
   Button,
   Paper,
   Container,
-  Grid,
   Card,
   CardContent,
   useTheme as useMuiTheme,
   NoSsr,
+  Grid,
 } from '@mui/material';
 import { ArrowForward, CheckCircle, Computer, LightbulbOutlined } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
@@ -18,9 +18,10 @@ import { styled } from '@mui/material/styles';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import TypingAnimation from '../components/TypingAnimation';
-import CodeSnippet from '../components/CodeSnippet';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import CTASection from '../components/CTASection';
+
+const CTASection = React.lazy(() => import('../components/CTASection'));
+const CodeSnippet = React.lazy(() => import('../components/CodeSnippet'));
 
 const HeroSection = styled('div')(({ theme }) => ({
   padding: theme.spacing(6, 4),
@@ -30,7 +31,8 @@ const HeroSection = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(4),
   position: 'relative',
   overflow: 'hidden',
-  contain: 'layout',
+  contain: 'layout style',
+  willChange: 'auto',
   boxShadow:
     '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
   [theme.breakpoints.down('sm')]: {
@@ -79,11 +81,11 @@ const FloatingShape = styled(Box)(({ theme }) => ({
 
 function IndexPage() {
   const muiTheme = useMuiTheme();
-  const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
-  const [introRef, introVisible] = useScrollAnimation({ delay: 300 });
-  const [navRef, navVisible] = useScrollAnimation({ delay: 500 });
-  const [codeRef, codeVisible] = useScrollAnimation({ delay: 200 });
-  const [ctaRef, ctaVisible] = useScrollAnimation({ delay: 400 });
+  const [headerRef, headerVisible] = useScrollAnimation({ delay: 0, startVisible: true });
+  const [introRef, introVisible] = useScrollAnimation({ delay: 50, startVisible: true });
+  const [navRef, navVisible] = useScrollAnimation({ delay: 100, startVisible: true });
+  const [codeRef, codeVisible] = useScrollAnimation({ delay: 150 });
+  const [ctaRef, ctaVisible] = useScrollAnimation({ delay: 200 });
 
   return (
     <Layout>
@@ -106,8 +108,8 @@ function IndexPage() {
       />
       <Container maxWidth="lg">
         <Box component="section" role="banner" aria-labelledby="hero-title" ref={headerRef}>
-          <HeroSection sx={{ opacity: headerVisible ? 1 : 0, transition: 'opacity 0.4s ease-out' }}>
-            <NoSsr>
+          <HeroSection>
+            <NoSsr fallback={null}>
               <FloatingShape
                 sx={{
                   width: 60,
@@ -141,26 +143,26 @@ function IndexPage() {
                   minHeight: '1.2em',
                 }}
               >
-                <span style={{ visibility: 'hidden' }}>Full Stack Developer</span>
-                <NoSsr>
+                React Specialist
+                <NoSsr fallback={null}>
                   <Box
                     component="span"
                     sx={{ position: 'absolute', left: 0, top: 0, width: '100%' }}
                   >
                     <TypingAnimation
                       texts={[
-                        'Full Stack Developer',
                         'React Specialist',
+                        'Full Stack Developer',
                         'Node.js Expert',
                         'GraphQL Enthusiast',
                         'JAMstack Architect',
                         'Problem Solver',
                       ]}
-                      typeSpeed={80}
-                      deleteSpeed={40}
-                      delayBetweenTexts={1500}
+                      typeSpeed={60}
+                      deleteSpeed={30}
+                      delayBetweenTexts={1200}
                       loop
-                      startDelay={800}
+                      startDelay={100}
                     />
                   </Box>
                 </NoSsr>
@@ -185,9 +187,9 @@ function IndexPage() {
             sx={{
               borderRadius: 3,
               overflow: 'visible',
-              opacity: introVisible ? 1 : 0,
-              transform: introVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+              opacity: introVisible ? 1 : 0.8,
+              transform: introVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
             }}
           >
             <CardContent sx={{ p: 4 }}>
@@ -220,7 +222,7 @@ function IndexPage() {
           <Typography variant="h2" id="cta-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
             Portfolio Navigation
           </Typography>
-          <div style={{ opacity: navVisible ? 1 : 0, transition: 'opacity 0.5s ease-out' }}>
+          <div style={{ opacity: navVisible ? 1 : 0.9, transition: 'opacity 0.2s ease-out' }}>
             <StyledButton component={Link} to="/projects/" endIcon={<ArrowForward />} size="large">
               View My Projects
             </StyledButton>
@@ -318,11 +320,12 @@ function IndexPage() {
                     Clean, readable, and maintainable — here's how I approach modern React
                     development:
                   </Typography>
-                  <CodeSnippet
-                    title="Custom Hook Example"
-                    animated={codeVisible}
-                    animationSpeed={25}
-                    code={`const useTheme = () => {
+                  <React.Suspense fallback={<Box sx={{ height: '300px', backgroundColor: 'action.hover' }} />}>
+                    <CodeSnippet
+                      title="Custom Hook Example"
+                      animated={codeVisible}
+                      animationSpeed={25}
+                      code={`const useTheme = () => {
   const [isDark, setIsDark] = useState(false);
   
   useEffect(() => {
@@ -338,7 +341,8 @@ function IndexPage() {
   
   return { isDark, toggleTheme };
 };`}
-                  />
+                    />
+                  </React.Suspense>
                   <Paper
                     sx={{
                       mt: 3,
@@ -384,7 +388,9 @@ function IndexPage() {
             <Typography variant="h2" id="cta-section-title" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
               Contact and Call to Action
             </Typography>
-            <CTASection visible={ctaVisible} />
+            <React.Suspense fallback={<Box sx={{ minHeight: '400px' }} />}>
+              <CTASection visible={ctaVisible} />
+            </React.Suspense>
           </Box>
         </NoSsr>
       </Container>

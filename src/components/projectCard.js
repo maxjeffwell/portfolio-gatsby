@@ -23,7 +23,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   borderRadius: theme.shape.borderRadius * 2,
   overflow: 'hidden',
-  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  willChange: 'transform, box-shadow',
   background:
     theme.palette.mode === 'dark'
       ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
@@ -42,8 +43,11 @@ const ColoredBar = styled(Box)(({ theme }) => ({
 const ImageContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   overflow: 'hidden',
+  aspectRatio: '16 / 9',
+  backgroundColor: theme.palette.action.hover,
   '& [data-gatsby-image-wrapper]': {
     transition: 'transform 0.3s ease-in-out',
+    willChange: 'transform',
     '&:hover': {
       transform: 'scale(1.05)',
     },
@@ -58,7 +62,8 @@ const TechIcon = styled(Box)(({ theme }) => ({
   height: 40,
   borderRadius: '50%',
   backgroundColor: theme.palette.action.hover,
-  transition: 'all 0.3s ease',
+  transition: 'transform 0.3s ease, background-color 0.3s ease',
+  willChange: 'transform, background-color',
   '&:hover': {
     transform: 'scale(1.1)',
     backgroundColor: theme.palette.action.selected,
@@ -97,7 +102,15 @@ function ProjectCard({
               image={getImage(imageSrcPath)}
               alt={`${title} - Screenshot 1`}
               loading="eager"
-              style={{ borderRadius: '8px' }}
+              style={{ 
+                borderRadius: '8px', 
+                width: '100%',
+                height: '100%',
+              }}
+              imgStyle={{
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
             />
           </ImageContainer>
         </Box>
@@ -107,7 +120,15 @@ function ProjectCard({
               image={getImage(imageSrcPath2)}
               alt={`${title} - Screenshot 2`}
               loading="eager"
-              style={{ borderRadius: '8px' }}
+              style={{ 
+                borderRadius: '8px', 
+                width: '100%',
+                height: '100%',
+              }}
+              imgStyle={{
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
             />
           </ImageContainer>
         </Box>

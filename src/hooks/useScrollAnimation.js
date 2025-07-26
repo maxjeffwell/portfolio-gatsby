@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 const useScrollAnimation = (options = {}) => {
-  const { threshold = 0.1, rootMargin = '0px', triggerOnce = true, delay = 0 } = options;
+  const { threshold = 0.1, rootMargin = '0px', triggerOnce = true, delay = 0, startVisible = false } = options;
 
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasTriggered, setHasTriggered] = useState(false);
+  const [isVisible, setIsVisible] = useState(startVisible);
+  const [hasTriggered, setHasTriggered] = useState(startVisible);
   const elementRef = useRef(null);
 
   useEffect(() => {

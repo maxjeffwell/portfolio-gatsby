@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import { Box, Typography, Button, Paper, Grid, useTheme, Fade } from '@mui/material';
-import { Email, Phone, LinkedIn, GitHub, ArrowForward } from '@mui/icons-material';
+import { Box, Typography, Button, Paper, useTheme, Fade } from '@mui/material';
+import { Email, Phone, GitHub, ArrowForward } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 const CTASection = styled(Paper)(({ theme }) => ({
@@ -149,26 +149,38 @@ function CTASectionComponent({ visible }) {
           passionate about solving complex problems with clean, efficient code.
         </Typography>
 
-        <Grid container spacing={4} sx={{ mb: 4 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', sm: 'row' }, 
+          gap: 4, 
+          mb: 4,
+          justifyContent: 'center'
+        }}>
           {stats.map((stat, index) => (
-            <Grid item xs={12} sm={4} key={stat.label}>
+            <Box key={stat.label} sx={{ flex: 1, textAlign: 'center' }}>
               <Fade in={visible} timeout={800} style={{ transitionDelay: `${index * 200}ms` }}>
                 <StatBox>
                   <Typography className="stat-number">{stat.number}</Typography>
                   <Typography className="stat-label">{stat.label}</Typography>
                 </StatBox>
               </Fade>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
 
-        <Grid container spacing={2} sx={{ mb: 4 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', sm: 'row' }, 
+          gap: 2, 
+          mb: 4,
+          justifyContent: 'center'
+        }}>
           {contactMethods.map((method, index) => {
             const IconComponent = method.icon;
             const isExternal = method.href.startsWith('http');
 
             return (
-              <Grid item xs={12} sm={6} md={3} key={method.text}>
+              <Box key={method.text} sx={{ flex: 1 }}>
                 <Fade
                   in={visible}
                   timeout={800}
@@ -188,10 +200,10 @@ function CTASectionComponent({ visible }) {
                     <Typography>{method.text}</Typography>
                   </ContactButton>
                 </Fade>
-              </Grid>
+              </Box>
             );
           })}
-        </Grid>
+        </Box>
 
         <Fade in={visible} timeout={1000} style={{ transitionDelay: '800ms' }}>
           <Box>
