@@ -326,7 +326,6 @@ function Contact() {
                     </Box>
 
                     <TextField
-                      id="contact-name"
                       fullWidth
                       label="Your Name"
                       name="name"
@@ -337,13 +336,14 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      InputLabelProps={{
+                        htmlFor: 'contact-name-input',
+                      }}
                       inputProps={{
                         id: 'contact-name-input',
-                        name: 'name',
                       }}
                     />
                     <TextField
-                      id="contact-email"
                       fullWidth
                       label="Your Email"
                       name="email"
@@ -355,13 +355,14 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      InputLabelProps={{
+                        htmlFor: 'contact-email-input',
+                      }}
                       inputProps={{
                         id: 'contact-email-input',
-                        name: 'email',
                       }}
                     />
                     <TextField
-                      id="contact-message"
                       fullWidth
                       label="Your Message"
                       name="message"
@@ -374,9 +375,11 @@ function Contact() {
                       margin="normal"
                       variant="outlined"
                       disabled={isSubmitting}
+                      InputLabelProps={{
+                        htmlFor: 'contact-message-textarea',
+                      }}
                       inputProps={{
                         id: 'contact-message-textarea',
-                        name: 'message',
                       }}
                     />
                     <Button
