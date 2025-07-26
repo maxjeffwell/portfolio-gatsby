@@ -18,12 +18,12 @@ const lightTheme = createTheme({
       dark: '#9a0036',
     },
     background: {
-      default: '#fafafa',
+      default: '#f5f5f5',
       paper: '#ffffff',
     },
     text: {
       primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.6)',
+      secondary: 'rgba(0, 0, 0, 0.75)',
     },
     divider: 'rgba(0, 0, 0, 0.12)',
   },
@@ -157,12 +157,12 @@ const darkTheme = createTheme({
       dark: '#bf5f82',
     },
     background: {
-      default: '#121212',
-      paper: '#1e1e1e',
+      default: '#0a0a0a',
+      paper: '#1a1a1a',
     },
     text: {
       primary: '#ffffff',
-      secondary: 'rgba(255, 255, 255, 0.7)',
+      secondary: 'rgba(255, 255, 255, 0.85)',
     },
     divider: 'rgba(255, 255, 255, 0.12)',
   },
@@ -370,7 +370,7 @@ export function ThemeProvider({ children }) {
     // Update meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', isDarkMode ? '#121212' : '#1976d2');
+      metaThemeColor.setAttribute('content', isDarkMode ? '#0a0a0a' : '#1976d2');
     }
   }, [isDarkMode]);
 

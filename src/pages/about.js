@@ -143,7 +143,7 @@ function AboutPage() {
           <NoSsr>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
-                <Typography variant="h4" component="h3" id="personal-section" gutterBottom align="center">
+                <Typography variant="h4" component="h2" id="personal-section" gutterBottom align="center">
                   Beyond the Code
                 </Typography>
                 <Typography
@@ -261,7 +261,7 @@ function AboutPage() {
           <NoSsr>
             <Fade in={techVisible} timeout={1000}>
               <TechSection elevation={2}>
-                <GradientText variant="h2" id="tech-stack" align="center" gutterBottom>
+                <GradientText variant="h2" component="h2" id="tech-stack" align="center" gutterBottom>
                   Technology Stack & Tools
                 </GradientText>
                 <Typography
@@ -282,7 +282,7 @@ function AboutPage() {
                           <DiIntellij />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" gutterBottom>
+                      <Typography variant="h3" component="h3" gutterBottom>
                         IntelliJ IDEA
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -298,7 +298,7 @@ function AboutPage() {
                           <DiMozilla />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" gutterBottom>
+                      <Typography variant="h3" component="h3" gutterBottom>
                         Firefox
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -314,7 +314,7 @@ function AboutPage() {
                           <DiDebian />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" gutterBottom>
+                      <Typography variant="h3" component="h3" gutterBottom>
                         Debian Linux
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -330,7 +330,7 @@ function AboutPage() {
                           <FaPiedPiperAlt />
                         </StyledIcon>
                       )}
-                      <Typography variant="h3" gutterBottom>
+                      <Typography variant="h3" component="h3" gutterBottom>
                         Pied Piper
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
@@ -345,7 +345,7 @@ function AboutPage() {
         </Box>
 
         <Box component="section" aria-labelledby="organizations" sx={{ textAlign: 'center', mt: 6 }}>
-          <GradientText variant="h2" id="organizations" gutterBottom>
+          <GradientText variant="h2" component="h2" id="organizations" gutterBottom>
             Supported Organizations
           </GradientText>
           <Box sx={{ maxWidth: 300, mx: 'auto' }}>

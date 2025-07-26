@@ -6,12 +6,12 @@ import {
   Box,
   TextField,
   Button,
-  Grid,
   Link,
   useTheme,
   Alert,
   NoSsr,
 } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Email, Phone, GitHub, Send } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
@@ -109,7 +109,7 @@ function Contact() {
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
               <ContactCard elevation={3}>
-                <Typography variant="h3" id="get-in-touch" gutterBottom>
+                <Typography variant="h3" component="h3" id="get-in-touch" gutterBottom>
                   Get in Touch
                 </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
@@ -217,7 +217,7 @@ function Contact() {
 
           <Grid item xs={12} md={6}>
             <ContactCard elevation={3}>
-              <Typography variant="h3" id="send-message" gutterBottom>
+              <Typography variant="h3" component="h3" id="send-message" gutterBottom>
                 Send a Message
               </Typography>
               <Typography variant="body1" color="text.secondary" paragraph>
