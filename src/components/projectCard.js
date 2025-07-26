@@ -45,12 +45,17 @@ const ImageContainer = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
   aspectRatio: '16 / 9',
   backgroundColor: theme.palette.action.hover,
+  borderRadius: '8px',
   '& [data-gatsby-image-wrapper]': {
     transition: 'transform 0.3s ease-in-out',
     willChange: 'transform',
+    borderRadius: '8px',
     '&:hover': {
       transform: 'scale(1.05)',
     },
+  },
+  [theme.breakpoints.down('sm')]: {
+    aspectRatio: '4 / 3',
   },
 }));
 
@@ -91,45 +96,81 @@ function ProjectCard({
       <ColoredBar />
       <Box sx={{ 
         display: 'flex', 
-        flexDirection: ['column', null, 'row'], 
-        gap: 2, 
-        p: 2, 
+        flexDirection: { xs: 'column', md: 'row' }, 
+        gap: { xs: 1.5, md: 2 }, 
+        p: { xs: 1.5, md: 2 }, 
         pb: 0 
       }}>
         <Box sx={{ flex: 1 }}>
           <ImageContainer>
-            <GatsbyImage
-              image={getImage(imageSrcPath)}
-              alt={`${title} - Screenshot 1`}
-              loading="eager"
-              style={{ 
-                borderRadius: '8px', 
-                width: '100%',
-                height: '100%',
-              }}
-              imgStyle={{
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-            />
+            {getImage(imageSrcPath) ? (
+              <GatsbyImage
+                image={getImage(imageSrcPath)}
+                alt={`${title} main screenshot showing the application interface`}
+                loading="eager"
+                style={{ 
+                  borderRadius: '8px', 
+                  width: '100%',
+                  height: '100%',
+                }}
+                imgStyle={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+              />
+            ) : (
+              <Box 
+                sx={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  backgroundColor: 'action.hover',
+                  borderRadius: '8px'
+                }}
+              >
+                <Typography variant="body2" color="text.secondary">
+                  Image loading...
+                </Typography>
+              </Box>
+            )}
           </ImageContainer>
         </Box>
         <Box sx={{ flex: 1 }}>
           <ImageContainer>
-            <GatsbyImage
-              image={getImage(imageSrcPath2)}
-              alt={`${title} - Screenshot 2`}
-              loading="eager"
-              style={{ 
-                borderRadius: '8px', 
-                width: '100%',
-                height: '100%',
-              }}
-              imgStyle={{
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-            />
+            {getImage(imageSrcPath2) ? (
+              <GatsbyImage
+                image={getImage(imageSrcPath2)}
+                alt={`${title} secondary screenshot showing additional features`}
+                loading="lazy"
+                style={{ 
+                  borderRadius: '8px', 
+                  width: '100%',
+                  height: '100%',
+                }}
+                imgStyle={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+              />
+            ) : (
+              <Box 
+                sx={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  backgroundColor: 'action.hover',
+                  borderRadius: '8px'
+                }}
+              >
+                <Typography variant="body2" color="text.secondary">
+                  Image loading...
+                </Typography>
+              </Box>
+            )}
           </ImageContainer>
         </Box>
       </Box>

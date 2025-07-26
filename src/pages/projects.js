@@ -250,8 +250,8 @@ const Projects = ({ data }) => {
       />
       <NoSsr>
         <Container maxWidth="lg">
-        <Box component="section" aria-labelledby="projects-header" sx={{ mb: 6 }}>
-          <GradientText variant="h2" component="h1" id="projects-header" align="center" gutterBottom>
+        <Box component="section" sx={{ mb: 6 }}>
+          <GradientText variant="h2" component="h1" align="center" gutterBottom>
             Featured Projects
           </GradientText>
           <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
@@ -259,9 +259,9 @@ const Projects = ({ data }) => {
           </Typography>
         </Box>
 
-        <Box component="section" aria-labelledby="project-filters">
-          <Typography variant="h2" id="project-filters" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
-            Project Filters
+        <Box component="section">
+          <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
+            Filter Projects
           </Typography>
           <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
           <Box
@@ -273,31 +273,35 @@ const Projects = ({ data }) => {
               gap: 2,
             }}
           >
-            <Typography variant="h6" component="h3">
-              Filter Projects (Total: {filteredProjects.length})
+            <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+              Total Projects: {filteredProjects.length}
             </Typography>
             <NoSsr>
-              <Select
-                value={filters.technologies[0] || ''}
-                onChange={handleTechnologyChange}
-                displayEmpty
-                sx={{ minWidth: 200 }}
-                aria-label="Filter projects by technology"
-              >
-                <MenuItem value="">All Projects</MenuItem>
-                <MenuItem value="React">React</MenuItem>
-                <MenuItem value="JavaScript">JavaScript</MenuItem>
-                <MenuItem value="GraphQL">GraphQL</MenuItem>
-              </Select>
+              <Box>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  Filter by Technology:
+                </Typography>
+                <Select
+                  value={filters.technologies[0] || ''}
+                  onChange={handleTechnologyChange}
+                  displayEmpty
+                  sx={{ minWidth: 200 }}
+                  inputProps={{
+                    'aria-label': 'Filter projects by technology',
+                  }}
+                >
+                  <MenuItem value="">All Projects</MenuItem>
+                  <MenuItem value="React">React</MenuItem>
+                  <MenuItem value="JavaScript">JavaScript</MenuItem>
+                  <MenuItem value="GraphQL">GraphQL</MenuItem>
+                </Select>
+              </Box>
             </NoSsr>
           </Box>
           </Paper>
         </Box>
 
-        <Box component="section" aria-labelledby="projects-list">
-          <Typography variant="h2" id="projects-list" sx={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
-            Projects Portfolio
-          </Typography>
+        <Box component="section">
           {filteredProjects.length === 0 ? (
           <Box sx={{ textAlign: 'center', py: 6 }}>
             <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
@@ -363,7 +367,16 @@ export const pageQuery = graphql`
         node {
           relativePath
           childImageSharp {
-            gatsbyImageData(width: 1200, layout: CONSTRAINED, placeholder: BLURRED)
+            gatsbyImageData(
+              width: 800
+              height: 450
+              quality: 90
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+              transformOptions: { cropFocus: CENTER }
+              breakpoints: [400, 600, 800, 1200, 1600]
+              sizes: "(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 400px"
+            )
           }
         }
       }

@@ -9,24 +9,28 @@ function Image({ imageType }) {
       teamImage: file(relativePath: { eq: "code-companions.png" }) {
         childImageSharp {
           gatsbyImageData(
-            width: 1260
-            quality: 95
+            width: 800
+            height: 800
+            quality: 90
             placeholder: BLURRED
             formats: [AUTO, WEBP, AVIF]
             transformOptions: { grayscale: true }
-            breakpoints: [480, 768, 1024, 1200]
+            breakpoints: [300, 400, 500, 600, 800]
+            sizes: "(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
           )
         }
       }
       teamImage2: file(relativePath: { eq: "elephant-developer.png" }) {
         childImageSharp {
           gatsbyImageData(
-            width: 1260
-            quality: 95
+            width: 800
+            height: 800
+            quality: 90
             placeholder: BLURRED
             formats: [AUTO, WEBP, AVIF]
             transformOptions: { grayscale: true }
-            breakpoints: [480, 768, 1024, 1200]
+            breakpoints: [300, 400, 500, 600, 800]
+            sizes: "(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
           )
         }
       }
@@ -40,8 +44,9 @@ function Image({ imageType }) {
     return (
       <GatsbyImage
         image={teamImage}
-        alt="See my two dogs"
+        alt="Jeff Maxwell's two dogs - code companions and loyal debugging partners"
         loading="lazy"
+        sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
         style={{
           transition: 'opacity 0.3s ease-in-out',
           width: '100%',
@@ -60,8 +65,9 @@ function Image({ imageType }) {
     return (
       <GatsbyImage
         image={teamImage2}
-        alt="See my mascot"
+        alt="Jeff Maxwell's development mascot - an elephant symbolizing memory and reliability in coding"
         loading="eager"
+        sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
         style={{
           transition: 'opacity 0.3s ease-in-out',
           width: '100%',
@@ -81,16 +87,18 @@ function Image({ imageType }) {
     <>
       <GatsbyImage
         image={teamImage2}
-        alt="See my mascot"
+        alt="Jeff Maxwell's development mascot - an elephant symbolizing memory and reliability in coding"
         loading="eager"
+        sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
         style={{
           transition: 'opacity 0.3s ease-in-out',
         }}
       />
       <GatsbyImage
         image={teamImage}
-        alt="See my two dogs"
+        alt="Jeff Maxwell's two dogs - code companions and loyal debugging partners"
         loading="lazy"
+        sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
         style={{
           transition: 'opacity 0.3s ease-in-out',
         }}
