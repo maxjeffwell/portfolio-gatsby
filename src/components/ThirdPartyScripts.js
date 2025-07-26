@@ -136,68 +136,29 @@ const ThirdPartyScripts = () => {
         </Script>
       )}
 
-      {/* Custom performance monitoring script - Load off-main-thread */}
-      <Script id="performance-monitor" strategy="off-main-thread">
+      {/* Basic performance monitoring - No external dependencies */}
+      <Script id="performance-monitor" strategy="idle">
         {`
           // Only run in browser environment
-          if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-            // Enhanced Web Vitals monitoring
-            function reportWebVitals(metric) {
-              // Send to your analytics service
-              console.log('Web Vital:', metric);
+          if (typeof window !== 'undefined' && 'performance' in window) {
+            // Simple performance logging
+            window.addEventListener('load', () => {
+              const perfData = window.performance.timing;
+              const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
               
-              // Example: Send to Google Analytics
-              if (typeof gtag !== 'undefined') {
-                gtag('event', metric.name, {
-                  event_category: 'Web Vitals',
-                  value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-                  event_label: metric.id,
-                  non_interaction: true,
-                });
-              }
-            }
-
-            // Load web-vitals library and observe Core Web Vitals
-            // Delay the dynamic import until after the page is fully loaded
-            if (document.readyState === 'complete') {
-              import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
-                .then((webVitals) => {
-                  // Use the correct web-vitals v3 API
-                  webVitals.onFCP(reportWebVitals);
-                  webVitals.onLCP(reportWebVitals);
-                  webVitals.onFID(reportWebVitals);
-                  webVitals.onCLS(reportWebVitals);
-                  webVitals.onTTFB(reportWebVitals);
-                  
-                  // Also monitor additional metrics if available
-                  if (webVitals.onINP) {
-                    webVitals.onINP(reportWebVitals);
-                  }
-                })
-                .catch((error) => {
-                  console.warn('Failed to load web-vitals:', error);
-                });
-            } else {
-              window.addEventListener('load', () => {
-                import('https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js')
-                  .then((webVitals) => {
-                    // Use the correct web-vitals v3 API
-                    webVitals.onFCP(reportWebVitals);
-                    webVitals.onLCP(reportWebVitals);
-                    webVitals.onFID(reportWebVitals);
-                    webVitals.onCLS(reportWebVitals);
-                    webVitals.onTTFB(reportWebVitals);
-                    
-                    // Also monitor additional metrics if available
-                    if (webVitals.onINP) {
-                      webVitals.onINP(reportWebVitals);
-                    }
-                  })
-                  .catch((error) => {
-                    console.warn('Failed to load web-vitals:', error);
+              if (pageLoadTime > 0) {
+                console.log('Page Load Time:', pageLoadTime + 'ms');
+                
+                // Send to Google Analytics if available
+                if (typeof gtag !== 'undefined') {
+                  gtag('event', 'page_load_time', {
+                    event_category: 'Performance',
+                    value: pageLoadTime,
+                    non_interaction: true,
                   });
-              });
-            }
+                }
+              }
+            });
           }
         `}
       </Script>
