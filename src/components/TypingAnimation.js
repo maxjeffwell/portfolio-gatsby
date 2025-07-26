@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -38,7 +38,7 @@ const Cursor = styled('span')(({ theme, blink }) => ({
   },
 }));
 
-function TypingAnimation({
+const TypingAnimation = React.memo(function TypingAnimation({
   texts,
   typeSpeed = 100,
   deleteSpeed = 50,
@@ -49,6 +49,14 @@ function TypingAnimation({
   startDelay = 0,
 }) {
   const theme = useTheme();
+  
+  // Memoize configuration to prevent unnecessary re-renders
+  const config = useMemo(() => ({
+    typeSpeed,
+    deleteSpeed,
+    delayBetweenTexts,
+    loop
+  }), [typeSpeed, deleteSpeed, delayBetweenTexts, loop]);
   const [displayText, setDisplayText] = useState('');
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -83,24 +91,24 @@ function TypingAnimation({
       if (displayText.length < currentText.length) {
         timeout = setTimeout(() => {
           setDisplayText(currentText.slice(0, displayText.length + 1));
-        }, typeSpeed);
+        }, config.typeSpeed);
       } else {
         // Finished typing, wait then start deleting
         timeout = setTimeout(() => {
           setIsTyping(false);
-        }, delayBetweenTexts);
+        }, config.delayBetweenTexts);
       }
     } else {
       // Deleting phase
       if (displayText.length > 0) {
         timeout = setTimeout(() => {
           setDisplayText(displayText.slice(0, -1));
-        }, deleteSpeed);
+        }, config.deleteSpeed);
       } else {
         // Finished deleting, move to next text
         const nextIndex = (currentTextIndex + 1) % texts.length;
 
-        if (loop || nextIndex !== 0) {
+        if (config.loop || nextIndex !== 0) {
           setCurrentTextIndex(nextIndex);
           setIsTyping(true);
         }
@@ -115,10 +123,7 @@ function TypingAnimation({
     isStarted,
     isMounted,
     texts,
-    typeSpeed,
-    deleteSpeed,
-    delayBetweenTexts,
-    loop,
+    config,
   ]);
 
   // Show fallback text during SSR or before animation starts
@@ -139,7 +144,7 @@ function TypingAnimation({
       {showCursor && <Cursor blink={cursorBlink && isStarted} />}
     </TypingContainer>
   );
-}
+});
 
 TypingAnimation.propTypes = {
   texts: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'gatsby';
 import {
   Box,
@@ -22,6 +22,7 @@ import useScrollAnimation from '../hooks/useScrollAnimation';
 import CTASection from '../components/CTASection';
 
 const CodeSnippet = React.lazy(() => import('../components/CodeSnippet'));
+const TypingAnimationLazy = React.lazy(() => import('../components/TypingAnimation'));
 
 const HeroSection = styled('div')(({ theme }) => ({
   padding: theme.spacing(6, 4),
@@ -79,13 +80,28 @@ const FloatingShape = styled(Box)(({ theme }) => ({
   },
 }));
 
-function IndexPage() {
+const IndexPage = React.memo(function IndexPage() {
   const muiTheme = useMuiTheme();
   const [headerRef, headerVisible] = useScrollAnimation({ delay: 0, startVisible: true });
   const [introRef, introVisible] = useScrollAnimation({ delay: 50, startVisible: true });
   const [navRef, navVisible] = useScrollAnimation({ delay: 100, startVisible: true });
   const [codeRef, codeVisible] = useScrollAnimation({ delay: 150 });
   const [ctaRef, ctaVisible] = useScrollAnimation({ delay: 200 });
+  
+  // Memoize expensive computations
+  const heroStyles = useMemo(() => ({
+    background: '#e8eaf6',
+    borderRadius: muiTheme.shape.borderRadius * 3,
+  }), [muiTheme.shape.borderRadius]);
+  
+  const typingTexts = useMemo(() => [
+    'React Specialist',
+    'Full Stack Developer',
+    'Node.js Expert',
+    'GraphQL Enthusiast',
+    'JAMstack Architect',
+    'Problem Solver',
+  ], []);
 
   return (
     <Layout>
@@ -145,7 +161,7 @@ function IndexPage() {
                   width: '320px',
                   minHeight: '1.2em',
                   textAlign: 'left',
-                  fontSize: '0.7em',
+                  fontSize: '0.6em',
                 }}
               >
                 <Box
@@ -170,21 +186,16 @@ function IndexPage() {
                     component="span"
                     sx={{ position: 'absolute', left: 0, top: 0, width: '100%' }}
                   >
-                    <TypingAnimation
-                      texts={[
-                        'React Specialist',
-                        'Full Stack Developer',
-                        'Node.js Expert',
-                        'GraphQL Enthusiast',
-                        'JAMstack Architect',
-                        'Problem Solver',
-                      ]}
-                      typeSpeed={60}
-                      deleteSpeed={30}
-                      delayBetweenTexts={1200}
-                      loop
-                      startDelay={100}
-                    />
+                    <React.Suspense fallback={<span>React Specialist</span>}>
+                      <TypingAnimationLazy
+                        texts={typingTexts}
+                        typeSpeed={60}
+                        deleteSpeed={30}
+                        delayBetweenTexts={1200}
+                        loop
+                        startDelay={100}
+                      />
+                    </React.Suspense>
                   </Box>
                 </NoSsr>
               </Box>
@@ -410,6 +421,6 @@ function IndexPage() {
       </Container>
     </Layout>
   );
-}
+});
 
 export default IndexPage;

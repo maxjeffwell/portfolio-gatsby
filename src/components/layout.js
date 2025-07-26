@@ -7,6 +7,7 @@ import { GitHub, Phone, Language } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 import Header from './header';
+import ThirdPartyScripts from './ThirdPartyScripts';
 
 const GET_SITE_METADATA = graphql`
   query {
@@ -64,9 +65,10 @@ function ThemedLayout({ children, data }) {
         }}
       />
       <Header />
-      <Container maxWidth="lg" component="main" role="main" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="lg" component="main" role="main" sx={{ mt: 8, mb: 4 }}>
         {children}
       </Container>
+      <ThirdPartyScripts />
       <StyledFooter component="footer" role="contentinfo">
         <Container maxWidth="lg">
           <Typography variant="h4" component="h2" gutterBottom>

@@ -1,4 +1,5 @@
 import { Link } from 'gatsby';
+import { useLocation } from '@reach/router';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   AppBar,
@@ -68,6 +69,7 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
 
 function Header() {
   const theme = useTheme();
+  const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -164,16 +166,8 @@ function Header() {
                     key={item.text}
                     component={Link}
                     to={item.to}
-                    className={
-                      typeof window !== 'undefined' && window.location.pathname === item.to
-                        ? 'active'
-                        : ''
-                    }
-                    aria-current={
-                      typeof window !== 'undefined' && window.location.pathname === item.to
-                        ? 'page'
-                        : undefined
-                    }
+                    className={location.pathname === item.to ? 'active' : ''}
+                    aria-current={location.pathname === item.to ? 'page' : undefined}
                   >
                     {item.text}
                   </NavButton>

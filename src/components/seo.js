@@ -148,22 +148,6 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           content: `no-referrer-when-downgrade`,
         },
         {
-          'http-equiv': `Content-Security-Policy`,
-          content: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com data:; img-src 'self' data: *.githubusercontent.com *.gravatar.com; connect-src 'self' *.google-analytics.com *.googletagmanager.com; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content;`,
-        },
-        {
-          'http-equiv': `Strict-Transport-Security`,
-          content: `max-age=31536000; includeSubDomains; preload`,
-        },
-        {
-          'http-equiv': `Cross-Origin-Opener-Policy`,
-          content: `same-origin`,
-        },
-        {
-          'http-equiv': `Cross-Origin-Embedder-Policy`,
-          content: `require-corp`,
-        },
-        {
           property: `og:locale`,
           content: `en_US`,
         },

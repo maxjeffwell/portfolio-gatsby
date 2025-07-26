@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import {
@@ -196,9 +196,16 @@ const Projects = ({ data }) => {
     technologies: [],
   });
 
-  const handleFilterChange = (newFilters) => {
+  const handleFilterChange = useCallback((newFilters) => {
     setFilters(newFilters);
-  };
+  }, []);
+
+  const handleTechnologyChange = useCallback((e) => {
+    handleFilterChange({
+      ...filters,
+      technologies: e.target.value ? [e.target.value] : [],
+    });
+  }, [filters, handleFilterChange]);
 
   const filteredProjects = useMemo(() => {
     return projectsData.filter((project) => {
@@ -272,12 +279,7 @@ const Projects = ({ data }) => {
             <NoSsr>
               <Select
                 value={filters.technologies[0] || ''}
-                onChange={(e) =>
-                  handleFilterChange({
-                    ...filters,
-                    technologies: e.target.value ? [e.target.value] : [],
-                  })
-                }
+                onChange={handleTechnologyChange}
                 displayEmpty
                 sx={{ minWidth: 200 }}
                 aria-label="Filter projects by technology"
