@@ -268,7 +268,7 @@ function AboutPage() {
                 </Box>
               </Card>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} sx={{ mx: 'auto' }}>
               <Card
                 elevation={3}
                 sx={{
