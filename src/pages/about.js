@@ -155,47 +155,49 @@ function AboutPage() {
           <NoSsr fallback={<Box sx={{ minHeight: '300px', backgroundColor: 'action.hover' }} />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={4}>
-                    <InterestItem>
-                      <CodeIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                      <Box>
-                        <Typography variant="subtitle1" fontWeight="bold">
-                          Clean Code
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Readable, maintainable solutions
-                        </Typography>
-                      </Box>
-                    </InterestItem>
+                <NoSsr fallback={<Box sx={{ minHeight: '200px' }} />}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={4}>
+                      <InterestItem>
+                        <CodeIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+                        <Box>
+                          <Typography variant="subtitle1" fontWeight="bold">
+                            Clean Code
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            Readable, maintainable solutions
+                          </Typography>
+                        </Box>
+                      </InterestItem>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <InterestItem>
+                        <Coffee sx={{ fontSize: 32, color: 'primary.main' }} />
+                        <Box>
+                          <Typography variant="subtitle1" fontWeight="bold">
+                            Coffee & Code
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            Fuel for late-night debugging
+                          </Typography>
+                        </Box>
+                      </InterestItem>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <InterestItem>
+                        <Pets sx={{ fontSize: 32, color: 'primary.main' }} />
+                        <Box>
+                          <Typography variant="subtitle1" fontWeight="bold">
+                            Dog Parent
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            Expert at dinner negotiations
+                          </Typography>
+                        </Box>
+                      </InterestItem>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} md={4}>
-                    <InterestItem>
-                      <Coffee sx={{ fontSize: 32, color: 'primary.main' }} />
-                      <Box>
-                        <Typography variant="subtitle1" fontWeight="bold">
-                          Coffee & Code
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Fuel for late-night debugging
-                        </Typography>
-                      </Box>
-                    </InterestItem>
-                  </Grid>
-                  <Grid item xs={12} md={4}>
-                    <InterestItem>
-                      <Pets sx={{ fontSize: 32, color: 'primary.main' }} />
-                      <Box>
-                        <Typography variant="subtitle1" fontWeight="bold">
-                          Dog Parent
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Expert at dinner negotiations
-                        </Typography>
-                      </Box>
-                    </InterestItem>
-                  </Grid>
-                </Grid>
+                </NoSsr>
               </PersonalCard>
             </Slide>
           </NoSsr>
@@ -217,83 +219,85 @@ function AboutPage() {
           >
             Development Team Illustrations
           </Typography>
-          <Grid container spacing={4} sx={{ mb: 6 }}>
-            <Grid item xs={12} md={6}>
-              <Card
-                elevation={3}
-                sx={{
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                  backgroundColor: 'rgb(0, 89, 149)',
-                  aspectRatio: '1 / 1',
-                  minHeight: { xs: '300px', sm: '400px' },
-                  position: 'relative',
-                  willChange: 'transform',
-                }}
-              >
-                <Box
+          <NoSsr fallback={<Box sx={{ minHeight: '400px', backgroundColor: 'action.hover' }} />}>
+            <Grid container spacing={4} sx={{ mb: 6 }}>
+              <Grid item xs={12} md={6}>
+                <Card
+                  elevation={3}
                   sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    backgroundColor: 'rgb(0, 89, 149)',
+                    aspectRatio: '1 / 1',
+                    minHeight: { xs: '300px', sm: '400px' },
+                    position: 'relative',
+                    willChange: 'transform',
                   }}
                 >
-                  <Image imageType="mascot" />
-                </Box>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Card
-                elevation={3}
-                sx={{
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                  backgroundColor: 'rgb(0, 89, 149)',
-                  aspectRatio: '1 / 1',
-                  minHeight: { xs: '300px', sm: '400px' },
-                  position: 'relative',
-                  willChange: 'transform',
-                }}
-              >
-                <Box
+                  <Box
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Image imageType="mascot" />
+                  </Box>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Card
+                  elevation={3}
                   sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    backgroundColor: 'rgb(0, 89, 149)',
+                    aspectRatio: '1 / 1',
+                    minHeight: { xs: '300px', sm: '400px' },
+                    position: 'relative',
+                    willChange: 'transform',
                   }}
                 >
-                  <Image imageType="dogs" />
-                </Box>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6} sx={{ mx: 'auto' }}>
-              <Card
-                elevation={3}
-                sx={{
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                  backgroundColor: 'rgb(0, 89, 149)',
-                  aspectRatio: '1 / 1',
-                  minHeight: { xs: '300px', sm: '400px' },
-                  position: 'relative',
-                  willChange: 'transform',
-                }}
-              >
-                <Box
+                  <Box
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Image imageType="dogs" />
+                  </Box>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ mx: 'auto' }}>
+                <Card
+                  elevation={3}
                   sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    backgroundColor: 'rgb(0, 89, 149)',
+                    aspectRatio: '1 / 1',
+                    minHeight: { xs: '300px', sm: '400px' },
+                    position: 'relative',
+                    willChange: 'transform',
                   }}
                 >
-                  <Image imageType="developer" />
-                </Box>
-              </Card>
+                  <Box
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Image imageType="developer" />
+                  </Box>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
+          </NoSsr>
         </Box>
 
         <Box component="section" aria-labelledby="tech-stack" ref={techRef} sx={{ mb: 6 }}>
@@ -323,71 +327,73 @@ function AboutPage() {
                   The tools and technologies that power my development workflow
                 </Typography>
 
-                <Grid container spacing={3} sx={{ mt: 2 }}>
-                  <Grid item xs={6} md={3}>
-                    <TechCard elevation={1}>
-                      {typeof window !== 'undefined' && (
-                        <StyledIcon>
-                          <DiIntellij />
-                        </StyledIcon>
-                      )}
-                      <Typography variant="h6" component="h3" gutterBottom>
-                        IntelliJ IDEA
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Primary development environment
-                      </Typography>
-                    </TechCard>
-                  </Grid>
+                <NoSsr fallback={<Box sx={{ minHeight: '300px', backgroundColor: 'action.hover', mt: 2 }} />}>
+                  <Grid container spacing={3} sx={{ mt: 2 }}>
+                    <Grid item xs={6} md={3}>
+                      <TechCard elevation={1}>
+                        {typeof window !== 'undefined' && (
+                          <StyledIcon>
+                            <DiIntellij />
+                          </StyledIcon>
+                        )}
+                        <Typography variant="h6" component="h3" gutterBottom>
+                          IntelliJ IDEA
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Primary development environment
+                        </Typography>
+                      </TechCard>
+                    </Grid>
 
-                  <Grid item xs={6} md={3}>
-                    <TechCard elevation={1}>
-                      {typeof window !== 'undefined' && (
-                        <StyledIcon>
-                          <DiMozilla />
-                        </StyledIcon>
-                      )}
-                      <Typography variant="h6" component="h3" gutterBottom>
-                        Firefox
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Development & testing browser
-                      </Typography>
-                    </TechCard>
-                  </Grid>
+                    <Grid item xs={6} md={3}>
+                      <TechCard elevation={1}>
+                        {typeof window !== 'undefined' && (
+                          <StyledIcon>
+                            <DiMozilla />
+                          </StyledIcon>
+                        )}
+                        <Typography variant="h6" component="h3" gutterBottom>
+                          Firefox
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Development & testing browser
+                        </Typography>
+                      </TechCard>
+                    </Grid>
 
-                  <Grid item xs={6} md={3}>
-                    <TechCard elevation={1}>
-                      {typeof window !== 'undefined' && (
-                        <StyledIcon>
-                          <DiDebian />
-                        </StyledIcon>
-                      )}
-                      <Typography variant="h6" component="h3" gutterBottom>
-                        Debian Linux
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Preferred operating system
-                      </Typography>
-                    </TechCard>
-                  </Grid>
+                    <Grid item xs={6} md={3}>
+                      <TechCard elevation={1}>
+                        {typeof window !== 'undefined' && (
+                          <StyledIcon>
+                            <DiDebian />
+                          </StyledIcon>
+                        )}
+                        <Typography variant="h6" component="h3" gutterBottom>
+                          Debian Linux
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Preferred operating system
+                        </Typography>
+                      </TechCard>
+                    </Grid>
 
-                  <Grid item xs={6} md={3}>
-                    <TechCard elevation={1}>
-                      {typeof window !== 'undefined' && (
-                        <StyledIcon>
-                          <FaPiedPiperAlt />
-                        </StyledIcon>
-                      )}
-                      <Typography variant="h6" component="h3" gutterBottom>
-                        Pied Piper
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Optimal compression algorithm
-                      </Typography>
-                    </TechCard>
+                    <Grid item xs={6} md={3}>
+                      <TechCard elevation={1}>
+                        {typeof window !== 'undefined' && (
+                          <StyledIcon>
+                            <FaPiedPiperAlt />
+                          </StyledIcon>
+                        )}
+                        <Typography variant="h6" component="h3" gutterBottom>
+                          Pied Piper
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Optimal compression algorithm
+                        </Typography>
+                      </TechCard>
+                    </Grid>
                   </Grid>
-                </Grid>
+                </NoSsr>
               </TechSection>
             </Fade>
           </NoSsr>
