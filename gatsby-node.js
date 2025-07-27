@@ -16,7 +16,7 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
         "crypto": require.resolve("crypto-browserify"),
         "path": require.resolve("path-browserify"),
         "stream": require.resolve("stream-browserify"),
-        "url": require.resolve("url/"),
+        "url": require.resolve("url"),
         "util": require.resolve("util/"),
         "querystring": require.resolve("querystring-es3"),
         "buffer": require.resolve("buffer/"),
