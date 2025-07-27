@@ -14,7 +14,8 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
       fallback: {
         "os": require.resolve("os-browserify/browser"),
         "crypto": require.resolve("crypto-browserify"),
-        "path": require.resolve("path-browserify")
+        "path": require.resolve("path-browserify"),
+        "stream": require.resolve("stream-browserify")
       }
     }
   });
