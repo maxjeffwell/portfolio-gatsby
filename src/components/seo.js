@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
-function SEO({ description, lang, meta, keywords, title, image, pathname, article }) {
-  const { site } = useStaticQuery(graphql`
+function SEO({ description, lang, meta, keywords, title, image, slug }) {
+  const data = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -14,10 +14,16 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           siteUrl
         }
       }
+      social: file(name: { eq: "jeffmaxwell-social" }) {
+        publicURL
+      }
+      favicon: file(name: { eq: "favicon" }) {
+        publicURL
+      }
     }
   `);
 
-  const metaDescription = description || site.siteMetadata.description;
+  const metaDescription = description || data.siteMetadata.description;
 
   // Create longer, more SEO-optimized titles based on page
   const createOptimizedTitle = (pageTitle) => {
@@ -41,10 +47,8 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
 
   const metaTitle = createOptimizedTitle(title);
   const metaImage = image
-    ? `${site.siteMetadata.siteUrl}${image}`
-    : `${site.siteMetadata.siteUrl}/icons/icon-512x512.png`;
-  const metaUrl = `${site.siteMetadata.siteUrl}${pathname || ''}`;
-  const canonical = `${site.siteMetadata.siteUrl}${pathname || ''}`;
+    ? `${data.siteMetadata.siteUrl}${image}`
+    : `${data.siteMetadata.siteUrl}/icons/icon-512x512.png`;
 
   return (
     <Helmet
@@ -63,54 +67,12 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
         },
         {
           name: `author`,
-          content: site.siteMetadata.author,
+          content: data.siteMetadata.author,
         },
         {
           name: `viewport`,
           content: `width=device-width, initial-scale=1`,
         },
-
-        // Open Graph
-        {
-          property: `og:title`,
-          content: metaTitle,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: article ? `article` : `website`,
-        },
-        {
-          property: `og:url`,
-          content: metaUrl,
-        },
-        {
-          property: `og:site_name`,
-          content: site.siteMetadata.title,
-        },
-
-        // Twitter Card
-        {
-          name: `twitter:card`,
-          content: metaImage ? `summary_large_image` : `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: metaTitle,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-
-        // Additional SEO
         {
           name: `robots`,
           content: `index, follow`,
@@ -137,7 +99,7 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
         },
         {
           name: `apple-mobile-web-app-title`,
-          content: site.siteMetadata.title,
+          content: data.siteMetadata.title,
         },
         {
           name: `mobile-web-app-capable`,
@@ -145,7 +107,7 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
         },
         {
           name: `application-name`,
-          content: site.siteMetadata.title,
+          content: data.siteMetadata.title,
         },
         {
           name: `msapplication-tooltip`,
@@ -187,14 +149,6 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           property: `og:image:alt`,
           content: metaTitle,
         },
-        {
-          name: `twitter:site`,
-          content: `@maxjeffwell`,
-        },
-        {
-          name: `twitter:image:alt`,
-          content: metaTitle,
-        },
       ]
         .concat(
           metaImage
@@ -222,7 +176,7 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
       link={[
         {
           rel: 'canonical',
-          href: canonical,
+          href: `${data.site.siteMetadata.siteUrl}${slug}`,
         },
         {
           rel: 'preconnect',
@@ -272,7 +226,8 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
           '@type': 'Person',
           name: 'Jeff Maxwell',
           jobTitle: 'Full Stack Web Developer',
-          url: site.siteMetadata.siteUrl,
+          specialization: ['React Development', 'Node.js Development', 'JavaScript Programming'],
+          url: data.siteMetadata.siteUrl,
           email: 'maxjeffwell@gmail.com',
           knowsAbout: [
             'JavaScript Programming',
@@ -289,6 +244,11 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
             'Database Design',
             'Web Application Development',
           ],
+          hasOccupation: {
+            '@type': 'Occupation',
+            '@name': 'Full Stack Developer',
+            '@skills': ['React', 'Node.js', 'GraphQL', 'JavaScript', 'MongoDB', 'Express.js'],
+          },
           sameAs: ['https://github.com/maxjeffwell', 'https://angel.co/maxjeffwell'],
         })}
       </script>
@@ -298,9 +258,9 @@ function SEO({ description, lang, meta, keywords, title, image, pathname, articl
         {JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: site.siteMetadata.title,
-          description: site.siteMetadata.description,
-          url: site.siteMetadata.siteUrl,
+          name: data.siteMetadata.title,
+          description: data.siteMetadata.description,
+          url: data.siteMetadata.siteUrl,
           author: {
             '@type': 'Person',
             name: 'Jeff Maxwell',
@@ -315,8 +275,7 @@ SEO.defaultProps = {
   lang: `en`,
   meta: [],
   keywords: [],
-  pathname: ``,
-  article: false,
+  slug: ``,
 };
 
 SEO.propTypes = {
@@ -326,8 +285,7 @@ SEO.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
   image: PropTypes.string,
-  pathname: PropTypes.string,
-  article: PropTypes.bool,
+  slug: PropTypes.string,
 };
 
 // Search Console verification meta tag component
