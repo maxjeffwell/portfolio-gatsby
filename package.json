@@ -76,6 +76,7 @@
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.32",
     "html-minifier": "^4.0.0",
     "html-minifier-terser": "^7.2.0",
+    "ignore-loader": "^0.1.2",
     "netlify-plugin-cache": "^1.0.3",
     "netlify-plugin-submit-sitemap": "^0.4.0",
     "os-browserify": "^0.3.0",

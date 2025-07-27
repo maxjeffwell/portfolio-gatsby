@@ -25,8 +25,18 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
         "vm": require.resolve("vm-browserify"),
         "fs": false,
         "net": false,
-        "tls": false
+        "tls": false,
+        "child_process": false,
+        "module": false
       }
+    },
+    module: {
+      rules: [
+        {
+          test: /scripts\//,
+          use: 'ignore-loader'
+        }
+      ]
     }
   });
 
