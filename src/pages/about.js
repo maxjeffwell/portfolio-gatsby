@@ -268,6 +268,31 @@ function AboutPage() {
                 </Box>
               </Card>
             </Grid>
+            <Grid>
+              <Card
+                elevation={3}
+                sx={{
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  backgroundColor: 'rgb(0, 89, 149)',
+                  aspectRatio: '1 / 1',
+                  minHeight: { xs: '300px', sm: '400px' },
+                  position: 'relative',
+                  willChange: 'transform',
+                }}
+              >
+                <Box
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Image imageType="developer" />
+                </Box>
+              </Card>
+            </Grid>
           </Grid>
         </Box>
 

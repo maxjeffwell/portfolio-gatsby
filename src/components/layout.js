@@ -52,7 +52,6 @@ const SocialLink = styled(IconButton)(({ theme }) => ({
 // Themed Layout Component
 function ThemedLayout({ children, data }) {
   const muiTheme = useTheme();
-
   return (
     <>
       <GlobalStyles
