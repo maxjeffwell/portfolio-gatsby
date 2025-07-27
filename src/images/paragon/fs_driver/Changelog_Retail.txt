@@ -1,0 +1,217 @@
+NTFS & HFS 10.9.1
+NTFS: minor dedup and compression improvements.
+
+NTFS & HFS 10.9.0
+Linux kernel support up to 6.14.x
+
+NTFS & HFS 10.8.0
+Linux kernel support up to 6.13.x
+NTFS: deduplication improvements.
+
+NTFS & HFS 10.7.0
+Linux kernel support up to 6.12.x
+Do not panic if I/O out of volume.
+HFS: improvements to extended attributes.
+NTFS: implement mmaped writes for compressed files.
+Readahead disabled for kernel 6.12
+
+NTFS & HFS 10.6.0
+Linux kernel support up to 6.11.x
+Add ability to create filesystems of required size to mkfs utilities.
+NTFS: several improvements for compression support, improvements for format and chkfs utilities, improvements for symlinks.
+HFS: several bugfixes.
+APFS: LZBM compression fix.
+
+NTFS & HFS 10.5.1
+Linux kernel support up to 6.8.x.
+
+NTFS & HFS 10.5.0
+Linux kernel support up to 6.7.x.
+Several improvements to chkntfs utility.
+
+NTFS & HFS 10.4.3
+Various bugfixes & improvements.
+
+NTFS & HFS 10.4.2
+Several improvements to package installation script and build optimizations.
+
+NTFS & HFS 10.4.1
+NTFS: Various bugfixes & improvements.
+
+
+NTFS & HFS 10.4.0
+Linux kernel 6.5.x support
+Read performance improvements on encrypted APFS volumes
+Update access rights for metafiles stored in procfs
+Fix issue when mount options begin with comma
+
+NTFS & HFS 10.3.1
+Fix ExFAT panic on unmount
+
+
+NTFS & HFS 10.3.0
+Linux kernel 6.4.x support
+NTFS deduplication improvements, fix compress with dedup, init dedup when record is initialized (vs when getting info about file)
+Make all UFSD utilities return unified codes, update userguides
+Add Intel IBT (indirect branch tracking) support to UFSD driver
+NTFS & HFS 10.2.0
+Linux kernel support up to 6.4.x.
+
+NTFS & HFS 10.1.1
+Fixed configure bugs.
+Fixed direct IO on 6.x kernels.
+
+NTFS & HFS 10.1.0
+Linux kernel support up to 6.3.x
+Fix uninstall.sh for OpenSuse TumbleWeed v6.1
+
+NTFS & HFS 10.0.0
+Linux kernel support up to 6.2.x
+
+NTFS & HFS 9.8.0
+Support for Kernel versions from 2.6.36 up to 6.0.x;
+NTFS: bugfixes & improvements.
+
+NTFS & HFS 9.7.12
+NTFS: bugfixes & improvements.
+
+NTFS & HFS 9.7.11
+Support for Kernel versions from 2.6.36 up to 5.19.x;
+Improved NTFS alternate data streams support.
+
+NTFS & HFS 9.7.10
+Improved NTFS alternate data streams support.
+
+NTFS & HFS 9.7.9
+Support for Kernel versions from 2.6.36 up to 5.17.x;
+NTFS: Implement user.DOSATTRIB support;
+NTFS: direct IO improvements;
+NTFS: Various bugfixes & improvements;
+HFS+: improvements to chkhfs utility
+Automount helper script sets "utf8" codepage by default. 
+
+NTFS & HFS 9.7.8
+NTFS deduplication implementation.
+Fix utf8 codepage internal implimentation.
+
+NTFS & HFS 9.7.7
+Support for Kernel versions from 2.6.36 up to 5.15.x;
+NTFS: Various bugfixes & improvements;
+
+NTFS & HFS 9.7.6
+Support for Kernel versions from 2.6.36 up to 5.14.x;
+NTFS: Various bugfixes & improvements;
+NTFS: implement ability in mkntfs to create FS of required size similar to mkfs.ntfs.
+
+
+NTFS & HFS 9.7.5
+
+Support for Kernel versions from 2.6.36 up to 5.12.x;
+NTFS: Various bugfixes & improvements.
+
+NTFS & HFS 9.7
+
+Support for Kernel versions from 2.6.36 up to 5.6.x;
+Improve performance with '-o sparse';
+"compressed" parameter on NTFS set on directory is now inherited recursively;
+Stability improvements in unsafe removal scenarios.
+
+NTFS & HFS 9.6
+
+Support for Kernel versions from 2.6.36 up to 4.20.x
+Support of cluster sizes up to 2M on NTFS
+Improved "sparse" mount option for NTFS
+Overall stability improvements
+Simultaneous workability for NTFS/HFS+ and APFS drivers
+
+NTFS & HFS 9.5
+
+Support for Kernel versions from 2.6.36 up to 4.12.x
+Added read support of new system compression methods on NTFS from Windows 10/Server 2016
+Improved xattr support
+Improved symlink support
+Stability improvements in unsafe removal scenarios
+Overall performance enhancements
+Minimized f/s utilities package size (Added 'ufsd' utility instead of standalone mk*fs and chk*fs)
+
+NTFS & HFS 9.4
+
+Support for Kernel versions from 2.6.36 up to 4.4.x
+Improved NTFS file systems support (including compatibility with Windows 10 NTFS)
+Improved HFS+ support (including compatibility with OS X El Capitan HFS+)
+Improved support for very large volumes (16+TB)
+Improved TRIM/discard support for SSD storages
+
+NTFS & HFS 9.0
+
+Support Linux Kernels from 2.6.36 up to 3.14.x
+Driver performance improvements (reduced CPU load and memory consumption)
+Improved installation script
+Auto mounting support
+
+NTFS & HFS 8.9
+
+Support modern Kernels up to 3.11
+Improved HFS+ journal support
+Improved installation script
+Support DKMS library usage
+
+NTFS & HFS 8.5	
+New Features:
+Improved read/write performance
+Optimized disk space allocation to reduce fragmentation of files
+Improved performance of HFS+ journal
+Support for modern Linux kernels (up to 2.6.38)
+
+NTFS & HFS 8.1	
+New Features:
+HFS+/HFSX support
+Improved installation procedure
+All current Linux Kernels are supported
+UTF16 character encoding
+Several code pages are supported simultaneously
+Full support of Alternative Data Streams via the single NTFS driver
+Full interoperability with Mac OS X SAMBA Clients
+Full interoperability with torrent software
+Supporting all kernels up to 2.6.32
+Compatibility with Windows 7 NTFS
+ 	 	 
+NTFS & HFS 7.0	
+New Features:
+New installation procedure to simplify the installation process 
+All current Linux kernels are supported
+All known bugs are fixed
+ 	 	 
+NTFS & HFS 6.0	
+New Features:
+Support for x86-64  architecture
+Compatibility with Windows Vista's NTFS
+Support  for modern Linux Kernels up to 2.6.20 
+Improved installation script
+Improved performance
+ 	 	 
+NTFS & HFS 5.2	
+New Features:
+Support for 2.6.16 Kernel
+
+NTFS & HFS 5.0	
+New Features:
+Improved installation script
+Improved performance
+Support for SMP kernels
+Support for compressed files
+No limitations to maximum file size (but within kernel and NTFS limitations)
+
+NTFS & HFS 2.0	
+New Features:
+Improved performance
+Support for 2.6 Kernel
+
+NTFS & HFS 1.0 	
+New Features:
+Special installation script
+Select non-Default code page
+Startup service supported
+Supports Chinese, Japanese and other Linux localizations
+Sparse file support on all NT File Systems
+Access to files with more than 2 GB per cluster

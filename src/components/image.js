@@ -13,7 +13,7 @@ function Image({ imageType }) {
             height: 800
             quality: 90
             placeholder: BLURRED
-            formats: [AUTO, WEBP, AVIF]
+            formats: [AUTO, WEBP]
             transformOptions: { grayscale: true }
             breakpoints: [300, 400, 500, 600, 800]
             sizes: "(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
@@ -27,7 +27,7 @@ function Image({ imageType }) {
             height: 800
             quality: 90
             placeholder: BLURRED
-            formats: [AUTO, WEBP, AVIF]
+            formats: [AUTO, WEBP]
             transformOptions: { grayscale: true }
             breakpoints: [300, 400, 500, 600, 800]
             sizes: "(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
@@ -41,7 +41,7 @@ function Image({ imageType }) {
             height: 800
             quality: 90
             placeholder: BLURRED
-            formats: [AUTO, WEBP, AVIF]
+            formats: [AUTO, WEBP]
             transformOptions: { grayscale: true }
             breakpoints: [300, 400, 500, 600, 800]
             sizes: "(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"

@@ -1,0 +1,4 @@
+#define UFSD_FAKE_HFS_JOURNAL 1
+#define UFSD_NTFS_NO_JNL 1
+#define PACKAGE_TAG "lke_10.9.1_b1987"
+#define DEFAULT_MOUNT_OPTIONS "showdots"

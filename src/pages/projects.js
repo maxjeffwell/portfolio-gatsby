@@ -215,15 +215,15 @@ const Projects = ({ data }) => {
 
   const enhancedProjects = useMemo(() => {
     if (!data?.allFile?.edges) return filteredProjects;
-    
+
     // Create a map for faster lookups
     const imageMap = new Map();
-    data.allFile.edges.forEach(edge => {
+    data.allFile.edges.forEach((edge) => {
       if (edge.node.relativePath) {
         imageMap.set(edge.node.relativePath, edge.node.childImageSharp);
       }
     });
-    
+
     return filteredProjects.map((project) => ({
       ...project,
       imageSrcPath: Array.from(imageMap.entries()).find(([path]) =>
@@ -273,82 +273,82 @@ const Projects = ({ data }) => {
           </Typography>
         </Box>
 
-          <Box component="section">
-            <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
-              Filter Projects
-            </Typography>
-            <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: 2,
-                }}
-              >
-                <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                  Total Projects: {filteredProjects.length}
-                </Typography>
-                <NoSsr>
-                  <Box>
-                    <Typography variant="body2" sx={{ mb: 1 }}>
-                      Filter by Technology:
-                    </Typography>
-                    <Select
-                      id="technology-filter"
-                      name="technologyFilter"
-                      value={filters.technologies[0] || ''}
-                      onChange={handleTechnologyChange}
-                      displayEmpty
-                      sx={{ minWidth: 200 }}
-                      inputProps={{
-                        'aria-label': 'Filter projects by technology',
-                        id: 'technology-filter-input',
-                        name: 'technologyFilterInput',
-                      }}
-                    >
-                      <MenuItem value="">All Projects</MenuItem>
-                      <MenuItem value="React">React</MenuItem>
-                      <MenuItem value="JavaScript">JavaScript</MenuItem>
-                      <MenuItem value="GraphQL">GraphQL</MenuItem>
-                    </Select>
-                  </Box>
-                </NoSsr>
-              </Box>
-            </Paper>
-          </Box>
+        <Box component="section">
+          <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
+            Filter Projects
+          </Typography>
+          <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: 2,
+              }}
+            >
+              <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                Total Projects: {filteredProjects.length}
+              </Typography>
+              <NoSsr>
+                <Box>
+                  <Typography variant="body2" sx={{ mb: 1 }}>
+                    Filter by Technology:
+                  </Typography>
+                  <Select
+                    id="technology-filter"
+                    name="technologyFilter"
+                    value={filters.technologies[0] || ''}
+                    onChange={handleTechnologyChange}
+                    displayEmpty
+                    sx={{ minWidth: 200 }}
+                    inputProps={{
+                      'aria-label': 'Filter projects by technology',
+                      id: 'technology-filter-input',
+                      name: 'technologyFilterInput',
+                    }}
+                  >
+                    <MenuItem value="">All Projects</MenuItem>
+                    <MenuItem value="React">React</MenuItem>
+                    <MenuItem value="JavaScript">JavaScript</MenuItem>
+                    <MenuItem value="GraphQL">GraphQL</MenuItem>
+                  </Select>
+                </Box>
+              </NoSsr>
+            </Box>
+          </Paper>
+        </Box>
 
-          <Box component="section">
-            {filteredProjects.length === 0 ? (
-              <Box sx={{ textAlign: 'center', py: 6 }}>
-                <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
-                  No projects match your current filters. Try adjusting your search criteria.
-                </Typography>
-              </Box>
-            ) : (
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                {enhancedProjects.map((project) => (
-                  <Box key={project.id}>
-                    <ProjectCard
-                      title={project.title}
-                      date={project.date}
-                      description={project.description}
-                      sourceURL={project.sourceURL}
-                      hostedURL={project.hostedURL}
-                      technologies={project.technologies}
-                      imageSrcPath={project.imageSrcPath}
-                      imageSrcPath2={project.imageSrcPath2}
-                      imageSrcPath3={project.imageSrcPath3}
-                      imageSrcPath4={project.imageSrcPath4}
-                      imageSrcPath5={project.imageSrcPath5}
-                      imageSrcPath6={project.imageSrcPath6}
-                    />
-                  </Box>
-                ))}
-              </Box>
-            )}
-          </Box>
+        <Box component="section">
+          {filteredProjects.length === 0 ? (
+            <Box sx={{ textAlign: 'center', py: 6 }}>
+              <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
+                No projects match your current filters. Try adjusting your search criteria.
+              </Typography>
+            </Box>
+          ) : (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {enhancedProjects.map((project) => (
+                <Box key={project.id}>
+                  <ProjectCard
+                    title={project.title}
+                    date={project.date}
+                    description={project.description}
+                    sourceURL={project.sourceURL}
+                    hostedURL={project.hostedURL}
+                    technologies={project.technologies}
+                    imageSrcPath={project.imageSrcPath}
+                    imageSrcPath2={project.imageSrcPath2}
+                    imageSrcPath3={project.imageSrcPath3}
+                    imageSrcPath4={project.imageSrcPath4}
+                    imageSrcPath5={project.imageSrcPath5}
+                    imageSrcPath6={project.imageSrcPath6}
+                  />
+                </Box>
+              ))}
+            </Box>
+          )}
+        </Box>
       </Container>
     </Layout>
   );
@@ -387,7 +387,7 @@ export const pageQuery = graphql`
               height: 450
               quality: 90
               placeholder: BLURRED
-              formats: [AUTO, WEBP, AVIF]
+              formats: [AUTO, WEBP]
               transformOptions: { cropFocus: CENTER }
               breakpoints: [400, 600, 800, 1200, 1600]
               sizes: "(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 400px"

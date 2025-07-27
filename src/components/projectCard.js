@@ -151,7 +151,7 @@ function ProjectCard({
               <GatsbyImage
                 image={getImage(imageSrcPath2)}
                 alt={`${title} secondary screenshot showing additional features`}
-                loading="lazy"
+                loading="eager"
                 style={{
                   borderRadius: '8px',
                   width: '100%',

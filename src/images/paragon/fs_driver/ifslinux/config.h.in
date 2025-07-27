@@ -1,0 +1,93 @@
+/* ifslinux/config.h.in.  Generated from configure.in by autoheader.  */
+
+/* (int (*mkdir)(struct mnt_idmap *, struct inode *, struct dentry *,
+   umode_t); */
+#undef HAVE_DECL_MKDIR_V1
+
+/* (struct dentry * (*mkdir)(struct mnt_idmap *, struct inode *, struct dentry
+   *, umode_t); */
+#undef HAVE_DECL_MKDIR_V2
+
+/* Define to 1 if you have the declaration of `PG_error', and to 0 if you
+   don't. */
+#undef HAVE_DECL_PG_ERROR
+
+/* int (*write_begin) (struct file *, struct address_space *, loff_t,
+   unsigned, struct page **, void **); */
+#undef HAVE_DECL_WRITE_BEGIN_V1
+
+/* int (*write_begin) (struct file *, struct address_space *, loff_t,
+   unsigned, struct folio**, void **); */
+#undef HAVE_DECL_WRITE_BEGIN_V2
+
+/* Define to 1 if `bd_mapping' is a member of `struct block_device'. */
+#undef HAVE_STRUCT_BLOCK_DEVICE_BD_MAPPING
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* PSCT l */
+#undef PSCT
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* SetPageError macro helper */
+#undef SetPageError
+
+/* APFS Using flag */
+#undef UFSD_APFS
+
+/* BTRFS Using flag */
+#undef UFSD_BTRFS
+
+/* EXFAT Using flag */
+#undef UFSD_EXFAT
+
+/* FAT Using flag */
+#undef UFSD_FAT
+
+/* HFS Using flag */
+#undef UFSD_HFS
+
+/* NTFS Using flag */
+#undef UFSD_NTFS
+
+/* Refs1 Using flag */
+#undef UFSD_REFS1
+
+/* Refs3 Using flag */
+#undef UFSD_REFS3
+
+/* Refs3.4 Using flag */
+#undef UFSD_REFS34
+
+/* TEXFAT Using flag */
+#undef UFSD_TEXFAT
+
+/* XFS Using flag */
+#undef UFSD_XFS
+
+/* bd_mapping */
+#undef bd_mapping
+
+/* HAVE_DECL_ helper macro */
+#undef is_decl
+
+/* HAVE_STRUCT_ helper macro */
+#undef is_struct

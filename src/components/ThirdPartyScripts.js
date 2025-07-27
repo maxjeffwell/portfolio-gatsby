@@ -1,5 +1,8 @@
 import React from 'react';
 import { Script } from 'gatsby';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const ThirdPartyScripts = () => {
   return (
@@ -20,6 +23,26 @@ const ThirdPartyScripts = () => {
                 page_title: document.title,
                 page_location: window.location.href,
               });
+              
+              // Track scroll depth for SEO insights
+              let maxScroll = 0;
+              const trackScrollDepth = () => {
+                const scrollPercent = Math.round(
+                  (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+                );
+                
+                if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
+                  maxScroll = scrollPercent;
+                  gtag('event', 'scroll_depth', {
+                    event_category: 'SEO',
+                    event_label: scrollPercent + '%',
+                    value: scrollPercent,
+                    non_interaction: true,
+                  });
+                }
+              };
+              
+              window.addEventListener('scroll', trackScrollDepth);
             `}
           </Script>
         </>

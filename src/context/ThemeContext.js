@@ -8,7 +8,7 @@ const lightTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      xxs: 360,      // Custom breakpoint for 360x640
+      xxs: 360, // Custom breakpoint for 360x640
       sm: 600,
       md: 960,
       lg: 1280,
@@ -189,7 +189,7 @@ const darkTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      xxs: 360,      // Custom breakpoint for 360x640
+      xxs: 360, // Custom breakpoint for 360x640
       sm: 600,
       md: 960,
       lg: 1280,

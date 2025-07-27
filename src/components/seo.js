@@ -330,4 +330,46 @@ SEO.propTypes = {
   article: PropTypes.bool,
 };
 
+// Search Console verification meta tag component
+export const SearchConsoleVerification = ({ verificationCode }) => (
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  <>{verificationCode && <meta name="google-site-verification" content={verificationCode} />}</>
+);
+
+SearchConsoleVerification.propTypes = {
+  verificationCode: PropTypes.string,
+};
+
+SearchConsoleVerification.defaultProps = {
+  verificationCode: null,
+};
+
+// Bing Webmaster Tools verification
+export const BingVerification = ({ verificationCode }) => (
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  <>{verificationCode && <meta name="msvalidate.01" content={verificationCode} />}</>
+);
+
+BingVerification.propTypes = {
+  verificationCode: PropTypes.string,
+};
+
+BingVerification.defaultProps = {
+  verificationCode: null,
+};
+
+// Yandex Webmaster verification
+export const YandexVerification = ({ verificationCode }) => (
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  <>{verificationCode && <meta name="yandex-verification" content={verificationCode} />}</>
+);
+
+YandexVerification.propTypes = {
+  verificationCode: PropTypes.string,
+};
+
+YandexVerification.defaultProps = {
+  verificationCode: null,
+};
+
 export default SEO;
