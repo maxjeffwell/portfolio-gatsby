@@ -9,6 +9,16 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // Simplified webpack configuration for better stability
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        "os": require.resolve("os-browserify/browser"),
+        "crypto": require.resolve("crypto-browserify"),
+        "path": require.resolve("path-browserify")
+      }
+    }
+  });
+
   if (stage === 'build-javascript') {
     actions.setWebpackConfig({
       // Disable source maps in production
