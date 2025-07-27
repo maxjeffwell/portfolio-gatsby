@@ -56,6 +56,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
+    "assert": "^2.1.0",
+    "buffer": "^6.0.3",
     "cheerio": "^1.1.2",
     "crypto-browserify": "^3.12.1",
     "css-minimizer-webpack-plugin": "^7.0.2",
@@ -68,6 +70,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-webpack-plugin": "^4.2.0",
+    "events": "^3.3.0",
     "gatsby-plugin-eslint": "^4.0.4",
     "gatsby-plugin-html-minifier": "^2.0.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.32",
@@ -78,8 +81,10 @@
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "prettier": "^3.2.5",
+    "querystring-es3": "^0.2.1",
     "stream-browserify": "^3.0.0",
-    "terser-webpack-plugin": "^5.3.14"
+    "terser-webpack-plugin": "^5.3.14",
+    "util": "^0.12.5"
   },
   "repository": {
     "type": "git",
