@@ -48,6 +48,7 @@ function Image({ imageType }) {
           )
         }
       }
+    }
   `);
 
   const teamImage = getImage(data.teamImage);
