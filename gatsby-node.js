@@ -22,6 +22,7 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
         "buffer": require.resolve("buffer"),
         "assert": require.resolve("assert"),
         "events": require.resolve("events"),
+        "vm": require.resolve("vm-browserify"),
         "fs": false,
         "net": false,
         "tls": false

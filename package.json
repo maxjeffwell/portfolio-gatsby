@@ -84,7 +84,8 @@
     "querystring-es3": "^0.2.1",
     "stream-browserify": "^3.0.0",
     "terser-webpack-plugin": "^5.3.14",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "vm-browserify": "^1.1.2"
   },
   "repository": {
     "type": "git",
