@@ -1,8 +1,5 @@
 import React from 'react';
 import { Script } from 'gatsby';
-import dotenv from 'dotenv';
-
-dotenv.config({ path: '../../.env' });
 
 const ThirdPartyScripts = () => {
   return (

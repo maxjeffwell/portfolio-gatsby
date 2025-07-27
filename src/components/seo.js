@@ -134,6 +134,22 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           content: `no-referrer-when-downgrade`,
         },
         {
+          name: `geo.region`,
+          content: `US-FL`,
+        },
+        {
+          name: `geo.placename`,
+          content: `Florida, United States`,
+        },
+        {
+          name: `geo.position`,
+          content: `27.7663;-82.6404`,
+        },
+        {
+          name: `ICBM`,
+          content: `27.7663, -82.6404`,
+        },
+        {
           property: `og:locale`,
           content: `en_US`,
         },
@@ -229,6 +245,21 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           specialization: ['React Development', 'Node.js Development', 'JavaScript Programming'],
           url: data.siteMetadata.siteUrl,
           email: 'maxjeffwell@gmail.com',
+          address: {
+            '@type': 'PostalAddress',
+            addressRegion: 'FL',
+            addressCountry: 'US',
+            addressLocality: 'Florida',
+          },
+          workLocation: {
+            '@type': 'Place',
+            name: 'Florida',
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: 27.7663,
+              longitude: -82.6404,
+            },
+          },
           knowsAbout: [
             'JavaScript Programming',
             'React Development',
