@@ -54,6 +54,7 @@ function ThemedLayout({ children, data }) {
   const muiTheme = useTheme();
   return (
     <>
+      <ThirdPartyScripts />
       <GlobalStyles
         styles={{
           '*': {
@@ -87,7 +88,6 @@ function ThemedLayout({ children, data }) {
       >
         {children}
       </Container>
-      <ThirdPartyScripts />
       <StyledFooter component="footer" role="contentinfo">
         <Container maxWidth="lg">
           <Typography variant="h4" component="h2" gutterBottom>
@@ -167,7 +167,6 @@ function ThemedLayout({ children, data }) {
             >
               Gatsby
             </Link>
-            .
           </Typography>
         </Container>
       </StyledFooter>
