@@ -40,6 +40,14 @@ providers = [
   "yandex"
 ]
 
+[[plugins]]
+package = "@algolia/netlify-plugin-crawler"
+[plugins.inputs]
+branches = ['master', 'main']
+disabled = false
+customDomain = "el-jefe.me"
+renderJavaScript = true
+
 # Cache control headers for static assets
 [[headers]]
   for = "/static/*"
