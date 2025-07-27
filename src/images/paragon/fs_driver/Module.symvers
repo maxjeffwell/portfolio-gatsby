@@ -1,7 +1,0 @@
-0x20158677	ufsd_wait_on_page_writeback	/home/maxjeffwell/Downloads/paragon/fs_driver/jnl	EXPORT_SYMBOL	
-0xc0181c11	ufsd_ns	/home/maxjeffwell/Downloads/paragon/fs_driver/jnl	EXPORT_SYMBOL	
-0xb8d3b5cf	mutex_destroy_jnl	/home/maxjeffwell/Downloads/paragon/fs_driver/jnl	EXPORT_SYMBOL	
-0xfb837702	debug_lockdep_rcu_enabled_jnl	/home/maxjeffwell/Downloads/paragon/fs_driver/jnl	EXPORT_SYMBOL	
-0xfa8a49b7	ufsd_write_sync	/home/maxjeffwell/Downloads/paragon/fs_driver/jnl	EXPORT_SYMBOL	
-0x385ac50a	jnl_op	/home/maxjeffwell/Downloads/paragon/fs_driver/jnl	EXPORT_SYMBOL	
-0x4538c1eb	crypt_op	/home/maxjeffwell/Downloads/paragon/fs_driver/jnl	EXPORT_SYMBOL	

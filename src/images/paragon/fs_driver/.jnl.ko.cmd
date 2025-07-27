@@ -1,1 +1,0 @@
-savedcmd_/home/maxjeffwell/Downloads/paragon/fs_driver/jnl.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/maxjeffwell/Downloads/paragon/fs_driver/jnl.ko /home/maxjeffwell/Downloads/paragon/fs_driver/jnl.o /home/maxjeffwell/Downloads/paragon/fs_driver/jnl.mod.o
