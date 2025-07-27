@@ -7,7 +7,7 @@ import {
   Typography,
   Link,
   IconButton,
-  useTheme,
+  useTheme as useMuiTheme,
   GlobalStyles,
 } from '@mui/material';
 import { GitHub, Phone, Language } from '@mui/icons-material';
@@ -51,7 +51,7 @@ const SocialLink = styled(IconButton)(({ theme }) => ({
 
 // Themed Layout Component
 function ThemedLayout({ children, data }) {
-  const muiTheme = useTheme();
+  const muiTheme = useMuiTheme();
   return (
     <>
       <ThirdPartyScripts />
