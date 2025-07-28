@@ -172,6 +172,10 @@ function Contact() {
         if (response.ok) {
           setFormStatus('success');
           setFormData({ name: '', email: '', message: '' });
+          // Scroll to top of form to show success message
+          const formElement = e.target;
+          const formTop = formElement.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: formTop, behavior: 'smooth' });
           // Keep success message visible permanently until user submits again
         } else if (response.status === 404) {
           throw new Error('Netlify form handler not found. Please check form configuration.');
@@ -409,24 +413,57 @@ function Contact() {
                 </Typography>
 
                 {formStatus === 'success' && (
-                  <Alert 
-                    severity="success" 
-                    sx={{ 
+                  <StyledBox
+                    sx={{
+                      position: 'relative',
                       mb: 3,
-                      animation: 'fadeIn 0.5s ease-in',
-                      '@keyframes fadeIn': {
-                        from: { opacity: 0, transform: 'translateY(-10px)' },
-                        to: { opacity: 1, transform: 'translateY(0)' }
-                      }
                     }}
                   >
-                    <Typography variant="h6" component="div" gutterBottom>
-                      ✅ Message Sent Successfully!
-                    </Typography>
-                    <Typography variant="body2">
-                      Thank you for reaching out! I&#39;ll get back to you within 24 hours.
-                    </Typography>
-                  </Alert>
+                    <Alert 
+                      severity="success" 
+                      sx={{ 
+                        border: '2px solid',
+                        borderColor: 'success.main',
+                        backgroundColor: 'success.lighter',
+                        animation: 'slideInScale 0.5s ease-out',
+                        '@keyframes slideInScale': {
+                          '0%': { 
+                            opacity: 0, 
+                            transform: 'translateY(-20px) scale(0.95)' 
+                          },
+                          '50%': {
+                            transform: 'translateY(5px) scale(1.02)'
+                          },
+                          '100%': { 
+                            opacity: 1, 
+                            transform: 'translateY(0) scale(1)' 
+                          }
+                        }
+                      }}
+                    >
+                      <Typography variant="h5" component="div" gutterBottom sx={{ fontWeight: 'bold' }}>
+                        🎉 Success! Your Message Has Been Sent!
+                      </Typography>
+                      <Typography variant="body1">
+                        Thank you for reaching out! I appreciate your interest and will respond within 24 hours.
+                      </Typography>
+                      <Typography variant="body2" sx={{ mt: 1, fontStyle: 'italic' }}>
+                        Check your email for a confirmation of your message.
+                      </Typography>
+                      <Button
+                        variant="outlined"
+                        color="success"
+                        size="small"
+                        onClick={() => {
+                          setFormStatus('');
+                          setFormData({ name: '', email: '', message: '' });
+                        }}
+                        sx={{ mt: 2 }}
+                      >
+                        Send Another Message
+                      </Button>
+                    </Alert>
+                  </StyledBox>
                 )}
 
                 {formStatus === 'error' && (
@@ -452,6 +489,13 @@ function Contact() {
                   action="/contact/"
                   data-netlify="true"
                   data-netlify-honeypot="bot-field"
+                  sx={{
+                    transition: 'all 0.3s ease',
+                    ...(formStatus === 'success' && {
+                      opacity: 0.7,
+                      transform: 'scale(0.98)',
+                    })
+                  }}
                 >
                   <input type="hidden" name="form-name" value="contact" />
                   <StyledBox position="absolute" left="-5000px" overflow="hidden">
