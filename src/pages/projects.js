@@ -8,18 +8,18 @@ import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 
-import { ReactComponent as GraphQLIcon } from '../images/svg-icons/graphql.svg';
-import { ReactComponent as ApolloClientIcon } from '../images/svg-icons/apolloclient.svg';
-import { ReactComponent as ReduxIcon } from '../images/svg-icons/redux.svg';
-import { ReactComponent as CSSIcon } from '../images/svg-icons/css3.svg';
-import { ReactComponent as MongoDBIcon } from '../images/svg-icons/mongodb.svg';
-import { ReactComponent as PostgresqlIcon } from '../images/svg-icons/postgresql.svg';
-import { ReactComponent as RedisIcon } from '../images/svg-icons/redis.svg';
-import { ReactComponent as NPMIcon } from '../images/svg-icons/npm.svg';
-import { ReactComponent as VercelIcon } from '../images/svg-icons/vercel.svg';
-import { ReactComponent as NodeJSIcon } from '../images/svg-icons/nodejs.svg';
-import { ReactComponent as FirebaseIcon } from '../images/svg-icons/firebase.svg';
-import { ReactComponent as NeonTechIcon } from '../images/svg-icons/neon-tech.svg';
+import GraphQLIcon from '../images/svg-icons/graphql.svg';
+import ApolloClientIcon from '../images/svg-icons/apolloclient.svg';
+import ReduxIcon from '../images/svg-icons/redux.svg';
+import CSSIcon from '../images/svg-icons/css3.svg';
+import MongoDBIcon from '../images/svg-icons/mongodb.svg';
+import PostgresqlIcon from '../images/svg-icons/postgresql.svg';
+import RedisIcon from '../images/svg-icons/redis.svg';
+import NPMIcon from '../images/svg-icons/npm.svg';
+import VercelIcon from '../images/svg-icons/vercel.svg';
+import NodeJSIcon from '../images/svg-icons/nodejs.svg';
+import FirebaseIcon from '../images/svg-icons/firebase.svg';
+import NeonTechIcon from '../images/svg-icons/neon-tech.svg';
 
 const projectsData = [
   {
@@ -264,16 +264,16 @@ const Projects = ({ data }) => {
 
     return filteredProjects.map((project) => ({
       ...project,
-      imageSrcPath: Array.from(imageMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot1)
-      )?.[1],
-      imageSrcPath2: Array.from(imageMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot2)
-      )?.[1],
-      techIcon3: project.techIcons.icon3 || null,
-      techIcon4: project.techIcons.icon4 || null,
-      techIcon5: project.techIcons.icon5 || null,
-      techIcon6: project.techIcons.icon6 || null,
+        imageSrcPath: Array.from(imageMap.entries()).find(([path]) =>
+          path.includes(project.screenshots.screenshot1)
+        )?.[1],
+        imageSrcPath2: Array.from(imageMap.entries()).find(([path]) =>
+          path.includes(project.screenshots.screenshot2)
+        )?.[1],
+        techIcon3: project.techIcons.icon3 || null,
+        techIcon4: project.techIcons.icon4 || null,
+        techIcon5: project.techIcons.icon5 || null,
+        techIcon6: project.techIcons.icon6 || null,
     }));
   }, [filteredProjects, data]);
 

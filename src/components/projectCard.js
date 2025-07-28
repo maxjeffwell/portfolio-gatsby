@@ -255,50 +255,62 @@ function ProjectCard({
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
             {techIcon3 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(techIcon3, {
-                  width: 24,
-                  height: 24,
-                  style: {
-                    filter:
-                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  },
-                })}
+                {React.isValidElement(techIcon3) ? (
+                  techIcon3
+                ) : typeof techIcon3 === 'function' ? (
+                  React.createElement(techIcon3, {
+                    width: 24,
+                    height: 24,
+                    fill: "#fc4a1a"
+                  })
+                ) : (
+                  <span>Icon3</span>
+                )}
               </TechIcon>
             )}
             {techIcon4 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(techIcon4, {
-                  width: 24,
-                  height: 24,
-                  style: {
-                    filter:
-                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  },
-                })}
+                {React.isValidElement(techIcon4) ? (
+                  techIcon4
+                ) : typeof techIcon4 === 'function' ? (
+                  React.createElement(techIcon4, {
+                    width: 24,
+                    height: 24,
+                    fill: "#fc4a1a"
+                  })
+                ) : (
+                  <span>Icon4</span>
+                )}
               </TechIcon>
             )}
             {techIcon5 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(techIcon5, {
-                  width: 24,
-                  height: 24,
-                  style: {
-                    filter:
-                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  },
-                })}
+                {React.isValidElement(techIcon5) ? (
+                  techIcon5
+                ) : typeof techIcon5 === 'function' ? (
+                  React.createElement(techIcon5, {
+                    width: 24,
+                    height: 24,
+                    fill: "#fc4a1a"
+                  })
+                ) : (
+                  <span>Icon5</span>
+                )}
               </TechIcon>
             )}
             {techIcon6 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(techIcon6, {
-                  width: 24,
-                  height: 24,
-                  style: {
-                    filter:
-                      'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  },
-                })}
+                {React.isValidElement(techIcon6) ? (
+                  techIcon6
+                ) : typeof techIcon6 === 'function' ? (
+                  React.createElement(techIcon6, {
+                    width: 24,
+                    height: 24,
+                    fill: "#fc4a1a"
+                  })
+                ) : (
+                  <span>Icon6</span>
+                )}
               </TechIcon>
             )}
             <NoSsr>
