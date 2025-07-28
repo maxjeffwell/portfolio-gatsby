@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Button, Paper, Fade } from '@mui/material';
+import { Typography, Button, Paper, Fade, NoSsr } from '@mui/material';
 import { Email, Phone, GitHub } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
@@ -220,7 +220,9 @@ function CTASectionComponent({ visible }) {
                     onMouseLeave={() => setHoveredCard(null)}
                     fullWidth
                   >
-                    <IconComponent style={{ fontSize: 24 }} />
+                    <NoSsr>
+                      <IconComponent style={{ fontSize: 24 }} />
+                    </NoSsr>
                     <Typography>{method.text}</Typography>
                   </ContactButton>
                 </Fade>

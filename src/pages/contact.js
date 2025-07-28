@@ -270,7 +270,9 @@ function Contact() {
 
                 <StyledBox mt={4}>
                   <ContactMethod>
-                    <Email color="primary" />
+                    <NoSsr>
+                      <Email color="primary" />
+                    </NoSsr>
                     <StyledBox>
                       <Typography
                         variant="subtitle2"
@@ -303,7 +305,9 @@ function Contact() {
                   </ContactMethod>
 
                   <ContactMethod>
-                    <Phone color="primary" />
+                    <NoSsr>
+                      <Phone color="primary" />
+                    </NoSsr>
                     <StyledBox>
                       <Typography
                         variant="subtitle2"
@@ -355,7 +359,9 @@ function Contact() {
                   {/* </ContactMethod> */}
 
                   <ContactMethod>
-                    <GitHub color="primary" />
+                    <NoSsr>
+                      <GitHub color="primary" />
+                    </NoSsr>
                     <StyledBox>
                       <Typography
                         variant="subtitle2"
@@ -523,7 +529,7 @@ function Contact() {
                       variant="contained"
                       color={formStatus === 'success' ? 'success' : 'primary'}
                       size="large"
-                      endIcon={formStatus === 'success' ? '✓' : <Send />}
+                      endIcon={formStatus === 'success' ? '✓' : <NoSsr><Send /></NoSsr>}
                       disabled={isSubmitting || formStatus === 'success'}
                       sx={{
                         mt: 3,

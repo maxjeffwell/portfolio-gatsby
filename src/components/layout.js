@@ -150,31 +150,37 @@ function ThemedLayout({ children, data }) {
             justifyContent="center"
             mb={3}
           >
-            <SocialLink
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.github.com/maxjeffwell"
-              aria-label="Visit Jeff Maxwell's GitHub profile"
-              size="large"
-            >
-              <GitHub fontSize="large" />
-            </SocialLink>
-            <SocialLink
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://angel.co/maxjeffwell"
-              aria-label="Visit Jeff Maxwell's AngelList profile"
-              size="large"
-            >
-              <Language fontSize="large" />
-            </SocialLink>
-            <SocialLink
-              href="tel:+01-508-395-2008"
-              aria-label="Call Jeff Maxwell at 508-395-2008"
-              size="large"
-            >
-              <Phone fontSize="large" />
-            </SocialLink>
+            <NoSsr>
+              <SocialLink
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.github.com/maxjeffwell"
+                aria-label="Visit Jeff Maxwell's GitHub profile"
+                size="large"
+              >
+                <GitHub fontSize="large" />
+              </SocialLink>
+            </NoSsr>
+            <NoSsr>
+              <SocialLink
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://angel.co/maxjeffwell"
+                aria-label="Visit Jeff Maxwell's AngelList profile"
+                size="large"
+              >
+                <Language fontSize="large" />
+              </SocialLink>
+            </NoSsr>
+            <NoSsr>
+              <SocialLink
+                href="tel:+01-508-395-2008"
+                aria-label="Call Jeff Maxwell at 508-395-2008"
+                size="large"
+              >
+                <Phone fontSize="large" />
+              </SocialLink>
+            </NoSsr>
           </StyledBox>
           <Typography variant="body1" align="center" sx={{ mt: 2 }}>
             Built by {data.site.siteMetadata.author}, created with{' '}

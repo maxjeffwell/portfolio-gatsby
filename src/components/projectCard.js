@@ -338,7 +338,7 @@ function ProjectCard({
         <Button
           variant="contained"
           color="primary"
-          startIcon={<GitHub />}
+          startIcon={<NoSsr><GitHub /></NoSsr>}
           href={sourceURL}
           target="_blank"
           rel="noopener noreferrer"
@@ -354,7 +354,7 @@ function ProjectCard({
         <Button
           variant="outlined"
           color="secondary"
-          startIcon={<Launch />}
+          startIcon={<NoSsr><Launch /></NoSsr>}
           href={hostedURL}
           target="_blank"
           rel="noopener noreferrer"
