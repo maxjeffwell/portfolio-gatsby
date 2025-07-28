@@ -1,5 +1,4 @@
 import { Link } from 'gatsby';
-import { useLocation } from '@gatsbyjs/reach-router';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   AppBar,
@@ -19,6 +18,7 @@ import DarkModeToggle from './DarkModeToggle';
 
 const getAppBarBackground = (theme, scrolled) => {
   if (!scrolled) return 'transparent';
+  if (!theme || !theme.palette) return 'rgba(255, 255, 255, 0.95)';
   return theme.palette.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)';
 };
 
@@ -90,12 +90,51 @@ const StyledDrawer = styled(Drawer)`
 `;
 
 function Header() {
-  const theme = useTheme();
-  const location = useLocation();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [currentPath, setCurrentPath] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Default to mobile for SSR
   const menuButtonRef = useRef(null);
+
+  // Client-side only theme and media query handling
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Set current path from window.location
+      setCurrentPath(window.location.pathname);
+      
+      // Handle media query with client-side fallback
+      const mediaQuery = window.matchMedia('(min-width: 960px)');
+      setIsMobile(!mediaQuery.matches);
+      
+      const handleMediaChange = (e) => {
+        setIsMobile(!e.matches);
+      };
+      
+      mediaQuery.addEventListener('change', handleMediaChange);
+      
+      return () => {
+        mediaQuery.removeEventListener('change', handleMediaChange);
+      };
+    }
+  }, []);
+
+  // Safe theme access
+  let safeTheme;
+  try {
+    safeTheme = useTheme();
+  } catch (error) {
+    // Fallback theme for SSR
+    safeTheme = {
+      palette: {
+        mode: 'light',
+        text: { primary: '#000' },
+        action: { hover: 'rgba(0, 0, 0, 0.04)' }
+      },
+      breakpoints: {
+        down: () => '(max-width: 959px)'
+      }
+    };
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -171,6 +210,7 @@ function Header() {
         elevation={0}
         component="header"
         role="banner"
+        theme={safeTheme}
       >
         <StyledContainer>
           <Toolbar sx={{ 
@@ -181,50 +221,53 @@ function Header() {
               minHeight: 48,
             },
           }}>
-            {isMobile && (
-              <IconButton
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                ref={menuButtonRef}
-                sx={{
-                  color:
-                    theme.palette.mode === 'dark'
-                      ? theme.palette.text.primary
-                      : theme.palette.text.primary,
-                  '&:hover': {
-                    backgroundColor: theme.palette.action.hover,
-                  },
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
+            <NoSsr fallback={<div style={{ width: 48, height: 48 }} />}>
+              {isMobile && (
+                <IconButton
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  ref={menuButtonRef}
+                  sx={{
+                    color: safeTheme.palette.text.primary,
+                    '&:hover': {
+                      backgroundColor: safeTheme.palette.action.hover,
+                    },
+                  }}
+                >
+                  <MenuIcon />
+                </IconButton>
+              )}
+            </NoSsr>
 
-            {!isMobile && (
-              <StyledBox
-                component="nav"
-                role="navigation"
-                aria-label="Main navigation"
-                display="flex"
-                alignItems="center"
-              >
-                {menuItems.map((item) => (
-                  <NavButton
-                    key={item.text}
-                    component={Link}
-                    to={item.to}
-                    className={location.pathname === item.to ? 'active' : ''}
-                    aria-current={location.pathname === item.to ? 'page' : undefined}
-                  >
-                    {item.text}
-                  </NavButton>
-                ))}
-              </StyledBox>
-            )}
+            <NoSsr fallback={<div style={{ flex: 1 }} />}>
+              {!isMobile && (
+                <StyledBox
+                  component="nav"
+                  role="navigation"
+                  aria-label="Main navigation"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {menuItems.map((item) => (
+                    <NavButton
+                      key={item.text}
+                      component={Link}
+                      to={item.to}
+                      className={currentPath === item.to ? 'active' : ''}
+                      aria-current={currentPath === item.to ? 'page' : undefined}
+                    >
+                      {item.text}
+                    </NavButton>
+                  ))}
+                </StyledBox>
+              )}
+            </NoSsr>
 
             <StyledBox display="flex" alignItems="center" gap={2}>
-              {!isMobile && <MyLogo />}
+              <NoSsr>
+                {!isMobile && <MyLogo />}
+              </NoSsr>
               <DarkModeToggle />
             </StyledBox>
           </Toolbar>

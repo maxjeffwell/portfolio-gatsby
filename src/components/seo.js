@@ -33,20 +33,21 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
   const createOptimizedTitle = (pageTitle) => {
     const baseBrand = 'Jeff Maxwell';
     const primarySkills = 'Full Stack React & Node.js Developer';
-    const location = 'Portfolio 2025';
+    const location = 'Central Florida & Tampa Bay Area';
+    const year = '2025';
 
     if (!pageTitle) {
-      return `${baseBrand} - ${primarySkills} | ${location}`;
+      return `${baseBrand} - ${primarySkills} | ${location} Portfolio ${year}`;
     }
 
     const titleMap = {
-      Home: `${baseBrand} - ${primarySkills} | Modern Web Development ${location}`,
-      Projects: `${pageTitle} - React & Node.js Portfolio | Full Stack Web Development by ${baseBrand}`,
-      About: `${pageTitle} ${baseBrand} - ${primarySkills} | Professional Developer Bio & Team`,
-      Contact: `${pageTitle} ${baseBrand} - Hire ${primarySkills} | Freelance Web Development Services`,
+      Home: `${baseBrand} - ${primarySkills} | Modern Web Development ${location} ${year}`,
+      Projects: `${pageTitle} - React & Node.js Portfolio | Full Stack Web Development by ${baseBrand} | ${location}`,
+      About: `${pageTitle} ${baseBrand} - ${primarySkills} | Professional Developer Bio | ${location}`,
+      Contact: `${pageTitle} ${baseBrand} - Hire ${primarySkills} | Freelance Web Development | ${location}`,
     };
 
-    return titleMap[pageTitle] || `${pageTitle} | ${baseBrand} - ${primarySkills}`;
+    return titleMap[pageTitle] || `${pageTitle} | ${baseBrand} - ${primarySkills} | ${location}`;
   };
 
   const metaTitle = createOptimizedTitle(title);
@@ -150,7 +151,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `geo.placename`,
-          content: `Florida, United States`,
+          content: `Central Florida, Tampa Bay Area, Florida, United States`,
         },
         {
           name: `geo.position`,
@@ -159,6 +160,14 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         {
           name: `ICBM`,
           content: `27.7663, -82.6404`,
+        },
+        {
+          name: `geo.country`,
+          content: `US`,
+        },
+        {
+          name: `geo.region`,
+          content: `Florida`,
         },
         {
           property: `og:locale`,
@@ -260,15 +269,25 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
             '@type': 'PostalAddress',
             addressRegion: 'FL',
             addressCountry: 'US',
-            addressLocality: 'Florida',
+            addressLocality: 'Central Florida',
+            addressArea: 'Tampa Bay Area',
           },
           workLocation: {
             '@type': 'Place',
-            name: 'Florida',
+            name: 'Central Florida, Tampa Bay Area',
+            description: 'Full Stack Developer serving Central Florida and Tampa Bay Area',
             geo: {
               '@type': 'GeoCoordinates',
               latitude: 27.7663,
               longitude: -82.6404,
+            },
+            containedInPlace: {
+              '@type': 'State',
+              name: 'Florida',
+              containedInPlace: {
+                '@type': 'Country',
+                name: 'United States',
+              },
             },
           },
           knowsAbout: [
@@ -285,6 +304,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
             'API Development',
             'Database Design',
             'Web Application Development',
+            'Central Florida Web Development',
+            'Tampa Bay Area Developer',
+            'Florida React Developer',
+            'Local Web Developer Services',
           ],
           hasOccupation: {
             '@type': 'Occupation',
