@@ -8,18 +8,18 @@ import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 
-import GraphQLIcon from '../images/graphql.svg';
-import ApolloClientIcon from '../images/apolloclient.svg';
-import ReduxIcon from '../images/redux.svg';
-import CSSIcon from '../images/css3.svg';
-import MongoDBIcon from '../images/mongodb.svg';
-import PostgresqlIcon from '../images/postgresql.svg';
-import RedisIcon from '../images/redis.svg';
-import NPMIcon from '../images/npm.svg';
-import VercelIcon from '../images/vercel.svg';
-import NodeJSIcon from '../images/nodejs.svg';
-import FirebaseIcon from '../images/firebase.svg';
-import NeonTechIcon from '../images/neon-tech.svg';
+import { ReactComponent as GraphQLIcon } from '../images/svg-icons/graphql.svg';
+import { ReactComponent as ApolloClientIcon } from '../images/svg-icons/apolloclient.svg';
+import { ReactComponent as ReduxIcon } from '../images/svg-icons/redux.svg';
+import { ReactComponent as CSSIcon } from '../images/svg-icons/css3.svg';
+import { ReactComponent as MongoDBIcon } from '../images/svg-icons/mongodb.svg';
+import { ReactComponent as PostgresqlIcon } from '../images/svg-icons/postgresql.svg';
+import { ReactComponent as RedisIcon } from '../images/svg-icons/redis.svg';
+import { ReactComponent as NPMIcon } from '../images/svg-icons/npm.svg';
+import { ReactComponent as VercelIcon } from '../images/svg-icons/vercel.svg';
+import { ReactComponent as NodeJSIcon } from '../images/svg-icons/nodejs.svg';
+import { ReactComponent as FirebaseIcon } from '../images/svg-icons/firebase.svg';
+import { ReactComponent as NeonTechIcon } from '../images/svg-icons/neon-tech.svg';
 
 const projectsData = [
   {
