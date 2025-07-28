@@ -31,11 +31,11 @@ const StyledContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-  
+
   @media (max-width: 600px) {
     padding: 0 16px;
   }
-  
+
   @media (max-width: 360px) {
     margin-top: 48px !important;
     margin-bottom: 24px !important;
@@ -44,17 +44,17 @@ const StyledContainer = styled.div`
 `;
 
 const StyledBox = styled.div`
-  display: ${props => props.display || 'block'};
-  flex-direction: ${props => props.flexDirection || 'row'};
-  gap: ${props => props.gap ? `${props.gap * 8}px` : '0'};
-  justify-content: ${props => props.justifyContent || 'flex-start'};
-  margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
-  margin-top: ${props => props.mt ? `${props.mt * 8}px` : '0'};
-  padding: ${props => props.p ? `${props.p * 8}px` : '0'};
-  padding-left: ${props => props.pl ? `${props.pl * 8}px` : 'inherit'};
-  padding-right: ${props => props.pr ? `${props.pr * 8}px` : 'inherit'};
-  padding-top: ${props => props.pt ? `${props.pt * 8}px` : 'inherit'};
-  padding-bottom: ${props => props.pb ? `${props.pb * 8}px` : 'inherit'};
+  display: ${(props) => props.display || 'block'};
+  flex-direction: ${(props) => props.flexDirection || 'row'};
+  gap: ${(props) => (props.gap ? `${props.gap * 8}px` : '0')};
+  justify-content: ${(props) => props.justifyContent || 'flex-start'};
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
+  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
+  padding-left: ${(props) => (props.pl ? `${props.pl * 8}px` : 'inherit')};
+  padding-right: ${(props) => (props.pr ? `${props.pr * 8}px` : 'inherit')};
+  padding-top: ${(props) => (props.pt ? `${props.pt * 8}px` : 'inherit')};
+  padding-bottom: ${(props) => (props.pb ? `${props.pb * 8}px` : 'inherit')};
 `;
 
 const StyledFooter = styled.footer`
@@ -63,7 +63,7 @@ const StyledFooter = styled.footer`
   padding-bottom: 32px;
   border-top: 3px solid #f7b733;
   background-color: #f5f5f5;
-  
+
   @media (prefers-color-scheme: dark) {
     background-color: #212121;
   }
@@ -71,9 +71,11 @@ const StyledFooter = styled.footer`
 
 const SocialLink = styled(IconButton)`
   color: inherit;
-  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    color 0.2s ease-in-out;
   will-change: transform, color;
-  
+
   &:hover {
     transform: scale(1.1);
     color: #fc4a1a;

@@ -270,10 +270,10 @@ const Projects = ({ data }) => {
       imageSrcPath2: Array.from(imageMap.entries()).find(([path]) =>
         path.includes(project.screenshots.screenshot2)
       )?.[1],
-      imageSrcPath3: project.techIcons.icon3 || '',
-      imageSrcPath4: project.techIcons.icon4 || '',
-      imageSrcPath5: project.techIcons.icon5 || '',
-      imageSrcPath6: project.techIcons.icon6 || '',
+      techIcon3: project.techIcons.icon3 || null,
+      techIcon4: project.techIcons.icon4 || null,
+      techIcon5: project.techIcons.icon5 || null,
+      techIcon6: project.techIcons.icon6 || null,
     }));
   }, [filteredProjects, data]);
 
@@ -375,10 +375,10 @@ const Projects = ({ data }) => {
                     technologies={project.technologies}
                     imageSrcPath={project.imageSrcPath}
                     imageSrcPath2={project.imageSrcPath2}
-                    imageSrcPath3={project.imageSrcPath3}
-                    imageSrcPath4={project.imageSrcPath4}
-                    imageSrcPath5={project.imageSrcPath5}
-                    imageSrcPath6={project.imageSrcPath6}
+                    techIcon3={project.techIcon3}
+                    techIcon4={project.techIcon4}
+                    techIcon5={project.techIcon5}
+                    techIcon6={project.techIcon6}
                   />
                 </StyledBox>
               ))}

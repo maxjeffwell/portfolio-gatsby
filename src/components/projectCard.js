@@ -167,10 +167,10 @@ const TechIcon = styled.div`
 function ProjectCard({
   imageSrcPath,
   imageSrcPath2,
-  imageSrcPath3,
-  imageSrcPath4,
-  imageSrcPath5,
-  imageSrcPath6,
+  techIcon3,
+  techIcon4,
+  techIcon5,
+  techIcon6,
   title,
   date,
   description,
@@ -253,9 +253,9 @@ function ProjectCard({
             Technologies Used:
           </Typography>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-            {imageSrcPath3 && (
+            {techIcon3 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(imageSrcPath3, {
+                {React.createElement(techIcon3, {
                   width: 24,
                   height: 24,
                   style: {
@@ -265,9 +265,9 @@ function ProjectCard({
                 })}
               </TechIcon>
             )}
-            {imageSrcPath4 && (
+            {techIcon4 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(imageSrcPath4, {
+                {React.createElement(techIcon4, {
                   width: 24,
                   height: 24,
                   style: {
@@ -277,9 +277,9 @@ function ProjectCard({
                 })}
               </TechIcon>
             )}
-            {imageSrcPath5 && (
+            {techIcon5 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(imageSrcPath5, {
+                {React.createElement(techIcon5, {
                   width: 24,
                   height: 24,
                   style: {
@@ -289,9 +289,9 @@ function ProjectCard({
                 })}
               </TechIcon>
             )}
-            {imageSrcPath6 && (
+            {techIcon6 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                {React.createElement(imageSrcPath6, {
+                {React.createElement(techIcon6, {
                   width: 24,
                   height: 24,
                   style: {
@@ -368,10 +368,10 @@ ProjectCard.propTypes = {
   description: PropTypes.string.isRequired,
   sourceURL: PropTypes.string.isRequired,
   hostedURL: PropTypes.string.isRequired,
-  imageSrcPath3: PropTypes.elementType,
-  imageSrcPath4: PropTypes.elementType,
-  imageSrcPath5: PropTypes.elementType,
-  imageSrcPath6: PropTypes.elementType,
+  techIcon3: PropTypes.elementType,
+  techIcon4: PropTypes.elementType,
+  techIcon5: PropTypes.elementType,
+  techIcon6: PropTypes.elementType,
   technologies: PropTypes.arrayOf(PropTypes.string),
 };
 
