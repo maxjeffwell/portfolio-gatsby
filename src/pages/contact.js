@@ -105,6 +105,7 @@ function Contact() {
     message: '',
   }));
   const [formStatus, setFormStatus] = React.useState(() => '');
+  const [errorMessage, setErrorMessage] = React.useState(() => '');
   const [isSubmitting, setIsSubmitting] = React.useState(() => false);
 
   const handleChange = (e) => {
@@ -123,26 +124,86 @@ function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormStatus('');
+    setErrorMessage('');
 
+    // Basic form validation with specific error messages
+    if (!formData.name.trim()) {
+      setFormStatus('error');
+      setErrorMessage('Please enter your name.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setFormStatus('error');
+      setErrorMessage('Please enter your email address.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setFormStatus('error');
+      setErrorMessage('Please enter a valid email address.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      setFormStatus('error');
+      setErrorMessage('Please enter your message.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    const form = e.target;
+    
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        'form-name': 'contact',
+        'form-name': form.getAttribute('name'),
         ...formData,
       }),
     })
-      .then(() => {
-        setFormStatus('success');
-        setFormData({ name: '', email: '', message: '' });
+      .then((response) => {
+        if (response.ok) {
+          setFormStatus('success');
+          setFormData({ name: '', email: '', message: '' });
+        } else if (response.status === 404) {
+          throw new Error('Netlify form handler not found. Please check form configuration.');
+        } else if (response.status >= 500) {
+          throw new Error('Server error occurred. Please try again later.');
+        } else if (response.status === 429) {
+          throw new Error('Too many requests. Please wait a moment before trying again.');
+        } else {
+          throw new Error(`Form submission failed with status ${response.status}. Please try again.`);
+        }
       })
       .catch((error) => {
         console.error('Form submission error:', error);
         setFormStatus('error');
+        
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+          setErrorMessage('Network error: Please check your internet connection and try again.');
+        } else if (error.message.includes('Netlify form handler not found')) {
+          setErrorMessage('Form configuration error. Please contact me directly at maxjeffwell@gmail.com.');
+        } else if (error.message.includes('Server error')) {
+          setErrorMessage('Server error occurred. Please try again in a few minutes or contact me directly.');
+        } else if (error.message.includes('Too many requests')) {
+          setErrorMessage('Too many attempts. Please wait a moment before trying again.');
+        } else {
+          setErrorMessage(error.message || 'An unexpected error occurred. Please try again or contact me directly.');
+        }
       })
       .finally(() => {
         setIsSubmitting(false);
-        setTimeout(() => setFormStatus(''), 8000);
+        setTimeout(() => {
+          setFormStatus('');
+          setErrorMessage('');
+        }, 10000);
       });
   };
 
@@ -160,14 +221,14 @@ function Contact() {
           `Jeff Maxwell contact`,
         ]}
       />
-      {/* Hidden form for Netlify to detect */}
-      <NoSsr>
-        <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-          <input type="text" name="name" autoComplete="name" />
-          <input type="email" name="email" autoComplete="email" />
-          <textarea name="message" id="hidden-message-textarea" />
-        </form>
-      </NoSsr>
+      {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
+      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
+        <input type="text" name="bot-field" />
+      </form>
       <StyledContainer>
         <StyledBox component="section" aria-labelledby="contact-header" mb={6}>
           <GradientText variant="h2" component="h1" id="contact-header" align="center" gutterBottom>
@@ -340,31 +401,41 @@ function Contact() {
 
                 {formStatus === 'success' && (
                   <Alert severity="success" sx={{ mb: 3 }}>
-                    Thank you for your message! I&#39;ll get back to you as soon as possible.
+                    ✅ Thank you for your message! I&#39;ll get back to you within 24 hours.
                   </Alert>
                 )}
 
                 {formStatus === 'error' && (
                   <Alert severity="error" sx={{ mb: 3 }}>
-                    Sorry, there was an error sending your message. Please try again or contact me
-                    directly at maxjeffwell@gmail.com.
+                    ❌ {errorMessage || 'Sorry, there was an error sending your message. Please ensure all fields are filled out correctly, or contact me directly at maxjeffwell@gmail.com.'}
+                    {!errorMessage.includes('maxjeffwell@gmail.com') && (
+                      <>
+                        {' '}You can also reach me directly at{' '}
+                        <Link href="mailto:maxjeffwell@gmail.com" color="inherit" underline="always">
+                          maxjeffwell@gmail.com
+                        </Link>
+                      </>
+                    )}
                   </Alert>
                 )}
 
-                <NoSsr>
-                  <StyledBox
-                    component="form"
-                    onSubmit={handleSubmit}
-                    mt={3}
-                    name="contact"
-                    method="POST"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
-                  >
-                    <input type="hidden" name="form-name" value="contact" />
-                    <StyledBox position="absolute" left="-5000px" ariaHidden="true">
-                      <input type="text" name="bot-field" tabIndex="-1" autoComplete="off" />
-                    </StyledBox>
+                <StyledBox
+                  component="form"
+                  onSubmit={handleSubmit}
+                  mt={3}
+                  name="contact"
+                  method="POST"
+                  action="/contact/"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+                  <StyledBox position="absolute" left="-5000px" overflow="hidden">
+                    <label htmlFor="bot-field-input">
+                      Don't fill this out if you're human:
+                      <input type="text" name="bot-field" id="bot-field-input" tabIndex="-1" autoComplete="off" />
+                    </label>
+                  </StyledBox>
 
                     <TextField
                       fullWidth
@@ -445,8 +516,7 @@ function Contact() {
                     >
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
-                  </StyledBox>
-                </NoSsr>
+                </StyledBox>
               </ContactCard>
             </GridItem>
           </GridContainer>
