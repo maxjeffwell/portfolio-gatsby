@@ -172,6 +172,7 @@ function Contact() {
         if (response.ok) {
           setFormStatus('success');
           setFormData({ name: '', email: '', message: '' });
+          // Keep success message visible permanently until user submits again
         } else if (response.status === 404) {
           throw new Error('Netlify form handler not found. Please check form configuration.');
         } else if (response.status >= 500) {
@@ -197,13 +198,15 @@ function Contact() {
         } else {
           setErrorMessage(error.message || 'An unexpected error occurred. Please try again or contact me directly.');
         }
-      })
-      .finally(() => {
-        setIsSubmitting(false);
+        
+        // Clear error message after 10 seconds
         setTimeout(() => {
           setFormStatus('');
           setErrorMessage('');
         }, 10000);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   };
 
@@ -224,10 +227,10 @@ function Contact() {
       {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
       <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="hidden" name="form-name" value="contact" />
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <textarea name="message"></textarea>
-        <input type="text" name="bot-field" />
+        <label htmlFor="netlify-name">Name: <input type="text" name="name" id="netlify-name" /></label>
+        <label htmlFor="netlify-email">Email: <input type="email" name="email" id="netlify-email" /></label>
+        <label htmlFor="netlify-message">Message: <textarea name="message" id="netlify-message"></textarea></label>
+        <label htmlFor="netlify-bot-field">Bot field: <input type="text" name="bot-field" id="netlify-bot-field" /></label>
       </form>
       <StyledContainer>
         <StyledBox component="section" aria-labelledby="contact-header" mb={6}>
@@ -400,8 +403,23 @@ function Contact() {
                 </Typography>
 
                 {formStatus === 'success' && (
-                  <Alert severity="success" sx={{ mb: 3 }}>
-                    ✅ Thank you for your message! I&#39;ll get back to you within 24 hours.
+                  <Alert 
+                    severity="success" 
+                    sx={{ 
+                      mb: 3,
+                      animation: 'fadeIn 0.5s ease-in',
+                      '@keyframes fadeIn': {
+                        from: { opacity: 0, transform: 'translateY(-10px)' },
+                        to: { opacity: 1, transform: 'translateY(0)' }
+                      }
+                    }}
+                  >
+                    <Typography variant="h6" component="div" gutterBottom>
+                      ✅ Message Sent Successfully!
+                    </Typography>
+                    <Typography variant="body2">
+                      Thank you for reaching out! I&#39;ll get back to you within 24 hours.
+                    </Typography>
                   </Alert>
                 )}
 
@@ -503,10 +521,10 @@ function Contact() {
                     <Button
                       type="submit"
                       variant="contained"
-                      color="primary"
+                      color={formStatus === 'success' ? 'success' : 'primary'}
                       size="large"
-                      endIcon={<Send />}
-                      disabled={isSubmitting}
+                      endIcon={formStatus === 'success' ? '✓' : <Send />}
+                      disabled={isSubmitting || formStatus === 'success'}
                       sx={{
                         mt: 3,
                         borderRadius: 20,
@@ -514,7 +532,7 @@ function Contact() {
                         px: 4,
                       }}
                     >
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      {isSubmitting ? 'Sending...' : formStatus === 'success' ? 'Message Sent!' : 'Send Message'}
                     </Button>
                 </StyledBox>
               </ContactCard>

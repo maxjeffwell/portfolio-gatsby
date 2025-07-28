@@ -5,11 +5,7 @@
  */
 
 import React from 'react';
-import { CacheProvider } from '@emotion/react';
-import createEmotionCache from '@emotion/cache';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
-
-const cache = createEmotionCache({ key: 'mui' });
 
 // Error boundary component for SSR
 const SSRErrorBoundary = ({ children }) => {
@@ -19,7 +15,7 @@ const SSRErrorBoundary = ({ children }) => {
 export const wrapRootElement = ({ element }) => {
   return (
     <SSRErrorBoundary>
-      <CacheProvider value={cache}>{wrap({ element })}</CacheProvider>
+      {wrap({ element })}
     </SSRErrorBoundary>
   );
 };

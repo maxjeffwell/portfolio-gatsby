@@ -255,62 +255,50 @@ function ProjectCard({
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
             {imageSrcPath3 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                <img
-                  src={imageSrcPath3}
-                  alt="Primary technology logo used in this project"
-                  width="24"
-                  height="24"
-                  style={{
-                    objectFit: 'contain',
+                {React.createElement(imageSrcPath3, {
+                  width: 24,
+                  height: 24,
+                  style: {
                     filter:
                       'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  }}
-                />
+                  },
+                })}
               </TechIcon>
             )}
             {imageSrcPath4 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                <img
-                  src={imageSrcPath4}
-                  alt="Secondary technology logo used in this project"
-                  width="24"
-                  height="24"
-                  style={{
-                    objectFit: 'contain',
+                {React.createElement(imageSrcPath4, {
+                  width: 24,
+                  height: 24,
+                  style: {
                     filter:
                       'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  }}
-                />
+                  },
+                })}
               </TechIcon>
             )}
             {imageSrcPath5 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                <img
-                  src={imageSrcPath5}
-                  alt="Third technology logo used in this project"
-                  width="24"
-                  height="24"
-                  style={{
-                    objectFit: 'contain',
+                {React.createElement(imageSrcPath5, {
+                  width: 24,
+                  height: 24,
+                  style: {
                     filter:
                       'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  }}
-                />
+                  },
+                })}
               </TechIcon>
             )}
             {imageSrcPath6 && (
               <TechIcon role="img" aria-label="Technology used in project">
-                <img
-                  src={imageSrcPath6}
-                  alt="Additional technology logo used in this project"
-                  width="24"
-                  height="24"
-                  style={{
-                    objectFit: 'contain',
+                {React.createElement(imageSrcPath6, {
+                  width: 24,
+                  height: 24,
+                  style: {
                     filter:
                       'brightness(0) saturate(100%) invert(13%) sepia(86%) saturate(7486%) hue-rotate(0deg) brightness(92%) contrast(119%)',
-                  }}
-                />
+                  },
+                })}
               </TechIcon>
             )}
             <NoSsr>
@@ -380,10 +368,10 @@ ProjectCard.propTypes = {
   description: PropTypes.string.isRequired,
   sourceURL: PropTypes.string.isRequired,
   hostedURL: PropTypes.string.isRequired,
-  imageSrcPath3: PropTypes.string.isRequired,
-  imageSrcPath4: PropTypes.string.isRequired,
-  imageSrcPath5: PropTypes.string.isRequired,
-  imageSrcPath6: PropTypes.string,
+  imageSrcPath3: PropTypes.elementType,
+  imageSrcPath4: PropTypes.elementType,
+  imageSrcPath5: PropTypes.elementType,
+  imageSrcPath6: PropTypes.elementType,
   technologies: PropTypes.arrayOf(PropTypes.string),
 };
 

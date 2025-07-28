@@ -5,8 +5,6 @@
  */
 
 import React from 'react';
-import { CacheProvider } from '@emotion/react';
-import createEmotionCache from '@emotion/cache';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
 // Fix for React 18 ContextRegistry issue
@@ -35,10 +33,8 @@ import { wrapRootElement as wrap } from './src/wrap-root-element';
   }
 })();
 
-const cache = createEmotionCache({ key: 'mui' });
-
 export const wrapRootElement = ({ element }) => {
-  return <CacheProvider value={cache}>{wrap({ element })}</CacheProvider>;
+  return wrap({ element });
 };
 
 // Custom scroll behavior for better UX
