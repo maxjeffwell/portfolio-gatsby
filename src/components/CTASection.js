@@ -1,81 +1,140 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Typography, Button, Paper, Fade } from '@mui/material';
+import { Typography, Button, Paper, Fade } from '@mui/material';
 import { Email, Phone, GitHub } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 
-const CTASection = styled(Paper)(({ theme }) => ({
-  background: `linear-gradient(135deg, ${theme.palette.primary.main}15 0%, ${theme.palette.secondary.main}15 100%)`,
-  borderRadius: theme.shape.borderRadius * 3,
-  padding: theme.spacing(6, 4),
-  textAlign: 'center',
-  position: 'relative',
-  overflow: 'hidden',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: '-50%',
-    left: '-50%',
-    width: '200%',
-    height: '200%',
-    background: `radial-gradient(circle at center, ${theme.palette.primary.main}10 0%, transparent 70%)`,
-    zIndex: 0,
-    willChange: 'auto',
-  },
-  '& > *': {
-    position: 'relative',
-    zIndex: 1,
-  },
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(4, 3),
-  },
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(3, 2),
-  },
-  '@media (max-width: 360px)': {
-    padding: theme.spacing(2.5, 1.5),
-    borderRadius: theme.shape.borderRadius * 2,
-  },
-}));
+const CTASection = styled(Paper)`
+  background: linear-gradient(135deg, rgba(252, 74, 26, 0.15) 0%, rgba(247, 183, 51, 0.15) 100%);
+  border-radius: 24px;
+  padding: 48px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(252, 74, 26, 0.1) 0%, transparent 70%);
+    z-index: 0;
+    will-change: auto;
+  }
+  
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  @media (max-width: 960px) {
+    padding: 32px 24px;
+  }
+  
+  @media (max-width: 600px) {
+    padding: 24px 16px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 20px 12px;
+    border-radius: 16px;
+  }
+`;
 
-const GradientText = styled(Typography)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  display: 'inline-block',
-}));
+const GradientText = styled(Typography)`
+  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+`;
 
-const ContactButton = styled(Button)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: theme.spacing(1),
-  padding: theme.spacing(2),
-  borderRadius: theme.shape.borderRadius * 2,
-  textTransform: 'none',
-  backgroundColor: theme.palette.action.hover,
-  color: theme.palette.text.primary,
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-3px)',
-    backgroundColor: theme.palette.action.selected,
-  },
-}));
+const ContactButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 16px;
+  text-transform: none;
+  background-color: rgba(0, 0, 0, 0.04);
+  color: #1976d2;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+`;
 
-const StatBox = styled(Box)(({ theme }) => ({
-  textAlign: 'center',
-  '& .stat-number': {
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    color: theme.palette.primary.main,
-    marginBottom: theme.spacing(0.5),
-  },
-  '& .stat-label': {
-    fontSize: '1rem',
-    color: theme.palette.text.secondary,
-  },
-}));
+const StatBox = styled.div`
+  text-align: center;
+  
+  & .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fc4a1a;
+    margin-bottom: 4px;
+  }
+  
+  & .stat-label {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    & .stat-label {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+`;
+
+const StyledContainer = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
+const StatsContainer = styled.div`
+  display: flex;
+  gap: 32px;
+  margin-bottom: 32px;
+  justify-content: center;
+  
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+
+const StatsItem = styled.div`
+  flex: 1;
+  text-align: center;
+`;
+
+const ContactContainer = styled.div`
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  justify-content: center;
+  
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+
+const ContactItem = styled.div`
+  flex: 1;
+`;
 
 
 function CTASectionComponent({ visible }) {
@@ -110,7 +169,7 @@ function CTASectionComponent({ visible }) {
 
   return (
     <CTASection elevation={3}>
-      <Box sx={{ maxWidth: 600, mx: 'auto' }}>
+      <StyledContainer>
         <GradientText variant="h3" component="h2" id="cta-heading" gutterBottom>
           Ready to Build Something Amazing?
         </GradientText>
@@ -118,7 +177,7 @@ function CTASectionComponent({ visible }) {
         <Typography
           variant="body1"
           paragraph
-          sx={{ mb: 4, opacity: 0.9, fontSize: '1.125rem' }}
+          style={{ marginBottom: 32, opacity: 0.9, fontSize: '1.125rem' }}
           color="text.secondary"
         >
           Whether you have a project in mind, need technical expertise, or just want to say hello,
@@ -126,42 +185,26 @@ function CTASectionComponent({ visible }) {
           experiences that make a difference.
         </Typography>
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            gap: 4,
-            mb: 4,
-            justifyContent: 'center',
-          }}
-        >
+        <StatsContainer>
           {stats.map((stat, index) => (
-            <Box key={stat.label} sx={{ flex: 1, textAlign: 'center' }}>
+            <StatsItem key={stat.label}>
               <Fade in={visible} timeout={400} style={{ transitionDelay: `${index * 50}ms` }}>
                 <StatBox>
                   <Typography className="stat-number">{stat.number}</Typography>
                   <Typography className="stat-label">{stat.label}</Typography>
                 </StatBox>
               </Fade>
-            </Box>
+            </StatsItem>
           ))}
-        </Box>
+        </StatsContainer>
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            gap: 2,
-            mb: 4,
-            justifyContent: 'center',
-          }}
-        >
+        <ContactContainer>
           {contactMethods.map((method, index) => {
             const IconComponent = method.icon;
             const isExternal = method.href.startsWith('http');
 
             return (
-              <Box key={method.text} sx={{ flex: 1 }}>
+              <ContactItem key={method.text}>
                 <Fade
                   in={visible}
                   timeout={400}
@@ -177,15 +220,15 @@ function CTASectionComponent({ visible }) {
                     onMouseLeave={() => setHoveredCard(null)}
                     fullWidth
                   >
-                    <IconComponent sx={{ fontSize: 24 }} />
+                    <IconComponent style={{ fontSize: 24 }} />
                     <Typography>{method.text}</Typography>
                   </ContactButton>
                 </Fade>
-              </Box>
+              </ContactItem>
             );
           })}
-        </Box>
-      </Box>
+        </ContactContainer>
+      </StyledContainer>
     </CTASection>
   );
 }

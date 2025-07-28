@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import {
-  Box,
-  Container,
   Typography,
   Link,
   IconButton,
   useTheme as useMuiTheme,
   GlobalStyles,
+  NoSsr,
 } from '@mui/material';
 import { GitHub, Phone, Language } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 
 import Header from './header';
 import ThirdPartyScripts from './ThirdPartyScripts';
@@ -28,33 +27,67 @@ const GET_SITE_METADATA = graphql`
   }
 `;
 
-const StyledFooter = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(8),
-  paddingTop: theme.spacing(4),
-  paddingBottom: theme.spacing(4),
-  borderTop: `3px solid ${theme.palette.secondary.main}`,
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? theme.palette.grey?.[900] || '#212121'
-      : theme.palette.grey?.[100] || '#f5f5f5',
-}));
+const StyledContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  
+  @media (max-width: 600px) {
+    padding: 0 16px;
+  }
+  
+  @media (max-width: 360px) {
+    margin-top: 48px !important;
+    margin-bottom: 24px !important;
+    padding: 0 12px;
+  }
+`;
 
-const SocialLink = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  transition: 'transform 0.2s ease-in-out, color 0.2s ease-in-out',
-  willChange: 'transform, color',
-  '&:hover': {
-    transform: 'scale(1.1)',
-    color: theme.palette.primary.main,
-  },
-}));
+const StyledBox = styled.div`
+  display: ${props => props.display || 'block'};
+  flex-direction: ${props => props.flexDirection || 'row'};
+  gap: ${props => props.gap ? `${props.gap * 8}px` : '0'};
+  justify-content: ${props => props.justifyContent || 'flex-start'};
+  margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
+  margin-top: ${props => props.mt ? `${props.mt * 8}px` : '0'};
+  padding: ${props => props.p ? `${props.p * 8}px` : '0'};
+  padding-left: ${props => props.pl ? `${props.pl * 8}px` : 'inherit'};
+  padding-right: ${props => props.pr ? `${props.pr * 8}px` : 'inherit'};
+  padding-top: ${props => props.pt ? `${props.pt * 8}px` : 'inherit'};
+  padding-bottom: ${props => props.pb ? `${props.pb * 8}px` : 'inherit'};
+`;
+
+const StyledFooter = styled.footer`
+  margin-top: 64px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  border-top: 3px solid #f7b733;
+  background-color: #f5f5f5;
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #212121;
+  }
+`;
+
+const SocialLink = styled(IconButton)`
+  color: inherit;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  will-change: transform, color;
+  
+  &:hover {
+    transform: scale(1.1);
+    color: #fc4a1a;
+  }
+`;
 
 // Themed Layout Component
 function ThemedLayout({ children, data }) {
   const muiTheme = useMuiTheme();
   return (
     <>
-      <ThirdPartyScripts />
+      <NoSsr>
+        <ThirdPartyScripts />
+      </NoSsr>
       <GlobalStyles
         styles={{
           '*': {
@@ -72,24 +105,18 @@ function ThemedLayout({ children, data }) {
         }}
       />
       <Header />
-      <Container
-        maxWidth="lg"
+      <StyledContainer
         component="main"
         role="main"
-        sx={{
-          mt: 8,
-          mb: 4,
-          '@media (max-width: 360px)': {
-            mt: 6,
-            mb: 3,
-            px: 1.5,
-          },
+        style={{
+          marginTop: '64px',
+          marginBottom: '32px',
         }}
       >
         {children}
-      </Container>
+      </StyledContainer>
       <StyledFooter component="footer" role="contentinfo">
-        <Container maxWidth="lg">
+        <StyledContainer>
           <Typography variant="h4" component="h2" gutterBottom>
             Jeff Maxwell
           </Typography>
@@ -113,15 +140,13 @@ function ThemedLayout({ children, data }) {
           >
             maxjeffwell@gmail.com
           </Link>
-          <Box
+          <StyledBox
             component="nav"
             aria-label="Social media links"
-            sx={{
-              display: 'flex',
-              gap: 2,
-              justifyContent: 'center',
-              mb: 3,
-            }}
+            display="flex"
+            gap={2}
+            justifyContent="center"
+            mb={3}
           >
             <SocialLink
               target="_blank"
@@ -148,7 +173,7 @@ function ThemedLayout({ children, data }) {
             >
               <Phone fontSize="large" />
             </SocialLink>
-          </Box>
+          </StyledBox>
           <Typography variant="body1" align="center" sx={{ mt: 2 }}>
             Built by {data.site.siteMetadata.author}, created with{' '}
             <Link
@@ -168,7 +193,7 @@ function ThemedLayout({ children, data }) {
               Gatsby
             </Link>
           </Typography>
-        </Container>
+        </StyledContainer>
       </StyledFooter>
     </>
   );
@@ -181,12 +206,8 @@ ThemedLayout.propTypes = {
 
 // Main Layout Component
 function Layout({ children }) {
-  return (
-    <StaticQuery
-      query={GET_SITE_METADATA}
-      render={(data) => <ThemedLayout data={data}>{children}</ThemedLayout>}
-    />
-  );
+  const data = useStaticQuery(GET_SITE_METADATA);
+  return <ThemedLayout data={data}>{children}</ThemedLayout>;
 }
 
 Layout.propTypes = {

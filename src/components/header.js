@@ -9,12 +9,10 @@ import {
   Drawer,
   useTheme,
   useMediaQuery,
-  Box,
-  Container,
   NoSsr,
 } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 
 import MyLogo from './myLogo';
 import DarkModeToggle from './DarkModeToggle';
@@ -24,52 +22,72 @@ const getAppBarBackground = (theme, scrolled) => {
   return theme.palette.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)';
 };
 
-const StyledAppBar = styled(AppBar)(({ theme, scrolled }) => ({
-  background: getAppBarBackground(theme, scrolled),
-  backdropFilter: scrolled ? 'blur(20px)' : 'none',
-  boxShadow: scrolled ? theme.shadows[4] : 'none',
-  transition: theme.transitions.create(['background', 'backdrop-filter', 'box-shadow'], {
-    duration: theme.transitions.duration.standard,
-  }),
-}));
+const StyledContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  
+  @media (max-width: 600px) {
+    padding: 0 16px;
+  }
+`;
 
-const NavButton = styled(Button)(({ theme }) => ({
-  borderRadius: 20,
-  padding: '8px 24px',
-  marginLeft: theme.spacing(1),
-  marginRight: theme.spacing(1),
-  textTransform: 'none',
-  fontSize: '1rem',
-  fontWeight: 500,
-  transition: theme.transitions.create(['background-color', 'transform', 'box-shadow'], {
-    duration: theme.transitions.duration.short,
-  }),
-  '&:hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[2],
-  },
-  '&.active': {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    boxShadow: theme.shadows[4],
-  },
-}));
+const StyledBox = styled.div`
+  display: ${props => props.display || 'block'};
+  justify-content: ${props => props.justifyContent || 'flex-start'};
+  flex-direction: ${props => props.flexDirection || 'row'};
+  align-items: ${props => props.alignItems || 'stretch'};
+  gap: ${props => props.gap ? `${props.gap * 8}px` : '0'};
+  padding: ${props => props.p ? `${props.p * 8}px` : '0'};
+  text-align: ${props => props.textAlign || 'inherit'};
+`;
 
-const StyledDrawer = styled(Drawer)(({ theme }) => ({
-  '& .MuiDrawer-paper': {
-    width: '80%',
-    maxWidth: 300,
-    backgroundColor: theme.palette.background.paper,
-    backgroundImage:
-      theme.palette.mode === 'dark'
-        ? 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))'
-        : 'none',
-    '@media (max-width: 360px)': {
-      width: '85%',
-      maxWidth: 280,
-    },
-  },
-}));
+const StyledAppBar = styled(AppBar)`
+  background: ${props => getAppBarBackground(props.theme, props.scrolled)};
+  backdrop-filter: ${props => props.scrolled ? 'blur(20px)' : 'none'};
+  box-shadow: ${props => props.scrolled ? '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)' : 'none'};
+  transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+`;
+
+const NavButton = styled(Button)`
+  border-radius: 20px;
+  padding: 8px 24px;
+  margin-left: 8px;
+  margin-right: 8px;
+  text-transform: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), transform 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+  }
+  
+  &.active {
+    background-color: #fc4a1a;
+    color: white;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+  }
+`;
+
+const StyledDrawer = styled(Drawer)`
+  & .MuiDrawer-paper {
+    width: 80%;
+    max-width: 300px;
+    background-color: white;
+    
+    @media (prefers-color-scheme: dark) {
+      background-color: #1e1e1e;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+    }
+    
+    @media (max-width: 360px) {
+      width: 85%;
+      max-width: 280px;
+    }
+  }
+`;
 
 function Header() {
   const theme = useTheme();
@@ -108,17 +126,19 @@ function Header() {
   ];
 
   const drawer = (
-    <Box sx={{ textAlign: 'center' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+    <StyledBox textAlign="center">
+      <StyledBox display="flex" justifyContent="flex-end" p={2}>
         <IconButton onClick={handleDrawerToggle} aria-label="close drawer">
           <CloseIcon />
         </IconButton>
-      </Box>
-      <Box
+      </StyledBox>
+      <StyledBox
         component="nav"
         role="navigation"
         aria-label="Mobile navigation"
-        sx={{ display: 'flex', flexDirection: 'column', p: 2 }}
+        display="flex"
+        flexDirection="column"
+        p={2}
       >
         {menuItems.map((item) => (
           <Button
@@ -139,8 +159,8 @@ function Header() {
             {item.text}
           </Button>
         ))}
-      </Box>
-    </Box>
+      </StyledBox>
+    </StyledBox>
   );
 
   return (
@@ -152,7 +172,7 @@ function Header() {
         component="header"
         role="banner"
       >
-        <Container maxWidth="lg">
+        <StyledContainer>
           <Toolbar sx={{ 
             justifyContent: 'space-between', 
             padding: { xs: 1, sm: 2 },
@@ -182,11 +202,12 @@ function Header() {
             )}
 
             {!isMobile && (
-              <Box
+              <StyledBox
                 component="nav"
                 role="navigation"
                 aria-label="Main navigation"
-                sx={{ display: 'flex', alignItems: 'center' }}
+                display="flex"
+                alignItems="center"
               >
                 {menuItems.map((item) => (
                   <NavButton
@@ -199,15 +220,15 @@ function Header() {
                     {item.text}
                   </NavButton>
                 ))}
-              </Box>
+              </StyledBox>
             )}
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <StyledBox display="flex" alignItems="center" gap={2}>
               {!isMobile && <MyLogo />}
               <DarkModeToggle />
-            </Box>
+            </StyledBox>
           </Toolbar>
-        </Container>
+        </StyledContainer>
       </StyledAppBar>
 
       <NoSsr>

@@ -11,12 +11,45 @@ import { wrapRootElement as wrap } from './src/wrap-root-element';
 
 const cache = createEmotionCache({ key: 'mui' });
 
-export const wrapRootElement = ({ element }) => {
-  return <CacheProvider value={cache}>{wrap({ element })}</CacheProvider>;
+// Error boundary component for SSR
+const SSRErrorBoundary = ({ children }) => {
+  return children;
 };
 
-// Inject theme detection script to prevent flash of unstyled content
+export const wrapRootElement = ({ element }) => {
+  return (
+    <SSRErrorBoundary>
+      <CacheProvider value={cache}>{wrap({ element })}</CacheProvider>
+    </SSRErrorBoundary>
+  );
+};
+
+// Inject theme detection script and handle SSR issues
 export const onRenderBody = ({ setPreBodyComponents }) => {
+  // Mock window and document APIs for SSR to prevent MUI Grid issues
+  if (typeof window === 'undefined') {
+    global.window = {
+      matchMedia: () => ({
+        matches: false,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+      }),
+      navigator: { userAgent: 'SSR' },
+      document: {
+        createElement: () => ({}),
+        addEventListener: () => {},
+        removeEventListener: () => {},
+      },
+    };
+    
+    global.document = {
+      createElement: () => ({}),
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      body: {},
+      documentElement: { style: {} },
+    };
+  }
   const themeScript = `
     (function() {
       try {

@@ -1,83 +1,168 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import {
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  Button,
-  Box,
-  Chip,
-  Stack,
-} from '@mui/material';
+import { Card, CardContent, CardActions, Typography, Button, Stack, NoSsr } from '@mui/material';
 import { GitHub, Launch } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
 
-const StyledCard = styled(Card)(({ theme }) => ({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  borderRadius: theme.shape.borderRadius * 2,
-  overflow: 'hidden',
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 16px 0;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: 16px;
+    padding: 16px 16px 0;
+  }
+
+  @media (max-width: 360px) {
+    padding: 8px 8px 0;
+    gap: 8px;
+  }
+`;
+
+const ImageBox = styled.div`
+  flex: 1;
+`;
+
+const PlaceholderBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+`;
+
+const TechContainer = styled.div`
+  margin-top: auto;
+`;
+
+const CustomChip = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  background-color: transparent;
+  border: 1px solid #9c27b0;
+  color: #9c27b0;
+  white-space: nowrap;
+
+  @media (prefers-color-scheme: dark) {
+    border-color: #ce93d8;
+    color: #ce93d8;
+  }
+`;
+
+const StyledCard = styled(Card)`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
   transition:
-    'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  willChange: 'transform, box-shadow',
-  background:
-    theme.palette.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-      : theme.palette.background.paper,
-  '&:hover': {
-    transform: 'translateY(-8px)',
-    boxShadow: theme.shadows[12],
-  },
-}));
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+  background: white;
 
-const ColoredBar = styled(Box)(({ theme }) => ({
-  height: 4,
-  background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-}));
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
+  }
 
-const ImageContainer = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  overflow: 'hidden',
-  aspectRatio: '16 / 9',
-  backgroundColor: theme.palette.action.hover,
-  borderRadius: '8px',
-  '& [data-gatsby-image-wrapper]': {
-    transition: 'transform 0.3s ease-in-out',
-    willChange: 'transform',
-    borderRadius: '8px',
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
-  },
-  [theme.breakpoints.down('sm')]: {
-    aspectRatio: '4 / 3',
-  },
-  '@media (max-width: 360px)': {
-    aspectRatio: '3 / 2',
-    borderRadius: '6px',
-  },
-}));
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+`;
 
-const TechIcon = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 40,
-  height: 40,
-  borderRadius: '50%',
-  backgroundColor: theme.palette.action.hover,
-  transition: 'transform 0.3s ease, background-color 0.3s ease',
-  willChange: 'transform, background-color',
-  '&:hover': {
-    transform: 'scale(1.1)',
-    backgroundColor: theme.palette.action.selected,
-  },
-}));
+const ColoredBar = styled.div`
+  height: 4px;
+  background: linear-gradient(90deg, #fc4a1a, #f7b733);
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+
+  & [data-gatsby-image-wrapper] {
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+    border-radius: 8px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 600px) {
+    aspect-ratio: 4 / 3;
+  }
+
+  @media (max-width: 360px) {
+    aspect-ratio: 3 / 2;
+    border-radius: 6px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+`;
+
+const TechIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+  will-change: transform, background-color;
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+`;
 
 function ProjectCard({
   imageSrcPath,
@@ -96,20 +181,8 @@ function ProjectCard({
   return (
     <StyledCard elevation={3}>
       <ColoredBar />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          gap: { xs: 1.5, md: 2 },
-          p: { xs: 1.5, md: 2 },
-          pb: 0,
-          '@media (max-width: 360px)': {
-            p: 1,
-            gap: 1,
-          },
-        }}
-      >
-        <Box sx={{ flex: 1 }}>
+      <FlexContainer>
+        <ImageBox>
           <ImageContainer>
             {getImage(imageSrcPath) ? (
               <GatsbyImage
@@ -127,25 +200,15 @@ function ProjectCard({
                 }}
               />
             ) : (
-              <Box
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'action.hover',
-                  borderRadius: '8px',
-                }}
-              >
+              <PlaceholderBox>
                 <Typography variant="body2" color="text.secondary">
                   Image loading...
                 </Typography>
-              </Box>
+              </PlaceholderBox>
             )}
           </ImageContainer>
-        </Box>
-        <Box sx={{ flex: 1 }}>
+        </ImageBox>
+        <ImageBox>
           <ImageContainer>
             {getImage(imageSrcPath2) ? (
               <GatsbyImage
@@ -163,41 +226,29 @@ function ProjectCard({
                 }}
               />
             ) : (
-              <Box
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'action.hover',
-                  borderRadius: '8px',
-                }}
-              >
+              <PlaceholderBox>
                 <Typography variant="body2" color="text.secondary">
                   Image loading...
                 </Typography>
-              </Box>
+              </PlaceholderBox>
             )}
           </ImageContainer>
-        </Box>
-      </Box>
+        </ImageBox>
+      </FlexContainer>
 
-      <CardContent sx={{ flexGrow: 1, pt: 2 }}>
-        <Box
-          sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', mb: 2 }}
-        >
+      <CardContent style={{ flexGrow: 1, paddingTop: '16px' }}>
+        <HeaderContainer>
           <Typography variant="h5" component="h3" color="primary" fontWeight="bold">
             {title}
           </Typography>
-          <Chip label={date} size="small" color="secondary" variant="outlined" />
-        </Box>
+          <CustomChip>{date}</CustomChip>
+        </HeaderContainer>
 
         <Typography variant="body1" color="text.secondary" paragraph>
           {description}
         </Typography>
 
-        <Box sx={{ mt: 'auto' }}>
+        <TechContainer>
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Technologies Used:
           </Typography>
@@ -262,22 +313,28 @@ function ProjectCard({
                 />
               </TechIcon>
             )}
-            <TechIcon role="img" aria-label="React technology">
-              <FaReact size={24} color="red" />
-            </TechIcon>
-            <TechIcon role="img" aria-label="Git version control">
-              <FaGit size={24} color="red" />
-            </TechIcon>
-            {technologies.includes('Heroku') && (
-              <TechIcon role="img" aria-label="Heroku deployment platform">
-                <DiHeroku size={24} color="red" />
+            <NoSsr>
+              <TechIcon role="img" aria-label="React technology">
+                <FaReact size={24} color="red" />
               </TechIcon>
+            </NoSsr>
+            <NoSsr>
+              <TechIcon role="img" aria-label="Git version control">
+                <FaGit size={24} color="red" />
+              </TechIcon>
+            </NoSsr>
+            {technologies.includes('Heroku') && (
+              <NoSsr>
+                <TechIcon role="img" aria-label="Heroku deployment platform">
+                  <DiHeroku size={24} color="red" />
+                </TechIcon>
+              </NoSsr>
             )}
           </Stack>
-        </Box>
+        </TechContainer>
       </CardContent>
 
-      <CardActions sx={{ justifyContent: 'space-between', p: 2, pt: 0 }}>
+      <CardActions style={{ justifyContent: 'space-between', padding: '16px', paddingTop: '0' }}>
         <Button
           variant="contained"
           color="primary"
@@ -285,10 +342,11 @@ function ProjectCard({
           href={sourceURL}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{
+          style={{
             borderRadius: 20,
             textTransform: 'none',
-            px: 3,
+            paddingLeft: 24,
+            paddingRight: 24,
           }}
         >
           Source Code
@@ -300,10 +358,11 @@ function ProjectCard({
           href={hostedURL}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{
+          style={{
             borderRadius: 20,
             textTransform: 'none',
-            px: 3,
+            paddingLeft: 24,
+            paddingRight: 24,
           }}
         >
           Live Demo

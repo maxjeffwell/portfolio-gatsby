@@ -1,41 +1,42 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 
-const TypingContainer = styled('span')(() => ({
-  display: 'inline-block',
-  position: 'relative',
-}));
+const TypingContainer = styled.span`
+  display: inline-block;
+  position: relative;
+`;
 
-const TypingText = styled('span')(() => ({
-  fontFamily: 'inherit',
-  color: 'inherit',
-  fontWeight: 'bold',
-  fontSize: 'inherit',
-  minHeight: '1.2em',
-  display: 'inline-block',
-  width: '100%',
-  textAlign: 'left',
-  contain: 'layout',
-}));
+const TypingText = styled.span`
+  font-family: inherit;
+  color: inherit;
+  font-weight: bold;
+  font-size: inherit;
+  min-height: 1.2em;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  contain: layout;
+`;
 
-const Cursor = styled('span')(({ theme, blink }) => ({
-  display: 'inline-block',
-  backgroundColor: theme.palette.secondary.main,
-  width: 2,
-  height: '1em',
-  marginLeft: 2,
-  animation: blink ? 'blink 1s infinite' : 'none',
-  verticalAlign: 'text-top',
-  '@keyframes blink': {
-    '0%, 50%': {
-      opacity: 1,
-    },
-    '51%, 100%': {
-      opacity: 0,
-    },
-  },
-}));
+const Cursor = styled.span`
+  display: inline-block;
+  background-color: #f7b733;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  animation: ${props => props.blink ? 'blink 1s infinite' : 'none'};
+  vertical-align: text-top;
+  
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+`;
 
 const TypingAnimation = React.memo(
   ({

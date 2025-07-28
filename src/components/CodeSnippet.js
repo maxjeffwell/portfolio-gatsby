@@ -1,25 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Paper, Box, Typography, IconButton, useTheme, Tooltip } from '@mui/material';
+import { Paper, Typography, IconButton, useTheme, Tooltip, NoSsr } from '@mui/material';
 import { ContentCopy, Check } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 
-const StyledPre = styled('pre')(({ theme }) => ({
-  margin: 0,
-  padding: theme.spacing(2),
-  fontFamily: 'Courier New, monospace',
-  fontSize: '0.875rem',
-  lineHeight: 1.5,
-  overflowX: 'auto',
-  whiteSpace: 'pre-wrap',
-  wordWrap: 'break-word',
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? theme.palette.grey?.[900] || '#212121'
-      : theme.palette.grey?.[50] || '#fafafa',
-  color: theme.palette.text.primary,
-  border: 'none',
-}));
+const StyledPre = styled.pre`
+  margin: 0;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: #fafafa;
+  color: #1976d2;
+  border: none;
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #212121;
+    color: white;
+  }
+`;
+
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #424242;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+`;
+
+const StyledPaper = styled(Paper)`
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 16px 0;
+`;
 
 function CodeSnippet({
   code,
@@ -69,38 +91,18 @@ function CodeSnippet({
 
   if (!code) {
     return (
-      <Paper sx={{ p: 2, bgcolor: 'error.main', color: 'error.contrastText' }}>
+      <Paper style={{ padding: 16, backgroundColor: '#d32f2f', color: 'white' }}>
         <Typography>ERROR: No code provided to CodeSnippet</Typography>
       </Paper>
     );
   }
 
   return (
-    <Paper
-      elevation={2}
-      sx={{
-        borderRadius: 2,
-        overflow: 'hidden',
-        my: 2,
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          px: 2,
-          py: 1,
-          bgcolor:
-            theme.palette.mode === 'dark'
-              ? theme.palette.grey?.[800] || '#424242'
-              : theme.palette.grey?.[100] || '#f5f5f5',
-          borderBottom: `1px solid ${theme.palette.divider}`,
-        }}
-      >
+    <StyledPaper elevation={2}>
+      <StyledHeader>
         <Typography
           variant="caption"
-          sx={{
+          style={{
             fontFamily: 'Courier New, monospace',
             fontWeight: 'bold',
           }}
@@ -108,27 +110,31 @@ function CodeSnippet({
           {title}
         </Typography>
         {showCopyButton && (
-          <Tooltip title={copied ? 'Copied!' : 'Copy code'}>
-            <IconButton
-              size="small"
-              onClick={handleCopy}
-              sx={{
-                color: theme.palette.secondary.main,
-                border: `1px solid ${theme.palette.secondary.main}`,
-                borderRadius: 1,
-                '&:hover': {
-                  bgcolor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                },
-              }}
-            >
-              {copied ? <Check fontSize="small" /> : <ContentCopy fontSize="small" />}
-            </IconButton>
-          </Tooltip>
+          <NoSsr>
+            <Tooltip title={copied ? 'Copied!' : 'Copy code'}>
+              <IconButton
+                size="small"
+                onClick={handleCopy}
+                style={{
+                  color: theme.palette.secondary.main,
+                  border: `1px solid ${theme.palette.secondary.main}`,
+                  borderRadius: 8,
+                }}
+                css={`
+                  &:hover {
+                    background-color: ${theme.palette.secondary.main};
+                    color: ${theme.palette.secondary.contrastText};
+                  }
+                `}
+              >
+                {copied ? <Check fontSize="small" /> : <ContentCopy fontSize="small" />}
+              </IconButton>
+            </Tooltip>
+          </NoSsr>
         )}
-      </Box>
+      </StyledHeader>
       <StyledPre>{displayedCode}</StyledPre>
-    </Paper>
+    </StyledPaper>
   );
 }
 

@@ -1,63 +1,101 @@
 import React from 'react';
-import {
-  Container,
-  Typography,
-  Paper,
-  Box,
-  TextField,
-  Button,
-  Link,
-  useTheme,
-  Alert,
-  NoSsr,
-  Grid,
-} from '@mui/material';
+import { Typography, Paper, TextField, Button, Link, useTheme, Alert, NoSsr } from '@mui/material';
 import { Email, Phone, GitHub, Send } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
-const GradientText = styled(Typography)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  display: 'inline-block',
-}));
+const StyledContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 
-const ContactCard = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  borderRadius: theme.shape.borderRadius * 2,
-  background:
-    theme.palette.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-      : theme.palette.background.paper,
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-4px)',
-    boxShadow: theme.shadows[8],
-  },
-}));
+  @media (max-width: 600px) {
+    padding: 0 16px;
+  }
+`;
 
-const ContactMethod = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-  padding: theme.spacing(2),
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.mode === 'dark' 
-    ? 'rgba(255, 255, 255, 0.08)' 
-    : 'rgba(0, 0, 0, 0.04)',
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    backgroundColor: theme.palette.mode === 'dark' 
-      ? 'rgba(255, 255, 255, 0.12)' 
-      : 'rgba(0, 0, 0, 0.08)',
-    transform: 'translateX(8px)',
-  },
-}));
+const StyledBox = styled.div`
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
+  text-align: ${(props) => props.textAlign || 'inherit'};
+  display: ${(props) => props.display || 'block'};
+  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
+  padding-top: ${(props) => (props.pt ? `${props.pt * 8}px` : 'inherit')};
+  position: ${(props) => props.position || 'static'};
+  left: ${(props) => props.left || 'auto'};
+  width: ${(props) => props.width || 'auto'};
+  height: ${(props) => props.height || 'auto'};
+  overflow: ${(props) => props.overflow || 'visible'};
+  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '0')};
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: ${(props) => (props.spacing ? `${props.spacing * 8}px` : '16px')};
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const GridItem = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const GradientText = styled(Typography)`
+  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+`;
+
+const ContactCard = styled(Paper)`
+  padding: 32px;
+  border-radius: 16px;
+  background: ${(props) => props.theme?.palette?.background?.paper || '#ffffff'};
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
+  }
+`;
+
+const ContactMethod = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    transform: translateX(8px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+`;
 
 function Contact() {
   const theme = useTheme();
@@ -130,17 +168,17 @@ function Contact() {
           <textarea name="message" id="hidden-message-textarea" />
         </form>
       </NoSsr>
-      <Container maxWidth="lg">
-        <Box component="section" aria-labelledby="contact-header" sx={{ mb: 6 }}>
+      <StyledContainer>
+        <StyledBox component="section" aria-labelledby="contact-header" mb={6}>
           <GradientText variant="h2" component="h1" id="contact-header" align="center" gutterBottom>
             Let&#39;s Connect
           </GradientText>
           <Typography variant="h5" align="center" color="text.secondary" paragraph>
             I&#39;m always interested in new opportunities and collaborations
           </Typography>
-        </Box>
+        </StyledBox>
 
-        <Box component="section" aria-labelledby="contact-methods">
+        <StyledBox component="section" aria-labelledby="contact-methods">
           <Typography
             variant="h2"
             id="contact-methods"
@@ -154,8 +192,8 @@ function Contact() {
           >
             Contact Information and Methods
           </Typography>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+          <GridContainer spacing={4}>
+            <GridItem>
               <ContactCard elevation={3}>
                 <Typography variant="h3" component="h3" id="get-in-touch" gutterBottom>
                   Get in Touch
@@ -166,17 +204,18 @@ function Contact() {
                   these channels:
                 </Typography>
 
-                <Box sx={{ mt: 4 }}>
+                <StyledBox mt={4}>
                   <ContactMethod>
                     <Email color="primary" />
-                    <Box>
-                      <Typography 
-                        variant="subtitle2" 
-                        sx={{ 
-                          color: theme.palette.mode === 'dark' 
-                            ? 'rgba(255, 255, 255, 0.7)' 
-                            : 'rgba(0, 0, 0, 0.6)',
-                          fontWeight: 500
+                    <StyledBox>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          color:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.7)'
+                              : 'rgba(0, 0, 0, 0.6)',
+                          fontWeight: 500,
                         }}
                       >
                         Email
@@ -196,19 +235,20 @@ function Contact() {
                       >
                         maxjeffwell@gmail.com
                       </Link>
-                    </Box>
+                    </StyledBox>
                   </ContactMethod>
 
                   <ContactMethod>
                     <Phone color="primary" />
-                    <Box>
-                      <Typography 
-                        variant="subtitle2" 
-                        sx={{ 
-                          color: theme.palette.mode === 'dark' 
-                            ? 'rgba(255, 255, 255, 0.7)' 
-                            : 'rgba(0, 0, 0, 0.6)',
-                          fontWeight: 500
+                    <StyledBox>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          color:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.7)'
+                              : 'rgba(0, 0, 0, 0.6)',
+                          fontWeight: 500,
                         }}
                       >
                         Phone
@@ -228,7 +268,7 @@ function Contact() {
                       >
                         (508) 395-2008
                       </Link>
-                    </Box>
+                    </StyledBox>
                   </ContactMethod>
 
                   {/* <ContactMethod> */}
@@ -252,14 +292,15 @@ function Contact() {
 
                   <ContactMethod>
                     <GitHub color="primary" />
-                    <Box>
-                      <Typography 
-                        variant="subtitle2" 
-                        sx={{ 
-                          color: theme.palette.mode === 'dark' 
-                            ? 'rgba(255, 255, 255, 0.7)' 
-                            : 'rgba(0, 0, 0, 0.6)',
-                          fontWeight: 500
+                    <StyledBox>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          color:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.7)'
+                              : 'rgba(0, 0, 0, 0.6)',
+                          fontWeight: 500,
                         }}
                       >
                         GitHub
@@ -281,13 +322,13 @@ function Contact() {
                       >
                         View my projects
                       </Link>
-                    </Box>
+                    </StyledBox>
                   </ContactMethod>
-                </Box>
+                </StyledBox>
               </ContactCard>
-            </Grid>
+            </GridItem>
 
-            <Grid item xs={12} md={6}>
+            <GridItem>
               <ContactCard elevation={3}>
                 <Typography variant="h3" component="h3" id="send-message" gutterBottom>
                   Send a Message
@@ -311,19 +352,19 @@ function Contact() {
                 )}
 
                 <NoSsr>
-                  <Box
+                  <StyledBox
                     component="form"
                     onSubmit={handleSubmit}
-                    sx={{ mt: 3 }}
+                    mt={3}
                     name="contact"
                     method="POST"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                   >
                     <input type="hidden" name="form-name" value="contact" />
-                    <Box sx={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                    <StyledBox position="absolute" left="-5000px" ariaHidden="true">
                       <input type="text" name="bot-field" tabIndex="-1" autoComplete="off" />
-                    </Box>
+                    </StyledBox>
 
                     <TextField
                       fullWidth
@@ -404,14 +445,14 @@ function Contact() {
                     >
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
-                  </Box>
+                  </StyledBox>
                 </NoSsr>
               </ContactCard>
-            </Grid>
-          </Grid>
-        </Box>
+            </GridItem>
+          </GridContainer>
+        </StyledBox>
 
-        <Box component="section" aria-labelledby="availability" sx={{ mt: 6, textAlign: 'center' }}>
+        <StyledBox component="section" aria-labelledby="availability" mt={6} textAlign="center">
           <Typography
             variant="h2"
             id="availability"
@@ -429,8 +470,8 @@ function Contact() {
             Currently open to new opportunities and exciting projects. Let&#39;s build something
             together!
           </Typography>
-        </Box>
-      </Container>
+        </StyledBox>
+      </StyledContainer>
     </Layout>
   );
 }

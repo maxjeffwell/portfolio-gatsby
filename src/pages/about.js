@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Typography, Paper, Box, Card, Fade, Slide, NoSsr, Grid } from '@mui/material';
+import { Typography, Paper, Card, Fade, Slide, NoSsr } from '@mui/material';
 import { Code as CodeIcon, Coffee, Pets } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
 import { FaPiedPiperAlt } from 'react-icons/fa';
 
@@ -11,88 +11,191 @@ import Image from '../components/image';
 import Logo from '../components/logo';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
-const GradientText = styled(Typography)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  display: 'inline-block',
-  willChange: 'transform',
-  backfaceVisibility: 'hidden',
-  transform: 'translateZ(0)',
-  WebkitFontSmoothing: 'antialiased',
-}));
+const StyledContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 
-const TechSection = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  borderRadius: theme.shape.borderRadius * 2,
-  background:
-    theme.palette.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-      : 'linear-gradient(135deg, rgba(240,240,240,0.95) 0%, rgba(250,250,250,0.9) 100%)',
-  backdropFilter: 'blur(10px)',
-}));
+  @media (max-width: 600px) {
+    padding: 0 16px;
+  }
+`;
 
-const PersonalCard = styled(Card)(({ theme }) => ({
-  padding: theme.spacing(3),
-  borderRadius: theme.shape.borderRadius * 3,
-  background: `linear-gradient(135deg, ${theme.palette.primary.main}10 0%, ${theme.palette.secondary.main}10 100%)`,
-  position: 'relative',
-  overflow: 'hidden',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: `radial-gradient(circle at 30% 20%, ${theme.palette.primary.main}10 0%, transparent 70%)`,
-    zIndex: 0,
-  },
-  '& > *': {
-    position: 'relative',
-    zIndex: 1,
-  },
-}));
+const StyledBox = styled.div`
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
+  text-align: ${(props) => props.textAlign || 'inherit'};
+  display: ${(props) => props.display || 'block'};
+  flex-direction: ${(props) => props.flexDirection || 'row'};
+  align-items: ${(props) => props.alignItems || 'stretch'};
+  gap: ${(props) => (props.gap ? `${props.gap * 8}px` : '0')};
+  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
+  padding-top: ${(props) => (props.pt ? `${props.pt * 8}px` : 'inherit')};
+  padding-bottom: ${(props) => (props.pb ? `${props.pb * 8}px` : 'inherit')};
+  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '0')};
+  overflow: ${(props) => props.overflow || 'visible'};
+  position: ${(props) => props.position || 'static'};
+  min-height: ${(props) => props.minHeight || 'auto'};
+  background-color: ${(props) =>
+    props.bgColor === 'hover' ? 'rgba(0, 0, 0, 0.04)' : 'transparent'};
+  height: ${(props) => props.height || 'auto'};
+  width: ${(props) => props.width || 'auto'};
+  left: ${(props) => props.left || 'auto'};
+  font-size: ${(props) => props.fontSize || 'inherit'};
+  max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : 'none')};
+  margin-left: ${(props) => (props.mx === 'auto' ? 'auto' : 'inherit')};
+  margin-right: ${(props) => (props.mx === 'auto' ? 'auto' : 'inherit')};
+`;
 
-const TechCard = styled(Card)(({ theme }) => ({
-  textAlign: 'center',
-  padding: theme.spacing(3, 2),
-  height: '100%',
-  minHeight: '160px',
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: ${(props) => (props.spacing ? `${props.spacing * 8}px` : '16px')};
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
+
+  &.two-column {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &.three-column {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &.four-column {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &.center-last {
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+
+      & > :last-child {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        margin: 0 auto;
+      }
+    }
+  }
+`;
+
+const GridItem = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const GradientText = styled(Typography)`
+  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+`;
+
+const TechSection = styled(Paper)`
+  padding: 32px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(240, 240, 240, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+  backdrop-filter: blur(10px);
+
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
+  }
+`;
+
+const PersonalCard = styled(Card)`
+  padding: 24px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(252, 74, 26, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(252, 74, 26, 0.1) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+`;
+
+const TechCard = styled(Card)`
+  text-align: center;
+  padding: 24px 16px;
+  height: 100%;
+  min-height: 160px;
   transition:
-    'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  willChange: 'transform, box-shadow',
-  '&:hover': {
-    transform: 'translateY(-8px)',
-    boxShadow: theme.shadows[8],
-  },
-}));
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
 
-const InterestItem = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(2),
-  padding: theme.spacing(2),
-  borderRadius: theme.shape.borderRadius * 1.5,
-  backgroundColor: theme.palette.action.hover,
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    backgroundColor: theme.palette.action.selected,
-    transform: 'translateY(-2px)',
-  },
-}));
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+`;
 
-const StyledIcon = styled(Box)(({ theme }) => ({
-  fontSize: '3.5rem',
-  color: theme.palette.primary.main,
-  marginBottom: theme.spacing(2),
-  transition: 'transform 0.3s ease',
-  willChange: 'transform',
-  '.MuiCard-root:hover &': {
-    transform: 'scale(1.1) rotate(5deg)',
-  },
-}));
+const InterestItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(255, 255, 255, 0.08);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+`;
+
+const StyledIcon = styled.div`
+  font-size: 3.5rem;
+  color: #fc4a1a;
+  margin-bottom: 16px;
+  transition: transform 0.3s ease;
+  will-change: transform;
+
+  .MuiCard-root:hover & {
+    transform: scale(1.1) rotate(5deg);
+  }
+`;
 
 function AboutPage() {
   const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
@@ -114,8 +217,8 @@ function AboutPage() {
           `full stack developer profile`,
         ]}
       />
-      <Container maxWidth="lg">
-        <Box component="section" aria-labelledby="about-header" ref={headerRef} sx={{ mb: 6 }}>
+      <StyledContainer>
+        <StyledBox component="section" aria-labelledby="about-header" ref={headerRef} mb={6}>
           <Fade
             in={headerVisible}
             timeout={600}
@@ -145,65 +248,60 @@ function AboutPage() {
               </Typography>
             </div>
           </Fade>
-        </Box>
-        <Box
-          component="section"
-          aria-labelledby="personal-section"
-          ref={personalRef}
-          sx={{ mb: 6 }}
-        >
-          <NoSsr fallback={<Box sx={{ minHeight: '300px', backgroundColor: 'action.hover' }} />}>
+        </StyledBox>
+        <StyledBox component="section" aria-labelledby="personal-section" ref={personalRef} mb={6}>
+          <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard elevation={3}>
-                <NoSsr fallback={<Box sx={{ minHeight: '200px' }} />}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} md={4}>
+                <NoSsr fallback={<StyledBox minHeight="200px" />}>
+                  <GridContainer className="three-column" spacing={2}>
+                    <GridItem>
                       <InterestItem>
                         <CodeIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                        <Box>
+                        <StyledBox>
                           <Typography variant="subtitle1" fontWeight="bold">
                             Clean Code
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
                             Readable, maintainable solutions
                           </Typography>
-                        </Box>
+                        </StyledBox>
                       </InterestItem>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
+                    </GridItem>
+                    <GridItem>
                       <InterestItem>
                         <Coffee sx={{ fontSize: 32, color: 'primary.main' }} />
-                        <Box>
+                        <StyledBox>
                           <Typography variant="subtitle1" fontWeight="bold">
                             Coffee & Code
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
                             Fuel for late-night debugging
                           </Typography>
-                        </Box>
+                        </StyledBox>
                       </InterestItem>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
+                    </GridItem>
+                    <GridItem>
                       <InterestItem>
                         <Pets sx={{ fontSize: 32, color: 'primary.main' }} />
-                        <Box>
+                        <StyledBox>
                           <Typography variant="subtitle1" fontWeight="bold">
                             Dog Parent
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
                             Expert at dinner negotiations
                           </Typography>
-                        </Box>
+                        </StyledBox>
                       </InterestItem>
-                    </Grid>
-                  </Grid>
+                    </GridItem>
+                  </GridContainer>
                 </NoSsr>
               </PersonalCard>
             </Slide>
           </NoSsr>
-        </Box>
+        </StyledBox>
 
-        <Box component="section" aria-labelledby="illustrations-section">
+        <StyledBox component="section" aria-labelledby="illustrations-section">
           <Typography
             variant="h2"
             component="h2"
@@ -219,9 +317,9 @@ function AboutPage() {
           >
             Development Team Illustrations
           </Typography>
-          <NoSsr fallback={<Box sx={{ minHeight: '400px', backgroundColor: 'action.hover' }} />}>
-            <Grid container spacing={4} sx={{ mb: 6 }}>
-              <Grid item xs={12} md={6}>
+          <NoSsr fallback={<StyledBox minHeight="400px" bgColor="hover" />}>
+            <GridContainer className="center-last" spacing={4} mb={6}>
+              <GridItem>
                 <Card
                   elevation={3}
                   sx={{
@@ -234,19 +332,17 @@ function AboutPage() {
                     willChange: 'transform',
                   }}
                 >
-                  <Box
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                  <StyledBox
+                    height="100%"
+                    display="flex"
+                    alignItems="center"
+                    style={{ justifyContent: 'center' }}
                   >
                     <Image imageType="mascot" />
-                  </Box>
+                  </StyledBox>
                 </Card>
-              </Grid>
-              <Grid item xs={12} md={6}>
+              </GridItem>
+              <GridItem>
                 <Card
                   elevation={3}
                   sx={{
@@ -259,19 +355,17 @@ function AboutPage() {
                     willChange: 'transform',
                   }}
                 >
-                  <Box
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                  <StyledBox
+                    height="100%"
+                    display="flex"
+                    alignItems="center"
+                    style={{ justifyContent: 'center' }}
                   >
                     <Image imageType="dogs" />
-                  </Box>
+                  </StyledBox>
                 </Card>
-              </Grid>
-              <Grid item xs={12} md={6} sx={{ mx: 'auto' }}>
+              </GridItem>
+              <GridItem>
                 <Card
                   elevation={3}
                   sx={{
@@ -284,24 +378,22 @@ function AboutPage() {
                     willChange: 'transform',
                   }}
                 >
-                  <Box
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                  <StyledBox
+                    height="100%"
+                    display="flex"
+                    alignItems="center"
+                    style={{ justifyContent: 'center' }}
                   >
                     <Image imageType="developer" />
-                  </Box>
+                  </StyledBox>
                 </Card>
-              </Grid>
-            </Grid>
+              </GridItem>
+            </GridContainer>
           </NoSsr>
-        </Box>
+        </StyledBox>
 
-        <Box component="section" aria-labelledby="tech-stack" ref={techRef} sx={{ mb: 6 }}>
-          <NoSsr fallback={<Box sx={{ minHeight: '400px', backgroundColor: 'action.hover' }} />}>
+        <StyledBox component="section" aria-labelledby="tech-stack" ref={techRef} mb={6}>
+          <NoSsr fallback={<StyledBox minHeight="400px" bgColor="hover" />}>
             <Fade
               in={techVisible}
               timeout={600}
@@ -327,15 +419,15 @@ function AboutPage() {
                   The tools and technologies that power my development workflow
                 </Typography>
 
-                <NoSsr fallback={<Box sx={{ minHeight: '300px', backgroundColor: 'action.hover', mt: 2 }} />}>
-                  <Grid container spacing={3} sx={{ mt: 2 }}>
-                    <Grid item xs={6} md={3}>
+                <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" mt={2} />}>
+                  <GridContainer className="four-column" spacing={3} mt={2}>
+                    <GridItem>
                       <TechCard elevation={1}>
-                        {typeof window !== 'undefined' && (
+                        <NoSsr>
                           <StyledIcon>
                             <DiIntellij />
                           </StyledIcon>
-                        )}
+                        </NoSsr>
                         <Typography variant="h6" component="h3" gutterBottom>
                           IntelliJ IDEA
                         </Typography>
@@ -343,15 +435,15 @@ function AboutPage() {
                           Primary development environment
                         </Typography>
                       </TechCard>
-                    </Grid>
+                    </GridItem>
 
-                    <Grid item xs={6} md={3}>
+                    <GridItem>
                       <TechCard elevation={1}>
-                        {typeof window !== 'undefined' && (
+                        <NoSsr>
                           <StyledIcon>
                             <DiMozilla />
                           </StyledIcon>
-                        )}
+                        </NoSsr>
                         <Typography variant="h6" component="h3" gutterBottom>
                           Firefox
                         </Typography>
@@ -359,15 +451,15 @@ function AboutPage() {
                           Development & testing browser
                         </Typography>
                       </TechCard>
-                    </Grid>
+                    </GridItem>
 
-                    <Grid item xs={6} md={3}>
+                    <GridItem>
                       <TechCard elevation={1}>
-                        {typeof window !== 'undefined' && (
+                        <NoSsr>
                           <StyledIcon>
                             <DiDebian />
                           </StyledIcon>
-                        )}
+                        </NoSsr>
                         <Typography variant="h6" component="h3" gutterBottom>
                           Debian Linux
                         </Typography>
@@ -375,15 +467,15 @@ function AboutPage() {
                           Preferred operating system
                         </Typography>
                       </TechCard>
-                    </Grid>
+                    </GridItem>
 
-                    <Grid item xs={6} md={3}>
+                    <GridItem>
                       <TechCard elevation={1}>
-                        {typeof window !== 'undefined' && (
+                        <NoSsr>
                           <StyledIcon>
                             <FaPiedPiperAlt />
                           </StyledIcon>
-                        )}
+                        </NoSsr>
                         <Typography variant="h6" component="h3" gutterBottom>
                           Pied Piper
                         </Typography>
@@ -391,27 +483,23 @@ function AboutPage() {
                           Optimal compression algorithm
                         </Typography>
                       </TechCard>
-                    </Grid>
-                  </Grid>
+                    </GridItem>
+                  </GridContainer>
                 </NoSsr>
               </TechSection>
             </Fade>
           </NoSsr>
-        </Box>
+        </StyledBox>
 
-        <Box
-          component="section"
-          aria-labelledby="organizations"
-          sx={{ textAlign: 'center', mt: 6 }}
-        >
+        <StyledBox component="section" aria-labelledby="organizations" textAlign="center" mt={6}>
           <GradientText variant="h2" component="h2" id="organizations" gutterBottom>
             Supported Organizations
           </GradientText>
-          <Box sx={{ maxWidth: 300, mx: 'auto' }}>
+          <StyledBox maxWidth={300} mx="auto">
             <Logo />
-          </Box>
-        </Box>
-      </Container>
+          </StyledBox>
+        </StyledBox>
+      </StyledContainer>
     </Layout>
   );
 }

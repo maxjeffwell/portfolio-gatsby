@@ -8,8 +8,7 @@ const siteMetadata = {
 
 module.exports = {
   siteMetadata,
-  // eslint-disable-next-line prettier/prettier
-  adapter: require(`gatsby-adapter-netlify`).default({ // eslint-disable-line global-require
+  adapter: require('gatsby-adapter-netlify').default({
     excludeDatastoreFromEngineFunction: false,
     imageCDN: false,
   }),

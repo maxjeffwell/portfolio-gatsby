@@ -8,7 +8,26 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // Simplified webpack configuration for better stability
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
+  const config = getConfig();
+  
+  // Handle SSR issues with MUI components
+  if (stage === 'build-html') {
+    actions.setWebpackConfig({
+      resolve: {
+        alias: {
+          '@mui/material/Grid': require.resolve('./src/utils/grid-fallback.js'),
+          '@mui/material/Chip': require.resolve('./src/utils/chip-fallback.js'),
+          '@mui/material/styles': require.resolve('./src/utils/mui-styles-fallback.js'),
+          '@mui/material/CssBaseline': require.resolve('./src/utils/mui-cssbaseline-fallback.js'),
+          '@mui/material/utils': require.resolve('./src/utils/mui-utils-fallback.js'),
+          'react-icons/di': require.resolve('./src/utils/react-icons-di-fallback.js'),
+          'react-icons/fa': require.resolve('./src/utils/react-icons-fa-fallback.js'),
+        },
+      },
+    });
+  }
+  
   actions.setWebpackConfig({
     resolve: {
       fallback: {

@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import { Container, Typography, Select, MenuItem, Box, Paper, NoSsr } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Typography, Select, MenuItem, Paper, NoSsr } from '@mui/material';
+import styled from '@emotion/styled';
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
@@ -45,8 +45,8 @@ const projectsData = [
       icon5: NPMIcon,
     },
     screenshots: {
-      screenshot1: 'educationELLy_screenshot',
-      screenshot2: 'educationELLy_screenshot2',
+      screenshot1: 'educationelly_screenshot1',
+      screenshot2: 'educationelly_screenshot2',
     },
   },
   {
@@ -72,8 +72,8 @@ const projectsData = [
       icon6: PostgresqlIcon,
     },
     screenshots: {
-      screenshot1: 'code-talk_screenshot',
-      screenshot2: 'code-talk_screenshot2',
+      screenshot1: 'codetalk_screenshot1',
+      screenshot2: 'codetalk_screenshot2',
     },
   },
   {
@@ -98,8 +98,8 @@ const projectsData = [
       icon6: GraphQLIcon,
     },
     screenshots: {
-      screenshot1: 'educationELLy_screenshot',
-      screenshot2: 'educationELLy_screenshot2',
+      screenshot1: 'educationelly_graphql_screenshot1',
+      screenshot2: 'educationelly_graphql_screenshot2',
     },
   },
   {
@@ -134,8 +134,8 @@ const projectsData = [
       icon5: NPMIcon,
     },
     screenshots: {
-      screenshot1: 'bookmarked_screenshot',
-      screenshot2: 'bookmarked_screenshot2',
+      screenshot1: 'firebook_screenshot1',
+      screenshot2: 'firebook_screenshot2',
     },
   },
   {
@@ -167,23 +167,61 @@ const projectsData = [
       icon6: NeonTechIcon,
     },
     screenshots: {
-      screenshot1: 'bookmarked_screenshot',
+      screenshot1: 'bookmarked_screenshot1',
       screenshot2: 'bookmarked_screenshot2',
     },
   },
 ];
 
-const GradientText = styled(Typography)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  display: 'inline-block',
-  willChange: 'transform',
-  backfaceVisibility: 'hidden',
-  transform: 'translateZ(0)',
-  WebkitFontSmoothing: 'antialiased',
-}));
+const StyledContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  @media (max-width: 600px) {
+    padding: 0 16px;
+  }
+`;
+
+const StyledBox = styled.div`
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
+  text-align: ${(props) => props.textAlign || 'inherit'};
+  display: ${(props) => props.display || 'block'};
+  flex-direction: ${(props) => props.flexDirection || 'column'};
+  gap: ${(props) => (props.gap ? `${props.gap * 8}px` : '0')};
+  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
+  padding-top: ${(props) => (props.pt ? `${props.pt * 8}px` : 'inherit')};
+  padding-bottom: ${(props) => (props.pb ? `${props.pb * 8}px` : 'inherit')};
+  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '0')};
+  overflow: ${(props) => props.overflow || 'visible'};
+  position: ${(props) => props.position || 'static'};
+  min-height: ${(props) => props.minHeight || 'auto'};
+  background-color: ${(props) =>
+    props.bgColor === 'hover' ? 'rgba(0, 0, 0, 0.04)' : 'transparent'};
+  height: ${(props) => props.height || 'auto'};
+  width: ${(props) => props.width || 'auto'};
+  left: ${(props) => props.left || 'auto'};
+  font-size: ${(props) => props.fontSize || 'inherit'};
+  max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : 'none')};
+  margin-left: ${(props) => (props.mx === 'auto' ? 'auto' : 'inherit')};
+  margin-right: ${(props) => (props.mx === 'auto' ? 'auto' : 'inherit')};
+  justify-content: ${(props) => props.justifyContent || 'flex-start'};
+  align-items: ${(props) => props.alignItems || 'stretch'};
+  flex-wrap: ${(props) => props.flexWrap || 'nowrap'};
+`;
+
+const GradientText = styled(Typography)`
+  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+`;
 
 const Projects = ({ data }) => {
   const [filters, setFilters] = useState({
@@ -263,35 +301,33 @@ const Projects = ({ data }) => {
           `Jeff Maxwell projects`,
         ]}
       />
-      <Container maxWidth="lg">
-        <Box component="section" sx={{ mb: 6 }}>
+      <StyledContainer>
+        <StyledBox component="section" mb={6}>
           <GradientText variant="h2" component="h1" align="center" gutterBottom>
             Featured Projects
           </GradientText>
           <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
             A collection of my work demonstrating modern web development
           </Typography>
-        </Box>
+        </StyledBox>
 
-        <Box component="section">
+        <StyledBox component="section">
           <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
             Filter Projects
           </Typography>
           <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: 2,
-              }}
+            <StyledBox
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              flexWrap="wrap"
+              gap={2}
             >
               <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
                 Total Projects: {filteredProjects.length}
               </Typography>
               <NoSsr>
-                <Box>
+                <StyledBox>
                   <Typography variant="body2" sx={{ mb: 1 }}>
                     Filter by Technology:
                   </Typography>
@@ -313,23 +349,23 @@ const Projects = ({ data }) => {
                     <MenuItem value="JavaScript">JavaScript</MenuItem>
                     <MenuItem value="GraphQL">GraphQL</MenuItem>
                   </Select>
-                </Box>
+                </StyledBox>
               </NoSsr>
-            </Box>
+            </StyledBox>
           </Paper>
-        </Box>
+        </StyledBox>
 
-        <Box component="section">
+        <StyledBox component="section">
           {filteredProjects.length === 0 ? (
-            <Box sx={{ textAlign: 'center', py: 6 }}>
+            <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
               <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
                 No projects match your current filters. Try adjusting your search criteria.
               </Typography>
-            </Box>
+            </StyledBox>
           ) : (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <StyledBox display="flex" flexDirection="column" gap={4}>
               {enhancedProjects.map((project) => (
-                <Box key={project.id}>
+                <StyledBox key={project.id}>
                   <ProjectCard
                     title={project.title}
                     date={project.date}
@@ -344,12 +380,12 @@ const Projects = ({ data }) => {
                     imageSrcPath5={project.imageSrcPath5}
                     imageSrcPath6={project.imageSrcPath6}
                   />
-                </Box>
+                </StyledBox>
               ))}
-            </Box>
+            </StyledBox>
           )}
-        </Box>
-      </Container>
+        </StyledBox>
+      </StyledContainer>
     </Layout>
   );
 };

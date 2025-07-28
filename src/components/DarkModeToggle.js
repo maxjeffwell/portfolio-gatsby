@@ -6,12 +6,37 @@ import {
   ListItemIcon,
   ListItemText,
   Tooltip,
-  Box,
   useTheme as useMuiTheme,
   NoSsr,
 } from '@mui/material';
 import { Brightness4, Brightness7, SettingsBrightness, Computer } from '@mui/icons-material';
+import styled from '@emotion/styled';
 import { useTheme } from '../context/ThemeContext';
+
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const SystemIndicator = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.6);
+  
+  @media (max-width: 960px) {
+    display: none;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.7);
+  }
+`;
 
 function DarkModeToggle() {
   const { isDarkMode, isSystemPreference, toggleTheme, resetToSystemPreference } = useTheme();
@@ -43,7 +68,7 @@ function DarkModeToggle() {
 
   return (
     <NoSsr>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <StyledContainer>
         <Tooltip title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
           <IconButton
             onClick={handleClick}
@@ -64,38 +89,27 @@ function DarkModeToggle() {
 
         {isSystemPreference && (
           <Tooltip title="Currently following system preference">
-            <Box
-              sx={{
-                display: { xs: 'none', md: 'flex' },
-                alignItems: 'center',
-                ml: 1,
-                px: 1,
-                py: 0.5,
-                borderRadius: 20,
-                border: `1px solid ${muiTheme.palette.divider}`,
-                fontSize: '0.75rem',
-                color: muiTheme.palette.text.secondary,
-              }}
-            >
-              <Computer sx={{ fontSize: 16, mr: 0.5 }} />
+            <SystemIndicator>
+              <Computer style={{ fontSize: 16, marginRight: 4 }} />
               Auto
-            </Box>
+            </SystemIndicator>
           </Tooltip>
         )}
 
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
+        <NoSsr>
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
           <MenuItem onClick={handleToggleMode}>
             <ListItemIcon>{isDarkMode ? <Brightness7 /> : <Brightness4 />}</ListItemIcon>
             <ListItemText>Switch to {isDarkMode ? 'light' : 'dark'} mode</ListItemText>
@@ -107,7 +121,8 @@ function DarkModeToggle() {
             <ListItemText>Follow system preference</ListItemText>
           </MenuItem>
         </Menu>
-      </Box>
+        </NoSsr>
+      </StyledContainer>
     </NoSsr>
   );
 }

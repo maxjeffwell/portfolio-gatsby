@@ -23,7 +23,11 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
     }
   `);
 
-  const metaDescription = description || data.siteMetadata.description;
+  const metaDescription =
+    description ||
+    (data.site && data.site.siteMetadata
+      ? data.site.siteMetadata.description
+      : 'Jeff Maxwell - Full Stack Developer');
 
   // Create longer, more SEO-optimized titles based on page
   const createOptimizedTitle = (pageTitle) => {
@@ -46,9 +50,15 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
   };
 
   const metaTitle = createOptimizedTitle(title);
-  const metaImage = image
-    ? `${data.siteMetadata.siteUrl}${image}`
-    : `${data.siteMetadata.siteUrl}/icons/icon-512x512.png`;
+  const siteUrl =
+    data.site && data.site.siteMetadata ? data.site.siteMetadata.siteUrl : 'https://el-jefe.me';
+  const siteTitle =
+    data.site && data.site.siteMetadata ? data.site.siteMetadata.title : 'Jeff Maxwell - Portfolio';
+  const siteDescription =
+    data.site && data.site.siteMetadata
+      ? data.site.siteMetadata.description
+      : 'Full Stack Developer Portfolio';
+  const metaImage = image ? `${siteUrl}${image}` : `${siteUrl}/icons/icon-512x512.png`;
 
   return (
     <Helmet
@@ -67,7 +77,8 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `author`,
-          content: data.siteMetadata.author,
+          content:
+            data.site && data.site.siteMetadata ? data.site.siteMetadata.author : 'Jeff Maxwell',
         },
         {
           name: `viewport`,
@@ -99,7 +110,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `apple-mobile-web-app-title`,
-          content: data.siteMetadata.title,
+          content: siteTitle,
         },
         {
           name: `mobile-web-app-capable`,
@@ -107,7 +118,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `application-name`,
-          content: data.siteMetadata.title,
+          content: siteTitle,
         },
         {
           name: `msapplication-tooltip`,
@@ -243,7 +254,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           name: 'Jeff Maxwell',
           jobTitle: 'Full Stack Web Developer',
           specialization: ['React Development', 'Node.js Development', 'JavaScript Programming'],
-          url: data.siteMetadata.siteUrl,
+          url: siteUrl,
           email: 'maxjeffwell@gmail.com',
           address: {
             '@type': 'PostalAddress',
@@ -289,9 +300,9 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         {JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: data.siteMetadata.title,
-          description: data.siteMetadata.description,
-          url: data.siteMetadata.siteUrl,
+          name: siteTitle,
+          description: siteDescription,
+          url: siteUrl,
           author: {
             '@type': 'Person',
             name: 'Jeff Maxwell',
