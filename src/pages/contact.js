@@ -301,59 +301,98 @@ const StyledButton = styled.button`
 `;
 
 const StyledAlert = styled.div`
-  padding: 6px 16px;
-  border-radius: 4px;
-  border: 1px solid transparent;
+  padding: 24px;
+  border-radius: 16px;
+  border: 2px solid transparent;
   font-family: inherit;
   font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.43;
+  font-size: 1rem;
+  line-height: 1.6;
   letter-spacing: 0.01071em;
   display: flex;
+  flex-direction: column;
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 
   ${(props) =>
     props.severity === 'success' &&
     `
-    color: #1e4620;
-    background-color: #d4e7d5;
+    color: #1b5e20;
+    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c8 100%);
     border-color: #4caf50;
     
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4caf50, #66bb6a, #81c784);
+    }
+    
     @media (prefers-color-scheme: dark) {
-      color: #b8e6b8;
-      background-color: #1b5e20;
+      color: #c8e6c8;
+      background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+      border-color: #66bb6a;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     }
   `}
 
   ${(props) =>
     props.severity === 'error' &&
     `
-    color: #5f2120;
-    background-color: #f8d7da;
+    color: #c62828;
+    background: linear-gradient(135deg, #ffeaea 0%, #ffcdd2 100%);
     border-color: #f44336;
     
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f44336, #ef5350, #e57373);
+    }
+    
     @media (prefers-color-scheme: dark) {
-      color: #f8b2b2;
-      background-color: #d32f2f;
+      color: #ffcdd2;
+      background: linear-gradient(135deg, #c62828 0%, #d32f2f 100%);
+      border-color: #ef5350;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     }
   `}
   
-  border: ${(props) => props.border || '1px solid transparent'};
+  border: ${(props) => props.border || '2px solid transparent'};
   border-color: ${(props) => props.borderColor || 'inherit'};
-  background-color: ${(props) => props.backgroundColor || 'inherit'};
+  background: ${(props) => props.backgroundColor || 'inherit'};
   animation: ${(props) => props.animation || 'none'};
 
   @keyframes slideInScale {
     0% {
       opacity: 0;
-      transform: translateY(-20px) scale(0.95);
+      transform: translateY(-30px) scale(0.9);
     }
-    50% {
-      transform: translateY(5px) scale(1.02);
+    60% {
+      transform: translateY(8px) scale(1.05);
     }
     100% {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 `;
@@ -850,33 +889,80 @@ function Contact() {
             </Typography>
 
                 {formStatus === 'success' && (
-                  <StyledBox style={{ position: 'relative', marginBottom: '24px' }}>
+                  <StyledBox style={{ position: 'relative', marginBottom: '32px' }}>
                     <StyledAlert
                       severity="success"
-                      border="2px solid"
-                      borderColor="#4caf50"
-                      backgroundColor="#d4e7d5"
-                      animation="slideInScale 0.5s ease-out"
+                      animation="slideInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)"
                     >
-                      <Typography variant="h5" gutterBottom style={{ fontWeight: 'bold' }}>
-                        🎉 Success! Your Message Has Been Sent!
-                      </Typography>
-                      <Typography variant="body1">
-                        Thank you for reaching out! I appreciate your interest and will respond
-                        within 24 hours.
-                      </Typography>
-                      <Typography variant="body2" style={{ marginTop: '8px', fontStyle: 'italic' }}>
-                        Check your email for a confirmation of your message.
-                      </Typography>
+                      <div style={{ marginBottom: '16px' }}>
+                        <Typography 
+                          variant="h4" 
+                          style={{ 
+                            fontWeight: 'bold', 
+                            fontSize: '1.5rem',
+                            marginBottom: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                          }}
+                        >
+                          <span style={{ fontSize: '1.8rem' }}>🎉</span>
+                          Success! Your Message Has Been Sent!
+                        </Typography>
+                      </div>
+                      
+                      <div style={{ marginBottom: '16px' }}>
+                        <Typography 
+                          variant="body1" 
+                          style={{ 
+                            fontSize: '1.1rem', 
+                            lineHeight: '1.6',
+                            marginBottom: '8px'
+                          }}
+                        >
+                          Thank you for reaching out! I appreciate your interest and will respond within 24 hours.
+                        </Typography>
+                        <Typography 
+                          variant="body2" 
+                          style={{ 
+                            fontStyle: 'italic',
+                            opacity: 0.8,
+                            fontSize: '0.95rem'
+                          }}
+                        >
+                          Check your email for a confirmation of your message.
+                        </Typography>
+                      </div>
+                      
                       <StyledButton
                         variant="outlined"
-                        color="success"
-                        size="small"
                         onClick={() => {
                           setFormStatus('');
                           setFormData({ name: '', email: '', message: '' });
                         }}
-                        mt={2}
+                        style={{
+                          alignSelf: 'flex-start',
+                          borderColor: '#4caf50',
+                          color: '#4caf50',
+                          fontWeight: '600',
+                          padding: '8px 20px',
+                          borderRadius: '8px',
+                          fontSize: '0.9rem',
+                          textTransform: 'none',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.backgroundColor = '#4caf50';
+                          e.target.style.color = 'white';
+                          e.target.style.transform = 'translateY(-1px)';
+                          e.target.style.boxShadow = '0 4px 8px rgba(76, 175, 80, 0.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.backgroundColor = 'transparent';
+                          e.target.style.color = '#4caf50';
+                          e.target.style.transform = 'translateY(0)';
+                          e.target.style.boxShadow = 'none';
+                        }}
                       >
                         Send Another Message
                       </StyledButton>
