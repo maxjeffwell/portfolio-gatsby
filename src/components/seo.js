@@ -87,10 +87,14 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `robots`,
-          content: `index, follow`,
+          content: `index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1`,
         },
         {
           name: `googlebot`,
+          content: `index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1`,
+        },
+        {
+          name: `bingbot`,
           content: `index, follow`,
         },
         {
