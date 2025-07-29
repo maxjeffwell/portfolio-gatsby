@@ -141,9 +141,19 @@ const GridContainer = styled.div`
 
   &.four-column {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    justify-items: center;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(4, 1fr);
+      justify-items: stretch;
+    }
+    
+    /* Center lone items on smaller screens */
+    @media (max-width: 767px) {
+      & > :nth-child(4):last-child {
+        grid-column: 1 / -1;
+        max-width: 200px;
+      }
     }
   }
 
