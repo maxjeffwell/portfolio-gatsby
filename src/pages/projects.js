@@ -1,371 +1,175 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
+import React from 'react';
 import styled from 'styled-components';
-
-// Simple Typography replacement 
-const Typography = styled.div`
-  margin: 0;
-  font-family: inherit;
-  font-weight: ${props => 
-    props.variant === 'h1' ? 300 :
-    props.variant === 'h2' ? 300 :
-    props.variant === 'h4' ? 400 :
-    props.variant === 'body1' ? 400 :
-    props.variant === 'body2' ? 400 :
-    400
-  };
-  font-size: ${props => 
-    props.variant === 'h1' ? '6rem' :
-    props.variant === 'h2' ? '3.75rem' :
-    props.variant === 'h4' ? '2.125rem' :
-    props.variant === 'body1' ? '1rem' :
-    props.variant === 'body2' ? '0.875rem' :
-    '1rem'
-  };
-  line-height: ${props => 
-    props.variant === 'h1' ? 1.167 :
-    props.variant === 'h2' ? 1.2 :
-    props.variant === 'h4' ? 1.235 :
-    props.variant === 'body1' ? 1.5 :
-    props.variant === 'body2' ? 1.43 :
-    1.5
-  };
-  color: ${props => 
-    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
-    'rgba(0, 0, 0, 0.87)'
-  };
-  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
-  text-align: ${props => props.align || 'inherit'};
-  
-  @media (prefers-color-scheme: dark) {
-    color: ${props => 
-      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
-      'rgba(255, 255, 255, 0.87)'
-    };
-  }
-`;
+import ClientOnlyButton from '../components/ClientOnlyButton';
+import ClientOnlyIcon from '../components/ClientOnlyIcon';
 
 import Layout from '../components/layout';
-import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 
-import GraphQLIcon from '../images/svg-icons/graphql.svg';
-import ApolloClientIcon from '../images/svg-icons/apolloclient.svg';
-import ReduxIcon from '../images/svg-icons/redux.svg';
-import CSSIcon from '../images/svg-icons/css3.svg';
-import MongoDBIcon from '../images/svg-icons/mongodb.svg';
-import PostgresqlIcon from '../images/svg-icons/postgresql.svg';
-import RedisIcon from '../images/svg-icons/redis.svg';
-import NPMIcon from '../images/svg-icons/npm.svg';
-import VercelIcon from '../images/svg-icons/vercel.svg';
-import NodeJSIcon from '../images/svg-icons/nodejs.svg';
-import FirebaseIcon from '../images/svg-icons/firebase.svg';
-import NeonTechIcon from '../images/svg-icons/neon-tech.svg';
-
-const projectsData = [
-  {
-    id: 'project1',
-    date: '2018-2025',
-    title: 'educationELLy',
-    year: '2025',
-    description:
-      'educationELLy is a full-stack web application for managing English Language Learner (ELL) students in\n' +
-      '  educational settings. It provides a collaborative platform for ELL and mainstream teachers to track\n' +
-      '  student information, English proficiency levels, and academic progress.\n' +
-      '\n' +
-      '  Built with React/Redux frontend and Node.js/Express/MongoDB backend, it features secure JWT\n' +
-      '  authentication, comprehensive student profile management (demographics, language details, academic\n' +
-      '  status), and a responsive interface with real-time data access for improved teacher collaboration and\n' +
-      '  student support.',
-    sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
-    hostedURL: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/',
-    technologies: ['React', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
-    techIcons: {
-      icon3: ReduxIcon,
-      icon4: MongoDBIcon,
-      icon5: NPMIcon,
-    },
-    screenshots: {
-      screenshot1: 'educationelly_screenshot1',
-      screenshot2: 'educationelly_screenshot2',
-    },
-  },
-  {
-    id: 'project2',
-    title: 'Code Talk',
-    date: '2018-2025',
-    year: '2025',
-    description:
-      'Code Talk is a real-time collaborative code editor and messaging platform that enables developers to write\n' +
-      '   code together while communicating seamlessly. Built with React and GraphQL, it features live\n' +
-      '  collaborative editing where multiple users can work on the same code simultaneously, integrated instant\n' +
-      '  messaging with room-based organization, and secure JWT authentication. The app leverages WebSocket\n' +
-      '  subscriptions for real-time updates, Redis pub/sub for scalability, and includes performance optimizations\n' +
-      '   like virtualized lists and code splitting. Perfect for remote pair programming, code reviews, or team\n' +
-      '  collaboration sessions.',
-    sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
-    hostedURL: 'https://code-talk-client-c46118c24c30.herokuapp.com/',
-    technologies: ['React', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
-    techIcons: {
-      icon3: GraphQLIcon,
-      icon4: NPMIcon,
-      icon5: RedisIcon,
-      icon6: PostgresqlIcon,
-    },
-    screenshots: {
-      screenshot1: 'codetalk_screenshot1',
-      screenshot2: 'codetalk_screenshot2',
-    },
-  },
-  {
-    id: 'project3',
-    title: 'educationELLy (GraphQL version)',
-    date: '2021-2025',
-    year: '2025',
-    description:
-      'educationELLy GraphQL is an education management system for English Language Learner (ELL) students. It\n' +
-      '  features a React frontend with Apollo Client for GraphQL integration and a Node.js backend with Apollo\n' +
-      '  Server, Express, and MongoDB. The app provides user authentication, full CRUD operations for managing ELL\n' +
-      '  student records (including personal info, educational details, native language, proficiency levels), and\n' +
-      '  role-based access control for teachers and administrators to track and manage their ELL student\n' +
-      '  population.',
-    sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
-    hostedURL: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/',
-    technologies: ['React', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Apollo Client', 'GraphQL'],
-    techIcons: {
-      icon3: MongoDBIcon,
-      icon4: NPMIcon,
-      icon5: ApolloClientIcon,
-      icon6: GraphQLIcon,
-    },
-    screenshots: {
-      screenshot1: 'educationelly_graphql_screenshot1',
-      screenshot2: 'educationelly_graphql_screenshot2',
-    },
-  },
-  {
-    id: 'project4',
-    title: 'FireBook',
-    date: '2018-2025',
-    year: '2025',
-    description:
-      'FireBook is a feature-rich web application that transforms how users save and organize their favorite\n' +
-      "  websites. Originally developed as a frontend-only application for Thinkful's Engineering Immersion\n" +
-      '  program, it has evolved into a full-stack solution powered by Firebase, offering secure authentication,\n' +
-      '  real-time synchronization, and personal bookmark collections. FireBook exemplifies how traditional web technologies can be enhanced with modern cloud services to create\n' +
-      '   a secure, scalable, and user-friendly application that works seamlessly across devices while maintaining\n' +
-      '  the simplicity of its original educational goals.',
-    sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
-    hostedURL: 'https://marmoset-c2870.firebaseapp.com',
-    technologies: [
-      'React',
-      'CSS',
-      'PostgreSQL',
-      'Git',
-      'NPM',
-      'Google Cloud',
-      'Firebase',
-      'Firebase Studio',
-      'Firebase Firestore',
-      'Cloud Firestore',
-    ],
-    techIcons: {
-      icon3: CSSIcon,
-      icon4: FirebaseIcon,
-      icon5: NPMIcon,
-    },
-    screenshots: {
-      screenshot1: 'firebook_screenshot1',
-      screenshot2: 'firebook_screenshot2',
-    },
-  },
-  {
-    id: 'project5',
-    title: 'Bookmarked',
-    date: '2020-2025',
-    year: '2025',
-    description:
-      'Bookmarked is a modern bookmark manager application built with React Hooks. It lets users save, organize,\n' +
-      '  and manage their favorite web links with features like ratings, favorites, and smart filtering. The app\n' +
-      "  uses React's Context API and useReducer for state management, Emotion for styling, and connects to a REST\n" +
-      '  API backend for data persistence. Users can add bookmarks with titles, URLs, and descriptions, rate them\n' +
-      '  on a 5-star scale, mark favorites, and filter their collection by rating or favorite status.',
-    sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
-    hostedURL: 'https://bookmarks-react-hooks.vercel.app/',
-    technologies: [
-      'React',
-      'Git',
-      'Vercel',
-      'NodeJS',
-      'Neon',
-      'Neon Serverless Postgres',
-      'Neon Database',
-    ],
-    techIcons: {
-      icon3: NPMIcon,
-      icon4: VercelIcon,
-      icon5: NodeJSIcon,
-      icon6: NeonTechIcon,
-    },
-    screenshots: {
-      screenshot1: 'bookmarked_screenshot1',
-      screenshot2: 'bookmarked_screenshot2',
-    },
-  },
-];
-
-const StyledContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-
-  @media (max-width: 600px) {
-    padding: 0 16px;
-  }
-`;
-
-const StyledBox = styled.div`
-  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
-  margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
-  text-align: ${(props) => props.textAlign || 'inherit'};
-  display: ${(props) => props.display || 'block'};
-  flex-direction: ${(props) => props.flexDirection || 'column'};
-  gap: ${(props) => (props.gap ? `${props.gap * 8}px` : '0')};
-  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
-  padding-top: ${(props) => (props.pt ? `${props.pt * 8}px` : 'inherit')};
-  padding-bottom: ${(props) => (props.pb ? `${props.pb * 8}px` : 'inherit')};
-  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '0')};
-  overflow: ${(props) => props.overflow || 'visible'};
-  position: ${(props) => props.position || 'static'};
-  min-height: ${(props) => props.minHeight || 'auto'};
-  background-color: ${(props) =>
-    props.bgColor === 'hover' ? 'rgba(0, 0, 0, 0.04)' : 'transparent'};
-  height: ${(props) => props.height || 'auto'};
-  width: ${(props) => props.width || 'auto'};
-  left: ${(props) => props.left || 'auto'};
-  font-size: ${(props) => props.fontSize || 'inherit'};
-  max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : 'none')};
-  margin-left: ${(props) => (props.mx === 'auto' ? 'auto' : 'inherit')};
-  margin-right: ${(props) => (props.mx === 'auto' ? 'auto' : 'inherit')};
-  justify-content: ${(props) => props.justifyContent || 'flex-start'};
-  align-items: ${(props) => props.alignItems || 'stretch'};
-  flex-wrap: ${(props) => props.flexWrap || 'nowrap'};
-`;
-
-const GradientText = styled(Typography)`
-  background: linear-gradient(45deg, #fc4a1a, #f7b733);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-font-smoothing: antialiased;
-`;
-
-const StyledPaper = styled.div`
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 4px;
-  box-shadow: ${props => {
-    const elevation = props.elevation || 1;
-    if (elevation === 2) return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
-    return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
-  }};
-  padding: ${props => props.p ? `${props.p * 8}px` : '0'};
-  margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
-  border-radius: ${props => props.borderRadius ? `${props.borderRadius * 8}px` : '4px'};
+const PageContainer = styled.div`
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0;
   
-  @media (prefers-color-scheme: dark) {
-    background-color: #424242;
-    color: rgba(255, 255, 255, 0.87);
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
   }
 `;
 
-const StyledSelect = styled.select`
+const ColorSection = styled.div`
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  
+  &.blue {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  }
+  
+  &.yellow {
+    background: linear-gradient(135deg, #f7b733 0%, #fc4a1a 100%);
+  }
+  
+  &.purple {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  &.green {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 30px 20px;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const SectionText = styled.p`
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
+  opacity: 0.95;
+  max-width: 600px;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const ProjectCard = styled.div`
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-  padding: 16px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: inherit;
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-  cursor: pointer;
+  max-width: 500px;
   
-  &:focus {
-    outline: none;
-    border-color: #1976d2;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   }
   
-  @media (prefers-color-scheme: dark) {
-    background-color: #1a1a1a;
-    color: rgba(255, 255, 255, 0.87);
-    border-color: rgba(255, 255, 255, 0.23);
+  h3 {
+    color: #333;
+    margin: 0 0 12px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+  }
+  
+  .tech-stack {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+`;
+
+const TechBadge = styled.span`
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+`;
+
+const StyledButton = styled(ClientOnlyButton)`
+  && {
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+    min-width: auto !important;
     
-    &:focus {
-      border-color: #90caf9;
+    &.primary {
+      background: #1976d2 !important;
+      color: white !important;
+      
+      &:hover {
+        background: #1565c0 !important;
+      }
+    }
+    
+    &.secondary {
+      background: transparent !important;
+      color: #1976d2 !important;
+      border: 1px solid #1976d2 !important;
+      
+      &:hover {
+        background: rgba(25, 118, 210, 0.04) !important;
+      }
     }
   }
 `;
 
-const Projects = ({ data }) => {
-  const [filters, setFilters] = useState({
-    technologies: [],
-  });
+const DateBadge = styled.div`
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 16px;
+`;
 
-  const handleFilterChange = useCallback((newFilters) => {
-    setFilters(newFilters);
-  }, []);
-
-  const handleTechnologyChange = useCallback(
-    (e) => {
-      handleFilterChange({
-        ...filters,
-        technologies: e.target.value ? [e.target.value] : [],
-      });
-    },
-    [filters, handleFilterChange]
-  );
-
-  const filteredProjects = useMemo(() => {
-    return projectsData.filter((project) => {
-      if (filters.technologies.length > 0) {
-        return filters.technologies.some((tech) => project.technologies.includes(tech));
-      }
-      return true;
-    });
-  }, [filters]);
-
-  const enhancedProjects = useMemo(() => {
-    if (!data?.allFile?.edges) return filteredProjects;
-
-    // Create a map for faster lookups
-    const imageMap = new Map();
-    data.allFile.edges.forEach((edge) => {
-      if (edge.node.relativePath) {
-        imageMap.set(edge.node.relativePath, edge.node.childImageSharp);
-      }
-    });
-
-    return filteredProjects.map((project) => ({
-      ...project,
-        imageSrcPath: Array.from(imageMap.entries()).find(([path]) =>
-          path.includes(project.screenshots.screenshot1)
-        )?.[1],
-        imageSrcPath2: Array.from(imageMap.entries()).find(([path]) =>
-          path.includes(project.screenshots.screenshot2)
-        )?.[1],
-        techIcon3: project.techIcons.icon3 || null,
-        techIcon4: project.techIcons.icon4 || null,
-        techIcon5: project.techIcons.icon5 || null,
-        techIcon6: project.techIcons.icon6 || null,
-    }));
-  }, [filteredProjects, data]);
-
+const Projects = () => {
   return (
     <Layout>
       <SEO
@@ -373,145 +177,184 @@ const Projects = ({ data }) => {
         description="Explore my React, Node.js, and GraphQL projects. Full stack web development solutions including e-learning platforms and social networks."
         pathname="/projects/"
         keywords={[
-          `react projects`,
-          `node.js projects`,
-          `web development portfolio`,
-          `javascript projects`,
-          `full stack projects`,
-          `graphql projects`,
-          `mern stack examples`,
-          `react portfolio`,
-          `web app development`,
-          `api development`,
-          `react project examples`,
-          `node.js portfolio projects`,
-          `full stack web applications`,
-          `javascript portfolio examples`,
-          `Jeff Maxwell projects`,
+          'react projects',
+          'node.js projects',
+          'web development portfolio',
+          'javascript projects',
+          'full stack projects',
         ]}
       />
-      <StyledContainer>
-        <StyledBox as="section" mb={6}>
-          <GradientText variant="h2" component="h1" align="center" gutterBottom>
-            Featured Projects
-          </GradientText>
-          <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
-            A collection of my work demonstrating modern web development
-          </Typography>
-        </StyledBox>
+      <PageContainer>
+        {/* Top Left - educationELLy */}
+        <ColorSection className="blue">
+          <DateBadge>(2020-2025)</DateBadge>
+          <SectionTitle>educationELLy</SectionTitle>
+          <SectionText>
+            A full-stack web application for managing English Language Learner (ELL) students.
+            Built with React/Redux frontend and Node.js/Express/MongoDB backend, featuring 
+            secure JWT authentication and comprehensive student profile management.
+          </SectionText>
+          <ProjectCard>
+            <h3>educationELLy</h3>
+            <p>Collaborative platform for ELL and mainstream teachers to track student information, 
+               English proficiency levels, and academic progress.</p>
+            <div className="tech-stack">
+              <TechBadge>React</TechBadge>
+              <TechBadge>Redux</TechBadge>
+              <TechBadge>MongoDB</TechBadge>
+              <TechBadge>Node.js</TechBadge>
+            </div>
+            <div className="buttons">
+              <StyledButton 
+                className="primary"
+                component="a"
+                href="https://github.com/maxjeffwell/full-stack-capstone-client"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source Code
+              </StyledButton>
+              <StyledButton 
+                className="secondary"
+                component="a"
+                href="https://educationelly-client-71a1b1901aaa.herokuapp.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Live Demo
+              </StyledButton>
+            </div>
+          </ProjectCard>
+        </ColorSection>
 
-        <StyledBox as="section">
-          <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
-            Filter Projects
-          </Typography>
-          <StyledPaper elevation={2} p={3} mb={4} borderRadius={2}>
-            <StyledBox
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              flexWrap="wrap"
-              gap={2}
-            >
-              <Typography variant="body1" style={{ fontWeight: 500 }}>
-                Total Projects: {filteredProjects.length}
-              </Typography>
-              <StyledBox>
-                <Typography variant="body2" style={{ marginBottom: '8px' }}>
-                  Filter by Technology:
-                </Typography>
-                <StyledSelect
-                  id="technology-filter"
-                  name="technologyFilter"
-                  value={filters.technologies[0] || ''}
-                  onChange={handleTechnologyChange}
-                  aria-label="Filter projects by technology"
-                  style={{ minWidth: 200 }}
-                >
-                  <option value="">All Projects</option>
-                  <option value="React">React</option>
-                  <option value="JavaScript">JavaScript</option>
-                  <option value="GraphQL">GraphQL</option>
-                </StyledSelect>
-              </StyledBox>
-            </StyledBox>
-          </StyledPaper>
-        </StyledBox>
+        {/* Top Right - Code Talk */}
+        <ColorSection className="yellow">
+          <DateBadge>(2020-2025)</DateBadge>
+          <SectionTitle>Code Talk</SectionTitle>
+          <SectionText>
+            Real-time collaborative code editor and messaging platform. Multiple developers 
+            can write code together while communicating seamlessly. Built with React and 
+            GraphQL, featuring WebSocket subscriptions for live updates.
+          </SectionText>
+          <ProjectCard>
+            <h3>Code Talk</h3>
+            <p>Perfect for remote pair programming, code reviews, or team collaboration sessions 
+               with integrated instant messaging and room-based organization.</p>
+            <div className="tech-stack">
+              <TechBadge>React</TechBadge>
+              <TechBadge>GraphQL</TechBadge>
+              <TechBadge>PostgreSQL</TechBadge>
+              <TechBadge>Redis</TechBadge>
+            </div>
+            <div className="buttons">
+              <StyledButton 
+                className="primary"
+                component="a"
+                href="https://github.com/maxjeffwell/code-talk-graphql-client"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source Code
+              </StyledButton>
+              <StyledButton 
+                className="secondary"
+                component="a"
+                href="https://code-talk-client-c46118c24c30.herokuapp.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Live Demo
+              </StyledButton>
+            </div>
+          </ProjectCard>
+        </ColorSection>
 
-        <StyledBox as="section">
-          {filteredProjects.length === 0 ? (
-            <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
-              <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
-                No projects match your current filters. Try adjusting your search criteria.
-              </Typography>
-            </StyledBox>
-          ) : (
-            <StyledBox display="flex" flexDirection="column" gap={4}>
-              {enhancedProjects.map((project) => (
-                <StyledBox key={project.id}>
-                  <ProjectCard
-                    title={project.title}
-                    date={project.date}
-                    description={project.description}
-                    sourceURL={project.sourceURL}
-                    hostedURL={project.hostedURL}
-                    technologies={project.technologies}
-                    imageSrcPath={project.imageSrcPath}
-                    imageSrcPath2={project.imageSrcPath2}
-                    techIcon3={project.techIcon3}
-                    techIcon4={project.techIcon4}
-                    techIcon5={project.techIcon5}
-                    techIcon6={project.techIcon6}
-                  />
-                </StyledBox>
-              ))}
-            </StyledBox>
-          )}
-        </StyledBox>
-      </StyledContainer>
+        {/* Bottom Left - FireBook */}
+        <ColorSection className="purple">
+          <DateBadge>(2020-2025)</DateBadge>
+          <SectionTitle>FireBook</SectionTitle>
+          <SectionText>
+            Feature-rich bookmark manager that transforms how users save and organize 
+            their favorite websites. Powered by Firebase with secure authentication, 
+            real-time synchronization, and personal bookmark collections.
+          </SectionText>
+          <ProjectCard>
+            <h3>FireBook</h3>
+            <p>A secure, scalable, and user-friendly application that works seamlessly 
+               across devices while maintaining the simplicity of its original educational goals.</p>
+            <div className="tech-stack">
+              <TechBadge>React</TechBadge>
+              <TechBadge>Firebase</TechBadge>
+              <TechBadge>Cloud Firestore</TechBadge>
+              <TechBadge>CSS</TechBadge>
+            </div>
+            <div className="buttons">
+              <StyledButton 
+                className="primary"
+                component="a"
+                href="https://github.com/maxjeffwell/bookmarks-capstone-api"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source Code
+              </StyledButton>
+              <StyledButton 
+                className="secondary"
+                component="a"
+                href="https://marmoset-c2870.firebaseapp.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Live Demo
+              </StyledButton>
+            </div>
+          </ProjectCard>
+        </ColorSection>
+
+        {/* Bottom Right - Bookmarked */}
+        <ColorSection className="green">
+          <DateBadge>(2020-2025)</DateBadge>
+          <SectionTitle>Bookmarked</SectionTitle>
+          <SectionText>
+            Modern bookmark manager built with React Hooks. Users can save, organize, 
+            and manage their favorite web links with features like ratings, favorites, 
+            and smart filtering.
+          </SectionText>
+          <ProjectCard>
+            <h3>Bookmarked</h3>
+            <p>Uses React's Context API and useReducer for state management, Emotion for styling, 
+               and connects to a REST API backend for data persistence.</p>
+            <div className="tech-stack">
+              <TechBadge>React</TechBadge>
+              <TechBadge>Node.js</TechBadge>
+              <TechBadge>MongoDB</TechBadge>
+              <TechBadge>Vercel</TechBadge>
+            </div>
+            <div className="buttons">
+              <StyledButton 
+                className="primary"
+                component="a"
+                href="https://github.com/maxjeffwell/bookmarks-react-hooks"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source Code
+              </StyledButton>
+              <StyledButton 
+                className="secondary"
+                component="a"
+                href="https://bookmarks-react-hooks.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Live Demo
+              </StyledButton>
+            </div>
+          </ProjectCard>
+        </ColorSection>
+      </PageContainer>
     </Layout>
   );
 };
 
-Projects.propTypes = {
-  data: PropTypes.shape({
-    allFile: PropTypes.shape({
-      edges: PropTypes.arrayOf(
-        PropTypes.shape({
-          node: PropTypes.shape({
-            relativePath: PropTypes.string.isRequired,
-            childImageSharp: PropTypes.shape({
-              gatsbyImageData: PropTypes.object.isRequired,
-            }),
-          }).isRequired,
-        })
-      ).isRequired,
-    }).isRequired,
-  }).isRequired,
-};
-
 export default Projects;
-
-export const pageQuery = graphql`
-  query {
-    allFile(
-      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(jpg|jpeg|png)/" } }
-    ) {
-      edges {
-        node {
-          relativePath
-          childImageSharp {
-            gatsbyImageData(
-              width: 800
-              height: 450
-              quality: 90
-              formats: [AUTO, WEBP]
-              transformOptions: { cropFocus: CENTER }
-              breakpoints: [400, 600, 800, 1200, 1600]
-              sizes: "(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 400px"
-            )
-          }
-        }
-      }
-    }
-  }
-`;
