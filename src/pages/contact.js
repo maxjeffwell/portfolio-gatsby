@@ -236,33 +236,35 @@ const StyledAlert = styled.div`
 `;
 
 const StyledLink = styled.a`
-  color: #1976d2;
+  color: #1565c0;
   text-decoration: underline;
-  text-decoration-color: rgba(25, 118, 210, 0.4);
+  text-decoration-color: #1565c0;
   text-decoration-thickness: ${props => props.textDecorationThickness || '1px'};
   text-underline-offset: ${props => props.textUnderlineOffset || '2px'};
   cursor: pointer;
   
   &:hover {
-    text-decoration-color: #1565c0;
-    color: ${props => props.hoverColor || '#1565c0'};
+    text-decoration-color: #0d47a1;
+    color: ${props => props.hoverColor || '#0d47a1'};
   }
   
   &:visited {
-    color: #1976d2;
+    color: #1565c0;
+    text-decoration-color: #1565c0;
   }
   
   @media (prefers-color-scheme: dark) {
-    color: #90caf9;
-    text-decoration-color: rgba(144, 202, 249, 0.4);
+    color: #64b5f6;
+    text-decoration-color: #64b5f6;
     
     &:hover {
-      color: #64b5f6;
-      text-decoration-color: #64b5f6;
+      color: #42a5f5;
+      text-decoration-color: #42a5f5;
     }
     
     &:visited {
-      color: #90caf9;
+      color: #64b5f6;
+      text-decoration-color: #64b5f6;
     }
   }
 `;
