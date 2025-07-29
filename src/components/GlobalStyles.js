@@ -2,6 +2,36 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
+  /* CSS Variables for theme colors - prevents FOUC */
+  :root {
+    --bg-color: #f5f5f5;
+    --text-color: #212121;
+    --paper-color: #ffffff;
+    --primary-color: #1976d2;
+    --secondary-color: #dc004e;
+    --text-secondary-color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Dark mode CSS variables - applied by theme script before JS loads */
+  .dark-mode {
+    --bg-color: #0a0a0a;
+    --text-color: #ffffff;
+    --paper-color: #1a1a1a;
+    --primary-color: #90caf9;
+    --secondary-color: #f48fb1;
+    --text-secondary-color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Light mode CSS variables - applied by theme script before JS loads */
+  .light-mode {
+    --bg-color: #f5f5f5;
+    --text-color: #212121;
+    --paper-color: #ffffff;
+    --primary-color: #1976d2;
+    --secondary-color: #dc004e;
+    --text-secondary-color: rgba(0, 0, 0, 0.6);
+  }
+
   /* Base reset and optimization */
   * {
     box-sizing: border-box;
@@ -21,15 +51,9 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     overflow-x: hidden;
-    background-color: #f5f5f5;
-    color: #212121;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    
-    /* Dark mode styles */
-    @media (prefers-color-scheme: dark) {
-      background-color: #0a0a0a;
-      color: #ffffff;
-    }
   }
 
   /* Prevent FOUC for gradients */
@@ -108,16 +132,11 @@ const GlobalStyles = createGlobalStyle`
 
   /* Card styles */
   [class*="StyledCard"], .styled-card {
-    background-color: #ffffff !important;
+    background-color: var(--paper-color) !important;
     border-radius: 16px !important;
     box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12) !important;
     overflow: hidden !important;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease !important;
-    
-    /* Dark mode styles */
-    @media (prefers-color-scheme: dark) {
-      background-color: #1a1a1a !important;
-    }
   }
 
   /* Optimize image loading */
@@ -135,18 +154,21 @@ const GlobalStyles = createGlobalStyle`
     font-weight: bold;
     line-height: 1.2;
     letter-spacing: -0.02em;
-    color: rgba(0, 0, 0, 0.87);
+    color: var(--text-color);
     transition: color 0.3s ease;
-    
-    /* Fallback for system preference when theme isn't available */
-    @media (prefers-color-scheme: dark) {
-      color: rgba(255, 255, 255, 0.87);
-    }
   }
 
   h1 {
-    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-size: clamp(2.5rem, 8vw, 4rem) !important;
     font-weight: 700;
+  }
+
+  /* Ensure h1 in sectioning elements maintains consistent size */
+  article h1,
+  aside h1,
+  nav h1,
+  section h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem) !important;
   }
 
   h2 {
@@ -197,23 +219,14 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif;
     line-height: 1.7;
     margin-bottom: 1rem;
-    color: rgba(0, 0, 0, 0.87);
+    color: var(--text-color);
     transition: color 0.3s ease;
-    
-    /* Fallback for system preference when theme isn't available */
-    @media (prefers-color-scheme: dark) {
-      color: rgba(255, 255, 255, 0.87);
-    }
   }
 
   /* Secondary text styles */
   .text-secondary {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--text-secondary-color);
     transition: color 0.3s ease;
-    
-    @media (prefers-color-scheme: dark) {
-      color: rgba(255, 255, 255, 0.7);
-    }
   }
 
   /* Link styles */

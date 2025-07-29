@@ -157,7 +157,13 @@ const GridContainer = styled.div`
   }
 
   &.center-last {
-    @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 768px) and (max-width: 1024px) {
       grid-template-columns: 1fr 1fr;
 
       & > :last-child {
@@ -165,6 +171,10 @@ const GridContainer = styled.div`
         max-width: 50%;
         margin: 0 auto;
       }
+    }
+    
+    @media (min-width: 1025px) {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 `;
@@ -384,7 +394,7 @@ function AboutPage() {
             >
               Personal Interests
             </Typography>
-            <GridContainer className="three-column" spacing={3} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+            <GridContainer className="center-last" spacing={3}>
               <GridItem>
                 <div style={{
                   background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',

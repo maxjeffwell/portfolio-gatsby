@@ -195,9 +195,8 @@ function ThemedLayout({ children, data }) {
         margin: 0, 
         padding: 0, 
         paddingTop: '80px',
-        backgroundColor: theme?.colors?.background || '#f5f5f5',
-        color: theme?.colors?.text || '#212121',
-        minHeight: '100vh',
+        backgroundColor: theme?.colors?.background || 'var(--bg-color)',
+        color: theme?.colors?.text || 'var(--text-color)',
         transition: 'background-color 0.3s ease, color 0.3s ease'
       }}>
         {children}

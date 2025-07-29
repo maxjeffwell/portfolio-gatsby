@@ -22,12 +22,18 @@ const Container = styled.div`
 const HeroSection = styled.section`
   background: ${props => props.theme?.mode === 'dark' 
     ? 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)' 
+    : props.theme?.mode === 'light' 
+    ? 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
     : 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'};
   padding: 80px 0 60px;
   text-align: center;
   position: relative;
   overflow: hidden;
   transition: background 0.3s ease;
+  
+  .dark-mode & {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
   
   @media (max-width: 600px) {
     padding: 60px 0 40px;
@@ -44,7 +50,7 @@ const HeroTitle = styled.h1`
   font-weight: 700;
   margin: 0;
   line-height: 1.2;
-  color: ${props => props.theme?.mode === 'dark' ? '#ffffff' : '#333'};
+  color: ${props => props.theme?.mode === 'dark' ? '#ffffff' : props.theme?.mode === 'light' ? '#333' : 'var(--text-color)'};
   transition: color 0.3s ease;
   
   .highlight {
@@ -109,8 +115,8 @@ const TwoColumnGrid = styled.div`
 `;
 
 const Card = styled.div`
-  background: ${props => props.theme?.colors?.paper || 'white'};
-  color: ${props => props.theme?.colors?.text || '#333'};
+  background: ${props => props.theme?.colors?.paper || 'var(--paper-color)'};
+  color: ${props => props.theme?.colors?.text || 'var(--text-color)'};
   border-radius: 16px;
   padding: 40px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
