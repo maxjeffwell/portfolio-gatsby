@@ -300,7 +300,7 @@ function Header() {
             )}
 
             <StyledBox
-              component="nav"
+              as="nav"
               aria-label="Main navigation"
               display="flex"
               alignItems="center"

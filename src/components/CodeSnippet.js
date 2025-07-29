@@ -222,6 +222,7 @@ function CodeSnippet({
             <StyledIconButton
               size="small"
               onClick={handleCopy}
+              aria-label={copied ? 'Code copied to clipboard' : 'Copy code to clipboard'}
               style={{
                 color: '#dc004e',
                 borderColor: '#dc004e',
