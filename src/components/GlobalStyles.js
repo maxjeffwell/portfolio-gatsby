@@ -21,14 +21,14 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     overflow-x: hidden;
-    background-color: ${props => props.theme?.colors?.background || '#f5f5f5'};
-    color: ${props => props.theme?.colors?.text || '#212121'};
+    background-color: #f5f5f5;
+    color: #212121;
     transition: background-color 0.3s ease, color 0.3s ease;
     
-    /* Fallback for system preference when theme isn't available */
+    /* Dark mode styles */
     @media (prefers-color-scheme: dark) {
-      background-color: ${props => props.theme?.colors?.background || '#0a0a0a'};
-      color: ${props => props.theme?.colors?.text || '#ffffff'};
+      background-color: #0a0a0a;
+      color: #ffffff;
     }
   }
 
@@ -108,15 +108,15 @@ const GlobalStyles = createGlobalStyle`
 
   /* Card styles */
   [class*="StyledCard"], .styled-card {
-    background-color: ${props => props.theme?.colors?.paper || '#ffffff'} !important;
+    background-color: #ffffff !important;
     border-radius: 16px !important;
     box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12) !important;
     overflow: hidden !important;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease !important;
     
-    /* Fallback for system preference when theme isn't available */
+    /* Dark mode styles */
     @media (prefers-color-scheme: dark) {
-      background-color: ${props => props.theme?.colors?.paper || '#1a1a1a'} !important;
+      background-color: #1a1a1a !important;
     }
   }
 
@@ -135,17 +135,12 @@ const GlobalStyles = createGlobalStyle`
     font-weight: bold;
     line-height: 1.2;
     letter-spacing: -0.02em;
-    color: ${props => {
-      if (props.theme?.mode === 'dark') {
-        return props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)';
-      }
-      return props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
-    }};
+    color: rgba(0, 0, 0, 0.87);
     transition: color 0.3s ease;
     
     /* Fallback for system preference when theme isn't available */
     @media (prefers-color-scheme: dark) {
-      color: ${props => props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)'};
+      color: rgba(255, 255, 255, 0.87);
     }
   }
 
@@ -202,28 +197,18 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif;
     line-height: 1.7;
     margin-bottom: 1rem;
-    color: ${props => {
-      if (props.theme?.mode === 'dark') {
-        return props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)';
-      }
-      return props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
-    }};
+    color: rgba(0, 0, 0, 0.87);
     transition: color 0.3s ease;
     
     /* Fallback for system preference when theme isn't available */
     @media (prefers-color-scheme: dark) {
-      color: ${props => props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)'};
+      color: rgba(255, 255, 255, 0.87);
     }
   }
 
   /* Secondary text styles */
   .text-secondary {
-    color: ${props => {
-      if (props.theme?.mode === 'dark') {
-        return 'rgba(255, 255, 255, 0.7)';
-      }
-      return 'rgba(0, 0, 0, 0.6)';
-    }};
+    color: rgba(0, 0, 0, 0.6);
     transition: color 0.3s ease;
     
     @media (prefers-color-scheme: dark) {
@@ -233,12 +218,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Link styles */
   a {
-    color: ${props => {
-      if (props.theme?.mode === 'dark') {
-        return props.theme?.colors?.primary || '#90caf9';
-      }
-      return props.theme?.colors?.primary || '#1565c0';
-    }};
+    color: #1565c0;
     text-decoration: underline;
     text-decoration-color: currentColor;
     text-decoration-thickness: 1px;
@@ -246,25 +226,15 @@ const GlobalStyles = createGlobalStyle`
     transition: color 0.3s ease, text-decoration-color 0.3s ease;
     
     &:hover {
-      color: ${props => {
-        if (props.theme?.mode === 'dark') {
-          return '#64b5f6';
-        }
-        return '#0d47a1';
-      }};
+      color: #0d47a1;
     }
     
     &:visited {
-      color: ${props => {
-        if (props.theme?.mode === 'dark') {
-          return '#ce93d8';
-        }
-        return '#7b1fa2';
-      }};
+      color: #7b1fa2;
     }
     
     @media (prefers-color-scheme: dark) {
-      color: ${props => props.theme?.colors?.primary || '#90caf9'};
+      color: #90caf9;
       
       &:hover {
         color: #64b5f6;

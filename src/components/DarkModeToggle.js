@@ -207,7 +207,6 @@ const SystemIndicator = styled.div`
 
 function DarkModeToggle() {
   const { isDarkMode, isSystemPreference, toggleTheme, resetToSystemPreference } = useTheme();
-  // Remove MUI theme dependency
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import MyLogo from './myLogo';
-import DarkModeToggle from './DarkModeToggle';
+import SSRSafeDarkModeToggle from './SSRSafeDarkModeToggle';
 import { useTheme } from '../context/ThemeContext';
 
 // Simple icon components using Unicode symbols
@@ -321,7 +321,6 @@ function Header() {
 
             <StyledBox display="flex" alignItems="center" gap={2}>
               <MyLogo />
-              <DarkModeToggle />
             </StyledBox>
           </StyledToolbar>
         </StyledContainer>

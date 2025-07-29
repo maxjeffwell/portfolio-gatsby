@@ -91,11 +91,7 @@ const Typography = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: ${props => 
-    props.theme?.mode === 'dark' 
-      ? 'linear-gradient(45deg, #ff7043, #ffb74d)' 
-      : 'linear-gradient(45deg, #fc4a1a, #f7b733)'
-  };
+  background: linear-gradient(45deg, #fc4a1a, #f7b733);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -107,9 +103,13 @@ const GradientText = styled(Typography)`
   transition: background 0.3s ease;
   
   /* Fallback color for browsers that don't support background-clip */
-  color: ${props => 
-    props.theme?.mode === 'dark' ? '#ff7043' : '#fc4a1a'
-  };
+  color: #fc4a1a;
+  
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(45deg, #ff7043, #ffb74d);
+    color: #ff7043;
+  }
   
   @supports (background-clip: text) or (-webkit-background-clip: text) {
     color: transparent;
@@ -657,7 +657,6 @@ function Contact() {
           </Typography>
           <Typography 
             variant="h5" 
-            theme={theme}
             color="text.secondary"
             style={{
               fontSize: '1.25rem',
