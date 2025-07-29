@@ -52,11 +52,12 @@ const StyledAppBar = styled.header`
   right: 0;
   z-index: 1100;
   width: 100%;
-  background: ${(props) => getAppBarBackground(props.scrolled)};
-  
-  @media (prefers-color-scheme: dark) {
-    background: ${(props) => props.scrolled ? 'rgba(30, 30, 30, 0.95)' : 'transparent'};
-  }
+  background: ${(props) => {
+    if (props.scrolled) {
+      return props.theme?.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+    }
+    return 'transparent';
+  }};
   backdrop-filter: ${(props) => (props.scrolled ? 'blur(20px)' : 'none')};
   box-shadow: ${(props) =>
     props.scrolled
@@ -94,7 +95,7 @@ const NavButton = styled.a`
   padding: 8px 24px;
   margin: 0 4px;
   text-decoration: none;
-  color: inherit;
+  color: ${props => props.theme?.colors?.text || (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)')};
   background-color: transparent;
   border: none;
   cursor: pointer;
