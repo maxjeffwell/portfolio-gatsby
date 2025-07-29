@@ -466,7 +466,7 @@ export const pageQuery = graphql`
               width: 800
               height: 450
               quality: 90
-              placeholder: "none"
+              placeholder: "NONE"
               formats: [AUTO, WEBP]
               transformOptions: { cropFocus: CENTER }
               breakpoints: [400, 600, 800, 1200, 1600]

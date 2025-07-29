@@ -12,7 +12,7 @@ function Image({ imageType }) {
             width: 800
             height: 800
             quality: 90
-            placeholder: "none"
+            placeholder: "NONE"
             formats: [AUTO, WEBP]
             transformOptions: { grayscale: true }
             breakpoints: [300, 400, 500, 600, 800]
@@ -26,7 +26,7 @@ function Image({ imageType }) {
             width: 800
             height: 800
             quality: 90
-            placeholder: "none"
+            placeholder: "NONE"
             formats: [AUTO, WEBP]
             transformOptions: { grayscale: true }
             breakpoints: [300, 400, 500, 600, 800]
@@ -40,7 +40,7 @@ function Image({ imageType }) {
             width: 800
             height: 800
             quality: 90
-            placeholder: "none"
+            placeholder: "NONE"
             formats: [AUTO, WEBP]
             transformOptions: { grayscale: true }
             breakpoints: [300, 400, 500, 600, 800]
