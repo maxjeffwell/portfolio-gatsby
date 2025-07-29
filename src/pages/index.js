@@ -473,7 +473,8 @@ const IndexPage = React.memo(() => {
                           marginRight: 12,
                           fontSize: '1.5rem',
                         }}
-                        aria-hidden="true"
+                        aria-label="paw prints"
+                        role="img"
                       >
                         🐾
                       </StyledBox>
