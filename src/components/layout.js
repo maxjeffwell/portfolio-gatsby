@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import Header from './header';
 import ThirdPartyScripts from './ThirdPartyScripts';
-import CustomGlobalStyles from './GlobalStyles';
+import GlobalStyles from './GlobalStyles';
 
 const GET_SITE_METADATA = graphql`
   query {
@@ -195,7 +195,7 @@ function ThemedLayout({ children, data }) {
   // Remove MUI theme dependency
   return (
     <>
-      <CustomGlobalStyles />
+      <GlobalStyles />
       <Header />
       <StyledContainer
         as="main"
