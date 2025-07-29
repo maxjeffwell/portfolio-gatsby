@@ -102,7 +102,36 @@ const GradientText = styled(Typography)`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
   display: inline-block;
+  font-weight: bold;
+  /* Fallback for SSR */
+  color: #fc4a1a;
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    color: transparent;
+  }
+`;
+
+const TypingTextWrapper = styled.span`
+  background: linear-gradient(45deg, #1565c0, #42a5f5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  width: 320px;
+  min-height: 1.2em;
+  text-align: left;
+  font-size: 0.6em;
+  /* Fallback for SSR */
+  color: #1565c0;
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    color: transparent;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -110,7 +139,8 @@ const StyledButton = styled(Button)`
   padding: 12px 32px;
   font-size: 1.1rem;
   text-transform: none;
-  background: linear-gradient(135deg, #7c4dff 0%, #b388ff 100%);
+  background: #7c4dff;
+  background-image: linear-gradient(135deg, #7c4dff 0%, #b388ff 100%);
   color: white;
   box-shadow:
     0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -120,7 +150,8 @@ const StyledButton = styled(Button)`
 
   &:hover {
     transform: translateY(-2px);
-    background: linear-gradient(135deg, #651fff 0%, #9c64ff 100%);
+    background: #651fff;
+    background-image: linear-gradient(135deg, #651fff 0%, #9c64ff 100%);
     box-shadow:
       0px 5px 5px -3px rgba(0, 0, 0, 0.2),
       0px 8px 10px 1px rgba(0, 0, 0, 0.14),
@@ -194,44 +225,42 @@ const IndexPage = React.memo(() => {
       <StyledContainer>
         <StyledBox component="section" role="banner" aria-labelledby="hero-title" ref={headerRef}>
           <HeroSection>
-            <NoSsr fallback={null}>
-              <FloatingShape
-                style={{
-                  width: 200,
-                  height: 200,
-                  background: 'rgba(252, 74, 26, 0.08)',
-                  top: '-50px',
-                  left: '-50px',
-                }}
-              />
-              <FloatingShape
-                style={{
-                  width: 150,
-                  height: 150,
-                  background: 'rgba(124, 77, 255, 0.08)',
-                  bottom: '-40px',
-                  right: '-40px',
-                }}
-              />
-              <FloatingShape
-                style={{
-                  width: 120,
-                  height: 120,
-                  background: 'rgba(252, 74, 26, 0.1)',
-                  top: '10%',
-                  right: '5%',
-                }}
-              />
-              <FloatingShape
-                style={{
-                  width: 80,
-                  height: 80,
-                  background: 'rgba(247, 183, 51, 0.1)',
-                  bottom: '20%',
-                  left: '5%',
-                }}
-              />
-            </NoSsr>
+            <FloatingShape
+              style={{
+                width: 200,
+                height: 200,
+                background: 'rgba(252, 74, 26, 0.08)',
+                top: '-50px',
+                left: '-50px',
+              }}
+            />
+            <FloatingShape
+              style={{
+                width: 150,
+                height: 150,
+                background: 'rgba(124, 77, 255, 0.08)',
+                bottom: '-40px',
+                right: '-40px',
+              }}
+            />
+            <FloatingShape
+              style={{
+                width: 120,
+                height: 120,
+                background: 'rgba(252, 74, 26, 0.1)',
+                top: '10%',
+                right: '5%',
+              }}
+            />
+            <FloatingShape
+              style={{
+                width: 80,
+                height: 80,
+                background: 'rgba(247, 183, 51, 0.1)',
+                bottom: '20%',
+                left: '5%',
+              }}
+            />
             <Typography
               variant="body1"
               style={{
@@ -245,23 +274,7 @@ const IndexPage = React.memo(() => {
             </Typography>
             <GradientText variant="h1" gutterBottom style={{ minHeight: '4.5rem' }} id="hero-title">
               I&apos;m a{' '}
-              <StyledBox
-                component="span"
-                style={{
-                  background: 'linear-gradient(45deg, #1565c0, #42a5f5)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  color: '#1565c0',
-                  fontWeight: 'bold',
-                  position: 'relative',
-                  display: 'inline-block',
-                  width: '320px',
-                  minHeight: '1.2em',
-                  textAlign: 'left',
-                  fontSize: '0.6em',
-                }}
-              >
+              <TypingTextWrapper>
                 <StyledBox
                   component="span"
                   style={{
@@ -279,7 +292,6 @@ const IndexPage = React.memo(() => {
                 >
                   JAMstack Architect
                 </StyledBox>
-                <NoSsr fallback={null}>
                   <StyledBox
                     component="span"
                     style={{ position: 'absolute', left: 0, top: 0, width: '100%' }}
@@ -293,8 +305,7 @@ const IndexPage = React.memo(() => {
                       startDelay={100}
                     />
                   </StyledBox>
-                </NoSsr>
-              </StyledBox>
+              </TypingTextWrapper>
             </GradientText>
             <Typography
               variant="body1"
@@ -527,7 +538,7 @@ const IndexPage = React.memo(() => {
                         marginTop: 24,
                         padding: 16,
                         borderLeft: '4px solid #fc4a1a',
-                        backgroundColor: '#fff0f0',
+                        backgroundColor: 'rgba(252, 74, 26, 0.04)',
                         borderRadius: '8px',
                       }}
                     >
