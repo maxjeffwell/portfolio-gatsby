@@ -4,6 +4,12 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
+// Polyfills are handled by webpack configuration in gatsby-node.js
+// Just ensure global availability in browser environment
+if (typeof window !== 'undefined') {
+  window.global = window;
+}
+
 import React from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { muiTheme } from './src/theme';

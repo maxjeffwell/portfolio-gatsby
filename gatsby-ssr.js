@@ -4,6 +4,22 @@
  * See: https://www.gatsbyjs.org/docs/ssr-apis/
  */
 
+// Node.js polyfills for SSR environment (Gatsby 5 compatible)
+if (typeof global !== 'undefined') {
+  // Only add polyfills if they don't already exist
+  if (!global.Buffer) {
+    global.Buffer = require('buffer').Buffer;
+  }
+  if (!global.process) {
+    global.process = require('process/browser');
+  }
+  if (!global.TextEncoder) {
+    const { TextEncoder, TextDecoder } = require('fastestsmallesttextencoderdecoder');
+    global.TextEncoder = TextEncoder;
+    global.TextDecoder = TextDecoder;
+  }
+}
+
 import React from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { muiTheme } from './src/theme';
@@ -26,10 +42,10 @@ export const wrapRootElement = ({ element }) => {
 
 // Inject theme detection script and handle SSR issues
 export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
-  // Mock window and document APIs for SSR to prevent MUI Grid issues
+  // Mock window and document APIs for SSR to prevent issues
   if (typeof window === 'undefined') {
-    // Add TextEncoder/TextDecoder polyfills for SSR environment
-    if (typeof global.TextEncoder === 'undefined') {
+    // Ensure polyfills are available (already set at top of file)
+    if (!global.TextEncoder) {
       const { TextEncoder, TextDecoder } = require('fastestsmallesttextencoderdecoder');
       global.TextEncoder = TextEncoder;
       global.TextDecoder = TextDecoder;

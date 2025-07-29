@@ -214,18 +214,14 @@ function ThemedLayout({ children, data }) {
           <Link
             href="mailto:maxjeffwell@gmail.com"
             underline="always"
-            sx={{
+            style={{
               fontSize: '1.5rem',
-              color: muiTheme.palette.secondary.main,
+              color: '#052f5f',
               display: 'block',
-              mb: 3,
-              textDecorationColor: muiTheme.palette.secondary.main,
+              marginBottom: '24px',
+              textDecorationColor: '#052f5f',
               textDecorationThickness: '2px',
               textUnderlineOffset: '4px',
-              '&:hover': {
-                color: muiTheme.palette.primary.main,
-                textDecorationColor: muiTheme.palette.primary.main,
-              },
             }}
             aria-label="Send email to maxjeffwell@gmail.com"
           >
@@ -239,37 +235,31 @@ function ThemedLayout({ children, data }) {
             justifyContent="center"
             mb={3}
           >
-            <NoSsr>
-              <SocialLink
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.github.com/maxjeffwell"
-                aria-label="Visit Jeff Maxwell's GitHub profile"
-                size="large"
-              >
-                <ClientOnlyIcon iconName="GitHub" fontSize="large" />
-              </SocialLink>
-            </NoSsr>
-            <NoSsr>
-              <SocialLink
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://angel.co/maxjeffwell"
-                aria-label="Visit Jeff Maxwell's AngelList profile"
-                size="large"
-              >
-                <ClientOnlyIcon iconName="Language" fontSize="large" />
-              </SocialLink>
-            </NoSsr>
-            <NoSsr>
-              <SocialLink
-                href="tel:+01-508-395-2008"
-                aria-label="Call Jeff Maxwell at 508-395-2008"
-                size="large"
-              >
-                <ClientOnlyIcon iconName="Phone" fontSize="large" />
-              </SocialLink>
-            </NoSsr>
+            <SocialLink
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.github.com/maxjeffwell"
+              aria-label="Visit Jeff Maxwell's GitHub profile"
+              size="large"
+            >
+              <ClientOnlyIcon iconName="GitHub" fontSize="large" />
+            </SocialLink>
+            <SocialLink
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://angel.co/maxjeffwell"
+              aria-label="Visit Jeff Maxwell's AngelList profile"
+              size="large"
+            >
+              <ClientOnlyIcon iconName="Language" fontSize="large" />
+            </SocialLink>
+            <SocialLink
+              href="tel:+01-508-395-2008"
+              aria-label="Call Jeff Maxwell at 508-395-2008"
+              size="large"
+            >
+              <ClientOnlyIcon iconName="Phone" fontSize="large" />
+            </SocialLink>
           </StyledBox>
           <Typography variant="body1" align="center" sx={{ mt: 2 }}>
             Built by {data.site.siteMetadata.author}, created with{' '}
@@ -278,13 +268,10 @@ function ThemedLayout({ children, data }) {
               target="_blank"
               rel="noopener noreferrer"
               underline="always"
-              sx={{
-                color: muiTheme.palette.secondary.main,
-                textDecorationColor: muiTheme.palette.secondary.main,
+              style={{
+                color: '#052f5f',
+                textDecorationColor: '#052f5f',
                 textUnderlineOffset: '2px',
-                '&:hover': {
-                  textDecorationThickness: '2px',
-                },
               }}
             >
               Gatsby
