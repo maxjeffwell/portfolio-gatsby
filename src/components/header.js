@@ -321,6 +321,7 @@ function Header() {
 
             <StyledBox display="flex" alignItems="center" gap={2}>
               <MyLogo />
+              <SSRSafeDarkModeToggle />
             </StyledBox>
           </StyledToolbar>
         </StyledContainer>
