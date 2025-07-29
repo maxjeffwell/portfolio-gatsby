@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTheme } from '../context/ThemeContext';
 
 // Simple styled components to replace MUI components
 const Typography = styled.div`
@@ -35,19 +36,17 @@ const Typography = styled.div`
     props.variant === 'body2' ? 1.43 :
     1.5
   };
-  color: ${props => 
-    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
-    'rgba(0, 0, 0, 0.87)'
-  };
+  color: ${props => {
+    if (props.theme?.mode === 'dark') {
+      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
+      return props.customColor || 'rgba(255, 255, 255, 0.87)';
+    }
+    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
+    return props.customColor || 'rgba(0, 0, 0, 0.87)';
+  }};
   margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
   text-align: ${props => props.align || 'inherit'};
-  
-  @media (prefers-color-scheme: dark) {
-    color: ${props => 
-      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
-      'rgba(255, 255, 255, 0.87)'
-    };
-  }
+  transition: color 0.3s ease;
 `;
 
 // Simple icon components
@@ -286,6 +285,7 @@ const StyledIcon = styled.div`
 `;
 
 function AboutPage() {
+  const { theme } = useTheme();
   const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
   const [techRef, techVisible] = useScrollAnimation({ delay: 300 });
   const [personalRef, personalVisible] = useScrollAnimation({ delay: 500 });
@@ -393,10 +393,10 @@ function AboutPage() {
                     💻
                   </div>
                   <StyledBox>
-                    <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                       Clean Code
                     </Typography>
-                    <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4 }}>
+                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4 }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                       Readable, maintainable solutions
                     </Typography>
                   </StyledBox>
@@ -421,10 +421,10 @@ function AboutPage() {
                     ☕
                   </div>
                   <StyledBox>
-                    <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                       Coffee & Code
                     </Typography>
-                    <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4 }}>
+                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4 }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                       Fuel for late-night debugging
                     </Typography>
                   </StyledBox>
@@ -449,10 +449,10 @@ function AboutPage() {
                     🐾
                   </div>
                   <StyledBox>
-                    <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                       Dog Parent
                     </Typography>
-                    <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4 }}>
+                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4 }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                       Expert at dinner negotiations
                     </Typography>
                   </StyledBox>
@@ -638,10 +638,10 @@ function AboutPage() {
                 }}>
                   <DiIntellij />
                 </div>
-                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                   IntelliJ IDEA
                 </Typography>
-                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4, fontSize: '0.875rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                   Primary development environment
                 </Typography>
               </div>
@@ -665,10 +665,10 @@ function AboutPage() {
                 }}>
                   <DiMozilla />
                 </div>
-                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                   Firefox
                 </Typography>
-                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4, fontSize: '0.875rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                   Development & testing browser
                 </Typography>
               </div>
@@ -692,10 +692,10 @@ function AboutPage() {
                 }}>
                   <DiDebian />
                 </div>
-                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                   Debian Linux
                 </Typography>
-                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4, fontSize: '0.875rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                   Preferred operating system
                 </Typography>
               </div>
@@ -719,10 +719,10 @@ function AboutPage() {
                 }}>
                   <FaPiedPiperAlt />
                 </div>
-                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                   Pied Piper
                 </Typography>
-                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4, fontSize: '0.875rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                   Optimal compression algorithm
                 </Typography>
               </div>

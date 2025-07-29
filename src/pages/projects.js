@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
+import { useTheme } from '../context/ThemeContext';
 
 // Simple Typography replacement 
 const Typography = styled.div`
@@ -31,19 +32,17 @@ const Typography = styled.div`
     props.variant === 'body2' ? 1.43 :
     1.5
   };
-  color: ${props => 
-    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
-    'rgba(0, 0, 0, 0.87)'
-  };
+  color: ${props => {
+    if (props.theme?.mode === 'dark') {
+      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
+      return 'rgba(255, 255, 255, 0.87)';
+    }
+    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
+    return 'rgba(0, 0, 0, 0.87)';
+  }};
   margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
   text-align: ${props => props.align || 'inherit'};
-  
-  @media (prefers-color-scheme: dark) {
-    color: ${props => 
-      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
-      'rgba(255, 255, 255, 0.87)'
-    };
-  }
+  transition: color 0.3s ease;
 `;
 
 import Layout from '../components/layout';
@@ -266,9 +265,9 @@ const GradientText = styled(Typography)`
 `;
 
 const StyledPaper = styled.div`
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  background-color: ${props => props.theme?.colors?.paper || '#ffffff'};
+  color: ${props => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
   box-shadow: ${props => {
     const elevation = props.elevation || 1;
@@ -278,41 +277,28 @@ const StyledPaper = styled.div`
   padding: ${props => props.p ? `${props.p * 8}px` : '0'};
   margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
   border-radius: ${props => props.borderRadius ? `${props.borderRadius * 8}px` : '4px'};
-  
-  @media (prefers-color-scheme: dark) {
-    background-color: #424242;
-    color: rgba(255, 255, 255, 0.87);
-  }
 `;
 
 const StyledSelect = styled.select`
   width: 100%;
   padding: 16px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.23);
+  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'};
   border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
+  background-color: ${props => props.theme?.colors?.paper || '#ffffff'};
+  color: ${props => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: #1976d2;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    background-color: #1a1a1a;
-    color: rgba(255, 255, 255, 0.87);
-    border-color: rgba(255, 255, 255, 0.23);
-    
-    &:focus {
-      border-color: #90caf9;
-    }
+    border-color: ${props => props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
   }
 `;
 
 const Projects = ({ data }) => {
+  const { theme } = useTheme();
   const [filters, setFilters] = useState({
     technologies: [],
   });
@@ -395,16 +381,16 @@ const Projects = ({ data }) => {
           <GradientText variant="h2" component="h1" align="center" gutterBottom>
             Featured Projects
           </GradientText>
-          <Typography variant="h5" component="h2" align="center" color="text.secondary" paragraph>
+          <Typography theme={theme} variant="h5" component="h2" align="center" color="text.secondary" paragraph>
             A collection of my work demonstrating modern web development
           </Typography>
         </StyledBox>
 
         <StyledBox as="section">
-          <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
+          <Typography theme={theme} variant="h3" component="h2" sx={{ mb: 2 }}>
             Filter Projects
           </Typography>
-          <StyledPaper elevation={2} p={3} mb={4} borderRadius={2}>
+          <StyledPaper theme={theme} elevation={2} p={3} mb={4} borderRadius={2}>
             <StyledBox
               display="flex"
               alignItems="center"
@@ -412,14 +398,15 @@ const Projects = ({ data }) => {
               flexWrap="wrap"
               gap={2}
             >
-              <Typography variant="body1" style={{ fontWeight: 500 }}>
+              <Typography theme={theme} variant="body1" style={{ fontWeight: 500 }}>
                 Total Projects: {filteredProjects.length}
               </Typography>
               <StyledBox>
-                <Typography variant="body2" style={{ marginBottom: '8px' }}>
+                <Typography theme={theme} variant="body2" style={{ marginBottom: '8px' }}>
                   Filter by Technology:
                 </Typography>
                 <StyledSelect
+                  theme={theme}
                   id="technology-filter"
                   name="technologyFilter"
                   value={filters.technologies[0] || ''}
@@ -440,7 +427,7 @@ const Projects = ({ data }) => {
         <StyledBox as="section">
           {filteredProjects.length === 0 ? (
             <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
-              <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
+              <Typography theme={theme} variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
                 No projects match your current filters. Try adjusting your search criteria.
               </Typography>
             </StyledBox>

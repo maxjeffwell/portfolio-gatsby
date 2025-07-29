@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import ClientOnlyButton from '../components/ClientOnlyButton';
 import styled from 'styled-components';
+import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -19,11 +20,14 @@ const Container = styled.div`
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: ${props => props.theme?.mode === 'dark' 
+    ? 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)' 
+    : 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'};
   padding: 80px 0 60px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  transition: background 0.3s ease;
   
   @media (max-width: 600px) {
     padding: 60px 0 40px;
@@ -52,9 +56,10 @@ const HeroTitle = styled.h1`
 
 const HeroSubtitle = styled.p`
   font-size: 1.25rem;
-  color: #666;
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666'};
   margin: 20px 0 40px;
   font-weight: 400;
+  transition: color 0.3s ease;
   
   @media (max-width: 600px) {
     font-size: 1.1rem;
@@ -102,11 +107,13 @@ const TwoColumnGrid = styled.div`
 `;
 
 const Card = styled.div`
-  background: white;
+  background: ${props => props.theme?.colors?.paper || 'white'};
+  color: ${props => props.theme?.colors?.text || '#333'};
   border-radius: 16px;
   padding: 40px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   height: 100%;
+  transition: background 0.3s ease, color 0.3s ease;
   
   @media (max-width: 600px) {
     padding: 32px 24px;
@@ -117,10 +124,11 @@ const CardTitle = styled.h2`
   font-size: 1.875rem;
   font-weight: 700;
   margin: 0 0 24px 0;
-  color: #333;
+  color: ${props => props.theme?.colors?.text || '#333'};
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: color 0.3s ease;
   
   @media (max-width: 600px) {
     font-size: 1.5rem;
@@ -130,8 +138,9 @@ const CardTitle = styled.h2`
 const CardText = styled.p`
   font-size: 1rem;
   line-height: 1.6;
-  color: #666;
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666'};
   margin: 0 0 24px 0;
+  transition: color 0.3s ease;
 `;
 
 const FloatingShape = styled.div`
@@ -153,11 +162,14 @@ const FloatingShape = styled.div`
 const QuoteBox = styled.div`
   margin: 20px 0;
   padding: 16px 20px;
-  background: rgba(25, 118, 210, 0.05);
-  border-left: 4px solid #1976d2;
+  background: ${props => props.theme?.mode === 'dark' 
+    ? 'rgba(144, 202, 249, 0.1)' 
+    : 'rgba(25, 118, 210, 0.05)'};
+  border-left: 4px solid ${props => props.theme?.colors?.primary || '#1976d2'};
   border-radius: 4px;
   font-style: italic;
-  color: #555;
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#555'};
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 `;
 
 const InfoCard = styled.div`
@@ -195,6 +207,8 @@ const InfoCard = styled.div`
 
 
 const IndexPage = () => {
+  const { theme } = useTheme();
+  
   return (
     <Layout>
       <SEO
@@ -211,25 +225,35 @@ const IndexPage = () => {
       />
       
       {/* Hero Section */}
-      <HeroSection>
+      <HeroSection theme={theme}>
         <Container>
           <HeroContent>
-            <p style={{ fontSize: '1.125rem', margin: '0 0 16px 0', color: '#666' }}>
+            <p style={{ 
+              fontSize: '1.125rem', 
+              margin: '0 0 16px 0', 
+              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
+              transition: 'color 0.3s ease'
+            }}>
               My name's Jeff 😊
             </p>
             <HeroTitle>
               I'm a <span className="highlight">Node.js Expert</span>
             </HeroTitle>
-            <HeroSubtitle>
+            <HeroSubtitle theme={theme}>
               crafting exceptional web experiences
             </HeroSubtitle>
             
-            <QuoteBox>
+            <QuoteBox theme={theme}>
               I believe in <strong>clean, maintainable code</strong> and <strong>user-centered design</strong>. 
               Every line I write is crafted with performance, accessibility, and scalability in mind.
             </QuoteBox>
             
-            <p style={{ fontStyle: 'italic', color: '#777', marginBottom: '40px' }}>
+            <p style={{ 
+              fontStyle: 'italic', 
+              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : '#777', 
+              marginBottom: '40px',
+              transition: 'color 0.3s ease'
+            }}>
               "Code is like humor. When you have to explain it, it's bad." — That's why I focus on intuitive, self-documenting solutions.
             </p>
             
@@ -274,12 +298,12 @@ const IndexPage = () => {
         <Container>
           <TwoColumnGrid>
             {/* Beyond the Code */}
-            <Card>
-              <CardTitle>
+            <Card theme={theme}>
+              <CardTitle theme={theme}>
                 <span style={{ fontSize: '1.5rem' }}>🐾</span>
                 Beyond the Code
               </CardTitle>
-              <CardText>
+              <CardText theme={theme}>
                 When I'm not crafting pixel-perfect interfaces or 
                 debugging complex algorithms, you'll find me 
                 negotiating dinner arrangements with my two 
@@ -303,12 +327,12 @@ const IndexPage = () => {
             </Card>
             
             {/* Code Philosophy */}
-            <Card>
-              <CardTitle>
-                <ClientOnlyIcon iconName="Computer" style={{ fontSize: '1.5rem', color: '#1976d2' }} />
+            <Card theme={theme}>
+              <CardTitle theme={theme}>
+                <ClientOnlyIcon iconName="Computer" style={{ fontSize: '1.5rem', color: theme?.colors?.primary || '#1976d2' }} />
                 Code Philosophy
               </CardTitle>
-              <CardText>
+              <CardText theme={theme}>
                 Clean, readable, and maintainable — here's how I approach 
                 modern React development:
               </CardText>

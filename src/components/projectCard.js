@@ -4,6 +4,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
+import { useTheme } from '../context/ThemeContext';
 
 // Simple styled components to replace MUI components
 const Typography = styled.div`
@@ -30,18 +31,18 @@ const Typography = styled.div`
     props.variant === 'body2' ? 1.43 :
     1.5
   };
-  color: ${props => 
-    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
-    'rgba(0, 0, 0, 0.87)'
-  };
+  color: ${props => {
+    if (props.theme?.mode === 'dark') {
+      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
+      if (props.color === 'primary') return '#90caf9';
+      return 'rgba(255, 255, 255, 0.87)';
+    }
+    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
+    if (props.color === 'primary') return '#1976d2';
+    return 'rgba(0, 0, 0, 0.87)';
+  }};
   margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
-  
-  @media (prefers-color-scheme: dark) {
-    color: ${props => 
-      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
-      'rgba(255, 255, 255, 0.87)'
-    };
-  }
+  transition: color 0.3s ease;
 `;
 
 const Button = styled.button`
@@ -70,12 +71,12 @@ const Button = styled.button`
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   
   ${props => props.variant === 'outlined' && `
-    color: #1976d2;
-    border: 1px solid rgba(25, 118, 210, 0.5);
+    color: ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    border: 1px solid ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.5)' : 'rgba(25, 118, 210, 0.5)'};
     
     &:hover {
-      border: 1px solid #1976d2;
-      background-color: rgba(25, 118, 210, 0.04);
+      border: 1px solid ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+      background-color: ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.08)' : 'rgba(25, 118, 210, 0.04)'};
     }
   `}
   
@@ -136,12 +137,9 @@ const PlaceholderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   border-radius: 8px;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
+  transition: background-color 0.3s ease;
 `;
 
 const HeaderContainer = styled.div`
@@ -167,14 +165,10 @@ const CustomChip = styled.span`
   line-height: 1.43;
   letter-spacing: 0.01071em;
   background-color: transparent;
-  border: 1px solid #9c27b0;
-  color: #9c27b0;
+  border: 1px solid ${props => props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0'};
+  color: ${props => props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0'};
   white-space: nowrap;
-
-  @media (prefers-color-scheme: dark) {
-    border-color: #ce93d8;
-    color: #ce93d8;
-  }
+  transition: border-color 0.3s ease, color 0.3s ease;
 `;
 
 const StyledCard = styled.div`
@@ -185,17 +179,16 @@ const StyledCard = styled.div`
   overflow: hidden;
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s ease;
   will-change: transform, box-shadow;
-  background: white;
+  background: ${props => props.theme?.mode === 'dark' 
+    ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)' 
+    : 'white'};
   box-shadow:
     0px 3px 3px -2px rgba(0, 0, 0, 0.2),
     0px 3px 4px 0px rgba(0, 0, 0, 0.14),
     0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-
-  @media (prefers-color-scheme: dark) {
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
-  }
 
   &:hover {
     transform: translateY(-8px);
@@ -262,7 +255,7 @@ const TechIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   transition:
     transform 0.3s ease,
     background-color 0.3s ease;
@@ -270,15 +263,7 @@ const TechIcon = styled.div`
 
   &:hover {
     transform: scale(1.1);
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: rgba(255, 255, 255, 0.08);
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.12);
-    }
+    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'};
   }
 `;
 
@@ -296,8 +281,10 @@ function ProjectCard({
   hostedURL,
   technologies = [],
 }) {
+  const { theme } = useTheme();
+  
   return (
-    <StyledCard>
+    <StyledCard theme={theme}>
       <ColoredBar />
       <FlexContainer>
         <ImageBox>
@@ -318,8 +305,8 @@ function ProjectCard({
                 }}
               />
             ) : (
-              <PlaceholderBox>
-                <Typography variant="body2" color="text.secondary">
+              <PlaceholderBox theme={theme}>
+                <Typography theme={theme} variant="body2" color="text.secondary">
                   Image loading...
                 </Typography>
               </PlaceholderBox>
@@ -344,8 +331,8 @@ function ProjectCard({
                 }}
               />
             ) : (
-              <PlaceholderBox>
-                <Typography variant="body2" color="text.secondary">
+              <PlaceholderBox theme={theme}>
+                <Typography theme={theme} variant="body2" color="text.secondary">
                   Image loading...
                 </Typography>
               </PlaceholderBox>
@@ -356,23 +343,23 @@ function ProjectCard({
 
       <StyledCardContent>
         <HeaderContainer>
-          <Typography variant="h5" component="h3" color="primary" fontWeight="bold">
+          <Typography theme={theme} variant="h5" component="h3" color="primary" fontWeight="bold">
             {title}
           </Typography>
-          <CustomChip>{date}</CustomChip>
+          <CustomChip theme={theme}>{date}</CustomChip>
         </HeaderContainer>
 
-        <Typography variant="body1" color="text.secondary" paragraph>
+        <Typography theme={theme} variant="body1" color="text.secondary" paragraph>
           {description}
         </Typography>
 
         <TechContainer>
-          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+          <Typography theme={theme} variant="subtitle2" color="text.secondary" gutterBottom>
             Technologies Used:
           </Typography>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
             {techIcon3 && (
-              <TechIcon role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
                 {React.isValidElement(techIcon3) ? (
                   techIcon3
                 ) : typeof techIcon3 === 'function' ? (
@@ -387,7 +374,7 @@ function ProjectCard({
               </TechIcon>
             )}
             {techIcon4 && (
-              <TechIcon role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
                 {React.isValidElement(techIcon4) ? (
                   techIcon4
                 ) : typeof techIcon4 === 'function' ? (
@@ -402,7 +389,7 @@ function ProjectCard({
               </TechIcon>
             )}
             {techIcon5 && (
-              <TechIcon role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
                 {React.isValidElement(techIcon5) ? (
                   techIcon5
                 ) : typeof techIcon5 === 'function' ? (
@@ -417,7 +404,7 @@ function ProjectCard({
               </TechIcon>
             )}
             {techIcon6 && (
-              <TechIcon role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
                 {React.isValidElement(techIcon6) ? (
                   techIcon6
                 ) : typeof techIcon6 === 'function' ? (
@@ -431,14 +418,14 @@ function ProjectCard({
                 )}
               </TechIcon>
             )}
-            <TechIcon role="img" aria-label="React technology">
+            <TechIcon theme={theme} role="img" aria-label="React technology">
               <FaReact size={24} color="red" />
             </TechIcon>
-            <TechIcon role="img" aria-label="Git version control">
+            <TechIcon theme={theme} role="img" aria-label="Git version control">
               <FaGit size={24} color="red" />
             </TechIcon>
             {technologies.includes('Heroku') && (
-              <TechIcon role="img" aria-label="Heroku deployment platform">
+              <TechIcon theme={theme} role="img" aria-label="Heroku deployment platform">
                 <DiHeroku size={24} color="red" />
               </TechIcon>
             )}
@@ -448,6 +435,7 @@ function ProjectCard({
 
       <StyledCardActions>
         <Button
+          theme={theme}
           as="a"
           variant="outlined"
           href={sourceURL}
@@ -464,6 +452,7 @@ function ProjectCard({
           Source Code
         </Button>
         <Button
+          theme={theme}
           as="a"
           variant="outlined"
           href={hostedURL}
