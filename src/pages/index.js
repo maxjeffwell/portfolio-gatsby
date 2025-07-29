@@ -44,6 +44,8 @@ const HeroTitle = styled.h1`
   font-weight: 700;
   margin: 0;
   line-height: 1.2;
+  color: ${props => props.theme?.mode === 'dark' ? '#ffffff' : '#333'};
+  transition: color 0.3s ease;
   
   .highlight {
     background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
@@ -242,7 +244,7 @@ const IndexPage = () => {
             }}>
               My name's Jeff 😊
             </p>
-            <HeroTitle>
+            <HeroTitle theme={theme}>
               I'm a <span className="highlight">Node.js Expert</span>
             </HeroTitle>
             <HeroSubtitle theme={theme}>
