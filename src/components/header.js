@@ -291,7 +291,9 @@ function Header() {
     // Focus management: when drawer closes, restore focus to menu button
     if (wasOpen && menuButtonRef.current) {
       setTimeout(() => {
-        menuButtonRef.current.focus();
+        if (menuButtonRef.current) {
+          menuButtonRef.current.focus();
+        }
       }, 100);
     }
   };
