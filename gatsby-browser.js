@@ -44,11 +44,7 @@ import { wrapRootElement as wrap } from './src/wrap-root-element';
 })();
 
 export const wrapRootElement = ({ element }) => {
-  return (
-    <StyledThemeProvider theme={muiTheme}>
-      {wrap({ element })}
-    </StyledThemeProvider>
-  );
+  return wrap({ element });
 };
 
 // Custom scroll behavior for better UX

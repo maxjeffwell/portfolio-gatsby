@@ -32,11 +32,9 @@ const SSRErrorBoundary = ({ children }) => {
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <StyledThemeProvider theme={muiTheme}>
-      <SSRErrorBoundary>
-        {wrap({ element })}
-      </SSRErrorBoundary>
-    </StyledThemeProvider>
+    <SSRErrorBoundary>
+      {wrap({ element })}
+    </SSRErrorBoundary>
   );
 };
 
