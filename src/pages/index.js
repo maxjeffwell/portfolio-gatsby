@@ -304,9 +304,16 @@ const IndexPage = React.memo(() => {
             >
               My name&apos;s Jeff 😏
             </Typography>
-            <GradientText variant="h1" gutterBottom style={{ minHeight: '4.5rem' }} id="hero-title" className="gradient-text">
+            <GradientText 
+              variant="h1" 
+              gutterBottom 
+              style={{ minHeight: '4.5rem' }} 
+              id="hero-title" 
+              className="gradient-text"
+              aria-label="I'm a Full Stack Developer"
+            >
               I&apos;m a{' '}
-              <TypingTextWrapper className="typing-text-wrapper">
+              <TypingTextWrapper className="typing-text-wrapper" aria-hidden="true">
                 <StyledBox
                   component="span"
                   style={{
