@@ -255,7 +255,7 @@ const IndexPage = React.memo(() => {
         ]}
       />
       <StyledContainer>
-        <StyledBox as="section" role="banner" aria-labelledby="hero-title" ref={headerRef}>
+        <StyledBox as="section" aria-labelledby="hero-title" ref={headerRef}>
           <HeroSection className="hero-section">
             <FloatingShape
               style={{
