@@ -91,6 +91,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           content: `2019-01-01T00:00:00.000Z`,
         },
         {
+          name: `article:modified_time`,
+          content: `2025-01-01T00:00:00.000Z`,
+        },
+        {
           name: `viewport`,
           content: `width=device-width, initial-scale=1`,
         },
