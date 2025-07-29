@@ -135,6 +135,18 @@ const GlobalStyles = createGlobalStyle`
     font-weight: bold;
     line-height: 1.2;
     letter-spacing: -0.02em;
+    color: ${props => {
+      if (props.theme?.mode === 'dark') {
+        return props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)';
+      }
+      return props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
+    }};
+    transition: color 0.3s ease;
+    
+    /* Fallback for system preference when theme isn't available */
+    @media (prefers-color-scheme: dark) {
+      color: ${props => props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)'};
+    }
   }
 
   h1 {
@@ -150,6 +162,21 @@ const GlobalStyles = createGlobalStyle`
   h3 {
     font-size: clamp(1.5rem, 4vw, 2.25rem);
     font-weight: 600;
+  }
+
+  h4 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
+  }
+
+  h5 {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 500;
   }
 
   /* Code blocks */
@@ -175,6 +202,78 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif;
     line-height: 1.7;
     margin-bottom: 1rem;
+    color: ${props => {
+      if (props.theme?.mode === 'dark') {
+        return props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)';
+      }
+      return props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
+    }};
+    transition: color 0.3s ease;
+    
+    /* Fallback for system preference when theme isn't available */
+    @media (prefers-color-scheme: dark) {
+      color: ${props => props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)'};
+    }
+  }
+
+  /* Secondary text styles */
+  .text-secondary {
+    color: ${props => {
+      if (props.theme?.mode === 'dark') {
+        return 'rgba(255, 255, 255, 0.7)';
+      }
+      return 'rgba(0, 0, 0, 0.6)';
+    }};
+    transition: color 0.3s ease;
+    
+    @media (prefers-color-scheme: dark) {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  /* Link styles */
+  a {
+    color: ${props => {
+      if (props.theme?.mode === 'dark') {
+        return props.theme?.colors?.primary || '#90caf9';
+      }
+      return props.theme?.colors?.primary || '#1565c0';
+    }};
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: color 0.3s ease, text-decoration-color 0.3s ease;
+    
+    &:hover {
+      color: ${props => {
+        if (props.theme?.mode === 'dark') {
+          return '#64b5f6';
+        }
+        return '#0d47a1';
+      }};
+    }
+    
+    &:visited {
+      color: ${props => {
+        if (props.theme?.mode === 'dark') {
+          return '#ce93d8';
+        }
+        return '#7b1fa2';
+      }};
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      color: ${props => props.theme?.colors?.primary || '#90caf9'};
+      
+      &:hover {
+        color: #64b5f6;
+      }
+      
+      &:visited {
+        color: #ce93d8;
+      }
+    }
   }
 
   /* Smooth font loading */

@@ -91,11 +91,29 @@ const Typography = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background: ${props => 
+    props.theme?.mode === 'dark' 
+      ? 'linear-gradient(45deg, #ff7043, #ffb74d)' 
+      : 'linear-gradient(45deg, #fc4a1a, #f7b733)'
+  };
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease;
+  
+  /* Fallback color for browsers that don't support background-clip */
+  color: ${props => 
+    props.theme?.mode === 'dark' ? '#ff7043' : '#fc4a1a'
+  };
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    color: transparent;
+  }
 `;
 
 // Simple icon components using Unicode symbols
@@ -639,9 +657,10 @@ function Contact() {
           </Typography>
           <Typography 
             variant="h5" 
+            theme={theme}
+            color="text.secondary"
             style={{
               fontSize: '1.25rem',
-              color: 'rgba(0, 0, 0, 0.7)',
               fontWeight: 400,
               maxWidth: '600px',
               margin: '0 auto',

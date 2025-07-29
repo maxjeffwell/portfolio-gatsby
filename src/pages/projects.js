@@ -253,7 +253,11 @@ const StyledBox = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
+  background: ${props => 
+    props.theme?.mode === 'dark' 
+      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)' 
+      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'
+  };
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -262,6 +266,16 @@ const GradientText = styled(Typography)`
   backface-visibility: hidden;
   transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease;
+  
+  /* Fallback color for browsers that don't support background-clip */
+  color: ${props => 
+    props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0'
+  };
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    color: transparent;
+  }
 `;
 
 const StyledPaper = styled.div`
@@ -390,19 +404,19 @@ const Projects = ({ data }) => {
           <Typography theme={theme} variant="h3" component="h2" sx={{ mb: 2 }}>
             Filter Projects
           </Typography>
-          <StyledPaper theme={theme} elevation={2} p={3} mb={4} borderRadius={2}>
+          <StyledPaper theme={theme} elevation={1} p={2} mb={3} borderRadius={2}>
             <StyledBox
               display="flex"
               alignItems="center"
               justifyContent="space-between"
               flexWrap="wrap"
-              gap={2}
+              gap={1}
             >
               <Typography theme={theme} variant="body1" style={{ fontWeight: 500 }}>
                 Total Projects: {filteredProjects.length}
               </Typography>
               <StyledBox>
-                <Typography theme={theme} variant="body2" style={{ marginBottom: '8px' }}>
+                <Typography theme={theme} variant="body2" style={{ marginBottom: '4px' }}>
                   Filter by Technology:
                 </Typography>
                 <StyledSelect
@@ -412,7 +426,7 @@ const Projects = ({ data }) => {
                   value={filters.technologies[0] || ''}
                   onChange={handleTechnologyChange}
                   aria-label="Filter projects by technology"
-                  style={{ minWidth: 200 }}
+                  style={{ minWidth: 160 }}
                 >
                   <option value="">All Projects</option>
                   <option value="React">React</option>

@@ -48,13 +48,18 @@ const StyledBox = styled.div`
 // Styled components to replace MUI components
 const Typography = styled.div`
   margin: 0;
-  font-family: inherit;
+  font-family: ${props => {
+    if (props.variant?.startsWith('h')) {
+      return "'HelveticaNeueLTStd-Bd', 'AvenirLTStd-Roman', sans-serif";
+    }
+    return "'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif";
+  }};
   font-weight: ${props => 
-    props.variant === 'h1' ? 300 :
-    props.variant === 'h2' ? 300 :
-    props.variant === 'h3' ? 400 :
-    props.variant === 'h4' ? 400 :
-    props.variant === 'h5' ? 400 :
+    props.variant === 'h1' ? 700 :
+    props.variant === 'h2' ? 700 :
+    props.variant === 'h3' ? 600 :
+    props.variant === 'h4' ? 600 :
+    props.variant === 'h5' ? 500 :
     props.variant === 'h6' ? 500 :
     props.variant === 'subtitle1' ? 400 :
     props.variant === 'subtitle2' ? 500 :
@@ -64,12 +69,12 @@ const Typography = styled.div`
     400
   };
   font-size: ${props => 
-    props.variant === 'h1' ? '6rem' :
-    props.variant === 'h2' ? '3.75rem' :
-    props.variant === 'h3' ? '3rem' :
-    props.variant === 'h4' ? '2.125rem' :
-    props.variant === 'h5' ? '1.5rem' :
-    props.variant === 'h6' ? '1.25rem' :
+    props.variant === 'h1' ? 'clamp(3rem, 8vw, 6rem)' :
+    props.variant === 'h2' ? 'clamp(2.5rem, 6vw, 3.75rem)' :
+    props.variant === 'h3' ? 'clamp(2rem, 5vw, 3rem)' :
+    props.variant === 'h4' ? 'clamp(1.5rem, 4vw, 2.125rem)' :
+    props.variant === 'h5' ? 'clamp(1.25rem, 3vw, 1.5rem)' :
+    props.variant === 'h6' ? 'clamp(1.125rem, 2.5vw, 1.25rem)' :
     props.variant === 'subtitle1' ? '1rem' :
     props.variant === 'subtitle2' ? '0.875rem' :
     props.variant === 'body1' ? '1rem' :
@@ -78,32 +83,39 @@ const Typography = styled.div`
     '1rem'
   };
   line-height: ${props => 
-    props.variant === 'h1' ? 1.167 :
+    props.variant === 'h1' ? 1.2 :
     props.variant === 'h2' ? 1.2 :
-    props.variant === 'h3' ? 1.167 :
+    props.variant === 'h3' ? 1.2 :
     props.variant === 'h4' ? 1.235 :
     props.variant === 'h5' ? 1.334 :
-    props.variant === 'h6' ? 1.6 :
-    props.variant === 'subtitle1' ? 1.75 :
-    props.variant === 'subtitle2' ? 1.57 :
-    props.variant === 'body1' ? 1.5 :
-    props.variant === 'body2' ? 1.43 :
-    props.variant === 'caption' ? 1.66 :
-    1.5
+    props.variant === 'h6' ? 1.4 :
+    props.variant === 'subtitle1' ? 1.6 :
+    props.variant === 'subtitle2' ? 1.5 :
+    props.variant === 'body1' ? 1.7 :
+    props.variant === 'body2' ? 1.6 :
+    props.variant === 'caption' ? 1.5 :
+    1.6
+  };
+  letter-spacing: ${props => 
+    props.variant?.startsWith('h') ? '-0.02em' : '0.01em'
   };
   color: ${props => {
     if (props.theme?.mode === 'dark') {
       if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
-      if (props.color === 'primary') return '#90caf9';
-      return props.customColor || 'rgba(255, 255, 255, 0.87)';
+      if (props.color === 'primary') return props.theme?.colors?.primary || '#90caf9';
+      if (props.color === 'secondary') return props.theme?.colors?.secondary || '#f48fb1';
+      return props.customColor || props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)';
     }
     if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
-    if (props.color === 'primary') return '#1976d2';
-    return props.customColor || 'rgba(0, 0, 0, 0.87)';
+    if (props.color === 'primary') return props.theme?.colors?.primary || '#1976d2';
+    if (props.color === 'secondary') return props.theme?.colors?.secondary || '#dc004e';
+    return props.customColor || props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
   }};
-  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : props.paragraph ? '1rem' : '0'};
   text-align: ${props => props.align || 'inherit'};
   transition: color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 `;
 
 const Link = styled.a`

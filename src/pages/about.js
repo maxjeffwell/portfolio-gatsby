@@ -175,7 +175,11 @@ const GridItem = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background: ${props => 
+    props.theme?.mode === 'dark' 
+      ? 'linear-gradient(45deg, #ff7043, #ffb74d)' 
+      : 'linear-gradient(45deg, #fc4a1a, #f7b733)'
+  };
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -184,6 +188,16 @@ const GradientText = styled(Typography)`
   backface-visibility: hidden;
   transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease;
+  
+  /* Fallback color for browsers that don't support background-clip */
+  color: ${props => 
+    props.theme?.mode === 'dark' ? '#ff7043' : '#fc4a1a'
+  };
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    color: transparent;
+  }
 `;
 
 const TechSection = styled.div`
@@ -604,10 +618,11 @@ function AboutPage() {
               Technology Stack & Tools
             </Typography>
             <Typography
+              theme={theme}
               variant="body1"
+              color="text.secondary"
               style={{
                 fontSize: '1.125rem',
-                color: 'rgba(0, 0, 0, 0.7)',
                 maxWidth: '600px',
                 margin: '0 auto 48px auto',
                 lineHeight: 1.5,
@@ -624,21 +639,22 @@ function AboutPage() {
               margin: '0 auto'
             }}>
               <div style={{
-                background: '#ffffff',
+                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                 borderRadius: '16px',
                 padding: '32px 16px',
                 textAlign: 'center',
-                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                boxShadow: theme?.mode === 'dark' ? '0px 2px 8px rgba(0, 0, 0, 0.3)' : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
               }}>
                 <div style={{
                   fontSize: '3.5rem',
-                  color: '#1565c0',
+                  color: theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                   marginBottom: '16px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: '80px'
+                  height: '80px',
+                  transition: 'color 0.3s ease',
                 }}>
                   <DiIntellij />
                 </div>
@@ -651,21 +667,22 @@ function AboutPage() {
               </div>
 
               <div style={{
-                background: '#ffffff',
+                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                 borderRadius: '16px',
                 padding: '32px 16px',
                 textAlign: 'center',
-                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                boxShadow: theme?.mode === 'dark' ? '0px 2px 8px rgba(0, 0, 0, 0.3)' : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
               }}>
                 <div style={{
                   fontSize: '3.5rem',
-                  color: '#1565c0',
+                  color: theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                   marginBottom: '16px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: '80px'
+                  height: '80px',
+                  transition: 'color 0.3s ease',
                 }}>
                   <DiMozilla />
                 </div>
@@ -678,21 +695,22 @@ function AboutPage() {
               </div>
 
               <div style={{
-                background: '#ffffff',
+                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                 borderRadius: '16px',
                 padding: '32px 16px',
                 textAlign: 'center',
-                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                boxShadow: theme?.mode === 'dark' ? '0px 2px 8px rgba(0, 0, 0, 0.3)' : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
               }}>
                 <div style={{
                   fontSize: '3.5rem',
-                  color: '#1565c0',
+                  color: theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                   marginBottom: '16px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: '80px'
+                  height: '80px',
+                  transition: 'color 0.3s ease',
                 }}>
                   <DiDebian />
                 </div>
@@ -705,21 +723,22 @@ function AboutPage() {
               </div>
 
               <div style={{
-                background: '#ffffff',
+                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                 borderRadius: '16px',
                 padding: '32px 16px',
                 textAlign: 'center',
-                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                boxShadow: theme?.mode === 'dark' ? '0px 2px 8px rgba(0, 0, 0, 0.3)' : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
               }}>
                 <div style={{
                   fontSize: '3.5rem',
-                  color: '#1565c0',
+                  color: theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                   marginBottom: '16px',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: '80px'
+                  height: '80px',
+                  transition: 'color 0.3s ease',
                 }}>
                   <FaPiedPiperAlt />
                 </div>
