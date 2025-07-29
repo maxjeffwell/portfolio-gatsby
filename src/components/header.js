@@ -93,7 +93,7 @@ function Header() {
   const [currentPath, setCurrentPath] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(true); // Default to mobile for SSR
+  const [isMobile, setIsMobile] = useState(false); // Default to false for SSR
   const menuButtonRef = useRef(null);
 
   // Client-side only theme and media query handling
@@ -221,71 +221,63 @@ function Header() {
               minHeight: 48,
             },
           }}>
-            <NoSsr fallback={<div style={{ width: 48, height: 48 }} />}>
-              {isMobile && (
-                <IconButton
-                  aria-label="open drawer"
-                  edge="start"
-                  onClick={handleDrawerToggle}
-                  ref={menuButtonRef}
-                  sx={{
-                    color: safeTheme.palette.text.primary,
-                    '&:hover': {
-                      backgroundColor: safeTheme.palette.action.hover,
-                    },
-                  }}
-                >
-                  <MenuIcon />
-                </IconButton>
-              )}
-            </NoSsr>
+            {isMobile && (
+              <IconButton
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                ref={menuButtonRef}
+                sx={{
+                  color: safeTheme.palette.text.primary,
+                  '&:hover': {
+                    backgroundColor: safeTheme.palette.action.hover,
+                  },
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
 
-            <NoSsr fallback={<div style={{ flex: 1 }} />}>
-              {!isMobile && (
-                <StyledBox
-                  component="nav"
-                  role="navigation"
-                  aria-label="Main navigation"
-                  display="flex"
-                  alignItems="center"
-                >
-                  {menuItems.map((item) => (
-                    <NavButton
-                      key={item.text}
-                      component={Link}
-                      to={item.to}
-                      className={currentPath === item.to ? 'active' : ''}
-                      aria-current={currentPath === item.to ? 'page' : undefined}
-                    >
-                      {item.text}
-                    </NavButton>
-                  ))}
-                </StyledBox>
-              )}
-            </NoSsr>
+            {!isMobile && (
+              <StyledBox
+                component="nav"
+                role="navigation"
+                aria-label="Main navigation"
+                display="flex"
+                alignItems="center"
+              >
+                {menuItems.map((item) => (
+                  <NavButton
+                    key={item.text}
+                    component={Link}
+                    to={item.to}
+                    className={currentPath === item.to ? 'active' : ''}
+                    aria-current={currentPath === item.to ? 'page' : undefined}
+                  >
+                    {item.text}
+                  </NavButton>
+                ))}
+              </StyledBox>
+            )}
 
             <StyledBox display="flex" alignItems="center" gap={2}>
-              <NoSsr>
-                {!isMobile && <MyLogo />}
-              </NoSsr>
+              {!isMobile && <MyLogo />}
               <DarkModeToggle />
             </StyledBox>
           </Toolbar>
         </StyledContainer>
       </StyledAppBar>
 
-      <NoSsr>
-        <StyledDrawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-        >
-          {drawer}
-        </StyledDrawer>
-      </NoSsr>
+      <StyledDrawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+      >
+        {drawer}
+      </StyledDrawer>
 
       {/* Toolbar spacer */}
       <Toolbar sx={{ mb: 4 }} />
