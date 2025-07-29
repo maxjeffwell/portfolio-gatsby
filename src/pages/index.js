@@ -511,6 +511,7 @@ const IndexPage = React.memo(() => {
                     <ClientOnlyButton
                       component={Link}
                       to="/about/"
+                      variant="contained"
                       color="secondary"
                       style={{ textTransform: 'none' }}
                     >
