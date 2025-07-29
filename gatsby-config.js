@@ -52,6 +52,12 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     {
+      resolve: `gatsby-transformer-ffmpeg`,
+      options: {
+        ffmpegPath: `ffmpeg`, // Uses system ffmpeg
+      },
+    },
+    {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {

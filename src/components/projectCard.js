@@ -284,6 +284,7 @@ function ProjectCard({
   imageSrcPath,
   imageSrcPath2,
   videoSrcPath,
+  optimizedVideo,
   techIcon3,
   techIcon4,
   techIcon5,
@@ -303,7 +304,22 @@ function ProjectCard({
       <FlexContainer>
         <ImageBox>
           <ImageContainer>
-            {videoSrcPath ? (
+            {optimizedVideo ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={optimizedVideo.poster?.path}
+                aria-label={`${title} demonstration video showing the application in action`}
+              >
+                <source src={optimizedVideo.webm?.path} type="video/webm" />
+                <source src={optimizedVideo.mp4?.path} type="video/mp4" />
+                <source src={videoSrcPath} type="video/webm" />
+                Your browser does not support the video tag.
+              </video>
+            ) : videoSrcPath ? (
               <video
                 autoPlay
                 muted
@@ -504,6 +520,7 @@ ProjectCard.propTypes = {
   imageSrcPath: PropTypes.object,
   imageSrcPath2: PropTypes.object,
   videoSrcPath: PropTypes.string,
+  optimizedVideo: PropTypes.object,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

@@ -353,21 +353,25 @@ const Projects = ({ data }) => {
 
     return filteredProjects.map((project) => {
       const screenshot1File = Array.from(imageMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot1.replace('.webm', ''))
+        path.includes(project.screenshots.screenshot1.replace('.webm', '').replace('.mp4', ''))
       );
       const screenshot2File = Array.from(imageMap.entries()).find(([path]) =>
         path.includes(project.screenshots.screenshot2)
+      );
+
+      // Find video file for optimized transcoding
+      const videoFile = data.allFile.edges.find(edge => 
+        edge.node.relativePath.includes(project.screenshots.screenshot1)
       );
 
       return {
         ...project,
         imageSrcPath: screenshot1File?.[1],
         imageSrcPath2: screenshot2File?.[1],
-        videoSrcPath: project.screenshots.screenshot1.endsWith('.webm') 
-          ? data.allFile.edges.find(edge => 
-              edge.node.relativePath.includes(project.screenshots.screenshot1)
-            )?.node.publicURL
+        videoSrcPath: project.screenshots.screenshot1.endsWith('.webm') || project.screenshots.screenshot1.endsWith('.mp4')
+          ? videoFile?.node.publicURL
           : null,
+        optimizedVideo: videoFile?.node.childVideoFfmpeg || null,
         techIcon3: project.techIcons.icon3 || null,
         techIcon4: project.techIcons.icon4 || null,
         techIcon5: project.techIcons.icon5 || null,
@@ -469,6 +473,7 @@ const Projects = ({ data }) => {
                     imageSrcPath={project.imageSrcPath}
                     imageSrcPath2={project.imageSrcPath2}
                     videoSrcPath={project.videoSrcPath}
+                    optimizedVideo={project.optimizedVideo}
                     techIcon3={project.techIcon3}
                     techIcon4={project.techIcon4}
                     techIcon5={project.techIcon5}
@@ -522,6 +527,23 @@ export const pageQuery = graphql`
               breakpoints: [400, 600, 800, 1200, 1600]
               sizes: "(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 400px"
             )
+          }
+          childVideoFfmpeg {
+            webm: transcode(
+              outputOptions: ["-crf 23", "-b:v 1M", "-vf scale=800:-2"]
+              fileExtension: "webm"
+            ) {
+              path
+            }
+            mp4: transcode(
+              outputOptions: ["-crf 23", "-b:v 1M", "-vf scale=800:-2"]
+              fileExtension: "mp4"
+            ) {
+              path
+            }
+            poster: screenshot(width: 800, height: 450) {
+              path
+            }
           }
         }
       }
