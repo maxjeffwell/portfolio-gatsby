@@ -62,13 +62,18 @@ const getSystemPreference = () => {
 
 // Get stored preference or system preference
 const getInitialTheme = () => {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
     return 'light'; // Default to light theme on the server
   }
 
-  const stored = localStorage.getItem('portfolio-theme');
-  if (stored && (stored === 'light' || stored === 'dark')) {
-    return stored;
+  try {
+    const stored = localStorage.getItem('portfolio-theme');
+    if (stored && (stored === 'light' || stored === 'dark')) {
+      return stored;
+    }
+  } catch (e) {
+    // localStorage might not be available
+    console.warn('localStorage not available:', e);
   }
 
   return getSystemPreference();
@@ -87,8 +92,16 @@ export function ThemeProvider({ children }) {
   // Initialize theme on mount
   useEffect(() => {
     const initialTheme = getInitialTheme();
-    const hasStoredPreference =
-      typeof window !== 'undefined' && localStorage.getItem('portfolio-theme') !== null;
+    let hasStoredPreference = false;
+    
+    try {
+      hasStoredPreference = typeof window !== 'undefined' && 
+        typeof localStorage !== 'undefined' && 
+        localStorage.getItem('portfolio-theme') !== null;
+    } catch (e) {
+      // localStorage not available
+      hasStoredPreference = false;
+    }
 
     // Only update if different from initial state to prevent hydration mismatch
     if ((initialTheme === 'dark') !== isDarkMode) {
@@ -131,8 +144,12 @@ export function ThemeProvider({ children }) {
     setIsSystemPreference(false);
 
     // Store user preference
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('portfolio-theme', newMode ? 'dark' : 'light');
+    try {
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        localStorage.setItem('portfolio-theme', newMode ? 'dark' : 'light');
+      }
+    } catch (e) {
+      console.warn('Could not save theme preference:', e);
     }
   }, [isDarkMode]);
 
@@ -140,8 +157,12 @@ export function ThemeProvider({ children }) {
     setIsSystemPreference(true);
     setIsDarkMode(getSystemPreference() === 'dark');
 
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('portfolio-theme');
+    try {
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        localStorage.removeItem('portfolio-theme');
+      }
+    } catch (e) {
+      console.warn('Could not remove theme preference:', e);
     }
   }, []);
 

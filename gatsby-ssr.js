@@ -159,6 +159,9 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
   const themeScript = `
     (function() {
       try {
+        // Only run on client-side
+        if (typeof window === 'undefined' || typeof localStorage === 'undefined') return;
+        
         var theme = localStorage.getItem('portfolio-theme');
         var systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         var initialTheme = theme || systemPreference;
