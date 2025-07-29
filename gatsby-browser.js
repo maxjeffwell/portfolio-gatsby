@@ -5,9 +5,22 @@
  */
 
 // Polyfills are handled by webpack configuration in gatsby-node.js
-// Just ensure global availability in browser environment
+// Ensure critical polyfills are available immediately in browser environment
 if (typeof window !== 'undefined') {
   window.global = window;
+  
+  // Ensure TextEncoder/TextDecoder are available before any other code runs
+  if (typeof window.TextEncoder === 'undefined') {
+    try {
+      const encoder = require('fastestsmallesttextencoderdecoder');
+      window.TextEncoder = encoder.TextEncoder;
+      window.TextDecoder = encoder.TextDecoder;
+      global.TextEncoder = encoder.TextEncoder;
+      global.TextDecoder = encoder.TextDecoder;
+    } catch (e) {
+      console.warn('Failed to load TextEncoder polyfill:', e);
+    }
+  }
 }
 
 import React from 'react';

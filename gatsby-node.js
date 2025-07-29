@@ -8,7 +8,7 @@ const path = require('path');
 
 // onCreateWebpackConfig still works in Gatsby 5, just used differently
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  actions.setWebpackConfig({
+  const config = {
     resolve: {
       fallback: {
         "stream": require.resolve("stream-browserify"),
@@ -39,5 +39,24 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
         TextDecoder: ['fastestsmallesttextencoderdecoder', 'TextDecoder'],
       }),
     ],
-  });
+  };
+
+  // Add DefinePlugin for all stages to ensure TextEncoder is available
+  config.plugins.push(
+    new (require('webpack')).DefinePlugin({
+      'global.TextEncoder': 'TextEncoder',
+      'global.TextDecoder': 'TextDecoder',
+      'window.TextEncoder': 'TextEncoder',
+      'window.TextDecoder': 'TextDecoder',
+    })
+  );
+
+  // For client-side builds, ensure TextEncoder is available immediately
+  if (stage === 'build-javascript' || stage === 'develop') {
+    config.entry = {
+      polyfills: [require.resolve('fastestsmallesttextencoderdecoder')],
+    };
+  }
+
+  actions.setWebpackConfig(config);
 };
