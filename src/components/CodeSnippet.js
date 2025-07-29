@@ -20,19 +20,19 @@ const CheckIcon = styled.span`
 const StyledPre = styled.pre`
   margin: 0;
   padding: 16px;
-  font-family: 'Courier New', monospace;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'Courier New', monospace;
   font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: 1.6;
   overflow-x: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
-  background-color: #fafafa;
-  color: #1976d2;
+  background-color: #f8f9fa;
+  color: #2d3748;
   border: none;
   
   @media (prefers-color-scheme: dark) {
-    background-color: #212121;
-    color: white;
+    background-color: #2d3748;
+    color: #e2e8f0;
   }
 `;
 

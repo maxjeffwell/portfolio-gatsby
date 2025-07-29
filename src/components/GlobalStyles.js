@@ -11,10 +11,12 @@ const GlobalStyles = createGlobalStyle`
 
   html, body {
     height: 100%;
-    font-family: 'AvenirLTStd-Roman', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    line-height: 1.5;
+    font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
     font-size: 16px;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -127,9 +129,67 @@ const GlobalStyles = createGlobalStyle`
     will-change: auto !important;
   }
 
+  /* Typography styles to match design */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'HelveticaNeueLTStd-Bd', 'AvenirLTStd-Roman', sans-serif;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 600;
+  }
+
+  /* Code blocks */
+  code, pre {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  pre {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    
+    @media (prefers-color-scheme: dark) {
+      background-color: #2d3748;
+    }
+  }
+
+  /* Body text with better readability */
+  p {
+    font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
   /* Smooth font loading */
   @font-face {
     font-family: 'AvenirLTStd-Roman';
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'HelveticaNeueLTStd-Roman';
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'HelveticaNeueLTStd-Bd';
     font-display: swap;
   }
 `;
