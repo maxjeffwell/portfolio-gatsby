@@ -19,12 +19,14 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     overflow-x: hidden;
-    background-color: #f5f5f5;
-    color: #212121;
+    background-color: ${props => props.theme?.colors?.background || '#f5f5f5'};
+    color: ${props => props.theme?.colors?.text || '#212121'};
+    transition: background-color 0.3s ease, color 0.3s ease;
     
+    /* Fallback for system preference when theme isn't available */
     @media (prefers-color-scheme: dark) {
-      background-color: #0a0a0a;
-      color: #ffffff;
+      background-color: ${props => props.theme?.colors?.background || '#0a0a0a'};
+      color: ${props => props.theme?.colors?.text || '#ffffff'};
     }
   }
 
@@ -104,14 +106,15 @@ const GlobalStyles = createGlobalStyle`
 
   /* Card styles */
   [class*="StyledCard"], .styled-card {
-    background-color: #ffffff !important;
+    background-color: ${props => props.theme?.colors?.paper || '#ffffff'} !important;
     border-radius: 16px !important;
     box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12) !important;
     overflow: hidden !important;
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out !important;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease !important;
     
+    /* Fallback for system preference when theme isn't available */
     @media (prefers-color-scheme: dark) {
-      background-color: #1a1a1a !important;
+      background-color: ${props => props.theme?.colors?.paper || '#1a1a1a'} !important;
     }
   }
 

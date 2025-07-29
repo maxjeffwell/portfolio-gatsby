@@ -1,8 +1,7 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { muiTheme } from './theme';
 import ErrorBoundary from './components/ErrorBoundary';
 import '../static/fonts/fonts.css';
 
@@ -33,16 +32,27 @@ const ClientOnlyPerformanceMonitor = () => {
   return PerformanceMonitor ? React.createElement(PerformanceMonitor) : null;
 };
 
+// Theme-connected wrapper
+const ThemedWrapper = ({ children }) => {
+  const { theme } = useTheme();
+  
+  return (
+    <StyledThemeProvider theme={theme}>
+      {typeof window !== 'undefined' && <ClientOnlyPerformanceMonitor />}
+      {children}
+    </StyledThemeProvider>
+  );
+};
+
 // Wrap the root element with providers
 export const wrapRootElement = ({ element }) => (
   <ErrorBoundary>
     <HelmetProvider>
-      <StyledThemeProvider theme={muiTheme}>
-        <ThemeProvider>
-          {typeof window !== 'undefined' && <ClientOnlyPerformanceMonitor />}
+      <ThemeProvider>
+        <ThemedWrapper>
           {element}
-        </ThemeProvider>
-      </StyledThemeProvider>
+        </ThemedWrapper>
+      </ThemeProvider>
     </HelmetProvider>
   </ErrorBoundary>
 );
