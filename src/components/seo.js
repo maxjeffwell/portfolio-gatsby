@@ -127,7 +127,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `application-name`,
-          content: siteTitle,
+          content: `Jeff Maxwell Developer Portfolio`,
         },
         {
           name: `msapplication-tooltip`,
