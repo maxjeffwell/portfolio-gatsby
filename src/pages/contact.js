@@ -17,7 +17,21 @@ const StyledContainer = styled.div`
 `;
 
 const StyledBox = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['mb', 'mt', 'textAlign', 'display', 'p', 'pt', 'position', 'left', 'width', 'height', 'overflow', 'borderRadius'].includes(prop),
+  shouldForwardProp: (prop) =>
+    ![
+      'mb',
+      'mt',
+      'textAlign',
+      'display',
+      'p',
+      'pt',
+      'position',
+      'left',
+      'width',
+      'height',
+      'overflow',
+      'borderRadius',
+    ].includes(prop),
 })`
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
@@ -61,7 +75,10 @@ const ContactCard = styled.div`
   border-radius: 16px;
   background: #ffffff;
   transition: all 0.3s ease;
-  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
   &:hover {
     transform: translateY(-4px);
@@ -70,10 +87,13 @@ const ContactCard = styled.div`
       0px 8px 10px 1px rgba(0, 0, 0, 0.14),
       0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
-  
+
   @media (prefers-color-scheme: dark) {
     background: #1a1a1a;
-    box-shadow: 0px 2px 1px -1px rgba(255,255,255,0.2), 0px 1px 1px 0px rgba(255,255,255,0.14), 0px 1px 3px 0px rgba(255,255,255,0.12);
+    box-shadow:
+      0px 2px 1px -1px rgba(255, 255, 255, 0.2),
+      0px 1px 1px 0px rgba(255, 255, 255, 0.14),
+      0px 1px 3px 0px rgba(255, 255, 255, 0.12);
   }
 `;
 
@@ -82,15 +102,16 @@ const StyledPaper = styled.div`
   color: rgba(0, 0, 0, 0.87);
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   border-radius: 4px;
-  box-shadow: ${props => {
+  box-shadow: ${(props) => {
     const elevation = props.elevation || 1;
-    if (elevation === 2) return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
+    if (elevation === 2)
+      return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
     return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
   }};
-  padding: ${props => props.p ? `${props.p * 8}px` : '0'};
-  margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
-  border-radius: ${props => props.borderRadius ? `${props.borderRadius * 8}px` : '4px'};
-  
+  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '4px')};
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
     color: rgba(255, 255, 255, 0.87);
@@ -121,9 +142,16 @@ const StyledButton = styled.button`
   min-width: 64px;
   padding: 6px 16px;
   border-radius: 4px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  
-  ${props => props.variant === 'contained' && props.color === 'primary' && `
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  ${(props) =>
+    props.variant === 'contained' &&
+    props.color === 'primary' &&
+    `
     color: #fff;
     background-color: #1976d2;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
@@ -133,8 +161,11 @@ const StyledButton = styled.button`
       box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
     }
   `}
-  
-  ${props => props.variant === 'contained' && props.color === 'success' && `
+
+  ${(props) =>
+    props.variant === 'contained' &&
+    props.color === 'success' &&
+    `
     color: #fff;
     background-color: #2e7d32;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
@@ -145,7 +176,10 @@ const StyledButton = styled.button`
     }
   `}
   
-  ${props => props.variant === 'outlined' && props.color === 'success' && `
+  ${(props) =>
+    props.variant === 'outlined' &&
+    props.color === 'success' &&
+    `
     color: #2e7d32;
     border: 1px solid rgba(46, 125, 50, 0.5);
     
@@ -155,12 +189,16 @@ const StyledButton = styled.button`
     }
   `}
   
-  ${props => props.size === 'large' && `
+  ${(props) =>
+    props.size === 'large' &&
+    `
     padding: 8px 22px;
     font-size: 0.9375rem;
   `}
   
-  ${props => props.size === 'small' && `
+  ${(props) =>
+    props.size === 'small' &&
+    `
     padding: 4px 10px;
     font-size: 0.8125rem;
   `}
@@ -170,13 +208,13 @@ const StyledButton = styled.button`
     cursor: default;
     pointer-events: none;
   }
-  
-  margin-top: ${props => props.mt ? `${props.mt * 8}px` : '0'};
-  border-radius: ${props => props.borderRadius ? `${props.borderRadius}px` : '4px'};
-  padding-left: ${props => props.px ? `${props.px * 8}px` : 'inherit'};
-  padding-right: ${props => props.px ? `${props.px * 8}px` : 'inherit'};
-  text-transform: ${props => props.textTransform || 'uppercase'};
-  
+
+  margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
+  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius}px` : '4px')};
+  padding-left: ${(props) => (props.px ? `${props.px * 8}px` : 'inherit')};
+  padding-right: ${(props) => (props.px ? `${props.px * 8}px` : 'inherit')};
+  text-transform: ${(props) => props.textTransform || 'uppercase'};
+
   .button-end-icon {
     margin-left: 8px;
     display: inherit;
@@ -193,9 +231,11 @@ const StyledAlert = styled.div`
   line-height: 1.43;
   letter-spacing: 0.01071em;
   display: flex;
-  margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
-  
-  ${props => props.severity === 'success' && `
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+
+  ${(props) =>
+    props.severity === 'success' &&
+    `
     color: #1e4620;
     background-color: #d4e7d5;
     border-color: #4caf50;
@@ -205,8 +245,10 @@ const StyledAlert = styled.div`
       background-color: #1b5e20;
     }
   `}
-  
-  ${props => props.severity === 'error' && `
+
+  ${(props) =>
+    props.severity === 'error' &&
+    `
     color: #5f2120;
     background-color: #f8d7da;
     border-color: #f44336;
@@ -217,22 +259,22 @@ const StyledAlert = styled.div`
     }
   `}
   
-  border: ${props => props.border || '1px solid transparent'};
-  border-color: ${props => props.borderColor || 'inherit'};
-  background-color: ${props => props.backgroundColor || 'inherit'};
-  animation: ${props => props.animation || 'none'};
-  
+  border: ${(props) => props.border || '1px solid transparent'};
+  border-color: ${(props) => props.borderColor || 'inherit'};
+  background-color: ${(props) => props.backgroundColor || 'inherit'};
+  animation: ${(props) => props.animation || 'none'};
+
   @keyframes slideInScale {
-    0% { 
-      opacity: 0; 
-      transform: translateY(-20px) scale(0.95); 
+    0% {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
     }
     50% {
       transform: translateY(5px) scale(1.02);
     }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 `;
@@ -241,29 +283,29 @@ const StyledLink = styled.a`
   color: #1565c0;
   text-decoration: underline;
   text-decoration-color: #1565c0;
-  text-decoration-thickness: ${props => props.textDecorationThickness || '1px'};
-  text-underline-offset: ${props => props.textUnderlineOffset || '2px'};
+  text-decoration-thickness: ${(props) => props.textDecorationThickness || '1px'};
+  text-underline-offset: ${(props) => props.textUnderlineOffset || '2px'};
   cursor: pointer;
-  
+
   &:hover {
     text-decoration-color: #0d47a1;
-    color: ${props => props.hoverColor || '#0d47a1'};
+    color: ${(props) => props.hoverColor || '#0d47a1'};
   }
-  
+
   &:visited {
     color: #1565c0;
     text-decoration-color: #1565c0;
   }
-  
+
   @media (prefers-color-scheme: dark) {
     color: #64b5f6;
     text-decoration-color: #64b5f6;
-    
+
     &:hover {
       color: #42a5f5;
       text-decoration-color: #42a5f5;
     }
-    
+
     &:visited {
       color: #64b5f6;
       text-decoration-color: #64b5f6;
@@ -273,20 +315,21 @@ const StyledLink = styled.a`
 
 const StyledTextField = styled.div`
   margin-bottom: 24px;
-  
+
   label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.87);
     font-size: 1rem;
-    
+
     @media (prefers-color-scheme: dark) {
       color: rgba(255, 255, 255, 0.87);
     }
   }
-  
-  input, textarea {
+
+  input,
+  textarea {
     width: 100%;
     padding: 16px 14px;
     border: 1px solid rgba(0, 0, 0, 0.23);
@@ -295,34 +338,36 @@ const StyledTextField = styled.div`
     font-family: inherit;
     background-color: transparent;
     color: rgba(0, 0, 0, 0.87);
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition:
+      border-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
     box-sizing: border-box;
-    
+
     &:focus {
       outline: none;
       border-color: #1976d2;
       box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
     }
-    
+
     &::placeholder {
       color: rgba(0, 0, 0, 0.6);
     }
-    
+
     @media (prefers-color-scheme: dark) {
       color: rgba(255, 255, 255, 0.87);
       border-color: rgba(255, 255, 255, 0.23);
-      
+
       &::placeholder {
         color: rgba(255, 255, 255, 0.6);
       }
-      
+
       &:focus {
         border-color: #90caf9;
         box-shadow: 0 0 0 2px rgba(144, 202, 249, 0.2);
       }
     }
   }
-  
+
   textarea {
     resize: vertical;
     min-height: 120px;
@@ -419,14 +464,14 @@ function Contact() {
     }
 
     const form = e.target;
-    
+
     // Debug logging
     console.log('Form submission data:', {
       'form-name': 'contact',
       'bot-field': '',
       ...formData,
     });
-    
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -454,25 +499,34 @@ function Contact() {
         } else if (response.status === 429) {
           throw new Error('Too many requests. Please wait a moment before trying again.');
         } else {
-          throw new Error(`Form submission failed with status ${response.status}. Please try again.`);
+          throw new Error(
+            `Form submission failed with status ${response.status}. Please try again.`
+          );
         }
       })
       .catch((error) => {
         console.error('Form submission error:', error);
         setFormStatus('error');
-        
+
         if (error.name === 'TypeError' && error.message.includes('fetch')) {
           setErrorMessage('Network error: Please check your internet connection and try again.');
         } else if (error.message.includes('Netlify form handler not found')) {
-          setErrorMessage('Form configuration error. Please contact me directly at maxjeffwell@gmail.com.');
+          setErrorMessage(
+            'Form configuration error. Please contact me directly at maxjeffwell@gmail.com.'
+          );
         } else if (error.message.includes('Server error')) {
-          setErrorMessage('Server error occurred. Please try again in a few minutes or contact me directly.');
+          setErrorMessage(
+            'Server error occurred. Please try again in a few minutes or contact me directly.'
+          );
         } else if (error.message.includes('Too many requests')) {
           setErrorMessage('Too many attempts. Please wait a moment before trying again.');
         } else {
-          setErrorMessage(error.message || 'An unexpected error occurred. Please try again or contact me directly.');
+          setErrorMessage(
+            error.message ||
+              'An unexpected error occurred. Please try again or contact me directly.'
+          );
         }
-        
+
         // Clear error message after 10 seconds
         setTimeout(() => {
           setFormStatus('');
@@ -501,10 +555,18 @@ function Contact() {
       {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
       <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="hidden" name="form-name" value="contact" />
-        <label htmlFor="netlify-name">Name: <input type="text" name="name" id="netlify-name" /></label>
-        <label htmlFor="netlify-email">Email: <input type="email" name="email" id="netlify-email" /></label>
-        <label htmlFor="netlify-message">Message: <textarea name="message" id="netlify-message"></textarea></label>
-        <label htmlFor="netlify-bot-field">Bot field: <input type="text" name="bot-field" id="netlify-bot-field" /></label>
+        <label htmlFor="netlify-name">
+          Name: <input type="text" name="name" id="netlify-name" />
+        </label>
+        <label htmlFor="netlify-email">
+          Email: <input type="email" name="email" id="netlify-email" />
+        </label>
+        <label htmlFor="netlify-message">
+          Message: <textarea name="message" id="netlify-message" />
+        </label>
+        <label htmlFor="netlify-bot-field">
+          Bot field: <input type="text" name="bot-field" id="netlify-bot-field" />
+        </label>
       </form>
       <StyledContainer>
         <StyledBox as="section" aria-labelledby="contact-header" mb={6}>
@@ -668,18 +730,24 @@ function Contact() {
                       mb: 3,
                     }}
                   >
-                    <StyledAlert 
+                    <StyledAlert
                       severity="success"
                       border="2px solid"
                       borderColor="#4caf50"
                       backgroundColor="#d4e7d5"
                       animation="slideInScale 0.5s ease-out"
                     >
-                      <Typography variant="h5" component="div" gutterBottom sx={{ fontWeight: 'bold' }}>
+                      <Typography
+                        variant="h5"
+                        component="div"
+                        gutterBottom
+                        sx={{ fontWeight: 'bold' }}
+                      >
                         🎉 Success! Your Message Has Been Sent!
                       </Typography>
                       <Typography variant="body1">
-                        Thank you for reaching out! I appreciate your interest and will respond within 24 hours.
+                        Thank you for reaching out! I appreciate your interest and will respond
+                        within 24 hours.
                       </Typography>
                       <Typography variant="body2" sx={{ mt: 1, fontStyle: 'italic' }}>
                         Check your email for a confirmation of your message.
@@ -702,10 +770,13 @@ function Contact() {
 
                 {formStatus === 'error' && (
                   <StyledAlert severity="error" mb={3}>
-                    ❌ {errorMessage || 'Sorry, there was an error sending your message. Please ensure all fields are filled out correctly, or contact me directly at maxjeffwell@gmail.com.'}
+                    ❌{' '}
+                    {errorMessage ||
+                      'Sorry, there was an error sending your message. Please ensure all fields are filled out correctly, or contact me directly at maxjeffwell@gmail.com.'}
                     {!errorMessage.includes('maxjeffwell@gmail.com') && (
                       <>
-                        {' '}You can also reach me directly at{' '}
+                        {' '}
+                        You can also reach me directly at{' '}
                         <StyledLink href="mailto:maxjeffwell@gmail.com">
                           maxjeffwell@gmail.com
                         </StyledLink>
@@ -726,75 +797,93 @@ function Contact() {
                     ...(formStatus === 'success' && {
                       opacity: 0.7,
                       transform: 'scale(0.98)',
-                    })
+                    }),
                   }}
                 >
                   <input type="hidden" name="form-name" value="contact" />
                   <StyledBox position="absolute" left="-5000px" overflow="hidden">
                     <label htmlFor="bot-field-input">
                       Don't fill this out if you're human:
-                      <input type="text" name="bot-field" id="bot-field-input" tabIndex="-1" autoComplete="off" />
+                      <input
+                        type="text"
+                        name="bot-field"
+                        id="bot-field-input"
+                        tabIndex="-1"
+                        autoComplete="off"
+                      />
                     </label>
                   </StyledBox>
 
-                    <StyledTextField>
-                      <label htmlFor="contact-name">Your Name *</label>
-                      <input
-                        type="text"
-                        id="contact-name"
-                        name="name"
-                        autoComplete="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        disabled={isSubmitting}
-                        placeholder="Enter your name"
-                      />
-                    </StyledTextField>
-                    <StyledTextField>
-                      <label htmlFor="contact-email">Your Email *</label>
-                      <input
-                        type="email"
-                        id="contact-email"
-                        name="email"
-                        autoComplete="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        disabled={isSubmitting}
-                        placeholder="Enter your email"
-                      />
-                    </StyledTextField>
-                    <StyledTextField>
-                      <label htmlFor="contact-message">Your Message *</label>
-                      <textarea
-                        id="contact-message"
-                        name="message"
-                        autoComplete="off"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={4}
-                        disabled={isSubmitting}
-                        placeholder="Enter your message"
-                      />
-                    </StyledTextField>
-                    <StyledButton
-                      type="submit"
-                      variant="contained"
-                      color={formStatus === 'success' ? 'success' : 'primary'}
-                      size="large"
-                      disabled={isSubmitting || formStatus === 'success'}
-                      mt={3}
-                      borderRadius={20}
-                      textTransform="none"
-                      px={4}
-                    >
-                      <span>{isSubmitting ? 'Sending...' : formStatus === 'success' ? 'Message Sent!' : 'Send Message'}</span>
-                      <span className="button-end-icon">
-                        {formStatus === 'success' ? '✓' : <NoSsr><Send /></NoSsr>}
-                      </span>
-                    </StyledButton>
+                  <StyledTextField>
+                    <label htmlFor="contact-name">Your Name *</label>
+                    <input
+                      type="text"
+                      id="contact-name"
+                      name="name"
+                      autoComplete="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      disabled={isSubmitting}
+                      placeholder="Enter your name"
+                    />
+                  </StyledTextField>
+                  <StyledTextField>
+                    <label htmlFor="contact-email">Your Email *</label>
+                    <input
+                      type="email"
+                      id="contact-email"
+                      name="email"
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      disabled={isSubmitting}
+                      placeholder="Enter your email"
+                    />
+                  </StyledTextField>
+                  <StyledTextField>
+                    <label htmlFor="contact-message">Your Message *</label>
+                    <textarea
+                      id="contact-message"
+                      name="message"
+                      autoComplete="off"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      disabled={isSubmitting}
+                      placeholder="Enter your message"
+                    />
+                  </StyledTextField>
+                  <StyledButton
+                    type="submit"
+                    variant="contained"
+                    color={formStatus === 'success' ? 'success' : 'primary'}
+                    size="large"
+                    disabled={isSubmitting || formStatus === 'success'}
+                    mt={3}
+                    borderRadius={20}
+                    textTransform="none"
+                    px={4}
+                  >
+                    <span>
+                      {isSubmitting
+                        ? 'Sending...'
+                        : formStatus === 'success'
+                          ? 'Message Sent!'
+                          : 'Send Message'}
+                    </span>
+                    <span className="button-end-icon">
+                      {formStatus === 'success' ? (
+                        '✓'
+                      ) : (
+                        <NoSsr>
+                          <Send />
+                        </NoSsr>
+                      )}
+                    </span>
+                  </StyledButton>
                 </StyledBox>
               </ContactCard>
             </GridItem>

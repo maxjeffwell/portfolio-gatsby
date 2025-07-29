@@ -15,6 +15,7 @@ module.exports = {
   plugins: [
     // `gatsby-plugin-webpack-bundle-analyser-v2`, // Only enable when needed
     `gatsby-plugin-react-helmet-async`,
+    `gatsby-plugin-emotion`, // Move emotion early for proper MUI SSR support
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -82,9 +83,6 @@ module.exports = {
       options: {
         domains: ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
       },
-    },
-    {
-      resolve: `gatsby-plugin-emotion`,
     },
     {
       resolve: 'gatsby-plugin-react-svg',

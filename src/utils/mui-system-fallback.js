@@ -156,6 +156,9 @@ const keyframes = (template, ...expressions) => {
 // Grid component fallback
 const UnstableGrid = 'div';
 
+// Import styled fallback
+const styledFallback = require('./styled-fallback');
+
 // Export all utilities
 module.exports = {
   // Color manipulation
@@ -179,6 +182,7 @@ module.exports = {
   useMediaQuery,
   styleFunctionSx,
   keyframes,
+  styled: styledFallback,
   Unstable_Grid: UnstableGrid,
   
   // Default exports for common imports
@@ -199,6 +203,7 @@ module.exports = {
     useMediaQuery,
     styleFunctionSx,
     keyframes,
+    styled: styledFallback,
     Unstable_Grid: UnstableGrid,
   }
 };
