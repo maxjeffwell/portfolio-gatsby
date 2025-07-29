@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Header from './header';
 import ThirdPartyScripts from './ThirdPartyScripts';
 import GlobalStyles from './GlobalStyles';
+import { useTheme } from '../context/ThemeContext';
 
 const GET_SITE_METADATA = graphql`
   query {
@@ -91,13 +92,14 @@ const Typography = styled.div`
     1.5
   };
   color: ${props => {
-    if (props.color === 'text.secondary') {
-      return props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)';
+    if (props.theme?.mode === 'dark') {
+      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
+      if (props.color === 'primary') return '#90caf9';
+      return props.customColor || 'rgba(255, 255, 255, 0.87)';
     }
-    if (props.color === 'primary') {
-      return props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2');
-    }
-    return props.theme?.colors?.text || (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)');
+    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
+    if (props.color === 'primary') return '#1976d2';
+    return props.customColor || 'rgba(0, 0, 0, 0.87)';
   }};
   margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
   text-align: ${props => props.align || 'inherit'};
@@ -148,15 +150,17 @@ const IconButton = styled.button`
 const StyledFooter = styled.footer`
   margin-top: 0;
   padding: 32px 0;
-  background-color: #fafafa;
+  background-color: ${props => props.theme?.mode === 'dark' ? '#1a1a1a' : '#fafafa'};
   border-top: 3px solid #9c27b0;
+  transition: background-color 0.3s ease;
 `;
 
 const SocialLink = styled(IconButton)`
-  color: #333;
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#333'};
   transition:
     transform 0.2s ease-in-out,
-    color 0.2s ease-in-out;
+    color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
   will-change: transform, color;
   padding: 12px;
 
@@ -169,12 +173,21 @@ const SocialLink = styled(IconButton)`
 
 // Themed Layout Component  
 function ThemedLayout({ children, data }) {
-  // Remove MUI theme dependency
+  const { theme } = useTheme();
+  
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyles theme={theme} />
       <Header />
-      <main style={{ margin: 0, padding: 0, paddingTop: '80px' }}>
+      <main style={{ 
+        margin: 0, 
+        padding: 0, 
+        paddingTop: '80px',
+        backgroundColor: theme?.colors?.background || '#f5f5f5',
+        color: theme?.colors?.text || '#212121',
+        minHeight: '100vh',
+        transition: 'background-color 0.3s ease, color 0.3s ease'
+      }}>
         {children}
       </main>
       <StyledFooter as="footer">
@@ -183,11 +196,11 @@ function ThemedLayout({ children, data }) {
             as="h2" 
             variant="h4" 
             style={{ 
-              color: '#1a1a1a',
               fontSize: '1.5rem',
               fontWeight: 400,
               marginBottom: '8px'
             }}
+            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : '#1a1a1a'}
           >
             Jeff Maxwell
           </Typography>
@@ -246,9 +259,9 @@ function ThemedLayout({ children, data }) {
             variant="body2" 
             style={{ 
               fontSize: '0.875rem', 
-              color: '#666',
               fontWeight: 400
             }}
+            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666'}
           >
             Built by Jeff Maxwell, created with{' '}
             <Link
