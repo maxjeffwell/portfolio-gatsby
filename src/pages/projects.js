@@ -113,8 +113,8 @@ const projectsData = [
       icon6: PostgresqlIcon,
     },
     screenshots: {
-      screenshot1: 'codetalk_screenshot1',
-      screenshot2: 'codetalk_screenshot2',
+      screenshot1: 'codetalk_screenshot1.mp4',
+      screenshot2: 'codetalk_screenshot2.webm',
     },
   },
   {
@@ -356,12 +356,15 @@ const Projects = ({ data }) => {
         path.includes(project.screenshots.screenshot1.replace('.webm', '').replace('.mp4', ''))
       );
       const screenshot2File = Array.from(imageMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot2)
+        path.includes(project.screenshots.screenshot2.replace('.webm', '').replace('.mp4', ''))
       );
 
-      // Find video file for optimized transcoding
+      // Find video files for optimized transcoding
       const videoFile = data.allFile.edges.find(edge => 
         edge.node.relativePath.includes(project.screenshots.screenshot1)
+      );
+      const videoFile2 = data.allFile.edges.find(edge => 
+        edge.node.relativePath.includes(project.screenshots.screenshot2)
       );
 
       return {
@@ -371,7 +374,11 @@ const Projects = ({ data }) => {
         videoSrcPath: project.screenshots.screenshot1.endsWith('.webm') || project.screenshots.screenshot1.endsWith('.mp4')
           ? videoFile?.node.publicURL
           : null,
+        videoSrcPath2: project.screenshots.screenshot2.endsWith('.webm') || project.screenshots.screenshot2.endsWith('.mp4')
+          ? videoFile2?.node.publicURL
+          : null,
         optimizedVideo: videoFile?.node.childVideoFfmpeg || null,
+        optimizedVideo2: videoFile2?.node.childVideoFfmpeg || null,
         techIcon3: project.techIcons.icon3 || null,
         techIcon4: project.techIcons.icon4 || null,
         techIcon5: project.techIcons.icon5 || null,
@@ -473,7 +480,9 @@ const Projects = ({ data }) => {
                     imageSrcPath={project.imageSrcPath}
                     imageSrcPath2={project.imageSrcPath2}
                     videoSrcPath={project.videoSrcPath}
+                    videoSrcPath2={project.videoSrcPath2}
                     optimizedVideo={project.optimizedVideo}
+                    optimizedVideo2={project.optimizedVideo2}
                     techIcon3={project.techIcon3}
                     techIcon4={project.techIcon4}
                     techIcon5={project.techIcon5}
