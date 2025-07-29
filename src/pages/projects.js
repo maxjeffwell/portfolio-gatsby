@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import { Typography, Select, MenuItem, Paper, NoSsr } from '@mui/material';
+import { Typography, NoSsr } from '@mui/material';
 import styled from '@emotion/styled';
 
 import Layout from '../components/layout';
@@ -223,6 +223,53 @@ const GradientText = styled(Typography)`
   -webkit-font-smoothing: antialiased;
 `;
 
+const StyledPaper = styled.div`
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: ${props => {
+    const elevation = props.elevation || 1;
+    if (elevation === 2) return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
+    return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
+  }};
+  padding: ${props => props.p ? `${props.p * 8}px` : '0'};
+  margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
+  border-radius: ${props => props.borderRadius ? `${props.borderRadius * 8}px` : '4px'};
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #424242;
+    color: rgba(255, 255, 255, 0.87);
+  }
+`;
+
+const StyledSelect = styled.select`
+  width: 100%;
+  padding: 16px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+    border-color: #1976d2;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #1a1a1a;
+    color: rgba(255, 255, 255, 0.87);
+    border-color: rgba(255, 255, 255, 0.23);
+    
+    &:focus {
+      border-color: #90caf9;
+    }
+  }
+`;
+
 const Projects = ({ data }) => {
   const [filters, setFilters] = useState({
     technologies: [],
@@ -315,7 +362,7 @@ const Projects = ({ data }) => {
           <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
             Filter Projects
           </Typography>
-          <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
+          <StyledPaper elevation={2} p={3} mb={4} borderRadius={2}>
             <StyledBox
               display="flex"
               alignItems="center"
@@ -331,28 +378,23 @@ const Projects = ({ data }) => {
                   <Typography variant="body2" sx={{ mb: 1 }}>
                     Filter by Technology:
                   </Typography>
-                  <Select
+                  <StyledSelect
                     id="technology-filter"
                     name="technologyFilter"
                     value={filters.technologies[0] || ''}
                     onChange={handleTechnologyChange}
-                    displayEmpty
-                    sx={{ minWidth: 200 }}
-                    inputProps={{
-                      'aria-label': 'Filter projects by technology',
-                      id: 'technology-filter-input',
-                      name: 'technologyFilterInput',
-                    }}
+                    aria-label="Filter projects by technology"
+                    style={{ minWidth: 200 }}
                   >
-                    <MenuItem value="">All Projects</MenuItem>
-                    <MenuItem value="React">React</MenuItem>
-                    <MenuItem value="JavaScript">JavaScript</MenuItem>
-                    <MenuItem value="GraphQL">GraphQL</MenuItem>
-                  </Select>
+                    <option value="">All Projects</option>
+                    <option value="React">React</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="GraphQL">GraphQL</option>
+                  </StyledSelect>
                 </StyledBox>
               </NoSsr>
             </StyledBox>
-          </Paper>
+          </StyledPaper>
         </StyledBox>
 
         <StyledBox component="section">

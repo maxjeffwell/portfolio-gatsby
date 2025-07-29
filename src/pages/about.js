@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Paper, Fade, Slide, NoSsr } from '@mui/material';
+import { Typography, Fade, Slide, NoSsr } from '@mui/material';
 import { Code as CodeIcon, Coffee, Pets } from '@mui/icons-material';
 import styled from '@emotion/styled';
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
@@ -108,11 +108,12 @@ const GradientText = styled(Typography)`
   -webkit-font-smoothing: antialiased;
 `;
 
-const TechSection = styled(Paper)`
+const TechSection = styled.div`
   padding: 32px;
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(240, 240, 240, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
   backdrop-filter: blur(10px);
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 
   @media (prefers-color-scheme: dark) {
     background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);

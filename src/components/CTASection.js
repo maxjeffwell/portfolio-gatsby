@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Button, Paper, Fade, NoSsr } from '@mui/material';
+import { Typography, Button, Fade, NoSsr } from '@mui/material';
 import { Email, Phone, GitHub } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
-const CTASection = styled(Paper)`
+const CTASection = styled.div`
   background: linear-gradient(135deg, rgba(252, 74, 26, 0.15) 0%, rgba(247, 183, 51, 0.15) 100%);
   border-radius: 24px;
   padding: 48px 32px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
   
   &::before {
     content: '';

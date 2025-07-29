@@ -3,7 +3,6 @@ import { Link } from 'gatsby';
 import {
   Typography,
   Button,
-  Paper,
   useTheme as useMuiTheme,
   NoSsr,
 } from '@mui/material';
@@ -177,6 +176,19 @@ const StyledCard = styled.div`
 
 const StyledCardContent = styled.div`
   padding: 32px;
+`;
+
+const StyledPaper = styled.div`
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #424242;
+    color: rgba(255, 255, 255, 0.87);
+  }
 `;
 
 const FloatingShape = styled.div`
@@ -540,7 +552,7 @@ const IndexPage = React.memo(() => {
   return { isDark, toggleTheme };
 };`}
                     />
-                    <Paper
+                    <StyledPaper
                       style={{
                         marginTop: 24,
                         padding: 16,
@@ -589,7 +601,7 @@ const IndexPage = React.memo(() => {
                           </StyledBox>
                         ))}
                       </StyledBox>
-                    </Paper>
+                    </StyledPaper>
                   </StyledCardContent>
                 </StyledCard>
               </StyledBox>

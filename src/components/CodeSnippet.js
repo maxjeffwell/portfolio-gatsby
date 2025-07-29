@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Paper, Typography, IconButton, useTheme, Tooltip, NoSsr } from '@mui/material';
+import { Typography, IconButton, useTheme, Tooltip, NoSsr } from '@mui/material';
 import { ContentCopy, Check } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
@@ -37,10 +37,19 @@ const StyledHeader = styled.div`
   }
 `;
 
-const StyledPaper = styled(Paper)`
+const StyledPaper = styled.div`
   border-radius: 16px;
   overflow: hidden;
   margin: 16px 0;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #424242;
+    color: rgba(255, 255, 255, 0.87);
+  }
 `;
 
 function CodeSnippet({
@@ -91,14 +100,14 @@ function CodeSnippet({
 
   if (!code) {
     return (
-      <Paper style={{ padding: 16, backgroundColor: '#d32f2f', color: 'white' }}>
+      <StyledPaper style={{ padding: 16, backgroundColor: '#d32f2f', color: 'white' }}>
         <Typography>ERROR: No code provided to CodeSnippet</Typography>
-      </Paper>
+      </StyledPaper>
     );
   }
 
   return (
-    <StyledPaper elevation={2}>
+    <StyledPaper>
       <StyledHeader>
         <Typography
           variant="caption"
