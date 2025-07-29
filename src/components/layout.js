@@ -191,14 +191,16 @@ function ThemedLayout({ children, data }) {
     <>
       <GlobalStyles theme={theme} />
       <Header />
-      <main style={{ 
-        margin: 0, 
-        padding: 0, 
-        paddingTop: '80px',
-        backgroundColor: theme?.colors?.background || 'var(--bg-color)',
-        color: theme?.colors?.text || 'var(--text-color)',
-        transition: 'background-color 0.3s ease, color 0.3s ease'
-      }}>
+      <main 
+        suppressHydrationWarning={true}
+        style={{ 
+          margin: 0, 
+          padding: 0, 
+          paddingTop: '80px',
+          backgroundColor: theme?.colors?.background || 'var(--bg-color)',
+          color: theme?.colors?.text || 'var(--text-color)',
+          transition: 'background-color 0.3s ease, color 0.3s ease'
+        }}>
         {children}
       </main>
       <StyledFooter as="footer">

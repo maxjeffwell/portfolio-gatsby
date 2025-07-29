@@ -76,7 +76,11 @@ const getInitialTheme = () => {
 
 // Theme Provider Component
 export function ThemeProvider({ children }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Initialize with system preference to match SSR
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return getInitialTheme() === 'dark';
+  });
   const [isSystemPreference, setIsSystemPreference] = useState(true);
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -86,10 +90,13 @@ export function ThemeProvider({ children }) {
     const hasStoredPreference =
       typeof window !== 'undefined' && localStorage.getItem('portfolio-theme') !== null;
 
-    setIsDarkMode(initialTheme === 'dark');
+    // Only update if different from initial state to prevent hydration mismatch
+    if ((initialTheme === 'dark') !== isDarkMode) {
+      setIsDarkMode(initialTheme === 'dark');
+    }
     setIsSystemPreference(!hasStoredPreference);
     setIsHydrated(true);
-  }, []);
+  }, [isDarkMode]);
 
   // Listen for system preference changes
   useEffect(() => {

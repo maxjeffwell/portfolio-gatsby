@@ -30,13 +30,21 @@ function Logo() {
   const aspcaImage = getImage(data.aspcaLogo);
 
   return (
-    <>
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      gap: '32px',
+      alignItems: 'center',
+      justifyItems: 'center'
+    }}>
       <GatsbyImage
         image={iapfImage}
         alt="International Anti Poaching Foundation logo"
         loading="lazy"
         style={{
           transition: 'opacity 0.3s ease-in-out',
+          width: '100%',
+          maxWidth: '200px'
         }}
       />
       <GatsbyImage
@@ -45,9 +53,11 @@ function Logo() {
         loading="lazy"
         style={{
           transition: 'opacity 0.3s ease-in-out',
+          width: '100%',
+          maxWidth: '200px'
         }}
       />
-    </>
+    </div>
   );
 }
 

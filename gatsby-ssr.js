@@ -162,29 +162,91 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
         var theme = localStorage.getItem('portfolio-theme');
         var systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         var initialTheme = theme || systemPreference;
+        var root = document.documentElement;
         
         if (initialTheme === 'dark') {
-          document.documentElement.classList.add('dark-mode');
-          document.documentElement.classList.remove('light-mode');
+          root.classList.add('dark-mode');
+          root.classList.remove('light-mode');
+          // Set CSS variables immediately
+          root.style.setProperty('--bg-color', '#0a0a0a');
+          root.style.setProperty('--text-color', '#ffffff');
+          root.style.setProperty('--paper-color', '#1a1a1a');
+          root.style.setProperty('--primary-color', '#90caf9');
+          root.style.setProperty('--secondary-color', '#f48fb1');
+          root.style.setProperty('--text-secondary-color', 'rgba(255, 255, 255, 0.7)');
         } else {
-          document.documentElement.classList.add('light-mode');
-          document.documentElement.classList.remove('dark-mode');
+          root.classList.add('light-mode');
+          root.classList.remove('dark-mode');
+          // Set CSS variables immediately
+          root.style.setProperty('--bg-color', '#f5f5f5');
+          root.style.setProperty('--text-color', '#212121');
+          root.style.setProperty('--paper-color', '#ffffff');
+          root.style.setProperty('--primary-color', '#1976d2');
+          root.style.setProperty('--secondary-color', '#dc004e');
+          root.style.setProperty('--text-secondary-color', 'rgba(0, 0, 0, 0.6)');
         }
+        
+        // Body styles are handled by CSS variables in stylesheet
         
         // Set theme-color meta tag
         var metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-          metaThemeColor.setAttribute('content', initialTheme === 'dark' ? '#0a0a0a' : '#fc4a1a');
+          metaThemeColor.setAttribute('content', initialTheme === 'dark' ? '#0a0a0a' : '#1976d2');
         }
       } catch (e) {
         // Fallback to light theme if any error occurs
-        document.documentElement.classList.add('light-mode');
-        document.documentElement.classList.remove('dark-mode');
+        var root = document.documentElement;
+        root.classList.add('light-mode');
+        root.classList.remove('dark-mode');
+        root.style.setProperty('--bg-color', '#f5f5f5');
+        root.style.setProperty('--text-color', '#212121');
+        root.style.setProperty('--paper-color', '#ffffff');
+        root.style.setProperty('--primary-color', '#1976d2');
+        root.style.setProperty('--secondary-color', '#dc004e');
+        root.style.setProperty('--text-secondary-color', 'rgba(0, 0, 0, 0.6)');
+        // Body styles are handled by CSS variables in stylesheet
       }
     })();
   `;
 
   setPreBodyComponents([
+    <style
+      key="initial-theme-styles"
+      dangerouslySetInnerHTML={{
+        __html: `
+          /* Prevent FOUC by setting initial styles */
+          :root {
+            --bg-color: #f5f5f5;
+            --text-color: #212121;
+            --paper-color: #ffffff;
+            --primary-color: #1976d2;
+            --secondary-color: #dc004e;
+            --text-secondary-color: rgba(0, 0, 0, 0.6);
+          }
+          
+          @media (prefers-color-scheme: dark) {
+            :root {
+              --bg-color: #0a0a0a;
+              --text-color: #ffffff;
+              --paper-color: #1a1a1a;
+              --primary-color: #90caf9;
+              --secondary-color: #f48fb1;
+              --text-secondary-color: rgba(255, 255, 255, 0.7);
+            }
+          }
+          
+          body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+          }
+          
+          h1, h2, h3, h4, h5, h6 {
+            color: var(--text-color);
+          }
+        `,
+      }}
+    />,
     <script
       key="theme-script"
       // eslint-disable-next-line react/no-danger

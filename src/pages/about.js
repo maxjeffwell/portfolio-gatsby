@@ -783,7 +783,7 @@ function AboutPage() {
             >
               Supported Organizations
             </Typography>
-            <StyledBox style={{ maxWidth: '400px', margin: '0 auto' }}>
+            <StyledBox style={{ maxWidth: '600px', margin: '0 auto' }}>
               <Logo />
             </StyledBox>
           </div>
