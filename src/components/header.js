@@ -23,7 +23,9 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div`
+const StyledBox = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['display', 'justifyContent', 'flexDirection', 'alignItems', 'gap', 'p', 'textAlign'].includes(prop),
+})`
   display: ${(props) => props.display || 'block'};
   justify-content: ${(props) => props.justifyContent || 'flex-start'};
   flex-direction: ${(props) => props.flexDirection || 'row'};

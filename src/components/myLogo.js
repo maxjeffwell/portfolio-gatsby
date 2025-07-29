@@ -18,7 +18,7 @@ function MyLogo() {
             width: 100
             height: 85
             quality: 95
-            placeholder: BLURRED
+            placeholder: "none"
             formats: [AUTO, WEBP, AVIF]
           )
         }

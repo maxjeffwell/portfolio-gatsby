@@ -49,6 +49,9 @@ module.exports = {
             quality: 85,
           },
         },
+        // Disable role attributes for decorative placeholder images
+        ignoreNodeTypes: [],
+        stripMetadata: true,
       },
     },
     {

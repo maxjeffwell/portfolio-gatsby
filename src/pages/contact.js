@@ -16,7 +16,9 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div`
+const StyledBox = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['mb', 'mt', 'textAlign', 'display', 'p', 'pt', 'position', 'left', 'width', 'height', 'overflow', 'borderRadius'].includes(prop),
+})`
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
   text-align: ${(props) => props.textAlign || 'inherit'};

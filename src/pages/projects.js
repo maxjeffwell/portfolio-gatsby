@@ -183,7 +183,9 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div`
+const StyledBox = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['mb', 'mt', 'textAlign', 'display', 'flexDirection', 'gap', 'p', 'pt', 'pb', 'borderRadius', 'overflow', 'position', 'minHeight', 'bgColor', 'height', 'width', 'left', 'fontSize', 'maxWidth', 'mx', 'justifyContent', 'alignItems', 'flexWrap'].includes(prop),
+})`
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
   text-align: ${(props) => props.textAlign || 'inherit'};
@@ -464,7 +466,7 @@ export const pageQuery = graphql`
               width: 800
               height: 450
               quality: 90
-              placeholder: BLURRED
+              placeholder: "none"
               formats: [AUTO, WEBP]
               transformOptions: { cropFocus: CENTER }
               breakpoints: [400, 600, 800, 1200, 1600]

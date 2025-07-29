@@ -44,7 +44,9 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div`
+const StyledBox = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['display', 'flexDirection', 'gap', 'justifyContent', 'mb', 'mt', 'p', 'pl', 'pr', 'pt', 'pb'].includes(prop),
+})`
   display: ${(props) => props.display || 'block'};
   flex-direction: ${(props) => props.flexDirection || 'row'};
   gap: ${(props) => (props.gap ? `${props.gap * 8}px` : '0')};
