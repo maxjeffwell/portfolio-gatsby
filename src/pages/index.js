@@ -173,16 +173,20 @@ const QuoteBox = styled.div`
 `;
 
 const InfoCard = styled.div`
-  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  background: ${props => props.theme?.mode === 'dark' 
+    ? 'linear-gradient(135deg, rgba(233, 30, 99, 0.15) 0%, rgba(233, 30, 99, 0.1) 100%)' 
+    : 'linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%)'};
   border-radius: 12px;
   padding: 32px;
   margin-top: 24px;
+  transition: background 0.3s ease;
   
   h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #e91e63;
+    color: ${props => props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63'};
     margin: 0 0 16px 0;
+    transition: color 0.3s ease;
   }
   
   ul {
@@ -195,11 +199,13 @@ const InfoCard = styled.div`
       align-items: center;
       gap: 8px;
       margin-bottom: 12px;
-      color: #333;
+      color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#333'};
+      transition: color 0.3s ease;
       
       svg {
-        color: #e91e63;
+        color: ${props => props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63'};
         flex-shrink: 0;
+        transition: color 0.3s ease;
       }
     }
   }
@@ -359,7 +365,7 @@ const IndexPage = () => {
 };`}
               />
               
-              <InfoCard>
+              <InfoCard theme={theme}>
                 <h3>Why I Like This Pattern</h3>
                 <ul>
                   <li>
