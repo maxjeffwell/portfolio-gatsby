@@ -10,7 +10,6 @@ function Logo() {
           gatsbyImageData(
             width: 500
             quality: 90
-            placeholder: "NONE"
             formats: [AUTO, WEBP, AVIF]
           )
         }
@@ -20,7 +19,6 @@ function Logo() {
           gatsbyImageData(
             width: 500
             quality: 90
-            placeholder: "NONE"
             formats: [AUTO, WEBP, AVIF]
           )
         }

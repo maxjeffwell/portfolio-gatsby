@@ -18,7 +18,6 @@ function MyLogo() {
             width: 100
             height: 85
             quality: 95
-            placeholder: "NONE"
             formats: [AUTO, WEBP, AVIF]
           )
         }
