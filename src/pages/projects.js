@@ -254,7 +254,7 @@ const StyledBox = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
