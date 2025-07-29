@@ -151,6 +151,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           content: `/`,
         },
         {
+          name: `msapplication-config`,
+          content: `/browserconfig.xml`,
+        },
+        {
           name: `format-detection`,
           content: `telephone=no`,
         },
