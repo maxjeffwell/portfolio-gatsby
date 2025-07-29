@@ -41,22 +41,13 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
     ],
   };
 
-  // Add DefinePlugin for all stages to ensure TextEncoder is available
+  // Add DefinePlugin to ensure TextEncoder is available as a global
   config.plugins.push(
     new (require('webpack')).DefinePlugin({
-      'global.TextEncoder': 'TextEncoder',
-      'global.TextDecoder': 'TextDecoder',
-      'window.TextEncoder': 'TextEncoder',
-      'window.TextDecoder': 'TextDecoder',
+      'global.TextEncoder': 'window.TextEncoder',
+      'global.TextDecoder': 'window.TextDecoder',
     })
   );
-
-  // For client-side builds, ensure TextEncoder is available immediately
-  if (stage === 'build-javascript' || stage === 'develop') {
-    config.entry = {
-      polyfills: [require.resolve('fastestsmallesttextencoderdecoder')],
-    };
-  }
 
   actions.setWebpackConfig(config);
 };
