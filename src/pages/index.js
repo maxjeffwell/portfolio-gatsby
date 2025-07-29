@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { Link } from 'gatsby';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import ClientOnlyButton from '../components/ClientOnlyButton';
-import ClientOnlyMUI from '../components/ClientOnlyMUI';
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
@@ -90,14 +89,58 @@ const HeroSection = styled.div`
   }
 `;
 
-const GradientText = styled(({ children, ...props }) => (
-  <ClientOnlyMUI component="Typography" {...props}>
-    {children}
-  </ClientOnlyMUI>
-))`
-  && {
-    background: linear-gradient(45deg, #fc4a1a, #f7b733) !important;
-    background-clip: text !important;
+// Simple styled components to replace MUI components
+const Typography = styled.div`
+  margin: 0;
+  font-family: inherit;
+  font-weight: ${props => 
+    props.variant === 'h1' ? 300 :
+    props.variant === 'h2' ? 300 :
+    props.variant === 'h3' ? 400 :
+    props.variant === 'h4' ? 400 :
+    props.variant === 'h5' ? 400 :
+    props.variant === 'body1' ? 400 :
+    props.variant === 'body2' ? 400 :
+    400
+  };
+  font-size: ${props => 
+    props.variant === 'h1' ? '6rem' :
+    props.variant === 'h2' ? '3.75rem' :
+    props.variant === 'h3' ? '3rem' :
+    props.variant === 'h4' ? '2.125rem' :
+    props.variant === 'h5' ? '1.5rem' :
+    props.variant === 'body1' ? '1rem' :
+    props.variant === 'body2' ? '0.875rem' :
+    '1rem'
+  };
+  line-height: ${props => 
+    props.variant === 'h1' ? 1.167 :
+    props.variant === 'h2' ? 1.2 :
+    props.variant === 'h3' ? 1.167 :
+    props.variant === 'h4' ? 1.235 :
+    props.variant === 'h5' ? 1.334 :
+    props.variant === 'body1' ? 1.5 :
+    props.variant === 'body2' ? 1.43 :
+    1.5
+  };
+  color: ${props => 
+    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
+    'rgba(0, 0, 0, 0.87)'
+  };
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  text-align: ${props => props.align || 'inherit'};
+  
+  @media (prefers-color-scheme: dark) {
+    color: ${props => 
+      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
+      'rgba(255, 255, 255, 0.87)'
+    };
+  }
+`;
+
+const GradientText = styled(Typography)`
+  background: linear-gradient(45deg, #fc4a1a, #f7b733) !important;
+  background-clip: text !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     -moz-text-fill-color: transparent !important;
@@ -293,7 +336,7 @@ const IndexPage = React.memo(() => {
                 left: '5%',
               }}
             />
-            <ClientOnlyMUI component="Typography"
+            <Typography
               variant="body1"
               style={{
                 marginBottom: 16,
@@ -303,7 +346,7 @@ const IndexPage = React.memo(() => {
               }}
             >
               My name&apos;s Jeff 😏
-            </ClientOnlyMUI>
+            </Typography>
             <GradientText 
               variant="h1" 
               gutterBottom 
@@ -346,7 +389,7 @@ const IndexPage = React.memo(() => {
                   </StyledBox>
               </TypingTextWrapper>
             </GradientText>
-            <ClientOnlyMUI component="Typography"
+            <Typography
               variant="body1"
               style={{
                 marginTop: 16,
@@ -357,7 +400,7 @@ const IndexPage = React.memo(() => {
               }}
             >
               crafting exceptional web experiences
-            </ClientOnlyMUI>
+            </Typography>
           </HeroSection>
         </StyledBox>
 
@@ -377,7 +420,7 @@ const IndexPage = React.memo(() => {
             }}
           >
             <StyledCardContent>
-              <ClientOnlyMUI component="Typography"
+              <Typography
                 variant="h2"
                 id="intro-title"
                 style={{
@@ -389,25 +432,25 @@ const IndexPage = React.memo(() => {
                 }}
               >
                 About My Development Philosophy
-              </ClientOnlyMUI>
+              </Typography>
               <StyledBox display="flex" alignItems="center" mb={2}>
                 <ClientOnlyIcon iconName="LightbulbOutlined"
                   style={{ fontSize: 40, color: '#1976d2', marginRight: 16 }}
                 />
-                <ClientOnlyMUI component="Typography" variant="body1" style={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
+                <Typography variant="body1" style={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
                   I believe in <strong>clean, maintainable code</strong> and{' '}
                   <strong>user-centered design</strong>. Every line I write is crafted with
                   performance, accessibility, and scalability in mind.
-                </ClientOnlyMUI>
+                </Typography>
               </StyledBox>
-              <ClientOnlyMUI component="Typography"
+              <Typography
                 variant="body2"
                 color="text.secondary"
                 style={{ fontStyle: 'italic', mt: 2 }}
               >
                 &quot;Code is like humor. When you have to explain it, it&apos;s bad.&quot; —
                 That&apos;s why I focus on intuitive, self-documenting solutions.
-              </ClientOnlyMUI>
+              </Typography>
             </StyledCardContent>
           </StyledCard>
         </StyledBox>
@@ -420,7 +463,7 @@ const IndexPage = React.memo(() => {
           textAlign="center"
           style={{ minHeight: '64px' }}
         >
-          <ClientOnlyMUI component="Typography"
+          <Typography
             variant="h2"
             id="cta-title"
             style={{
@@ -432,7 +475,7 @@ const IndexPage = React.memo(() => {
             }}
           >
             Portfolio Navigation
-          </ClientOnlyMUI>
+          </Typography>
           <div style={{ opacity: navVisible ? 1 : 0.9, transition: 'opacity 0.2s ease-out' }}>
             <StyledButton component={Link} to="/projects/" endIcon={<ClientOnlyIcon iconName="ArrowForward" />} size="large" className="styled-button">
               View My Projects
@@ -441,7 +484,7 @@ const IndexPage = React.memo(() => {
         </StyledBox>
 
         <StyledBox as="section" aria-labelledby="content-sections-title">
-          <ClientOnlyMUI component="Typography"
+          <Typography
             variant="h2"
             id="content-sections-title"
             style={{
@@ -453,7 +496,7 @@ const IndexPage = React.memo(() => {
             }}
           >
             Featured Content
-          </ClientOnlyMUI>
+          </Typography>
           <GridContainer spacing={4}>
             <GridItem>
               <StyledBox
@@ -463,7 +506,7 @@ const IndexPage = React.memo(() => {
               >
                 <StyledCard className="styled-card" style={{ height: '100%' }}>
                   <StyledCardContent>
-                    <ClientOnlyMUI component="Typography"
+                    <Typography
                       variant="h3"
                       gutterBottom
                       id="beyond-code-title"
@@ -486,13 +529,13 @@ const IndexPage = React.memo(() => {
                         🐾
                       </StyledBox>
                       Beyond the Code
-                    </ClientOnlyMUI>
-                    <ClientOnlyMUI component="Typography" variant="body1" style={{ marginBottom: 24 }}>
+                    </Typography>
+                    <Typography variant="body1" style={{ marginBottom: 24 }}>
                       When I&apos;m not crafting pixel-perfect interfaces or debugging complex
                       algorithms, you&apos;ll find me negotiating dinner arrangements with my two
                       demanding canine project managers — they&apos;re surprisingly good at code
                       reviews!
-                    </ClientOnlyMUI>
+                    </Typography>
                     <ClientOnlyButton
                       component={Link}
                       to="/about/"
@@ -526,7 +569,7 @@ const IndexPage = React.memo(() => {
                     }}
                   />
                   <StyledCardContent>
-                    <ClientOnlyMUI component="Typography"
+                    <Typography
                       variant="h3"
                       gutterBottom
                       id="code-philosophy-title"
@@ -534,11 +577,11 @@ const IndexPage = React.memo(() => {
                     >
                       <ClientOnlyIcon iconName="Computer" style={{ marginRight: 16, color: '#052f5f' }} />
                       Code Philosophy
-                    </ClientOnlyMUI>
-                    <ClientOnlyMUI component="Typography" variant="body2" color="text.secondary" style={{ marginBottom: 24 }}>
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" style={{ marginBottom: 24 }}>
                       Clean, readable, and maintainable — here&apos;s how I approach modern React
                       development:
-                    </ClientOnlyMUI>
+                    </Typography>
                     <CodeSnippet
                       title="Custom Hook Example"
                       animated={codeVisible}
@@ -569,7 +612,7 @@ const IndexPage = React.memo(() => {
                         borderRadius: '8px',
                       }}
                     >
-                      <ClientOnlyMUI component="Typography" 
+                      <Typography 
                         variant="h4" 
                         gutterBottom
                         style={{ 
@@ -578,7 +621,7 @@ const IndexPage = React.memo(() => {
                         }}
                       >
                         Why I Like This Pattern
-                      </ClientOnlyMUI>
+                      </Typography>
                       <StyledBox
                         component="ul"
                         style={{ paddingLeft: 0, margin: 0, listStyle: 'none' }}
@@ -605,7 +648,7 @@ const IndexPage = React.memo(() => {
                                 color: '#fc4a1a'
                               }}
                             />
-                            <ClientOnlyMUI component="Typography" variant="body2">{text}</ClientOnlyMUI>
+                            <Typography variant="body2">{text}</Typography>
                           </StyledBox>
                         ))}
                       </StyledBox>
@@ -623,7 +666,7 @@ const IndexPage = React.memo(() => {
           ref={ctaRef}
           style={{ marginTop: '48px' }}
         >
-          <ClientOnlyMUI component="Typography"
+          <Typography
             variant="h2"
             id="cta-section-title"
             style={{
@@ -635,7 +678,7 @@ const IndexPage = React.memo(() => {
             }}
           >
             Contact and Call to Action
-          </ClientOnlyMUI>
+          </Typography>
           <CTASection visible={ctaVisible} />
         </StyledBox>
       </StyledContainer>
