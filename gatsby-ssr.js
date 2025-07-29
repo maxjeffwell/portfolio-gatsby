@@ -42,6 +42,89 @@ export const wrapRootElement = ({ element }) => {
 
 // Inject theme detection script and handle SSR issues
 export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
+  // Add TextEncoder polyfill script before any other scripts
+  setHeadComponents([
+    <script
+      key="textencoder-polyfill"
+      dangerouslySetInnerHTML={{
+        __html: `
+          (function() {
+            if (typeof window === 'undefined') return;
+            
+            var needsPolyfill = false;
+            
+            if (typeof TextEncoder === 'undefined' || typeof TextDecoder === 'undefined') {
+              needsPolyfill = true;
+            } else {
+              try {
+                new TextEncoder();
+                new TextDecoder();
+              } catch (e) {
+                needsPolyfill = true;
+              }
+            }
+            
+            if (needsPolyfill) {
+              window.TextEncoder = function TextEncoder() {
+                this.encode = function(str) {
+                  var utf8 = [];
+                  for (var i = 0; i < str.length; i++) {
+                    var charcode = str.charCodeAt(i);
+                    if (charcode < 0x80) utf8.push(charcode);
+                    else if (charcode < 0x800) {
+                      utf8.push(0xc0 | (charcode >> 6), 
+                                0x80 | (charcode & 0x3f));
+                    }
+                    else if (charcode < 0xd800 || charcode >= 0xe000) {
+                      utf8.push(0xe0 | (charcode >> 12), 
+                                0x80 | ((charcode>>6) & 0x3f), 
+                                0x80 | (charcode & 0x3f));
+                    }
+                    else {
+                      i++;
+                      charcode = 0x10000 + (((charcode & 0x3ff)<<10)
+                                | (str.charCodeAt(i) & 0x3ff));
+                      utf8.push(0xf0 | (charcode >>18), 
+                                0x80 | ((charcode>>12) & 0x3f), 
+                                0x80 | ((charcode>>6) & 0x3f), 
+                                0x80 | (charcode & 0x3f));
+                    }
+                  }
+                  return new Uint8Array(utf8);
+                };
+              };
+              
+              window.TextDecoder = function TextDecoder() {
+                this.decode = function(bytes) {
+                  var str = '';
+                  var i = 0;
+                  while (i < bytes.length) {
+                    var c = bytes[i];
+                    if (c < 128) {
+                      str += String.fromCharCode(c);
+                      i++;
+                    } else if (c > 191 && c < 224) {
+                      str += String.fromCharCode(((c & 31) << 6) | (bytes[i + 1] & 63));
+                      i += 2;
+                    } else {
+                      str += String.fromCharCode(((c & 15) << 12) | ((bytes[i + 1] & 63) << 6) | (bytes[i + 2] & 63));
+                      i += 3;
+                    }
+                  }
+                  return str;
+                };
+              };
+              
+              if (typeof global !== 'undefined') {
+                global.TextEncoder = window.TextEncoder;
+                global.TextDecoder = window.TextDecoder;
+              }
+            }
+          })();
+        `,
+      }}
+    />,
+  ]);
   // Mock window and document APIs for SSR to prevent issues
   if (typeof window === 'undefined') {
     // Ensure polyfills are available (already set at top of file)
