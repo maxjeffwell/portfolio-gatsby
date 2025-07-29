@@ -262,6 +262,16 @@ function AboutPage() {
           <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard>
+                <Typography 
+                  variant="h3" 
+                  component="h2" 
+                  id="personal-section"
+                  align="center" 
+                  gutterBottom
+                  sx={{ mb: 4, fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' } }}
+                >
+                  What Drives Me
+                </Typography>
                 <NoSsr fallback={<StyledBox minHeight="200px" />}>
                   <GridContainer className="three-column" spacing={2}>
                     <GridItem>

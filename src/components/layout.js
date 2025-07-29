@@ -111,7 +111,6 @@ function ThemedLayout({ children, data }) {
       <Header />
       <StyledContainer
         component="main"
-        role="main"
         style={{
           marginTop: '64px',
           marginBottom: '32px',
@@ -119,7 +118,7 @@ function ThemedLayout({ children, data }) {
       >
         {children}
       </StyledContainer>
-      <StyledFooter component="footer" role="contentinfo">
+      <StyledFooter component="footer">
         <StyledContainer>
           <Typography variant="h4" component="h2" gutterBottom>
             Jeff Maxwell
@@ -145,7 +144,7 @@ function ThemedLayout({ children, data }) {
             maxjeffwell@gmail.com
           </Link>
           <StyledBox
-            component="nav"
+            as="nav"
             aria-label="Social media links"
             display="flex"
             gap={2}

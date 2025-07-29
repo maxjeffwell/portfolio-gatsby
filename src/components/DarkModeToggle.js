@@ -15,11 +15,14 @@ const StyledMenu = styled.div`
   right: 0;
   background-color: #ffffff;
   border-radius: 4px;
-  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+  box-shadow:
+    0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   min-width: 200px;
   z-index: 1300;
   overflow: hidden;
-  
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
   }
@@ -31,11 +34,11 @@ const StyledMenuItem = styled.div`
   align-items: center;
   cursor: pointer;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
   }
-  
+
   @media (prefers-color-scheme: dark) {
     &:hover {
       background-color: rgba(255, 255, 255, 0.08);
@@ -48,7 +51,7 @@ const MenuIcon = styled.div`
   align-items: center;
   min-width: 56px;
   color: rgba(0, 0, 0, 0.54);
-  
+
   @media (prefers-color-scheme: dark) {
     color: rgba(255, 255, 255, 0.7);
   }
@@ -62,7 +65,7 @@ const MenuText = styled.span`
   line-height: 1.5;
   letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.87);
-  
+
   @media (prefers-color-scheme: dark) {
     color: rgba(255, 255, 255, 0.87);
   }
@@ -91,28 +94,31 @@ const StyledIconButton = styled.button`
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   background: rgba(0, 0, 0, 0.04);
   border: 2px solid rgba(0, 0, 0, 0.12);
-  
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.08);
     border-color: #1976d2;
     transform: scale(1.05);
-    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+    box-shadow:
+      0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   }
-  
+
   &:focus-visible {
     outline: 2px solid #1976d2;
     outline-offset: 2px;
   }
-  
+
   @media (prefers-color-scheme: dark) {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.12);
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.12);
       border-color: #90caf9;
     }
-    
+
     &:focus-visible {
       outline-color: #90caf9;
     }
@@ -122,7 +128,7 @@ const StyledIconButton = styled.button`
 const StyledTooltip = styled.div`
   position: relative;
   display: inline-flex;
-  
+
   &:hover::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -139,7 +145,7 @@ const StyledTooltip = styled.div`
     pointer-events: none;
     animation: tooltipFadeIn 0.15s ease-in;
   }
-  
+
   @keyframes tooltipFadeIn {
     from {
       opacity: 0;
@@ -161,11 +167,11 @@ const SystemIndicator = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.12);
   font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.6);
-  
+
   @media (max-width: 960px) {
     display: none;
   }
-  
+
   @media (prefers-color-scheme: dark) {
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: rgba(255, 255, 255, 0.7);
@@ -214,9 +220,9 @@ function DarkModeToggle() {
 
         {isSystemPreference && (
           <StyledTooltip data-tooltip="Currently following system preference">
-            <SystemIndicator>
+            <SystemIndicator role="status" aria-hidden="false">
               <Computer style={{ fontSize: 16, marginRight: 4 }} />
-              Auto
+              <span>Auto</span>
             </SystemIndicator>
           </StyledTooltip>
         )}

@@ -7,10 +7,13 @@ import ErrorBoundary from './components/ErrorBoundary';
 import '../static/fonts/fonts.css';
 
 // Create emotion cache with proper insertion point
-const emotionCache = createCache({ 
+const emotionCache = createCache({
   key: 'portfolio',
-  insertionPoint: typeof document !== 'undefined' ? document.querySelector('#emotion-insertion-point') || document.head.firstChild : undefined,
-  speedy: false // Disable speedy mode for better debugging
+  insertionPoint:
+    typeof document !== 'undefined'
+      ? document.querySelector('#emotion-insertion-point') || document.head.firstChild
+      : undefined,
+  speedy: false, // Disable speedy mode for better debugging
 });
 
 // Client-only PerformanceMonitor wrapper
