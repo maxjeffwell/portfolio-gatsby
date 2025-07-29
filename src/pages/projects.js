@@ -1,4 +1,6 @@
 import React from 'react';
+import { graphql } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ClientOnlyButton from '../components/ClientOnlyButton';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
@@ -76,18 +78,23 @@ const SectionText = styled.p`
 const ProjectCard = styled.div`
   background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
-  padding: 24px;
+  padding: 0;
   margin: 20px 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
+  overflow: hidden;
   
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .content {
+    padding: 24px;
   }
   
   h3 {
@@ -116,6 +123,24 @@ const ProjectCard = styled.div`
     display: flex;
     gap: 12px;
     justify-content: center;
+  }
+`;
+
+const ScreenshotContainer = styled.div`
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: #f5f5f5;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .gatsby-image-wrapper {
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -169,7 +194,14 @@ const DateBadge = styled.div`
   margin-bottom: 16px;
 `;
 
-const Projects = () => {
+const Projects = ({ data }) => {
+  // Helper function to find image by name
+  const findImage = (imageName) => {
+    const image = data.allFile.edges.find(edge => 
+      edge.node.relativePath.includes(imageName)
+    );
+    return image ? getImage(image.node) : null;
+  };
   return (
     <Layout>
       <SEO
@@ -195,34 +227,46 @@ const Projects = () => {
             secure JWT authentication and comprehensive student profile management.
           </SectionText>
           <ProjectCard>
-            <h3>educationELLy</h3>
-            <p>Collaborative platform for ELL and mainstream teachers to track student information, 
-               English proficiency levels, and academic progress.</p>
-            <div className="tech-stack">
-              <TechBadge>React</TechBadge>
-              <TechBadge>Redux</TechBadge>
-              <TechBadge>MongoDB</TechBadge>
-              <TechBadge>Node.js</TechBadge>
-            </div>
-            <div className="buttons">
-              <StyledButton 
-                className="primary"
-                component="a"
-                href="https://github.com/maxjeffwell/full-stack-capstone-client"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source Code
-              </StyledButton>
-              <StyledButton 
-                className="secondary"
-                component="a"
-                href="https://educationelly-client-71a1b1901aaa.herokuapp.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Demo
-              </StyledButton>
+            <ScreenshotContainer>
+              {findImage('educationelly_screenshot1') ? (
+                <GatsbyImage 
+                  image={findImage('educationelly_screenshot1')} 
+                  alt="educationELLy Screenshot"
+                />
+              ) : (
+                <img src="/images/educationelly_screenshot1.png" alt="educationELLy Screenshot" />
+              )}
+            </ScreenshotContainer>
+            <div className="content">
+              <h3>educationELLy</h3>
+              <p>Collaborative platform for ELL and mainstream teachers to track student information, 
+                 English proficiency levels, and academic progress.</p>
+              <div className="tech-stack">
+                <TechBadge>React</TechBadge>
+                <TechBadge>Redux</TechBadge>
+                <TechBadge>MongoDB</TechBadge>
+                <TechBadge>Node.js</TechBadge>
+              </div>
+              <div className="buttons">
+                <StyledButton 
+                  className="primary"
+                  component="a"
+                  href="https://github.com/maxjeffwell/full-stack-capstone-client"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source Code
+                </StyledButton>
+                <StyledButton 
+                  className="secondary"
+                  component="a"
+                  href="https://educationelly-client-71a1b1901aaa.herokuapp.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Demo
+                </StyledButton>
+              </div>
             </div>
           </ProjectCard>
         </ColorSection>
@@ -237,34 +281,46 @@ const Projects = () => {
             GraphQL, featuring WebSocket subscriptions for live updates.
           </SectionText>
           <ProjectCard>
-            <h3>Code Talk</h3>
-            <p>Perfect for remote pair programming, code reviews, or team collaboration sessions 
-               with integrated instant messaging and room-based organization.</p>
-            <div className="tech-stack">
-              <TechBadge>React</TechBadge>
-              <TechBadge>GraphQL</TechBadge>
-              <TechBadge>PostgreSQL</TechBadge>
-              <TechBadge>Redis</TechBadge>
-            </div>
-            <div className="buttons">
-              <StyledButton 
-                className="primary"
-                component="a"
-                href="https://github.com/maxjeffwell/code-talk-graphql-client"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source Code
-              </StyledButton>
-              <StyledButton 
-                className="secondary"
-                component="a"
-                href="https://code-talk-client-c46118c24c30.herokuapp.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Demo
-              </StyledButton>
+            <ScreenshotContainer>
+              {findImage('codetalk_screenshot1') ? (
+                <GatsbyImage 
+                  image={findImage('codetalk_screenshot1')} 
+                  alt="Code Talk Screenshot"
+                />
+              ) : (
+                <img src="/images/codetalk_screenshot1.png" alt="Code Talk Screenshot" />
+              )}
+            </ScreenshotContainer>
+            <div className="content">
+              <h3>Code Talk</h3>
+              <p>Perfect for remote pair programming, code reviews, or team collaboration sessions 
+                 with integrated instant messaging and room-based organization.</p>
+              <div className="tech-stack">
+                <TechBadge>React</TechBadge>
+                <TechBadge>GraphQL</TechBadge>
+                <TechBadge>PostgreSQL</TechBadge>
+                <TechBadge>Redis</TechBadge>
+              </div>
+              <div className="buttons">
+                <StyledButton 
+                  className="primary"
+                  component="a"
+                  href="https://github.com/maxjeffwell/code-talk-graphql-client"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source Code
+                </StyledButton>
+                <StyledButton 
+                  className="secondary"
+                  component="a"
+                  href="https://code-talk-client-c46118c24c30.herokuapp.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Demo
+                </StyledButton>
+              </div>
             </div>
           </ProjectCard>
         </ColorSection>
@@ -279,34 +335,46 @@ const Projects = () => {
             real-time synchronization, and personal bookmark collections.
           </SectionText>
           <ProjectCard>
-            <h3>FireBook</h3>
-            <p>A secure, scalable, and user-friendly application that works seamlessly 
-               across devices while maintaining the simplicity of its original educational goals.</p>
-            <div className="tech-stack">
-              <TechBadge>React</TechBadge>
-              <TechBadge>Firebase</TechBadge>
-              <TechBadge>Cloud Firestore</TechBadge>
-              <TechBadge>CSS</TechBadge>
-            </div>
-            <div className="buttons">
-              <StyledButton 
-                className="primary"
-                component="a"
-                href="https://github.com/maxjeffwell/bookmarks-capstone-api"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source Code
-              </StyledButton>
-              <StyledButton 
-                className="secondary"
-                component="a"
-                href="https://marmoset-c2870.firebaseapp.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Demo
-              </StyledButton>
+            <ScreenshotContainer>
+              {findImage('firebook_screenshot1') ? (
+                <GatsbyImage 
+                  image={findImage('firebook_screenshot1')} 
+                  alt="FireBook Screenshot"
+                />
+              ) : (
+                <img src="/images/firebook_screenshot1.png" alt="FireBook Screenshot" />
+              )}
+            </ScreenshotContainer>
+            <div className="content">
+              <h3>FireBook</h3>
+              <p>A secure, scalable, and user-friendly application that works seamlessly 
+                 across devices while maintaining the simplicity of its original educational goals.</p>
+              <div className="tech-stack">
+                <TechBadge>React</TechBadge>
+                <TechBadge>Firebase</TechBadge>
+                <TechBadge>Cloud Firestore</TechBadge>
+                <TechBadge>CSS</TechBadge>
+              </div>
+              <div className="buttons">
+                <StyledButton 
+                  className="primary"
+                  component="a"
+                  href="https://github.com/maxjeffwell/bookmarks-capstone-api"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source Code
+                </StyledButton>
+                <StyledButton 
+                  className="secondary"
+                  component="a"
+                  href="https://marmoset-c2870.firebaseapp.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Demo
+                </StyledButton>
+              </div>
             </div>
           </ProjectCard>
         </ColorSection>
@@ -321,34 +389,46 @@ const Projects = () => {
             and smart filtering.
           </SectionText>
           <ProjectCard>
-            <h3>Bookmarked</h3>
-            <p>Uses React's Context API and useReducer for state management, Emotion for styling, 
-               and connects to a REST API backend for data persistence.</p>
-            <div className="tech-stack">
-              <TechBadge>React</TechBadge>
-              <TechBadge>Node.js</TechBadge>
-              <TechBadge>MongoDB</TechBadge>
-              <TechBadge>Vercel</TechBadge>
-            </div>
-            <div className="buttons">
-              <StyledButton 
-                className="primary"
-                component="a"
-                href="https://github.com/maxjeffwell/bookmarks-react-hooks"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source Code
-              </StyledButton>
-              <StyledButton 
-                className="secondary"
-                component="a"
-                href="https://bookmarks-react-hooks.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Demo
-              </StyledButton>
+            <ScreenshotContainer>
+              {findImage('bookmarked_screenshot1') ? (
+                <GatsbyImage 
+                  image={findImage('bookmarked_screenshot1')} 
+                  alt="Bookmarked Screenshot"
+                />
+              ) : (
+                <img src="/images/bookmarked_screenshot1.png" alt="Bookmarked Screenshot" />
+              )}
+            </ScreenshotContainer>
+            <div className="content">
+              <h3>Bookmarked</h3>
+              <p>Uses React's Context API and useReducer for state management, Emotion for styling, 
+                 and connects to a REST API backend for data persistence.</p>
+              <div className="tech-stack">
+                <TechBadge>React</TechBadge>
+                <TechBadge>Node.js</TechBadge>
+                <TechBadge>MongoDB</TechBadge>
+                <TechBadge>Vercel</TechBadge>
+              </div>
+              <div className="buttons">
+                <StyledButton 
+                  className="primary"
+                  component="a"
+                  href="https://github.com/maxjeffwell/bookmarks-react-hooks"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source Code
+                </StyledButton>
+                <StyledButton 
+                  className="secondary"
+                  component="a"
+                  href="https://bookmarks-react-hooks.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Demo
+                </StyledButton>
+              </div>
             </div>
           </ProjectCard>
         </ColorSection>
@@ -358,3 +438,31 @@ const Projects = () => {
 };
 
 export default Projects;
+
+export const pageQuery = graphql`
+  query {
+    allFile(
+      filter: { 
+        sourceInstanceName: { eq: "images" }
+        extension: { regex: "/(jpg|jpeg|png)/" }
+        relativePath: { regex: "/screenshot/" }
+      }
+    ) {
+      edges {
+        node {
+          relativePath
+          childImageSharp {
+            gatsbyImageData(
+              width: 800
+              height: 450
+              quality: 90
+              formats: [AUTO, WEBP]
+              placeholder: BLURRED
+              transformOptions: { fit: COVER, cropFocus: CENTER }
+            )
+          }
+        }
+      }
+    }
+  }
+`;
