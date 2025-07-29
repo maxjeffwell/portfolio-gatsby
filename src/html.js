@@ -15,7 +15,7 @@ export default function HTML(props) {
     <html {...htmlAttributes} lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="algolia-site-verification" content="620E7268392C7F85" />
         <title>Jeff Maxwell Developer Portfolio</title>
         <meta
