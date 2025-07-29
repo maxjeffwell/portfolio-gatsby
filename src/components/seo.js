@@ -69,6 +69,9 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
       title={metaTitle}
       meta={[
         {
+          charset: 'utf-8',
+        },
+        {
           name: `google_site_verification`,
           content: `uswhTGfqJrK0VsQwtyZFriGk6lW4wUMB`,
         },
@@ -312,6 +315,101 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
       ]}
     >
+      {/* Inline critical CSS to prevent FOUC */}
+      <style
+        key="critical-theme-css"
+        dangerouslySetInnerHTML={{
+          __html: `
+            :root {
+              --bg-color: #f5f5f5;
+              --text-color: #212121;
+              --paper-color: #ffffff;
+              --primary-color: #1976d2;
+              --secondary-color: #dc004e;
+              --text-secondary-color: rgba(0, 0, 0, 0.6);
+            }
+            
+            .dark-mode {
+              --bg-color: #0a0a0a;
+              --text-color: #ffffff;
+              --paper-color: #1a1a1a;
+              --primary-color: #90caf9;
+              --secondary-color: #f48fb1;
+              --text-secondary-color: rgba(255, 255, 255, 0.7);
+            }
+            
+            .light-mode {
+              --bg-color: #f5f5f5;
+              --text-color: #212121;
+              --paper-color: #ffffff;
+              --primary-color: #1976d2;
+              --secondary-color: #dc004e;
+              --text-secondary-color: rgba(0, 0, 0, 0.6);
+            }
+            
+            @media (prefers-color-scheme: dark) {
+              :root {
+                --bg-color: #0a0a0a;
+                --text-color: #ffffff;
+                --paper-color: #1a1a1a;
+                --primary-color: #90caf9;
+                --secondary-color: #f48fb1;
+                --text-secondary-color: rgba(255, 255, 255, 0.7);
+              }
+            }
+            
+            body {
+              background-color: var(--bg-color) !important;
+              color: var(--text-color) !important;
+              transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+              color: var(--text-color) !important;
+            }
+          `,
+        }}
+      />
+
+      {/* Theme detection script to prevent FOUC */}
+      <script
+        key="theme-detection"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              try {
+                // Only run on client-side
+                if (typeof window === 'undefined' || typeof localStorage === 'undefined') return;
+                
+                var theme = localStorage.getItem('portfolio-theme');
+                var systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                var initialTheme = theme || systemPreference;
+                var root = document.documentElement;
+                
+                if (initialTheme === 'dark') {
+                  root.classList.add('dark-mode');
+                  root.classList.remove('light-mode');
+                  document.body.style.backgroundColor = '#0a0a0a';
+                  document.body.style.color = '#ffffff';
+                } else {
+                  root.classList.add('light-mode');
+                  root.classList.remove('dark-mode');
+                  document.body.style.backgroundColor = '#f5f5f5';
+                  document.body.style.color = '#212121';
+                }
+              } catch (e) {
+                // Fallback to light theme if any error occurs
+                var root = document.documentElement;
+                root.classList.add('light-mode');
+                root.classList.remove('dark-mode');
+                document.body.style.backgroundColor = '#f5f5f5';
+                document.body.style.color = '#212121';
+              }
+            })();
+          `,
+        }}
+      />
+
       {/* Structured Data - Person Schema */}
       <script type="application/ld+json">
         {JSON.stringify({

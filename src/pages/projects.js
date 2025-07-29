@@ -4,47 +4,6 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
-// Simple Typography replacement 
-const Typography = styled.div`
-  margin: 0;
-  font-family: inherit;
-  font-weight: ${props => 
-    props.variant === 'h1' ? 300 :
-    props.variant === 'h2' ? 300 :
-    props.variant === 'h4' ? 400 :
-    props.variant === 'body1' ? 400 :
-    props.variant === 'body2' ? 400 :
-    400
-  };
-  font-size: ${props => 
-    props.variant === 'h1' ? '6rem' :
-    props.variant === 'h2' ? '3.75rem' :
-    props.variant === 'h4' ? '2.125rem' :
-    props.variant === 'body1' ? '1rem' :
-    props.variant === 'body2' ? '0.875rem' :
-    '1rem'
-  };
-  line-height: ${props => 
-    props.variant === 'h1' ? 1.167 :
-    props.variant === 'h2' ? 1.2 :
-    props.variant === 'h4' ? 1.235 :
-    props.variant === 'body1' ? 1.5 :
-    props.variant === 'body2' ? 1.43 :
-    1.5
-  };
-  color: ${props => {
-    if (props.theme?.mode === 'dark') {
-      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
-      return 'rgba(255, 255, 255, 0.87)';
-    }
-    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
-    return 'rgba(0, 0, 0, 0.87)';
-  }};
-  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
-  text-align: ${props => props.align || 'inherit'};
-  transition: color 0.3s ease;
-`;
-
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
@@ -61,6 +20,59 @@ import VercelIcon from '../images/svg-icons/vercel.svg';
 import NodeJSIcon from '../images/svg-icons/nodejs.svg';
 import FirebaseIcon from '../images/svg-icons/firebase.svg';
 import NeonTechIcon from '../images/svg-icons/neon-tech.svg';
+
+// Simple Typography replacement
+const Typography = styled.div`
+  margin: 0;
+  font-family: inherit;
+  font-weight: ${(props) =>
+    props.variant === 'h1'
+      ? 300
+      : props.variant === 'h2'
+        ? 300
+        : props.variant === 'h4'
+          ? 400
+          : props.variant === 'body1'
+            ? 400
+            : props.variant === 'body2'
+              ? 400
+              : 400};
+  font-size: ${(props) =>
+    props.variant === 'h1'
+      ? '6rem'
+      : props.variant === 'h2'
+        ? '3.75rem'
+        : props.variant === 'h4'
+          ? '2.125rem'
+          : props.variant === 'body1'
+            ? '1rem'
+            : props.variant === 'body2'
+              ? '0.875rem'
+              : '1rem'};
+  line-height: ${(props) =>
+    props.variant === 'h1'
+      ? 1.167
+      : props.variant === 'h2'
+        ? 1.2
+        : props.variant === 'h4'
+          ? 1.235
+          : props.variant === 'body1'
+            ? 1.5
+            : props.variant === 'body2'
+              ? 1.43
+              : 1.5};
+  color: ${(props) => {
+    if (props.theme?.mode === 'dark') {
+      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
+      return 'rgba(255, 255, 255, 0.87)';
+    }
+    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
+    return 'rgba(0, 0, 0, 0.87)';
+  }};
+  margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
+  text-align: ${(props) => props.align || 'inherit'};
+  transition: color 0.3s ease;
+`;
 
 const projectsData = [
   {
@@ -141,6 +153,8 @@ const projectsData = [
     screenshots: {
       screenshot1: 'educationelly_graphql_screenshot1',
       screenshot2: 'educationelly_graphql_screenshot2',
+      screenshot3: 'educationelly_graphql_screenshot3',
+      screenshot4: 'educationelly_graphql_screenshot4',
     },
   },
   {
@@ -253,11 +267,10 @@ const StyledBox = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: ${props => 
-    props.theme?.mode === 'dark' 
-      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)' 
-      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'
-  };
+  background: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
+      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -267,47 +280,55 @@ const GradientText = styled(Typography)`
   transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s ease;
-  
+
   /* Fallback color for browsers that don't support background-clip */
-  color: ${props => 
-    props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0'
-  };
-  
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+
   @supports (background-clip: text) or (-webkit-background-clip: text) {
     color: transparent;
   }
 `;
 
 const StyledPaper = styled.div`
-  background-color: ${props => props.theme?.colors?.paper || '#ffffff'};
-  color: ${props => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 0.3s ease, color 0.3s ease;
+  background-color: ${(props) => props.theme?.colors?.paper || '#ffffff'};
+  color: ${(props) => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
+  transition:
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    background-color 0.3s ease,
+    color 0.3s ease;
   border-radius: 4px;
-  box-shadow: ${props => {
+  box-shadow: ${(props) => {
     const elevation = props.elevation || 1;
-    if (elevation === 2) return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
+    if (elevation === 2)
+      return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
     return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
   }};
-  padding: ${props => props.p ? `${props.p * 8}px` : '0'};
-  margin-bottom: ${props => props.mb ? `${props.mb * 8}px` : '0'};
-  border-radius: ${props => props.borderRadius ? `${props.borderRadius * 8}px` : '4px'};
+  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
+  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
+  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '4px')};
 `;
 
 const StyledSelect = styled.select`
   width: 100%;
   padding: 16px 14px;
-  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'};
+  border: 1px solid
+    ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'};
   border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
-  background-color: ${props => props.theme?.colors?.paper || '#ffffff'};
-  color: ${props => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
+  background-color: ${(props) => props.theme?.colors?.paper || '#ffffff'};
+  color: ${(props) => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
-  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-  
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+
   &:focus {
     outline: none;
-    border-color: ${props => props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    border-color: ${(props) =>
+      props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
   }
 `;
 
@@ -360,10 +381,10 @@ const Projects = ({ data }) => {
       );
 
       // Find video files for optimized transcoding
-      const videoFile = data.allFile.edges.find(edge => 
+      const videoFile = data.allFile.edges.find((edge) =>
         edge.node.relativePath.includes(project.screenshots.screenshot1)
       );
-      const videoFile2 = data.allFile.edges.find(edge => 
+      const videoFile2 = data.allFile.edges.find((edge) =>
         edge.node.relativePath.includes(project.screenshots.screenshot2)
       );
 
@@ -371,12 +392,16 @@ const Projects = ({ data }) => {
         ...project,
         imageSrcPath: screenshot1File?.[1],
         imageSrcPath2: screenshot2File?.[1],
-        videoSrcPath: project.screenshots.screenshot1.endsWith('.webm') || project.screenshots.screenshot1.endsWith('.mp4')
-          ? videoFile?.node.publicURL
-          : null,
-        videoSrcPath2: project.screenshots.screenshot2.endsWith('.webm') || project.screenshots.screenshot2.endsWith('.mp4')
-          ? videoFile2?.node.publicURL
-          : null,
+        videoSrcPath:
+          project.screenshots.screenshot1.endsWith('.webm') ||
+          project.screenshots.screenshot1.endsWith('.mp4')
+            ? videoFile?.node.publicURL
+            : null,
+        videoSrcPath2:
+          project.screenshots.screenshot2.endsWith('.webm') ||
+          project.screenshots.screenshot2.endsWith('.mp4')
+            ? videoFile2?.node.publicURL
+            : null,
         techIcon3: project.techIcons.icon3 || null,
         techIcon4: project.techIcons.icon4 || null,
         techIcon5: project.techIcons.icon5 || null,
@@ -414,7 +439,14 @@ const Projects = ({ data }) => {
           <GradientText variant="h2" component="h1" align="center" gutterBottom>
             Featured Projects
           </GradientText>
-          <Typography theme={theme} variant="h5" component="h2" align="center" color="text.secondary" paragraph>
+          <Typography
+            theme={theme}
+            variant="h5"
+            component="h2"
+            align="center"
+            color="text.secondary"
+            paragraph
+          >
             A collection of my work demonstrating modern web development
           </Typography>
         </StyledBox>
@@ -460,7 +492,12 @@ const Projects = ({ data }) => {
         <StyledBox as="section">
           {filteredProjects.length === 0 ? (
             <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
-              <Typography theme={theme} variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
+              <Typography
+                theme={theme}
+                variant="body1"
+                color="text.secondary"
+                sx={{ fontSize: '1.125rem' }}
+              >
                 No projects match your current filters. Try adjusting your search criteria.
               </Typography>
             </StyledBox>
@@ -516,7 +553,10 @@ export default Projects;
 export const pageQuery = graphql`
   query {
     allFile(
-      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(jpg|jpeg|png|webm|mp4)/" } }
+      filter: {
+        sourceInstanceName: { eq: "images" }
+        extension: { regex: "/(jpg|jpeg|png|webm|mp4)/" }
+      }
     ) {
       edges {
         node {
