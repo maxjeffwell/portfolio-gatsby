@@ -613,7 +613,7 @@ function Contact() {
         ]}
       />
       {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
-      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="hidden" name="form-name" value="contact" />
         <label htmlFor="netlify-name">
           Name: <input type="text" name="name" id="netlify-name" />
@@ -800,8 +800,8 @@ function Contact() {
                   onSubmit={handleSubmit}
                   mt={3}
                   name="contact"
-                  netlify
-                  netlify-honeypot="bot-field"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
                   sx={{
                     transition: 'all 0.3s ease',
                     ...(formStatus === 'success' && {

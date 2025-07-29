@@ -156,25 +156,23 @@ const GradientText = styled(Typography)`
 `;
 
 const TypingTextWrapper = styled.span`
-  && {
-    background: linear-gradient(45deg, #1565c0, #42a5f5) !important;
-    background-clip: text !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    -moz-text-fill-color: transparent !important;
-    font-weight: bold;
-    position: relative;
-    display: inline-block;
-    width: 320px;
-    min-height: 1.2em;
-    text-align: left;
-    font-size: 0.6em;
-    /* Fallback for SSR */
-    color: #1565c0;
-    
-    @supports (background-clip: text) or (-webkit-background-clip: text) {
-      color: transparent !important;
-    }
+  background: linear-gradient(45deg, #1565c0, #42a5f5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  min-width: 320px;
+  min-height: 1.2em;
+  text-align: left;
+  font-size: 0.6em;
+  /* Fallback for SSR */
+  color: #1565c0;
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    color: transparent;
   }
 `;
 
@@ -357,36 +355,14 @@ const IndexPage = React.memo(() => {
             >
               I&apos;m a{' '}
               <TypingTextWrapper className="typing-text-wrapper" aria-hidden="true">
-                <StyledBox
-                  component="span"
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    width: '100%',
-                    height: '100%',
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    visibility: 'hidden',
-                    fontSize: 'inherit',
-                  }}
-                  aria-hidden="true"
-                >
-                  JAMstack Architect
-                </StyledBox>
-                  <StyledBox
-                    component="span"
-                    style={{ position: 'absolute', left: 0, top: 0, width: '100%' }}
-                  >
-                    <TypingAnimation
-                      texts={typingTexts}
-                      typeSpeed={60}
-                      deleteSpeed={30}
-                      delayBetweenTexts={1200}
-                      loop
-                      startDelay={100}
-                    />
-                  </StyledBox>
+                <TypingAnimation
+                  texts={typingTexts}
+                  typeSpeed={60}
+                  deleteSpeed={30}
+                  delayBetweenTexts={1200}
+                  loop
+                  startDelay={100}
+                />
               </TypingTextWrapper>
             </GradientText>
             <Typography

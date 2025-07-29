@@ -10,13 +10,17 @@ const TypingContainer = styled.span`
 const TypingText = styled.span`
   font-family: inherit;
   color: inherit;
-  font-weight: bold;
+  font-weight: inherit;
   font-size: inherit;
   min-height: 1.2em;
   display: inline-block;
-  width: 100%;
+  min-width: 300px;
   text-align: left;
-  contain: layout;
+  background: inherit;
+  background-clip: inherit;
+  -webkit-background-clip: inherit;
+  -webkit-text-fill-color: inherit;
+  -moz-text-fill-color: inherit;
 `;
 
 const Cursor = styled.span`
