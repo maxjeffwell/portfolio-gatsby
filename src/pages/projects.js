@@ -175,7 +175,7 @@ const projectsData = [
       icon5: NPMIcon,
     },
     screenshots: {
-      screenshot1: 'firebook_screenshot1',
+      screenshot1: 'firebook_screenshot1.webm',
       screenshot2: 'firebook_screenshot2',
     },
   },
@@ -351,19 +351,29 @@ const Projects = ({ data }) => {
       }
     });
 
-    return filteredProjects.map((project) => ({
-      ...project,
-        imageSrcPath: Array.from(imageMap.entries()).find(([path]) =>
-          path.includes(project.screenshots.screenshot1)
-        )?.[1],
-        imageSrcPath2: Array.from(imageMap.entries()).find(([path]) =>
-          path.includes(project.screenshots.screenshot2)
-        )?.[1],
+    return filteredProjects.map((project) => {
+      const screenshot1File = Array.from(imageMap.entries()).find(([path]) =>
+        path.includes(project.screenshots.screenshot1.replace('.webm', ''))
+      );
+      const screenshot2File = Array.from(imageMap.entries()).find(([path]) =>
+        path.includes(project.screenshots.screenshot2)
+      );
+
+      return {
+        ...project,
+        imageSrcPath: screenshot1File?.[1],
+        imageSrcPath2: screenshot2File?.[1],
+        videoSrcPath: project.screenshots.screenshot1.endsWith('.webm') 
+          ? data.allFile.edges.find(edge => 
+              edge.node.relativePath.includes(project.screenshots.screenshot1)
+            )?.node.publicURL
+          : null,
         techIcon3: project.techIcons.icon3 || null,
         techIcon4: project.techIcons.icon4 || null,
         techIcon5: project.techIcons.icon5 || null,
         techIcon6: project.techIcons.icon6 || null,
-    }));
+      };
+    });
   }, [filteredProjects, data]);
 
   return (
@@ -458,6 +468,7 @@ const Projects = ({ data }) => {
                     technologies={project.technologies}
                     imageSrcPath={project.imageSrcPath}
                     imageSrcPath2={project.imageSrcPath2}
+                    videoSrcPath={project.videoSrcPath}
                     techIcon3={project.techIcon3}
                     techIcon4={project.techIcon4}
                     techIcon5={project.techIcon5}
@@ -495,11 +506,12 @@ export default Projects;
 export const pageQuery = graphql`
   query {
     allFile(
-      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(jpg|jpeg|png)/" } }
+      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(jpg|jpeg|png|webm|mp4)/" } }
     ) {
       edges {
         node {
           relativePath
+          publicURL
           childImageSharp {
             gatsbyImageData(
               width: 800

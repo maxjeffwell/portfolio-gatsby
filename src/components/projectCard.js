@@ -234,6 +234,19 @@ const ImageContainer = styled.div`
     }
   }
 
+  & video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
   @media (max-width: 600px) {
     aspect-ratio: 4 / 3;
   }
@@ -270,6 +283,7 @@ const TechIcon = styled.div`
 function ProjectCard({
   imageSrcPath,
   imageSrcPath2,
+  videoSrcPath,
   techIcon3,
   techIcon4,
   techIcon5,
@@ -289,7 +303,20 @@ function ProjectCard({
       <FlexContainer>
         <ImageBox>
           <ImageContainer>
-            {getImage(imageSrcPath) ? (
+            {videoSrcPath ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={`${title} demonstration video showing the application in action`}
+              >
+                <source src={videoSrcPath} type="video/webm" />
+                <source src={videoSrcPath.replace('.webm', '.mp4')} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : getImage(imageSrcPath) ? (
               <GatsbyImage
                 image={getImage(imageSrcPath)}
                 alt={`${title} main screenshot showing the application interface`}
@@ -307,7 +334,7 @@ function ProjectCard({
             ) : (
               <PlaceholderBox theme={theme}>
                 <Typography theme={theme} variant="body2" color="text.secondary">
-                  Image loading...
+                  Media loading...
                 </Typography>
               </PlaceholderBox>
             )}
@@ -474,8 +501,9 @@ function ProjectCard({
 }
 
 ProjectCard.propTypes = {
-  imageSrcPath: PropTypes.object.isRequired,
-  imageSrcPath2: PropTypes.object.isRequired,
+  imageSrcPath: PropTypes.object,
+  imageSrcPath2: PropTypes.object,
+  videoSrcPath: PropTypes.string,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
