@@ -524,22 +524,13 @@ function Contact() {
     }
 
     const form = e.target;
+    const formData_netlify = new FormData(form);
 
-    // Debug logging
-    console.log('Form submission data:', {
-      'form-name': 'contact',
-      'bot-field': '',
-      ...formData,
-    });
-
+    // Try native Netlify form submission first, then fallback to fetch
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': 'contact',
-        'bot-field': '',
-        ...formData,
-      }),
+      body: new URLSearchParams(formData_netlify).toString()
     })
       .then((response) => {
         console.log('Form submission response:', response.status, response.statusText);
@@ -551,7 +542,6 @@ function Contact() {
           const formElement = e.target;
           const formTop = formElement.getBoundingClientRect().top + window.pageYOffset - 100;
           window.scrollTo({ top: formTop, behavior: 'smooth' });
-          // Keep success message visible permanently until user submits again
         } else if (response.status === 404) {
           throw new Error('Netlify form handler not found. Please check form configuration.');
         } else if (response.status >= 500) {
@@ -894,8 +884,9 @@ function Contact() {
                 )}
 
                 <StyledBox
-                  component="form"
+                  as="form"
                   onSubmit={handleSubmit}
+                  method="POST"
                   mt={3}
                   name="contact"
                   data-netlify="true"
