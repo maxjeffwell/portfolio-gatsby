@@ -74,7 +74,7 @@ const GridItem = styled.div`
 const HeroSection = styled.div`
   padding: 48px 32px;
   text-align: center;
-  background: #e8eaf6;
+  background: linear-gradient(135deg, #f3e5f5 0%, #e8eaf6 100%);
   border-radius: 24px;
   margin-bottom: 32px;
   position: relative;
@@ -101,7 +101,7 @@ const GradientText = styled(Typography)`
   background: linear-gradient(45deg, #fc4a1a, #f7b733);
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #1565c0;
+  -webkit-text-fill-color: transparent;
   display: inline-block;
 `;
 
@@ -110,7 +110,7 @@ const StyledButton = styled(Button)`
   padding: 12px 32px;
   font-size: 1.1rem;
   text-transform: none;
-  background: linear-gradient(45deg, #fc4a1a, #f7b733);
+  background: linear-gradient(135deg, #7c4dff 0%, #b388ff 100%);
   color: white;
   box-shadow:
     0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -120,6 +120,7 @@ const StyledButton = styled(Button)`
 
   &:hover {
     transform: translateY(-2px);
+    background: linear-gradient(135deg, #651fff 0%, #9c64ff 100%);
     box-shadow:
       0px 5px 5px -3px rgba(0, 0, 0, 0.2),
       0px 8px 10px 1px rgba(0, 0, 0, 0.14),
@@ -196,21 +197,38 @@ const IndexPage = React.memo(() => {
             <NoSsr fallback={null}>
               <FloatingShape
                 style={{
-                  width: 60,
-                  height: 60,
-                  background: muiTheme.palette.primary.main,
-                  top: '20%',
-                  right: '10%',
+                  width: 200,
+                  height: 200,
+                  background: 'rgba(252, 74, 26, 0.08)',
+                  top: '-50px',
+                  left: '-50px',
                 }}
               />
               <FloatingShape
                 style={{
-                  width: 40,
-                  height: 40,
-                  background: muiTheme.palette.secondary.main,
-                  bottom: '15%',
-                  left: '8%',
-                  borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+                  width: 150,
+                  height: 150,
+                  background: 'rgba(124, 77, 255, 0.08)',
+                  bottom: '-40px',
+                  right: '-40px',
+                }}
+              />
+              <FloatingShape
+                style={{
+                  width: 120,
+                  height: 120,
+                  background: 'rgba(252, 74, 26, 0.1)',
+                  top: '10%',
+                  right: '5%',
+                }}
+              />
+              <FloatingShape
+                style={{
+                  width: 80,
+                  height: 80,
+                  background: 'rgba(247, 183, 51, 0.1)',
+                  bottom: '20%',
+                  left: '5%',
                 }}
               />
             </NoSsr>
@@ -220,7 +238,7 @@ const IndexPage = React.memo(() => {
                 marginBottom: 16,
                 fontSize: '1.25rem',
                 fontWeight: 500,
-                color: muiTheme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.87)' : 'text.primary',
+                color: 'rgba(0, 0, 0, 0.87)',
               }}
             >
               My name&apos;s Jeff 😏
@@ -230,7 +248,11 @@ const IndexPage = React.memo(() => {
               <StyledBox
                 component="span"
                 style={{
-                  color: muiTheme.palette.primary.main,
+                  background: 'linear-gradient(45deg, #1565c0, #42a5f5)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  color: '#1565c0',
                   fontWeight: 'bold',
                   position: 'relative',
                   display: 'inline-block',
@@ -281,7 +303,7 @@ const IndexPage = React.memo(() => {
                 minHeight: '1.75rem',
                 fontSize: '1.125rem',
                 fontWeight: 400,
-                color: muiTheme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.87)' : 'text.primary',
+                color: 'rgba(0, 0, 0, 0.87)',
               }}
             >
               crafting exceptional web experiences
@@ -297,13 +319,14 @@ const IndexPage = React.memo(() => {
           style={{ minHeight: '240px' }}
         >
           <Card
-            elevation={2}
+            elevation={3}
             style={{
-              borderRadius: 24,
+              borderRadius: 16,
               overflow: 'visible',
               opacity: introVisible ? 1 : 0.8,
               transform: introVisible ? 'translateY(0)' : 'translateY(10px)',
               transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
+              backgroundColor: '#ffffff',
             }}
           >
             <CardContent style={{ padding: 32 }}>
@@ -322,7 +345,7 @@ const IndexPage = React.memo(() => {
               </Typography>
               <StyledBox display="flex" alignItems="center" mb={2}>
                 <LightbulbOutlined
-                  style={{ fontSize: 40, color: muiTheme.palette.primary.main, marginRight: 16 }}
+                  style={{ fontSize: 40, color: '#1976d2', marginRight: 16 }}
                 />
                 <Typography variant="body1" style={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
                   I believe in <strong>clean, maintainable code</strong> and{' '}
@@ -392,33 +415,30 @@ const IndexPage = React.memo(() => {
                 style={{ opacity: introVisible ? 1 : 0, transition: 'opacity 0.6s ease-out' }}
               >
                 <Card
-                  elevation={2}
+                  elevation={3}
                   style={{
                     height: '100%',
-                    borderRadius: 24,
-                    background:
-                      muiTheme.palette.mode === 'dark'
-                        ? 'linear-gradient(135deg, rgba(30,30,30,0.95) 0%, rgba(45,45,45,0.9) 100%)'
-                        : 'linear-gradient(135deg, rgba(240,240,240,0.95) 0%, rgba(250,250,250,0.9) 100%)',
+                    borderRadius: 16,
+                    background: '#ffffff',
                   }}
                 >
                   <CardContent style={{ padding: 32 }}>
                     <Typography
                       variant="h3"
-                      color="secondary"
                       gutterBottom
                       id="beyond-code-title"
-                      style={{ display: 'flex', alignItems: 'center' }}
+                      style={{ 
+                        display: 'flex', 
+                        alignItems: 'center',
+                        color: '#fc4a1a',
+                        fontWeight: 600
+                      }}
                     >
                       <StyledBox
                         component="span"
                         style={{
-                          marginRight: 32,
-                          width: 24,
-                          height: 24,
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          marginRight: 12,
+                          fontSize: '1.5rem',
                         }}
                         aria-hidden="true"
                       >
@@ -452,18 +472,19 @@ const IndexPage = React.memo(() => {
                 style={{ opacity: codeVisible ? 1 : 0, transition: 'opacity 0.6s ease-out' }}
               >
                 <Card
-                  elevation={2}
+                  elevation={3}
                   style={{
                     height: '100%',
-                    borderRadius: 24,
+                    borderRadius: 16,
                     position: 'relative',
                     overflow: 'hidden',
+                    backgroundColor: '#ffffff',
                   }}
                 >
                   <StyledBox
                     style={{
                       height: 4,
-                      background: `linear-gradient(90deg, ${muiTheme.palette.primary.main}, ${muiTheme.palette.secondary.main})`,
+                      background: 'linear-gradient(90deg, #1565c0, #42a5f5)',
                     }}
                   />
                   <CardContent style={{ padding: 32 }}>
@@ -473,7 +494,7 @@ const IndexPage = React.memo(() => {
                       id="code-philosophy-title"
                       style={{ display: 'flex', alignItems: 'center' }}
                     >
-                      <Computer style={{ marginRight: 16 }} />
+                      <Computer style={{ marginRight: 16, color: '#052f5f' }} />
                       Code Philosophy
                     </Typography>
                     <Typography variant="body2" color="text.secondary" style={{ marginBottom: 24 }}>
@@ -505,11 +526,19 @@ const IndexPage = React.memo(() => {
                       style={{
                         marginTop: 24,
                         padding: 16,
-                        borderLeft: `4px solid ${muiTheme.palette.secondary.main}`,
-                        backgroundColor: muiTheme.palette.action.hover,
+                        borderLeft: '4px solid #fc4a1a',
+                        backgroundColor: '#fff0f0',
+                        borderRadius: '8px',
                       }}
                     >
-                      <Typography variant="h4" color="secondary" gutterBottom>
+                      <Typography 
+                        variant="h4" 
+                        gutterBottom
+                        style={{ 
+                          color: '#fc4a1a',
+                          fontWeight: 600
+                        }}
+                      >
                         Why I Like This Pattern
                       </Typography>
                       <StyledBox
@@ -533,8 +562,10 @@ const IndexPage = React.memo(() => {
                           >
                             <CheckCircle
                               fontSize="small"
-                              color="secondary"
-                              style={{ marginRight: 8 }}
+                              style={{ 
+                                marginRight: 8,
+                                color: '#fc4a1a'
+                              }}
                             />
                             <Typography variant="body2">{text}</Typography>
                           </StyledBox>

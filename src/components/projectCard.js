@@ -261,7 +261,7 @@ function ProjectCard({
                   React.createElement(techIcon3, {
                     width: 24,
                     height: 24,
-                    fill: "#fc4a1a"
+                    fill: '#fc4a1a',
                   })
                 ) : (
                   <span>Icon3</span>
@@ -276,7 +276,7 @@ function ProjectCard({
                   React.createElement(techIcon4, {
                     width: 24,
                     height: 24,
-                    fill: "#fc4a1a"
+                    fill: '#fc4a1a',
                   })
                 ) : (
                   <span>Icon4</span>
@@ -291,7 +291,7 @@ function ProjectCard({
                   React.createElement(techIcon5, {
                     width: 24,
                     height: 24,
-                    fill: "#fc4a1a"
+                    fill: '#fc4a1a',
                   })
                 ) : (
                   <span>Icon5</span>
@@ -306,7 +306,7 @@ function ProjectCard({
                   React.createElement(techIcon6, {
                     width: 24,
                     height: 24,
-                    fill: "#fc4a1a"
+                    fill: '#fc4a1a',
                   })
                 ) : (
                   <span>Icon6</span>
@@ -338,7 +338,11 @@ function ProjectCard({
         <Button
           variant="contained"
           color="primary"
-          startIcon={<NoSsr><GitHub /></NoSsr>}
+          startIcon={
+            <NoSsr>
+              <GitHub />
+            </NoSsr>
+          }
           href={sourceURL}
           target="_blank"
           rel="noopener noreferrer"
@@ -354,7 +358,11 @@ function ProjectCard({
         <Button
           variant="outlined"
           color="secondary"
-          startIcon={<NoSsr><Launch /></NoSsr>}
+          startIcon={
+            <NoSsr>
+              <Launch />
+            </NoSsr>
+          }
           href={hostedURL}
           target="_blank"
           rel="noopener noreferrer"

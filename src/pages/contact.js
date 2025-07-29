@@ -160,16 +160,26 @@ function Contact() {
 
     const form = e.target;
     
+    // Debug logging
+    console.log('Form submission data:', {
+      'form-name': 'contact',
+      'bot-field': '',
+      ...formData,
+    });
+    
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        'form-name': form.getAttribute('name'),
+        'form-name': 'contact',
+        'bot-field': '',
         ...formData,
       }),
     })
       .then((response) => {
+        console.log('Form submission response:', response.status, response.statusText);
         if (response.ok) {
+          console.log('Form submitted successfully!');
           setFormStatus('success');
           setFormData({ name: '', email: '', message: '' });
           // Scroll to top of form to show success message
@@ -485,8 +495,6 @@ function Contact() {
                   onSubmit={handleSubmit}
                   mt={3}
                   name="contact"
-                  method="POST"
-                  action="/contact/"
                   data-netlify="true"
                   data-netlify-honeypot="bot-field"
                   sx={{
