@@ -151,7 +151,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `referrer`,
-          content: `no-referrer-when-downgrade`,
+          content: `strict-origin-when-cross-origin`,
         },
         {
           name: `geo.region`,
