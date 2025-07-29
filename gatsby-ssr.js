@@ -28,6 +28,13 @@ export const wrapRootElement = ({ element }) => {
 export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
   // Mock window and document APIs for SSR to prevent MUI Grid issues
   if (typeof window === 'undefined') {
+    // Add TextEncoder/TextDecoder polyfills for SSR environment
+    if (typeof global.TextEncoder === 'undefined') {
+      const { TextEncoder, TextDecoder } = require('fastestsmallesttextencoderdecoder');
+      global.TextEncoder = TextEncoder;
+      global.TextDecoder = TextDecoder;
+    }
+    
     global.window = {
       matchMedia: () => ({
         matches: false,

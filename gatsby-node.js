@@ -40,6 +40,8 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
       new webpack.ProvidePlugin({
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
+        TextEncoder: ['fastestsmallesttextencoderdecoder', 'TextEncoder'],
+        TextDecoder: ['fastestsmallesttextencoderdecoder', 'TextDecoder'],
       }),
     ],
   };
@@ -83,6 +85,15 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
       optimization: {
         minimize: false,
       },
+      plugins: [
+        // Define TextEncoder as a mock for SSR bundle
+        new webpack.DefinePlugin({
+          'typeof TextEncoder': '"undefined"',
+          'typeof TextDecoder': '"undefined"',
+          'global.TextEncoder': 'undefined',
+          'global.TextDecoder': 'undefined',
+        }),
+      ],
     });
   }
 
