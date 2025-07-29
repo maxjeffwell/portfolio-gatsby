@@ -209,7 +209,7 @@ const projectsData = [
     },
     screenshots: {
       screenshot1: 'bookmarked_screenshot1',
-      screenshot2: 'bookmarked_screenshot2',
+      screenshot2: 'bookmarked_screenshot2.mp4',
     },
   },
 ];
