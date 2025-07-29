@@ -6,10 +6,43 @@
 
 const TerserPlugin = require('terser-webpack-plugin');
 
-// Configure webpack to completely exclude MUI from processing
+// Configure webpack to completely exclude MUI from processing and add Node.js polyfills
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   const config = getConfig();
   const webpack = require('webpack');
+
+  // Node.js polyfills for webpack 5 compatibility
+  const nodePolyfills = {
+    resolve: {
+      fallback: {
+        "stream": require.resolve("stream-browserify"),
+        "path": require.resolve("path-browserify"),
+        "fs": false,
+        "http": require.resolve("stream-http"),
+        "url": require.resolve("url/"),
+        "https": require.resolve("https-browserify"),
+        "zlib": require.resolve("browserify-zlib"),
+        "crypto": require.resolve("crypto-browserify"),
+        "buffer": require.resolve("buffer/"),
+        "process": require.resolve("process/browser"),
+        "util": require.resolve("util/"),
+        "assert": require.resolve("assert/"),
+        "os": require.resolve("os-browserify/browser"),
+        "querystring": require.resolve("querystring-es3"),
+        "object.assign/polyfill": require.resolve("object.assign/polyfill"),
+      },
+      alias: {
+        "object.assign/polyfill": require.resolve("object.assign/polyfill"),
+      }
+    },
+    plugins: [
+      // Provide global process and Buffer
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+      }),
+    ],
+  };
 
   // Comprehensive MUI exclusion configuration
   const muiExclusionConfig = {
@@ -34,11 +67,24 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
         /^@mui/,
         require.resolve('./src/utils/empty-module.js')
       ),
+      ...nodePolyfills.plugins,
     ],
+    resolve: {
+      ...nodePolyfills.resolve,
+    },
   };
 
   // Apply configuration to all stages
   actions.setWebpackConfig(muiExclusionConfig);
+
+  // Disable problematic optimizations for SSR stages
+  if (stage === 'build-html') {
+    actions.setWebpackConfig({
+      optimization: {
+        minimize: false,
+      },
+    });
+  }
 
   if (stage === 'build-javascript') {
     // Override the entire optimization to prevent CSS processing issues
