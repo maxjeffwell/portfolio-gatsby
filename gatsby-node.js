@@ -35,8 +35,8 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
       new (require('webpack')).ProvidePlugin({
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer'],
-        TextEncoder: ['fastestsmallesttextencoderdecoder', 'TextEncoder'],
-        TextDecoder: ['fastestsmallesttextencoderdecoder', 'TextDecoder'],
+        TextEncoder: [require.resolve('./src/polyfills/textencoder-inline.js'), 'TextEncoder'],
+        TextDecoder: [require.resolve('./src/polyfills/textencoder-inline.js'), 'TextDecoder'],
       }),
     ],
   };
