@@ -115,7 +115,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `apple-mobile-web-app-status-bar-style`,
-          content: `black-translucent`,
+          content: `black`,
         },
         {
           name: `apple-mobile-web-app-title`,
