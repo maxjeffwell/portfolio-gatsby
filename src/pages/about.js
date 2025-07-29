@@ -327,14 +327,15 @@ function AboutPage() {
               About Jeff Maxwell
             </Typography>
             <Typography
+              theme={theme}
               variant="h5"
               component="h2"
+              color="text.secondary"
               style={{
                 maxWidth: 700,
                 margin: '0 auto',
                 fontSize: '1.375rem',
                 lineHeight: 1.5,
-                color: 'rgba(0, 0, 0, 0.7)',
                 fontWeight: 400,
                 letterSpacing: '0.01em',
               }}

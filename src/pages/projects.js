@@ -378,7 +378,7 @@ const Projects = ({ data }) => {
       />
       <StyledContainer>
         <StyledBox as="section" mb={6}>
-          <GradientText variant="h2" component="h1" align="center" gutterBottom>
+          <GradientText variant="h2" component="h1" align="center" gutterBottom style={{ textAlign: 'center' }}>
             Featured Projects
           </GradientText>
           <Typography theme={theme} variant="h5" component="h2" align="center" color="text.secondary" paragraph>
