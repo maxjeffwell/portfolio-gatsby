@@ -14,8 +14,6 @@ const TypingText = styled.span`
   font-size: inherit;
   min-height: 1.2em;
   display: inline-block;
-  min-width: 300px;
-  text-align: left;
   background: inherit;
   background-clip: inherit;
   -webkit-background-clip: inherit;
@@ -97,7 +95,8 @@ const TypingAnimation = React.memo(
         // Typing phase
         if (displayText.length < currentText.length) {
           timeout = setTimeout(() => {
-            setDisplayText(currentText.slice(0, displayText.length + 1));
+            const newText = currentText.slice(0, displayText.length + 1);
+            setDisplayText(newText);
           }, config.typeSpeed);
         } else {
           // Finished typing, wait then start deleting

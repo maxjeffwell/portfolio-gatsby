@@ -162,12 +162,8 @@ const TypingTextWrapper = styled.span`
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
   font-weight: bold;
-  position: relative;
   display: inline-block;
-  min-width: 320px;
   min-height: 1.2em;
-  text-align: left;
-  font-size: 0.6em;
   /* Fallback for SSR */
   color: #1565c0;
   
