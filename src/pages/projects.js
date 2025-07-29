@@ -349,7 +349,7 @@ const Projects = ({ data }) => {
         ]}
       />
       <StyledContainer>
-        <StyledBox component="section" mb={6}>
+        <StyledBox as="section" mb={6}>
           <GradientText variant="h2" component="h1" align="center" gutterBottom>
             Featured Projects
           </GradientText>
@@ -358,7 +358,7 @@ const Projects = ({ data }) => {
           </Typography>
         </StyledBox>
 
-        <StyledBox component="section">
+        <StyledBox as="section">
           <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
             Filter Projects
           </Typography>
@@ -397,7 +397,7 @@ const Projects = ({ data }) => {
           </StyledPaper>
         </StyledBox>
 
-        <StyledBox component="section">
+        <StyledBox as="section">
           {filteredProjects.length === 0 ? (
             <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
               <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>

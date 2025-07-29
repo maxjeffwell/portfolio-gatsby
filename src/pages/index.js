@@ -255,7 +255,7 @@ const IndexPage = React.memo(() => {
         ]}
       />
       <StyledContainer>
-        <StyledBox component="section" role="banner" aria-labelledby="hero-title" ref={headerRef}>
+        <StyledBox as="section" role="banner" aria-labelledby="hero-title" ref={headerRef}>
           <HeroSection className="hero-section">
             <FloatingShape
               style={{
@@ -355,7 +355,7 @@ const IndexPage = React.memo(() => {
         </StyledBox>
 
         <StyledBox
-          component="section"
+          as="section"
           aria-labelledby="intro-title"
           ref={introRef}
           mb={4}
@@ -406,7 +406,7 @@ const IndexPage = React.memo(() => {
         </StyledBox>
 
         <StyledBox
-          component="section"
+          as="section"
           aria-labelledby="cta-title"
           ref={navRef}
           mb={6}
@@ -433,7 +433,7 @@ const IndexPage = React.memo(() => {
           </div>
         </StyledBox>
 
-        <StyledBox component="section" aria-labelledby="content-sections-title">
+        <StyledBox as="section" aria-labelledby="content-sections-title">
           <Typography
             variant="h2"
             id="content-sections-title"
@@ -610,7 +610,7 @@ const IndexPage = React.memo(() => {
         </StyledBox>
 
         <StyledBox
-          component="section"
+          as="section"
           aria-labelledby="cta-section-title"
           ref={ctaRef}
           style={{ marginTop: '48px' }}

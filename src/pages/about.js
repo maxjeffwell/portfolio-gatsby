@@ -227,7 +227,7 @@ function AboutPage() {
         ]}
       />
       <StyledContainer>
-        <StyledBox component="section" aria-labelledby="about-header" ref={headerRef} mb={6}>
+        <StyledBox as="section" aria-labelledby="about-header" ref={headerRef} mb={6}>
           <Fade
             in={headerVisible}
             timeout={600}
@@ -258,7 +258,7 @@ function AboutPage() {
             </div>
           </Fade>
         </StyledBox>
-        <StyledBox component="section" aria-labelledby="personal-section" ref={personalRef} mb={6}>
+        <StyledBox as="section" aria-labelledby="personal-section" ref={personalRef} mb={6}>
           <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
               <PersonalCard>
@@ -310,7 +310,7 @@ function AboutPage() {
           </NoSsr>
         </StyledBox>
 
-        <StyledBox component="section" aria-labelledby="illustrations-section">
+        <StyledBox as="section" aria-labelledby="illustrations-section">
           <Typography
             variant="h2"
             component="h2"
@@ -395,7 +395,7 @@ function AboutPage() {
           </NoSsr>
         </StyledBox>
 
-        <StyledBox component="section" aria-labelledby="tech-stack" ref={techRef} mb={6}>
+        <StyledBox as="section" aria-labelledby="tech-stack" ref={techRef} mb={6}>
           <NoSsr fallback={<StyledBox minHeight="400px" bgColor="hover" />}>
             <Fade
               in={techVisible}
@@ -494,7 +494,7 @@ function AboutPage() {
           </NoSsr>
         </StyledBox>
 
-        <StyledBox component="section" aria-labelledby="organizations" textAlign="center" mt={6}>
+        <StyledBox as="section" aria-labelledby="organizations" textAlign="center" mt={6}>
           <GradientText variant="h2" component="h2" id="organizations" gutterBottom>
             Supported Organizations
           </GradientText>

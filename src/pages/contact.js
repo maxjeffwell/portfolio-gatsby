@@ -505,7 +505,7 @@ function Contact() {
         <label htmlFor="netlify-bot-field">Bot field: <input type="text" name="bot-field" id="netlify-bot-field" /></label>
       </form>
       <StyledContainer>
-        <StyledBox component="section" aria-labelledby="contact-header" mb={6}>
+        <StyledBox as="section" aria-labelledby="contact-header" mb={6}>
           <GradientText variant="h2" component="h1" id="contact-header" align="center" gutterBottom>
             Let&#39;s Connect
           </GradientText>
@@ -514,7 +514,7 @@ function Contact() {
           </Typography>
         </StyledBox>
 
-        <StyledBox component="section" aria-labelledby="contact-methods">
+        <StyledBox as="section" aria-labelledby="contact-methods">
           <Typography
             variant="h2"
             id="contact-methods"
@@ -799,7 +799,7 @@ function Contact() {
           </GridContainer>
         </StyledBox>
 
-        <StyledBox component="section" aria-labelledby="availability" mt={6} textAlign="center">
+        <StyledBox as="section" aria-labelledby="availability" mt={6} textAlign="center">
           <Typography
             variant="h2"
             id="availability"
