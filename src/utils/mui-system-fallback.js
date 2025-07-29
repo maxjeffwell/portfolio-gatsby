@@ -130,6 +130,29 @@ const useMediaQuery = (query) => {
 
 const styleFunctionSx = () => ({});
 
+// CSS-in-JS keyframes utility
+const keyframes = (template, ...expressions) => {
+  if (typeof template === 'string') {
+    return template;
+  }
+  
+  // Handle template literal
+  let result = '';
+  for (let i = 0; i < template.length; i++) {
+    result += template[i];
+    if (i < expressions.length) {
+      result += expressions[i];
+    }
+  }
+  
+  // For SSR, return a simple object representation
+  return {
+    name: `keyframe-${Math.random().toString(36).substr(2, 9)}`,
+    styles: result,
+    toString: () => result,
+  };
+};
+
 // Grid component fallback
 const UnstableGrid = 'div';
 
@@ -155,6 +178,7 @@ module.exports = {
   useThemeProps,
   useMediaQuery,
   styleFunctionSx,
+  keyframes,
   Unstable_Grid: UnstableGrid,
   
   // Default exports for common imports
@@ -174,6 +198,7 @@ module.exports = {
     useThemeProps,
     useMediaQuery,
     styleFunctionSx,
+    keyframes,
     Unstable_Grid: UnstableGrid,
   }
 };

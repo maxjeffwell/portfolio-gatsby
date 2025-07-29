@@ -45,15 +45,89 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig, rules }) => {
     '@mui/system/RtlProvider': path.join(__dirname, 'src/utils/rtl-provider-fallback.js'),
     '@mui/system/InitColorSchemeScript': path.join(__dirname, 'src/utils/init-color-scheme-script-fallback.js'),
     '@mui/system/useThemeWithoutDefault': path.join(__dirname, 'src/utils/use-theme-without-default-fallback.js'),
+    '@mui/system/styled': path.join(__dirname, 'src/utils/styled-fallback.js'),
     'react-icons/di': path.join(__dirname, 'src/utils/react-icons-di-fallback.js'),
     'react-icons/fa': path.join(__dirname, 'src/utils/react-icons-fa-fallback.js'),
   };
 
   if (stage === 'build-html') {
+    const webpack = require('webpack');
+    
     actions.setWebpackConfig({
       resolve: {
         alias: muiAliases,
+        fallback: {
+          "os": require.resolve("os-browserify/browser"),
+          "crypto": require.resolve("crypto-browserify"),
+          "path": require.resolve("path-browserify"),
+          "stream": require.resolve("stream-browserify"),
+          "url": require.resolve("url"),
+          "util": require.resolve("util"),
+          "querystring": require.resolve("querystring-es3"),
+          "buffer": require.resolve("buffer"),
+          "assert": require.resolve("assert"),
+          "events": require.resolve("events"),
+          "vm": require.resolve("vm-browserify"),
+          "http": false,
+          "https": false,
+          "zlib": false,
+          "fs": false,
+          "net": false,
+          "tls": false,
+          "child_process": false,
+          "module": false
+        }
       },
+      plugins: [
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/colorManipulator/,
+          path.join(__dirname, 'src/utils/color-manipulator-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/styleFunctionSx/,
+          path.join(__dirname, 'src/utils/style-function-sx-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/createTheme/,
+          path.join(__dirname, 'src/utils/create-theme-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/createStyled/,
+          path.join(__dirname, 'src/utils/create-styled-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/useThemeProps/,
+          path.join(__dirname, 'src/utils/use-theme-props-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/useMediaQuery/,
+          path.join(__dirname, 'src/utils/use-media-query-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/Unstable_Grid/,
+          path.join(__dirname, 'src/utils/unstable-grid-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/DefaultPropsProvider/,
+          path.join(__dirname, 'src/utils/default-props-provider-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/RtlProvider/,
+          path.join(__dirname, 'src/utils/rtl-provider-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/InitColorSchemeScript/,
+          path.join(__dirname, 'src/utils/init-color-scheme-script-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/useThemeWithoutDefault/,
+          path.join(__dirname, 'src/utils/use-theme-without-default-fallback.js')
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /@mui\/system\/styled/,
+          path.join(__dirname, 'src/utils/styled-fallback.js')
+        ),
+      ],
     });
   }
   
