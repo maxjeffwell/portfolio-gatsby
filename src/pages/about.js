@@ -1,7 +1,76 @@
 import React from 'react';
-import { Typography, Fade, Slide, NoSsr } from '@mui/material';
-import { Code as CodeIcon, Coffee, Pets } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
+
+// Simple styled components to replace MUI components
+const Typography = styled.div`
+  margin: 0;
+  font-family: inherit;
+  font-weight: ${props => 
+    props.variant === 'h1' ? 300 :
+    props.variant === 'h2' ? 300 :
+    props.variant === 'h3' ? 400 :
+    props.variant === 'h4' ? 400 :
+    props.variant === 'h5' ? 400 :
+    props.variant === 'body1' ? 400 :
+    props.variant === 'body2' ? 400 :
+    400
+  };
+  font-size: ${props => 
+    props.variant === 'h1' ? '6rem' :
+    props.variant === 'h2' ? '3.75rem' :
+    props.variant === 'h3' ? '3rem' :
+    props.variant === 'h4' ? '2.125rem' :
+    props.variant === 'h5' ? '1.5rem' :
+    props.variant === 'body1' ? '1rem' :
+    props.variant === 'body2' ? '0.875rem' :
+    '1rem'
+  };
+  line-height: ${props => 
+    props.variant === 'h1' ? 1.167 :
+    props.variant === 'h2' ? 1.2 :
+    props.variant === 'h3' ? 1.167 :
+    props.variant === 'h4' ? 1.235 :
+    props.variant === 'h5' ? 1.334 :
+    props.variant === 'body1' ? 1.5 :
+    props.variant === 'body2' ? 1.43 :
+    1.5
+  };
+  color: ${props => 
+    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
+    'rgba(0, 0, 0, 0.87)'
+  };
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  text-align: ${props => props.align || 'inherit'};
+  
+  @media (prefers-color-scheme: dark) {
+    color: ${props => 
+      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
+      'rgba(255, 255, 255, 0.87)'
+    };
+  }
+`;
+
+// Simple icon components
+const CodeIcon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '💻';
+  }
+`;
+
+const CoffeeIcon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '☕';
+  }
+`;
+
+const PetsIcon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '🐕';
+  }
+`;
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
 import { FaPiedPiperAlt } from 'react-icons/fa';
 
@@ -21,9 +90,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['mb', 'mt', 'textAlign', 'display', 'flexDirection', 'alignItems', 'gap', 'p', 'pt', 'pb', 'borderRadius', 'overflow', 'position', 'minHeight', 'bgColor', 'height', 'width', 'left', 'fontSize', 'maxWidth', 'mx'].includes(prop),
-})`
+const StyledBox = styled.div`
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
   text-align: ${(props) => props.textAlign || 'inherit'};
@@ -230,57 +297,47 @@ function AboutPage() {
       />
       <StyledContainer>
         <StyledBox as="section" aria-labelledby="about-header" ref={headerRef} mb={6}>
-          <Fade
-            in={headerVisible}
-            timeout={600}
-            style={{ transitionDelay: headerVisible ? '0ms' : '0ms' }}
-          >
-            <div style={{ willChange: 'opacity' }}>
-              <GradientText
-                variant="h2"
-                component="h1"
-                id="about-header"
-                align="center"
-                gutterBottom
-                sx={{ fontSize: { xs: '2.125rem', sm: '3rem', md: '3.75rem' } }}
-              >
-                About Jeff Maxwell
-              </GradientText>
-              <Typography
-                variant="h5"
-                component="h2"
-                align="center"
-                color="text.secondary"
-                sx={{ maxWidth: 600, mx: 'auto' }}
-              >
-                Full stack developer passionate about creating elegant solutions to complex
-                problems. When I&#39;m not coding, I&#39;m exploring new technologies and perfecting
-                my craft.
-              </Typography>
-            </div>
-          </Fade>
+          <div style={{ willChange: 'opacity' }}>
+            <GradientText
+              variant="h2"
+              component="h1"
+              id="about-header"
+              align="center"
+              gutterBottom
+            >
+              About Jeff Maxwell
+            </GradientText>
+            <Typography
+              variant="h5"
+              component="h2"
+              align="center"
+              color="text.secondary"
+              style={{ maxWidth: 600, margin: '0 auto' }}
+            >
+              Full stack developer passionate about creating elegant solutions to complex
+              problems. When I&#39;m not coding, I&#39;m exploring new technologies and perfecting
+              my craft.
+            </Typography>
+          </div>
         </StyledBox>
         <StyledBox as="section" aria-labelledby="personal-section" ref={personalRef} mb={6}>
-          <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" />}>
-            <Slide direction="up" in={personalVisible} timeout={800}>
-              <PersonalCard>
+          <PersonalCard>
                 <Typography 
                   variant="h3" 
                   component="h2" 
                   id="personal-section"
                   align="center" 
                   gutterBottom
-                  sx={{ mb: 4, fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' } }}
+                  style={{ marginBottom: '32px', fontSize: '2rem' }}
                 >
                   What Drives Me
                 </Typography>
-                <NoSsr fallback={<StyledBox minHeight="200px" />}>
-                  <GridContainer className="three-column" spacing={2}>
+                <GridContainer className="three-column" spacing={2}>
                     <GridItem>
                       <InterestItem>
-                        <CodeIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+                        <CodeIcon />
                         <StyledBox>
-                          <Typography variant="subtitle1" fontWeight="bold">
+                          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
                             Clean Code
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
@@ -291,9 +348,9 @@ function AboutPage() {
                     </GridItem>
                     <GridItem>
                       <InterestItem>
-                        <Coffee sx={{ fontSize: 32, color: 'primary.main' }} />
+                        <CoffeeIcon />
                         <StyledBox>
-                          <Typography variant="subtitle1" fontWeight="bold">
+                          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
                             Coffee & Code
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
@@ -304,9 +361,9 @@ function AboutPage() {
                     </GridItem>
                     <GridItem>
                       <InterestItem>
-                        <Pets sx={{ fontSize: 32, color: 'primary.main' }} />
+                        <PetsIcon />
                         <StyledBox>
-                          <Typography variant="subtitle1" fontWeight="bold">
+                          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
                             Dog Parent
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
@@ -315,11 +372,8 @@ function AboutPage() {
                         </StyledBox>
                       </InterestItem>
                     </GridItem>
-                  </GridContainer>
-                </NoSsr>
+                </GridContainer>
               </PersonalCard>
-            </Slide>
-          </NoSsr>
         </StyledBox>
 
         <StyledBox as="section" aria-labelledby="illustrations-section">
@@ -327,7 +381,7 @@ function AboutPage() {
             variant="h2"
             component="h2"
             id="illustrations-section"
-            sx={{
+            style={{
               position: 'absolute',
               left: '-10000px',
               width: '1px',
@@ -338,8 +392,7 @@ function AboutPage() {
           >
             Development Team Illustrations
           </Typography>
-          <NoSsr fallback={<StyledBox minHeight="400px" bgColor="hover" />}>
-            <GridContainer className="center-last" spacing={4} mb={6}>
+          <GridContainer className="center-last" spacing={4} mb={6}>
               <GridItem>
                 <StyledCard
                   style={{
@@ -404,17 +457,10 @@ function AboutPage() {
                 </StyledCard>
               </GridItem>
             </GridContainer>
-          </NoSsr>
         </StyledBox>
 
         <StyledBox as="section" aria-labelledby="tech-stack" ref={techRef} mb={6}>
-          <NoSsr fallback={<StyledBox minHeight="400px" bgColor="hover" />}>
-            <Fade
-              in={techVisible}
-              timeout={600}
-              style={{ transitionDelay: techVisible ? '0ms' : '0ms' }}
-            >
-              <TechSection elevation={2} sx={{ willChange: 'transform' }}>
+          <TechSection style={{ willChange: 'transform' }}>
                 <GradientText
                   variant="h2"
                   component="h2"
@@ -429,20 +475,17 @@ function AboutPage() {
                   align="center"
                   color="text.secondary"
                   paragraph
-                  sx={{ fontSize: '1.125rem' }}
+                  style={{ fontSize: '1.125rem' }}
                 >
                   The tools and technologies that power my development workflow
                 </Typography>
 
-                <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" mt={2} />}>
-                  <GridContainer className="four-column" spacing={3} mt={2}>
+                <GridContainer className="four-column" spacing={3} mt={2}>
                     <GridItem>
                       <TechCard>
-                        <NoSsr>
-                          <StyledIcon>
-                            <DiIntellij />
-                          </StyledIcon>
-                        </NoSsr>
+                        <StyledIcon>
+                          <DiIntellij />
+                        </StyledIcon>
                         <Typography variant="h6" component="h3" gutterBottom>
                           IntelliJ IDEA
                         </Typography>
@@ -454,11 +497,9 @@ function AboutPage() {
 
                     <GridItem>
                       <TechCard>
-                        <NoSsr>
-                          <StyledIcon>
-                            <DiMozilla />
-                          </StyledIcon>
-                        </NoSsr>
+                        <StyledIcon>
+                          <DiMozilla />
+                        </StyledIcon>
                         <Typography variant="h6" component="h3" gutterBottom>
                           Firefox
                         </Typography>
@@ -470,11 +511,9 @@ function AboutPage() {
 
                     <GridItem>
                       <TechCard>
-                        <NoSsr>
-                          <StyledIcon>
-                            <DiDebian />
-                          </StyledIcon>
-                        </NoSsr>
+                        <StyledIcon>
+                          <DiDebian />
+                        </StyledIcon>
                         <Typography variant="h6" component="h3" gutterBottom>
                           Debian Linux
                         </Typography>
@@ -486,11 +525,9 @@ function AboutPage() {
 
                     <GridItem>
                       <TechCard>
-                        <NoSsr>
-                          <StyledIcon>
-                            <FaPiedPiperAlt />
-                          </StyledIcon>
-                        </NoSsr>
+                        <StyledIcon>
+                          <FaPiedPiperAlt />
+                        </StyledIcon>
                         <Typography variant="h6" component="h3" gutterBottom>
                           Pied Piper
                         </Typography>
@@ -500,10 +537,7 @@ function AboutPage() {
                       </TechCard>
                     </GridItem>
                   </GridContainer>
-                </NoSsr>
               </TechSection>
-            </Fade>
-          </NoSsr>
         </StyledBox>
 
         <StyledBox as="section" aria-labelledby="organizations" textAlign="center" mt={6}>

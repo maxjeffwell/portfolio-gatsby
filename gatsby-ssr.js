@@ -5,6 +5,8 @@
  */
 
 import React from 'react';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { muiTheme } from './src/theme';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
 // Error boundary component for SSR
@@ -14,14 +16,16 @@ const SSRErrorBoundary = ({ children }) => {
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <SSRErrorBoundary>
-      {wrap({ element })}
-    </SSRErrorBoundary>
+    <StyledThemeProvider theme={muiTheme}>
+      <SSRErrorBoundary>
+        {wrap({ element })}
+      </SSRErrorBoundary>
+    </StyledThemeProvider>
   );
 };
 
 // Inject theme detection script and handle SSR issues
-export const onRenderBody = ({ setPreBodyComponents }) => {
+export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
   // Mock window and document APIs for SSR to prevent MUI Grid issues
   if (typeof window === 'undefined') {
     global.window = {
@@ -46,6 +50,8 @@ export const onRenderBody = ({ setPreBodyComponents }) => {
       documentElement: { style: {} },
     };
   }
+
+  // styled-components handles SSR automatically, no manual insertion point needed
   const themeScript = `
     (function() {
       try {

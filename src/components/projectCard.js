@@ -1,11 +1,112 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Typography, Button, Stack, NoSsr } from '@mui/material';
-import { GitHub, Launch } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
+
+// Simple styled components to replace MUI components
+const Typography = styled.div`
+  margin: 0;
+  font-family: inherit;
+  font-weight: ${props => 
+    props.variant === 'h5' ? 400 :
+    props.variant === 'h6' ? 500 :
+    props.variant === 'body1' ? 400 :
+    props.variant === 'body2' ? 400 :
+    400
+  };
+  font-size: ${props => 
+    props.variant === 'h5' ? '1.5rem' :
+    props.variant === 'h6' ? '1.25rem' :
+    props.variant === 'body1' ? '1rem' :
+    props.variant === 'body2' ? '0.875rem' :
+    '1rem'
+  };
+  line-height: ${props => 
+    props.variant === 'h5' ? 1.334 :
+    props.variant === 'h6' ? 1.6 :
+    props.variant === 'body1' ? 1.5 :
+    props.variant === 'body2' ? 1.43 :
+    1.5
+  };
+  color: ${props => 
+    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
+    'rgba(0, 0, 0, 0.87)'
+  };
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  
+  @media (prefers-color-scheme: dark) {
+    color: ${props => 
+      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
+      'rgba(255, 255, 255, 0.87)'
+    };
+  }
+`;
+
+const Button = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  
+  ${props => props.variant === 'outlined' && `
+    color: #1976d2;
+    border: 1px solid rgba(25, 118, 210, 0.5);
+    
+    &:hover {
+      border: 1px solid #1976d2;
+      background-color: rgba(25, 118, 210, 0.04);
+    }
+  `}
+  
+  ${props => props.size === 'small' && `
+    padding: 4px 10px;
+    font-size: 0.8125rem;
+  `}
+`;
+
+const Stack = styled.div`
+  display: flex;
+  flex-direction: ${props => props.direction || 'column'};
+  gap: ${props => props.spacing ? `${props.spacing * 8}px` : '8px'};
+`;
+
+// Simple icon components
+const GitHubIcon = styled.span`
+  font-size: 20px;
+  margin-right: 8px;
+  &::before {
+    content: '🔗';
+  }
+`;
+
+const LaunchIcon = styled.span`
+  font-size: 20px;
+  margin-right: 8px;
+  &::before {
+    content: '🚀';
+  }
+`;
 
 const FlexContainer = styled.div`
   display: flex;
@@ -330,22 +431,16 @@ function ProjectCard({
                 )}
               </TechIcon>
             )}
-            <NoSsr>
-              <TechIcon role="img" aria-label="React technology">
-                <FaReact size={24} color="red" />
-              </TechIcon>
-            </NoSsr>
-            <NoSsr>
-              <TechIcon role="img" aria-label="Git version control">
-                <FaGit size={24} color="red" />
-              </TechIcon>
-            </NoSsr>
+            <TechIcon role="img" aria-label="React technology">
+              <FaReact size={24} color="red" />
+            </TechIcon>
+            <TechIcon role="img" aria-label="Git version control">
+              <FaGit size={24} color="red" />
+            </TechIcon>
             {technologies.includes('Heroku') && (
-              <NoSsr>
-                <TechIcon role="img" aria-label="Heroku deployment platform">
-                  <DiHeroku size={24} color="red" />
-                </TechIcon>
-              </NoSsr>
+              <TechIcon role="img" aria-label="Heroku deployment platform">
+                <DiHeroku size={24} color="red" />
+              </TechIcon>
             )}
           </Stack>
         </TechContainer>
@@ -353,13 +448,8 @@ function ProjectCard({
 
       <StyledCardActions>
         <Button
-          variant="contained"
-          color="primary"
-          startIcon={
-            <NoSsr>
-              <GitHub />
-            </NoSsr>
-          }
+          as="a"
+          variant="outlined"
           href={sourceURL}
           target="_blank"
           rel="noopener noreferrer"
@@ -370,16 +460,12 @@ function ProjectCard({
             paddingRight: 24,
           }}
         >
+          <GitHubIcon />
           Source Code
         </Button>
         <Button
+          as="a"
           variant="outlined"
-          color="secondary"
-          startIcon={
-            <NoSsr>
-              <Launch />
-            </NoSsr>
-          }
           href={hostedURL}
           target="_blank"
           rel="noopener noreferrer"
@@ -390,6 +476,7 @@ function ProjectCard({
             paddingRight: 24,
           }}
         >
+          <LaunchIcon />
           Live Demo
         </Button>
       </StyledCardActions>

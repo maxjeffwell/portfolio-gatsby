@@ -1,20 +1,9 @@
 import React from 'react';
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import '../static/fonts/fonts.css';
 
-// Create emotion cache with proper insertion point
-const emotionCache = createCache({
-  key: 'portfolio',
-  insertionPoint:
-    typeof document !== 'undefined'
-      ? document.querySelector('#emotion-insertion-point') || document.head.firstChild
-      : undefined,
-  speedy: false, // Disable speedy mode for better debugging
-});
 
 // Client-only PerformanceMonitor wrapper
 const ClientOnlyPerformanceMonitor = () => {
@@ -42,16 +31,14 @@ const ClientOnlyPerformanceMonitor = () => {
   return PerformanceMonitor ? React.createElement(PerformanceMonitor) : null;
 };
 
-// Wrap the root element with providers
+// Wrap the root element with providers - MUI ThemeProvider now handled in Gatsby plugins
 export const wrapRootElement = ({ element }) => (
-  <CacheProvider value={emotionCache}>
-    <ErrorBoundary>
-      <HelmetProvider>
-        <ThemeProvider>
-          <ClientOnlyPerformanceMonitor />
-          {element}
-        </ThemeProvider>
-      </HelmetProvider>
-    </ErrorBoundary>
-  </CacheProvider>
+  <ErrorBoundary>
+    <HelmetProvider>
+      <ThemeProvider>
+        {typeof window !== 'undefined' && <ClientOnlyPerformanceMonitor />}
+        {element}
+      </ThemeProvider>
+    </HelmetProvider>
+  </ErrorBoundary>
 );

@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useTheme, NoSsr } from '@mui/material';
-import { ContentCopy, Check } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
+
+// Simple icon components using text/Unicode
+const CopyIcon = styled.span`
+  font-size: 20px;
+  &::before {
+    content: '📋';
+  }
+`;
+
+const CheckIcon = styled.span`
+  font-size: 20px;
+  &::before {
+    content: '✓';
+  }
+`;
 
 const StyledPre = styled.pre`
   margin: 0;
@@ -146,7 +159,6 @@ function CodeSnippet({
   animationSpeed = 30,
   showCopyButton = true,
 }) {
-  const theme = useTheme();
   const [displayedCode, setDisplayedCode] = useState(animated ? '' : code);
   const [copied, setCopied] = useState(false);
   const [, setAnimationComplete] = useState(!animated);
@@ -206,20 +218,18 @@ function CodeSnippet({
           {title}
         </StyledTypography>
         {showCopyButton && (
-          <NoSsr>
-            <StyledTooltip title={copied ? 'Copied!' : 'Copy code'}>
-              <StyledIconButton
-                size="small"
-                onClick={handleCopy}
-                style={{
-                  color: theme.palette.secondary.main,
-                  borderColor: theme.palette.secondary.main,
-                }}
-              >
-                {copied ? <Check fontSize="small" /> : <ContentCopy fontSize="small" />}
-              </StyledIconButton>
-            </StyledTooltip>
-          </NoSsr>
+          <StyledTooltip title={copied ? 'Copied!' : 'Copy code'}>
+            <StyledIconButton
+              size="small"
+              onClick={handleCopy}
+              style={{
+                color: '#dc004e',
+                borderColor: '#dc004e',
+              }}
+            >
+              {copied ? <CheckIcon /> : <CopyIcon />}
+            </StyledIconButton>
+          </StyledTooltip>
         )}
       </StyledHeader>
       <StyledPre>{displayedCode}</StyledPre>

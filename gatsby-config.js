@@ -15,7 +15,13 @@ module.exports = {
   plugins: [
     // `gatsby-plugin-webpack-bundle-analyser-v2`, // Only enable when needed
     `gatsby-plugin-react-helmet-async`,
-    `gatsby-plugin-emotion`, // Move emotion early for proper MUI SSR support
+{
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        // Display component names in devtools
+        displayName: process.env.NODE_ENV !== 'production',
+      },
+    }, // Switch to styled-components for better SSR support
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,

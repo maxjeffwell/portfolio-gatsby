@@ -1,7 +1,5 @@
 import React from 'react';
-import { Typography, useTheme, NoSsr } from '@mui/material';
-import { Email, Phone, GitHub, Send } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -16,23 +14,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div.withConfig({
-  shouldForwardProp: (prop) =>
-    ![
-      'mb',
-      'mt',
-      'textAlign',
-      'display',
-      'p',
-      'pt',
-      'position',
-      'left',
-      'width',
-      'height',
-      'overflow',
-      'borderRadius',
-    ].includes(prop),
-})`
+const StyledBox = styled.div`
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
   text-align: ${(props) => props.textAlign || 'inherit'};
@@ -62,12 +44,91 @@ const GridItem = styled.div`
   flex-direction: column;
 `;
 
+const Typography = styled.div`
+  margin: 0;
+  font-family: inherit;
+  font-weight: ${props => props.variant === 'h2' ? 400 : props.variant === 'h3' ? 400 : props.variant === 'h5' ? 400 : props.variant === 'subtitle2' ? 500 : props.variant === 'body2' ? 400 : 400};
+  font-size: ${props => 
+    props.variant === 'h2' ? '2.125rem' :
+    props.variant === 'h3' ? '1.5rem' :
+    props.variant === 'h5' ? '1.5rem' :
+    props.variant === 'body1' ? '1rem' :
+    props.variant === 'body2' ? '0.875rem' :
+    props.variant === 'subtitle2' ? '0.875rem' :
+    '1rem'
+  };
+  line-height: ${props => 
+    props.variant === 'h2' ? 1.235 :
+    props.variant === 'h3' ? 1.334 :
+    props.variant === 'h5' ? 1.334 :
+    props.variant === 'body1' ? 1.5 :
+    props.variant === 'body2' ? 1.43 :
+    props.variant === 'subtitle2' ? 1.57 :
+    1.5
+  };
+  letter-spacing: ${props => 
+    props.variant === 'h2' ? '0.00735em' :
+    props.variant === 'h3' ? 0 :
+    props.variant === 'h5' ? 0 :
+    props.variant === 'body1' ? '0.00938em' :
+    props.variant === 'body2' ? '0.01071em' :
+    props.variant === 'subtitle2' ? '0.00714em' :
+    '0.00938em'
+  };
+  color: ${props => 
+    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
+    'rgba(0, 0, 0, 0.87)'
+  };
+  text-align: ${props => props.align || 'inherit'};
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : props.paragraph ? '16px' : '0'};
+  
+  @media (prefers-color-scheme: dark) {
+    color: ${props => 
+      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
+      'rgba(255, 255, 255, 0.87)'
+    };
+  }
+`;
+
 const GradientText = styled(Typography)`
   background: linear-gradient(45deg, #fc4a1a, #f7b733);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+`;
+
+// Simple icon components using Unicode symbols
+const EmailIcon = styled.span`
+  font-size: 24px;
+  color: #1976d2;
+  &::before {
+    content: '✉';
+  }
+`;
+
+const PhoneIcon = styled.span`
+  font-size: 24px;
+  color: #1976d2;
+  &::before {
+    content: '📞';
+  }
+`;
+
+const GitHubIcon = styled.span`
+  font-size: 24px;
+  color: #1976d2;
+  &::before {
+    content: '🔗';
+  }
+`;
+
+const SendIcon = styled.span`
+  font-size: 18px;
+  color: inherit;
+  &::before {
+    content: '→';
+  }
 `;
 
 const ContactCard = styled.div`
@@ -403,7 +464,6 @@ const ContactMethod = styled.div`
 `;
 
 function Contact() {
-  const theme = useTheme();
   const [formData, setFormData] = React.useState(() => ({
     name: '',
     email: '',
@@ -553,7 +613,7 @@ function Contact() {
         ]}
       />
       {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
-      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
         <input type="hidden" name="form-name" value="contact" />
         <label htmlFor="netlify-name">
           Name: <input type="text" name="name" id="netlify-name" />
@@ -570,7 +630,7 @@ function Contact() {
       </form>
       <StyledContainer>
         <StyledBox as="section" aria-labelledby="contact-header" mb={6}>
-          <GradientText variant="h2" component="h1" id="contact-header" align="center" gutterBottom>
+          <GradientText as="h1" id="contact-header" align="center" gutterBottom>
             Let&#39;s Connect
           </GradientText>
           <Typography variant="h5" align="center" color="text.secondary" paragraph>
@@ -579,23 +639,19 @@ function Contact() {
         </StyledBox>
 
         <StyledBox as="section" aria-labelledby="contact-methods">
-          <Typography
-            variant="h2"
-            id="contact-methods"
-            sx={{
-              position: 'absolute',
-              left: '-10000px',
-              width: '1px',
-              height: '1px',
-              overflow: 'hidden',
-            }}
-          >
+          <Typography as="h2" variant="h2" id="contact-methods" style={{
+            position: 'absolute',
+            left: '-10000px',
+            width: '1px',
+            height: '1px',
+            overflow: 'hidden',
+          }}>
             Contact Information and Methods
           </Typography>
           <GridContainer spacing={4}>
             <GridItem>
               <ContactCard>
-                <Typography variant="h3" component="h3" id="get-in-touch" gutterBottom>
+                <Typography as="h3" variant="h3" id="get-in-touch" gutterBottom>
                   Get in Touch
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
@@ -606,27 +662,15 @@ function Contact() {
 
                 <StyledBox mt={4}>
                   <ContactMethod>
-                    <NoSsr>
-                      <Email color="primary" />
-                    </NoSsr>
+                    <EmailIcon />
                     <StyledBox>
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color:
-                            theme.palette.mode === 'dark'
-                              ? 'rgba(255, 255, 255, 0.7)'
-                              : 'rgba(0, 0, 0, 0.6)',
-                          fontWeight: 500,
-                        }}
-                      >
+                      <Typography variant="subtitle2" style={{ fontWeight: 500 }}>
                         Email
                       </Typography>
                       <StyledLink
                         href="mailto:maxjeffwell@gmail.com"
                         textDecorationThickness="2px"
                         textUnderlineOffset="3px"
-                        hoverColor={theme.palette.primary.dark}
                       >
                         maxjeffwell@gmail.com
                       </StyledLink>
@@ -634,27 +678,15 @@ function Contact() {
                   </ContactMethod>
 
                   <ContactMethod>
-                    <NoSsr>
-                      <Phone color="primary" />
-                    </NoSsr>
+                    <PhoneIcon />
                     <StyledBox>
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color:
-                            theme.palette.mode === 'dark'
-                              ? 'rgba(255, 255, 255, 0.7)'
-                              : 'rgba(0, 0, 0, 0.6)',
-                          fontWeight: 500,
-                        }}
-                      >
+                      <Typography variant="subtitle2" style={{ fontWeight: 500 }}>
                         Phone
                       </Typography>
                       <StyledLink
                         href="tel:+01-508-395-2008"
                         textDecorationThickness="2px"
                         textUnderlineOffset="3px"
-                        hoverColor={theme.palette.primary.dark}
                       >
                         (508) 395-2008
                       </StyledLink>
@@ -681,20 +713,9 @@ function Contact() {
                   {/* </ContactMethod> */}
 
                   <ContactMethod>
-                    <NoSsr>
-                      <GitHub color="primary" />
-                    </NoSsr>
+                    <GitHubIcon />
                     <StyledBox>
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color:
-                            theme.palette.mode === 'dark'
-                              ? 'rgba(255, 255, 255, 0.7)'
-                              : 'rgba(0, 0, 0, 0.6)',
-                          fontWeight: 500,
-                        }}
-                      >
+                      <Typography variant="subtitle2" style={{ fontWeight: 500 }}>
                         GitHub
                       </Typography>
                       <StyledLink
@@ -703,7 +724,6 @@ function Contact() {
                         rel="noopener noreferrer"
                         textDecorationThickness="2px"
                         textUnderlineOffset="3px"
-                        hoverColor={theme.palette.primary.dark}
                       >
                         View my projects
                       </StyledLink>
@@ -715,7 +735,7 @@ function Contact() {
 
             <GridItem>
               <ContactCard>
-                <Typography variant="h3" component="h3" id="send-message" gutterBottom>
+                <Typography as="h3" variant="h3" id="send-message" gutterBottom>
                   Send a Message
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
@@ -724,12 +744,7 @@ function Contact() {
                 </Typography>
 
                 {formStatus === 'success' && (
-                  <StyledBox
-                    sx={{
-                      position: 'relative',
-                      mb: 3,
-                    }}
-                  >
+                  <StyledBox style={{ position: 'relative', marginBottom: '24px' }}>
                     <StyledAlert
                       severity="success"
                       border="2px solid"
@@ -737,19 +752,14 @@ function Contact() {
                       backgroundColor="#d4e7d5"
                       animation="slideInScale 0.5s ease-out"
                     >
-                      <Typography
-                        variant="h5"
-                        component="div"
-                        gutterBottom
-                        sx={{ fontWeight: 'bold' }}
-                      >
+                      <Typography variant="h5" gutterBottom style={{ fontWeight: 'bold' }}>
                         🎉 Success! Your Message Has Been Sent!
                       </Typography>
                       <Typography variant="body1">
                         Thank you for reaching out! I appreciate your interest and will respond
                         within 24 hours.
                       </Typography>
-                      <Typography variant="body2" sx={{ mt: 1, fontStyle: 'italic' }}>
+                      <Typography variant="body2" style={{ marginTop: '8px', fontStyle: 'italic' }}>
                         Check your email for a confirmation of your message.
                       </Typography>
                       <StyledButton
@@ -790,8 +800,8 @@ function Contact() {
                   onSubmit={handleSubmit}
                   mt={3}
                   name="contact"
-                  data-netlify="true"
-                  data-netlify-honeypot="bot-field"
+                  netlify
+                  netlify-honeypot="bot-field"
                   sx={{
                     transition: 'all 0.3s ease',
                     ...(formStatus === 'success' && {
@@ -878,9 +888,7 @@ function Contact() {
                       {formStatus === 'success' ? (
                         '✓'
                       ) : (
-                        <NoSsr>
-                          <Send />
-                        </NoSsr>
+                        <SendIcon />
                       )}
                     </span>
                   </StyledButton>
@@ -891,17 +899,13 @@ function Contact() {
         </StyledBox>
 
         <StyledBox as="section" aria-labelledby="availability" mt={6} textAlign="center">
-          <Typography
-            variant="h2"
-            id="availability"
-            sx={{
-              position: 'absolute',
-              left: '-10000px',
-              width: '1px',
-              height: '1px',
-              overflow: 'hidden',
-            }}
-          >
+          <Typography as="h2" variant="h2" id="availability" style={{
+            position: 'absolute',
+            left: '-10000px',
+            width: '1px',
+            height: '1px',
+            overflow: 'hidden',
+          }}>
             Current Availability
           </Typography>
           <Typography variant="body2" color="text.secondary">

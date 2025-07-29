@@ -1,8 +1,50 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import { Typography, NoSsr } from '@mui/material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
+
+// Simple Typography replacement 
+const Typography = styled.div`
+  margin: 0;
+  font-family: inherit;
+  font-weight: ${props => 
+    props.variant === 'h1' ? 300 :
+    props.variant === 'h2' ? 300 :
+    props.variant === 'h4' ? 400 :
+    props.variant === 'body1' ? 400 :
+    props.variant === 'body2' ? 400 :
+    400
+  };
+  font-size: ${props => 
+    props.variant === 'h1' ? '6rem' :
+    props.variant === 'h2' ? '3.75rem' :
+    props.variant === 'h4' ? '2.125rem' :
+    props.variant === 'body1' ? '1rem' :
+    props.variant === 'body2' ? '0.875rem' :
+    '1rem'
+  };
+  line-height: ${props => 
+    props.variant === 'h1' ? 1.167 :
+    props.variant === 'h2' ? 1.2 :
+    props.variant === 'h4' ? 1.235 :
+    props.variant === 'body1' ? 1.5 :
+    props.variant === 'body2' ? 1.43 :
+    1.5
+  };
+  color: ${props => 
+    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
+    'rgba(0, 0, 0, 0.87)'
+  };
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  text-align: ${props => props.align || 'inherit'};
+  
+  @media (prefers-color-scheme: dark) {
+    color: ${props => 
+      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
+      'rgba(255, 255, 255, 0.87)'
+    };
+  }
+`;
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
@@ -183,9 +225,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['mb', 'mt', 'textAlign', 'display', 'flexDirection', 'gap', 'p', 'pt', 'pb', 'borderRadius', 'overflow', 'position', 'minHeight', 'bgColor', 'height', 'width', 'left', 'fontSize', 'maxWidth', 'mx', 'justifyContent', 'alignItems', 'flexWrap'].includes(prop),
-})`
+const StyledBox = styled.div`
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
   text-align: ${(props) => props.textAlign || 'inherit'};
@@ -372,29 +412,27 @@ const Projects = ({ data }) => {
               flexWrap="wrap"
               gap={2}
             >
-              <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+              <Typography variant="body1" style={{ fontWeight: 500 }}>
                 Total Projects: {filteredProjects.length}
               </Typography>
-              <NoSsr>
-                <StyledBox>
-                  <Typography variant="body2" sx={{ mb: 1 }}>
-                    Filter by Technology:
-                  </Typography>
-                  <StyledSelect
-                    id="technology-filter"
-                    name="technologyFilter"
-                    value={filters.technologies[0] || ''}
-                    onChange={handleTechnologyChange}
-                    aria-label="Filter projects by technology"
-                    style={{ minWidth: 200 }}
-                  >
-                    <option value="">All Projects</option>
-                    <option value="React">React</option>
-                    <option value="JavaScript">JavaScript</option>
-                    <option value="GraphQL">GraphQL</option>
-                  </StyledSelect>
-                </StyledBox>
-              </NoSsr>
+              <StyledBox>
+                <Typography variant="body2" style={{ marginBottom: '8px' }}>
+                  Filter by Technology:
+                </Typography>
+                <StyledSelect
+                  id="technology-filter"
+                  name="technologyFilter"
+                  value={filters.technologies[0] || ''}
+                  onChange={handleTechnologyChange}
+                  aria-label="Filter projects by technology"
+                  style={{ minWidth: 200 }}
+                >
+                  <option value="">All Projects</option>
+                  <option value="React">React</option>
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="GraphQL">GraphQL</option>
+                </StyledSelect>
+              </StyledBox>
             </StyledBox>
           </StyledPaper>
         </StyledBox>

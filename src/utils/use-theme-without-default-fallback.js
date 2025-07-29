@@ -1,16 +1,10 @@
-// Fallback for @mui/system/useThemeWithoutDefault during SSR
-import { useTheme } from '@mui/material/styles';
+// This file is no longer needed as MUI has been completely removed
+// Replaced with custom ThemeContext hook
 
-const useThemeWithoutDefault = () => {
-  try {
-    return useTheme();
-  } catch {
-    return {
-      palette: { mode: 'light' },
-      breakpoints: { down: () => '(max-width: 600px)' },
-      spacing: (factor) => `${factor * 8}px`,
-    };
-  }
-};
-
-export default useThemeWithoutDefault;
+export default function useThemeWithoutDefault() {
+  return {
+    palette: { mode: 'light' },
+    breakpoints: { down: () => '(max-width: 600px)' },
+    spacing: (factor) => `${factor * 8}px`,
+  };
+}

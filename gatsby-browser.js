@@ -5,7 +5,11 @@
  */
 
 import React from 'react';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { muiTheme } from './src/theme';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
+
+// styled-components handles SSR automatically, no cache needed
 
 // Fix for React 18 ContextRegistry issue
 // Apply polyfill as early as possible
@@ -34,7 +38,11 @@ import { wrapRootElement as wrap } from './src/wrap-root-element';
 })();
 
 export const wrapRootElement = ({ element }) => {
-  return wrap({ element });
+  return (
+    <StyledThemeProvider theme={muiTheme}>
+      {wrap({ element })}
+    </StyledThemeProvider>
+  );
 };
 
 // Custom scroll behavior for better UX

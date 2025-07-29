@@ -21,10 +21,18 @@ export default function HTML(props) {
           name="description"
           content="Jeff Maxwell - Full Stack Web Developer specializing in React, Node.js, and modern web development. Explore my portfolio of innovative projects and development solutions."
         />
-        <meta id="emotion-insertion-point" />
+        {/* styled-components handles SSR automatically */}
         {headComponents}
       </head>
       <body {...bodyAttributes}>
+        {/* Hidden Netlify form for form detection during build - REQUIRED FOR NETLIFY */}
+        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+          <input type="hidden" name="form-name" value="contact" />
+          <input type="text" name="name" />
+          <input type="email" name="email" />
+          <textarea name="message"></textarea>
+          <input type="text" name="bot-field" />
+        </form>
         {preBodyComponents}
         {/* eslint-disable-next-line react/no-danger */}
         <script

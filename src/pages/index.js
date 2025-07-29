@@ -1,13 +1,9 @@
 import React, { useMemo } from 'react';
 import { Link } from 'gatsby';
-import {
-  Typography,
-  Button,
-  useTheme as useMuiTheme,
-  NoSsr,
-} from '@mui/material';
-import { ArrowForward, CheckCircle, Computer, LightbulbOutlined } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import ClientOnlyIcon from '../components/ClientOnlyIcon';
+import ClientOnlyButton from '../components/ClientOnlyButton';
+import ClientOnlyMUI from '../components/ClientOnlyMUI';
+import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -26,9 +22,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['mb', 'mt', 'textAlign', 'display', 'flexDirection', 'alignItems', 'gap', 'p', 'pt', 'pb', 'borderRadius', 'overflow', 'position', 'minHeight', 'bgColor', 'height', 'width', 'left', 'fontSize', 'maxWidth', 'mx', 'justifyContent'].includes(prop),
-})`
+const StyledBox = styled.div`
   margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
   text-align: ${(props) => props.textAlign || 'inherit'};
@@ -96,7 +90,11 @@ const HeroSection = styled.div`
   }
 `;
 
-const GradientText = styled(Typography)`
+const GradientText = styled(({ children, ...props }) => (
+  <ClientOnlyMUI component="Typography" {...props}>
+    {children}
+  </ClientOnlyMUI>
+))`
   && {
     background: linear-gradient(45deg, #fc4a1a, #f7b733) !important;
     background-clip: text !important;
@@ -137,7 +135,7 @@ const TypingTextWrapper = styled.span`
   }
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(ClientOnlyButton)`
   && {
     border-radius: 30px !important;
     padding: 12px 32px !important;
@@ -212,7 +210,7 @@ const FloatingShape = styled.div`
 `;
 
 const IndexPage = React.memo(() => {
-  const muiTheme = useMuiTheme();
+  // MUI theme will be handled client-side
   const [headerRef] = useScrollAnimation({ delay: 0, startVisible: true });
   const [introRef, introVisible] = useScrollAnimation({ delay: 50, startVisible: true });
   const [navRef, navVisible] = useScrollAnimation({ delay: 100, startVisible: true });
@@ -295,7 +293,7 @@ const IndexPage = React.memo(() => {
                 left: '5%',
               }}
             />
-            <Typography
+            <ClientOnlyMUI component="Typography"
               variant="body1"
               style={{
                 marginBottom: 16,
@@ -305,7 +303,7 @@ const IndexPage = React.memo(() => {
               }}
             >
               My name&apos;s Jeff 😏
-            </Typography>
+            </ClientOnlyMUI>
             <GradientText 
               variant="h1" 
               gutterBottom 
@@ -348,7 +346,7 @@ const IndexPage = React.memo(() => {
                   </StyledBox>
               </TypingTextWrapper>
             </GradientText>
-            <Typography
+            <ClientOnlyMUI component="Typography"
               variant="body1"
               style={{
                 marginTop: 16,
@@ -359,7 +357,7 @@ const IndexPage = React.memo(() => {
               }}
             >
               crafting exceptional web experiences
-            </Typography>
+            </ClientOnlyMUI>
           </HeroSection>
         </StyledBox>
 
@@ -379,7 +377,7 @@ const IndexPage = React.memo(() => {
             }}
           >
             <StyledCardContent>
-              <Typography
+              <ClientOnlyMUI component="Typography"
                 variant="h2"
                 id="intro-title"
                 style={{
@@ -391,25 +389,25 @@ const IndexPage = React.memo(() => {
                 }}
               >
                 About My Development Philosophy
-              </Typography>
+              </ClientOnlyMUI>
               <StyledBox display="flex" alignItems="center" mb={2}>
-                <LightbulbOutlined
+                <ClientOnlyIcon iconName="LightbulbOutlined"
                   style={{ fontSize: 40, color: '#1976d2', marginRight: 16 }}
                 />
-                <Typography variant="body1" style={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
+                <ClientOnlyMUI component="Typography" variant="body1" style={{ fontSize: '1.25rem', lineHeight: 1.6 }}>
                   I believe in <strong>clean, maintainable code</strong> and{' '}
                   <strong>user-centered design</strong>. Every line I write is crafted with
                   performance, accessibility, and scalability in mind.
-                </Typography>
+                </ClientOnlyMUI>
               </StyledBox>
-              <Typography
+              <ClientOnlyMUI component="Typography"
                 variant="body2"
                 color="text.secondary"
                 style={{ fontStyle: 'italic', mt: 2 }}
               >
                 &quot;Code is like humor. When you have to explain it, it&apos;s bad.&quot; —
                 That&apos;s why I focus on intuitive, self-documenting solutions.
-              </Typography>
+              </ClientOnlyMUI>
             </StyledCardContent>
           </StyledCard>
         </StyledBox>
@@ -422,7 +420,7 @@ const IndexPage = React.memo(() => {
           textAlign="center"
           style={{ minHeight: '64px' }}
         >
-          <Typography
+          <ClientOnlyMUI component="Typography"
             variant="h2"
             id="cta-title"
             style={{
@@ -434,16 +432,16 @@ const IndexPage = React.memo(() => {
             }}
           >
             Portfolio Navigation
-          </Typography>
+          </ClientOnlyMUI>
           <div style={{ opacity: navVisible ? 1 : 0.9, transition: 'opacity 0.2s ease-out' }}>
-            <StyledButton component={Link} to="/projects/" endIcon={<ArrowForward />} size="large" className="styled-button">
+            <StyledButton component={Link} to="/projects/" endIcon={<ClientOnlyIcon iconName="ArrowForward" />} size="large" className="styled-button">
               View My Projects
             </StyledButton>
           </div>
         </StyledBox>
 
         <StyledBox as="section" aria-labelledby="content-sections-title">
-          <Typography
+          <ClientOnlyMUI component="Typography"
             variant="h2"
             id="content-sections-title"
             style={{
@@ -455,7 +453,7 @@ const IndexPage = React.memo(() => {
             }}
           >
             Featured Content
-          </Typography>
+          </ClientOnlyMUI>
           <GridContainer spacing={4}>
             <GridItem>
               <StyledBox
@@ -465,7 +463,7 @@ const IndexPage = React.memo(() => {
               >
                 <StyledCard className="styled-card" style={{ height: '100%' }}>
                   <StyledCardContent>
-                    <Typography
+                    <ClientOnlyMUI component="Typography"
                       variant="h3"
                       gutterBottom
                       id="beyond-code-title"
@@ -488,21 +486,21 @@ const IndexPage = React.memo(() => {
                         🐾
                       </StyledBox>
                       Beyond the Code
-                    </Typography>
-                    <Typography variant="body1" style={{ marginBottom: 24 }}>
+                    </ClientOnlyMUI>
+                    <ClientOnlyMUI component="Typography" variant="body1" style={{ marginBottom: 24 }}>
                       When I&apos;m not crafting pixel-perfect interfaces or debugging complex
                       algorithms, you&apos;ll find me negotiating dinner arrangements with my two
                       demanding canine project managers — they&apos;re surprisingly good at code
                       reviews!
-                    </Typography>
-                    <Button
+                    </ClientOnlyMUI>
+                    <ClientOnlyButton
                       component={Link}
                       to="/about/"
                       color="secondary"
                       style={{ textTransform: 'none' }}
                     >
                       Meet my development team and learn more about me
-                    </Button>
+                    </ClientOnlyButton>
                   </StyledCardContent>
                 </StyledCard>
               </StyledBox>
@@ -528,19 +526,19 @@ const IndexPage = React.memo(() => {
                     }}
                   />
                   <StyledCardContent>
-                    <Typography
+                    <ClientOnlyMUI component="Typography"
                       variant="h3"
                       gutterBottom
                       id="code-philosophy-title"
                       style={{ display: 'flex', alignItems: 'center' }}
                     >
-                      <Computer style={{ marginRight: 16, color: '#052f5f' }} />
+                      <ClientOnlyIcon iconName="Computer" style={{ marginRight: 16, color: '#052f5f' }} />
                       Code Philosophy
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" style={{ marginBottom: 24 }}>
+                    </ClientOnlyMUI>
+                    <ClientOnlyMUI component="Typography" variant="body2" color="text.secondary" style={{ marginBottom: 24 }}>
                       Clean, readable, and maintainable — here&apos;s how I approach modern React
                       development:
-                    </Typography>
+                    </ClientOnlyMUI>
                     <CodeSnippet
                       title="Custom Hook Example"
                       animated={codeVisible}
@@ -571,7 +569,7 @@ const IndexPage = React.memo(() => {
                         borderRadius: '8px',
                       }}
                     >
-                      <Typography 
+                      <ClientOnlyMUI component="Typography" 
                         variant="h4" 
                         gutterBottom
                         style={{ 
@@ -580,7 +578,7 @@ const IndexPage = React.memo(() => {
                         }}
                       >
                         Why I Like This Pattern
-                      </Typography>
+                      </ClientOnlyMUI>
                       <StyledBox
                         component="ul"
                         style={{ paddingLeft: 0, margin: 0, listStyle: 'none' }}
@@ -600,14 +598,14 @@ const IndexPage = React.memo(() => {
                               marginBottom: '4px',
                             }}
                           >
-                            <CheckCircle
+                            <ClientOnlyIcon iconName="CheckCircle"
                               fontSize="small"
                               style={{ 
                                 marginRight: 8,
                                 color: '#fc4a1a'
                               }}
                             />
-                            <Typography variant="body2">{text}</Typography>
+                            <ClientOnlyMUI component="Typography" variant="body2">{text}</ClientOnlyMUI>
                           </StyledBox>
                         ))}
                       </StyledBox>
@@ -625,7 +623,7 @@ const IndexPage = React.memo(() => {
           ref={ctaRef}
           style={{ marginTop: '48px' }}
         >
-          <Typography
+          <ClientOnlyMUI component="Typography"
             variant="h2"
             id="cta-section-title"
             style={{
@@ -637,7 +635,7 @@ const IndexPage = React.memo(() => {
             }}
           >
             Contact and Call to Action
-          </Typography>
+          </ClientOnlyMUI>
           <CTASection visible={ctaVisible} />
         </StyledBox>
       </StyledContainer>

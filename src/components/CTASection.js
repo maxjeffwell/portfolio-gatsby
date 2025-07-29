@@ -1,8 +1,110 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Button, Fade, NoSsr } from '@mui/material';
-import { Email, Phone, GitHub } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
+
+// Simple styled components to replace MUI components
+const Typography = styled.div`
+  margin: 0;
+  font-family: inherit;
+  font-weight: ${props => 
+    props.variant === 'h3' ? 400 :
+    props.variant === 'h4' ? 400 :
+    props.variant === 'body1' ? 400 :
+    400
+  };
+  font-size: ${props => 
+    props.variant === 'h3' ? '3rem' :
+    props.variant === 'h4' ? '2.125rem' :
+    props.variant === 'body1' ? '1rem' :
+    '1rem'
+  };
+  line-height: ${props => 
+    props.variant === 'h3' ? 1.167 :
+    props.variant === 'h4' ? 1.235 :
+    props.variant === 'body1' ? 1.5 :
+    1.5
+  };
+  color: ${props => 
+    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
+    'rgba(0, 0, 0, 0.87)'
+  };
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  text-align: ${props => props.align || 'inherit'};
+  
+  @media (prefers-color-scheme: dark) {
+    color: ${props => 
+      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
+      'rgba(255, 255, 255, 0.87)'
+    };
+  }
+`;
+
+const Button = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  
+  ${props => props.variant === 'contained' && props.color === 'primary' && `
+    color: #fff;
+    background-color: #1976d2;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    
+    &:hover {
+      background-color: #1565c0;
+      box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+    }
+  `}
+  
+  ${props => props.size === 'large' && `
+    padding: 8px 22px;
+    font-size: 0.9375rem;
+  `}
+`;
+
+// Simple icon components
+const EmailIcon = styled.span`
+  font-size: 24px;
+  margin-right: 8px;
+  &::before {
+    content: '✉';
+  }
+`;
+
+const PhoneIcon = styled.span`
+  font-size: 24px;
+  margin-right: 8px;
+  &::before {
+    content: '📞';
+  }
+`;
+
+const GitHubIcon = styled.span`
+  font-size: 24px;
+  margin-right: 8px;
+  &::before {
+    content: '🔗';
+  }
+`;
 
 const CTASection = styled.div`
   background: linear-gradient(135deg, rgba(252, 74, 26, 0.15) 0%, rgba(247, 183, 51, 0.15) 100%);
@@ -143,19 +245,19 @@ function CTASectionComponent({ visible }) {
 
   const contactMethods = [
     {
-      icon: Email,
+      icon: EmailIcon,
       text: 'Email Me',
       href: 'mailto:maxjeffwell@gmail.com',
       label: 'Send email to maxjeffwell@gmail.com',
     },
     {
-      icon: Phone,
+      icon: PhoneIcon,
       text: 'Call Me',
       href: 'tel:+15083952008',
       label: 'Call Jeff Maxwell at 508-395-2008',
     },
     {
-      icon: GitHub,
+      icon: GitHubIcon,
       text: 'GitHub',
       href: 'https://github.com/maxjeffwell',
       label: 'Visit GitHub profile',
@@ -169,9 +271,9 @@ function CTASectionComponent({ visible }) {
   ];
 
   return (
-    <CTASection elevation={3}>
+    <CTASection>
       <StyledContainer>
-        <GradientText variant="h3" component="h2" id="cta-heading" gutterBottom>
+        <GradientText as="h2" variant="h3" id="cta-heading" gutterBottom>
           Ready to Build Something Amazing?
         </GradientText>
 
@@ -189,12 +291,13 @@ function CTASectionComponent({ visible }) {
         <StatsContainer>
           {stats.map((stat, index) => (
             <StatsItem key={stat.label}>
-              <Fade in={visible} timeout={400} style={{ transitionDelay: `${index * 50}ms` }}>
-                <StatBox>
-                  <Typography className="stat-number">{stat.number}</Typography>
-                  <Typography className="stat-label">{stat.label}</Typography>
-                </StatBox>
-              </Fade>
+              <StatBox style={{ 
+                opacity: visible ? 1 : 0,
+                transition: `opacity 400ms ease-in-out ${index * 50}ms`
+              }}>
+                <Typography className="stat-number">{stat.number}</Typography>
+                <Typography className="stat-label">{stat.label}</Typography>
+              </StatBox>
             </StatsItem>
           ))}
         </StatsContainer>
@@ -206,27 +309,23 @@ function CTASectionComponent({ visible }) {
 
             return (
               <ContactItem key={method.text}>
-                <Fade
-                  in={visible}
-                  timeout={400}
-                  style={{ transitionDelay: `${index * 50 + 200}ms` }}
+                <ContactButton
+                  as="a"
+                  href={method.href}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                  aria-label={method.label}
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  style={{ 
+                    opacity: visible ? 1 : 0,
+                    transition: `opacity 400ms ease-in-out ${index * 50 + 200}ms`,
+                    width: '100%'
+                  }}
                 >
-                  <ContactButton
-                    component="a"
-                    href={method.href}
-                    target={isExternal ? '_blank' : undefined}
-                    rel={isExternal ? 'noopener noreferrer' : undefined}
-                    aria-label={method.label}
-                    onMouseEnter={() => setHoveredCard(index)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    fullWidth
-                  >
-                    <NoSsr>
-                      <IconComponent style={{ fontSize: 24 }} />
-                    </NoSsr>
-                    <Typography>{method.text}</Typography>
-                  </ContactButton>
-                </Fade>
+                  <IconComponent />
+                  <Typography>{method.text}</Typography>
+                </ContactButton>
               </ContactItem>
             );
           })}

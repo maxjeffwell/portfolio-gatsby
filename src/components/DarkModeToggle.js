@@ -1,8 +1,35 @@
 import React, { useState } from 'react';
-import { useTheme as useMuiTheme, NoSsr } from '@mui/material';
-import { Brightness4, Brightness7, SettingsBrightness, Computer } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
+
+// Simple icon components to replace MUI icons
+const Brightness4Icon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '🌙';
+  }
+`;
+
+const Brightness7Icon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '☀️';
+  }
+`;
+
+const SettingsBrightnessIcon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '⚙️';
+  }
+`;
+
+const ComputerIcon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '💻';
+  }
+`;
 
 const StyledContainer = styled.div`
   display: flex;
@@ -180,7 +207,7 @@ const SystemIndicator = styled.div`
 
 function DarkModeToggle() {
   const { isDarkMode, isSystemPreference, toggleTheme, resetToSystemPreference } = useTheme();
-  const muiTheme = useMuiTheme();
+  // Remove MUI theme dependency
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -207,44 +234,40 @@ function DarkModeToggle() {
   };
 
   return (
-    <NoSsr>
-      <StyledContainer>
-        <StyledTooltip data-tooltip={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
-          <StyledIconButton
-            onClick={handleClick}
-            aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
-          >
-            {isDarkMode ? <Brightness7 /> : <Brightness4 />}
-          </StyledIconButton>
+    <StyledContainer>
+      <StyledTooltip data-tooltip={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
+        <StyledIconButton
+          onClick={handleClick}
+          aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+        >
+          {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+        </StyledIconButton>
+      </StyledTooltip>
+
+      {isSystemPreference && (
+        <StyledTooltip data-tooltip="Currently following system preference">
+          <SystemIndicator role="status" aria-hidden="false">
+            <ComputerIcon />
+            <span>Auto</span>
+          </SystemIndicator>
         </StyledTooltip>
+      )}
 
-        {isSystemPreference && (
-          <StyledTooltip data-tooltip="Currently following system preference">
-            <SystemIndicator role="status" aria-hidden="false">
-              <Computer style={{ fontSize: 16, marginRight: 4 }} />
-              <span>Auto</span>
-            </SystemIndicator>
-          </StyledTooltip>
-        )}
-
-        <NoSsr>
-          {open && (
-            <StyledMenu>
-              <StyledMenuItem onClick={handleToggleMode}>
-                <MenuIcon>{isDarkMode ? <Brightness7 /> : <Brightness4 />}</MenuIcon>
-                <MenuText>Switch to {isDarkMode ? 'light' : 'dark'} mode</MenuText>
-              </StyledMenuItem>
-              <StyledMenuItem onClick={handleSystemReset}>
-                <MenuIcon>
-                  <SettingsBrightness />
-                </MenuIcon>
-                <MenuText>Follow system preference</MenuText>
-              </StyledMenuItem>
-            </StyledMenu>
-          )}
-        </NoSsr>
-      </StyledContainer>
-    </NoSsr>
+      {open && (
+        <StyledMenu>
+          <StyledMenuItem onClick={handleToggleMode}>
+            <MenuIcon>{isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}</MenuIcon>
+            <MenuText>Switch to {isDarkMode ? 'light' : 'dark'} mode</MenuText>
+          </StyledMenuItem>
+          <StyledMenuItem onClick={handleSystemReset}>
+            <MenuIcon>
+              <SettingsBrightnessIcon />
+            </MenuIcon>
+            <MenuText>Follow system preference</MenuText>
+          </StyledMenuItem>
+        </StyledMenu>
+      )}
+    </StyledContainer>
   );
 }
 

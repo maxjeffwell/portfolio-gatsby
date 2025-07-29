@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const StyledGatsbyImage = styled(GatsbyImage)`
   picture {

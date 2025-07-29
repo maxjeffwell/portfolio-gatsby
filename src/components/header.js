@@ -1,16 +1,28 @@
 import { Link } from 'gatsby';
 import React, { useState, useEffect, useRef } from 'react';
-import { useTheme } from '@mui/material';
-import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 import MyLogo from './myLogo';
 import DarkModeToggle from './DarkModeToggle';
 
-const getAppBarBackground = (theme, scrolled) => {
+// Simple icon components using Unicode symbols
+const MenuIcon = styled.span`
+  font-size: 24px;
+  &::before {
+    content: '☰';
+  }
+`;
+
+const CloseIcon = styled.span` 
+  font-size: 24px;
+  &::before {
+    content: '✕';
+  }
+`;
+
+const getAppBarBackground = (scrolled) => {
   if (!scrolled) return 'transparent';
-  if (!theme || !theme.palette) return 'rgba(255, 255, 255, 0.95)';
-  return theme.palette.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+  return 'rgba(255, 255, 255, 0.95)';
 };
 
 const StyledContainer = styled.div`
@@ -23,9 +35,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledBox = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['display', 'justifyContent', 'flexDirection', 'alignItems', 'gap', 'p', 'textAlign'].includes(prop),
-})`
+const StyledBox = styled.div`
   display: ${(props) => props.display || 'block'};
   justify-content: ${(props) => props.justifyContent || 'flex-start'};
   flex-direction: ${(props) => props.flexDirection || 'row'};
@@ -42,7 +52,11 @@ const StyledAppBar = styled.header`
   right: 0;
   z-index: 1100;
   width: 100%;
-  background: ${(props) => getAppBarBackground(props.theme, props.scrolled)};
+  background: ${(props) => getAppBarBackground(props.scrolled)};
+  
+  @media (prefers-color-scheme: dark) {
+    background: ${(props) => props.scrolled ? 'rgba(30, 30, 30, 0.95)' : 'transparent'};
+  }
   backdrop-filter: ${(props) => (props.scrolled ? 'blur(20px)' : 'none')};
   box-shadow: ${(props) =>
     props.scrolled
@@ -259,18 +273,7 @@ function Header() {
     return undefined;
   }, []);
 
-  // Safe theme access - call hook unconditionally
-  const theme = useTheme();
-  const safeTheme = theme || {
-    palette: {
-      mode: 'light',
-      text: { primary: '#000' },
-      action: { hover: 'rgba(0, 0, 0, 0.04)' },
-    },
-    breakpoints: {
-      down: () => '(max-width: 959px)',
-    },
-  };
+  // Remove theme dependency - use CSS media queries instead
 
   useEffect(() => {
     const handleScroll = () => {
@@ -325,7 +328,7 @@ function Header() {
 
   return (
     <>
-      <StyledAppBar scrolled={isScrolled ? 1 : 0} theme={safeTheme}>
+      <StyledAppBar scrolled={isScrolled ? 1 : 0}>
         <StyledContainer>
           <StyledToolbar>
             {isMobile && (
