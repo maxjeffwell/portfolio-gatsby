@@ -42,12 +42,15 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
   };
 
   // Add DefinePlugin to ensure TextEncoder is available as a global
-  config.plugins.push(
-    new (require('webpack')).DefinePlugin({
-      'global.TextEncoder': 'window.TextEncoder',
-      'global.TextDecoder': 'window.TextDecoder',
-    })
-  );
+  // Only define for browser environment, avoid SSR issues
+  if (stage === 'build-javascript' || stage === 'develop') {
+    config.plugins.push(
+      new (require('webpack')).DefinePlugin({
+        'global.TextEncoder': 'typeof window !== "undefined" ? window.TextEncoder : undefined',
+        'global.TextDecoder': 'typeof window !== "undefined" ? window.TextDecoder : undefined',
+      })
+    );
+  }
 
   actions.setWebpackConfig(config);
 };
