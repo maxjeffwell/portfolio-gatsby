@@ -311,7 +311,7 @@ function AboutPage() {
         description="Meet Jeff Maxwell, Full Stack Developer. Technology stack, development process, and the team behind innovative web solutions and modern applications."
         pathname="/about/"
         keywords={[
-          `about jeff maxwell`,
+          `about me`,
           `development team`,
           `web developer bio`,
           `technology stack`,
@@ -338,7 +338,7 @@ function AboutPage() {
                 letterSpacing: '-0.02em',
               }}
             >
-              About Jeff Maxwell
+              About Me
             </Typography>
             <Typography
               theme={theme}
