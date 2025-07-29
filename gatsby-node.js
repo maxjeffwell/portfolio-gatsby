@@ -6,6 +6,7 @@
 
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const path = require('path');
 
 // Simplified webpack configuration for better stability
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig, rules }) => {
@@ -24,34 +25,41 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig, rules }) => {
     }
   }
   
-  // Handle SSR issues with MUI components
-  if (stage === 'build-html' || stage === 'build-javascript') {
+  // Handle SSR issues with MUI components - apply aliases to all stages
+  const muiAliases = {
+    '@mui/material/Grid': path.join(__dirname, 'src/utils/grid-fallback.js'),
+    '@mui/material/Chip': path.join(__dirname, 'src/utils/chip-fallback.js'),
+    '@mui/material/Paper': path.join(__dirname, 'src/utils/mui-fallback.js'),
+    '@mui/material/styles': path.join(__dirname, 'src/utils/mui-styles-fallback.js'),
+    '@mui/material/CssBaseline': path.join(__dirname, 'src/utils/mui-cssbaseline-fallback.js'),
+    '@mui/material/utils': path.join(__dirname, 'src/utils/mui-utils-fallback.js'),
+    '@mui/system': path.join(__dirname, 'src/utils/mui-system-fallback.js'),
+    '@mui/system/colorManipulator': path.join(__dirname, 'src/utils/color-manipulator-fallback.js'),
+    '@mui/system/styleFunctionSx': path.join(__dirname, 'src/utils/style-function-sx-fallback.js'),
+    '@mui/system/createTheme': path.join(__dirname, 'src/utils/create-theme-fallback.js'),
+    '@mui/system/createStyled': path.join(__dirname, 'src/utils/create-styled-fallback.js'),
+    '@mui/system/useThemeProps': path.join(__dirname, 'src/utils/use-theme-props-fallback.js'),
+    '@mui/system/useMediaQuery': path.join(__dirname, 'src/utils/use-media-query-fallback.js'),
+    '@mui/system/Unstable_Grid': path.join(__dirname, 'src/utils/unstable-grid-fallback.js'),
+    '@mui/system/DefaultPropsProvider': path.join(__dirname, 'src/utils/default-props-provider-fallback.js'),
+    '@mui/system/RtlProvider': path.join(__dirname, 'src/utils/rtl-provider-fallback.js'),
+    '@mui/system/InitColorSchemeScript': path.join(__dirname, 'src/utils/init-color-scheme-script-fallback.js'),
+    '@mui/system/useThemeWithoutDefault': path.join(__dirname, 'src/utils/use-theme-without-default-fallback.js'),
+    'react-icons/di': path.join(__dirname, 'src/utils/react-icons-di-fallback.js'),
+    'react-icons/fa': path.join(__dirname, 'src/utils/react-icons-fa-fallback.js'),
+  };
+
+  if (stage === 'build-html') {
     actions.setWebpackConfig({
       resolve: {
-        alias: {
-          '@mui/material/Grid': require.resolve('./src/utils/grid-fallback.js'),
-          '@mui/material/Chip': require.resolve('./src/utils/chip-fallback.js'),
-          '@mui/material/Paper': require.resolve('./src/utils/mui-fallback.js'),
-          '@mui/material/styles': require.resolve('./src/utils/mui-styles-fallback.js'),
-          '@mui/material/CssBaseline': require.resolve('./src/utils/mui-cssbaseline-fallback.js'),
-          '@mui/material/utils': require.resolve('./src/utils/mui-utils-fallback.js'),
-          '@mui/system': require.resolve('./src/utils/mui-system-fallback.js'),
-          '@mui/system/colorManipulator': require.resolve('./src/utils/color-manipulator-fallback.js'),
-          '@mui/system/styleFunctionSx': require.resolve('./src/utils/style-function-sx-fallback.js'),
-          '@mui/system/createTheme': require.resolve('./src/utils/create-theme-fallback.js'),
-          '@mui/system/createStyled': require.resolve('./src/utils/create-styled-fallback.js'),
-          '@mui/system/useThemeProps': require.resolve('./src/utils/use-theme-props-fallback.js'),
-          '@mui/system/useMediaQuery': require.resolve('./src/utils/use-media-query-fallback.js'),
-          '@mui/system/Unstable_Grid': require.resolve('./src/utils/unstable-grid-fallback.js'),
-          'react-icons/di': require.resolve('./src/utils/react-icons-di-fallback.js'),
-          'react-icons/fa': require.resolve('./src/utils/react-icons-fa-fallback.js'),
-        },
+        alias: muiAliases,
       },
     });
   }
   
   actions.setWebpackConfig({
     resolve: {
+      alias: muiAliases,
       fallback: {
         "os": require.resolve("os-browserify/browser"),
         "crypto": require.resolve("crypto-browserify"),
@@ -64,6 +72,9 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig, rules }) => {
         "assert": require.resolve("assert"),
         "events": require.resolve("events"),
         "vm": require.resolve("vm-browserify"),
+        "http": false,
+        "https": false,
+        "zlib": false,
         "fs": false,
         "net": false,
         "tls": false,
