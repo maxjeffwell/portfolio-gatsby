@@ -87,6 +87,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
             data.site && data.site.siteMetadata ? data.site.siteMetadata.author : 'Jeff Maxwell',
         },
         {
+          name: `article:published_time`,
+          content: `2019-01-01T00:00:00.000Z`,
+        },
+        {
           name: `viewport`,
           content: `width=device-width, initial-scale=1`,
         },
