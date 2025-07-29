@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Paper, Card, Fade, Slide, NoSsr } from '@mui/material';
+import { Typography, Paper, Fade, Slide, NoSsr } from '@mui/material';
 import { Code as CodeIcon, Coffee, Pets } from '@mui/icons-material';
 import styled from '@emotion/styled';
 import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
@@ -119,12 +119,13 @@ const TechSection = styled(Paper)`
   }
 `;
 
-const PersonalCard = styled(Card)`
+const PersonalCard = styled.div`
   padding: 24px;
   border-radius: 24px;
   background: linear-gradient(135deg, rgba(252, 74, 26, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%);
   position: relative;
   overflow: hidden;
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
 
   &::before {
     content: '';
@@ -143,7 +144,7 @@ const PersonalCard = styled(Card)`
   }
 `;
 
-const TechCard = styled(Card)`
+const TechCard = styled.div`
   text-align: center;
   padding: 24px 16px;
   height: 100%;
@@ -152,6 +153,7 @@ const TechCard = styled(Card)`
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, box-shadow;
+  box-shadow: 0px 1px 3px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 
   &:hover {
     transform: translateY(-8px);
@@ -160,6 +162,12 @@ const TechCard = styled(Card)`
       0px 8px 10px 1px rgba(0, 0, 0, 0.14),
       0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
+`;
+
+const StyledCard = styled.div`
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
 const InterestItem = styled.div`
@@ -252,7 +260,7 @@ function AboutPage() {
         <StyledBox component="section" aria-labelledby="personal-section" ref={personalRef} mb={6}>
           <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" />}>
             <Slide direction="up" in={personalVisible} timeout={800}>
-              <PersonalCard elevation={3}>
+              <PersonalCard>
                 <NoSsr fallback={<StyledBox minHeight="200px" />}>
                   <GridContainer className="three-column" spacing={2}>
                     <GridItem>
@@ -320,14 +328,12 @@ function AboutPage() {
           <NoSsr fallback={<StyledBox minHeight="400px" bgColor="hover" />}>
             <GridContainer className="center-last" spacing={4} mb={6}>
               <GridItem>
-                <Card
-                  elevation={3}
-                  sx={{
-                    borderRadius: 3,
-                    overflow: 'hidden',
+                <StyledCard
+                  style={{
+                    borderRadius: 24,
                     backgroundColor: 'rgb(0, 89, 149)',
                     aspectRatio: '1 / 1',
-                    minHeight: { xs: '300px', sm: '400px' },
+                    minHeight: '400px',
                     position: 'relative',
                     willChange: 'transform',
                   }}
@@ -340,17 +346,15 @@ function AboutPage() {
                   >
                     <Image imageType="mascot" />
                   </StyledBox>
-                </Card>
+                </StyledCard>
               </GridItem>
               <GridItem>
-                <Card
-                  elevation={3}
-                  sx={{
-                    borderRadius: 3,
-                    overflow: 'hidden',
+                <StyledCard
+                  style={{
+                    borderRadius: 24,
                     backgroundColor: 'rgb(0, 89, 149)',
                     aspectRatio: '1 / 1',
-                    minHeight: { xs: '300px', sm: '400px' },
+                    minHeight: '400px',
                     position: 'relative',
                     willChange: 'transform',
                   }}
@@ -363,17 +367,15 @@ function AboutPage() {
                   >
                     <Image imageType="dogs" />
                   </StyledBox>
-                </Card>
+                </StyledCard>
               </GridItem>
               <GridItem>
-                <Card
-                  elevation={3}
-                  sx={{
-                    borderRadius: 3,
-                    overflow: 'hidden',
+                <StyledCard
+                  style={{
+                    borderRadius: 24,
                     backgroundColor: 'rgb(0, 89, 149)',
                     aspectRatio: '1 / 1',
-                    minHeight: { xs: '300px', sm: '400px' },
+                    minHeight: '400px',
                     position: 'relative',
                     willChange: 'transform',
                   }}
@@ -386,7 +388,7 @@ function AboutPage() {
                   >
                     <Image imageType="developer" />
                   </StyledBox>
-                </Card>
+                </StyledCard>
               </GridItem>
             </GridContainer>
           </NoSsr>
@@ -422,7 +424,7 @@ function AboutPage() {
                 <NoSsr fallback={<StyledBox minHeight="300px" bgColor="hover" mt={2} />}>
                   <GridContainer className="four-column" spacing={3} mt={2}>
                     <GridItem>
-                      <TechCard elevation={1}>
+                      <TechCard>
                         <NoSsr>
                           <StyledIcon>
                             <DiIntellij />
@@ -438,7 +440,7 @@ function AboutPage() {
                     </GridItem>
 
                     <GridItem>
-                      <TechCard elevation={1}>
+                      <TechCard>
                         <NoSsr>
                           <StyledIcon>
                             <DiMozilla />
@@ -454,7 +456,7 @@ function AboutPage() {
                     </GridItem>
 
                     <GridItem>
-                      <TechCard elevation={1}>
+                      <TechCard>
                         <NoSsr>
                           <StyledIcon>
                             <DiDebian />
@@ -470,7 +472,7 @@ function AboutPage() {
                     </GridItem>
 
                     <GridItem>
-                      <TechCard elevation={1}>
+                      <TechCard>
                         <NoSsr>
                           <StyledIcon>
                             <FaPiedPiperAlt />

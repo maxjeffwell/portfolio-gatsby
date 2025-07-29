@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Card, CardContent, CardActions, Typography, Button, Stack, NoSsr } from '@mui/material';
+import { Typography, Button, Stack, NoSsr } from '@mui/material';
 import { GitHub, Launch } from '@mui/icons-material';
 import styled from '@emotion/styled';
 import { FaReact, FaGit } from 'react-icons/fa';
@@ -76,7 +76,7 @@ const CustomChip = styled.span`
   }
 `;
 
-const StyledCard = styled(Card)`
+const StyledCard = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -87,6 +87,7 @@ const StyledCard = styled(Card)`
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, box-shadow;
   background: white;
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
 
   @media (prefers-color-scheme: dark) {
     background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
@@ -99,6 +100,19 @@ const StyledCard = styled(Card)`
       0px 8px 10px 1px rgba(0, 0, 0, 0.14),
       0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
+`;
+
+const StyledCardContent = styled.div`
+  flex-grow: 1;
+  padding: 16px;
+  padding-top: 16px;
+`;
+
+const StyledCardActions = styled.div`
+  justify-content: space-between;
+  padding: 16px;
+  padding-top: 0;
+  display: flex;
 `;
 
 const ColoredBar = styled.div`
@@ -179,7 +193,7 @@ function ProjectCard({
   technologies = [],
 }) {
   return (
-    <StyledCard elevation={3}>
+    <StyledCard>
       <ColoredBar />
       <FlexContainer>
         <ImageBox>
@@ -236,7 +250,7 @@ function ProjectCard({
         </ImageBox>
       </FlexContainer>
 
-      <CardContent style={{ flexGrow: 1, paddingTop: '16px' }}>
+      <StyledCardContent>
         <HeaderContainer>
           <Typography variant="h5" component="h3" color="primary" fontWeight="bold">
             {title}
@@ -332,9 +346,9 @@ function ProjectCard({
             )}
           </Stack>
         </TechContainer>
-      </CardContent>
+      </StyledCardContent>
 
-      <CardActions style={{ justifyContent: 'space-between', padding: '16px', paddingTop: '0' }}>
+      <StyledCardActions>
         <Button
           variant="contained"
           color="primary"
@@ -375,7 +389,7 @@ function ProjectCard({
         >
           Live Demo
         </Button>
-      </CardActions>
+      </StyledCardActions>
     </StyledCard>
   );
 }

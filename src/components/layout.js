@@ -14,6 +14,7 @@ import styled from '@emotion/styled';
 
 import Header from './header';
 import ThirdPartyScripts from './ThirdPartyScripts';
+import CustomGlobalStyles from './GlobalStyles';
 
 const GET_SITE_METADATA = graphql`
   query {
@@ -90,6 +91,7 @@ function ThemedLayout({ children, data }) {
       <NoSsr>
         <ThirdPartyScripts />
       </NoSsr>
+      <CustomGlobalStyles />
       <GlobalStyles
         styles={{
           '*': {

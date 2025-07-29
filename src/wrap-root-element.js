@@ -1,8 +1,17 @@
 import React from 'react';
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import '../static/fonts/fonts.css';
+
+// Create emotion cache with prepend to ensure our styles have priority
+const emotionCache = createCache({ 
+  key: 'portfolio',
+  prepend: true,
+  speedy: false // Disable speedy mode for better debugging
+});
 
 // Client-only PerformanceMonitor wrapper
 const ClientOnlyPerformanceMonitor = () => {
@@ -32,12 +41,14 @@ const ClientOnlyPerformanceMonitor = () => {
 
 // Wrap the root element with providers
 export const wrapRootElement = ({ element }) => (
-  <ErrorBoundary>
-    <HelmetProvider>
-      <ThemeProvider>
-        <ClientOnlyPerformanceMonitor />
-        {element}
-      </ThemeProvider>
-    </HelmetProvider>
-  </ErrorBoundary>
+  <CacheProvider value={emotionCache}>
+    <ErrorBoundary>
+      <HelmetProvider>
+        <ThemeProvider>
+          <ClientOnlyPerformanceMonitor />
+          {element}
+        </ThemeProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
+  </CacheProvider>
 );

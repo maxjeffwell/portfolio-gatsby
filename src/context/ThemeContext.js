@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider as MuiThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material Design color palette
@@ -493,10 +493,12 @@ export function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={value}>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </MuiThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+          {children}
+        </MuiThemeProvider>
+      </StyledEngineProvider>
     </ThemeContext.Provider>
   );
 }

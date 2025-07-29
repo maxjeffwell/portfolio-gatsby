@@ -4,8 +4,6 @@ import {
   Typography,
   Button,
   Paper,
-  Card,
-  CardContent,
   useTheme as useMuiTheme,
   NoSsr,
 } from '@mui/material';
@@ -98,65 +96,87 @@ const HeroSection = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: linear-gradient(45deg, #fc4a1a, #f7b733);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  display: inline-block;
-  font-weight: bold;
-  /* Fallback for SSR */
-  color: #fc4a1a;
-  
-  @supports (background-clip: text) or (-webkit-background-clip: text) {
-    color: transparent;
+  && {
+    background: linear-gradient(45deg, #fc4a1a, #f7b733) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    -moz-text-fill-color: transparent !important;
+    display: inline-block;
+    font-weight: bold;
+    /* Fallback for SSR and no support */
+    color: #fc4a1a;
+    
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      color: transparent !important;
+    }
   }
 `;
 
 const TypingTextWrapper = styled.span`
-  background: linear-gradient(45deg, #1565c0, #42a5f5);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  font-weight: bold;
-  position: relative;
-  display: inline-block;
-  width: 320px;
-  min-height: 1.2em;
-  text-align: left;
-  font-size: 0.6em;
-  /* Fallback for SSR */
-  color: #1565c0;
-  
-  @supports (background-clip: text) or (-webkit-background-clip: text) {
-    color: transparent;
+  && {
+    background: linear-gradient(45deg, #1565c0, #42a5f5) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    -moz-text-fill-color: transparent !important;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    width: 320px;
+    min-height: 1.2em;
+    text-align: left;
+    font-size: 0.6em;
+    /* Fallback for SSR */
+    color: #1565c0;
+    
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      color: transparent !important;
+    }
   }
 `;
 
 const StyledButton = styled(Button)`
-  border-radius: 30px;
-  padding: 12px 32px;
-  font-size: 1.1rem;
-  text-transform: none;
-  background: #7c4dff;
-  background-image: linear-gradient(135deg, #7c4dff 0%, #b388ff 100%);
-  color: white;
-  box-shadow:
-    0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    transform: translateY(-2px);
-    background: #651fff;
-    background-image: linear-gradient(135deg, #651fff 0%, #9c64ff 100%);
+  && {
+    border-radius: 30px !important;
+    padding: 12px 32px !important;
+    font-size: 1.1rem !important;
+    text-transform: none !important;
+    background: #7c4dff !important;
+    background-image: linear-gradient(135deg, #7c4dff 0%, #b388ff 100%) !important;
+    color: white !important;
     box-shadow:
-      0px 5px 5px -3px rgba(0, 0, 0, 0.2),
-      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
-      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+      0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      transform: translateY(-2px) !important;
+      background: #651fff !important;
+      background-image: linear-gradient(135deg, #651fff 0%, #9c64ff 100%) !important;
+      box-shadow:
+        0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0px 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
+    }
   }
+`;
+
+const StyledCard = styled.div`
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
+  overflow: hidden;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  
+  @media (prefers-color-scheme: dark) {
+    background: #1a1a1a;
+  }
+`;
+
+const StyledCardContent = styled.div`
+  padding: 32px;
 `;
 
 const FloatingShape = styled.div`
@@ -224,7 +244,7 @@ const IndexPage = React.memo(() => {
       />
       <StyledContainer>
         <StyledBox component="section" role="banner" aria-labelledby="hero-title" ref={headerRef}>
-          <HeroSection>
+          <HeroSection className="hero-section">
             <FloatingShape
               style={{
                 width: 200,
@@ -272,9 +292,9 @@ const IndexPage = React.memo(() => {
             >
               My name&apos;s Jeff 😏
             </Typography>
-            <GradientText variant="h1" gutterBottom style={{ minHeight: '4.5rem' }} id="hero-title">
+            <GradientText variant="h1" gutterBottom style={{ minHeight: '4.5rem' }} id="hero-title" className="gradient-text">
               I&apos;m a{' '}
-              <TypingTextWrapper>
+              <TypingTextWrapper className="typing-text-wrapper">
                 <StyledBox
                   component="span"
                   style={{
@@ -329,18 +349,15 @@ const IndexPage = React.memo(() => {
           mb={4}
           style={{ minHeight: '240px' }}
         >
-          <Card
-            elevation={3}
+          <StyledCard
+            className="styled-card"
             style={{
-              borderRadius: 16,
               overflow: 'visible',
               opacity: introVisible ? 1 : 0.8,
               transform: introVisible ? 'translateY(0)' : 'translateY(10px)',
-              transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
-              backgroundColor: '#ffffff',
             }}
           >
-            <CardContent style={{ padding: 32 }}>
+            <StyledCardContent>
               <Typography
                 variant="h2"
                 id="intro-title"
@@ -372,8 +389,8 @@ const IndexPage = React.memo(() => {
                 &quot;Code is like humor. When you have to explain it, it&apos;s bad.&quot; —
                 That&apos;s why I focus on intuitive, self-documenting solutions.
               </Typography>
-            </CardContent>
-          </Card>
+            </StyledCardContent>
+          </StyledCard>
         </StyledBox>
 
         <StyledBox
@@ -398,7 +415,7 @@ const IndexPage = React.memo(() => {
             Portfolio Navigation
           </Typography>
           <div style={{ opacity: navVisible ? 1 : 0.9, transition: 'opacity 0.2s ease-out' }}>
-            <StyledButton component={Link} to="/projects/" endIcon={<ArrowForward />} size="large">
+            <StyledButton component={Link} to="/projects/" endIcon={<ArrowForward />} size="large" className="styled-button">
               View My Projects
             </StyledButton>
           </div>
@@ -425,15 +442,8 @@ const IndexPage = React.memo(() => {
                 aria-labelledby="beyond-code-title"
                 style={{ opacity: introVisible ? 1 : 0, transition: 'opacity 0.6s ease-out' }}
               >
-                <Card
-                  elevation={3}
-                  style={{
-                    height: '100%',
-                    borderRadius: 16,
-                    background: '#ffffff',
-                  }}
-                >
-                  <CardContent style={{ padding: 32 }}>
+                <StyledCard className="styled-card" style={{ height: '100%' }}>
+                  <StyledCardContent>
                     <Typography
                       variant="h3"
                       gutterBottom
@@ -471,8 +481,8 @@ const IndexPage = React.memo(() => {
                     >
                       Meet my development team and learn more about me
                     </Button>
-                  </CardContent>
-                </Card>
+                  </StyledCardContent>
+                </StyledCard>
               </StyledBox>
             </GridItem>
 
@@ -482,14 +492,11 @@ const IndexPage = React.memo(() => {
                 aria-labelledby="code-philosophy-title"
                 style={{ opacity: codeVisible ? 1 : 0, transition: 'opacity 0.6s ease-out' }}
               >
-                <Card
-                  elevation={3}
+                <StyledCard
+                  className="styled-card"
                   style={{
                     height: '100%',
-                    borderRadius: 16,
                     position: 'relative',
-                    overflow: 'hidden',
-                    backgroundColor: '#ffffff',
                   }}
                 >
                   <StyledBox
@@ -498,7 +505,7 @@ const IndexPage = React.memo(() => {
                       background: 'linear-gradient(90deg, #1565c0, #42a5f5)',
                     }}
                   />
-                  <CardContent style={{ padding: 32 }}>
+                  <StyledCardContent>
                     <Typography
                       variant="h3"
                       gutterBottom
@@ -583,8 +590,8 @@ const IndexPage = React.memo(() => {
                         ))}
                       </StyledBox>
                     </Paper>
-                  </CardContent>
-                </Card>
+                  </StyledCardContent>
+                </StyledCard>
               </StyledBox>
             </GridItem>
           </GridContainer>
