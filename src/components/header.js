@@ -1,6 +1,6 @@
 import { Link } from 'gatsby';
 import React, { useState, useEffect, useRef } from 'react';
-import { useTheme, useMediaQuery, NoSsr } from '@mui/material';
+import { useTheme } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
@@ -254,25 +254,21 @@ function Header() {
         mediaQuery.removeEventListener('change', handleMediaChange);
       };
     }
+    return undefined;
   }, []);
 
-  // Safe theme access
-  let safeTheme;
-  try {
-    safeTheme = useTheme();
-  } catch (error) {
-    // Fallback theme for SSR
-    safeTheme = {
-      palette: {
-        mode: 'light',
-        text: { primary: '#000' },
-        action: { hover: 'rgba(0, 0, 0, 0.04)' },
-      },
-      breakpoints: {
-        down: () => '(max-width: 959px)',
-      },
-    };
-  }
+  // Safe theme access - call hook unconditionally
+  const theme = useTheme();
+  const safeTheme = theme || {
+    palette: {
+      mode: 'light',
+      text: { primary: '#000' },
+      action: { hover: 'rgba(0, 0, 0, 0.04)' },
+    },
+    breakpoints: {
+      down: () => '(max-width: 959px)',
+    },
+  };
 
   useEffect(() => {
     const handleScroll = () => {
