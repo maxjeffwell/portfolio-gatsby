@@ -328,7 +328,7 @@ const Projects = ({ data }) => {
     <Layout>
       <SEO
         title="Projects | React & Node.js Developer - Jeff Maxwell"
-        description="Explore my portfolio of React, Node.js, and GraphQL projects. Full stack web development solutions including e-learning platforms, social networks, and APIs."
+        description="Explore my React, Node.js, and GraphQL projects. Full stack web development solutions including e-learning platforms and social networks."
         pathname="/projects/"
         keywords={[
           `react projects`,

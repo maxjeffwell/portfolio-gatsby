@@ -233,7 +233,7 @@ const IndexPage = React.memo(() => {
     <Layout>
       <SEO
         title="Home"
-        description="Full Stack React & Node.js Developer. Modern web applications, innovative projects, and scalable solutions. View portfolio and hire for freelance work."
+        description="Full Stack React & Node.js Developer. Modern web applications, innovative projects, and scalable solutions. View portfolio and hire freelance."
         pathname="/"
         keywords={[
           `full stack developer`,
