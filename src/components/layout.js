@@ -171,7 +171,8 @@ function ThemedLayout({ children, data }) {
   return (
     <>
       <GlobalStyles />
-      <main style={{ margin: 0, padding: 0 }}>
+      <Header />
+      <main style={{ margin: 0, padding: 0, paddingTop: '80px' }}>
         {children}
       </main>
       <StyledFooter as="footer">

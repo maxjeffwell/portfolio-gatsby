@@ -20,11 +20,6 @@ const CloseIcon = styled.span`
   }
 `;
 
-const getAppBarBackground = (scrolled) => {
-  if (!scrolled) return 'transparent';
-  return 'rgba(255, 255, 255, 0.95)';
-};
-
 const StyledContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -52,38 +47,20 @@ const StyledAppBar = styled.header`
   right: 0;
   z-index: 1100;
   width: 100%;
-  background: ${(props) => {
-    if (props.scrolled) {
-      return props.theme?.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)';
-    }
-    return 'transparent';
-  }};
-  backdrop-filter: ${(props) => (props.scrolled ? 'blur(20px)' : 'none')};
-  box-shadow: ${(props) =>
-    props.scrolled
-      ? '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)'
-      : 'none'};
-  transition:
-    background 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    backdrop-filter 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const StyledToolbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 64px;
-  padding: 8px 16px;
+  min-height: 80px;
+  padding: 0 16px;
 
   @media (max-width: 599px) {
-    padding: 4px 8px;
-    min-height: 56px;
-  }
-
-  @media (max-width: 360px) {
-    padding: 0.5rem 0.75rem;
-    min-height: 48px;
+    padding: 0 8px;
+    min-height: 64px;
   }
 `;
 
@@ -91,45 +68,33 @@ const NavButton = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 64px;
-  padding: 8px 24px;
-  margin: 0 4px;
+  padding: 12px 20px;
+  margin: 0 8px;
   text-decoration: none;
-  color: ${props => props.theme?.colors?.text || (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)')};
-  background-color: transparent;
+  color: #333;
+  background-color: #e8eaf6;
   border: none;
   cursor: pointer;
   font-family: inherit;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.75;
-  border-radius: 20px;
-  padding: 8px 24px;
-  margin-left: 8px;
-  margin-right: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 8px;
   text-transform: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition:
-    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-      0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    background-color: #c5cae9;
+    transform: translateY(-1px);
   }
 
   &.active {
-    background-color: #fc4a1a;
+    background-color: #1976d2;
     color: white;
-    box-shadow:
-      0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-      0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-      0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  }
+  
+  &:first-child {
+    margin-left: 0;
   }
 `;
 
@@ -232,15 +197,10 @@ const MobileNavButton = styled.a`
 `;
 
 const ToolbarSpacer = styled.div`
-  min-height: 64px;
-  margin-bottom: 32px;
+  min-height: 80px;
 
   @media (max-width: 599px) {
-    min-height: 56px;
-  }
-
-  @media (max-width: 360px) {
-    min-height: 48px;
+    min-height: 64px;
   }
 `;
 
@@ -344,30 +304,28 @@ function Header() {
               </StyledIconButton>
             )}
 
-            {!isMobile && (
-              <StyledBox
-                component="nav"
-                aria-label="Main navigation"
-                display="flex"
-                alignItems="center"
-              >
-                {menuItems.map((item) => (
-                  <NavButton
-                    key={item.text}
-                    as={Link}
-                    to={item.to}
-                    className={currentPath === item.to ? 'active' : ''}
-                    aria-current={currentPath === item.to ? 'page' : undefined}
-                  >
-                    {item.text}
-                  </NavButton>
-                ))}
-              </StyledBox>
-            )}
+            <StyledBox
+              component="nav"
+              aria-label="Main navigation"
+              display="flex"
+              alignItems="center"
+            >
+              {!isMobile && menuItems.map((item) => (
+                <NavButton
+                  key={item.text}
+                  as={Link}
+                  to={item.to}
+                  className={currentPath === item.to ? 'active' : ''}
+                  aria-current={currentPath === item.to ? 'page' : undefined}
+                >
+                  {item.text}
+                </NavButton>
+              ))}
+            </StyledBox>
 
             <StyledBox display="flex" alignItems="center" gap={2}>
-              {!isMobile && <MyLogo />}
-              <DarkModeToggle />
+              <MyLogo />
+              <span style={{ fontSize: '1.2rem', marginLeft: '8px' }}>Auto</span>
             </StyledBox>
           </StyledToolbar>
         </StyledContainer>
