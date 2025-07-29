@@ -21,18 +21,12 @@ const GET_SITE_METADATA = graphql`
 `;
 
 const StyledContainer = styled.div`
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 0 24px;
 
   @media (max-width: 600px) {
     padding: 0 16px;
-  }
-
-  @media (max-width: 360px) {
-    margin-top: 48px !important;
-    margin-bottom: 24px !important;
-    padding: 0 12px;
   }
 `;
 
@@ -152,16 +146,10 @@ const IconButton = styled.button`
 `;
 
 const StyledFooter = styled.footer`
-  margin-top: 64px;
-  padding-top: 32px;
-  padding-bottom: 32px;
-  border-top: 3px solid #f7b733;
-  background-color: ${props => props.theme?.colors?.background || '#f5f5f5'};
-  transition: background-color 0.3s ease;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: ${props => props.theme?.colors?.background || '#212121'};
-  }
+  margin-top: 0;
+  padding: 24px 0;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
 `;
 
 const SocialLink = styled(IconButton)`
@@ -183,32 +171,24 @@ function ThemedLayout({ children, data }) {
   return (
     <>
       <GlobalStyles />
-      <Header />
-      <StyledContainer
-        as="main"
-        style={{
-          marginTop: '64px',
-          marginBottom: '32px',
-        }}
-      >
+      <main style={{ margin: 0, padding: 0 }}>
         {children}
-      </StyledContainer>
+      </main>
       <StyledFooter as="footer">
         <StyledContainer>
-          <Typography as="h2" variant="h4" gutterBottom>
+          <Typography as="h2" variant="h4" gutterBottom style={{ color: '#333', textAlign: 'center' }}>
             Jeff Maxwell
           </Typography>
           <Link
             href="mailto:maxjeffwell@gmail.com"
             underline="always"
             style={{
-              fontSize: '1.5rem',
-              color: '#052f5f',
+              fontSize: '1.2rem',
+              color: '#1976d2',
               display: 'block',
-              marginBottom: '24px',
-              textDecorationColor: '#052f5f',
-              textDecorationThickness: '2px',
-              textUnderlineOffset: '4px',
+              marginBottom: '16px',
+              textDecorationColor: '#1976d2',
+              textAlign: 'center'
             }}
             aria-label="Send email to maxjeffwell@gmail.com"
           >
@@ -220,7 +200,7 @@ function ThemedLayout({ children, data }) {
             display="flex"
             gap={2}
             justifyContent="center"
-            mb={3}
+            mb={2}
           >
             <SocialLink
               target="_blank"
@@ -229,7 +209,7 @@ function ThemedLayout({ children, data }) {
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="GitHub" fontSize="large" />
+              <ClientOnlyIcon iconName="GitHub" fontSize="medium" />
             </SocialLink>
             <SocialLink
               target="_blank"
@@ -238,27 +218,26 @@ function ThemedLayout({ children, data }) {
               aria-label="Visit Jeff Maxwell's AngelList profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="Language" fontSize="large" />
+              <ClientOnlyIcon iconName="Language" fontSize="medium" />
             </SocialLink>
             <SocialLink
               href="tel:+01-508-395-2008"
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
             >
-              <ClientOnlyIcon iconName="Phone" fontSize="large" />
+              <ClientOnlyIcon iconName="Phone" fontSize="medium" />
             </SocialLink>
           </StyledBox>
-          <Typography variant="body1" align="center" sx={{ mt: 2 }}>
-            Built by {data.site.siteMetadata.author}, created with{' '}
+          <Typography variant="body2" align="center" style={{ fontSize: '0.9rem', color: '#666' }}>
+            Built by Jeff Maxwell, created with{' '}
             <Link
               href="https://www.gatsbyjs.org"
               target="_blank"
               rel="noopener noreferrer"
               underline="always"
               style={{
-                color: '#052f5f',
-                textDecorationColor: '#052f5f',
-                textUnderlineOffset: '2px',
+                color: '#1976d2',
+                textDecorationColor: '#1976d2',
               }}
             >
               Gatsby

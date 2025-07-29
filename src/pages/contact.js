@@ -629,16 +629,40 @@ function Contact() {
         </label>
       </form>
       <StyledContainer>
-        <StyledBox as="section" aria-labelledby="contact-header" mb={6}>
-          <GradientText as="h1" id="contact-header" align="center" gutterBottom>
-            Let&#39;s Connect
-          </GradientText>
-          <Typography variant="h5" align="center" color="text.secondary" paragraph>
-            I&#39;m always interested in new opportunities and collaborations
+        <StyledBox as="section" aria-labelledby="contact-header" mb={8} style={{ textAlign: 'center', paddingTop: '40px' }}>
+          <Typography
+            as="h1"
+            id="contact-header"
+            style={{
+              fontSize: 'clamp(2.5rem, 8vw, 4rem)',
+              fontWeight: 700,
+              lineHeight: 1.2,
+              marginBottom: '24px',
+              background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Let's Connect
+          </Typography>
+          <Typography 
+            variant="h5" 
+            style={{
+              fontSize: '1.25rem',
+              color: 'rgba(0, 0, 0, 0.7)',
+              fontWeight: 400,
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: 1.5,
+            }}
+          >
+            I'm always interested in new opportunities and collaborations
           </Typography>
         </StyledBox>
 
-        <StyledBox as="section" aria-labelledby="contact-methods">
+        <StyledBox as="section" aria-labelledby="contact-methods" mb={6}>
           <Typography as="h2" variant="h2" id="contact-methods" style={{
             position: 'absolute',
             left: '-10000px',
@@ -648,100 +672,174 @@ function Contact() {
           }}>
             Contact Information and Methods
           </Typography>
-          <GridContainer spacing={4}>
-            <GridItem>
-              <ContactCard>
-                <Typography as="h3" variant="h3" id="get-in-touch" gutterBottom>
-                  Get in Touch
-                </Typography>
-                <Typography variant="body1" color="text.secondary" paragraph>
-                  Whether you have a project in mind, need technical expertise, or just want to say
-                  hello, hello, I&#39;d love to hear from you. Feel free to reach out through any of
-                  these channels:
-                </Typography>
+          
+          {/* Get in Touch Card */}
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '24px',
+            padding: '40px',
+            marginBottom: '32px',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
+          }}>
+            <Typography 
+              as="h3" 
+              style={{
+                fontSize: '1.75rem',
+                fontWeight: 600,
+                color: 'rgba(0, 0, 0, 0.87)',
+                marginBottom: '16px'
+              }}
+              id="get-in-touch"
+            >
+              Get in Touch
+            </Typography>
+            <Typography 
+              variant="body1" 
+              style={{
+                color: 'rgba(0, 0, 0, 0.7)',
+                marginBottom: '32px',
+                fontSize: '1.125rem',
+                lineHeight: 1.5
+              }}
+            >
+              Whether you have a project in mind, need technical expertise, or just want to say hello, I'd love to hear from you. Feel free to reach out through any of these channels:
+            </Typography>
 
-                <StyledBox mt={4}>
-                  <ContactMethod>
-                    <EmailIcon />
-                    <StyledBox>
-                      <Typography variant="subtitle2" style={{ fontWeight: 500 }}>
-                        Email
-                      </Typography>
-                      <StyledLink
-                        href="mailto:maxjeffwell@gmail.com"
-                        textDecorationThickness="2px"
-                        textUnderlineOffset="3px"
-                      >
-                        maxjeffwell@gmail.com
-                      </StyledLink>
-                    </StyledBox>
-                  </ContactMethod>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                padding: '16px',
+                borderRadius: '12px',
+                background: '#f8f9fa',
+                transition: 'all 0.2s ease',
+              }}>
+                <div style={{
+                  fontSize: '1.5rem',
+                  color: '#1565c0',
+                  width: '24px',
+                  height: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  ✉️
+                </div>
+                <div>
+                  <Typography variant="subtitle2" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                    Email
+                  </Typography>
+                  <StyledLink
+                    href="mailto:maxjeffwell@gmail.com"
+                    style={{ fontSize: '1rem', fontWeight: 500 }}
+                  >
+                    maxjeffwell@gmail.com
+                  </StyledLink>
+                </div>
+              </div>
 
-                  <ContactMethod>
-                    <PhoneIcon />
-                    <StyledBox>
-                      <Typography variant="subtitle2" style={{ fontWeight: 500 }}>
-                        Phone
-                      </Typography>
-                      <StyledLink
-                        href="tel:+01-508-395-2008"
-                        textDecorationThickness="2px"
-                        textUnderlineOffset="3px"
-                      >
-                        (508) 395-2008
-                      </StyledLink>
-                    </StyledBox>
-                  </ContactMethod>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                padding: '16px',
+                borderRadius: '12px',
+                background: '#f8f9fa',
+                transition: 'all 0.2s ease',
+              }}>
+                <div style={{
+                  fontSize: '1.5rem',
+                  color: '#1565c0',
+                  width: '24px',
+                  height: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  📞
+                </div>
+                <div>
+                  <Typography variant="subtitle2" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                    Phone
+                  </Typography>
+                  <StyledLink
+                    href="tel:+01-508-395-2008"
+                    style={{ fontSize: '1rem', fontWeight: 500 }}
+                  >
+                    (508) 395-2008
+                  </StyledLink>
+                </div>
+              </div>
 
-                  {/* <ContactMethod> */}
-                  {/*   <LinkedIn color="primary" /> */}
-                  {/*   <Box> */}
-                  {/*     <Typography variant="subtitle2" color="text.secondary"> */}
-                  {/*       LinkedIn */}
-                  {/*     </Typography> */}
-                  {/*     <Link */}
-                  {/*       href="https://www.linkedin.com/in/jeffrey-maxwell-553176172" */}
-                  {/*       target="_blank" */}
-                  {/*       rel="noopener noreferrer" */}
-                  {/*       color="primary" */}
-                  {/*       underline="hover" */}
-                  {/*       variant="body1" */}
-                  {/*     > */}
-                  {/*       Connect on LinkedIn */}
-                  {/*     </Link> */}
-                  {/*   </Box> */}
-                  {/* </ContactMethod> */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                padding: '16px',
+                borderRadius: '12px',
+                background: '#f8f9fa',
+                transition: 'all 0.2s ease',
+              }}>
+                <div style={{
+                  fontSize: '1.5rem',
+                  color: '#1565c0',
+                  width: '24px',
+                  height: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  🔗
+                </div>
+                <div>
+                  <Typography variant="subtitle2" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                    GitHub
+                  </Typography>
+                  <StyledLink
+                    href="https://github.com/maxjeffwell"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontSize: '1rem', fontWeight: 500 }}
+                  >
+                    View my projects
+                  </StyledLink>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                  <ContactMethod>
-                    <GitHubIcon />
-                    <StyledBox>
-                      <Typography variant="subtitle2" style={{ fontWeight: 500 }}>
-                        GitHub
-                      </Typography>
-                      <StyledLink
-                        href="https://github.com/maxjeffwell"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        textDecorationThickness="2px"
-                        textUnderlineOffset="3px"
-                      >
-                        View my projects
-                      </StyledLink>
-                    </StyledBox>
-                  </ContactMethod>
-                </StyledBox>
-              </ContactCard>
-            </GridItem>
-
-            <GridItem>
-              <ContactCard>
-                <Typography as="h3" variant="h3" id="send-message" gutterBottom>
-                  Send a Message
-                </Typography>
-                <Typography variant="body1" color="text.secondary" paragraph>
-                  Have a specific question or project in mind? Drop me a message and I&#39;ll get
-                  back to you as soon as possible.
-                </Typography>
+          {/* Send a Message Card */}
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '24px',
+            padding: '40px',
+            marginBottom: '32px',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
+          }}>
+            <Typography 
+              as="h3" 
+              style={{
+                fontSize: '1.75rem',
+                fontWeight: 600,
+                color: 'rgba(0, 0, 0, 0.87)',
+                marginBottom: '16px'
+              }}
+              id="send-message"
+            >
+              Send a Message
+            </Typography>
+            <Typography 
+              variant="body1" 
+              style={{
+                color: 'rgba(0, 0, 0, 0.7)',
+                marginBottom: '32px',
+                fontSize: '1.125rem',
+                lineHeight: 1.5
+              }}
+            >
+              Have a specific question or project in mind? Drop me a message and I'll get back to you as soon as possible.
+            </Typography>
 
                 {formStatus === 'success' && (
                   <StyledBox style={{ position: 'relative', marginBottom: '24px' }}>
@@ -872,10 +970,18 @@ function Contact() {
                     color={formStatus === 'success' ? 'success' : 'primary'}
                     size="large"
                     disabled={isSubmitting || formStatus === 'success'}
-                    mt={3}
-                    borderRadius={20}
-                    textTransform="none"
-                    px={4}
+                    style={{
+                      background: formStatus === 'success' ? '#2e7d32' : 'linear-gradient(135deg, #1565c0 0%, #e91e63 100%)',
+                      color: 'white',
+                      padding: '16px 32px',
+                      fontSize: '1.125rem',
+                      fontWeight: 600,
+                      borderRadius: '50px',
+                      textTransform: 'none',
+                      boxShadow: '0px 8px 16px rgba(25, 101, 192, 0.3)',
+                      transition: 'all 0.3s ease',
+                      marginTop: '24px'
+                    }}
                   >
                     <span>
                       {isSubmitting
@@ -893,12 +999,10 @@ function Contact() {
                     </span>
                   </StyledButton>
                 </StyledBox>
-              </ContactCard>
-            </GridItem>
-          </GridContainer>
+          </div>
         </StyledBox>
 
-        <StyledBox as="section" aria-labelledby="availability" mt={6} textAlign="center">
+        <StyledBox as="section" aria-labelledby="availability" mt={6} style={{ textAlign: 'center' }}>
           <Typography as="h2" variant="h2" id="availability" style={{
             position: 'absolute',
             left: '-10000px',
@@ -908,9 +1012,15 @@ function Contact() {
           }}>
             Current Availability
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Currently open to new opportunities and exciting projects. Let&#39;s build something
-            together!
+          <Typography 
+            variant="body2" 
+            style={{
+              color: 'rgba(0, 0, 0, 0.7)',
+              fontSize: '1rem',
+              fontWeight: 400
+            }}
+          >
+            Currently open to new opportunities and exciting projects. Let's build something together!
           </Typography>
         </StyledBox>
       </StyledContainer>

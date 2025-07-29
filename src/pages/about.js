@@ -306,87 +306,163 @@ function AboutPage() {
         ]}
       />
       <StyledContainer>
-        <StyledBox as="section" aria-labelledby="about-header" ref={headerRef} mb={6}>
+        <StyledBox as="section" aria-labelledby="about-header" ref={headerRef} mb={8} style={{ textAlign: 'center', paddingTop: '40px' }}>
           <div style={{ willChange: 'opacity' }}>
-            <GradientText
-              variant="h2"
+            <Typography
+              variant="h1"
               component="h1"
               id="about-header"
-              align="center"
-              gutterBottom
+              style={{
+                fontSize: 'clamp(2.5rem, 8vw, 4rem)',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                marginBottom: '32px',
+                background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em',
+              }}
             >
               About Jeff Maxwell
-            </GradientText>
+            </Typography>
             <Typography
               variant="h5"
               component="h2"
-              align="center"
-              color="text.secondary"
-              style={{ maxWidth: 600, margin: '0 auto' }}
+              style={{
+                maxWidth: 700,
+                margin: '0 auto',
+                fontSize: '1.375rem',
+                lineHeight: 1.5,
+                color: 'rgba(0, 0, 0, 0.7)',
+                fontWeight: 400,
+                letterSpacing: '0.01em',
+              }}
             >
-              Full stack developer passionate about creating elegant solutions to complex
-              problems. When I&#39;m not coding, I&#39;m exploring new technologies and perfecting
-              my craft.
+              Full stack developer passionate about creating elegant
+              solutions to complex problems. When I'm not coding,
+              I'm exploring new technologies and perfecting my
+              craft.
             </Typography>
           </div>
         </StyledBox>
-        <StyledBox as="section" aria-labelledby="personal-section" ref={personalRef} mb={6}>
-          <PersonalCard>
-                <Typography 
-                  variant="h3" 
-                  component="h2" 
-                  id="personal-section"
-                  align="center" 
-                  gutterBottom
-                  style={{ marginBottom: '32px', fontSize: '2rem' }}
-                >
-                  What Drives Me
-                </Typography>
-                <GridContainer className="three-column" spacing={2}>
-                    <GridItem>
-                      <InterestItem>
-                        <CodeIcon />
-                        <StyledBox>
-                          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-                            Clean Code
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Readable, maintainable solutions
-                          </Typography>
-                        </StyledBox>
-                      </InterestItem>
-                    </GridItem>
-                    <GridItem>
-                      <InterestItem>
-                        <CoffeeIcon />
-                        <StyledBox>
-                          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-                            Coffee & Code
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Fuel for late-night debugging
-                          </Typography>
-                        </StyledBox>
-                      </InterestItem>
-                    </GridItem>
-                    <GridItem>
-                      <InterestItem>
-                        <PetsIcon />
-                        <StyledBox>
-                          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-                            Dog Parent
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Expert at dinner negotiations
-                          </Typography>
-                        </StyledBox>
-                      </InterestItem>
-                    </GridItem>
-                </GridContainer>
-              </PersonalCard>
+        <StyledBox as="section" aria-labelledby="personal-section" ref={personalRef} mb={8}>
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 50%, #fce4ec 100%)',
+              borderRadius: '24px',
+              padding: '48px 32px',
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
+            }}
+          >
+            <Typography 
+              variant="h2" 
+              component="h2" 
+              id="personal-section"
+              style={{
+                position: 'absolute',
+                left: '-10000px',
+                width: '1px',
+                height: '1px',
+                overflow: 'hidden',
+              }}
+            >
+              Personal Interests
+            </Typography>
+            <GridContainer className="three-column" spacing={3} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+              <GridItem>
+                <div style={{
+                  background: '#ffffff',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.12)',
+                  }
+                }}>
+                  <div style={{
+                    fontSize: '2rem',
+                    color: '#1565c0',
+                    flexShrink: 0,
+                  }}>
+                    💻
+                  </div>
+                  <StyledBox>
+                    <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                      Clean Code
+                    </Typography>
+                    <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4 }}>
+                      Readable, maintainable solutions
+                    </Typography>
+                  </StyledBox>
+                </div>
+              </GridItem>
+              <GridItem>
+                <div style={{
+                  background: '#ffffff',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                }}>
+                  <div style={{
+                    fontSize: '2rem',
+                    color: '#1565c0',
+                    flexShrink: 0,
+                  }}>
+                    ☕
+                  </div>
+                  <StyledBox>
+                    <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                      Coffee & Code
+                    </Typography>
+                    <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4 }}>
+                      Fuel for late-night debugging
+                    </Typography>
+                  </StyledBox>
+                </div>
+              </GridItem>
+              <GridItem>
+                <div style={{
+                  background: '#ffffff',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                }}>
+                  <div style={{
+                    fontSize: '2rem',
+                    color: '#1565c0',
+                    flexShrink: 0,
+                  }}>
+                    🐾
+                  </div>
+                  <StyledBox>
+                    <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}>
+                      Dog Parent
+                    </Typography>
+                    <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4 }}>
+                      Expert at dinner negotiations
+                    </Typography>
+                  </StyledBox>
+                </div>
+              </GridItem>
+            </GridContainer>
+          </div>
         </StyledBox>
 
-        <StyledBox as="section" aria-labelledby="illustrations-section">
+        <StyledBox as="section" aria-labelledby="illustrations-section" mb={8}>
           <Typography
             variant="h2"
             component="h2"
@@ -402,162 +478,284 @@ function AboutPage() {
           >
             Development Team Illustrations
           </Typography>
-          <GridContainer className="center-last" spacing={4} mb={6}>
-              <GridItem>
-                <StyledCard
-                  style={{
-                    borderRadius: 24,
-                    backgroundColor: 'rgb(0, 89, 149)',
-                    aspectRatio: '1 / 1',
-                    minHeight: '400px',
-                    position: 'relative',
-                    willChange: 'transform',
-                  }}
+          <GridContainer spacing={4} style={{ 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            '@media (min-width: 768px)': {
+              gridTemplateColumns: '1fr 1fr'
+            }
+          }}>
+            <GridItem>
+              <div
+                style={{
+                  borderRadius: '24px',
+                  backgroundColor: '#1565c0',
+                  aspectRatio: '1 / 1',
+                  minHeight: '350px',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  boxShadow: '0px 8px 24px rgba(21, 101, 192, 0.2), 0px 4px 12px rgba(0, 0, 0, 0.08)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0px 12px 32px rgba(21, 101, 192, 0.3), 0px 8px 16px rgba(0, 0, 0, 0.12)',
+                  }
+                }}
+              >
+                <StyledBox
+                  height="100%"
+                  display="flex"
+                  alignItems="center"
+                  style={{ justifyContent: 'center', padding: '24px' }}
                 >
-                  <StyledBox
-                    height="100%"
-                    display="flex"
-                    alignItems="center"
-                    style={{ justifyContent: 'center' }}
-                  >
-                    <Image imageType="mascot" />
-                  </StyledBox>
-                </StyledCard>
-              </GridItem>
-              <GridItem>
-                <StyledCard
-                  style={{
-                    borderRadius: 24,
-                    backgroundColor: 'rgb(0, 89, 149)',
-                    aspectRatio: '1 / 1',
-                    minHeight: '400px',
-                    position: 'relative',
-                    willChange: 'transform',
-                  }}
+                  <Image imageType="mascot" />
+                </StyledBox>
+              </div>
+            </GridItem>
+            <GridItem>
+              <div
+                style={{
+                  borderRadius: '24px',
+                  backgroundColor: '#1565c0',
+                  aspectRatio: '1 / 1',
+                  minHeight: '350px',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  boxShadow: '0px 8px 24px rgba(21, 101, 192, 0.2), 0px 4px 12px rgba(0, 0, 0, 0.08)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0px 12px 32px rgba(21, 101, 192, 0.3), 0px 8px 16px rgba(0, 0, 0, 0.12)',
+                  }
+                }}
+              >
+                <StyledBox
+                  height="100%"
+                  display="flex"
+                  alignItems="center"
+                  style={{ justifyContent: 'center', padding: '24px' }}
                 >
-                  <StyledBox
-                    height="100%"
-                    display="flex"
-                    alignItems="center"
-                    style={{ justifyContent: 'center' }}
-                  >
-                    <Image imageType="dogs" />
-                  </StyledBox>
-                </StyledCard>
-              </GridItem>
-              <GridItem>
-                <StyledCard
-                  style={{
-                    borderRadius: 24,
-                    backgroundColor: 'rgb(0, 89, 149)',
-                    aspectRatio: '1 / 1',
-                    minHeight: '400px',
-                    position: 'relative',
-                    willChange: 'transform',
-                  }}
+                  <Image imageType="dogs" />
+                </StyledBox>
+              </div>
+            </GridItem>
+          </GridContainer>
+          
+          {/* Center the third image */}
+          <StyledBox mt={4} style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ maxWidth: '400px', width: '100%' }}>
+              <div
+                style={{
+                  borderRadius: '24px',
+                  backgroundColor: '#1565c0',
+                  aspectRatio: '1 / 1',
+                  minHeight: '350px',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  boxShadow: '0px 8px 24px rgba(21, 101, 192, 0.2), 0px 4px 12px rgba(0, 0, 0, 0.08)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0px 12px 32px rgba(21, 101, 192, 0.3), 0px 8px 16px rgba(0, 0, 0, 0.12)',
+                  }
+                }}
+              >
+                <StyledBox
+                  height="100%"
+                  display="flex"
+                  alignItems="center"
+                  style={{ justifyContent: 'center', padding: '24px' }}
                 >
-                  <StyledBox
-                    height="100%"
-                    display="flex"
-                    alignItems="center"
-                    style={{ justifyContent: 'center' }}
-                  >
-                    <Image imageType="developer" />
-                  </StyledBox>
-                </StyledCard>
-              </GridItem>
-            </GridContainer>
-        </StyledBox>
-
-        <StyledBox as="section" aria-labelledby="tech-stack" ref={techRef} mb={6}>
-          <TechSection style={{ willChange: 'transform' }}>
-                <GradientText
-                  variant="h2"
-                  component="h2"
-                  id="tech-stack"
-                  align="center"
-                  gutterBottom
-                >
-                  Technology Stack & Tools
-                </GradientText>
-                <Typography
-                  variant="body1"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                  style={{ fontSize: '1.125rem' }}
-                >
-                  The tools and technologies that power my development workflow
-                </Typography>
-
-                <GridContainer className="four-column" spacing={3} mt={2}>
-                    <GridItem>
-                      <TechCard>
-                        <StyledIcon>
-                          <DiIntellij />
-                        </StyledIcon>
-                        <Typography variant="h6" component="h3" gutterBottom>
-                          IntelliJ IDEA
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Primary development environment
-                        </Typography>
-                      </TechCard>
-                    </GridItem>
-
-                    <GridItem>
-                      <TechCard>
-                        <StyledIcon>
-                          <DiMozilla />
-                        </StyledIcon>
-                        <Typography variant="h6" component="h3" gutterBottom>
-                          Firefox
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Development & testing browser
-                        </Typography>
-                      </TechCard>
-                    </GridItem>
-
-                    <GridItem>
-                      <TechCard>
-                        <StyledIcon>
-                          <DiDebian />
-                        </StyledIcon>
-                        <Typography variant="h6" component="h3" gutterBottom>
-                          Debian Linux
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Preferred operating system
-                        </Typography>
-                      </TechCard>
-                    </GridItem>
-
-                    <GridItem>
-                      <TechCard>
-                        <StyledIcon>
-                          <FaPiedPiperAlt />
-                        </StyledIcon>
-                        <Typography variant="h6" component="h3" gutterBottom>
-                          Pied Piper
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          Optimal compression algorithm
-                        </Typography>
-                      </TechCard>
-                    </GridItem>
-                  </GridContainer>
-              </TechSection>
-        </StyledBox>
-
-        <StyledBox as="section" aria-labelledby="organizations" textAlign="center" mt={6}>
-          <GradientText variant="h2" component="h2" id="organizations" gutterBottom>
-            Supported Organizations
-          </GradientText>
-          <StyledBox maxWidth={300} mx="auto">
-            <Logo />
+                  <Image imageType="developer" />
+                </StyledBox>
+              </div>
+            </div>
           </StyledBox>
         </StyledBox>
+
+        <StyledBox as="section" aria-labelledby="tech-stack" ref={techRef} mb={8} mt={8}>
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+              borderRadius: '24px',
+              padding: '64px 32px',
+              textAlign: 'center'
+            }}
+          >
+            <Typography
+              variant="h2"
+              component="h2"
+              id="tech-stack"
+              style={{
+                fontSize: 'clamp(2rem, 6vw, 3rem)',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                marginBottom: '16px',
+                background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Technology Stack & Tools
+            </Typography>
+            <Typography
+              variant="body1"
+              style={{
+                fontSize: '1.125rem',
+                color: 'rgba(0, 0, 0, 0.7)',
+                maxWidth: '600px',
+                margin: '0 auto 48px auto',
+                lineHeight: 1.5,
+              }}
+            >
+              The tools and technologies that power my development workflow
+            </Typography>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              gap: '32px',
+              maxWidth: '800px',
+              margin: '0 auto'
+            }}>
+              <div style={{
+                background: '#ffffff',
+                borderRadius: '16px',
+                padding: '32px 16px',
+                textAlign: 'center',
+                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              }}>
+                <div style={{
+                  fontSize: '3.5rem',
+                  color: '#1565c0',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '80px'
+                }}>
+                  <DiIntellij />
+                </div>
+                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                  IntelliJ IDEA
+                </Typography>
+                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                  Primary development environment
+                </Typography>
+              </div>
+
+              <div style={{
+                background: '#ffffff',
+                borderRadius: '16px',
+                padding: '32px 16px',
+                textAlign: 'center',
+                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              }}>
+                <div style={{
+                  fontSize: '3.5rem',
+                  color: '#1565c0',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '80px'
+                }}>
+                  <DiMozilla />
+                </div>
+                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                  Firefox
+                </Typography>
+                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                  Development & testing browser
+                </Typography>
+              </div>
+
+              <div style={{
+                background: '#ffffff',
+                borderRadius: '16px',
+                padding: '32px 16px',
+                textAlign: 'center',
+                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              }}>
+                <div style={{
+                  fontSize: '3.5rem',
+                  color: '#1565c0',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '80px'
+                }}>
+                  <DiDebian />
+                </div>
+                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                  Debian Linux
+                </Typography>
+                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                  Preferred operating system
+                </Typography>
+              </div>
+
+              <div style={{
+                background: '#ffffff',
+                borderRadius: '16px',
+                padding: '32px 16px',
+                textAlign: 'center',
+                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              }}>
+                <div style={{
+                  fontSize: '3.5rem',
+                  color: '#1565c0',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '80px'
+                }}>
+                  <FaPiedPiperAlt />
+                </div>
+                <Typography variant="h6" style={{ fontWeight: 600, marginBottom: '8px', color: 'rgba(0, 0, 0, 0.87)', fontSize: '1.125rem' }}>
+                  Pied Piper
+                </Typography>
+                <Typography variant="body2" style={{ color: 'rgba(0, 0, 0, 0.6)', lineHeight: 1.4, fontSize: '0.875rem' }}>
+                  Optimal compression algorithm
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </StyledBox>
+
+        <StyledBox as="section" aria-labelledby="organizations" mt={8} mb={6}>
+          <div style={{ textAlign: 'center' }}>
+            <Typography
+              variant="h2"
+              component="h2"
+              id="organizations"
+              style={{
+                fontSize: 'clamp(2rem, 6vw, 3rem)',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                marginBottom: '48px',
+                background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Supported Organizations
+            </Typography>
+            <StyledBox style={{ maxWidth: '400px', margin: '0 auto' }}>
+              <Logo />
+            </StyledBox>
+          </div>
+        </StyledBox>
+
       </StyledContainer>
     </Layout>
   );
