@@ -372,23 +372,24 @@ function AboutPage() {
             <GridContainer className="three-column" spacing={3} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
               <GridItem>
                 <div style={{
-                  background: '#ffffff',
+                  background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                   borderRadius: '16px',
                   padding: '24px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '16px',
-                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  boxShadow: theme?.mode === 'dark' ? '0px 2px 8px rgba(0, 0, 0, 0.3)' : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                   '&:hover': {
                     transform: 'translateY(-2px)',
-                    boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.12)',
+                    boxShadow: theme?.mode === 'dark' ? '0px 4px 16px rgba(0, 0, 0, 0.4)' : '0px 4px 16px rgba(0, 0, 0, 0.12)',
                   }
                 }}>
                   <div style={{
                     fontSize: '2rem',
-                    color: '#1565c0',
+                    color: theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                     flexShrink: 0,
+                    transition: 'color 0.3s ease',
                   }}>
                     💻
                   </div>
@@ -404,19 +405,20 @@ function AboutPage() {
               </GridItem>
               <GridItem>
                 <div style={{
-                  background: '#ffffff',
+                  background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                   borderRadius: '16px',
                   padding: '24px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '16px',
-                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  boxShadow: theme?.mode === 'dark' ? '0px 2px 8px rgba(0, 0, 0, 0.3)' : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                 }}>
                   <div style={{
                     fontSize: '2rem',
-                    color: '#1565c0',
+                    color: theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                     flexShrink: 0,
+                    transition: 'color 0.3s ease',
                   }}>
                     ☕
                   </div>
@@ -432,19 +434,20 @@ function AboutPage() {
               </GridItem>
               <GridItem>
                 <div style={{
-                  background: '#ffffff',
+                  background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                   borderRadius: '16px',
                   padding: '24px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '16px',
-                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  boxShadow: theme?.mode === 'dark' ? '0px 2px 8px rgba(0, 0, 0, 0.3)' : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                 }}>
                   <div style={{
                     fontSize: '2rem',
-                    color: '#1565c0',
+                    color: theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                     flexShrink: 0,
+                    transition: 'color 0.3s ease',
                   }}>
                     🐾
                   </div>
