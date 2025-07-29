@@ -493,12 +493,10 @@ export function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider value={value}>
-      <StyledEngineProvider injectFirst>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          {children}
-        </MuiThemeProvider>
-      </StyledEngineProvider>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
     </ThemeContext.Provider>
   );
 }

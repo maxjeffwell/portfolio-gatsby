@@ -6,10 +6,10 @@ import { ThemeProvider } from './context/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import '../static/fonts/fonts.css';
 
-// Create emotion cache with prepend to ensure our styles have priority
+// Create emotion cache with proper insertion point
 const emotionCache = createCache({ 
   key: 'portfolio',
-  prepend: true,
+  insertionPoint: typeof document !== 'undefined' ? document.querySelector('#emotion-insertion-point') || document.head.firstChild : undefined,
   speedy: false // Disable speedy mode for better debugging
 });
 

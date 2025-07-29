@@ -1,11 +1,6 @@
 import { Link } from 'gatsby';
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  AppBar,
-  Toolbar,
-  Button,
-  IconButton,
-  Drawer,
   useTheme,
   useMediaQuery,
   NoSsr,
@@ -42,14 +37,53 @@ const StyledBox = styled.div`
   text-align: ${props => props.textAlign || 'inherit'};
 `;
 
-const StyledAppBar = styled(AppBar)`
+const StyledAppBar = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  width: 100%;
   background: ${props => getAppBarBackground(props.theme, props.scrolled)};
   backdrop-filter: ${props => props.scrolled ? 'blur(20px)' : 'none'};
   box-shadow: ${props => props.scrolled ? '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)' : 'none'};
   transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
-const NavButton = styled(Button)`
+const StyledToolbar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 8px 16px;
+  
+  @media (max-width: 599px) {
+    padding: 4px 8px;
+    min-height: 56px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 0.5rem 0.75rem;
+    min-height: 48px;
+  }
+`;
+
+const NavButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  padding: 8px 24px;
+  margin: 0 4px;
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.75;
   border-radius: 20px;
   padding: 8px 24px;
   margin-left: 8px;
@@ -71,21 +105,109 @@ const NavButton = styled(Button)`
   }
 `;
 
-const StyledDrawer = styled(Drawer)`
-  & .MuiDrawer-paper {
-    width: 80%;
-    max-width: 300px;
-    background-color: white;
-    
-    @media (prefers-color-scheme: dark) {
-      background-color: #1e1e1e;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+const StyledIconButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
     }
-    
-    @media (max-width: 360px) {
-      width: 85%;
-      max-width: 280px;
+  }
+  
+  &:focus {
+    outline: 2px solid #1976d2;
+    outline-offset: 2px;
+  }
+`;
+
+const StyledDrawer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1300;
+  height: 100%;
+  width: 80%;
+  max-width: 300px;
+  background-color: white;
+  box-shadow: 0px 8px 10px -5px rgba(0,0,0,0.2), 0px 16px 24px 2px rgba(0,0,0,0.14), 0px 6px 30px 5px rgba(0,0,0,0.12);
+  transform: ${props => props.open ? 'translateX(0)' : 'translateX(-100%)'};
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1);
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #1e1e1e;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+  }
+  
+  @media (max-width: 360px) {
+    width: 85%;
+    max-width: 280px;
+  }
+`;
+
+const DrawerBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1200;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: ${props => props.open ? 1 : 0};
+  visibility: ${props => props.open ? 'visible' : 'hidden'};
+  transition: opacity 225ms cubic-bezier(0, 0, 0.2, 1), visibility 225ms cubic-bezier(0, 0, 0.2, 1);
+`;
+
+const MobileNavButton = styled.a`
+  display: block;
+  width: 100%;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.25rem;
+  text-align: center;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
     }
+  }
+`;
+
+const ToolbarSpacer = styled.div`
+  min-height: 64px;
+  margin-bottom: 32px;
+  
+  @media (max-width: 599px) {
+    min-height: 56px;
+  }
+  
+  @media (max-width: 360px) {
+    min-height: 48px;
   }
 `;
 
@@ -167,9 +289,9 @@ function Header() {
   const drawer = (
     <StyledBox textAlign="center">
       <StyledBox display="flex" justifyContent="flex-end" p={2}>
-        <IconButton onClick={handleDrawerToggle} aria-label="close drawer">
+        <StyledIconButton onClick={handleDrawerToggle} aria-label="close drawer">
           <CloseIcon />
-        </IconButton>
+        </StyledIconButton>
       </StyledBox>
       <StyledBox
         component="nav"
@@ -180,23 +302,14 @@ function Header() {
         p={2}
       >
         {menuItems.map((item) => (
-          <Button
+          <MobileNavButton
             key={item.text}
-            component={Link}
+            as={Link}
             to={item.to}
-            fullWidth
-            sx={{
-              py: 2,
-              fontSize: '1.25rem',
-              textTransform: 'none',
-              color: 'text.primary',
-              '&:hover': {
-                backgroundColor: 'action.hover',
-              },
-            }}
+            onClick={handleDrawerToggle}
           >
             {item.text}
-          </Button>
+          </MobileNavButton>
         ))}
       </StyledBox>
     </StyledBox>
@@ -205,37 +318,20 @@ function Header() {
   return (
     <>
       <StyledAppBar
-        position="fixed"
         scrolled={isScrolled ? 1 : 0}
-        elevation={0}
-        component="header"
         role="banner"
         theme={safeTheme}
       >
         <StyledContainer>
-          <Toolbar sx={{ 
-            justifyContent: 'space-between', 
-            padding: { xs: 1, sm: 2 },
-            '@media (max-width: 360px)': {
-              padding: '0.5rem 0.75rem',
-              minHeight: 48,
-            },
-          }}>
+          <StyledToolbar>
             {isMobile && (
-              <IconButton
+              <StyledIconButton
                 aria-label="open drawer"
-                edge="start"
                 onClick={handleDrawerToggle}
                 ref={menuButtonRef}
-                sx={{
-                  color: safeTheme.palette.text.primary,
-                  '&:hover': {
-                    backgroundColor: safeTheme.palette.action.hover,
-                  },
-                }}
               >
                 <MenuIcon />
-              </IconButton>
+              </StyledIconButton>
             )}
 
             {!isMobile && (
@@ -249,7 +345,7 @@ function Header() {
                 {menuItems.map((item) => (
                   <NavButton
                     key={item.text}
-                    component={Link}
+                    as={Link}
                     to={item.to}
                     className={currentPath === item.to ? 'active' : ''}
                     aria-current={currentPath === item.to ? 'page' : undefined}
@@ -264,23 +360,21 @@ function Header() {
               {!isMobile && <MyLogo />}
               <DarkModeToggle />
             </StyledBox>
-          </Toolbar>
+          </StyledToolbar>
         </StyledContainer>
       </StyledAppBar>
 
-      <StyledDrawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-      >
-        {drawer}
-      </StyledDrawer>
+      {mobileOpen && (
+        <>
+          <DrawerBackdrop open={mobileOpen} onClick={handleDrawerToggle} />
+          <StyledDrawer open={mobileOpen}>
+            {drawer}
+          </StyledDrawer>
+        </>
+      )}
 
       {/* Toolbar spacer */}
-      <Toolbar sx={{ mb: 4 }} />
+      <ToolbarSpacer />
     </>
   );
 }

@@ -21,6 +21,7 @@ export default function HTML(props) {
           name="description"
           content="Jeff Maxwell - Full Stack Web Developer specializing in React, Node.js, and modern web development. Explore my portfolio of innovative projects and development solutions."
         />
+        <meta id="emotion-insertion-point" />
         {headComponents}
       </head>
       <body {...bodyAttributes}>

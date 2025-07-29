@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, IconButton, useTheme, Tooltip, NoSsr } from '@mui/material';
+import { useTheme, NoSsr } from '@mui/material';
 import { ContentCopy, Check } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
@@ -35,6 +35,93 @@ const StyledHeader = styled.div`
     background-color: #424242;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
+`;
+
+const StyledTypography = styled.div`
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: ${props => props.fontWeight || 400};
+  font-size: ${props => {
+    switch(props.variant) {
+      case 'h1': return '2.125rem';
+      case 'h2': return '1.5rem';
+      case 'h3': return '1.25rem';
+      case 'h4': return '1.125rem';
+      case 'h5': return '1rem';
+      case 'h6': return '0.875rem';
+      case 'subtitle1': return '1rem';
+      case 'subtitle2': return '0.875rem';
+      case 'body1': return '1rem';
+      case 'body2': return '0.875rem';
+      case 'caption': return '0.75rem';
+      default: return '1rem';
+    }
+  }};
+  line-height: ${props => {
+    switch(props.variant) {
+      case 'h1': 
+      case 'h2': 
+      case 'h3': 
+      case 'h4': 
+      case 'h5': 
+      case 'h6': return '1.2';
+      default: return '1.43';
+    }
+  }};
+  color: ${props => {
+    if (props.color === 'primary') return '#1976d2';
+    if (props.color === 'secondary') return '#dc004e';
+    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
+    return 'inherit';
+  }};
+  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  
+  @media (prefers-color-scheme: dark) {
+    color: ${props => {
+      if (props.color === 'primary') return '#90caf9';
+      if (props.color === 'secondary') return '#f48fb1';
+      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
+      return 'inherit';
+    }};
+  }
+`;
+
+const StyledIconButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  border-radius: 8px;
+  padding: ${props => props.size === 'small' ? '4px' : '8px'};
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.54);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border: 1px solid;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    color: rgba(255, 255, 255, 0.7);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+`;
+
+const StyledTooltip = styled.div`
+  position: relative;
+  display: inline-block;
 `;
 
 const StyledPaper = styled.div`
@@ -101,7 +188,7 @@ function CodeSnippet({
   if (!code) {
     return (
       <StyledPaper style={{ padding: 16, backgroundColor: '#d32f2f', color: 'white' }}>
-        <Typography>ERROR: No code provided to CodeSnippet</Typography>
+        <StyledTypography>ERROR: No code provided to CodeSnippet</StyledTypography>
       </StyledPaper>
     );
   }
@@ -109,7 +196,7 @@ function CodeSnippet({
   return (
     <StyledPaper>
       <StyledHeader>
-        <Typography
+        <StyledTypography
           variant="caption"
           style={{
             fontFamily: 'Courier New, monospace',
@@ -117,28 +204,21 @@ function CodeSnippet({
           }}
         >
           {title}
-        </Typography>
+        </StyledTypography>
         {showCopyButton && (
           <NoSsr>
-            <Tooltip title={copied ? 'Copied!' : 'Copy code'}>
-              <IconButton
+            <StyledTooltip title={copied ? 'Copied!' : 'Copy code'}>
+              <StyledIconButton
                 size="small"
                 onClick={handleCopy}
                 style={{
                   color: theme.palette.secondary.main,
-                  border: `1px solid ${theme.palette.secondary.main}`,
-                  borderRadius: 8,
+                  borderColor: theme.palette.secondary.main,
                 }}
-                css={`
-                  &:hover {
-                    background-color: ${theme.palette.secondary.main};
-                    color: ${theme.palette.secondary.contrastText};
-                  }
-                `}
               >
                 {copied ? <Check fontSize="small" /> : <ContentCopy fontSize="small" />}
-              </IconButton>
-            </Tooltip>
+              </StyledIconButton>
+            </StyledTooltip>
           </NoSsr>
         )}
       </StyledHeader>

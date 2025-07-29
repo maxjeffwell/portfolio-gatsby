@@ -25,15 +25,24 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig, rules }) => {
   }
   
   // Handle SSR issues with MUI components
-  if (stage === 'build-html') {
+  if (stage === 'build-html' || stage === 'build-javascript') {
     actions.setWebpackConfig({
       resolve: {
         alias: {
           '@mui/material/Grid': require.resolve('./src/utils/grid-fallback.js'),
           '@mui/material/Chip': require.resolve('./src/utils/chip-fallback.js'),
+          '@mui/material/Paper': require.resolve('./src/utils/mui-fallback.js'),
           '@mui/material/styles': require.resolve('./src/utils/mui-styles-fallback.js'),
           '@mui/material/CssBaseline': require.resolve('./src/utils/mui-cssbaseline-fallback.js'),
           '@mui/material/utils': require.resolve('./src/utils/mui-utils-fallback.js'),
+          '@mui/system': require.resolve('./src/utils/mui-system-fallback.js'),
+          '@mui/system/colorManipulator': require.resolve('./src/utils/color-manipulator-fallback.js'),
+          '@mui/system/styleFunctionSx': require.resolve('./src/utils/style-function-sx-fallback.js'),
+          '@mui/system/createTheme': require.resolve('./src/utils/create-theme-fallback.js'),
+          '@mui/system/createStyled': require.resolve('./src/utils/create-styled-fallback.js'),
+          '@mui/system/useThemeProps': require.resolve('./src/utils/use-theme-props-fallback.js'),
+          '@mui/system/useMediaQuery': require.resolve('./src/utils/use-media-query-fallback.js'),
+          '@mui/system/Unstable_Grid': require.resolve('./src/utils/unstable-grid-fallback.js'),
           'react-icons/di': require.resolve('./src/utils/react-icons-di-fallback.js'),
           'react-icons/fa': require.resolve('./src/utils/react-icons-fa-fallback.js'),
         },
