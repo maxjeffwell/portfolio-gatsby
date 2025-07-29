@@ -98,6 +98,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           content: `#4A4A4A`,
         },
         {
+          name: `color-scheme`,
+          content: `light dark`,
+        },
+        {
           name: `msapplication-TileColor`,
           content: `#4A4A4A`,
         },
