@@ -174,6 +174,26 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           content: `Florida`,
         },
         {
+          property: `og:title`,
+          content: metaTitle,
+        },
+        {
+          property: `og:description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
+        },
+        {
+          property: `og:url`,
+          content: `${siteUrl}${slug || ''}`,
+        },
+        {
+          property: `og:site_name`,
+          content: siteTitle,
+        },
+        {
           property: `og:locale`,
           content: `en_US`,
         },
@@ -188,6 +208,18 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         {
           property: `og:image:alt`,
           content: metaTitle,
+        },
+        {
+          name: `twitter:card`,
+          content: `summary_large_image`,
+        },
+        {
+          name: `twitter:title`,
+          content: metaTitle,
+        },
+        {
+          name: `twitter:description`,
+          content: metaDescription,
         },
       ]
         .concat(
