@@ -285,8 +285,6 @@ function ProjectCard({
   imageSrcPath2,
   videoSrcPath,
   videoSrcPath2,
-  optimizedVideo,
-  optimizedVideo2,
   techIcon3,
   techIcon4,
   techIcon5,
@@ -306,22 +304,7 @@ function ProjectCard({
       <FlexContainer>
         <ImageBox>
           <ImageContainer>
-            {optimizedVideo ? (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={optimizedVideo.poster?.path}
-                aria-label={`${title} demonstration video showing the application in action`}
-              >
-                <source src={optimizedVideo.webm?.path} type="video/webm" />
-                <source src={optimizedVideo.mp4?.path} type="video/mp4" />
-                <source src={videoSrcPath} type="video/webm" />
-                Your browser does not support the video tag.
-              </video>
-            ) : videoSrcPath ? (
+            {videoSrcPath ? (
               <video
                 autoPlay
                 muted
@@ -360,22 +343,7 @@ function ProjectCard({
         </ImageBox>
         <ImageBox>
           <ImageContainer>
-            {optimizedVideo2 ? (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster={optimizedVideo2.poster?.path}
-                aria-label={`${title} secondary demonstration video showing additional features`}
-              >
-                <source src={optimizedVideo2.webm?.path} type="video/webm" />
-                <source src={optimizedVideo2.mp4?.path} type="video/mp4" />
-                <source src={videoSrcPath2} type="video/webm" />
-                Your browser does not support the video tag.
-              </video>
-            ) : videoSrcPath2 ? (
+            {videoSrcPath2 ? (
               <video
                 autoPlay
                 muted
@@ -551,8 +519,6 @@ ProjectCard.propTypes = {
   imageSrcPath2: PropTypes.object,
   videoSrcPath: PropTypes.string,
   videoSrcPath2: PropTypes.string,
-  optimizedVideo: PropTypes.object,
-  optimizedVideo2: PropTypes.object,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

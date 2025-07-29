@@ -377,8 +377,6 @@ const Projects = ({ data }) => {
         videoSrcPath2: project.screenshots.screenshot2.endsWith('.webm') || project.screenshots.screenshot2.endsWith('.mp4')
           ? videoFile2?.node.publicURL
           : null,
-        optimizedVideo: videoFile?.node.childVideoFfmpeg || null,
-        optimizedVideo2: videoFile2?.node.childVideoFfmpeg || null,
         techIcon3: project.techIcons.icon3 || null,
         techIcon4: project.techIcons.icon4 || null,
         techIcon5: project.techIcons.icon5 || null,
@@ -481,8 +479,6 @@ const Projects = ({ data }) => {
                     imageSrcPath2={project.imageSrcPath2}
                     videoSrcPath={project.videoSrcPath}
                     videoSrcPath2={project.videoSrcPath2}
-                    optimizedVideo={project.optimizedVideo}
-                    optimizedVideo2={project.optimizedVideo2}
                     techIcon3={project.techIcon3}
                     techIcon4={project.techIcon4}
                     techIcon5={project.techIcon5}
@@ -536,23 +532,6 @@ export const pageQuery = graphql`
               breakpoints: [400, 600, 800, 1200, 1600]
               sizes: "(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 400px"
             )
-          }
-          childVideoFfmpeg {
-            webm: transcode(
-              outputOptions: ["-crf 23", "-b:v 1M", "-vf scale=800:-2"]
-              fileExtension: "webm"
-            ) {
-              path
-            }
-            mp4: transcode(
-              outputOptions: ["-crf 23", "-b:v 1M", "-vf scale=800:-2"]
-              fileExtension: "mp4"
-            ) {
-              path
-            }
-            poster: screenshot(width: 800, height: 450) {
-              path
-            }
           }
         }
       }
