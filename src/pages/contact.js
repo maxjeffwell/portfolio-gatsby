@@ -9,8 +9,31 @@ const StyledContainer = styled.div`
   margin: 0 auto;
   padding: 0 24px;
 
+  @media (max-width: 768px) {
+    padding: 0 20px;
+    
+    .contact-form-card {
+      border-radius: 20px !important;
+      padding: 32px !important;
+    }
+  }
+
   @media (max-width: 600px) {
     padding: 0 16px;
+    
+    .contact-form-card {
+      border-radius: 16px !important;
+      padding: 24px !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 12px;
+    
+    .contact-form-card {
+      border-radius: 12px !important;
+      padding: 20px !important;
+    }
   }
 `;
 
@@ -355,67 +378,155 @@ const StyledLink = styled.a`
 `;
 
 const StyledTextField = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  position: relative;
 
   label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 1rem;
-
-    @media (prefers-color-scheme: dark) {
-      color: rgba(255, 255, 255, 0.87);
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #1565c0 0%, #e91e63 100%);
+      transition: width 0.3s ease;
     }
+  }
+
+  &:focus-within label::after {
+    width: 100%;
   }
 
   input,
   textarea {
     width: 100%;
-    padding: 16px 14px;
-    border: 1px solid rgba(0, 0, 0, 0.23);
-    border-radius: 4px;
-    font-size: 1rem;
+    padding: 20px 18px;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    font-size: 1.1rem;
     font-family: inherit;
-    background-color: transparent;
-    color: rgba(0, 0, 0, 0.87);
-    transition:
-      border-color 0.2s ease-in-out,
-      box-shadow 0.2s ease-in-out;
+    background: var(--paper-color);
+    color: var(--text-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    
+    &:hover {
+      border-color: rgba(25, 118, 210, 0.4);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
 
     &:focus {
       outline: none;
       border-color: #1976d2;
-      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+      box-shadow: 
+        0 0 0 3px rgba(25, 118, 210, 0.15),
+        0 4px 16px rgba(25, 118, 210, 0.2);
+      transform: translateY(-2px);
     }
 
     &::placeholder {
-      color: rgba(0, 0, 0, 0.6);
+      color: var(--text-secondary-color);
+      opacity: 0.7;
+      font-style: italic;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: rgba(0, 0, 0, 0.04);
     }
 
     @media (prefers-color-scheme: dark) {
-      color: rgba(255, 255, 255, 0.87);
-      border-color: rgba(255, 255, 255, 0.23);
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.6);
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      
+      &:hover {
+        border-color: rgba(144, 202, 249, 0.4);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       }
 
       &:focus {
         border-color: #90caf9;
-        box-shadow: 0 0 0 2px rgba(144, 202, 249, 0.2);
+        box-shadow: 
+          0 0 0 3px rgba(144, 202, 249, 0.25),
+          0 4px 16px rgba(144, 202, 249, 0.3);
+      }
+
+      &:disabled {
+        background: rgba(255, 255, 255, 0.02);
       }
     }
   }
 
   textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 140px;
+    max-height: 300px;
+    line-height: 1.6;
   }
 
-  @media (prefers-color-scheme: dark) {
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
+  /* Floating label effect for better UX */
+  &.focused label,
+  &.has-value label {
+    transform: translateY(-2px) scale(0.95);
+    color: #1976d2;
+    
+    @media (prefers-color-scheme: dark) {
+      color: #90caf9;
+    }
+  }
+
+  /* Responsive design improvements */
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+    
+    label {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    
+    input,
+    textarea {
+      padding: 16px 14px;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
+    
+    textarea {
+      min-height: 120px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 20px;
+    
+    label {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    
+    input,
+    textarea {
+      padding: 14px 12px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+    }
+    
+    textarea {
+      min-height: 100px;
+    }
   }
 `;
 
@@ -786,12 +897,15 @@ function Contact() {
           <div
             style={{
               background: 'var(--paper-color)',
-              borderRadius: '24px',
-              padding: '40px',
+              borderRadius: '28px',
+              padding: '48px',
               marginBottom: '32px',
-              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
-              transition: 'background-color 0.3s ease',
+              boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.12), 0px 2px 8px rgba(0, 0, 0, 0.08)',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden',
             }}
+            className="contact-form-card"
           >
             <Typography
               as="h3"
@@ -922,15 +1036,21 @@ function Contact() {
               as="form"
               onSubmit={handleSubmit}
               method="POST"
-              mt={3}
+              mt={4}
               name="contact"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
-              sx={{
-                transition: 'all 0.3s ease',
+              style={{
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                padding: '32px',
+                borderRadius: '20px',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 ...(formStatus === 'success' && {
-                  opacity: 0.7,
+                  opacity: 0.75,
                   transform: 'scale(0.98)',
+                  filter: 'blur(0.5px)',
                 }),
               }}
             >
@@ -948,7 +1068,7 @@ function Contact() {
                 </label>
               </StyledBox>
 
-              <StyledTextField>
+              <StyledTextField className={formData.name ? 'has-value' : ''}>
                 <label htmlFor="contact-name">Your Name *</label>
                 <input
                   type="text"
@@ -957,12 +1077,14 @@ function Contact() {
                   autoComplete="name"
                   value={formData.name}
                   onChange={handleChange}
+                  onFocus={(e) => e.target.parentElement.classList.add('focused')}
+                  onBlur={(e) => e.target.parentElement.classList.remove('focused')}
                   required
                   disabled={isSubmitting}
-                  placeholder="Enter your name"
+                  placeholder="What should I call you?"
                 />
               </StyledTextField>
-              <StyledTextField>
+              <StyledTextField className={formData.email ? 'has-value' : ''}>
                 <label htmlFor="contact-email">Your Email *</label>
                 <input
                   type="email"
@@ -971,12 +1093,14 @@ function Contact() {
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleChange}
+                  onFocus={(e) => e.target.parentElement.classList.add('focused')}
+                  onBlur={(e) => e.target.parentElement.classList.remove('focused')}
                   required
                   disabled={isSubmitting}
-                  placeholder="Enter your email"
+                  placeholder="your.email@example.com"
                 />
               </StyledTextField>
-              <StyledTextField>
+              <StyledTextField className={formData.message ? 'has-value' : ''}>
                 <label htmlFor="contact-message">Your Message *</label>
                 <textarea
                   id="contact-message"
@@ -984,10 +1108,12 @@ function Contact() {
                   autoComplete="off"
                   value={formData.message}
                   onChange={handleChange}
+                  onFocus={(e) => e.target.parentElement.classList.add('focused')}
+                  onBlur={(e) => e.target.parentElement.classList.remove('focused')}
                   required
-                  rows={4}
+                  rows={5}
                   disabled={isSubmitting}
-                  placeholder="Enter your message"
+                  placeholder="Tell me about your project, ideas, or just say hello..."
                 />
               </StyledTextField>
               <StyledButton
@@ -999,17 +1125,46 @@ function Contact() {
                 style={{
                   background:
                     formStatus === 'success'
-                      ? '#2e7d32'
+                      ? 'linear-gradient(135deg, #2e7d32 0%, #4caf50 100%)'
                       : 'linear-gradient(135deg, #1565c0 0%, #e91e63 100%)',
                   color: 'white',
-                  padding: '16px 32px',
-                  fontSize: '1.125rem',
+                  padding: '18px 36px',
+                  fontSize: '1.2rem',
                   fontWeight: 600,
-                  borderRadius: '50px',
+                  borderRadius: '16px',
                   textTransform: 'none',
-                  boxShadow: '0px 8px 16px rgba(25, 101, 192, 0.3)',
-                  transition: 'all 0.3s ease',
-                  marginTop: '24px',
+                  boxShadow: formStatus === 'success' 
+                    ? '0px 12px 24px rgba(46, 125, 50, 0.4), 0px 4px 12px rgba(76, 175, 80, 0.3)'
+                    : '0px 12px 24px rgba(25, 101, 192, 0.4), 0px 4px 12px rgba(233, 30, 99, 0.3)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  marginTop: '32px',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transform: isSubmitting ? 'scale(0.98)' : 'scale(1)',
+                  width: '100%',
+                  '@media (max-width: 768px)': {
+                    padding: '16px 28px',
+                    fontSize: '1.1rem',
+                    marginTop: '24px',
+                  },
+                  '@media (max-width: 480px)': {
+                    padding: '14px 24px',
+                    fontSize: '1rem',
+                    borderRadius: '12px',
+                    marginTop: '20px',
+                  },
+                }}
+                onMouseEnter={(e) => {
+                  if (!isSubmitting && formStatus !== 'success') {
+                    e.target.style.transform = 'translateY(-2px) scale(1.02)';
+                    e.target.style.boxShadow = '0px 16px 32px rgba(25, 101, 192, 0.5), 0px 6px 16px rgba(233, 30, 99, 0.4)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSubmitting && formStatus !== 'success') {
+                    e.target.style.transform = 'translateY(0) scale(1)';
+                    e.target.style.boxShadow = '0px 12px 24px rgba(25, 101, 192, 0.4), 0px 4px 12px rgba(233, 30, 99, 0.3)';
+                  }
                 }}
               >
                 <span>

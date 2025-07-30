@@ -71,7 +71,7 @@ const NavButton = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
+  padding: 14px 24px;
   margin: 0 8px;
   text-decoration: none;
   color: ${props => props.theme?.colors?.text || '#333'};
@@ -79,10 +79,10 @@ const NavButton = styled.a`
   border: none;
   cursor: pointer;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1;
-  border-radius: 8px;
+  border-radius: 10px;
   text-transform: none;
   transition: all 0.2s ease;
 
@@ -98,6 +98,16 @@ const NavButton = styled.a`
   
   &:first-child {
     margin-left: 0;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+
+  @media (max-width: 960px) {
+    font-size: 0.95rem;
+    padding: 10px 16px;
   }
 `;
 
@@ -167,14 +177,15 @@ const DrawerBackdrop = styled.div`
 const MobileNavButton = styled.a`
   display: block;
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   text-decoration: none;
   color: ${props => props.theme?.colors?.text || '#333'};
   background-color: transparent;
   border: none;
   cursor: pointer;
   font-family: inherit;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
+  font-weight: 500;
   text-align: center;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
 

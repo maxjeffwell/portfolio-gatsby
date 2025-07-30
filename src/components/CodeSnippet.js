@@ -165,22 +165,35 @@ function CodeSnippet({
 
   useEffect(() => {
     if (!animated) {
+      setDisplayedCode(code);
+      setAnimationComplete(true);
       return undefined;
     }
 
+    // Reset state when animation starts
+    setDisplayedCode('');
+    setAnimationComplete(false);
+    
     let index = 0;
-    const timer = setInterval(() => {
-      if (index <= code.length) {
-        setDisplayedCode(code.slice(0, index));
+    let timeoutId;
+    
+    const animateText = () => {
+      if (index < code.length) {
+        setDisplayedCode(code.slice(0, index + 1));
         index += 1;
+        timeoutId = setTimeout(animateText, animationSpeed);
       } else {
         setAnimationComplete(true);
-        clearInterval(timer);
       }
-    }, animationSpeed);
+    };
+
+    // Start animation after a brief delay to ensure component is mounted
+    timeoutId = setTimeout(animateText, 100);
 
     return () => {
-      clearInterval(timer);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
   }, [code, animated, animationSpeed]);
 

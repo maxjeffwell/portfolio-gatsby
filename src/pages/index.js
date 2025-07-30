@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import ClientOnlyButton from '../components/ClientOnlyButton';
+import TypingAnimation from '../components/TypingAnimation';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
@@ -254,7 +255,22 @@ const IndexPage = () => {
               My name's Jeff 😊
             </p>
             <HeroTitle theme={theme}>
-              I'm a <span className="highlight">Node.js Expert</span>
+              I'm a <span className="highlight">
+                <TypingAnimation
+                  texts={[
+                    'Node.js Expert',
+                    'React Specialist', 
+                    'Full Stack Developer',
+                    'JavaScript Enthusiast',
+                    'Problem Solver'
+                  ]}
+                  typeSpeed={80}
+                  deleteSpeed={50}
+                  delayBetweenTexts={2000}
+                  startDelay={500}
+                  loop={true}
+                />
+              </span>
             </HeroTitle>
             <HeroSubtitle theme={theme}>
               crafting exceptional web experiences

@@ -162,7 +162,7 @@ const IconButton = styled.button`
 const StyledFooter = styled.footer`
   margin-top: 0;
   padding: 48px 0;
-  background-color: ${props => props.theme?.mode === 'dark' ? '#1a1a1a' : '#fafafa'};
+  background-color: ${props => props.theme?.mode === 'dark' ? '#0a0a0a' : '#fafafa'};
   border-top: 3px solid #9c27b0;
   transition: background-color 0.3s ease;
 
@@ -172,22 +172,50 @@ const StyledFooter = styled.footer`
 `;
 
 const SocialLink = styled(IconButton)`
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#333'};
+  color: ${props => props.theme?.mode === 'dark' ? '#ffffff' : '#333'};
   transition:
-    transform 0.2s ease-in-out,
-    color 0.2s ease-in-out,
-    background-color 0.2s ease-in-out;
-  will-change: transform, color;
-  padding: 16px;
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+  will-change: transform, color, box-shadow;
+  padding: 20px;
+  border-radius: 16px;
+  background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.04)'};
+  backdrop-filter: blur(10px);
+  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.08)'};
 
   &:hover {
-    transform: scale(1.1);
-    color: #9c27b0;
-    background-color: rgba(156, 39, 176, 0.08);
+    transform: translateY(-4px) scale(1.15);
+    color: #e91e63;
+    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.2)' : 'rgba(156, 39, 176, 0.12)'};
+    box-shadow: ${props => props.theme?.mode === 'dark' 
+      ? '0 8px 24px rgba(233, 30, 99, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)'
+      : '0 8px 24px rgba(156, 39, 176, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15)'};
+    border-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.5)' : 'rgba(156, 39, 176, 0.3)'};
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    padding: 18px;
+    border-radius: 14px;
   }
 
   @media (max-width: 600px) {
-    padding: 20px;
+    padding: 16px;
+    border-radius: 12px;
+    
+    &:hover {
+      transform: translateY(-2px) scale(1.1);
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 14px;
+    border-radius: 10px;
   }
 `;
 
@@ -221,7 +249,7 @@ function ThemedLayout({ children, data }) {
               fontWeight: 400,
               marginBottom: '12px'
             }}
-            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : '#1a1a1a'}
+            customColor={theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a'}
           >
             Jeff Maxwell
           </Typography>
@@ -230,13 +258,14 @@ function ThemedLayout({ children, data }) {
             underline="always"
             style={{
               fontSize: 'clamp(1.125rem, 3vw, 1.25rem)',
-              color: '#e91e63',
+              color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
               display: 'inline-block',
               marginBottom: '32px',
               textDecoration: 'underline',
-              textDecorationColor: '#e91e63',
+              textDecorationColor: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
               textDecorationThickness: '1px',
-              textUnderlineOffset: '3px'
+              textUnderlineOffset: '3px',
+              fontWeight: 500
             }}
             aria-label="Send email to maxjeffwell@gmail.com"
           >
@@ -251,29 +280,32 @@ function ThemedLayout({ children, data }) {
             mb={3}
           >
             <SocialLink
+              as="a"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.github.com/maxjeffwell"
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="GitHub" style={{ fontSize: 'clamp(1.75rem, 4vw, 2rem)' }} />
+              <ClientOnlyIcon iconName="GitHub" style={{ fontSize: 'clamp(2.25rem, 5vw, 2.75rem)' }} />
             </SocialLink>
             <SocialLink
+              as="a"
               target="_blank"
               rel="noopener noreferrer"
               href="https://angel.co/maxjeffwell"
               aria-label="Visit Jeff Maxwell's AngelList profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="Language" style={{ fontSize: 'clamp(1.75rem, 4vw, 2rem)' }} />
+              <ClientOnlyIcon iconName="Language" style={{ fontSize: 'clamp(2.25rem, 5vw, 2.75rem)' }} />
             </SocialLink>
             <SocialLink
+              as="a"
               href="tel:+01-508-395-2008"
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
             >
-              <ClientOnlyIcon iconName="Phone" style={{ fontSize: 'clamp(1.75rem, 4vw, 2rem)' }} />
+              <ClientOnlyIcon iconName="Phone" style={{ fontSize: 'clamp(2.25rem, 5vw, 2.75rem)' }} />
             </SocialLink>
           </StyledBox>
           <Typography 
@@ -282,7 +314,7 @@ function ThemedLayout({ children, data }) {
               fontSize: 'clamp(0.9rem, 2.5vw, 1rem)', 
               fontWeight: 400
             }}
-            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666'}
+            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.9)' : '#666'}
           >
             Built by Jeff Maxwell, created with{' '}
             <Link
