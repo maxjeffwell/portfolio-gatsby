@@ -161,10 +161,14 @@ const IconButton = styled.button`
 
 const StyledFooter = styled.footer`
   margin-top: 0;
-  padding: 32px 0;
+  padding: 48px 0;
   background-color: ${props => props.theme?.mode === 'dark' ? '#1a1a1a' : '#fafafa'};
   border-top: 3px solid #9c27b0;
   transition: background-color 0.3s ease;
+
+  @media (max-width: 600px) {
+    padding: 40px 0;
+  }
 `;
 
 const SocialLink = styled(IconButton)`
@@ -174,12 +178,16 @@ const SocialLink = styled(IconButton)`
     color 0.2s ease-in-out,
     background-color 0.2s ease-in-out;
   will-change: transform, color;
-  padding: 12px;
+  padding: 16px;
 
   &:hover {
     transform: scale(1.1);
     color: #9c27b0;
     background-color: rgba(156, 39, 176, 0.08);
+  }
+
+  @media (max-width: 600px) {
+    padding: 20px;
   }
 `;
 
@@ -209,9 +217,9 @@ function ThemedLayout({ children, data }) {
             as="h2" 
             variant="h4" 
             style={{ 
-              fontSize: '1.5rem',
+              fontSize: 'clamp(1.75rem, 4vw, 2rem)',
               fontWeight: 400,
-              marginBottom: '8px'
+              marginBottom: '12px'
             }}
             customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : '#1a1a1a'}
           >
@@ -221,10 +229,10 @@ function ThemedLayout({ children, data }) {
             href="mailto:maxjeffwell@gmail.com"
             underline="always"
             style={{
-              fontSize: '1rem',
+              fontSize: 'clamp(1.125rem, 3vw, 1.25rem)',
               color: '#e91e63',
               display: 'inline-block',
-              marginBottom: '24px',
+              marginBottom: '32px',
               textDecoration: 'underline',
               textDecorationColor: '#e91e63',
               textDecorationThickness: '1px',
@@ -249,7 +257,7 @@ function ThemedLayout({ children, data }) {
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="GitHub" style={{ fontSize: '1.5rem' }} />
+              <ClientOnlyIcon iconName="GitHub" style={{ fontSize: 'clamp(1.75rem, 4vw, 2rem)' }} />
             </SocialLink>
             <SocialLink
               target="_blank"
@@ -258,20 +266,20 @@ function ThemedLayout({ children, data }) {
               aria-label="Visit Jeff Maxwell's AngelList profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="Language" style={{ fontSize: '1.5rem' }} />
+              <ClientOnlyIcon iconName="Language" style={{ fontSize: 'clamp(1.75rem, 4vw, 2rem)' }} />
             </SocialLink>
             <SocialLink
               href="tel:+01-508-395-2008"
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
             >
-              <ClientOnlyIcon iconName="Phone" style={{ fontSize: '1.5rem' }} />
+              <ClientOnlyIcon iconName="Phone" style={{ fontSize: 'clamp(1.75rem, 4vw, 2rem)' }} />
             </SocialLink>
           </StyledBox>
           <Typography 
             variant="body2" 
             style={{ 
-              fontSize: '0.875rem', 
+              fontSize: 'clamp(0.9rem, 2.5vw, 1rem)', 
               fontWeight: 400
             }}
             customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666'}

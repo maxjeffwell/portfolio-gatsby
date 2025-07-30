@@ -229,6 +229,54 @@ const GlobalStyles = createGlobalStyle`
     transition: color 0.3s ease;
   }
 
+  /* Footer styles to prevent FOUC */
+  footer {
+    background-color: var(--paper-color) !important;
+    padding: 48px 0 !important;
+    border-top: 3px solid #9c27b0 !important;
+    transition: background-color 0.3s ease !important;
+    
+    @media (max-width: 600px) {
+      padding: 40px 0 !important;
+    }
+  }
+
+  /* Footer typography to prevent FOUC */
+  footer h2 {
+    font-size: clamp(1.75rem, 4vw, 2rem) !important;
+    font-weight: 400 !important;
+    margin-bottom: 12px !important;
+    color: var(--text-color) !important;
+  }
+
+  footer a[href^="mailto"] {
+    font-size: clamp(1.125rem, 3vw, 1.25rem) !important;
+    color: #e91e63 !important;
+    display: inline-block !important;
+    margin-bottom: 32px !important;
+    text-decoration: underline !important;
+    text-decoration-color: #e91e63 !important;
+  }
+
+  /* Footer social icons */
+  footer button {
+    padding: 16px !important;
+    
+    @media (max-width: 600px) {
+      padding: 20px !important;
+    }
+  }
+
+  footer svg {
+    font-size: clamp(1.75rem, 4vw, 2rem) !important;
+  }
+
+  /* Footer bottom text */
+  footer p:last-child {
+    font-size: clamp(0.9rem, 2.5vw, 1rem) !important;
+    font-weight: 400 !important;
+  }
+
   /* Link styles */
   a {
     color: #1565c0;

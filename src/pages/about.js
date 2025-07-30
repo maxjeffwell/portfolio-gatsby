@@ -419,10 +419,10 @@ function AboutPage() {
                     💻
                   </div>
                   <StyledBox>
-                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
+                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                       Clean Code
                     </Typography>
-                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4 }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
+                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4, fontSize: '1.125rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                       Readable, maintainable solutions
                     </Typography>
                   </StyledBox>
@@ -448,10 +448,10 @@ function AboutPage() {
                     ☕
                   </div>
                   <StyledBox>
-                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
+                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                       Coffee & Code
                     </Typography>
-                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4 }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
+                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4, fontSize: '1.125rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                       Fuel for late-night debugging
                     </Typography>
                   </StyledBox>
@@ -477,10 +477,10 @@ function AboutPage() {
                     🐾
                   </div>
                   <StyledBox>
-                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
+                    <Typography theme={theme} variant="h6" style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'}>
                       Dog Parent
                     </Typography>
-                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4 }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
+                    <Typography theme={theme} variant="body2" style={{ lineHeight: 1.4, fontSize: '1.125rem' }} customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'}>
                       Expert at dinner negotiations
                     </Typography>
                   </StyledBox>

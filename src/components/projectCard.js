@@ -43,6 +43,28 @@ const Typography = styled.div`
   }};
   margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
   transition: color 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media (max-width: 480px) {
+    font-size: ${props => 
+      props.variant === 'h5' ? '1.25rem' :
+      props.variant === 'h6' ? '1.125rem' :
+      props.variant === 'body1' ? '0.9rem' :
+      props.variant === 'body2' ? '0.8rem' :
+      '0.9rem'
+    };
+  }
+
+  @media (max-width: 360px) {
+    font-size: ${props => 
+      props.variant === 'h5' ? '1.125rem' :
+      props.variant === 'h6' ? '1rem' :
+      props.variant === 'body1' ? '0.85rem' :
+      props.variant === 'body2' ? '0.75rem' :
+      '0.85rem'
+    };
+  }
 `;
 
 const Button = styled.button`
@@ -90,6 +112,15 @@ const Stack = styled.div`
   display: flex;
   flex-direction: ${props => props.direction || 'column'};
   gap: ${props => props.spacing ? `${props.spacing * 8}px` : '8px'};
+  flex-wrap: wrap;
+  
+  @media (max-width: 480px) {
+    gap: ${props => props.spacing ? `${props.spacing * 6}px` : '6px'};
+  }
+  
+  @media (max-width: 360px) {
+    gap: ${props => props.spacing ? `${props.spacing * 4}px` : '4px'};
+  }
 `;
 
 // Simple icon components
@@ -147,6 +178,17 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 16px;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const TechContainer = styled.div`
@@ -203,6 +245,16 @@ const StyledCardContent = styled.div`
   flex-grow: 1;
   padding: 16px;
   padding-top: 16px;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+    padding-top: 12px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 10px;
+    padding-top: 10px;
+  }
 `;
 
 const StyledCardActions = styled.div`
@@ -210,6 +262,22 @@ const StyledCardActions = styled.div`
   padding: 16px;
   padding-top: 0;
   display: flex;
+  gap: 8px;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 12px;
+    
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 360px) {
+    padding: 12px;
+    padding-top: 0;
+  }
 `;
 
 const ColoredBar = styled.div`
@@ -273,10 +341,31 @@ const TechIcon = styled.div`
     transform 0.3s ease,
     background-color 0.3s ease;
   will-change: transform, background-color;
+  flex-shrink: 0;
 
   &:hover {
     transform: scale(1.1);
     background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'};
+  }
+
+  @media (max-width: 480px) {
+    width: 36px;
+    height: 36px;
+    
+    svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+  }
+
+  @media (max-width: 360px) {
+    width: 32px;
+    height: 32px;
+    
+    svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
   }
 `;
 

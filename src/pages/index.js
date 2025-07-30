@@ -176,6 +176,8 @@ const QuoteBox = styled.div`
   border-left: 4px solid ${props => props.theme?.colors?.primary || '#1976d2'};
   border-radius: 4px;
   font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.6;
   color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#555'};
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 `;
@@ -243,10 +245,11 @@ const IndexPage = () => {
         <Container>
           <HeroContent>
             <p style={{ 
-              fontSize: '1.125rem', 
+              fontSize: 'clamp(1.375rem, 3vw, 1.5rem)', 
               margin: '0 0 16px 0', 
               color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
-              transition: 'color 0.3s ease'
+              transition: 'color 0.3s ease',
+              fontWeight: 500
             }}>
               My name's Jeff 😊
             </p>
@@ -264,6 +267,8 @@ const IndexPage = () => {
             
             <p style={{ 
               fontStyle: 'italic', 
+              fontSize: '1.25rem',
+              lineHeight: '1.6',
               color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : '#777', 
               marginBottom: '40px',
               transition: 'color 0.3s ease'

@@ -94,19 +94,20 @@ const Typography = styled.div`
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
   letter-spacing: ${(props) => getTypographyLetterSpacing(props.variant)};
-  color: ${(props) =>
-    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.87)'};
+  color: ${(props) => {
+    // Use CSS variables that work with theme switching
+    if (props.color === 'text.secondary') {
+      return 'var(--text-secondary-color)';
+    }
+    return 'var(--text-color)';
+  }};
   text-align: ${(props) => props.align || 'inherit'};
   margin-bottom: ${(props) => {
     if (props.gutterBottom) return '0.35em';
     if (props.paragraph) return '16px';
     return '0';
   }};
-
-  @media (prefers-color-scheme: dark) {
-    color: ${(props) =>
-      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(255, 255, 255, 0.87)'};
-  }
+  transition: color 0.3s ease;
 `;
 
 // Simple icon components using Unicode symbols
@@ -622,11 +623,12 @@ function Contact() {
           {/* Get in Touch Card */}
           <div
             style={{
-              background: '#ffffff',
+              background: 'var(--paper-color)',
               borderRadius: '24px',
               padding: '40px',
               marginBottom: '32px',
               boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
+              transition: 'background-color 0.3s ease',
             }}
           >
             <Typography
@@ -634,7 +636,7 @@ function Contact() {
               style={{
                 fontSize: '1.75rem',
                 fontWeight: 600,
-                color: 'rgba(0, 0, 0, 0.87)',
+                color: 'var(--text-color)',
                 marginBottom: '16px',
               }}
               id="get-in-touch"
@@ -644,7 +646,7 @@ function Contact() {
             <Typography
               variant="body1"
               style={{
-                color: 'rgba(0, 0, 0, 0.7)',
+                color: 'var(--text-secondary-color)',
                 marginBottom: '32px',
                 fontSize: '1.125rem',
                 lineHeight: 1.5,
@@ -663,7 +665,7 @@ function Contact() {
                   gap: '16px',
                   padding: '16px',
                   borderRadius: '12px',
-                  background: '#f8f9fa',
+                  background: 'var(--bg-color)',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -683,7 +685,7 @@ function Contact() {
                 <div>
                   <Typography
                     variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}
+                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)' }}
                   >
                     Email
                   </Typography>
@@ -703,7 +705,7 @@ function Contact() {
                   gap: '16px',
                   padding: '16px',
                   borderRadius: '12px',
-                  background: '#f8f9fa',
+                  background: 'var(--bg-color)',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -723,7 +725,7 @@ function Contact() {
                 <div>
                   <Typography
                     variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}
+                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)' }}
                   >
                     Phone
                   </Typography>
@@ -743,7 +745,7 @@ function Contact() {
                   gap: '16px',
                   padding: '16px',
                   borderRadius: '12px',
-                  background: '#f8f9fa',
+                  background: 'var(--bg-color)',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -763,7 +765,7 @@ function Contact() {
                 <div>
                   <Typography
                     variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'rgba(0, 0, 0, 0.87)' }}
+                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)' }}
                   >
                     GitHub
                   </Typography>
@@ -783,11 +785,12 @@ function Contact() {
           {/* Send a Message Card */}
           <div
             style={{
-              background: '#ffffff',
+              background: 'var(--paper-color)',
               borderRadius: '24px',
               padding: '40px',
               marginBottom: '32px',
               boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
+              transition: 'background-color 0.3s ease',
             }}
           >
             <Typography
@@ -795,7 +798,7 @@ function Contact() {
               style={{
                 fontSize: '1.75rem',
                 fontWeight: 600,
-                color: 'rgba(0, 0, 0, 0.87)',
+                color: 'var(--text-color)',
                 marginBottom: '16px',
               }}
               id="send-message"
@@ -805,7 +808,7 @@ function Contact() {
             <Typography
               variant="body1"
               style={{
-                color: 'rgba(0, 0, 0, 0.7)',
+                color: 'var(--text-secondary-color)',
                 marginBottom: '32px',
                 fontSize: '1.125rem',
                 lineHeight: 1.5,
@@ -1047,9 +1050,10 @@ function Contact() {
           <Typography
             variant="body2"
             style={{
-              color: 'rgba(0, 0, 0, 0.7)',
-              fontSize: '1rem',
+              color: 'var(--text-secondary-color)',
+              fontSize: '1.25rem',
               fontWeight: 400,
+              lineHeight: 1.6,
             }}
           >
             Currently open to new opportunities and exciting projects. Let&apos;s build something
