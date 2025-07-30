@@ -64,14 +64,14 @@ const HeroTitle = styled.h1`
 `;
 
 const HeroSubtitle = styled.p`
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666'};
   margin: 20px 0 40px;
   font-weight: 400;
   transition: color 0.3s ease;
   
   @media (max-width: 600px) {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 `;
 
@@ -176,7 +176,6 @@ const QuoteBox = styled.div`
     : 'rgba(25, 118, 210, 0.05)'};
   border-left: 4px solid ${props => props.theme?.colors?.primary || '#1976d2'};
   border-radius: 4px;
-  font-style: italic;
   font-size: 1.25rem;
   line-height: 1.6;
   color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#555'};
@@ -246,7 +245,7 @@ const IndexPage = () => {
         <Container>
           <HeroContent>
             <p style={{ 
-              fontSize: 'clamp(1.375rem, 3vw, 1.5rem)', 
+              fontSize: 'clamp(1.75rem, 4vw, 2rem)', 
               margin: '0 0 16px 0', 
               color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
               transition: 'color 0.3s ease',
@@ -271,7 +270,7 @@ const IndexPage = () => {
                   loop={true}
                   fontSize={64}
                   fontFamily="inherit"
-                  color="transparent"
+                  color="#1976d2"
                 />
               </span>
             </HeroTitle>
@@ -285,7 +284,7 @@ const IndexPage = () => {
             </QuoteBox>
             
             <p style={{ 
-              fontStyle: 'italic', 
+ 
               fontSize: '1.25rem',
               lineHeight: '1.6',
               color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : '#777', 

@@ -1081,7 +1081,6 @@ function Contact() {
                   onBlur={(e) => e.target.parentElement.classList.remove('focused')}
                   required
                   disabled={isSubmitting}
-                  placeholder="What should I call you?"
                 />
               </StyledTextField>
               <StyledTextField className={formData.email ? 'has-value' : ''}>
@@ -1097,7 +1096,6 @@ function Contact() {
                   onBlur={(e) => e.target.parentElement.classList.remove('focused')}
                   required
                   disabled={isSubmitting}
-                  placeholder="your.email@example.com"
                 />
               </StyledTextField>
               <StyledTextField className={formData.message ? 'has-value' : ''}>
@@ -1113,7 +1111,6 @@ function Contact() {
                   required
                   rows={5}
                   disabled={isSubmitting}
-                  placeholder="Tell me about your project, ideas, or just say hello..."
                 />
               </StyledTextField>
               <StyledButton

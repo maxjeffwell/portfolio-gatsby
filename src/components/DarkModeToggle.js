@@ -6,14 +6,14 @@ import { useTheme } from '../context/ThemeContext';
 const Brightness4Icon = styled.span`
   font-size: 24px;
   &::before {
-    content: '🌙';
+    content: '●';
   }
 `;
 
 const Brightness7Icon = styled.span`
   font-size: 24px;
   &::before {
-    content: '☀️';
+    content: '○';
   }
 `;
 

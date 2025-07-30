@@ -172,7 +172,7 @@ const StyledFooter = styled.footer`
 `;
 
 const SocialLink = styled(IconButton)`
-  color: ${props => props.theme?.mode === 'dark' ? '#ffffff' : '#333'};
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.8)'};
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.3s ease,
@@ -181,9 +181,16 @@ const SocialLink = styled(IconButton)`
   will-change: transform, color, box-shadow;
   padding: 20px;
   border-radius: 16px;
-  background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.04)'};
+  background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.18)' : 'rgba(0, 0, 0, 0.04)'};
   backdrop-filter: blur(10px);
-  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.08)'};
+  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.08)'};
+
+  /* Ensure icons inherit the color */
+  svg {
+    color: inherit !important;
+    fill: currentColor !important;
+    opacity: 1 !important;
+  }
 
   &:hover {
     transform: translateY(-4px) scale(1.15);
@@ -314,7 +321,7 @@ function ThemedLayout({ children, data }) {
               fontSize: 'clamp(0.9rem, 2.5vw, 1rem)', 
               fontWeight: 400
             }}
-            customColor={theme?.mode === 'dark' ? '#ffffff' : '#666'}
+            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : '#666'}
           >
             Built by Jeff Maxwell, created with{' '}
             <Link
