@@ -130,24 +130,35 @@ const Card = styled.div`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   height: 100%;
   transition: background 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
+  
+  @media (max-width: 768px) {
+    padding: 32px;
+  }
   
   @media (max-width: 600px) {
-    padding: 32px 24px;
+    padding: 24px 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 16px;
+    border-radius: 12px;
   }
 `;
 
 const CardTitle = styled.h2`
-  font-size: 1.875rem;
+  font-size: clamp(1.375rem, 4vw, 1.875rem);
   font-weight: 700;
-  margin: 0 0 24px 0;
+  margin: 0 0 clamp(16px, 4vw, 24px) 0;
   color: ${props => props.theme?.colors?.text || '#333'};
   display: flex;
   align-items: center;
   gap: 12px;
   transition: color 0.3s ease;
+  line-height: 1.3;
   
-  @media (max-width: 600px) {
-    font-size: 1.5rem;
+  @media (max-width: 480px) {
+    gap: 8px;
   }
 `;
 
@@ -197,13 +208,15 @@ const InfoCard = styled.div`
   padding: 32px;
   margin-top: 24px;
   transition: background 0.3s ease;
+  box-sizing: border-box;
   
   h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: 600;
     color: ${props => props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63'};
     margin: 0 0 16px 0;
     transition: color 0.3s ease;
+    line-height: 1.3;
   }
   
   ul {
@@ -218,6 +231,8 @@ const InfoCard = styled.div`
       margin-bottom: 12px;
       color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#333'};
       transition: color 0.3s ease;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      line-height: 1.5;
       
       svg {
         color: ${props => props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63'};
@@ -225,6 +240,16 @@ const InfoCard = styled.div`
         transition: color 0.3s ease;
       }
     }
+  }
+  
+  @media (max-width: 600px) {
+    padding: 24px;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px;
+    border-radius: 8px;
   }
 `;
 
@@ -254,8 +279,8 @@ const IndexPage = () => {
           <HeroContent>
             <StaggeredAnimation>
               <p style={{ 
-                fontSize: 'clamp(1.75rem, 4vw, 2rem)', 
-                margin: '0 0 16px 0', 
+                fontSize: 'clamp(1.5rem, 4vw, 2rem)', 
+                margin: '0 0 clamp(12px, 3vw, 16px) 0', 
                 color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
                 transition: 'color 0.3s ease',
                 fontWeight: 500
@@ -278,11 +303,14 @@ const IndexPage = () => {
                 loop={true}
                 style={{ 
                   fontWeight: 'inherit',
-                  background: 'linear-gradient(135deg, #90caf9 0%, #64b5f6 50%, #42a5f5 100%)',
+                  background: theme?.mode === 'dark'
+                    ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
+                    : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  color: '#90caf9' // Fallback for browsers that don't support background-clip
+                  color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', // Fallback for browsers that don't support background-clip
+                  transition: 'background 0.3s ease'
                 }}
               />
             </HeroTitle>
@@ -296,12 +324,12 @@ const IndexPage = () => {
             </QuoteBox>
             
             <p style={{ 
- 
-              fontSize: '1.25rem',
+              fontSize: 'clamp(1rem, 3vw, 1.25rem)',
               lineHeight: '1.6',
               color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : '#777', 
-              marginBottom: '40px',
-              transition: 'color 0.3s ease'
+              marginBottom: 'clamp(24px, 6vw, 40px)',
+              transition: 'color 0.3s ease',
+              padding: '0 8px'
             }}>
               "Code is like humor. When you have to explain it, it's bad." — That's why I focus on intuitive, self-documenting solutions.
             </p>

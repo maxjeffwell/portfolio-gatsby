@@ -464,17 +464,32 @@ const Projects = ({ data }) => {
   }, [filters]);
 
   const enhancedProjects = useMemo(() => {
-    if (!data?.allFile?.edges) return filteredProjects;
+    if (!data?.allImageFile?.edges && !data?.allVideoFile?.edges) return filteredProjects;
 
-    // Create a map for faster lookups
+    // Create maps for faster lookups
     const imageMap = new Map();
-    data.allFile.edges.forEach((edge) => {
-      if (edge.node.relativePath) {
-        imageMap.set(edge.node.relativePath, edge.node.childImageSharp);
-      }
-    });
+    const videoMap = new Map();
+    
+    // Process image files
+    if (data.allImageFile?.edges) {
+      data.allImageFile.edges.forEach((edge) => {
+        if (edge.node.relativePath) {
+          imageMap.set(edge.node.relativePath, edge.node.childImageSharp);
+        }
+      });
+    }
+    
+    // Process video files
+    if (data.allVideoFile?.edges) {
+      data.allVideoFile.edges.forEach((edge) => {
+        if (edge.node.relativePath) {
+          videoMap.set(edge.node.relativePath, edge.node.publicURL);
+        }
+      });
+    }
 
     return filteredProjects.map((project) => {
+      // Find image files (remove video extensions for matching)
       const screenshot1File = Array.from(imageMap.entries()).find(([path]) =>
         path.includes(project.screenshots.screenshot1.replace('.webm', '').replace('.mp4', ''))
       );
@@ -482,12 +497,12 @@ const Projects = ({ data }) => {
         path.includes(project.screenshots.screenshot2.replace('.webm', '').replace('.mp4', ''))
       );
 
-      // Find video files for optimized transcoding
-      const videoFile = data.allFile.edges.find((edge) =>
-        edge.node.relativePath.includes(project.screenshots.screenshot1)
+      // Find video files
+      const videoFile1 = Array.from(videoMap.entries()).find(([path]) =>
+        path.includes(project.screenshots.screenshot1)
       );
-      const videoFile2 = data.allFile.edges.find((edge) =>
-        edge.node.relativePath.includes(project.screenshots.screenshot2)
+      const videoFile2 = Array.from(videoMap.entries()).find(([path]) =>
+        path.includes(project.screenshots.screenshot2)
       );
 
       return {
@@ -499,12 +514,12 @@ const Projects = ({ data }) => {
         videoSrcPath:
           project.screenshots.screenshot1.endsWith('.webm') ||
           project.screenshots.screenshot1.endsWith('.mp4')
-            ? videoFile?.node.publicURL
+            ? videoFile1?.[1]
             : null,
         videoSrcPath2:
           project.screenshots.screenshot2.endsWith('.webm') ||
           project.screenshots.screenshot2.endsWith('.mp4')
-            ? videoFile2?.node.publicURL
+            ? videoFile2?.[1]
             : null,
         techIcon3: project.techIcons.icon3 || null,
         techIcon4: project.techIcons.icon4 || null,
@@ -776,7 +791,7 @@ const Projects = ({ data }) => {
 
 Projects.propTypes = {
   data: PropTypes.shape({
-    allFile: PropTypes.shape({
+    allImageFile: PropTypes.shape({
       edges: PropTypes.arrayOf(
         PropTypes.shape({
           node: PropTypes.shape({
@@ -787,7 +802,17 @@ Projects.propTypes = {
           }).isRequired,
         })
       ).isRequired,
-    }).isRequired,
+    }),
+    allVideoFile: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            relativePath: PropTypes.string.isRequired,
+            publicURL: PropTypes.string.isRequired,
+          }).isRequired,
+        })
+      ).isRequired,
+    }),
   }).isRequired,
 };
 
@@ -795,16 +820,15 @@ export default Projects;
 
 export const pageQuery = graphql`
   query {
-    allFile(
+    allImageFile: allFile(
       filter: {
         sourceInstanceName: { eq: "images" }
-        extension: { regex: "/(jpg|jpeg|png|webm|mp4)/" }
+        extension: { regex: "/(jpg|jpeg|png)/" }
       }
     ) {
       edges {
         node {
           relativePath
-          publicURL
           childImageSharp {
             gatsbyImageData(
               width: 800
@@ -816,6 +840,19 @@ export const pageQuery = graphql`
               sizes: "(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 400px"
             )
           }
+        }
+      }
+    }
+    allVideoFile: allFile(
+      filter: {
+        sourceInstanceName: { eq: "images" }
+        extension: { regex: "/(webm|mp4)/" }
+      }
+    ) {
+      edges {
+        node {
+          relativePath
+          publicURL
         }
       }
     }

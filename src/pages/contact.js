@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -532,6 +533,7 @@ const StyledTextField = styled.div`
 `;
 
 function Contact() {
+  const { theme } = useTheme();
   const [formData, setFormData] = React.useState(() => ({
     name: '',
     email: '',
@@ -710,7 +712,7 @@ function Contact() {
               maxWidth: '600px',
               margin: '0 auto',
               lineHeight: 1.5,
-              color: '#555',
+              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
             }}
           >
             I&apos;m always interested in new opportunities and collaborations
@@ -1205,7 +1207,7 @@ function Contact() {
           <Typography
             variant="body1"
             style={{
-              color: '#555',
+              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
               fontSize: '1.5rem',
               fontWeight: 400,
               lineHeight: 1.6,

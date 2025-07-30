@@ -193,11 +193,6 @@ const CanvasCodeSnippet = React.memo(({
   const stateRef = useRef({
     displayedCode: '',
     charIndex: 0,
-    isAnimating: false,
-    lastTime: 0,
-    nextCharTime: 0,
-    pausedTime: 0,
-    isPaused: false,
   });
 
   // Handle client-side mounting
@@ -262,41 +257,29 @@ const CanvasCodeSnippet = React.memo(({
     ctx.font = `${fontSize}px Monaco, Menlo, 'Ubuntu Mono', Consolas, 'Courier New', monospace`;
     ctx.textBaseline = 'top';
     ctx.textAlign = 'left';
-    ctx.fillStyle = getComputedStyle(document.documentElement)
-      .getPropertyValue('--text-color') || '#2d3748';
 
     // Check for dark mode
     const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     ctx.fillStyle = isDark ? '#e2e8f0' : '#2d3748';
 
+    // Simplified animation logic
+    let startTime = null;
+    
     const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Handle pause/resume based on visibility
-      if (!isInView && animated) {
-        if (!state.isPaused) {
-          state.isPaused = true;
-          state.pausedTime = currentTime;
-        }
-        // Render current state but don't advance animation
-      } else if (state.isPaused && animated) {
-        // Resume: adjust timers to account for paused time
-        const pauseDuration = currentTime - state.pausedTime;
-        state.nextCharTime += pauseDuration;
-        state.isPaused = false;
-      }
 
       if (!animated) {
         // Show full code immediately if not animated
         state.displayedCode = code;
-      } else if (isInView || !state.isPaused) {
-        // Handle character-by-character animation only when visible
-        if (currentTime >= state.nextCharTime && state.charIndex < code.length) {
-          state.charIndex++;
-          state.displayedCode = code.slice(0, state.charIndex);
-          state.nextCharTime = currentTime + animationSpeed;
-        }
+      } else if (isInView) {
+        // Calculate how many characters to show based on time elapsed
+        const elapsed = currentTime - startTime;
+        const charactersToShow = Math.floor(elapsed / animationSpeed);
+        state.charIndex = Math.min(charactersToShow, code.length);
+        state.displayedCode = code.slice(0, state.charIndex);
       }
 
       // Render text line by line
@@ -309,16 +292,16 @@ const CanvasCodeSnippet = React.memo(({
       });
 
       // Continue animation if needed
-      if (animated && state.charIndex < code.length) {
+      if (animated && state.charIndex < code.length && isInView) {
         animationRef.current = requestAnimationFrame(animate);
       }
     };
 
-    // Reset animation state
+    // Reset animation state when starting
     if (animated) {
       state.charIndex = 0;
       state.displayedCode = '';
-      state.nextCharTime = 0;
+      startTime = null;
     }
 
     // Start animation
