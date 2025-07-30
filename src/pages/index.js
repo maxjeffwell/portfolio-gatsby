@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import ClientOnlyButton from '../components/ClientOnlyButton';
-import TypingAnimation from '../components/TypingAnimation';
+import CanvasTypingAnimation from '../components/CanvasTypingAnimation';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
@@ -256,7 +256,7 @@ const IndexPage = () => {
             </p>
             <HeroTitle theme={theme}>
               I'm a <span className="highlight">
-                <TypingAnimation
+                <CanvasTypingAnimation
                   texts={[
                     'Node.js Expert',
                     'React Specialist', 
@@ -269,6 +269,9 @@ const IndexPage = () => {
                   delayBetweenTexts={2000}
                   startDelay={500}
                   loop={true}
+                  fontSize={64}
+                  fontFamily="inherit"
+                  color="transparent"
                 />
               </span>
             </HeroTitle>
