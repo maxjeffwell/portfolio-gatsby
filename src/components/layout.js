@@ -254,9 +254,9 @@ function ThemedLayout({ children, data }) {
             style={{ 
               fontSize: 'clamp(1.75rem, 4vw, 2rem)',
               fontWeight: 400,
-              marginBottom: '12px'
+              marginBottom: '12px',
+              color: theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a'
             }}
-            customColor={theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a'}
           >
             Jeff Maxwell
           </Typography>
@@ -318,10 +318,10 @@ function ThemedLayout({ children, data }) {
           <Typography 
             variant="body2" 
             style={{ 
-              fontSize: 'clamp(0.9rem, 2.5vw, 1rem)', 
-              fontWeight: 400
+              fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', 
+              fontWeight: 400,
+              color: theme?.mode === 'dark' ? '#ffffff' : '#666'
             }}
-            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : '#666'}
           >
             Built by Jeff Maxwell, created with{' '}
             <Link

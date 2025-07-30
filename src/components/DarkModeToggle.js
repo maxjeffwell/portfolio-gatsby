@@ -118,19 +118,8 @@ const StyledIconButton = styled.button`
   border-radius: 50%;
   overflow: visible;
   font-size: 1.5rem;
-  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   background: rgba(0, 0, 0, 0.04);
   border: 2px solid rgba(0, 0, 0, 0.12);
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-    border-color: #1976d2;
-    transform: scale(1.05);
-    box-shadow:
-      0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-      0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-      0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  }
 
   &:focus-visible {
     outline: 2px solid #1976d2;
@@ -140,11 +129,6 @@ const StyledIconButton = styled.button`
   @media (prefers-color-scheme: dark) {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.12);
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.12);
-      border-color: #90caf9;
-    }
 
     &:focus-visible {
       outline-color: #90caf9;
