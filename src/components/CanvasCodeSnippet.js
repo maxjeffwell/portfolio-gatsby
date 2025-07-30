@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useInView } from 'motion/react';
 import styled from 'styled-components';
 
 // Simple icon components using text/Unicode
@@ -179,8 +180,15 @@ const CanvasCodeSnippet = React.memo(({
   lineHeight = 1.6,
 }) => {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const animationRef = useRef(null);
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  
+  // Track visibility to pause/resume animation
+  const isInView = useInView(containerRef, { 
+    margin: "50px",
+    amount: 0.1 
+  });
   const [copied, setCopied] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -191,6 +199,8 @@ const CanvasCodeSnippet = React.memo(({
     isAnimating: false,
     lastTime: 0,
     nextCharTime: 0,
+    pausedTime: 0,
+    isPaused: false,
   });
 
   // Handle client-side mounting
@@ -266,11 +276,25 @@ const CanvasCodeSnippet = React.memo(({
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Handle pause/resume based on visibility
+      if (!isInView && animated) {
+        if (!state.isPaused) {
+          state.isPaused = true;
+          state.pausedTime = currentTime;
+        }
+        // Render current state but don't advance animation
+      } else if (state.isPaused && animated) {
+        // Resume: adjust timers to account for paused time
+        const pauseDuration = currentTime - state.pausedTime;
+        state.nextCharTime += pauseDuration;
+        state.isPaused = false;
+      }
+
       if (!animated) {
         // Show full code immediately if not animated
         state.displayedCode = code;
-      } else {
-        // Handle character-by-character animation
+      } else if (isInView || !state.isPaused) {
+        // Handle character-by-character animation only when visible
         if (currentTime >= state.nextCharTime && state.charIndex < code.length) {
           state.charIndex++;
           state.displayedCode = code.slice(0, state.charIndex);
@@ -317,6 +341,7 @@ const CanvasCodeSnippet = React.memo(({
     lineHeight,
     canvasSize,
     isMounted,
+    isInView,
   ]);
 
   if (!code) {
@@ -363,7 +388,7 @@ const CanvasCodeSnippet = React.memo(({
   }
 
   return (
-    <StyledPaper>
+    <StyledPaper ref={containerRef}>
       <StyledHeader>
         <StyledTypography
           variant="caption"

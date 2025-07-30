@@ -9,6 +9,8 @@ import { useTheme } from '../context/ThemeContext';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import CodeSnippet from '../components/CodeSnippet';
+import PageTransition from '../components/PageTransition';
+import StaggeredAnimation from '../components/StaggeredAnimation';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -227,7 +229,8 @@ const IndexPage = () => {
   
   return (
     <Layout>
-      <SEO
+      <PageTransition>
+        <SEO
         title="Home"
         description="Full Stack React & Node.js Developer. Modern web applications, innovative projects, and scalable solutions. View portfolio and hire freelance."
         pathname="/"
@@ -244,15 +247,16 @@ const IndexPage = () => {
       <HeroSection theme={theme}>
         <Container>
           <HeroContent>
-            <p style={{ 
-              fontSize: 'clamp(1.75rem, 4vw, 2rem)', 
-              margin: '0 0 16px 0', 
-              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
-              transition: 'color 0.3s ease',
-              fontWeight: 500
-            }}>
-              My name's Jeff 😊
-            </p>
+            <StaggeredAnimation>
+              <p style={{ 
+                fontSize: 'clamp(1.75rem, 4vw, 2rem)', 
+                margin: '0 0 16px 0', 
+                color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
+                transition: 'color 0.3s ease',
+                fontWeight: 500
+              }}>
+                My name's Jeff 😊
+              </p>
             <HeroTitle theme={theme}>
               I'm a <span className="highlight">
                 <CanvasTypingAnimation
@@ -268,7 +272,7 @@ const IndexPage = () => {
                   delayBetweenTexts={2000}
                   startDelay={500}
                   loop={true}
-                  fontSize={64}
+                  fontSize={80}
                   fontFamily="inherit"
                   color="#1976d2"
                 />
@@ -294,13 +298,14 @@ const IndexPage = () => {
               "Code is like humor. When you have to explain it, it's bad." — That's why I focus on intuitive, self-documenting solutions.
             </p>
             
-            <ViewProjectsButton
-              component={Link}
-              to="/projects/"
-              endIcon={<ClientOnlyIcon iconName="ArrowForward" />}
-            >
-              View My Projects
-            </ViewProjectsButton>
+              <ViewProjectsButton
+                component={Link}
+                to="/projects/"
+                endIcon={<ClientOnlyIcon iconName="ArrowForward" />}
+              >
+                View My Projects
+              </ViewProjectsButton>
+            </StaggeredAnimation>
           </HeroContent>
           
           {/* Floating shapes */}
@@ -421,6 +426,7 @@ const IndexPage = () => {
           </TwoColumnGrid>
         </Container>
       </ContentSection>
+      </PageTransition>
     </Layout>
   );
 };

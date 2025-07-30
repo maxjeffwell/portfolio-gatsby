@@ -1,12 +1,15 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
+import { motion } from 'motion/react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
+import ProjectCardWithInView from '../components/ProjectCardWithInView';
 import SEO from '../components/seo';
+import PageTransition from '../components/PageTransition';
 
 import GraphQLIcon from '../images/svg-icons/graphql.svg';
 import ApolloClientIcon from '../images/svg-icons/apolloclient.svg';
@@ -91,7 +94,7 @@ const projectsData = [
       '  student support.',
     sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
     hostedURL: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/',
-    technologies: ['React', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
+    technologies: ['JavaScript', 'React', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
     techIcons: {
       icon3: ReduxIcon,
       icon4: MongoDBIcon,
@@ -117,7 +120,7 @@ const projectsData = [
       '  collaboration sessions.',
     sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
     hostedURL: 'https://code-talk-client-c46118c24c30.herokuapp.com/',
-    technologies: ['React', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
+    technologies: ['JavaScript', 'React', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
     techIcons: {
       icon3: GraphQLIcon,
       icon4: NPMIcon,
@@ -143,7 +146,7 @@ const projectsData = [
       '  population.',
     sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
     hostedURL: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/',
-    technologies: ['React', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Apollo Client', 'GraphQL'],
+    technologies: ['JavaScript', 'React', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Apollo Client', 'GraphQL'],
     techIcons: {
       icon3: MongoDBIcon,
       icon4: NPMIcon,
@@ -172,6 +175,7 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
     hostedURL: 'https://marmoset-c2870.firebaseapp.com',
     technologies: [
+      'JavaScript',
       'React',
       'CSS',
       'PostgreSQL',
@@ -207,6 +211,7 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     hostedURL: 'https://bookmarks-react-hooks.vercel.app/',
     technologies: [
+      'JavaScript',
       'React',
       'Git',
       'Vercel',
@@ -310,25 +315,33 @@ const StyledPaper = styled.div`
 
 const StyledSelect = styled.select`
   width: 100%;
-  padding: 16px 14px;
+  max-width: 200px;
+  padding: 8px 12px;
   border: 1px solid
     ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'};
-  border-radius: 4px;
-  font-size: 1rem;
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'};
+  border-radius: 8px;
+  font-size: 0.875rem;
   font-family: inherit;
-  background-color: ${(props) => props.theme?.colors?.paper || '#ffffff'};
+  background-color: ${(props) => 
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'};
   color: ${(props) => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
-  transition:
-    border-color 0.3s ease,
-    background-color 0.3s ease,
-    color 0.3s ease;
-
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.25)'};
+    background-color: ${(props) => 
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+  }
+  
   &:focus {
     outline: none;
     border-color: ${(props) =>
       props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    box-shadow: 0 0 0 2px ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.2)' : 'rgba(25, 118, 210, 0.2)'};
   }
 `;
 
@@ -414,7 +427,8 @@ const Projects = ({ data }) => {
 
   return (
     <Layout>
-      <SEO
+      <PageTransition>
+        <SEO
         title="Projects | React & Node.js Developer - Jeff Maxwell"
         description="Explore my React, Node.js, and GraphQL projects. Full stack web development solutions including e-learning platforms and social networks."
         pathname="/projects/"
@@ -437,40 +451,51 @@ const Projects = ({ data }) => {
         ]}
       />
       <StyledContainer>
-        <StyledBox as="section" mb={6} textAlign="center">
-          <GradientText variant="h2" component="h1" align="center" gutterBottom>
-            Featured Projects
-          </GradientText>
-          <Typography
-            theme={theme}
-            variant="h5"
-            component="h2"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            A collection of my work demonstrating modern web development
-          </Typography>
-        </StyledBox>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <StyledBox as="section" mb={6} textAlign="center">
+            <GradientText variant="h2" component="h1" align="center" gutterBottom>
+              Featured Projects
+            </GradientText>
+            <Typography
+              theme={theme}
+              variant="h5"
+              component="h2"
+              align="center"
+              color="text.secondary"
+              paragraph
+            >
+              A collection of my work demonstrating modern web development
+            </Typography>
+          </StyledBox>
+        </motion.div>
 
-        <StyledBox as="section">
-          <Typography theme={theme} variant="h3" component="h2" sx={{ mb: 2 }}>
-            Filter Projects
-          </Typography>
-          <StyledPaper theme={theme} elevation={1} p={2} mb={3} borderRadius={2}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <StyledBox as="section">
+            <Typography theme={theme} variant="h3" component="h2" sx={{ mb: 2 }}>
+              Filter Projects
+            </Typography>
+            <StyledPaper theme={theme} elevation={1} p={1.5} mb={3} borderRadius={2}>
             <StyledBox
               display="flex"
               alignItems="center"
               justifyContent="space-between"
               flexWrap="wrap"
-              gap={1}
+              gap={2}
             >
-              <Typography theme={theme} variant="body1" style={{ fontWeight: 500 }}>
-                Total Projects: {filteredProjects.length}
+              <Typography theme={theme} variant="body2" style={{ fontWeight: 500, fontSize: '0.875rem' }}>
+                {filteredProjects.length} Projects
               </Typography>
-              <StyledBox>
-                <Typography theme={theme} variant="body2" style={{ marginBottom: '4px' }}>
-                  Filter by Technology:
+              <StyledBox display="flex" alignItems="center" gap={1}>
+                <Typography theme={theme} variant="body2" style={{ fontSize: '0.8rem', color: '#666' }}>
+                  Filter:
                 </Typography>
                 <StyledSelect
                   theme={theme}
@@ -479,17 +504,28 @@ const Projects = ({ data }) => {
                   value={filters.technologies[0] || ''}
                   onChange={handleTechnologyChange}
                   aria-label="Filter projects by technology"
-                  style={{ minWidth: 160 }}
                 >
                   <option value="">All Projects</option>
-                  <option value="React">React</option>
                   <option value="JavaScript">JavaScript</option>
+                  <option value="React">React</option>
+                  <option value="Node.js">Node.js</option>
                   <option value="GraphQL">GraphQL</option>
+                  <option value="MongoDB">MongoDB</option>
+                  <option value="PostgreSQL">PostgreSQL</option>
+                  <option value="Redis">Redis</option>
+                  <option value="Apollo Client">Apollo Client</option>
+                  <option value="Redux">Redux</option>
+                  <option value="Git">Git</option>
+                  <option value="Heroku">Heroku</option>
+                  <option value="Vercel">Vercel</option>
+                  <option value="Firebase">Firebase</option>
+                  <option value="NPM">NPM</option>
                 </StyledSelect>
               </StyledBox>
             </StyledBox>
           </StyledPaper>
-        </StyledBox>
+          </StyledBox>
+        </motion.div>
 
         <StyledBox as="section">
           {filteredProjects.length === 0 ? (
@@ -507,7 +543,7 @@ const Projects = ({ data }) => {
             <StyledBox display="flex" flexDirection="column" gap={4}>
               {enhancedProjects.map((project) => (
                 <StyledBox key={project.id}>
-                  <ProjectCard
+                  <ProjectCardWithInView
                     title={project.title}
                     date={project.date}
                     description={project.description}
@@ -529,6 +565,8 @@ const Projects = ({ data }) => {
           )}
         </StyledBox>
       </StyledContainer>
+      <div style={{ height: '80px' }} />
+      </PageTransition>
     </Layout>
   );
 };

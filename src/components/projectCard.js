@@ -10,28 +10,37 @@ import { useTheme } from '../context/ThemeContext';
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
-  font-weight: ${props => 
-    props.variant === 'h5' ? 400 :
-    props.variant === 'h6' ? 500 :
-    props.variant === 'body1' ? 400 :
-    props.variant === 'body2' ? 400 :
-    400
-  };
-  font-size: ${props => 
-    props.variant === 'h5' ? '1.5rem' :
-    props.variant === 'h6' ? '1.25rem' :
-    props.variant === 'body1' ? '1rem' :
-    props.variant === 'body2' ? '0.875rem' :
-    '1rem'
-  };
-  line-height: ${props => 
-    props.variant === 'h5' ? 1.334 :
-    props.variant === 'h6' ? 1.6 :
-    props.variant === 'body1' ? 1.5 :
-    props.variant === 'body2' ? 1.43 :
-    1.5
-  };
-  color: ${props => {
+  font-weight: ${(props) =>
+    props.variant === 'h5'
+      ? 400
+      : props.variant === 'h6'
+        ? 500
+        : props.variant === 'body1'
+          ? 400
+          : props.variant === 'body2'
+            ? 400
+            : 400};
+  font-size: ${(props) =>
+    props.variant === 'h5'
+      ? '1.5rem'
+      : props.variant === 'h6'
+        ? '1.25rem'
+        : props.variant === 'body1'
+          ? '1rem'
+          : props.variant === 'body2'
+            ? '0.875rem'
+            : '1rem'};
+  line-height: ${(props) =>
+    props.variant === 'h5'
+      ? 1.334
+      : props.variant === 'h6'
+        ? 1.6
+        : props.variant === 'body1'
+          ? 1.5
+          : props.variant === 'body2'
+            ? 1.43
+            : 1.5};
+  color: ${(props) => {
     if (props.theme?.mode === 'dark') {
       if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
       if (props.color === 'primary') return '#90caf9';
@@ -41,29 +50,35 @@ const Typography = styled.div`
     if (props.color === 'primary') return '#1976d2';
     return 'rgba(0, 0, 0, 0.87)';
   }};
-  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
+  margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
   transition: color 0.3s ease;
   word-wrap: break-word;
   overflow-wrap: break-word;
 
   @media (max-width: 480px) {
-    font-size: ${props => 
-      props.variant === 'h5' ? '1.25rem' :
-      props.variant === 'h6' ? '1.125rem' :
-      props.variant === 'body1' ? '0.9rem' :
-      props.variant === 'body2' ? '0.8rem' :
-      '0.9rem'
-    };
+    font-size: ${(props) =>
+      props.variant === 'h5'
+        ? '1.25rem'
+        : props.variant === 'h6'
+          ? '1.125rem'
+          : props.variant === 'body1'
+            ? '0.9rem'
+            : props.variant === 'body2'
+              ? '0.8rem'
+              : '0.9rem'};
   }
 
   @media (max-width: 360px) {
-    font-size: ${props => 
-      props.variant === 'h5' ? '1.125rem' :
-      props.variant === 'h6' ? '1rem' :
-      props.variant === 'body1' ? '0.85rem' :
-      props.variant === 'body2' ? '0.75rem' :
-      '0.85rem'
-    };
+    font-size: ${(props) =>
+      props.variant === 'h5'
+        ? '1.125rem'
+        : props.variant === 'h6'
+          ? '1rem'
+          : props.variant === 'body1'
+            ? '0.85rem'
+            : props.variant === 'body2'
+              ? '0.75rem'
+              : '0.85rem'};
   }
 `;
 
@@ -90,9 +105,15 @@ const Button = styled.button`
   min-width: 64px;
   padding: 6px 16px;
   border-radius: 4px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  
-  ${props => props.variant === 'outlined' && `
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  ${(props) =>
+    props.variant === 'outlined' &&
+    `
     color: ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
     border: 1px solid ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.5)' : 'rgba(25, 118, 210, 0.5)'};
     
@@ -101,8 +122,10 @@ const Button = styled.button`
       background-color: ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.08)' : 'rgba(25, 118, 210, 0.04)'};
     }
   `}
-  
-  ${props => props.size === 'small' && `
+
+  ${(props) =>
+    props.size === 'small' &&
+    `
     padding: 4px 10px;
     font-size: 0.8125rem;
   `}
@@ -110,16 +133,16 @@ const Button = styled.button`
 
 const Stack = styled.div`
   display: flex;
-  flex-direction: ${props => props.direction || 'column'};
-  gap: ${props => props.spacing ? `${props.spacing * 8}px` : '8px'};
+  flex-direction: ${(props) => props.direction || 'column'};
+  gap: ${(props) => (props.spacing ? `${props.spacing * 8}px` : '8px')};
   flex-wrap: wrap;
-  
+
   @media (max-width: 480px) {
-    gap: ${props => props.spacing ? `${props.spacing * 6}px` : '6px'};
+    gap: ${(props) => (props.spacing ? `${props.spacing * 6}px` : '6px')};
   }
-  
+
   @media (max-width: 360px) {
-    gap: ${props => props.spacing ? `${props.spacing * 4}px` : '4px'};
+    gap: ${(props) => (props.spacing ? `${props.spacing * 4}px` : '4px')};
   }
 `;
 
@@ -168,7 +191,8 @@ const PlaceholderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+  background-color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   border-radius: 8px;
   transition: background-color 0.3s ease;
 `;
@@ -207,10 +231,12 @@ const CustomChip = styled.span`
   line-height: 1.43;
   letter-spacing: 0.01071em;
   background-color: transparent;
-  border: 1px solid ${props => props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0'};
-  color: ${props => props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0'};
+  border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
   white-space: nowrap;
-  transition: border-color 0.3s ease, color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease;
 `;
 
 const StyledCard = styled.div`
@@ -224,9 +250,10 @@ const StyledCard = styled.div`
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background 0.3s ease;
   will-change: transform, box-shadow;
-  background: ${props => props.theme?.mode === 'dark' 
-    ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)' 
-    : 'white'};
+  background: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
+      : 'white'};
   box-shadow:
     0px 3px 3px -2px rgba(0, 0, 0, 0.2),
     0px 3px 4px 0px rgba(0, 0, 0, 0.14),
@@ -267,7 +294,7 @@ const StyledCardActions = styled.div`
   @media (max-width: 480px) {
     flex-direction: column;
     gap: 12px;
-    
+
     button {
       width: 100%;
       justify-content: center;
@@ -336,7 +363,8 @@ const TechIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+  background-color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   transition:
     transform 0.3s ease,
     background-color 0.3s ease;
@@ -345,13 +373,14 @@ const TechIcon = styled.div`
 
   &:hover {
     transform: scale(1.1);
-    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'};
+    background-color: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'};
   }
 
   @media (max-width: 480px) {
     width: 36px;
     height: 36px;
-    
+
     svg {
       width: 20px !important;
       height: 20px !important;
@@ -361,7 +390,7 @@ const TechIcon = styled.div`
   @media (max-width: 360px) {
     width: 32px;
     height: 32px;
-    
+
     svg {
       width: 18px !important;
       height: 18px !important;
@@ -386,7 +415,7 @@ function ProjectCard({
   technologies = [],
 }) {
   const { theme } = useTheme();
-  
+
   return (
     <StyledCard theme={theme}>
       <ColoredBar />

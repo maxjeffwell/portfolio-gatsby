@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import PageTransition from '../components/PageTransition';
 
 const StyledContainer = styled.div`
   max-width: 1200px;
@@ -648,7 +649,8 @@ function Contact() {
 
   return (
     <Layout>
-      <SEO
+      <PageTransition>
+        <SEO
         title="Contact"
         description="Hire Jeff Maxwell for web development projects. Full stack React & Node.js developer available for freelance work and collaborations."
         pathname="/contact/"
@@ -702,13 +704,13 @@ function Contact() {
           </Typography>
           <Typography
             variant="h5"
-            color="text.secondary"
             style={{
-              fontSize: '1.25rem',
+              fontSize: '1.375rem',
               fontWeight: 400,
               maxWidth: '600px',
               margin: '0 auto',
               lineHeight: 1.5,
+              color: '#555',
             }}
           >
             I&apos;m always interested in new opportunities and collaborations
@@ -1182,7 +1184,8 @@ function Contact() {
         <StyledBox
           as="section"
           aria-labelledby="availability"
-          mt={6}
+          mt={8}
+          mb={4}
           style={{ textAlign: 'center' }}
         >
           <Typography
@@ -1200,10 +1203,10 @@ function Contact() {
             Current Availability
           </Typography>
           <Typography
-            variant="body2"
+            variant="body1"
             style={{
-              color: 'var(--text-secondary-color)',
-              fontSize: '1.25rem',
+              color: '#555',
+              fontSize: '1.5rem',
               fontWeight: 400,
               lineHeight: 1.6,
             }}
@@ -1213,6 +1216,7 @@ function Contact() {
           </Typography>
         </StyledBox>
       </StyledContainer>
+      </PageTransition>
     </Layout>
   );
 }

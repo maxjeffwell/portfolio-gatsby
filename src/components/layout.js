@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
+import { AnimatePresence } from 'motion/react';
 import ClientOnlyIcon from './ClientOnlyIcon';
 import styled from 'styled-components';
 

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import PageTransition from '../components/PageTransition';
 
 const Container = styled.div`
   max-width: 768px;
@@ -47,8 +48,9 @@ const HomeButton = styled(Link)`
 function NotFoundPage() {
   return (
     <Layout>
-      <SEO title="404: Not found" />
-      <Container>
+      <PageTransition>
+        <SEO title="404: Not found" />
+        <Container>
         <ErrorContainer>
           <Title>404: Page Not Found</Title>
           <Description>
@@ -56,7 +58,8 @@ function NotFoundPage() {
           </Description>
           <HomeButton to="/">Go Home</HomeButton>
         </ErrorContainer>
-      </Container>
+        </Container>
+      </PageTransition>
     </Layout>
   );
 }

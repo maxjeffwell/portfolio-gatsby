@@ -78,6 +78,7 @@ import SEO from '../components/seo';
 import Image from '../components/image';
 import Logo from '../components/logo';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import PageTransition from '../components/PageTransition';
 
 const StyledContainer = styled.div`
   max-width: 1200px;
@@ -316,7 +317,8 @@ function AboutPage() {
 
   return (
     <Layout>
-      <SEO
+      <PageTransition>
+        <SEO
         title="About"
         description="Meet Jeff Maxwell, Full Stack Developer. Technology stack, development process, and the team behind innovative web solutions and modern applications."
         pathname="/about/"
@@ -790,6 +792,7 @@ function AboutPage() {
         </StyledBox>
 
       </StyledContainer>
+      </PageTransition>
     </Layout>
   );
 }

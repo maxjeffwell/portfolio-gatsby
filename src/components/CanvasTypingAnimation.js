@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useInView } from 'motion/react';
 import styled from 'styled-components';
 
 const CanvasContainer = styled.div`
@@ -27,9 +28,16 @@ const CanvasTypingAnimation = React.memo(({
   cursorColor = '#f7b733',
 }) => {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const animationRef = useRef(null);
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const [isMounted, setIsMounted] = useState(false);
+  
+  // Track visibility to pause/resume animation
+  const isInView = useInView(containerRef, { 
+    margin: "50px",
+    amount: 0.1 
+  });
 
   // Animation state
   const stateRef = useRef({
@@ -41,6 +49,8 @@ const CanvasTypingAnimation = React.memo(({
     lastTime: 0,
     nextActionTime: 0,
     cursorBlinkTime: 0,
+    pausedTime: 0,
+    isPaused: false,
   });
 
   // Handle client-side mounting
@@ -93,6 +103,36 @@ const CanvasTypingAnimation = React.memo(({
     const animate = (currentTime) => {
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Handle pause/resume based on visibility
+      if (!isInView) {
+        if (!state.isPaused) {
+          state.isPaused = true;
+          state.pausedTime = currentTime;
+        }
+        // Render current state but don't advance animation
+        ctx.fillStyle = color;
+        ctx.fillText(state.displayText, 0, 0);
+        
+        if (showCursor && state.cursorVisible) {
+          const textMetrics = ctx.measureText(state.displayText);
+          const cursorX = textMetrics.width + 2;
+          const cursorWidth = 2;
+          const cursorHeight = fontSize * 0.8;
+          
+          ctx.fillStyle = cursorColor;
+          ctx.fillRect(cursorX, fontSize * 0.1, cursorWidth, cursorHeight);
+        }
+        
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      } else if (state.isPaused) {
+        // Resume: adjust timers to account for paused time
+        const pauseDuration = currentTime - state.pausedTime;
+        state.nextActionTime += pauseDuration;
+        state.cursorBlinkTime += pauseDuration;
+        state.isPaused = false;
+      }
 
       // Start delay
       if (!state.isStarted) {
@@ -189,6 +229,7 @@ const CanvasTypingAnimation = React.memo(({
     cursorColor,
     canvasSize,
     isMounted,
+    isInView,
   ]);
 
   // Show fallback during SSR or before canvas is ready
@@ -211,7 +252,7 @@ const CanvasTypingAnimation = React.memo(({
   }
 
   return (
-    <CanvasContainer>
+    <CanvasContainer ref={containerRef}>
       <StyledCanvas
         ref={canvasRef}
         style={{
