@@ -1,34 +1,8 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import IapfLogo from '../images/iapf.svg';
+import AspcaLogo from '../images/aspca.svg';
 
 function Logo() {
-  const data = useStaticQuery(graphql`
-    query {
-      iapfLogo: file(relativePath: { eq: "iapf.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 500
-            quality: 90
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-      aspcaLogo: file(relativePath: { eq: "aspca.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 500
-            quality: 90
-            formats: [AUTO, WEBP, AVIF]
-          )
-        }
-      }
-    }
-  `);
-
-  const iapfImage = getImage(data.iapfLogo);
-  const aspcaImage = getImage(data.aspcaLogo);
-
   return (
     <div style={{
       display: 'grid',
@@ -37,24 +11,22 @@ function Logo() {
       alignItems: 'center',
       justifyItems: 'center'
     }}>
-      <GatsbyImage
-        image={iapfImage}
-        alt="International Anti Poaching Foundation logo"
-        loading="lazy"
+      <IapfLogo
+        aria-label="International Anti Poaching Foundation logo"
         style={{
           transition: 'opacity 0.3s ease-in-out',
           width: '100%',
-          maxWidth: '200px'
+          maxWidth: '200px',
+          height: 'auto'
         }}
       />
-      <GatsbyImage
-        image={aspcaImage}
-        alt="American Society for the Prevention of Cruelty to Animals logo"
-        loading="lazy"
+      <AspcaLogo
+        aria-label="American Society for the Prevention of Cruelty to Animals logo"
         style={{
           transition: 'opacity 0.3s ease-in-out',
           width: '100%',
-          maxWidth: '200px'
+          maxWidth: '200px',
+          height: 'auto'
         }}
       />
     </div>
