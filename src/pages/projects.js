@@ -7,7 +7,6 @@ import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
-// import ProjectCardWithInView from '../components/ProjectCardWithInView';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 
@@ -120,7 +119,17 @@ const projectsData = [
       '  collaboration sessions.',
     sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
     hostedURL: 'https://code-talk-client-c46118c24c30.herokuapp.com/',
-    technologies: ['JavaScript', 'React', 'Node.js', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
+    technologies: [
+      'JavaScript',
+      'React',
+      'Node.js',
+      'GraphQL',
+      'NPM',
+      'Git',
+      'Heroku',
+      'Redis',
+      'PostgreSQL',
+    ],
     techIcons: {
       icon3: GraphQLIcon,
       icon4: NPMIcon,
@@ -146,7 +155,17 @@ const projectsData = [
       '  population.',
     sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
     hostedURL: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/',
-    technologies: ['JavaScript', 'React', 'Node.js', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Apollo Client', 'GraphQL'],
+    technologies: [
+      'JavaScript',
+      'React',
+      'Node.js',
+      'MongoDB',
+      'NPM',
+      'Git',
+      'Heroku',
+      'Apollo Client',
+      'GraphQL',
+    ],
     techIcons: {
       icon3: MongoDBIcon,
       icon4: NPMIcon,
@@ -303,24 +322,6 @@ const GradientText = styled(Typography)`
   }
 `;
 
-const StyledPaper = styled.div`
-  background-color: ${(props) => props.theme?.colors?.paper || '#ffffff'};
-  color: ${(props) => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
-  transition:
-    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    background-color 0.3s ease,
-    color 0.3s ease;
-  border-radius: 4px;
-  box-shadow: ${(props) => {
-    const elevation = props.elevation || 1;
-    if (elevation === 2)
-      return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
-    return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
-  }};
-  padding: ${(props) => (props.p ? `${props.p * 8}px` : '0')};
-  margin-bottom: ${(props) => (props.mb ? `${props.mb * 8}px` : '0')};
-  border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '4px')};
-`;
 
 const CustomSelectContainer = styled.div`
   position: relative;
@@ -344,37 +345,39 @@ const CustomSelectButton = styled.button`
   border-radius: 8px;
   font-size: 0.9rem;
   font-family: inherit;
-  background-color: ${(props) => 
+  background-color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(42, 42, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
-  color: ${(props) => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
+  color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
   position: relative;
-  
+
   &:after {
     content: '▼';
     position: absolute;
     right: 12px;
     top: 50%;
-    transform: translateY(-50%) ${props => props.open ? 'rotate(180deg)' : 'rotate(0deg)'};
+    transform: translateY(-50%) ${(props) => (props.open ? 'rotate(180deg)' : 'rotate(0deg)')};
     font-size: 0.7rem;
     transition: transform 0.2s ease;
   }
-  
+
   &:hover {
     border-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.25)'};
-    background-color: ${(props) => 
+    background-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(50, 50, 50, 0.95)' : 'rgba(248, 248, 248, 0.95)'};
   }
-  
+
   &:focus {
     outline: none;
     border-color: ${(props) =>
       props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    box-shadow: 0 0 0 2px ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.2)' : 'rgba(25, 118, 210, 0.2)'};
+    box-shadow: 0 0 0 2px
+      ${(props) =>
+        props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.2)' : 'rgba(25, 118, 210, 0.2)'};
   }
 `;
 
@@ -384,10 +387,10 @@ const CustomSelectDropdown = styled.div`
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: ${(props) => 
-    props.theme?.mode === 'dark' ? '#2a2a2a' : '#ffffff'};
-  border: 1px solid ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'};
+  background-color: ${(props) => (props.theme?.mode === 'dark' ? '#2a2a2a' : '#ffffff')};
+  border: 1px solid
+    ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'};
   border-radius: 8px;
   margin-top: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -398,20 +401,20 @@ const CustomSelectDropdown = styled.div`
 const CustomSelectOption = styled.div`
   padding: 12px 16px;
   font-size: 0.9rem;
-  color: ${(props) => 
+  color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
   transition: background-color 0.2s ease;
-  
+
   &:hover {
-    background-color: ${(props) => 
+    background-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.08)'};
   }
-  
+
   &:first-child {
     border-radius: 8px 8px 0 0;
   }
-  
+
   &:last-child {
     border-radius: 0 0 8px 8px;
   }
@@ -469,7 +472,7 @@ const Projects = ({ data }) => {
     // Create maps for faster lookups
     const imageMap = new Map();
     const videoMap = new Map();
-    
+
     // Process image files
     if (data.allImageFile?.edges) {
       data.allImageFile.edges.forEach((edge) => {
@@ -478,7 +481,7 @@ const Projects = ({ data }) => {
         }
       });
     }
-    
+
     // Process video files
     if (data.allVideoFile?.edges) {
       data.allVideoFile.edges.forEach((edge) => {
@@ -533,257 +536,240 @@ const Projects = ({ data }) => {
     <Layout>
       <PageTransition>
         <SEO
-        title="Projects | React & Node.js Developer - Jeff Maxwell"
-        description="Explore my React, Node.js, and GraphQL projects. Full stack web development solutions including e-learning platforms and social networks."
-        pathname="/projects/"
-        keywords={[
-          `react projects`,
-          `node.js projects`,
-          `web development portfolio`,
-          `javascript projects`,
-          `full stack projects`,
-          `graphql projects`,
-          `mern stack examples`,
-          `react portfolio`,
-          `web app development`,
-          `api development`,
-          `react project examples`,
-          `node.js portfolio projects`,
-          `full stack web applications`,
-          `javascript portfolio examples`,
-          `Jeff Maxwell projects`,
-        ]}
-      />
-      <StyledContainer>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <StyledBox as="section" mb={6} textAlign="center">
-            <GradientText variant="h2" component="h1" align="center" gutterBottom>
-              Featured Projects
-            </GradientText>
-            <Typography
-              theme={theme}
-              variant="h4"
-              component="h2"
-              align="center"
-              color="text.secondary"
-              paragraph
-              style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}
-            >
-              A collection of my work demonstrating modern web development
-            </Typography>
-          </StyledBox>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <StyledBox 
-            display="flex" 
-            alignItems="center" 
-            justifyContent="flex-end" 
-            mb={3}
+          title="Projects | React & Node.js Developer - Jeff Maxwell"
+          description="Explore my React, Node.js, and GraphQL projects. Full stack web development solutions including e-learning platforms and social networks."
+          pathname="/projects/"
+          keywords={[
+            `react projects`,
+            `node.js projects`,
+            `web development portfolio`,
+            `javascript projects`,
+            `full stack projects`,
+            `graphql projects`,
+            `mern stack examples`,
+            `react portfolio`,
+            `web app development`,
+            `api development`,
+            `react project examples`,
+            `node.js portfolio projects`,
+            `full stack web applications`,
+            `javascript portfolio examples`,
+            `Jeff Maxwell projects`,
+          ]}
+        />
+        <StyledContainer>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <CustomSelectContainer ref={dropdownRef}>
-              <CustomSelectButton
-                theme={theme}
-                open={dropdownOpen}
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                aria-label="Filter projects by technology"
-                aria-expanded={dropdownOpen}
-              >
-                {filters.technologies[0] || 'All Projects'}
-              </CustomSelectButton>
-              {dropdownOpen && (
-                <CustomSelectDropdown theme={theme}>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('')}
-                  >
-                    All Projects
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('JavaScript')}
-                  >
-                    JavaScript
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('React')}
-                  >
-                    React
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Node.js')}
-                  >
-                    Node.js
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('GraphQL')}
-                  >
-                    GraphQL
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('MongoDB')}
-                  >
-                    MongoDB
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('PostgreSQL')}
-                  >
-                    PostgreSQL
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Redis')}
-                  >
-                    Redis
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Apollo Client')}
-                  >
-                    Apollo Client
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Redux')}
-                  >
-                    Redux
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Git')}
-                  >
-                    Git
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Heroku')}
-                  >
-                    Heroku
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Vercel')}
-                  >
-                    Vercel
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Firebase')}
-                  >
-                    Firebase
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('NPM')}
-                  >
-                    NPM
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('CSS')}
-                  >
-                    CSS
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Google Cloud')}
-                  >
-                    Google Cloud
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Firebase Studio')}
-                  >
-                    Firebase Studio
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Firebase Firestore')}
-                  >
-                    Firebase Firestore
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Cloud Firestore')}
-                  >
-                    Cloud Firestore
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Neon')}
-                  >
-                    Neon
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Neon Serverless Postgres')}
-                  >
-                    Neon Serverless Postgres
-                  </CustomSelectOption>
-                  <CustomSelectOption
-                    theme={theme}
-                    onClick={() => handleTechnologyChange('Neon Database')}
-                  >
-                    Neon Database
-                  </CustomSelectOption>
-                </CustomSelectDropdown>
-              )}
-            </CustomSelectContainer>
-          </StyledBox>
-        </motion.div>
-
-        <StyledBox as="section">
-          {filteredProjects.length === 0 ? (
-            <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
+            <StyledBox as="section" mb={6} textAlign="center">
+              <GradientText variant="h2" component="h1" align="center" gutterBottom>
+                Featured Projects
+              </GradientText>
               <Typography
                 theme={theme}
-                variant="body1"
+                variant="h4"
+                component="h2"
+                align="center"
                 color="text.secondary"
-                sx={{ fontSize: '1.125rem' }}
+                paragraph
+                style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}
               >
-                No projects match your current filters. Try adjusting your search criteria.
+                A collection of my work demonstrating modern web development
               </Typography>
             </StyledBox>
-          ) : (
-            <StyledBox display="flex" flexDirection="column" gap={4}>
-              {enhancedProjects.map((project) => (
-                <StyledBox key={project.id}>
-                  <ProjectCard
-                    title={project.title}
-                    date={project.date}
-                    description={project.description}
-                    sourceURL={project.sourceURL}
-                    hostedURL={project.hostedURL}
-                    technologies={project.technologies}
-                    imageSrcPath={project.imageSrcPath}
-                    imageSrcPath2={project.imageSrcPath2}
-                    videoSrcPath={project.videoSrcPath}
-                    videoSrcPath2={project.videoSrcPath2}
-                    techIcon3={project.techIcon3}
-                    techIcon4={project.techIcon4}
-                    techIcon5={project.techIcon5}
-                    techIcon6={project.techIcon6}
-                  />
-                </StyledBox>
-              ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            <StyledBox display="flex" alignItems="center" justifyContent="flex-end" mb={3}>
+              <CustomSelectContainer ref={dropdownRef}>
+                <CustomSelectButton
+                  theme={theme}
+                  open={dropdownOpen}
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  aria-label="Filter projects by technology"
+                  aria-expanded={dropdownOpen}
+                >
+                  {filters.technologies[0] || 'All Projects'}
+                </CustomSelectButton>
+                {dropdownOpen && (
+                  <CustomSelectDropdown theme={theme}>
+                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('')}>
+                      All Projects
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('JavaScript')}
+                    >
+                      JavaScript
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('React')}
+                    >
+                      React
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Node.js')}
+                    >
+                      Node.js
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('GraphQL')}
+                    >
+                      GraphQL
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('MongoDB')}
+                    >
+                      MongoDB
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('PostgreSQL')}
+                    >
+                      PostgreSQL
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Redis')}
+                    >
+                      Redis
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Apollo Client')}
+                    >
+                      Apollo Client
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Redux')}
+                    >
+                      Redux
+                    </CustomSelectOption>
+                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('Git')}>
+                      Git
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Heroku')}
+                    >
+                      Heroku
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Vercel')}
+                    >
+                      Vercel
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Firebase')}
+                    >
+                      Firebase
+                    </CustomSelectOption>
+                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('NPM')}>
+                      NPM
+                    </CustomSelectOption>
+                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('CSS')}>
+                      CSS
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Google Cloud')}
+                    >
+                      Google Cloud
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Firebase Studio')}
+                    >
+                      Firebase Studio
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Firebase Firestore')}
+                    >
+                      Firebase Firestore
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Cloud Firestore')}
+                    >
+                      Cloud Firestore
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Neon')}
+                    >
+                      Neon
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Neon Serverless Postgres')}
+                    >
+                      Neon Serverless Postgres
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Neon Database')}
+                    >
+                      Neon Database
+                    </CustomSelectOption>
+                  </CustomSelectDropdown>
+                )}
+              </CustomSelectContainer>
             </StyledBox>
-          )}
-        </StyledBox>
-      </StyledContainer>
-      <div style={{ height: '80px' }} />
+          </motion.div>
+
+          <StyledBox as="section">
+            {filteredProjects.length === 0 ? (
+              <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
+                <Typography
+                  theme={theme}
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ fontSize: '1.125rem' }}
+                >
+                  No projects match your current filters. Try adjusting your search criteria.
+                </Typography>
+              </StyledBox>
+            ) : (
+              <StyledBox display="flex" flexDirection="column" gap={4}>
+                {enhancedProjects.map((project) => (
+                  <StyledBox key={project.id}>
+                    <ProjectCard
+                      title={project.title}
+                      date={project.date}
+                      description={project.description}
+                      sourceURL={project.sourceURL}
+                      hostedURL={project.hostedURL}
+                      technologies={project.technologies}
+                      imageSrcPath={project.imageSrcPath}
+                      imageSrcPath2={project.imageSrcPath2}
+                      videoSrcPath={project.videoSrcPath}
+                      videoSrcPath2={project.videoSrcPath2}
+                      techIcon3={project.techIcon3}
+                      techIcon4={project.techIcon4}
+                      techIcon5={project.techIcon5}
+                      techIcon6={project.techIcon6}
+                    />
+                  </StyledBox>
+                ))}
+              </StyledBox>
+            )}
+          </StyledBox>
+        </StyledContainer>
+        <div style={{ height: '80px' }} />
       </PageTransition>
     </Layout>
   );
@@ -821,10 +807,7 @@ export default Projects;
 export const pageQuery = graphql`
   query {
     allImageFile: allFile(
-      filter: {
-        sourceInstanceName: { eq: "images" }
-        extension: { regex: "/(jpg|jpeg|png)/" }
-      }
+      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(jpg|jpeg|png)/" } }
     ) {
       edges {
         node {
@@ -844,10 +827,7 @@ export const pageQuery = graphql`
       }
     }
     allVideoFile: allFile(
-      filter: {
-        sourceInstanceName: { eq: "images" }
-        extension: { regex: "/(webm|mp4)/" }
-      }
+      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(webm|mp4)/" } }
     ) {
       edges {
         node {

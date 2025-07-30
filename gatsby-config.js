@@ -39,7 +39,7 @@ module.exports = {
         omitGoogleFont: false,
       },
     },
-{
+    {
       resolve: `gatsby-plugin-styled-components`,
       options: {
         // Display component names in devtools
@@ -125,7 +125,7 @@ module.exports = {
       resolve: `gatsby-plugin-preconnect`,
       options: {
         domains: [
-          'https://fonts.googleapis.com', 
+          'https://fonts.googleapis.com',
           'https://fonts.gstatic.com',
           'https://www.google-analytics.com',
           'https://www.googletagmanager.com'
