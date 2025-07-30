@@ -287,7 +287,7 @@ function ThemedLayout({ children, data }) {
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="GitHub" style={{ fontSize: 'clamp(2.25rem, 5vw, 2.75rem)' }} />
+              <ClientOnlyIcon iconName="GitHub" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
             </SocialLink>
             <SocialLink
               as="a"
@@ -297,7 +297,7 @@ function ThemedLayout({ children, data }) {
               aria-label="Visit Jeff Maxwell's AngelList profile"
               size="large"
             >
-              <ClientOnlyIcon iconName="Language" style={{ fontSize: 'clamp(2.25rem, 5vw, 2.75rem)' }} />
+              <ClientOnlyIcon iconName="Language" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
             </SocialLink>
             <SocialLink
               as="a"
@@ -305,7 +305,7 @@ function ThemedLayout({ children, data }) {
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
             >
-              <ClientOnlyIcon iconName="Phone" style={{ fontSize: 'clamp(2.25rem, 5vw, 2.75rem)' }} />
+              <ClientOnlyIcon iconName="Phone" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
             </SocialLink>
           </StyledBox>
           <Typography 
@@ -314,7 +314,7 @@ function ThemedLayout({ children, data }) {
               fontSize: 'clamp(0.9rem, 2.5vw, 1rem)', 
               fontWeight: 400
             }}
-            customColor={theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.9)' : '#666'}
+            customColor={theme?.mode === 'dark' ? '#ffffff' : '#666'}
           >
             Built by Jeff Maxwell, created with{' '}
             <Link
@@ -323,9 +323,9 @@ function ThemedLayout({ children, data }) {
               rel="noopener noreferrer"
               underline="always"
               style={{
-                color: '#e91e63',
+                color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
                 textDecoration: 'underline',
-                textDecorationColor: '#e91e63',
+                textDecorationColor: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
                 textDecorationThickness: '1px',
                 textUnderlineOffset: '2px'
               }}
