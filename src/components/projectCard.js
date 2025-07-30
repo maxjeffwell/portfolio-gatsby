@@ -525,7 +525,7 @@ function ProjectCard({
                   React.createElement(techIcon3, {
                     width: 24,
                     height: 24,
-                    fill: '#fc4a1a',
+                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
                   })
                 ) : (
                   <span>Icon3</span>
@@ -540,7 +540,7 @@ function ProjectCard({
                   React.createElement(techIcon4, {
                     width: 24,
                     height: 24,
-                    fill: '#fc4a1a',
+                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
                   })
                 ) : (
                   <span>Icon4</span>
@@ -555,7 +555,7 @@ function ProjectCard({
                   React.createElement(techIcon5, {
                     width: 24,
                     height: 24,
-                    fill: '#fc4a1a',
+                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
                   })
                 ) : (
                   <span>Icon5</span>
@@ -570,7 +570,7 @@ function ProjectCard({
                   React.createElement(techIcon6, {
                     width: 24,
                     height: 24,
-                    fill: '#fc4a1a',
+                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
                   })
                 ) : (
                   <span>Icon6</span>
@@ -578,14 +578,14 @@ function ProjectCard({
               </TechIcon>
             )}
             <TechIcon theme={theme} role="img" aria-label="React technology">
-              <FaReact size={24} color="red" />
+              <FaReact size={24} color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'} />
             </TechIcon>
             <TechIcon theme={theme} role="img" aria-label="Git version control">
-              <FaGit size={24} color="red" />
+              <FaGit size={24} color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'} />
             </TechIcon>
             {technologies.includes('Heroku') && (
               <TechIcon theme={theme} role="img" aria-label="Heroku deployment platform">
-                <DiHeroku size={24} color="red" />
+                <DiHeroku size={24} color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'} />
               </TechIcon>
             )}
           </Stack>

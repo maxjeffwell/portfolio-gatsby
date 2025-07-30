@@ -258,25 +258,23 @@ const IndexPage = () => {
                 My name's Jeff 😊
               </p>
             <HeroTitle theme={theme}>
-              I'm a <span className="highlight">
-                <CanvasTypingAnimation
-                  texts={[
-                    'Node.js Expert',
-                    'React Specialist', 
-                    'Full Stack Developer',
-                    'JavaScript Enthusiast',
-                    'Problem Solver'
-                  ]}
-                  typeSpeed={80}
-                  deleteSpeed={50}
-                  delayBetweenTexts={2000}
-                  startDelay={500}
-                  loop={true}
-                  fontSize={80}
-                  fontFamily="inherit"
-                  color="#1976d2"
-                />
-              </span>
+              I'm a <CanvasTypingAnimation
+                texts={[
+                  'Node.js Expert',
+                  'React Specialist', 
+                  'Full Stack Developer',
+                  'JavaScript Enthusiast',
+                  'Problem Solver'
+                ]}
+                typeSpeed={80}
+                deleteSpeed={50}
+                delayBetweenTexts={2000}
+                startDelay={500}
+                loop={true}
+                fontSize={80}
+                fontFamily="inherit"
+                color="#1976d2"
+              />
             </HeroTitle>
             <HeroSubtitle theme={theme}>
               crafting exceptional web experiences

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useInView } from 'motion/react';
 import styled from 'styled-components';
+import useMobileInView from '../hooks/useMobileInView';
 
 const CanvasContainer = styled.div`
   display: inline-block;
@@ -33,11 +33,8 @@ const CanvasTypingAnimation = React.memo(({
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const [isMounted, setIsMounted] = useState(false);
   
-  // Track visibility to pause/resume animation
-  const isInView = useInView(containerRef, { 
-    margin: "50px",
-    amount: 0.1 
-  });
+  // Track visibility to pause/resume animation - mobile-friendly
+  const isInView = useMobileInView(containerRef);
 
   // Animation state
   const stateRef = useRef({
@@ -140,9 +137,7 @@ const CanvasTypingAnimation = React.memo(({
           state.isStarted = true;
           state.nextActionTime = currentTime;
         } else {
-          // Show fallback text during delay
-          ctx.fillStyle = color;
-          ctx.fillText(texts[0] || '', 0, 0);
+          // Don't show anything during delay to avoid style mismatch
           animationRef.current = requestAnimationFrame(animate);
           return;
         }

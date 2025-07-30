@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useInView } from 'motion/react';
 import styled from 'styled-components';
+import useMobileInView from '../hooks/useMobileInView';
 
 // Simple icon components using text/Unicode
 const CopyIcon = styled.span`
@@ -184,11 +184,8 @@ const CanvasCodeSnippet = React.memo(({
   const animationRef = useRef(null);
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   
-  // Track visibility to pause/resume animation
-  const isInView = useInView(containerRef, { 
-    margin: "50px",
-    amount: 0.1 
-  });
+  // Track visibility to pause/resume animation - mobile-friendly
+  const isInView = useMobileInView(containerRef);
   const [copied, setCopied] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 

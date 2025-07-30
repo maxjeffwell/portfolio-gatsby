@@ -7,7 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
-import ProjectCardWithInView from '../components/ProjectCardWithInView';
+// import ProjectCardWithInView from '../components/ProjectCardWithInView';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 
@@ -94,7 +94,7 @@ const projectsData = [
       '  student support.',
     sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
     hostedURL: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/',
-    technologies: ['JavaScript', 'React', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
+    technologies: ['JavaScript', 'React', 'Node.js', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
     techIcons: {
       icon3: ReduxIcon,
       icon4: MongoDBIcon,
@@ -120,7 +120,7 @@ const projectsData = [
       '  collaboration sessions.',
     sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
     hostedURL: 'https://code-talk-client-c46118c24c30.herokuapp.com/',
-    technologies: ['JavaScript', 'React', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
+    technologies: ['JavaScript', 'React', 'Node.js', 'GraphQL', 'NPM', 'Git', 'Heroku', 'Redis', 'PostgreSQL'],
     techIcons: {
       icon3: GraphQLIcon,
       icon4: NPMIcon,
@@ -146,7 +146,7 @@ const projectsData = [
       '  population.',
     sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
     hostedURL: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/',
-    technologies: ['JavaScript', 'React', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Apollo Client', 'GraphQL'],
+    technologies: ['JavaScript', 'React', 'Node.js', 'MongoDB', 'NPM', 'Git', 'Heroku', 'Apollo Client', 'GraphQL'],
     techIcons: {
       icon3: MongoDBIcon,
       icon4: NPMIcon,
@@ -215,7 +215,7 @@ const projectsData = [
       'React',
       'Git',
       'Vercel',
-      'NodeJS',
+      'Node.js',
       'Neon',
       'Neon Serverless Postgres',
       'Neon Database',
@@ -324,8 +324,8 @@ const StyledSelect = styled.select`
   font-size: 0.875rem;
   font-family: inherit;
   background-color: ${(props) => 
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'};
-  color: ${(props) => props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)'};
+    props.theme?.mode === 'dark' ? 'rgba(42, 42, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
+  color: ${(props) => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
   transition: all 0.2s ease;
   
@@ -333,7 +333,7 @@ const StyledSelect = styled.select`
     border-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.25)'};
     background-color: ${(props) => 
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+      props.theme?.mode === 'dark' ? 'rgba(50, 50, 50, 0.95)' : 'rgba(248, 248, 248, 0.95)'};
   }
   
   &:focus {
@@ -342,6 +342,29 @@ const StyledSelect = styled.select`
       props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
     box-shadow: 0 0 0 2px ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.2)' : 'rgba(25, 118, 210, 0.2)'};
+  }
+  
+  /* Style the dropdown options */
+  option {
+    background-color: ${(props) => 
+      props.theme?.mode === 'dark' ? '#2a2a2a' : '#ffffff'};
+    color: ${(props) => 
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    border: none;
+    
+    &:hover, &:focus {
+      background-color: ${(props) => 
+        props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.08)'};
+    }
+    
+    &:checked {
+      background-color: ${(props) => 
+        props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+      color: ${(props) => 
+        props.theme?.mode === 'dark' ? '#000' : '#fff'};
+    }
   }
 `;
 
@@ -478,52 +501,47 @@ const Projects = ({ data }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <StyledBox as="section">
-            <Typography theme={theme} variant="h3" component="h2" sx={{ mb: 2 }}>
-              Filter Projects
+          <StyledBox 
+            display="flex" 
+            alignItems="center" 
+            justifyContent="space-between" 
+            mb={3}
+            style={{ 
+              padding: '12px 16px',
+              backgroundColor: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
+              borderRadius: '8px',
+              border: `1px solid ${theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}`,
+              transition: 'all 0.3s ease'
+            }}
+          >
+            <Typography theme={theme} variant="body2" style={{ fontWeight: 500, fontSize: '0.875rem' }}>
+              {filteredProjects.length} Projects
             </Typography>
-            <StyledPaper theme={theme} elevation={1} p={1.5} mb={3} borderRadius={2}>
-            <StyledBox
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              flexWrap="wrap"
-              gap={2}
+            <StyledSelect
+              theme={theme}
+              id="technology-filter"
+              name="technologyFilter"
+              value={filters.technologies[0] || ''}
+              onChange={handleTechnologyChange}
+              aria-label="Filter projects by technology"
+              style={{ maxWidth: '160px', fontSize: '0.8rem' }}
             >
-              <Typography theme={theme} variant="body2" style={{ fontWeight: 500, fontSize: '0.875rem' }}>
-                {filteredProjects.length} Projects
-              </Typography>
-              <StyledBox display="flex" alignItems="center" gap={1}>
-                <Typography theme={theme} variant="body2" style={{ fontSize: '0.8rem', color: '#666' }}>
-                  Filter:
-                </Typography>
-                <StyledSelect
-                  theme={theme}
-                  id="technology-filter"
-                  name="technologyFilter"
-                  value={filters.technologies[0] || ''}
-                  onChange={handleTechnologyChange}
-                  aria-label="Filter projects by technology"
-                >
-                  <option value="">All Projects</option>
-                  <option value="JavaScript">JavaScript</option>
-                  <option value="React">React</option>
-                  <option value="Node.js">Node.js</option>
-                  <option value="GraphQL">GraphQL</option>
-                  <option value="MongoDB">MongoDB</option>
-                  <option value="PostgreSQL">PostgreSQL</option>
-                  <option value="Redis">Redis</option>
-                  <option value="Apollo Client">Apollo Client</option>
-                  <option value="Redux">Redux</option>
-                  <option value="Git">Git</option>
-                  <option value="Heroku">Heroku</option>
-                  <option value="Vercel">Vercel</option>
-                  <option value="Firebase">Firebase</option>
-                  <option value="NPM">NPM</option>
-                </StyledSelect>
-              </StyledBox>
-            </StyledBox>
-          </StyledPaper>
+              <option value="">All Projects</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="React">React</option>
+              <option value="Node.js">Node.js</option>
+              <option value="GraphQL">GraphQL</option>
+              <option value="MongoDB">MongoDB</option>
+              <option value="PostgreSQL">PostgreSQL</option>
+              <option value="Redis">Redis</option>
+              <option value="Apollo Client">Apollo Client</option>
+              <option value="Redux">Redux</option>
+              <option value="Git">Git</option>
+              <option value="Heroku">Heroku</option>
+              <option value="Vercel">Vercel</option>
+              <option value="Firebase">Firebase</option>
+              <option value="NPM">NPM</option>
+            </StyledSelect>
           </StyledBox>
         </motion.div>
 
@@ -543,7 +561,7 @@ const Projects = ({ data }) => {
             <StyledBox display="flex" flexDirection="column" gap={4}>
               {enhancedProjects.map((project) => (
                 <StyledBox key={project.id}>
-                  <ProjectCardWithInView
+                  <ProjectCard
                     title={project.title}
                     date={project.date}
                     description={project.description}

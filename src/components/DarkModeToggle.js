@@ -1,21 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { CgDarkMode } from 'react-icons/cg';
 import { useTheme } from '../context/ThemeContext';
-
-// Simple icon components to replace MUI icons
-const Brightness4Icon = styled.span`
-  font-size: 24px;
-  &::before {
-    content: '●';
-  }
-`;
-
-const Brightness7Icon = styled.span`
-  font-size: 24px;
-  &::before {
-    content: '○';
-  }
-`;
 
 const SettingsBrightnessIcon = styled.span`
   font-size: 24px;
@@ -223,23 +209,21 @@ function DarkModeToggle() {
           onClick={handleClick}
           aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
         >
-          {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+          <CgDarkMode />
         </StyledIconButton>
       </StyledTooltip>
 
       {isSystemPreference && (
-        <StyledTooltip data-tooltip="Currently following system preference">
-          <SystemIndicator role="status" aria-hidden="false">
-            <ComputerIcon />
-            <span>Auto</span>
-          </SystemIndicator>
-        </StyledTooltip>
+        <SystemIndicator role="status" aria-hidden="false">
+          <ComputerIcon />
+          <span>Auto</span>
+        </SystemIndicator>
       )}
 
       {open && (
         <StyledMenu>
           <StyledMenuItem onClick={handleToggleMode}>
-            <MenuIcon>{isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}</MenuIcon>
+            <MenuIcon><CgDarkMode /></MenuIcon>
             <MenuText>Switch to {isDarkMode ? 'light' : 'dark'} mode</MenuText>
           </StyledMenuItem>
           <StyledMenuItem onClick={handleSystemReset}>

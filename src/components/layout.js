@@ -247,7 +247,7 @@ function ThemedLayout({ children, data }) {
         }}>
         {children}
       </main>
-      <StyledFooter as="footer">
+      <StyledFooter as="footer" theme={theme}>
         <StyledContainer style={{ textAlign: 'center' }}>
           <Typography 
             as="h2" 
@@ -264,6 +264,7 @@ function ThemedLayout({ children, data }) {
           <Link
             href="mailto:maxjeffwell@gmail.com"
             underline="always"
+            theme={theme}
             style={{
               fontSize: 'clamp(1.125rem, 3vw, 1.25rem)',
               color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
@@ -294,6 +295,7 @@ function ThemedLayout({ children, data }) {
               href="https://www.github.com/maxjeffwell"
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
+              theme={theme}
             >
               <ClientOnlyIcon iconName="GitHub" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
             </SocialLink>
@@ -304,6 +306,7 @@ function ThemedLayout({ children, data }) {
               href="https://angel.co/maxjeffwell"
               aria-label="Visit Jeff Maxwell's AngelList profile"
               size="large"
+              theme={theme}
             >
               <ClientOnlyIcon iconName="Language" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
             </SocialLink>
@@ -312,12 +315,14 @@ function ThemedLayout({ children, data }) {
               href="tel:+01-508-395-2008"
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
+              theme={theme}
             >
               <ClientOnlyIcon iconName="Phone" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
             </SocialLink>
           </StyledBox>
           <Typography 
             variant="body2" 
+            theme={theme}
             style={{ 
               fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', 
               fontWeight: 400,
@@ -330,6 +335,7 @@ function ThemedLayout({ children, data }) {
               target="_blank"
               rel="noopener noreferrer"
               underline="always"
+              theme={theme}
               style={{
                 color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
                 textDecoration: 'underline',
