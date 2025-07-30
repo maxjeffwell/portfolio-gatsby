@@ -129,18 +129,19 @@ const StyledTooltip = styled.div`
   &:hover::after {
     content: attr(data-tooltip);
     position: absolute;
-    top: -35px;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(97, 97, 97, 0.92);
     color: #fff;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 6px 10px;
+    border-radius: 6px;
     font-size: 0.75rem;
     white-space: nowrap;
     z-index: 1400;
     pointer-events: none;
     animation: tooltipFadeIn 0.15s ease-in;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   @keyframes tooltipFadeIn {
@@ -213,12 +214,6 @@ function DarkModeToggle() {
         </StyledIconButton>
       </StyledTooltip>
 
-      {isSystemPreference && (
-        <SystemIndicator role="status" aria-hidden="false">
-          <ComputerIcon />
-          <span>Auto</span>
-        </SystemIndicator>
-      )}
 
       {open && (
         <StyledMenu>

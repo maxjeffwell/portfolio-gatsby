@@ -121,7 +121,9 @@ const StyledIconButton = styled.button`
   border-radius: 50%;
   border: none;
   background-color: transparent;
-  color: ${props => props.theme?.colors?.text || '#333'};
+  color: ${props => props.theme?.mode === 'dark' 
+    ? (props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)') 
+    : 'rgba(0, 0, 0, 0.8)'};
   cursor: pointer;
   font-size: 1.5rem;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;

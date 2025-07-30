@@ -3,12 +3,13 @@ import { Link } from 'gatsby';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import ClientOnlyButton from '../components/ClientOnlyButton';
 import CanvasTypingAnimation from '../components/CanvasTypingAnimation';
+import SimpleTypingAnimation from '../components/SimpleTypingAnimation';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import CodeSnippet from '../components/CodeSnippet';
+import CanvasCodeSnippet from '../components/CanvasCodeSnippet';
 import PageTransition from '../components/PageTransition';
 import StaggeredAnimation from '../components/StaggeredAnimation';
 
@@ -107,9 +108,13 @@ const ContentSection = styled.section`
 
 const TwoColumnGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.8fr 1.2fr;
   gap: 48px;
   align-items: start;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -258,7 +263,7 @@ const IndexPage = () => {
                 My name's Jeff 😊
               </p>
             <HeroTitle theme={theme}>
-              I'm a <CanvasTypingAnimation
+              I'm a <SimpleTypingAnimation
                 texts={[
                   'Node.js Expert',
                   'React Specialist', 
@@ -269,11 +274,16 @@ const IndexPage = () => {
                 typeSpeed={80}
                 deleteSpeed={50}
                 delayBetweenTexts={2000}
-                startDelay={500}
+                startDelay={1000}
                 loop={true}
-                fontSize={80}
-                fontFamily="inherit"
-                color="#1976d2"
+                style={{ 
+                  fontWeight: 'inherit',
+                  background: 'linear-gradient(135deg, #90caf9 0%, #64b5f6 50%, #42a5f5 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  color: '#90caf9' // Fallback for browsers that don't support background-clip
+                }}
               />
             </HeroTitle>
             <HeroSubtitle theme={theme}>
@@ -377,7 +387,7 @@ const IndexPage = () => {
                 modern React development:
               </CardText>
               
-              <CodeSnippet
+              <CanvasCodeSnippet
                 title="Custom Hook Example"
                 animated={true}
                 animationSpeed={25}

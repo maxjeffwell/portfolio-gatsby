@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { motion } from 'motion/react';
@@ -313,21 +313,38 @@ const StyledPaper = styled.div`
   border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius * 8}px` : '4px')};
 `;
 
-const StyledSelect = styled.select`
-  width: 100%;
+const CustomSelectContainer = styled.div`
+  position: relative;
+  display: inline-block;
   max-width: 200px;
-  padding: 8px 12px;
+`;
+
+const CustomSelectButton = styled.button`
+  width: 100%;
+  padding: 12px 36px 12px 16px;
   border: 1px solid
     ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'};
   border-radius: 8px;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-family: inherit;
   background-color: ${(props) => 
     props.theme?.mode === 'dark' ? 'rgba(42, 42, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
   color: ${(props) => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: left;
+  position: relative;
+  
+  &:after {
+    content: '▼';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%) ${props => props.open ? 'rotate(180deg)' : 'rotate(0deg)'};
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+  }
   
   &:hover {
     border-color: ${(props) =>
@@ -343,28 +360,44 @@ const StyledSelect = styled.select`
     box-shadow: 0 0 0 2px ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.2)' : 'rgba(25, 118, 210, 0.2)'};
   }
+`;
+
+const CustomSelectDropdown = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: ${(props) => 
+    props.theme?.mode === 'dark' ? '#2a2a2a' : '#ffffff'};
+  border: 1px solid ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'};
+  border-radius: 8px;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: auto;
+`;
+
+const CustomSelectOption = styled.div`
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: ${(props) => 
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
+  cursor: pointer;
+  transition: background-color 0.2s ease;
   
-  /* Style the dropdown options */
-  option {
+  &:hover {
     background-color: ${(props) => 
-      props.theme?.mode === 'dark' ? '#2a2a2a' : '#ffffff'};
-    color: ${(props) => 
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
-    padding: 8px 12px;
-    font-size: 0.875rem;
-    border: none;
-    
-    &:hover, &:focus {
-      background-color: ${(props) => 
-        props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.08)'};
-    }
-    
-    &:checked {
-      background-color: ${(props) => 
-        props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-      color: ${(props) => 
-        props.theme?.mode === 'dark' ? '#000' : '#fff'};
-    }
+      props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.08)'};
+  }
+  
+  &:first-child {
+    border-radius: 8px 8px 0 0;
+  }
+  
+  &:last-child {
+    border-radius: 0 0 8px 8px;
   }
 `;
 
@@ -373,20 +406,37 @@ const Projects = ({ data }) => {
   const [filters, setFilters] = useState({
     technologies: [],
   });
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleFilterChange = useCallback((newFilters) => {
     setFilters(newFilters);
   }, []);
 
   const handleTechnologyChange = useCallback(
-    (e) => {
+    (value) => {
       handleFilterChange({
         ...filters,
-        technologies: e.target.value ? [e.target.value] : [],
+        technologies: value ? [value] : [],
       });
+      setDropdownOpen(false);
     },
     [filters, handleFilterChange]
   );
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const filteredProjects = useMemo(() => {
     return projectsData.filter((project) => {
@@ -485,11 +535,12 @@ const Projects = ({ data }) => {
             </GradientText>
             <Typography
               theme={theme}
-              variant="h5"
+              variant="h4"
               component="h2"
               align="center"
               color="text.secondary"
               paragraph
+              style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}
             >
               A collection of my work demonstrating modern web development
             </Typography>
@@ -504,44 +555,114 @@ const Projects = ({ data }) => {
           <StyledBox 
             display="flex" 
             alignItems="center" 
-            justifyContent="space-between" 
+            justifyContent="flex-end" 
             mb={3}
-            style={{ 
-              padding: '12px 16px',
-              backgroundColor: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-              borderRadius: '8px',
-              border: `1px solid ${theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}`,
-              transition: 'all 0.3s ease'
-            }}
           >
-            <Typography theme={theme} variant="body2" style={{ fontWeight: 500, fontSize: '0.875rem' }}>
-              {filteredProjects.length} Projects
-            </Typography>
-            <StyledSelect
-              theme={theme}
-              id="technology-filter"
-              name="technologyFilter"
-              value={filters.technologies[0] || ''}
-              onChange={handleTechnologyChange}
-              aria-label="Filter projects by technology"
-              style={{ maxWidth: '160px', fontSize: '0.8rem' }}
-            >
-              <option value="">All Projects</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="React">React</option>
-              <option value="Node.js">Node.js</option>
-              <option value="GraphQL">GraphQL</option>
-              <option value="MongoDB">MongoDB</option>
-              <option value="PostgreSQL">PostgreSQL</option>
-              <option value="Redis">Redis</option>
-              <option value="Apollo Client">Apollo Client</option>
-              <option value="Redux">Redux</option>
-              <option value="Git">Git</option>
-              <option value="Heroku">Heroku</option>
-              <option value="Vercel">Vercel</option>
-              <option value="Firebase">Firebase</option>
-              <option value="NPM">NPM</option>
-            </StyledSelect>
+            <CustomSelectContainer ref={dropdownRef}>
+              <CustomSelectButton
+                theme={theme}
+                open={dropdownOpen}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                aria-label="Filter projects by technology"
+                aria-expanded={dropdownOpen}
+              >
+                {filters.technologies[0] || 'All Projects'}
+              </CustomSelectButton>
+              {dropdownOpen && (
+                <CustomSelectDropdown theme={theme}>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('')}
+                  >
+                    All Projects
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('JavaScript')}
+                  >
+                    JavaScript
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('React')}
+                  >
+                    React
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Node.js')}
+                  >
+                    Node.js
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('GraphQL')}
+                  >
+                    GraphQL
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('MongoDB')}
+                  >
+                    MongoDB
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('PostgreSQL')}
+                  >
+                    PostgreSQL
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Redis')}
+                  >
+                    Redis
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Apollo Client')}
+                  >
+                    Apollo Client
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Redux')}
+                  >
+                    Redux
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Git')}
+                  >
+                    Git
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Heroku')}
+                  >
+                    Heroku
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Vercel')}
+                  >
+                    Vercel
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Firebase')}
+                  >
+                    Firebase
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('NPM')}
+                  >
+                    NPM
+                  </CustomSelectOption>
+                </CustomSelectDropdown>
+              )}
+            </CustomSelectContainer>
           </StyledBox>
         </motion.div>
 

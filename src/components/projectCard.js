@@ -22,13 +22,13 @@ const Typography = styled.div`
             : 400};
   font-size: ${(props) =>
     props.variant === 'h5'
-      ? '1.5rem'
+      ? '1.75rem'
       : props.variant === 'h6'
-        ? '1.25rem'
+        ? '1.375rem'
         : props.variant === 'body1'
-          ? '1rem'
+          ? '1.125rem'
           : props.variant === 'body2'
-            ? '0.875rem'
+            ? '0.9375rem'
             : '1rem'};
   line-height: ${(props) =>
     props.variant === 'h5'
@@ -223,10 +223,10 @@ const CustomChip = styled.span`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 24px;
-  padding: 0 8px;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.43;
   letter-spacing: 0.01071em;

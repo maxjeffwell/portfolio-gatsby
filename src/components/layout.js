@@ -173,7 +173,7 @@ const StyledFooter = styled.footer`
 `;
 
 const SocialLink = styled(IconButton)`
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.8)'};
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.6)'};
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.3s ease,
