@@ -8,6 +8,11 @@ const siteMetadata = {
 
 module.exports = {
   siteMetadata,
+  // Flags for performance improvements
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+    FAST_DEV: true,
+  },
   adapter: require('gatsby-adapter-netlify').default({
     excludeDatastoreFromEngineFunction: false,
     imageCDN: false,
@@ -27,11 +32,21 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet-async`,
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+        omitGoogleFont: false,
+      },
+    },
 {
       resolve: `gatsby-plugin-styled-components`,
       options: {
         // Display component names in devtools
         displayName: process.env.NODE_ENV !== 'production',
+        // Add babel plugin for SSR optimization
+        fileName: true,
+        pure: true,
       },
     }, // Switch to styled-components for better SSR support
     `gatsby-plugin-image`,

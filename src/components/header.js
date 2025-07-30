@@ -23,11 +23,17 @@ const CloseIcon = styled.span`
 
 const StyledContainer = styled.div`
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 24px;
+  box-sizing: border-box;
 
   @media (max-width: 600px) {
     padding: 0 16px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 0 12px;
   }
 `;
 

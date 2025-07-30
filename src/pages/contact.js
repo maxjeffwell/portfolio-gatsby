@@ -1185,7 +1185,7 @@ function Contact() {
           as="section"
           aria-labelledby="availability"
           mt={8}
-          mb={4}
+          mb={8}
           style={{ textAlign: 'center' }}
         >
           <Typography

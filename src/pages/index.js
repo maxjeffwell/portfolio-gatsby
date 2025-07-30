@@ -260,7 +260,7 @@ const IndexPage = () => {
                 transition: 'color 0.3s ease',
                 fontWeight: 500
               }}>
-                My name's Jeff 😊
+                My name's Jeff
               </p>
             <HeroTitle theme={theme}>
               I'm a <SimpleTypingAnimation

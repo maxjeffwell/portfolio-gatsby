@@ -12,9 +12,9 @@ const Typography = styled.div`
   font-family: inherit;
   font-weight: ${(props) =>
     props.variant === 'h5'
-      ? 400
+      ? 700
       : props.variant === 'h6'
-        ? 500
+        ? 600
         : props.variant === 'body1'
           ? 400
           : props.variant === 'body2'
@@ -115,11 +115,12 @@ const Button = styled.button`
     props.variant === 'outlined' &&
     `
     color: ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    border: 1px solid ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.5)' : 'rgba(25, 118, 210, 0.5)'};
+    border: 2px solid ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.7)' : 'rgba(25, 118, 210, 0.7)'};
+    font-weight: 600;
     
     &:hover {
-      border: 1px solid ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-      background-color: ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.08)' : 'rgba(25, 118, 210, 0.04)'};
+      border: 2px solid ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+      background-color: ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.12)' : 'rgba(25, 118, 210, 0.08)'};
     }
   `}
 
@@ -136,6 +137,8 @@ const Stack = styled.div`
   flex-direction: ${(props) => props.direction || 'column'};
   gap: ${(props) => (props.spacing ? `${props.spacing * 8}px` : '8px')};
   flex-wrap: wrap;
+  width: 100%;
+  overflow: hidden;
 
   @media (max-width: 480px) {
     gap: ${(props) => (props.spacing ? `${props.spacing * 6}px` : '6px')};
@@ -223,15 +226,15 @@ const CustomChip = styled.span`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 28px;
-  padding: 0 12px;
-  border-radius: 14px;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 16px;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.43;
   letter-spacing: 0.01071em;
   background-color: transparent;
-  border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
+  border: 2px solid ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
   color: ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
   white-space: nowrap;
   transition:

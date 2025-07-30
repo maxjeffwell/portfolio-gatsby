@@ -24,11 +24,17 @@ const GET_SITE_METADATA = graphql`
 
 const StyledContainer = styled.div`
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 24px;
+  box-sizing: border-box;
 
   @media (max-width: 600px) {
     padding: 0 16px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 0 12px;
   }
 `;
 
@@ -173,7 +179,7 @@ const StyledFooter = styled.footer`
 `;
 
 const SocialLink = styled(IconButton)`
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.6)'};
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.4)'};
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.3s ease,

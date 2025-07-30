@@ -41,12 +41,15 @@ const GlobalStyles = createGlobalStyle`
 
   html, body {
     height: 100%;
+    width: 100%;
+    max-width: 100vw;
     font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
     line-height: 1.6;
     font-size: 16px;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {
@@ -54,6 +57,12 @@ const GlobalStyles = createGlobalStyle`
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Ensure all container elements respect viewport width */
+  #___gatsby, #gatsby-focus-wrapper {
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   /* Prevent FOUC for gradients */

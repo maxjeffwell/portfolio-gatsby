@@ -235,11 +235,17 @@ const projectsData = [
 
 const StyledContainer = styled.div`
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 24px;
+  box-sizing: border-box;
 
   @media (max-width: 600px) {
     padding: 0 16px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 0 12px;
   }
 `;
 
@@ -285,6 +291,9 @@ const GradientText = styled(Typography)`
   transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s ease;
+  font-weight: 700 !important; /* Match other page headers */
+  font-size: clamp(2.5rem, 8vw, 4rem) !important; /* Consistent with about page */
+  line-height: 1.2 !important;
 
   /* Fallback color for browsers that don't support background-clip */
   color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
@@ -316,7 +325,14 @@ const StyledPaper = styled.div`
 const CustomSelectContainer = styled.div`
   position: relative;
   display: inline-block;
+  width: 100%;
   max-width: 200px;
+  min-width: 150px;
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+    min-width: 120px;
+  }
 `;
 
 const CustomSelectButton = styled.button`
@@ -659,6 +675,54 @@ const Projects = ({ data }) => {
                     onClick={() => handleTechnologyChange('NPM')}
                   >
                     NPM
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('CSS')}
+                  >
+                    CSS
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Google Cloud')}
+                  >
+                    Google Cloud
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Firebase Studio')}
+                  >
+                    Firebase Studio
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Firebase Firestore')}
+                  >
+                    Firebase Firestore
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Cloud Firestore')}
+                  >
+                    Cloud Firestore
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Neon')}
+                  >
+                    Neon
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Neon Serverless Postgres')}
+                  >
+                    Neon Serverless Postgres
+                  </CustomSelectOption>
+                  <CustomSelectOption
+                    theme={theme}
+                    onClick={() => handleTechnologyChange('Neon Database')}
+                  >
+                    Neon Database
                   </CustomSelectOption>
                 </CustomSelectDropdown>
               )}
