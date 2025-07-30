@@ -392,6 +392,8 @@ const Projects = ({ data }) => {
         ...project,
         imageSrcPath: screenshot1File?.[1],
         imageSrcPath2: screenshot2File?.[1],
+        imageSrcPath3: screenshot2File?.[1],
+        imageSrcPath4: screenshot2File?.[1],
         videoSrcPath:
           project.screenshots.screenshot1.endsWith('.webm') ||
           project.screenshots.screenshot1.endsWith('.mp4')
