@@ -242,10 +242,6 @@ const StyledButton = styled.button`
   padding-right: ${(props) => (props.px ? `${props.px * 8}px` : 'inherit')};
   text-transform: ${(props) => props.textTransform || 'uppercase'};
 
-  .button-end-icon {
-    margin-left: 8px;
-    display: inherit;
-  }
 `;
 
 const StyledAlert = styled.div`
@@ -1174,9 +1170,6 @@ function Contact() {
                     if (formStatus === 'success') return 'Message Sent!';
                     return 'Send Message';
                   })()}
-                </span>
-                <span className="button-end-icon">
-                  {formStatus === 'success' ? '✓' : <SendIcon />}
                 </span>
               </StyledButton>
             </StyledBox>

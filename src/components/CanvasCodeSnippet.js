@@ -262,8 +262,9 @@ const CanvasCodeSnippet = React.memo(({
     const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     ctx.fillStyle = isDark ? '#e2e8f0' : '#2d3748';
 
-    // Simplified animation logic
+    // Animation state tracking
     let startTime = null;
+    let animationComplete = false;
     
     const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
@@ -274,12 +275,23 @@ const CanvasCodeSnippet = React.memo(({
       if (!animated) {
         // Show full code immediately if not animated
         state.displayedCode = code;
+        animationComplete = true;
       } else if (isInView) {
         // Calculate how many characters to show based on time elapsed
         const elapsed = currentTime - startTime;
         const charactersToShow = Math.floor(elapsed / animationSpeed);
-        state.charIndex = Math.min(charactersToShow, code.length);
-        state.displayedCode = code.slice(0, state.charIndex);
+        const newCharIndex = Math.min(charactersToShow, code.length);
+        
+        // Only update if we have more characters to show
+        if (newCharIndex > state.charIndex) {
+          state.charIndex = newCharIndex;
+          state.displayedCode = code.slice(0, state.charIndex);
+        }
+        
+        // Mark as complete when we've shown all characters
+        if (state.charIndex >= code.length) {
+          animationComplete = true;
+        }
       }
 
       // Render text line by line
@@ -292,8 +304,17 @@ const CanvasCodeSnippet = React.memo(({
       });
 
       // Continue animation if needed
-      if (animated && state.charIndex < code.length && isInView) {
+      if (animated && !animationComplete && isInView) {
         animationRef.current = requestAnimationFrame(animate);
+      } else if (!animated || animationComplete) {
+        // Render final state once more to ensure everything is shown
+        state.displayedCode = code;
+        const finalLines = state.displayedCode.split('\n');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        finalLines.forEach((line, index) => {
+          const y = padding + (index * fontSize * lineHeight);
+          ctx.fillText(line, padding, y);
+        });
       }
     };
 
@@ -302,6 +323,11 @@ const CanvasCodeSnippet = React.memo(({
       state.charIndex = 0;
       state.displayedCode = '';
       startTime = null;
+      animationComplete = false;
+    } else {
+      // If not animated, show everything immediately
+      state.displayedCode = code;
+      animationComplete = true;
     }
 
     // Start animation
@@ -323,6 +349,16 @@ const CanvasCodeSnippet = React.memo(({
     isMounted,
     isInView,
   ]);
+
+  // Restart animation when component comes into view
+  useEffect(() => {
+    if (animated && isInView && isMounted && canvasSize.width) {
+      // Reset animation state to restart
+      const state = stateRef.current;
+      state.charIndex = 0;
+      state.displayedCode = '';
+    }
+  }, [isInView, animated, isMounted, canvasSize.width]);
 
   if (!code) {
     return (

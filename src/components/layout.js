@@ -179,7 +179,7 @@ const StyledFooter = styled.footer`
 `;
 
 const SocialLink = styled(IconButton)`
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.4)'};
+  color: ${props => props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.3s ease,
@@ -188,25 +188,30 @@ const SocialLink = styled(IconButton)`
   will-change: transform, color, box-shadow;
   padding: 20px;
   border-radius: 16px;
-  background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.18)' : 'rgba(0, 0, 0, 0.04)'};
+  background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12) !important' : 'rgba(0, 0, 0, 0.04) !important'};
   backdrop-filter: blur(10px);
-  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.08)'};
+  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2) !important' : 'rgba(0, 0, 0, 0.08) !important'};
 
-  /* Ensure icons inherit the color */
+  /* Ensure icons inherit the color and are visible */
   svg {
-    color: inherit !important;
-    fill: currentColor !important;
+    color: ${props => props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
+    fill: ${props => props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
     opacity: 1 !important;
   }
 
   &:hover {
     transform: translateY(-4px) scale(1.15);
-    color: #e91e63;
-    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.2)' : 'rgba(156, 39, 176, 0.12)'};
+    color: #e91e63 !important;
+    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.2) !important' : 'rgba(156, 39, 176, 0.12) !important'};
     box-shadow: ${props => props.theme?.mode === 'dark' 
       ? '0 8px 24px rgba(233, 30, 99, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)'
       : '0 8px 24px rgba(156, 39, 176, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15)'};
-    border-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.5)' : 'rgba(156, 39, 176, 0.3)'};
+    border-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.5) !important' : 'rgba(156, 39, 176, 0.3) !important'};
+    
+    svg {
+      color: #e91e63 !important;
+      fill: #e91e63 !important;
+    }
   }
 
   &:active {
@@ -247,6 +252,7 @@ function ThemedLayout({ children, data }) {
           margin: 0, 
           padding: 0, 
           paddingTop: '80px',
+          minHeight: 'calc(100vh - 80px)',
           backgroundColor: theme?.colors?.background || 'var(--bg-color)',
           color: theme?.colors?.text || 'var(--text-color)',
           transition: 'background-color 0.3s ease, color 0.3s ease'
@@ -332,7 +338,7 @@ function ThemedLayout({ children, data }) {
             style={{ 
               fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', 
               fontWeight: 400,
-              color: theme?.mode === 'dark' ? '#ffffff' : '#666'
+              color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important'
             }}
           >
             Built by Jeff Maxwell, created with{' '}

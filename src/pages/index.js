@@ -108,7 +108,7 @@ const ContentSection = styled.section`
 
 const TwoColumnGrid = styled.div`
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-columns: 0.5fr 1.5fr;
   gap: 48px;
   align-items: start;
   

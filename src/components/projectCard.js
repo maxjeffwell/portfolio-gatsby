@@ -6,7 +6,6 @@ import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
 
-// Simple styled components to replace MUI components
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
@@ -305,14 +304,13 @@ const StyledCardActions = styled.div`
   }
 
   @media (max-width: 360px) {
-    padding: 12px;
-    padding-top: 0;
+    padding: 0 12px 12px;
   }
 `;
 
 const ColoredBar = styled.div`
   height: 4px;
-  background: linear-gradient(90deg, #fc4a1a, #f7b733);
+  background: linear-gradient(90deg, #e91e63, #9c27b0, #3f51b5);
 `;
 
 const ImageContainer = styled.div`
