@@ -363,16 +363,35 @@ function ThemedLayout({ children, data }) {
             theme={theme}
             style={{
               fontSize: 'clamp(1.125rem, 3vw, 1.25rem)',
-              color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
+              background: theme?.mode === 'dark' 
+                ? 'linear-gradient(135deg, #ff4081 0%, #e91e63 100%)'
+                : 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
               display: 'inline-block',
               marginBottom: '32px',
-              textDecoration: 'underline',
-              textDecorationColor: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-              textDecorationThickness: '1px',
-              textUnderlineOffset: '3px',
-              fontWeight: 500,
+              textDecoration: 'none',
+              fontWeight: 600,
+              letterSpacing: '0.5px',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: `2px solid ${theme?.mode === 'dark' ? '#ff4081' : '#e91e63'}`,
+              backgroundColor: 'transparent',
             }}
             aria-label="Send email to maxjeffwell@gmail.com"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = theme?.mode === 'dark' 
+                ? '0 8px 25px rgba(255, 64, 129, 0.3)' 
+                : '0 8px 25px rgba(233, 30, 99, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           >
             maxjeffwell@gmail.com
           </Link>
