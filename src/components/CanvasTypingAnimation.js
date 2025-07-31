@@ -71,12 +71,12 @@ const CanvasTypingAnimationInner = React.memo(({
       maxWidth = Math.max(maxWidth, metrics.width);
     });
 
-    // Add padding for cursor
-    const width = Math.ceil(maxWidth + fontSize * 0.5);
-    const height = Math.ceil(fontSize * 1.4);
+    // Add extra padding for cursor and theme changes
+    const width = Math.ceil(maxWidth + fontSize * 0.8);
+    const height = Math.ceil(fontSize * 1.5);
 
     setCanvasSize({ width, height });
-  }, [texts, fontSize, fontFamily, isMounted]);
+  }, [texts, fontSize, fontFamily, isMounted, color]);
 
   // Main animation loop
   useEffect(() => {
@@ -87,6 +87,18 @@ const CanvasTypingAnimationInner = React.memo(({
 
     const ctx = canvas.getContext('2d');
     const state = stateRef.current;
+    
+    // Reset animation state on theme change to prevent display issues
+    state.displayText = '';
+    state.currentTextIndex = 0;
+    state.isTyping = true;
+    state.isStarted = false;
+    state.cursorVisible = true;
+    state.lastTime = 0;
+    state.nextActionTime = 0;
+    state.cursorBlinkTime = 0;
+    state.pausedTime = 0;
+    state.isPaused = false;
     
     // Set canvas properties
     canvas.width = canvasSize.width;

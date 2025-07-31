@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
-import { AnimatePresence } from 'motion/react';
-import ClientOnlyIcon from './ClientOnlyIcon';
 import styled from 'styled-components';
+import ClientOnlyIcon from './ClientOnlyIcon';
 
 import Header from './header';
 import ThirdPartyScripts from './ThirdPartyScripts';
@@ -55,58 +54,86 @@ const StyledBox = styled.div`
 // Styled components to replace MUI components
 const Typography = styled.div`
   margin: 0;
-  font-family: ${props => {
+  font-family: ${(props) => {
     if (props.variant?.startsWith('h')) {
       return "'HelveticaNeueLTStd-Bd', 'AvenirLTStd-Roman', sans-serif";
     }
     return "'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif";
   }};
-  font-weight: ${props => 
-    props.variant === 'h1' ? 700 :
-    props.variant === 'h2' ? 700 :
-    props.variant === 'h3' ? 600 :
-    props.variant === 'h4' ? 600 :
-    props.variant === 'h5' ? 500 :
-    props.variant === 'h6' ? 500 :
-    props.variant === 'subtitle1' ? 400 :
-    props.variant === 'subtitle2' ? 500 :
-    props.variant === 'body1' ? 400 :
-    props.variant === 'body2' ? 400 :
-    props.variant === 'caption' ? 400 :
-    400
-  };
-  font-size: ${props => 
-    props.variant === 'h1' ? 'clamp(3rem, 8vw, 6rem)' :
-    props.variant === 'h2' ? 'clamp(2.5rem, 6vw, 3.75rem)' :
-    props.variant === 'h3' ? 'clamp(2rem, 5vw, 3rem)' :
-    props.variant === 'h4' ? 'clamp(1.5rem, 4vw, 2.125rem)' :
-    props.variant === 'h5' ? 'clamp(1.25rem, 3vw, 1.5rem)' :
-    props.variant === 'h6' ? 'clamp(1.125rem, 2.5vw, 1.25rem)' :
-    props.variant === 'subtitle1' ? '1rem' :
-    props.variant === 'subtitle2' ? '0.875rem' :
-    props.variant === 'body1' ? '1rem' :
-    props.variant === 'body2' ? '0.875rem' :
-    props.variant === 'caption' ? '0.75rem' :
-    '1rem'
-  };
-  line-height: ${props => 
-    props.variant === 'h1' ? 1.2 :
-    props.variant === 'h2' ? 1.2 :
-    props.variant === 'h3' ? 1.2 :
-    props.variant === 'h4' ? 1.235 :
-    props.variant === 'h5' ? 1.334 :
-    props.variant === 'h6' ? 1.4 :
-    props.variant === 'subtitle1' ? 1.6 :
-    props.variant === 'subtitle2' ? 1.5 :
-    props.variant === 'body1' ? 1.7 :
-    props.variant === 'body2' ? 1.6 :
-    props.variant === 'caption' ? 1.5 :
-    1.6
-  };
-  letter-spacing: ${props => 
-    props.variant?.startsWith('h') ? '-0.02em' : '0.01em'
-  };
-  color: ${props => {
+  font-weight: ${(props) =>
+    props.variant === 'h1'
+      ? 700
+      : props.variant === 'h2'
+        ? 700
+        : props.variant === 'h3'
+          ? 600
+          : props.variant === 'h4'
+            ? 600
+            : props.variant === 'h5'
+              ? 500
+              : props.variant === 'h6'
+                ? 500
+                : props.variant === 'subtitle1'
+                  ? 400
+                  : props.variant === 'subtitle2'
+                    ? 500
+                    : props.variant === 'body1'
+                      ? 400
+                      : props.variant === 'body2'
+                        ? 400
+                        : props.variant === 'caption'
+                          ? 400
+                          : 400};
+  font-size: ${(props) =>
+    props.variant === 'h1'
+      ? 'clamp(3rem, 8vw, 6rem)'
+      : props.variant === 'h2'
+        ? 'clamp(2.5rem, 6vw, 3.75rem)'
+        : props.variant === 'h3'
+          ? 'clamp(2rem, 5vw, 3rem)'
+          : props.variant === 'h4'
+            ? 'clamp(1.5rem, 4vw, 2.125rem)'
+            : props.variant === 'h5'
+              ? 'clamp(1.25rem, 3vw, 1.5rem)'
+              : props.variant === 'h6'
+                ? 'clamp(1.125rem, 2.5vw, 1.25rem)'
+                : props.variant === 'subtitle1'
+                  ? '1rem'
+                  : props.variant === 'subtitle2'
+                    ? '0.875rem'
+                    : props.variant === 'body1'
+                      ? '1rem'
+                      : props.variant === 'body2'
+                        ? '0.875rem'
+                        : props.variant === 'caption'
+                          ? '0.75rem'
+                          : '1rem'};
+  line-height: ${(props) =>
+    props.variant === 'h1'
+      ? 1.2
+      : props.variant === 'h2'
+        ? 1.2
+        : props.variant === 'h3'
+          ? 1.2
+          : props.variant === 'h4'
+            ? 1.235
+            : props.variant === 'h5'
+              ? 1.334
+              : props.variant === 'h6'
+                ? 1.4
+                : props.variant === 'subtitle1'
+                  ? 1.6
+                  : props.variant === 'subtitle2'
+                    ? 1.5
+                    : props.variant === 'body1'
+                      ? 1.7
+                      : props.variant === 'body2'
+                        ? 1.6
+                        : props.variant === 'caption'
+                          ? 1.5
+                          : 1.6};
+  letter-spacing: ${(props) => (props.variant?.startsWith('h') ? '-0.02em' : '0.01em')};
+  color: ${(props) => {
     if (props.theme?.mode === 'dark') {
       if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
       if (props.color === 'primary') return props.theme?.colors?.primary || '#90caf9';
@@ -118,22 +145,27 @@ const Typography = styled.div`
     if (props.color === 'secondary') return props.theme?.colors?.secondary || '#dc004e';
     return props.customColor || props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
   }};
-  margin-bottom: ${props => props.gutterBottom ? '0.35em' : props.paragraph ? '1rem' : '0'};
-  text-align: ${props => props.align || 'inherit'};
+  margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : props.paragraph ? '1rem' : '0')};
+  text-align: ${(props) => props.align || 'inherit'};
   transition: color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 `;
 
 const Link = styled.a`
-  color: ${props => props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+  color: ${(props) =>
+    props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
   text-decoration: underline;
-  text-decoration-color: ${props => props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.4)' : 'rgba(25, 118, 210, 0.4)'};
+  text-decoration-color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.4)' : 'rgba(25, 118, 210, 0.4)'};
   text-underline-offset: 0.125em;
-  transition: color 0.3s ease, text-decoration-color 0.3s ease;
-  
+  transition:
+    color 0.3s ease,
+    text-decoration-color 0.3s ease;
+
   &:hover {
-    text-decoration-color: ${props => props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    text-decoration-color: ${(props) =>
+      props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
   }
 `;
 
@@ -153,15 +185,19 @@ const IconButton = styled.button`
   user-select: none;
   vertical-align: middle;
   text-decoration: none;
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.54)'};
-  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 0.3s ease;
-  
+  color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.54)'};
+  transition:
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 0.3s ease;
+
   &:hover {
-    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    background-color: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   }
-  
+
   &:focus-visible {
-    outline: 2px solid ${props => props.theme?.colors?.primary || '#1976d2'};
+    outline: 2px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
     outline-offset: 2px;
   }
 `;
@@ -169,7 +205,7 @@ const IconButton = styled.button`
 const StyledFooter = styled.footer`
   margin-top: 0;
   padding: 48px 0;
-  background-color: ${props => props.theme?.mode === 'dark' ? '#0a0a0a' : '#fafafa'};
+  background-color: ${(props) => (props.theme?.mode === 'dark' ? '#0a0a0a' : '#fafafa')};
   border-top: 3px solid #9c27b0;
   transition: background-color 0.3s ease;
 
@@ -179,7 +215,8 @@ const StyledFooter = styled.footer`
 `;
 
 const SocialLink = styled(IconButton)`
-  color: ${props => props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
+  color: ${(props) =>
+    props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.3s ease,
@@ -188,26 +225,42 @@ const SocialLink = styled(IconButton)`
   will-change: transform, color, box-shadow;
   padding: 20px;
   border-radius: 16px;
-  background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12) !important' : 'rgba(0, 0, 0, 0.04) !important'};
+  background: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? 'rgba(255, 255, 255, 0.12) !important'
+      : 'rgba(0, 0, 0, 0.04) !important'};
   backdrop-filter: blur(10px);
-  border: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2) !important' : 'rgba(0, 0, 0, 0.08) !important'};
+  border: 1px solid
+    ${(props) =>
+      props.theme?.mode === 'dark'
+        ? 'rgba(255, 255, 255, 0.2) !important'
+        : 'rgba(0, 0, 0, 0.08) !important'};
 
   /* Ensure icons inherit the color and are visible */
   svg {
-    color: ${props => props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
-    fill: ${props => props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
+    color: ${(props) =>
+      props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
+    fill: ${(props) =>
+      props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
     opacity: 1 !important;
   }
 
   &:hover {
     transform: translateY(-4px) scale(1.15);
     color: #e91e63 !important;
-    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.2) !important' : 'rgba(156, 39, 176, 0.12) !important'};
-    box-shadow: ${props => props.theme?.mode === 'dark' 
-      ? '0 8px 24px rgba(233, 30, 99, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)'
-      : '0 8px 24px rgba(156, 39, 176, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15)'};
-    border-color: ${props => props.theme?.mode === 'dark' ? 'rgba(233, 30, 99, 0.5) !important' : 'rgba(156, 39, 176, 0.3) !important'};
-    
+    background-color: ${(props) =>
+      props.theme?.mode === 'dark'
+        ? 'rgba(233, 30, 99, 0.2) !important'
+        : 'rgba(156, 39, 176, 0.12) !important'};
+    box-shadow: ${(props) =>
+      props.theme?.mode === 'dark'
+        ? '0 8px 24px rgba(233, 30, 99, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)'
+        : '0 8px 24px rgba(156, 39, 176, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15)'};
+    border-color: ${(props) =>
+      props.theme?.mode === 'dark'
+        ? 'rgba(233, 30, 99, 0.5) !important'
+        : 'rgba(156, 39, 176, 0.3) !important'};
+
     svg {
       color: #e91e63 !important;
       fill: #e91e63 !important;
@@ -226,7 +279,7 @@ const SocialLink = styled(IconButton)`
   @media (max-width: 600px) {
     padding: 16px;
     border-radius: 12px;
-    
+
     &:hover {
       transform: translateY(-2px) scale(1.1);
     }
@@ -238,37 +291,39 @@ const SocialLink = styled(IconButton)`
   }
 `;
 
-// Themed Layout Component  
+// Themed Layout Component
 function ThemedLayout({ children, data }) {
   const { theme } = useTheme();
-  
+
   return (
     <>
       <GlobalStyles theme={theme} />
+      <ThirdPartyScripts />
       <Header />
-      <main 
-        suppressHydrationWarning={true}
-        style={{ 
-          margin: 0, 
-          padding: 0, 
+      <main
+        suppressHydrationWarning
+        style={{
+          margin: 0,
+          padding: 0,
           paddingTop: '80px',
           minHeight: 'calc(100vh - 80px)',
           backgroundColor: theme?.colors?.background || 'var(--bg-color)',
           color: theme?.colors?.text || 'var(--text-color)',
-          transition: 'background-color 0.3s ease, color 0.3s ease'
-        }}>
+          transition: 'background-color 0.3s ease, color 0.3s ease',
+        }}
+      >
         {children}
       </main>
       <StyledFooter as="footer" theme={theme}>
         <StyledContainer style={{ textAlign: 'center' }}>
-          <Typography 
-            as="h2" 
-            variant="h4" 
-            style={{ 
+          <Typography
+            as="h2"
+            variant="h4"
+            style={{
               fontSize: 'clamp(1.75rem, 4vw, 2rem)',
               fontWeight: 400,
               marginBottom: '12px',
-              color: theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a'
+              color: theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a',
             }}
           >
             Jeff Maxwell
@@ -286,7 +341,7 @@ function ThemedLayout({ children, data }) {
               textDecorationColor: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
               textDecorationThickness: '1px',
               textUnderlineOffset: '3px',
-              fontWeight: 500
+              fontWeight: 500,
             }}
             aria-label="Send email to maxjeffwell@gmail.com"
           >
@@ -309,18 +364,24 @@ function ThemedLayout({ children, data }) {
               size="large"
               theme={theme}
             >
-              <ClientOnlyIcon iconName="GitHub" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
+              <ClientOnlyIcon
+                iconName="GitHub"
+                style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }}
+              />
             </SocialLink>
             <SocialLink
               as="a"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://angel.co/maxjeffwell"
-              aria-label="Visit Jeff Maxwell's AngelList profile"
+              href="https://https://wellfound.com/u/maxjeffwell"
+              aria-label="Visit Jeff Maxwell's wellfound profile"
               size="large"
               theme={theme}
             >
-              <ClientOnlyIcon iconName="Language" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
+              <ClientOnlyIcon
+                iconName="wellfound"
+                style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }}
+              />
             </SocialLink>
             <SocialLink
               as="a"
@@ -329,36 +390,59 @@ function ThemedLayout({ children, data }) {
               size="large"
               theme={theme}
             >
-              <ClientOnlyIcon iconName="Phone" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }} />
+              <ClientOnlyIcon
+                iconName="Phone"
+                style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }}
+              />
             </SocialLink>
           </StyledBox>
-          <Typography 
-            variant="body2" 
-            theme={theme}
-            style={{ 
-              fontSize: 'clamp(1.125rem, 2.8vw, 1.25rem)', 
-              fontWeight: 400,
-              color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important'
-            }}
+          <StyledBox
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            gap={1}
           >
-            Built by Jeff Maxwell, created with{' '}
+            <Typography
+              variant="body2"
+              theme={theme}
+              style={{
+                fontSize: 'clamp(1.125rem, 2.8vw, 1.25rem)',
+                fontWeight: 400,
+                color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important',
+              }}
+            >
+              Built by Jeff Maxwell, created with
+            </Typography>
             <Link
               href="https://www.gatsbyjs.org"
               target="_blank"
               rel="noopener noreferrer"
-              underline="always"
               theme={theme}
               style={{
-                color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-                textDecoration: 'underline',
-                textDecorationColor: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-                textDecorationThickness: '1px',
-                textUnderlineOffset: '2px'
+                display: 'inline-flex',
+                alignItems: 'center',
+                textDecoration: 'none',
+                marginLeft: '8px',
+                transition: 'transform 0.2s ease',
               }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+              aria-label="Built with Gatsby"
             >
-              Gatsby
+              <ClientOnlyIcon
+                iconName="Gatsby"
+                fontSize="large"
+                style={{ 
+                  color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
+                  fontSize: 'clamp(1.75rem, 4vw, 2rem)'
+                }}
+              />
             </Link>
-          </Typography>
+          </StyledBox>
         </StyledContainer>
       </StyledFooter>
     </>

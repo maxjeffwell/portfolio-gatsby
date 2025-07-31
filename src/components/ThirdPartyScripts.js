@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const ThirdPartyScripts = () => {
   useEffect(() => {
@@ -15,7 +15,9 @@ const ThirdPartyScripts = () => {
 
       // Configure GA
       window.dataLayer = window.dataLayer || [];
-      function gtag() { window.dataLayer.push(arguments); }
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
       window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', process.env.GATSBY_GA_TRACKING_ID, {
@@ -29,31 +31,36 @@ const ThirdPartyScripts = () => {
         const scrollPercent = Math.round(
           (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
         );
-        
+
         if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
           maxScroll = scrollPercent;
           gtag('event', 'scroll_depth', {
             event_category: 'SEO',
-            event_label: scrollPercent + '%',
+            event_label: `${scrollPercent}%`,
             value: scrollPercent,
             non_interaction: true,
           });
         }
       };
-      
+
       window.addEventListener('scroll', trackScrollDepth);
     }
 
     // Hotjar
     if (process.env.GATSBY_HOTJAR_ID) {
-      (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:parseInt(process.env.GATSBY_HOTJAR_ID),hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: parseInt(process.env.GATSBY_HOTJAR_ID), hjsv: 6 };
+        a = o.getElementsByTagName('head')[0];
+        r = o.createElement('script');
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
         a.appendChild(r);
-      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     }
 
     // Plausible Analytics
@@ -71,10 +78,10 @@ const ThirdPartyScripts = () => {
         window.addEventListener('load', () => {
           const perfData = window.performance.timing;
           const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-          
+
           if (pageLoadTime > 0) {
-            console.log('Page Load Time:', pageLoadTime + 'ms');
-            
+            console.log('Page Load Time:', `${pageLoadTime}ms`);
+
             // Send to Google Analytics if available
             if (typeof window.gtag !== 'undefined') {
               window.gtag('event', 'page_load_time', {
@@ -87,17 +94,17 @@ const ThirdPartyScripts = () => {
         });
       }
     };
-    
+
     performanceMonitor();
 
     // Development-only scripts
     if (process.env.NODE_ENV === 'development') {
       console.log('Portfolio development mode active');
-      
+
       window.addEventListener('load', () => {
-        const timing = window.performance.timing;
+        const { timing } = window.performance;
         const loadTime = timing.loadEventEnd - timing.navigationStart;
-        console.log('Page load time:', loadTime + 'ms');
+        console.log('Page load time:', `${loadTime}ms`);
       });
     }
   }, []);
