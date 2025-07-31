@@ -1,4 +1,4 @@
-import { useInView } from 'motion/react';
+import { inView } from 'motion';
 import { useState, useEffect, useRef } from 'react';
 
 /**
@@ -9,14 +9,23 @@ function useMobileInView(targetRef, options = {}) {
   const [isMobile, setIsMobile] = useState(false);
   const [isInViewFallback, setIsInViewFallback] = useState(false);
   
-  // Use Motion's useInView
-  const isInViewMotion = useInView(targetRef, {
-    margin: "100px",
-    amount: 0.1,
-    root: null,
-    threshold: [0, 0.1, 0.5, 1],
-    ...options
-  });
+  // Use Motion's inView for non-mobile
+  const [isInViewMotion, setIsInViewMotion] = useState(false);
+  
+  useEffect(() => {
+    if (isMobile || !targetRef.current) return;
+    
+    const element = targetRef.current;
+    const stop = inView(element, () => {
+      setIsInViewMotion(true);
+    }, {
+      margin: "100px",
+      amount: 0.1,
+      ...options
+    });
+    
+    return stop;
+  }, [targetRef, isMobile, options]);
 
   // Detect mobile device
   useEffect(() => {
