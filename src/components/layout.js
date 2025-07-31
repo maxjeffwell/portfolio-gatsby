@@ -364,12 +364,7 @@ function ThemedLayout({ children, data }) {
             theme={theme}
             style={{
               fontSize: 'clamp(1.125rem, 3vw, 1.25rem)',
-              background: theme?.mode === 'dark' 
-                ? 'linear-gradient(135deg, #ff4081 0%, #e91e63 100%)'
-                : 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63', // Fallback color for browsers that don't support background-clip
+              color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
               display: 'inline-block',
               marginBottom: '32px',
               textDecoration: 'none',
@@ -382,12 +377,6 @@ function ThemedLayout({ children, data }) {
               border: `2px solid ${theme?.mode === 'dark' ? '#ff4081' : '#e91e63'}`,
               backgroundColor: 'transparent',
             }}
-            css={`
-              /* Only make text transparent when browser supports background-clip */
-              @supports (background-clip: text) or (-webkit-background-clip: text) {
-                -webkit-text-fill-color: transparent;
-              }
-            `}
             aria-label="Send email to maxjeffwell@gmail.com"
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
