@@ -241,10 +241,18 @@ const CanvasCodeSnippet = React.memo(({
 
   // Main animation loop
   useEffect(() => {
-    if (!isMounted || !canvasSize.width || !code) return;
+    if (!isMounted || !canvasSize.width || !code) {
+      console.log('CanvasCodeSnippet: Animation not starting:', { isMounted, canvasWidth: canvasSize.width, hasCode: !!code });
+      return;
+    }
 
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      console.log('CanvasCodeSnippet: No canvas ref');
+      return;
+    }
+
+    console.log('CanvasCodeSnippet: Starting animation', { animated, isInView, code: code.substring(0, 20) + '...' });
 
     const ctx = canvas.getContext('2d');
     const state = stateRef.current;
@@ -267,7 +275,10 @@ const CanvasCodeSnippet = React.memo(({
     let animationComplete = false;
     
     const animate = (currentTime) => {
-      if (!startTime) startTime = currentTime;
+      if (!startTime) {
+        startTime = currentTime;
+        console.log('CanvasCodeSnippet: Starting animation at', currentTime);
+      }
       
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);

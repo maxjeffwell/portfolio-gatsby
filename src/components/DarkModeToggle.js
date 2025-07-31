@@ -182,11 +182,13 @@ function DarkModeToggle() {
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
-    if (isSystemPreference) {
-      setAnchorEl(event.currentTarget);
-    } else {
-      toggleTheme();
-    }
+    // Always toggle theme directly - this is more intuitive
+    toggleTheme();
+  };
+
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
@@ -208,6 +210,7 @@ function DarkModeToggle() {
       <StyledTooltip data-tooltip={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
         <StyledIconButton
           onClick={handleClick}
+          onContextMenu={handleRightClick}
           aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
         >
           <CgDarkMode />

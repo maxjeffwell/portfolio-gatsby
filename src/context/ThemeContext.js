@@ -127,7 +127,7 @@ export function ThemeProvider({ children }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [isSystemPreference]);
 
-  // Update localStorage when theme changes
+  // Update localStorage and document classes when theme changes
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -136,6 +136,10 @@ export function ThemeProvider({ children }) {
     if (metaThemeColor) {
       metaThemeColor.setAttribute('content', isDarkMode ? '#0a0a0a' : '#1976d2');
     }
+
+    // Apply theme classes to document body for CSS variables
+    document.body.classList.remove('light-mode', 'dark-mode');
+    document.body.classList.add(isDarkMode ? 'dark-mode' : 'light-mode');
   }, [isDarkMode]);
 
   const toggleTheme = useCallback(() => {
