@@ -9,7 +9,7 @@ import { useTheme } from '../context/ThemeContext';
 
 // Simple icon components using Unicode symbols
 
-const CloseIcon = styled.span` 
+const CloseIcon = styled.span`
   font-size: 24px;
   &::before {
     content: '✕';
@@ -49,10 +49,12 @@ const StyledAppBar = styled.header`
   right: 0;
   z-index: 1100;
   width: 100%;
-  background: ${props => props.theme?.colors?.paper || '#ffffff'};
-  color: ${props => props.theme?.colors?.text || '#333333'};
+  background: ${(props) => props.theme?.colors?.paper || '#ffffff'};
+  color: ${(props) => props.theme?.colors?.text || '#333333'};
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 `;
 
 const StyledToolbar = styled.div`
@@ -68,7 +70,6 @@ const StyledToolbar = styled.div`
   }
 `;
 
-
 const NavButton = styled.a`
   display: inline-flex;
   align-items: center;
@@ -76,8 +77,9 @@ const NavButton = styled.a`
   padding: 14px 24px;
   margin: 0 8px;
   text-decoration: none;
-  color: ${props => props.theme?.colors?.text || '#333'};
-  background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : '#e8eaf6'};
+  color: ${(props) => props.theme?.colors?.text || '#333'};
+  background-color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : '#e8eaf6'};
   border: none;
   cursor: pointer;
   font-family: inherit;
@@ -89,15 +91,16 @@ const NavButton = styled.a`
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : '#c5cae9'};
+    background-color: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : '#c5cae9'};
     transform: translateY(-1px);
   }
 
   &.active {
-    background-color: ${props => props.theme?.colors?.primary || '#1976d2'};
-    color: ${props => props.theme?.mode === 'dark' ? '#000' : '#fff'};
+    background-color: ${(props) => props.theme?.colors?.primary || '#1976d2'};
+    color: ${(props) => (props.theme?.mode === 'dark' ? '#000' : '#fff')};
   }
-  
+
   &:first-child {
     margin-left: 0;
   }
@@ -123,19 +126,23 @@ const StyledIconButton = styled.button`
   border-radius: 50%;
   border: none;
   background-color: transparent;
-  color: ${props => props.theme?.mode === 'dark' 
-    ? (props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)') 
-    : 'rgba(0, 0, 0, 0.8)'};
+  color: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)'
+      : 'rgba(0, 0, 0, 0.8)'};
   cursor: pointer;
   font-size: 1.5rem;
-  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  transition:
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s ease;
 
   &:hover {
-    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    background-color: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   }
 
   &:focus {
-    outline: 2px solid ${props => props.theme?.colors?.primary || '#1976d2'};
+    outline: 2px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
     outline-offset: 2px;
   }
 `;
@@ -148,14 +155,17 @@ const StyledDrawer = styled.div`
   height: 100%;
   width: 80%;
   max-width: 300px;
-  background-color: ${props => props.theme?.colors?.paper || '#ffffff'};
-  color: ${props => props.theme?.colors?.text || '#333333'};
+  background-color: ${(props) => props.theme?.colors?.paper || '#ffffff'};
+  color: ${(props) => props.theme?.colors?.text || '#333333'};
   box-shadow:
     0px 8px 10px -5px rgba(0, 0, 0, 0.2),
     0px 16px 24px 2px rgba(0, 0, 0, 0.14),
     0px 6px 30px 5px rgba(0, 0, 0, 0.12);
   transform: ${(props) => (props.open ? 'translateX(0)' : 'translateX(-100%)')};
-  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1), background-color 0.3s ease, color 0.3s ease;
+  transition:
+    transform 225ms cubic-bezier(0, 0, 0.2, 1),
+    background-color 0.3s ease,
+    color 0.3s ease;
 
   @media (max-width: 360px) {
     width: 85%;
@@ -183,7 +193,7 @@ const MobileNavButton = styled.a`
   width: 100%;
   padding: 18px;
   text-decoration: none;
-  color: ${props => props.theme?.colors?.text || '#333'};
+  color: ${(props) => props.theme?.colors?.text || '#333'};
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -191,10 +201,13 @@ const MobileNavButton = styled.a`
   font-size: 1.4rem;
   font-weight: 500;
   text-align: center;
-  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  transition:
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s ease;
 
   &:hover {
-    background-color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    background-color: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   }
 `;
 
@@ -212,7 +225,6 @@ function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(true); // Default to mobile-first for SSR
-  const [isHydrated, setIsHydrated] = useState(false);
   const menuButtonRef = useRef(null);
 
   // Client-side only theme and media query handling
@@ -224,7 +236,6 @@ function Header() {
       // Handle media query with client-side fallback
       const mediaQuery = window.matchMedia('(max-width: 959px)');
       setIsMobile(mediaQuery.matches);
-      setIsHydrated(true); // Mark as hydrated after setting initial state
 
       const handleMediaChange = (e) => {
         setIsMobile(e.matches);
@@ -236,14 +247,14 @@ function Header() {
         mediaQuery.removeEventListener('change', handleMediaChange);
       };
     }
-    return undefined;
+    return () => {};
   }, []);
 
   // Remove theme dependency - use CSS media queries instead
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
@@ -288,10 +299,10 @@ function Header() {
         p={2}
       >
         {menuItems.map((item) => (
-          <MobileNavButton 
-            key={item.text} 
-            as={Link} 
-            to={item.to} 
+          <MobileNavButton
+            key={item.text}
+            as={Link}
+            to={item.to}
             theme={theme}
             onClick={handleDrawerToggle}
           >
@@ -316,23 +327,18 @@ function Header() {
                   onClick={handleDrawerToggle}
                   ref={menuButtonRef}
                 >
-                  <ClientOnlyIcon 
-                    iconName="Burger" 
-                    style={{ 
-                      fontSize: '24px',
-                      color: theme?.colors?.primary || '#1565c0'
-                    }} 
+                  <ClientOnlyIcon
+                    iconName="Burger"
+                    fontSize="32px"
+                    style={{
+                      color: theme?.colors?.primary || '#1565c0',
+                    }}
                   />
                 </StyledIconButton>
               )}
-              
+
               {!isMobile && (
-                <StyledBox
-                  as="nav"
-                  aria-label="Main navigation"
-                  display="flex"
-                  alignItems="center"
-                >
+                <StyledBox as="nav" aria-label="Main navigation" display="flex" alignItems="center">
                   {menuItems.map((item) => (
                     <NavButton
                       key={item.text}
@@ -350,8 +356,7 @@ function Header() {
             </StyledBox>
 
             {/* Center section: Empty for spacing */}
-            <StyledBox display="flex" alignItems="center" justifyContent="center">
-            </StyledBox>
+            <StyledBox display="flex" alignItems="center" justifyContent="center" />
 
             {/* Right section: Logo and Dark mode toggle */}
             <StyledBox display="flex" alignItems="center" justifyContent="flex-end" gap={2}>
@@ -365,11 +370,11 @@ function Header() {
       {mobileOpen && (
         <>
           <DrawerBackdrop open={mobileOpen} onClick={handleDrawerToggle} />
-          <StyledDrawer theme={theme} open={mobileOpen}>{drawer}</StyledDrawer>
+          <StyledDrawer theme={theme} open={mobileOpen}>
+            {drawer}
+          </StyledDrawer>
         </>
       )}
-
-      {/* Toolbar spacer */}
       <ToolbarSpacer />
     </>
   );

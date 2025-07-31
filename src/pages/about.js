@@ -322,9 +322,8 @@ function AboutPage() {
                     >
                       <ClientOnlyIcon
                         iconName="CodeTerminal"
-                        fontSize="large"
+                        fontSize="3rem"
                         style={{
-                          fontSize: '2.5rem',
                           color:
                             theme?.mode === 'dark'
                               ? theme?.colors?.primary || '#90caf9'
@@ -390,9 +389,8 @@ function AboutPage() {
                     >
                       <ClientOnlyIcon
                         iconName="Coffee"
-                        fontSize="large"
+                        fontSize="3rem"
                         style={{
-                          fontSize: '2rem',
                           color:
                             theme?.mode === 'dark'
                               ? theme?.colors?.primary || '#90caf9'
@@ -458,9 +456,8 @@ function AboutPage() {
                     >
                       <ClientOnlyIcon
                         iconName="Dog"
-                        fontSize="large"
+                        fontSize="3rem"
                         style={{
-                          fontSize: '2.5rem',
                           color:
                             theme?.mode === 'dark'
                               ? theme?.colors?.primary || '#90caf9'

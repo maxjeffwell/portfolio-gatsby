@@ -15,12 +15,7 @@ export const theme = {
     },
   },
   typography: {
-    fontFamily: [
-      'AvenirLTStd-Roman',
-      'HelveticaNeueLTStd-Roman',
-      'Arial',
-      'sans-serif',
-    ].join(','),
+    fontFamily: ['AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', 'Arial', 'sans-serif'].join(','),
   },
   breakpoints: {
     xs: '0px',

@@ -10,13 +10,6 @@ const SettingsBrightnessIcon = styled.span`
   }
 `;
 
-const ComputerIcon = styled.span`
-  font-size: 24px;
-  &::before {
-    content: '💻';
-  }
-`;
-
 const StyledContainer = styled.div`
   display: flex;
   align-items: center;
@@ -90,7 +83,6 @@ const StyledIconButton = styled.button`
   justify-content: center;
   position: relative;
   box-sizing: border-box;
-  background-color: transparent;
   outline: 0;
   border: 0;
   margin: 0;
@@ -99,28 +91,27 @@ const StyledIconButton = styled.button`
   vertical-align: middle;
   appearance: none;
   text-decoration: none;
-  color: ${props => props.theme?.colors?.primary || '#1565c0'};
+  color: ${(props) => props.theme?.colors?.primary || '#1565c0'};
   padding: 12px;
   border-radius: 50%;
   overflow: visible;
   font-size: 2rem;
   width: 56px;
   height: 56px;
-  background: ${props => props.theme?.mode === 'dark' 
-    ? 'rgba(255, 255, 255, 0.1)' 
-    : 'rgba(21, 101, 192, 0.08)'};
-  border: 2px solid ${props => props.theme?.colors?.primary || '#1565c0'};
+  background: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(21, 101, 192, 0.08)'};
+  background: transparent;
+  border: 2px solid ${(props) => props.theme?.colors?.primary || '#1565c0'};
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${props => props.theme?.mode === 'dark' 
-      ? 'rgba(255, 255, 255, 0.15)' 
-      : 'rgba(21, 101, 192, 0.12)'};
+    background: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(21, 101, 192, 0.12)'};
     transform: scale(1.05);
   }
 
   &:focus-visible {
-    outline: 2px solid ${props => props.theme?.colors?.secondary || '#e91e63'};
+    outline: 2px solid ${(props) => props.theme?.colors?.secondary || '#e91e63'};
     outline-offset: 2px;
   }
 `;
@@ -159,32 +150,12 @@ const StyledTooltip = styled.div`
   }
 `;
 
-const SystemIndicator = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
-  padding: 4px 8px;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.6);
-
-  @media (max-width: 960px) {
-    display: none;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: rgba(255, 255, 255, 0.7);
-  }
-`;
-
 function DarkModeToggle() {
-  const { isDarkMode, isSystemPreference, toggleTheme, resetToSystemPreference } = useTheme();
+  const { isDarkMode, toggleTheme, resetToSystemPreference } = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     // Always toggle theme directly - this is more intuitive
     toggleTheme();
   };
@@ -215,17 +186,21 @@ function DarkModeToggle() {
           onClick={handleClick}
           onContextMenu={handleRightClick}
           aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
-          theme={{ mode: isDarkMode ? 'dark' : 'light', colors: { primary: '#1565c0', secondary: '#e91e63' } }}
+          theme={{
+            mode: isDarkMode ? 'dark' : 'light',
+            colors: { primary: '#1565c0', secondary: '#e91e63' },
+          }}
         >
-          <ClientOnlyIcon iconName="DarkModeToggle" style={{ fontSize: '2rem' }} />
+          <ClientOnlyIcon iconName="DarkModeToggle" fontSize="32px" />
         </StyledIconButton>
       </StyledTooltip>
-
 
       {open && (
         <StyledMenu>
           <StyledMenuItem onClick={handleToggleMode}>
-            <MenuIcon><ClientOnlyIcon iconName="DarkModeToggle" style={{ fontSize: '1.5rem' }} /></MenuIcon>
+            <MenuIcon>
+              <ClientOnlyIcon iconName="DarkModeToggle" style={{ fontSize: '1.5rem' }} />
+            </MenuIcon>
             <MenuText>Switch to {isDarkMode ? 'light' : 'dark'} mode</MenuText>
           </StyledMenuItem>
           <StyledMenuItem onClick={handleSystemReset}>
