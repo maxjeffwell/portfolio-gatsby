@@ -170,7 +170,7 @@ const FallbackPre = styled.pre`
   }
 `;
 
-const CanvasCodeSnippet = React.memo(({
+const CanvasCodeSnippetInner = React.memo(({
   code,
   title = 'Code Example',
   animated = false,
@@ -202,7 +202,7 @@ const CanvasCodeSnippet = React.memo(({
 
   // Calculate canvas size based on code content
   useEffect(() => {
-    if (!isMounted || !code) return;
+    if (!isMounted || !code || typeof window === 'undefined') return;
 
     // Create temporary canvas to measure text
     const tempCanvas = document.createElement('canvas');
@@ -228,6 +228,8 @@ const CanvasCodeSnippet = React.memo(({
 
   // Handle copy functionality
   const handleCopy = async () => {
+    if (typeof window === 'undefined') return;
+    
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
@@ -241,7 +243,7 @@ const CanvasCodeSnippet = React.memo(({
 
   // Main animation loop
   useEffect(() => {
-    if (!isMounted || !canvasSize.width || !code) return;
+    if (!isMounted || !canvasSize.width || !code || typeof window === 'undefined') return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -258,7 +260,7 @@ const CanvasCodeSnippet = React.memo(({
     ctx.textBaseline = 'top';
     ctx.textAlign = 'left';
 
-    // Check for dark mode
+    // Check for dark mode safely
     const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     ctx.fillStyle = isDark ? '#e2e8f0' : '#2d3748';
 
@@ -369,7 +371,7 @@ const CanvasCodeSnippet = React.memo(({
   }
 
   // Show fallback during SSR or before canvas is ready
-  if (!isMounted || !canvasSize.width) {
+  if (!isMounted || !canvasSize.width || typeof window === 'undefined') {
     return (
       <StyledPaper>
         <StyledHeader>
@@ -382,7 +384,7 @@ const CanvasCodeSnippet = React.memo(({
           >
             {title}
           </StyledTypography>
-          {showCopyButton && (
+          {showCopyButton && typeof window !== 'undefined' && (
             <StyledTooltip title={copied ? 'Copied!' : 'Copy code'}>
               <StyledIconButton
                 size="small"
@@ -443,6 +445,39 @@ const CanvasCodeSnippet = React.memo(({
     </StyledPaper>
   );
 });
+
+CanvasCodeSnippetInner.displayName = 'CanvasCodeSnippetInner';
+
+// Client-side only wrapper to handle SSR properly
+const CanvasCodeSnippet = (props) => {
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Always render the fallback during SSR
+  if (!isClient) {
+    return (
+      <StyledPaper>
+        <StyledHeader>
+          <StyledTypography
+            variant="caption"
+            style={{
+              fontFamily: 'Courier New, monospace',
+              fontWeight: 'bold',
+            }}
+          >
+            {props.title || 'Code Example'}
+          </StyledTypography>
+        </StyledHeader>
+        <FallbackPre>{props.code}</FallbackPre>
+      </StyledPaper>
+    );
+  }
+
+  return <CanvasCodeSnippetInner {...props} />;
+};
 
 CanvasCodeSnippet.displayName = 'CanvasCodeSnippet';
 
