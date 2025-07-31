@@ -136,7 +136,7 @@ module.exports = {
       resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
-          include: /(svg-icons.*\.svg$|aspca\.svg$|iapf\.svg$)/,
+          include: /(svg-icons.*\.svg$|aspca\.svg$|iapf\.svg$|elephant_logo\.svg$)/,
           omitKeys: [
             'xmlnsDc',
             'xmlnsCc',
