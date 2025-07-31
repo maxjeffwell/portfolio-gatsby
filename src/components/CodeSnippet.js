@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import ClientOnlyIcon from './ClientOnlyIcon';
 
 // Simple icon components using text/Unicode
-const CopyIcon = styled.span`
-  font-size: 20px;
-  &::before {
-    content: '📋';
-  }
-`;
 
 const CheckIcon = styled.span`
   font-size: 20px;
@@ -241,7 +236,7 @@ function CodeSnippet({
                 borderColor: '#dc004e',
               }}
             >
-              {copied ? <CheckIcon /> : <CopyIcon />}
+              {copied ? <CheckIcon /> : <ClientOnlyIcon iconName="SourceCode" style={{ fontSize: '20px' }} />}
             </StyledIconButton>
           </StyledTooltip>
         )}

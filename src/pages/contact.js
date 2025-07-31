@@ -5,6 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
+import ClientOnlyIcon from '../components/ClientOnlyIcon';
 
 const StyledContainer = styled.div`
   max-width: 1200px;
@@ -791,7 +792,7 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  ✉️
+                  <ClientOnlyIcon iconName="Email" style={{ fontSize: '1.5rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
@@ -831,7 +832,7 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  📞
+                  <ClientOnlyIcon iconName="Telephone" style={{ fontSize: '1.5rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
@@ -871,7 +872,7 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  🔗
+                  <ClientOnlyIcon iconName="GitHubCharacter" style={{ fontSize: '1.5rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography

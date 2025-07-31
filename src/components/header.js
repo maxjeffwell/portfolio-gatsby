@@ -4,15 +4,10 @@ import styled from 'styled-components';
 
 import MyLogo from './myLogo';
 import SSRSafeDarkModeToggle from './SSRSafeDarkModeToggle';
+import ClientOnlyIcon from './ClientOnlyIcon';
 import { useTheme } from '../context/ThemeContext';
 
 // Simple icon components using Unicode symbols
-const MenuIcon = styled.span`
-  font-size: 24px;
-  &::before {
-    content: '☰';
-  }
-`;
 
 const CloseIcon = styled.span` 
   font-size: 24px;
@@ -316,7 +311,7 @@ function Header() {
                 onClick={handleDrawerToggle}
                 ref={menuButtonRef}
               >
-                <MenuIcon />
+                <ClientOnlyIcon iconName="Burger" style={{ fontSize: '24px' }} />
               </StyledIconButton>
             )}
 

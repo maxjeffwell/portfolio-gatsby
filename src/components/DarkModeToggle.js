@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { CgDarkMode } from 'react-icons/cg';
+import ClientOnlyIcon from './ClientOnlyIcon';
 import { useTheme } from '../context/ThemeContext';
 
 const SettingsBrightnessIcon = styled.span`
@@ -213,7 +213,7 @@ function DarkModeToggle() {
           onContextMenu={handleRightClick}
           aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
         >
-          <CgDarkMode />
+          <ClientOnlyIcon iconName="DarkModeToggle" style={{ fontSize: '1.5rem' }} />
         </StyledIconButton>
       </StyledTooltip>
 
@@ -221,7 +221,7 @@ function DarkModeToggle() {
       {open && (
         <StyledMenu>
           <StyledMenuItem onClick={handleToggleMode}>
-            <MenuIcon><CgDarkMode /></MenuIcon>
+            <MenuIcon><ClientOnlyIcon iconName="DarkModeToggle" style={{ fontSize: '1.5rem' }} /></MenuIcon>
             <MenuText>Switch to {isDarkMode ? 'light' : 'dark'} mode</MenuText>
           </StyledMenuItem>
           <StyledMenuItem onClick={handleSystemReset}>

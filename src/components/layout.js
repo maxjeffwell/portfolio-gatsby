@@ -219,22 +219,11 @@ const SocialLink = styled(IconButton)`
     props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s ease,
-    background-color 0.3s ease,
-    box-shadow 0.3s ease;
-  will-change: transform, color, box-shadow;
+    color 0.3s ease;
+  will-change: transform, color;
   padding: 20px;
-  border-radius: 16px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'rgba(255, 255, 255, 0.12) !important'
-      : 'rgba(0, 0, 0, 0.04) !important'};
-  backdrop-filter: blur(10px);
-  border: 1px solid
-    ${(props) =>
-      props.theme?.mode === 'dark'
-        ? 'rgba(255, 255, 255, 0.2) !important'
-        : 'rgba(0, 0, 0, 0.08) !important'};
+  background: transparent !important;
+  border: none !important;
 
   /* Ensure icons inherit the color and are visible */
   svg {
@@ -248,18 +237,7 @@ const SocialLink = styled(IconButton)`
   &:hover {
     transform: translateY(-4px) scale(1.15);
     color: #e91e63 !important;
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark'
-        ? 'rgba(233, 30, 99, 0.2) !important'
-        : 'rgba(156, 39, 176, 0.12) !important'};
-    box-shadow: ${(props) =>
-      props.theme?.mode === 'dark'
-        ? '0 8px 24px rgba(233, 30, 99, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)'
-        : '0 8px 24px rgba(156, 39, 176, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15)'};
-    border-color: ${(props) =>
-      props.theme?.mode === 'dark'
-        ? 'rgba(233, 30, 99, 0.5) !important'
-        : 'rgba(156, 39, 176, 0.3) !important'};
+    background: transparent !important;
 
     svg {
       color: #e91e63 !important;
@@ -273,12 +251,10 @@ const SocialLink = styled(IconButton)`
 
   @media (max-width: 768px) {
     padding: 18px;
-    border-radius: 14px;
   }
 
   @media (max-width: 600px) {
     padding: 16px;
-    border-radius: 12px;
 
     &:hover {
       transform: translateY(-2px) scale(1.1);
@@ -287,7 +263,6 @@ const SocialLink = styled(IconButton)`
 
   @media (max-width: 480px) {
     padding: 14px;
-    border-radius: 10px;
   }
 `;
 

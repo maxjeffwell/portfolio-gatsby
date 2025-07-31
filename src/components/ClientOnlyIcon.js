@@ -1,12 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
-import {
-  MdLightbulb,
-  MdArrowBack,
-  MdLanguage,
-} from 'react-icons/md';
-import { FaGlobe } from 'react-icons/fa';
 
 // GraphQL query for SVG icons
 const GET_SVG_ICONS = graphql`
@@ -42,6 +36,24 @@ const GET_SVG_ICONS = graphql`
       publicURL
     }
     dog: file(relativePath: { eq: "svg-icons/dog.svg" }) {
+      publicURL
+    }
+    darkModeToggle: file(relativePath: { eq: "svg-icons/dark_mode_toggle.svg" }) {
+      publicURL
+    }
+    email: file(relativePath: { eq: "svg-icons/email.svg" }) {
+      publicURL
+    }
+    githubCharacter: file(relativePath: { eq: "svg-icons/github_character.svg" }) {
+      publicURL
+    }
+    telephone: file(relativePath: { eq: "svg-icons/telephone.svg" }) {
+      publicURL
+    }
+    burger: file(relativePath: { eq: "svg-icons/burger.svg" }) {
+      publicURL
+    }
+    sourceCode: file(relativePath: { eq: "svg-icons/source_code.svg" }) {
       publicURL
     }
   }
@@ -144,7 +156,31 @@ const ClientOnlyIcon = ({ iconName, fontSize = 'medium', style = {}, ...props })
     return <SvgIcon url={data.dog?.publicURL} size={size} style={style} {...props} />;
   }
 
-  // Handle remaining react-icons (keeping only what's needed)
+  if (iconName === 'DarkModeToggle') {
+    return <SvgIcon url={data.darkModeToggle?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'Email') {
+    return <SvgIcon url={data.email?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'GitHubCharacter') {
+    return <SvgIcon url={data.githubCharacter?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'Telephone') {
+    return <SvgIcon url={data.telephone?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'Burger') {
+    return <SvgIcon url={data.burger?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'SourceCode') {
+    return <SvgIcon url={data.sourceCode?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  // Handle remaining react-icons
   const iconMap = {
     Language: MdLanguage,
     LightbulbOutlined: MdLightbulb,
