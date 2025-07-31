@@ -1,39 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <defs>
-    <style>
-      .iapf-primary {
-        fill: #242a28;
-      }
-      .iapf-accent {
-        fill: #404040;
-      }
-      .iapf-text {
-        fill: #242a28;
-        font-family: Arial, sans-serif;
-        font-weight: bold;
-      }
-    </style>
-  </defs>
-  
   <!-- Shield background -->
-  <path class="iapf-primary" d="M100 20 L160 50 L160 130 Q160 160, 100 180 Q40 160, 40 130 L40 50 Z"/>
+  <path fill="#242a28" d="M100 20 L160 50 L160 130 Q160 160, 100 180 Q40 160, 40 130 L40 50 Z"/>
   
   <!-- Shield border -->
-  <path class="iapf-accent" d="M100 25 L155 52 L155 130 Q155 155, 100 175 Q45 155, 45 130 L45 52 Z" fill="none" stroke="#404040" stroke-width="2"/>
+  <path fill="none" stroke="#404040" stroke-width="2" d="M100 25 L155 52 L155 130 Q155 155, 100 175 Q45 155, 45 130 L45 52 Z"/>
   
   <!-- Elephant silhouette -->
   <g transform="translate(70, 60)">
-    <path class="iapf-accent" d="M30 40 C30 30, 35 25, 45 25 C55 25, 60 30, 60 40 L60 55 C60 65, 55 70, 50 70 L40 70 C35 70, 30 65, 30 55 Z"/>
-    <circle class="iapf-accent" cx="45" cy="35" r="12"/>
-    <ellipse class="iapf-primary" cx="38" cy="32" rx="6" ry="9"/>
-    <ellipse class="iapf-primary" cx="52" cy="32" rx="6" ry="9"/>
-    <path class="iapf-accent" d="M45 42 Q42 48, 38 55 Q35 58, 32 55 Q35 52, 38 50 Q42 45, 45 42"/>
+    <path fill="#404040" d="M30 40 C30 30, 35 25, 45 25 C55 25, 60 30, 60 40 L60 55 C60 65, 55 70, 50 70 L40 70 C35 70, 30 65, 30 55 Z"/>
+    <circle fill="#404040" cx="45" cy="35" r="12"/>
+    <ellipse fill="#242a28" cx="38" cy="32" rx="6" ry="9"/>
+    <ellipse fill="#242a28" cx="52" cy="32" rx="6" ry="9"/>
+    <path fill="#404040" d="M45 42 Q42 48, 38 55 Q35 58, 32 55 Q35 52, 38 50 Q42 45, 45 42"/>
   </g>
   
   <!-- IAPF Text -->
-  <text x="100" y="130" text-anchor="middle" class="iapf-text" font-size="24">IAPF</text>
+  <text x="100" y="130" text-anchor="middle" fill="#242a28" font-family="Arial, sans-serif" font-weight="bold" font-size="24">IAPF</text>
   
   <!-- Anti-Poaching text -->
-  <text x="100" y="150" text-anchor="middle" class="iapf-text" font-size="12">ANTI-POACHING</text>
-  <text x="100" y="165" text-anchor="middle" class="iapf-text" font-size="12">FOUNDATION</text>
+  <text x="100" y="150" text-anchor="middle" fill="#242a28" font-family="Arial, sans-serif" font-weight="bold" font-size="12">ANTI-POACHING</text>
+  <text x="100" y="165" text-anchor="middle" fill="#242a28" font-family="Arial, sans-serif" font-weight="bold" font-size="12">FOUNDATION</text>
 </svg>

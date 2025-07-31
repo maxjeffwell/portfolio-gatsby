@@ -8,11 +8,14 @@ const StyledElephantLogo = styled(ElephantLogo)`
   height: 85px;
   transition: all 0.3s ease-in-out;
   
-  .elephant-body {
+  path[fill="#2c3e50"], 
+  circle[fill="#2c3e50"], 
+  rect[fill="#2c3e50"] {
     fill: ${props => props.theme?.mode === 'dark' ? '#4a5568' : '#2c3e50'};
   }
   
-  .elephant-accent {
+  ellipse[fill="#34495e"], 
+  path[fill="#34495e"] {
     fill: ${props => props.theme?.mode === 'dark' ? '#5a6575' : '#34495e'};
   }
 `;
