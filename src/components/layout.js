@@ -243,6 +243,15 @@ const SocialLink = styled(IconButton)`
       color: #e91e63 !important;
       fill: #e91e63 !important;
     }
+
+    // Special handling for wellfound icon - only change the W, keep red dots
+    svg[data-icon="wellfound"] {
+      color: #e91e63 !important;
+      
+      path[style*="rgba(252, 13, 33, 1)"] {
+        fill: rgba(252, 13, 33, 1) !important;
+      }
+    }
   }
 
   &:active {
@@ -341,7 +350,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="GitHub"
-                fontSize="clamp(2rem, 4vw, 2.5rem)"
+                fontSize="clamp(2.5rem, 5vw, 3rem)"
               />
             </SocialLink>
             <SocialLink
@@ -355,7 +364,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="wellfound"
-                fontSize="clamp(2rem, 4vw, 2.5rem)"
+                fontSize="clamp(2.5rem, 5vw, 3rem)"
               />
             </SocialLink>
             <SocialLink
@@ -367,7 +376,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="Phone"
-                fontSize="clamp(2rem, 4vw, 2.5rem)"
+                fontSize="clamp(2.5rem, 5vw, 3rem)"
                 style={{ color: '#eb2b00' }}
               />
             </SocialLink>
@@ -406,7 +415,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="Gatsby"
-                fontSize="clamp(2.25rem, 5vw, 2.75rem)"
+                fontSize="clamp(2.5rem, 6vw, 3rem)"
                 style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
                 }}

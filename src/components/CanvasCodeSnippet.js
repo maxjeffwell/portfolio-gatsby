@@ -159,7 +159,7 @@ const CanvasContainer = styled.div`
 
   @media (prefers-color-scheme: dark) {
     background-color: #2d3748;
-    color: #e2e8f0;
+    color: #ffffff;
   }
 `;
 
@@ -184,7 +184,7 @@ const FallbackPre = styled.pre`
 
   @media (prefers-color-scheme: dark) {
     background-color: #2d3748;
-    color: #e2e8f0;
+    color: #ffffff;
   }
 `;
 
@@ -282,7 +282,7 @@ const CanvasCodeSnippetInner = React.memo(
 
       // Use theme context for dark mode detection
       const isDark = theme?.mode === 'dark';
-      ctx.fillStyle = isDark ? '#e2e8f0' : '#2d3748';
+      ctx.fillStyle = isDark ? '#ffffff' : '#2d3748';
 
       // Animation state tracking
       let startTime = null;

@@ -234,7 +234,7 @@ const InfoCard = styled.div`
   background: ${(props) =>
     props.theme?.mode === 'dark'
       ? 'linear-gradient(135deg, rgba(233, 30, 99, 0.15) 0%, rgba(233, 30, 99, 0.1) 100%)'
-      : 'linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%)'};
+      : 'linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%)'};
   border-radius: 12px;
   padding: 32px;
   margin-top: 24px;
@@ -357,6 +357,7 @@ const IndexPage = () => {
                       WebkitTextFillColor: 'transparent',
                       color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', // Fallback for browsers that don't support background-clip
                       transition: 'background 0.3s ease',
+                      display: 'inline-block', // Ensure proper rendering of gradient text
                     }}
                   />
                 </HeroTitle>
