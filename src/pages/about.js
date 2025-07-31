@@ -262,7 +262,7 @@ function AboutPage() {
           <StyledBox as="section" aria-labelledby="personal-section" ref={personalRef} mb={8}>
             <div
               style={{
-                background: 'linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 50%, #fce4ec 100%)',
+                background: 'linear-gradient(135deg, #e8eaf6 0%, #ede7f6 50%, #f3e5f5 100%)',
                 borderRadius: '24px',
                 padding: '48px 32px',
                 boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',

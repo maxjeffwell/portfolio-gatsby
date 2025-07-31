@@ -18,7 +18,7 @@ const StyledIapfLogo = styled(IapfLogo)`
   max-width: 200px;
   height: auto;
   filter: ${props => props.theme?.mode === 'dark' 
-    ? 'invert(1) brightness(0.9)' 
+    ? 'invert(1) hue-rotate(180deg)' 
     : 'none'};
 `;
 

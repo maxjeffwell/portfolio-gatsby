@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
+import AnimatedCursor from 'react-animated-cursor';
 import ClientOnlyIcon from './ClientOnlyIcon';
 
 import Header from './header';
@@ -253,9 +254,11 @@ const SocialLink = styled(IconButton)`
       color: #e91e63 !important;
       fill: #e91e63 !important;
     }
+  }
 
-    // Special handling for wellfound icon - keep W black, keep red dots
-    svg[data-icon="wellfound"] {
+  /* Special hover handling for wellfound icon - keep W same color as default, keep red dots */
+  &[aria-label*="wellfound"]:hover {
+    svg {
       color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
       fill: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
       
@@ -294,6 +297,37 @@ function ThemedLayout({ children, data }) {
     <>
       <GlobalStyles theme={theme} />
       <ThirdPartyScripts />
+      <AnimatedCursor
+        innerSize={8}
+        outerSize={35}
+        color={theme?.mode === 'dark' ? '50, 255, 130' : '21, 101, 192'}
+        outerAlpha={0.2}
+        innerScale={0.7}
+        outerScale={5}
+        trailingSpeed={8}
+        showSystemCursor={false}
+        clickables={[
+          'a',
+          'input[type="text"]',
+          'input[type="email"]', 
+          'input[type="number"]',
+          'input[type="submit"]',
+          'input[type="image"]',
+          'label[for]',
+          'select',
+          'textarea',
+          'button',
+          '.link',
+          {
+            target: '.custom',
+            options: {
+              innerSize: 12,
+              outerSize: 12,
+              color: '255, 255, 255',
+            }
+          }
+        ]}
+      />
       <Header />
       <main
         suppressHydrationWarning
