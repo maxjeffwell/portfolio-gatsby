@@ -92,27 +92,24 @@ const StyledIconButton = styled.button`
   appearance: none;
   text-decoration: none;
   color: ${(props) => props.theme?.colors?.primary || '#1565c0'};
-  padding: 12px;
+  padding: 8px;
   border-radius: 50%;
   overflow: visible;
   font-size: 2rem;
-  width: 56px;
-  height: 56px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(21, 101, 192, 0.08)'};
   background: transparent;
-  border: 2px solid ${(props) => props.theme?.colors?.primary || '#1565c0'};
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(21, 101, 192, 0.12)'};
     transform: scale(1.05);
   }
 
   &:focus-visible {
     outline: 2px solid ${(props) => props.theme?.colors?.secondary || '#e91e63'};
     outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 

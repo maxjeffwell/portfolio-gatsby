@@ -234,6 +234,16 @@ const SocialLink = styled(IconButton)`
     opacity: 1 !important;
   }
 
+  /* Special handling for wellfound icon - W should be same color as "Jeff Maxwell" */
+  svg[data-icon="wellfound"] {
+    color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
+    fill: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
+    
+    path[style*="rgba(252, 13, 33, 1)"] {
+      fill: rgba(252, 13, 33, 1) !important;
+    }
+  }
+
   &:hover {
     transform: translateY(-4px) scale(1.15);
     color: #e91e63 !important;
@@ -244,9 +254,10 @@ const SocialLink = styled(IconButton)`
       fill: #e91e63 !important;
     }
 
-    // Special handling for wellfound icon - only change the W, keep red dots
+    // Special handling for wellfound icon - keep W black, keep red dots
     svg[data-icon="wellfound"] {
-      color: #e91e63 !important;
+      color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
+      fill: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
       
       path[style*="rgba(252, 13, 33, 1)"] {
         fill: rgba(252, 13, 33, 1) !important;
