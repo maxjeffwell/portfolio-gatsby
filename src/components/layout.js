@@ -304,7 +304,7 @@ function ThemedLayout({ children, data }) {
         outerAlpha={0.2}
         innerScale={0.7}
         outerScale={5}
-        trailingSpeed={8}
+        trailingSpeed={4}
         showSystemCursor={false}
         clickables={[
           'a',
@@ -466,7 +466,7 @@ function ThemedLayout({ children, data }) {
                 style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
                   verticalAlign: 'middle',
-                  transform: 'translateY(-0.1em)',
+                  transform: 'translateY(-0.3em)',
                 }}
               />
             </Link>
