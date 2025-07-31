@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
-import elephantLogo from '../images/elephant_logo.png';
+import elephantLogo from '../images/elephant_noun_project.png';
 
 const StyledLogoImg = styled.img`
   width: 50px;

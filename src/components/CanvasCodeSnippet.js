@@ -451,13 +451,26 @@ CanvasCodeSnippetInner.displayName = 'CanvasCodeSnippetInner';
 // Client-side only wrapper to handle SSR properly
 const CanvasCodeSnippet = (props) => {
   const [isClient, setIsClient] = React.useState(false);
+  const [useCanvas, setUseCanvas] = React.useState(false);
 
   React.useEffect(() => {
     setIsClient(true);
+    
+    // Test canvas support
+    try {
+      const testCanvas = document.createElement('canvas');
+      const testCtx = testCanvas.getContext('2d');
+      if (testCtx && typeof testCtx.fillText === 'function') {
+        setUseCanvas(true);
+      }
+    } catch (error) {
+      console.warn('Canvas not supported, using fallback:', error);
+      setUseCanvas(false);
+    }
   }, []);
 
-  // Always render the fallback during SSR
-  if (!isClient) {
+  // Always render the fallback during SSR or if canvas isn't supported
+  if (!isClient || !useCanvas) {
     return (
       <StyledPaper>
         <StyledHeader>
@@ -470,6 +483,27 @@ const CanvasCodeSnippet = (props) => {
           >
             {props.title || 'Code Example'}
           </StyledTypography>
+          {props.showCopyButton !== false && isClient && (
+            <StyledTooltip>
+              <StyledIconButton
+                size="small"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(props.code);
+                  } catch (err) {
+                    console.warn('Copy failed:', err);
+                  }
+                }}
+                aria-label="Copy code to clipboard"
+                style={{
+                  color: '#dc004e',
+                  borderColor: '#dc004e',
+                }}
+              >
+                <CopyIcon />
+              </StyledIconButton>
+            </StyledTooltip>
+          )}
         </StyledHeader>
         <FallbackPre>{props.code}</FallbackPre>
       </StyledPaper>

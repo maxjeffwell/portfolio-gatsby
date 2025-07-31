@@ -15,7 +15,7 @@ const LogoContainer = styled.div`
 const StyledIapfLogo = styled(IapfLogo)`
   transition: all 0.3s ease-in-out;
   width: 100%;
-  max-width: 200px;
+  max-width: 300px;
   height: auto;
   
   path[fill="#242a28"], 
