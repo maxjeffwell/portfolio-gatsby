@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DiIntellij, DiMozilla, DiDebian } from 'react-icons/di';
-import { FaPiedPiperAlt } from 'react-icons/fa';
+import { DiIntellij, DiMozilla, DiDebian, DiGit } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
@@ -77,27 +76,6 @@ const Typography = styled.div`
   transition: color 0.3s ease;
 `;
 
-// Simple icon components
-const CodeIcon = styled.span`
-  font-size: 24px;
-  &::before {
-    content: '💻';
-  }
-`;
-
-const CoffeeIcon = styled.span`
-  font-size: 24px;
-  &::before {
-    content: '☕';
-  }
-`;
-
-const PetsIcon = styled.span`
-  font-size: 24px;
-  &::before {
-    content: '🐕';
-  }
-`;
 
 const StyledContainer = styled.div`
   max-width: 1200px;
@@ -204,144 +182,18 @@ const GridItem = styled.div`
   flex-direction: column;
 `;
 
-const GradientText = styled(Typography)`
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(45deg, #ff7043, #ffb74d)'
-      : 'linear-gradient(45deg, #fc4a1a, #f7b733)'};
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-font-smoothing: antialiased;
-  transition: background 0.3s ease;
 
-  /* Fallback color for browsers that don't support background-clip */
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#ff7043' : '#fc4a1a')};
 
-  @supports (background-clip: text) or (-webkit-background-clip: text) {
-    color: transparent;
-  }
-`;
 
-const TechSection = styled.div`
-  padding: 32px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(240, 240, 240, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
-  backdrop-filter: blur(10px);
-  box-shadow:
-    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
-  @media (prefers-color-scheme: dark) {
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
-  }
-`;
 
-const PersonalCard = styled.div`
-  padding: 24px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(252, 74, 26, 0.1) 0%, rgba(247, 183, 51, 0.1) 100%);
-  position: relative;
-  overflow: hidden;
-  box-shadow:
-    0px 3px 3px -2px rgba(0, 0, 0, 0.2),
-    0px 3px 4px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(252, 74, 26, 0.1) 0%, transparent 70%);
-    z-index: 0;
-  }
-
-  & > * {
-    position: relative;
-    z-index: 1;
-  }
-`;
-
-const TechCard = styled.div`
-  text-align: center;
-  padding: 24px 16px;
-  height: 100%;
-  min-height: 160px;
-  transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, box-shadow;
-  box-shadow:
-    0px 1px 3px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow:
-      0px 5px 5px -3px rgba(0, 0, 0, 0.2),
-      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
-      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-  }
-`;
-
-const StyledCard = styled.div`
-  box-shadow:
-    0px 3px 3px -2px rgba(0, 0, 0, 0.2),
-    0px 3px 4px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-  border-radius: 8px;
-  overflow: hidden;
-`;
-
-const InterestItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: rgba(255, 255, 255, 0.08);
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.12);
-    }
-  }
-`;
-
-const StyledIcon = styled.div`
-  font-size: 3.5rem;
-  color: #fc4a1a;
-  margin-bottom: 16px;
-  transition: transform 0.3s ease;
-  will-change: transform;
-
-  .MuiCard-root:hover & {
-    transform: scale(1.1) rotate(5deg);
-  }
-`;
 
 function AboutPage() {
   const { theme } = useTheme();
-  const [headerRef, headerVisible] = useScrollAnimation({ delay: 100 });
-  const [techRef, techVisible] = useScrollAnimation({ delay: 300 });
-  const [personalRef, personalVisible] = useScrollAnimation({ delay: 500 });
+  const [headerRef] = useScrollAnimation({ delay: 100 });
+  const [techRef] = useScrollAnimation({ delay: 300 });
+  const [personalRef] = useScrollAnimation({ delay: 500 });
 
   return (
     <Layout>
@@ -401,7 +253,7 @@ function AboutPage() {
                 }}
               >
                 Full stack developer passionate about creating elegant solutions to complex
-                problems. When I'm not coding, I'm exploring new technologies and perfecting my
+                problems. When I&apos;m not coding, I&apos;m exploring new technologies and perfecting my
                 craft.
               </Typography>
             </div>
@@ -472,7 +324,9 @@ function AboutPage() {
                         style={{
                           fontSize: '2rem',
                           color:
-                            theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                            theme?.mode === 'dark'
+                              ? theme?.colors?.primary || '#90caf9'
+                              : '#1565c0',
                         }}
                       />
                     </div>
@@ -537,7 +391,9 @@ function AboutPage() {
                         style={{
                           fontSize: '2rem',
                           color:
-                            theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                            theme?.mode === 'dark'
+                              ? theme?.colors?.primary || '#90caf9'
+                              : '#1565c0',
                         }}
                       />
                     </div>
@@ -602,7 +458,9 @@ function AboutPage() {
                         style={{
                           fontSize: '2rem',
                           color:
-                            theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                            theme?.mode === 'dark'
+                              ? theme?.colors?.primary || '#90caf9'
+                              : '#1565c0',
                         }}
                       />
                     </div>
@@ -985,7 +843,7 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <FaPiedPiperAlt />
+                    <DiGit />
                   </div>
                   <Typography
                     theme={theme}
@@ -995,7 +853,7 @@ function AboutPage() {
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
                     }
                   >
-                    Pied Piper
+                    Git
                   </Typography>
                   <Typography
                     theme={theme}
@@ -1005,7 +863,7 @@ function AboutPage() {
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                     }
                   >
-                    Optimal compression algorithm
+                    Version control system
                   </Typography>
                 </div>
               </div>

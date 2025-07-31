@@ -340,13 +340,13 @@ function Header() {
               )}
             </StyledBox>
 
-            {/* Center section: Logo */}
+            {/* Center section: Empty for spacing */}
             <StyledBox display="flex" alignItems="center" justifyContent="center">
-              <MyLogo />
             </StyledBox>
 
-            {/* Right section: Dark mode toggle */}
-            <StyledBox display="flex" alignItems="center" justifyContent="flex-end">
+            {/* Right section: Logo and Dark mode toggle */}
+            <StyledBox display="flex" alignItems="center" justifyContent="flex-end" gap={2}>
+              <MyLogo />
               <SSRSafeDarkModeToggle />
             </StyledBox>
           </StyledToolbar>

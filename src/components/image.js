@@ -19,7 +19,7 @@ function Image({ imageType }) {
           )
         }
       }
-      teamImage2: file(relativePath: { eq: "elephant-developer.png" }) {
+      teamImage2: file(relativePath: { eq: "elephant_developer.png" }) {
         childImageSharp {
           gatsbyImageData(
             width: 800

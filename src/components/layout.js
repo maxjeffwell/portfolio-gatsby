@@ -341,7 +341,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="GitHub"
-                style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }}
+                style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)' }}
               />
             </SocialLink>
             <SocialLink
@@ -355,7 +355,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="wellfound"
-                style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }}
+                style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)' }}
               />
             </SocialLink>
             <SocialLink
@@ -367,7 +367,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="Phone"
-                style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)' }}
+                style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: '#eb2b00' }}
               />
             </SocialLink>
           </StyledBox>
@@ -408,7 +408,7 @@ function ThemedLayout({ children, data }) {
                 fontSize="large"
                 style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-                  fontSize: 'clamp(1.75rem, 4vw, 2rem)',
+                  fontSize: 'clamp(2.25rem, 5vw, 2.75rem)',
                 }}
               />
             </Link>
