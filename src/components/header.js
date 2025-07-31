@@ -56,9 +56,9 @@ const StyledAppBar = styled.header`
 `;
 
 const StyledToolbar = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   min-height: 80px;
   padding: 0 16px;
 
@@ -304,39 +304,49 @@ function Header() {
       <StyledAppBar theme={theme} scrolled={isScrolled ? 1 : 0}>
         <StyledContainer>
           <StyledToolbar>
-            {isMobile && (
-              <StyledIconButton
-                theme={theme}
-                aria-label="open drawer"
-                onClick={handleDrawerToggle}
-                ref={menuButtonRef}
-              >
-                <ClientOnlyIcon iconName="Burger" style={{ fontSize: '24px' }} />
-              </StyledIconButton>
-            )}
-
-            <StyledBox
-              as="nav"
-              aria-label="Main navigation"
-              display="flex"
-              alignItems="center"
-            >
-              {!isMobile && menuItems.map((item) => (
-                <NavButton
-                  key={item.text}
-                  as={Link}
-                  to={item.to}
+            {/* Left section: Menu/Navigation */}
+            <StyledBox display="flex" alignItems="center">
+              {isMobile && (
+                <StyledIconButton
                   theme={theme}
-                  className={currentPath === item.to ? 'active' : ''}
-                  aria-current={currentPath === item.to ? 'page' : undefined}
+                  aria-label="open drawer"
+                  onClick={handleDrawerToggle}
+                  ref={menuButtonRef}
                 >
-                  {item.text}
-                </NavButton>
-              ))}
+                  <ClientOnlyIcon iconName="Burger" style={{ fontSize: '24px' }} />
+                </StyledIconButton>
+              )}
+              
+              {!isMobile && (
+                <StyledBox
+                  as="nav"
+                  aria-label="Main navigation"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {menuItems.map((item) => (
+                    <NavButton
+                      key={item.text}
+                      as={Link}
+                      to={item.to}
+                      theme={theme}
+                      className={currentPath === item.to ? 'active' : ''}
+                      aria-current={currentPath === item.to ? 'page' : undefined}
+                    >
+                      {item.text}
+                    </NavButton>
+                  ))}
+                </StyledBox>
+              )}
             </StyledBox>
 
-            <StyledBox display="flex" alignItems="center" gap={2}>
+            {/* Center section: Logo */}
+            <StyledBox display="flex" alignItems="center" justifyContent="center">
               <MyLogo />
+            </StyledBox>
+
+            {/* Right section: Dark mode toggle */}
+            <StyledBox display="flex" alignItems="center" justifyContent="flex-end">
               <SSRSafeDarkModeToggle />
             </StyledBox>
           </StyledToolbar>

@@ -7,11 +7,11 @@ const StyledLogoImg = styled.img`
   width: 50px;
   height: 50px;
   transition: all 0.3s ease-in-out;
-  filter: ${props => props.theme?.mode === 'dark' ? 'brightness(0.9) contrast(1.1)' : 'none'};
+  filter: brightness(0) saturate(100%) invert(20%) sepia(8%) saturate(1000%) hue-rotate(180deg) brightness(95%) contrast(85%);
   
   &:hover {
     transform: scale(1.05);
-    filter: ${props => props.theme?.mode === 'dark' ? 'brightness(1) contrast(1.2)' : 'brightness(1.1)'};
+    filter: brightness(0) saturate(100%) invert(15%) sepia(10%) saturate(1200%) hue-rotate(180deg) brightness(90%) contrast(90%);
   }
 `;
 
