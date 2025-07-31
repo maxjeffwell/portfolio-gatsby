@@ -433,7 +433,7 @@ const IndexPage = () => {
               {/* Beyond the Code */}
               <Card theme={theme}>
                 <CardTitle theme={theme}>
-                  <span style={{ fontSize: '1.5rem' }}>🐾</span>
+                  <span style={{ fontSize: '2rem' }}>🐾</span>
                   Beyond the Code
                 </CardTitle>
                 <CardText theme={theme}>
@@ -462,7 +462,7 @@ const IndexPage = () => {
                 <CardTitle theme={theme}>
                   <ClientOnlyIcon
                     iconName="Computer"
-                    style={{ fontSize: '1.5rem', color: theme?.colors?.primary || '#1976d2' }}
+                    style={{ fontSize: '2rem', color: theme?.colors?.primary || '#1976d2' }}
                   />
                   Code Philosophy
                 </CardTitle>

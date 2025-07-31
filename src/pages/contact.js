@@ -792,7 +792,7 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  <ClientOnlyIcon iconName="Email" style={{ fontSize: '1.5rem', color: '#1565c0' }} />
+                  <ClientOnlyIcon iconName="Email" style={{ fontSize: '2rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
@@ -832,7 +832,7 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  <ClientOnlyIcon iconName="Telephone" style={{ fontSize: '1.5rem', color: '#1565c0' }} />
+                  <ClientOnlyIcon iconName="Telephone" style={{ fontSize: '2rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
@@ -872,7 +872,7 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  <ClientOnlyIcon iconName="GitHubCharacter" style={{ fontSize: '1.5rem', color: '#1565c0' }} />
+                  <ClientOnlyIcon iconName="GitHubCharacter" style={{ fontSize: '2rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
