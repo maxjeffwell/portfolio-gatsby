@@ -325,7 +325,7 @@ function Header() {
                   aria-label="open drawer"
                   onClick={handleDrawerToggle}
                   ref={menuButtonRef}
-                  style={{ opacity: 0, pointerEvents: 'auto' }}
+                  style={{ opacity: 1, pointerEvents: 'auto' }}
                 >
                   <ClientOnlyIcon
                     iconName="Burger"
