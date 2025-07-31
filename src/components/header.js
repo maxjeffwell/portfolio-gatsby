@@ -68,6 +68,7 @@ const StyledToolbar = styled.div`
   }
 `;
 
+
 const NavButton = styled.a`
   display: inline-flex;
   align-items: center;
@@ -210,7 +211,8 @@ function Header() {
   const [currentPath, setCurrentPath] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(false); // Default to false for SSR
+  const [isMobile, setIsMobile] = useState(true); // Default to mobile-first for SSR
+  const [isHydrated, setIsHydrated] = useState(false);
   const menuButtonRef = useRef(null);
 
   // Client-side only theme and media query handling
@@ -220,11 +222,12 @@ function Header() {
       setCurrentPath(window.location.pathname);
 
       // Handle media query with client-side fallback
-      const mediaQuery = window.matchMedia('(min-width: 960px)');
-      setIsMobile(!mediaQuery.matches);
+      const mediaQuery = window.matchMedia('(max-width: 959px)');
+      setIsMobile(mediaQuery.matches);
+      setIsHydrated(true); // Mark as hydrated after setting initial state
 
       const handleMediaChange = (e) => {
-        setIsMobile(!e.matches);
+        setIsMobile(e.matches);
       };
 
       mediaQuery.addEventListener('change', handleMediaChange);
@@ -313,7 +316,13 @@ function Header() {
                   onClick={handleDrawerToggle}
                   ref={menuButtonRef}
                 >
-                  <ClientOnlyIcon iconName="Burger" style={{ fontSize: '24px' }} />
+                  <ClientOnlyIcon 
+                    iconName="Burger" 
+                    style={{ 
+                      fontSize: '24px',
+                      color: theme?.colors?.primary || '#1565c0'
+                    }} 
+                  />
                 </StyledIconButton>
               )}
               

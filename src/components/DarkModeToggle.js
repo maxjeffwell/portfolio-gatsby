@@ -99,26 +99,29 @@ const StyledIconButton = styled.button`
   vertical-align: middle;
   appearance: none;
   text-decoration: none;
-  color: inherit;
-  padding: 8px;
+  color: ${props => props.theme?.colors?.primary || '#1565c0'};
+  padding: 12px;
   border-radius: 50%;
   overflow: visible;
-  font-size: 1.5rem;
-  background: rgba(0, 0, 0, 0.04);
-  border: 2px solid rgba(0, 0, 0, 0.12);
+  font-size: 2rem;
+  width: 56px;
+  height: 56px;
+  background: ${props => props.theme?.mode === 'dark' 
+    ? 'rgba(255, 255, 255, 0.1)' 
+    : 'rgba(21, 101, 192, 0.08)'};
+  border: 2px solid ${props => props.theme?.colors?.primary || '#1565c0'};
+  transition: all 0.2s ease;
 
-  &:focus-visible {
-    outline: 2px solid #1976d2;
-    outline-offset: 2px;
+  &:hover {
+    background: ${props => props.theme?.mode === 'dark' 
+      ? 'rgba(255, 255, 255, 0.15)' 
+      : 'rgba(21, 101, 192, 0.12)'};
+    transform: scale(1.05);
   }
 
-  @media (prefers-color-scheme: dark) {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.12);
-
-    &:focus-visible {
-      outline-color: #90caf9;
-    }
+  &:focus-visible {
+    outline: 2px solid ${props => props.theme?.colors?.secondary || '#e91e63'};
+    outline-offset: 2px;
   }
 `;
 
@@ -212,8 +215,9 @@ function DarkModeToggle() {
           onClick={handleClick}
           onContextMenu={handleRightClick}
           aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+          theme={{ mode: isDarkMode ? 'dark' : 'light', colors: { primary: '#1565c0', secondary: '#e91e63' } }}
         >
-          <ClientOnlyIcon iconName="DarkModeToggle" style={{ fontSize: '1.5rem' }} />
+          <ClientOnlyIcon iconName="DarkModeToggle" style={{ fontSize: '2rem' }} />
         </StyledIconButton>
       </StyledTooltip>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
+import { MdLanguage, MdLightbulb, MdArrowBack } from 'react-icons/md';
+import { FaGlobe } from 'react-icons/fa';
 
 // GraphQL query for SVG icons
 const GET_SVG_ICONS = graphql`
@@ -14,7 +16,7 @@ const GET_SVG_ICONS = graphql`
     phone: file(relativePath: { eq: "svg-icons/phone.svg" }) {
       publicURL
     }
-    gatsby: file(relativePath: { eq: "svg-icons/gatsby-logo.svg" }) {
+    gatsby: file(relativePath: { eq: "svg-icons/gatsby_logo.svg" }) {
       publicURL
     }
     arrowForward: file(relativePath: { eq: "svg-icons/arrow_forward.svg" }) {

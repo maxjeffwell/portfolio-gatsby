@@ -6,6 +6,7 @@ import elephantLogo from '../images/elephant_noun_project.png';
 const StyledLogoImg = styled.img`
   width: 50px;
   height: 50px;
+  margin-top: 4px;
   transition: all 0.3s ease-in-out;
   filter: brightness(0) saturate(100%) invert(20%) sepia(8%) saturate(1000%) hue-rotate(180deg) brightness(95%) contrast(85%);
   

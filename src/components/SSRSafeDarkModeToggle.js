@@ -12,11 +12,11 @@ function SSRSafeDarkModeToggle() {
 
   // Always render placeholder during SSR and until hydration is complete
   if (!isClient) {
-    return <div style={{ width: '48px', height: '48px' }} />; // Placeholder
+    return <div style={{ width: '56px', height: '56px' }} />; // Placeholder
   }
 
   return (
-    <React.Suspense fallback={<div style={{ width: '48px', height: '48px' }} />}>
+    <React.Suspense fallback={<div style={{ width: '56px', height: '56px' }} />}>
       <DarkModeToggle />
     </React.Suspense>
   );

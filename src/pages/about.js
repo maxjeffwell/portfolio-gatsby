@@ -180,6 +180,7 @@ const GridContainer = styled.div`
 const GridItem = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 
@@ -292,6 +293,7 @@ function AboutPage() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '16px',
+                      height: '100%',
                       boxShadow:
                         theme?.mode === 'dark'
                           ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
@@ -322,7 +324,7 @@ function AboutPage() {
                         iconName="CodeTerminal"
                         fontSize="large"
                         style={{
-                          fontSize: '2rem',
+                          fontSize: '2.5rem',
                           color:
                             theme?.mode === 'dark'
                               ? theme?.colors?.primary || '#90caf9'
@@ -366,6 +368,7 @@ function AboutPage() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '16px',
+                      height: '100%',
                       boxShadow:
                         theme?.mode === 'dark'
                           ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
@@ -433,6 +436,7 @@ function AboutPage() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '16px',
+                      height: '100%',
                       boxShadow:
                         theme?.mode === 'dark'
                           ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
@@ -456,7 +460,7 @@ function AboutPage() {
                         iconName="Dog"
                         fontSize="large"
                         style={{
-                          fontSize: '2rem',
+                          fontSize: '2.5rem',
                           color:
                             theme?.mode === 'dark'
                               ? theme?.colors?.primary || '#90caf9'
