@@ -440,7 +440,8 @@ function ProjectCard({
               <GatsbyImage
                 image={getImage(imageSrcPath)}
                 alt={`${title} main screenshot showing the application interface`}
-                loading="eager"
+                loading="lazy"
+                sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 40vw, 33vw"
                 style={{
                   borderRadius: '8px',
                   width: '100%',
@@ -479,7 +480,8 @@ function ProjectCard({
               <GatsbyImage
                 image={getImage(imageSrcPath2)}
                 alt={`${title} secondary screenshot showing additional features`}
-                loading="eager"
+                loading="lazy"
+                sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 40vw, 33vw"
                 style={{
                   borderRadius: '8px',
                   width: '100%',
