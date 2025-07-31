@@ -17,9 +17,14 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  box-sizing: border-box;
   
   @media (max-width: 600px) {
     padding: 0 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 12px;
   }
 `;
 
@@ -111,14 +116,21 @@ const TwoColumnGrid = styled.div`
   grid-template-columns: 0.5fr 1.5fr;
   gap: 48px;
   align-items: start;
+  width: 100%;
+  box-sizing: border-box;
   
   @media (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
+    gap: 32px;
   }
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 24px;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 20px;
   }
 `;
 
@@ -131,9 +143,12 @@ const Card = styled.div`
   height: 100%;
   transition: background 0.3s ease, color 0.3s ease;
   box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
   
   @media (max-width: 768px) {
-    padding: 32px;
+    padding: 28px;
   }
   
   @media (max-width: 600px) {
@@ -143,6 +158,11 @@ const Card = styled.div`
   @media (max-width: 480px) {
     padding: 20px 16px;
     border-radius: 12px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 16px 12px;
+    border-radius: 8px;
   }
 `;
 
@@ -209,6 +229,8 @@ const InfoCard = styled.div`
   margin-top: 24px;
   transition: background 0.3s ease;
   box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
   
   h3 {
     font-size: clamp(1.25rem, 3vw, 1.5rem);
@@ -217,6 +239,7 @@ const InfoCard = styled.div`
     margin: 0 0 16px 0;
     transition: color 0.3s ease;
     line-height: 1.3;
+    word-wrap: break-word;
   }
   
   ul {
@@ -226,30 +249,39 @@ const InfoCard = styled.div`
     
     li {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
       margin-bottom: 12px;
       color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#333'};
       transition: color 0.3s ease;
       font-size: clamp(0.9rem, 2.5vw, 1rem);
       line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
       
       svg {
         color: ${props => props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63'};
         flex-shrink: 0;
         transition: color 0.3s ease;
+        margin-top: 2px;
       }
     }
   }
   
   @media (max-width: 600px) {
-    padding: 24px;
+    padding: 20px;
     margin-top: 20px;
   }
   
   @media (max-width: 480px) {
-    padding: 20px;
+    padding: 16px;
     border-radius: 8px;
+    margin-top: 16px;
+  }
+  
+  @media (max-width: 360px) {
+    padding: 14px;
+    border-radius: 6px;
   }
 `;
 

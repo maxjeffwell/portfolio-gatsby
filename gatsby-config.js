@@ -137,6 +137,7 @@ module.exports = {
       options: {
         rule: {
           include: /(svg-icons.*\.svg$|aspca\.svg$|iapf\.svg$)/,
+          omitKeys: ['xmlnsDc', 'xmlnsCc', 'xmlnsRdf', 'xmlnsSvg', 'xmlnsSodipodi', 'xmlnsInkscape'],
         },
       },
     },

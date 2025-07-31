@@ -336,7 +336,7 @@ function ThemedLayout({ children, data }) {
             variant="body2" 
             theme={theme}
             style={{ 
-              fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', 
+              fontSize: 'clamp(1.125rem, 2.8vw, 1.25rem)', 
               fontWeight: 400,
               color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important'
             }}

@@ -396,6 +396,40 @@ const CustomSelectDropdown = styled.div`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   max-height: 200px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+
+  @media (max-width: 768px) {
+    max-height: 150px;
+  }
+
+  @media (max-width: 480px) {
+    max-height: 120px;
+    border-radius: 6px;
+  }
+
+  /* Custom scrollbar for better mobile experience */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.2)'};
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.3)'};
+  }
 `;
 
 const CustomSelectOption = styled.div`
@@ -405,8 +439,14 @@ const CustomSelectOption = styled.div`
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
   cursor: pointer;
   transition: background-color 0.2s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 
-  &:hover {
+  &:hover,
+  &:active {
     background-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.08)'};
   }
@@ -417,6 +457,20 @@ const CustomSelectOption = styled.div`
 
   &:last-child {
     border-radius: 0 0 8px 8px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 14px 16px;
+    font-size: 0.875rem;
+    min-height: 48px;
+
+    &:first-child {
+      border-radius: 6px 6px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 6px 6px;
+    }
   }
 `;
 
