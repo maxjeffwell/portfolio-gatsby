@@ -429,7 +429,7 @@ function ProjectCard({
   };
 
   return (
-    <StyledCard theme={theme}>
+    <StyledCard theme={theme} as="article">
       <ColoredBar />
       <FlexContainer>
         <ImageBox>
@@ -515,8 +515,8 @@ function ProjectCard({
       </FlexContainer>
 
       <StyledCardContent>
-        <HeaderContainer>
-          <Typography theme={theme} variant="h5" component="h3" color="primary" fontWeight="bold">
+        <HeaderContainer as="header">
+          <Typography theme={theme} variant="h5" component="h2" color="primary" fontWeight="bold">
             {title}
           </Typography>
           <CustomChip theme={theme}>{date}</CustomChip>
@@ -612,6 +612,7 @@ function ProjectCard({
           as="a"
           variant="outlined"
           href={sourceURL}
+          title={`View source code for ${title} on GitHub`}
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -629,6 +630,7 @@ function ProjectCard({
           as="a"
           variant="outlined"
           href={hostedURL}
+          title={`View live demo of ${title}`}
           target="_blank"
           rel="noopener noreferrer"
           style={{

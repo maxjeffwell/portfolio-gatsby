@@ -343,7 +343,7 @@ function ThemedLayout({ children, data }) {
       >
         {children}
       </main>
-      <StyledFooter as="footer" theme={theme}>
+      <StyledFooter as="footer" theme={theme} role="contentinfo">
         <StyledContainer style={{ textAlign: 'center' }}>
           <Typography
             as="h2"
@@ -359,6 +359,7 @@ function ThemedLayout({ children, data }) {
           </Typography>
           <Link
             href="mailto:maxjeffwell@gmail.com"
+            title="Send email to Jeff Maxwell"
             underline="always"
             theme={theme}
             style={{
@@ -381,6 +382,12 @@ function ThemedLayout({ children, data }) {
               border: `2px solid ${theme?.mode === 'dark' ? '#ff4081' : '#e91e63'}`,
               backgroundColor: 'transparent',
             }}
+            css={`
+              /* Only make text transparent when browser supports background-clip */
+              @supports (background-clip: text) or (-webkit-background-clip: text) {
+                -webkit-text-fill-color: transparent;
+              }
+            `}
             aria-label="Send email to maxjeffwell@gmail.com"
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
@@ -407,7 +414,8 @@ function ThemedLayout({ children, data }) {
               as="a"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.github.com/maxjeffwell"
+              href="https://github.com/maxjeffwell"
+              title="Visit Jeff Maxwell's GitHub profile - View projects and code repositories"
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
               theme={theme}
@@ -421,7 +429,8 @@ function ThemedLayout({ children, data }) {
               as="a"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://https://wellfound.com/u/maxjeffwell"
+              href="https://wellfound.com/u/maxjeffwell"
+              title="Visit Jeff Maxwell's Wellfound profile - Startup and tech career opportunities"
               aria-label="Visit Jeff Maxwell's wellfound profile"
               size="large"
               theme={theme}
@@ -434,6 +443,7 @@ function ThemedLayout({ children, data }) {
             <SocialLink
               as="a"
               href="tel:+01-508-395-2008"
+              title="Call Jeff Maxwell at 508-395-2008 - Direct phone contact"
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
               theme={theme}
@@ -461,7 +471,8 @@ function ThemedLayout({ children, data }) {
               Built by Jeff Maxwell, created with Gatsby
             </Typography>
             <Link
-              href="https://www.gatsbyjs.org"
+              href="https://www.gatsbyjs.com"
+              title="Learn more about Gatsby - The framework used to build this site"
               target="_blank"
               rel="noopener noreferrer"
               theme={theme}

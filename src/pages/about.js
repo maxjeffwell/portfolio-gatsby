@@ -211,6 +211,9 @@ function AboutPage() {
             `technology stack`,
             `development tools`,
             `full stack developer profile`,
+            `orlando developer bio`,
+            `central florida web developer`,
+            `local developer profile`,
           ]}
         />
         <StyledContainer>
@@ -257,18 +260,18 @@ function AboutPage() {
                 Full stack developer passionate about creating elegant solutions to complex
                 problems. When I&apos;m not coding, I&apos;m exploring new technologies and perfecting my
                 craft. Explore my{' '}
-                <Link to="/projects/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link to="/projects/" title="View my featured development projects and portfolio" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
                   featured projects
                 </Link>{' '}
                 or{' '}
-                <Link to="/contact/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link to="/contact/" title="Get in touch to discuss your next project" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
                   get in touch
                 </Link>{' '}
                 to discuss your next project.
               </Typography>
             </div>
           </StyledBox>
-          <StyledBox as="section" aria-labelledby="personal-section" ref={personalRef} mb={8}>
+          <section aria-labelledby="personal-section" ref={personalRef} style={{ marginBottom: '64px' }}>
             <div
               style={{
                 background: 'linear-gradient(135deg, #e8eaf6 0%, #ede7f6 50%, #f3e5f5 100%)',
@@ -502,7 +505,7 @@ function AboutPage() {
                 </GridItem>
               </GridContainer>
             </div>
-          </StyledBox>
+          </section>
 
           <StyledBox as="section" aria-labelledby="illustrations-section" mb={8}>
             <Typography

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
-function SEO({ description, lang, meta, keywords, title, image, slug }) {
+function SEO({ description, lang, meta, keywords, title, image, slug, pathname }) {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -33,7 +33,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
   const createOptimizedTitle = (pageTitle) => {
     const baseBrand = 'Jeff Maxwell';
     const primarySkills = 'Full Stack React & Node.js Developer';
-    const location = 'Central Florida & Tampa Bay Area';
+    const location = 'Orlando, Tampa Bay & Central Florida';
     const year = '2025';
 
     if (!pageTitle) {
@@ -52,7 +52,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
 
   const metaTitle = createOptimizedTitle(title);
   const siteUrl =
-    data.site && data.site.siteMetadata ? data.site.siteMetadata.siteUrl : 'https://el-jefe.me';
+    data.site && data.site.siteMetadata ? data.site.siteMetadata.siteUrl : 'https://www.el-jefe.me';
   const siteTitle =
     data.site && data.site.siteMetadata ? data.site.siteMetadata.title : 'Jeff Maxwell - Portfolio';
   const siteDescription =
@@ -95,7 +95,11 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `article:modified_time`,
-          content: `2025-01-01T00:00:00.000Z`,
+          content: new Date().toISOString(),
+        },
+        {
+          property: `article:modified_time`,
+          content: new Date().toISOString(),
         },
         {
           name: `viewport`,
@@ -179,7 +183,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           name: `geo.placename`,
-          content: `Central Florida, Tampa Bay Area, Florida, United States`,
+          content: `Orlando, Central Florida, Tampa Bay Area, Florida, United States`,
         },
         {
           name: `geo.position`,
@@ -211,7 +215,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         },
         {
           property: `og:url`,
-          content: `${siteUrl}${slug || ''}`,
+          content: `${siteUrl}${pathname || slug || ''}`,
         },
         {
           property: `og:site_name`,
@@ -220,6 +224,30 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         {
           property: `og:locale`,
           content: `en_US`,
+        },
+        {
+          property: `og:updated_time`,
+          content: new Date().toISOString(),
+        },
+        {
+          property: `og:see_also`,
+          content: `https://github.com/maxjeffwell`,
+        },
+        {
+          property: `article:author`,
+          content: `Jeff Maxwell`,
+        },
+        {
+          property: `article:publisher`,
+          content: `Jeff Maxwell Developer Portfolio`,
+        },
+        {
+          property: `article:section`,
+          content: `Web Development`,
+        },
+        {
+          property: `article:tag`,
+          content: `React, Node.js, JavaScript, Full Stack Development`,
         },
         {
           property: `og:image:width`,
@@ -234,6 +262,14 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           content: metaTitle,
         },
         {
+          property: `og:image:type`,
+          content: `image/png`,
+        },
+        {
+          property: `og:image:secure_url`,
+          content: metaImage,
+        },
+        {
           name: `twitter:card`,
           content: `summary_large_image`,
         },
@@ -244,6 +280,54 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:site`,
+          content: `@maxjeffwell`,
+        },
+        {
+          name: `twitter:creator`,
+          content: `@maxjeffwell`,
+        },
+        {
+          name: `twitter:domain`,
+          content: `el-jefe.me`,
+        },
+        {
+          name: `twitter:image:alt`,
+          content: metaTitle,
+        },
+        {
+          property: `fb:app_id`,
+          content: ``,
+        },
+        {
+          name: `pinterest-rich-pin`,
+          content: `true`,
+        },
+        {
+          name: `sitemap`,
+          content: `${siteUrl}/sitemap-index.xml`,
+        },
+        {
+          name: `last-modified`,
+          content: new Date().toUTCString(),
+        },
+        {
+          name: `date`,
+          content: new Date().toISOString(),
+        },
+        {
+          name: `build-date`,
+          content: new Date().toISOString(),
+        },
+        {
+          httpEquiv: `last-modified`,
+          content: new Date().toUTCString(),
+        },
+        {
+          httpEquiv: `expires`,
+          content: new Date(Date.now() + 24 * 60 * 60 * 1000).toUTCString(), // 24 hours from now
         },
       ]
         .concat(
@@ -272,7 +356,12 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
       link={[
         {
           rel: 'canonical',
-          href: `${data.site.siteMetadata.siteUrl}${slug}`,
+          href: `${data.site.siteMetadata.siteUrl}${pathname || slug || ''}`,
+        },
+        {
+          rel: 'sitemap',
+          type: 'application/xml',
+          href: `${data.site.siteMetadata.siteUrl}/sitemap-index.xml`,
         },
         {
           rel: 'preconnect',
@@ -292,26 +381,41 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
           href: '/manifest.webmanifest',
         },
         {
+          rel: 'shortcut icon',
+          href: '/favicon-32x32.png',
+        },
+        {
+          rel: 'icon',
+          href: '/favicon-32x32.png',
+        },
+        {
           rel: 'apple-touch-icon',
-          sizes: '180x180',
-          href: '/icons/apple-touch-icon.png',
+          sizes: '192x192',
+          href: '/icons/icon-192x192.png',
         },
         {
           rel: 'icon',
           type: 'image/png',
           sizes: '32x32',
-          href: '/icons/favicon-32x32.png',
+          href: '/favicon-32x32.png',
         },
         {
           rel: 'icon',
           type: 'image/png',
-          sizes: '16x16',
-          href: '/icons/favicon-16x16.png',
+          sizes: '96x96',
+          href: '/icons/icon-96x96.png',
         },
         {
-          rel: 'mask-icon',
-          href: '/icons/safari-pinned-tab.svg',
-          color: '#4A4A4A',
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '192x192',
+          href: '/icons/icon-192x192.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '512x512',
+          href: '/icons/icon-512x512.png',
         },
       ]}
     >
@@ -424,13 +528,13 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
             '@type': 'PostalAddress',
             addressRegion: 'FL',
             addressCountry: 'US',
-            addressLocality: 'Central Florida',
+            addressLocality: 'Orlando, Central Florida',
             addressArea: 'Tampa Bay Area',
           },
           workLocation: {
             '@type': 'Place',
-            name: 'Central Florida, Tampa Bay Area',
-            description: 'Full Stack Developer serving Central Florida and Tampa Bay Area',
+            name: 'Orlando, Central Florida, Tampa Bay Area',
+            description: 'Full Stack Developer serving Orlando, Central Florida and Tampa Bay Area',
             geo: {
               '@type': 'GeoCoordinates',
               latitude: 27.7663,
@@ -459,17 +563,35 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
             'API Development',
             'Database Design',
             'Web Application Development',
-            'Central Florida Web Development',
+            'Orlando Web Development',
+            'Central Florida Web Development', 
             'Tampa Bay Area Developer',
             'Florida React Developer',
+            'Orlando React Developer',
             'Local Web Developer Services',
           ],
           hasOccupation: {
             '@type': 'Occupation',
-            '@name': 'Full Stack Developer',
-            '@skills': ['React', 'Node.js', 'GraphQL', 'JavaScript', 'MongoDB', 'Express.js'],
+            name: 'Full Stack Developer',
+            skills: ['React', 'Node.js', 'GraphQL', 'JavaScript', 'MongoDB', 'Express.js'],
+            occupationalCategory: 'Software Developer',
+            description: 'Full Stack Web Developer specializing in React and Node.js applications',
           },
-          sameAs: ['https://github.com/maxjeffwell', 'https://angel.co/maxjeffwell'],
+          telephone: '+1-508-395-2008',
+          image: `${siteUrl}/icons/icon-512x512.png`,
+          alumniOf: {
+            '@type': 'Organization',
+            name: 'Self-Taught Developer',
+          },
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Jeff Maxwell Development',
+          },
+          memberOf: {
+            '@type': 'Organization',
+            name: 'Web Development Community',
+          },
+          sameAs: ['https://github.com/maxjeffwell', 'https://wellfound.com/u/maxjeffwell'],
         })}
       </script>
 
@@ -485,6 +607,93 @@ function SEO({ description, lang, meta, keywords, title, image, slug }) {
             '@type': 'Person',
             name: 'Jeff Maxwell',
           },
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: `${siteUrl}/search?q={search_term_string}`,
+            'query-input': 'required name=search_term_string',
+          },
+          mainEntity: {
+            '@type': 'Person',
+            name: 'Jeff Maxwell',
+          },
+        })}
+      </script>
+
+      {/* Structured Data - Organization Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Jeff Maxwell Development',
+          description: 'Full Stack Web Development Services specializing in React and Node.js',
+          url: siteUrl,
+          logo: `${siteUrl}/icons/icon-512x512.png`,
+          image: `${siteUrl}/icons/icon-512x512.png`,
+          founder: {
+            '@type': 'Person',
+            name: 'Jeff Maxwell',
+          },
+          foundingDate: '2019',
+          address: {
+            '@type': 'PostalAddress',
+            addressRegion: 'FL',
+            addressCountry: 'US',
+            addressLocality: 'Orlando, Central Florida',
+          },
+          areaServed: {
+            '@type': 'Place',
+            name: 'Orlando, Central Florida, Tampa Bay Area, Florida, United States',
+          },
+          serviceType: [
+            'Web Development',
+            'React Development', 
+            'Node.js Development',
+            'Full Stack Development',
+            'JavaScript Programming',
+          ],
+          sameAs: ['https://github.com/maxjeffwell', 'https://wellfound.com/u/maxjeffwell'],
+        })}
+      </script>
+
+      {/* Structured Data - Professional Service Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Jeff Maxwell - Full Stack Web Developer',
+          description: 'Professional web development services specializing in React, Node.js, and modern JavaScript applications',
+          url: siteUrl,
+          image: `${siteUrl}/icons/icon-512x512.png`,
+          telephone: '+1-508-395-2008',
+          email: 'maxjeffwell@gmail.com',
+          address: {
+            '@type': 'PostalAddress',
+            addressRegion: 'FL',
+            addressCountry: 'US',
+            addressLocality: 'Orlando, Central Florida',
+          },
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 27.7663,
+            longitude: -82.6404,
+          },
+          areaServed: {
+            '@type': 'Place',
+            name: 'Orlando, Central Florida, Tampa Bay Area, Florida, United States',
+          },
+          serviceType: [
+            'Web Development',
+            'React Development',
+            'Node.js Development', 
+            'Full Stack Development',
+            'JavaScript Programming',
+            'Frontend Development',
+            'Backend Development',
+          ],
+          provider: {
+            '@type': 'Person',
+            name: 'Jeff Maxwell',
+          },
         })}
       </script>
     </Helmet>
@@ -496,6 +705,7 @@ SEO.defaultProps = {
   meta: [],
   keywords: [],
   slug: ``,
+  pathname: ``,
 };
 
 SEO.propTypes = {
@@ -506,6 +716,7 @@ SEO.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string,
   slug: PropTypes.string,
+  pathname: PropTypes.string,
 };
 
 // Search Console verification meta tag component

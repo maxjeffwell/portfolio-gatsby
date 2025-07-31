@@ -282,7 +282,7 @@ const CanvasCodeSnippetInner = React.memo(
 
       // Use theme context for dark mode detection
       const isDark = theme?.mode === 'dark';
-      ctx.fillStyle = isDark ? '#e2e8f0' : '#2d3748';
+      ctx.fillStyle = isDark ? '#718096' : '#2d3748';
 
       // Animation state tracking
       let startTime = null;

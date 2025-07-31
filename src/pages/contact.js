@@ -659,6 +659,10 @@ function Contact() {
           `freelance developer`,
           `web development services`,
           `Jeff Maxwell contact`,
+          `hire orlando developer`, 
+          `central florida web development`,
+          `local developer contact`,
+          `tampa bay freelance developer`,
         ]}
       />
       {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
@@ -883,6 +887,7 @@ function Contact() {
                   </Typography>
                   <StyledLink
                     href="https://github.com/maxjeffwell"
+                    title="View Jeff Maxwell's projects on GitHub"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ fontSize: '1.125rem', fontWeight: 500 }}

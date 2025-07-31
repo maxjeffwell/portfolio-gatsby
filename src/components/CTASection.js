@@ -312,6 +312,7 @@ function CTASectionComponent({ visible }) {
                 <ContactButton
                   as="a"
                   href={method.href}
+                  title={method.label}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noopener noreferrer' : undefined}
                   aria-label={method.label}

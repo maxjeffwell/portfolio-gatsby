@@ -61,7 +61,7 @@ module.exports = {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: 'https://www.el-jefe.me',
-        sitemap: 'https://www.el-jefe.me/sitemap.xml',
+        sitemap: 'https://www.el-jefe.me/sitemap-index.xml',
         policy: [{ userAgent: '*', allow: '/' }],
       },
     },
@@ -195,36 +195,37 @@ module.exports = {
         `,
         resolveSiteUrl: () => siteMetadata.siteUrl,
         serialize: ({ path, modifiedGmt }, { site }) => {
-          // Define page priorities and change frequencies
-          const buildTime = site?.buildTime || new Date().toISOString().split('T')[0];
+          // Use current date for more accurate freshness signals
+          const currentDate = new Date().toISOString();
+          const buildTime = site?.buildTime || currentDate.split('T')[0];
 
           const pageMetadata = {
             '/': {
               priority: 1.0,
               changefreq: 'weekly',
-              lastmod: buildTime,
+              lastmod: currentDate,
             },
             '/about/': {
               priority: 0.8,
               changefreq: 'monthly',
-              lastmod: buildTime,
+              lastmod: currentDate,
             },
             '/projects/': {
               priority: 0.9,
               changefreq: 'weekly',
-              lastmod: buildTime,
+              lastmod: currentDate,
             },
             '/contact/': {
               priority: 0.7,
               changefreq: 'monthly',
-              lastmod: buildTime,
+              lastmod: currentDate,
             },
           };
 
           const meta = pageMetadata[path] || {
             priority: 0.5,
             changefreq: 'monthly',
-            lastmod: modifiedGmt || buildTime,
+            lastmod: modifiedGmt || currentDate,
           };
 
           return {

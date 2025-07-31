@@ -196,11 +196,11 @@ function NotFoundPage() {
                   Back to Home
                 </HomeButton>
 
-                <NavButton component={Link} to="/projects/" theme={theme}>
+                <NavButton component={Link} to="/projects/" title="Browse my development projects and portfolio" theme={theme}>
                   View Projects
                 </NavButton>
 
-                <NavButton component={Link} to="/about/" theme={theme}>
+                <NavButton component={Link} to="/about/" title="Learn more about Jeff and his development approach" theme={theme}>
                   About Me
                 </NavButton>
               </ButtonGroup>

@@ -609,6 +609,9 @@ const Projects = ({ data }) => {
             `full stack web applications`,
             `javascript portfolio examples`,
             `Jeff Maxwell projects`,
+            `orlando developer portfolio`,
+            `central florida projects`,
+            `tampa bay web development`,
           ]}
         />
         <StyledContainer>
@@ -631,11 +634,11 @@ const Projects = ({ data }) => {
                 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}
               >
                 A collection of my work demonstrating modern web development. Learn more{' '}
-                <Link to="/about/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link to="/about/" title="Learn more about Jeff Maxwell's development approach and philosophy" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
                   about my approach
                 </Link>{' '}
                 or{' '}
-                <Link to="/contact/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link to="/contact/" title="Get in touch with Jeff Maxwell to discuss your next project" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
                   discuss your project
                 </Link>.
               </Typography>
@@ -805,28 +808,27 @@ const Projects = ({ data }) => {
                 </Typography>
               </StyledBox>
             ) : (
-              <StyledBox display="flex" flexDirection="column" gap={4}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                 {enhancedProjects.map((project) => (
-                  <StyledBox key={project.id}>
-                    <ProjectCard
-                      title={project.title}
-                      date={project.date}
-                      description={project.description}
-                      sourceURL={project.sourceURL}
-                      hostedURL={project.hostedURL}
-                      technologies={project.technologies}
-                      imageSrcPath={project.imageSrcPath}
-                      imageSrcPath2={project.imageSrcPath2}
-                      videoSrcPath={project.videoSrcPath}
-                      videoSrcPath2={project.videoSrcPath2}
-                      techIcon3={project.techIcon3}
-                      techIcon4={project.techIcon4}
-                      techIcon5={project.techIcon5}
-                      techIcon6={project.techIcon6}
-                    />
-                  </StyledBox>
+                  <ProjectCard
+                    key={project.id}
+                    title={project.title}
+                    date={project.date}
+                    description={project.description}
+                    sourceURL={project.sourceURL}
+                    hostedURL={project.hostedURL}
+                    technologies={project.technologies}
+                    imageSrcPath={project.imageSrcPath}
+                    imageSrcPath2={project.imageSrcPath2}
+                    videoSrcPath={project.videoSrcPath}
+                    videoSrcPath2={project.videoSrcPath2}
+                    techIcon3={project.techIcon3}
+                    techIcon4={project.techIcon4}
+                    techIcon5={project.techIcon5}
+                    techIcon6={project.techIcon6}
+                  />
                 ))}
-              </StyledBox>
+              </div>
             )}
           </StyledBox>
         </StyledContainer>
