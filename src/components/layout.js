@@ -396,12 +396,7 @@ function ThemedLayout({ children, data }) {
               />
             </SocialLink>
           </StyledBox>
-          <StyledBox
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            gap={1}
-          >
+          <StyledBox display="flex" alignItems="center" justifyContent="center" gap={1}>
             <Typography
               variant="body2"
               theme={theme}
@@ -436,9 +431,9 @@ function ThemedLayout({ children, data }) {
               <ClientOnlyIcon
                 iconName="Gatsby"
                 fontSize="large"
-                style={{ 
+                style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-                  fontSize: 'clamp(1.75rem, 4vw, 2rem)'
+                  fontSize: 'clamp(1.75rem, 4vw, 2rem)',
                 }}
               />
             </Link>

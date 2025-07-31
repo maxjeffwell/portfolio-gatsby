@@ -8,6 +8,7 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Image from '../components/image';
 import Logo from '../components/logo';
+import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import PageTransition from '../components/PageTransition';
 
@@ -460,9 +461,20 @@ function AboutPage() {
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                         flexShrink: 0,
                         transition: 'color 0.3s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
-                      💻
+                      <ClientOnlyIcon
+                        iconName="CodeTerminal"
+                        fontSize="large"
+                        style={{
+                          fontSize: '2rem',
+                          color:
+                            theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                        }}
+                      />
                     </div>
                     <StyledBox>
                       <Typography
@@ -514,9 +526,20 @@ function AboutPage() {
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                         flexShrink: 0,
                         transition: 'color 0.3s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
-                      ☕
+                      <ClientOnlyIcon
+                        iconName="Coffee"
+                        fontSize="large"
+                        style={{
+                          fontSize: '2rem',
+                          color:
+                            theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                        }}
+                      />
                     </div>
                     <StyledBox>
                       <Typography
@@ -568,9 +591,20 @@ function AboutPage() {
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                         flexShrink: 0,
                         transition: 'color 0.3s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
-                      🐾
+                      <ClientOnlyIcon
+                        iconName="Dog"
+                        fontSize="large"
+                        style={{
+                          fontSize: '2rem',
+                          color:
+                            theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                        }}
+                      />
                     </div>
                     <StyledBox>
                       <Typography
