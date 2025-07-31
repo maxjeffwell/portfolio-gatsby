@@ -244,6 +244,8 @@ function Header() {
   // Remove theme dependency - use CSS media queries instead
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };

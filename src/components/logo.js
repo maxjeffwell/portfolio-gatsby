@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
-import IapfLogo from '../images/iapf.svg';
-import AspcaLogo from '../images/aspca.svg';
+import IapfLogo from '../images/svg-icons/iapf.svg';
+import AspcaLogo from '../images/svg-icons/aspca.svg';
 
 const LogoContainer = styled.div`
   display: grid;

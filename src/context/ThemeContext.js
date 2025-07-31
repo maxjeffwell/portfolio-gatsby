@@ -81,15 +81,12 @@ const getInitialTheme = () => {
 
 // Theme Provider Component
 export function ThemeProvider({ children }) {
-  // Initialize with system preference to match SSR
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return getInitialTheme() === 'dark';
-  });
+  // Always initialize with light theme for SSR consistency
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isSystemPreference, setIsSystemPreference] = useState(true);
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Initialize theme on mount
+  // Initialize theme on mount (client-side only)
   useEffect(() => {
     const initialTheme = getInitialTheme();
     let hasStoredPreference = false;
@@ -103,13 +100,11 @@ export function ThemeProvider({ children }) {
       hasStoredPreference = false;
     }
 
-    // Only update if different from initial state to prevent hydration mismatch
-    if ((initialTheme === 'dark') !== isDarkMode) {
-      setIsDarkMode(initialTheme === 'dark');
-    }
+    // Set the actual theme after hydration to prevent mismatch
+    setIsDarkMode(initialTheme === 'dark');
     setIsSystemPreference(!hasStoredPreference);
     setIsHydrated(true);
-  }, [isDarkMode]);
+  }, []); // Remove isDarkMode dependency to prevent loops
 
   // Listen for system preference changes
   useEffect(() => {
@@ -129,7 +124,7 @@ export function ThemeProvider({ children }) {
 
   // Update localStorage and document classes when theme changes
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !isHydrated) return;
 
     // Update meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
@@ -140,7 +135,7 @@ export function ThemeProvider({ children }) {
     // Apply theme classes to document body for CSS variables
     document.body.classList.remove('light-mode', 'dark-mode');
     document.body.classList.add(isDarkMode ? 'dark-mode' : 'light-mode');
-  }, [isDarkMode]);
+  }, [isDarkMode, isHydrated]);
 
   const toggleTheme = useCallback(() => {
     const newMode = !isDarkMode;
