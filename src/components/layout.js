@@ -445,7 +445,7 @@ function ThemedLayout({ children, data }) {
               />
             </SocialLink>
           </StyledBox>
-          <StyledBox display="flex" flexDirection="column" alignItems="center" justifyContent="center" gap={1}>
+          <StyledBox display="flex" flexDirection="column" alignItems="center" justifyContent="center" gap={0.5}>
             <Typography
               as="div"
               variant="body2"
@@ -455,7 +455,7 @@ function ThemedLayout({ children, data }) {
                 fontWeight: 400,
                 color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important',
                 textAlign: 'center',
-                marginBottom: '16px',
+                marginBottom: '8px',
               }}
             >
               Built by Jeff Maxwell, created with Gatsby
@@ -481,7 +481,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="Gatsby"
-                fontSize="clamp(3.5rem, 8vw, 4.5rem)"
+                fontSize="clamp(4rem, 10vw, 5.5rem)"
                 style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
                 }}

@@ -374,7 +374,11 @@ const IndexPage = () => {
                 <QuoteBox theme={theme}>
                   I believe in <strong>clean, maintainable code</strong> and{' '}
                   <strong>user-centered design</strong>. Every line I write is crafted with
-                  performance, accessibility, and scalability in mind.
+                  performance, accessibility, and scalability in mind. Check out my{' '}
+                  <Link to="/projects/" style={{ color: 'inherit', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    featured projects
+                  </Link>{' '}
+                  to see these principles in action.
                 </QuoteBox>
 
                 <p
@@ -388,7 +392,10 @@ const IndexPage = () => {
                   }}
                 >
                   "Code is like humor. When you have to explain it, it's bad." — That's why I focus
-                  on intuitive, self-documenting solutions.
+                  on intuitive, self-documenting solutions. Ready to discuss your next project?{' '}
+                  <Link to="/contact/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    Let's connect
+                  </Link>.
                 </p>
 
                 <ViewProjectsButton
@@ -447,7 +454,14 @@ const IndexPage = () => {
                 <CardText theme={theme}>
                   When I'm not crafting pixel-perfect interfaces or debugging complex algorithms,
                   you'll find me negotiating dinner arrangements with my two demanding canine
-                  project managers — they're surprisingly good at code reviews!
+                  project managers — they're surprisingly good at code reviews! My approach to
+                  development extends beyond just writing code; it's about understanding user needs,
+                  anticipating edge cases, and building solutions that scale gracefully. I'm passionate
+                  about continuous learning, whether it's exploring new frameworks, optimizing performance
+                  bottlenecks, or contributing to open-source projects. Want to know more about my{' '}
+                  <Link to="/about/" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    development philosophy
+                  </Link>?
                 </CardText>
                 <ClientOnlyButton
                   component={Link}
@@ -476,7 +490,11 @@ const IndexPage = () => {
                 </CardTitle>
                 <CardText theme={theme}>
                   Clean, readable, and maintainable — here's how I approach modern React
-                  development:
+                  development. I believe in writing code that tells a story, where each function
+                  has a single responsibility and complex logic is broken down into digestible,
+                  testable pieces. This philosophy extends to my component architecture, where
+                  I prioritize composition over inheritance and leverage React's built-in patterns
+                  for optimal performance:
                 </CardText>
 
                 <CanvasCodeSnippet
@@ -521,6 +539,17 @@ const IndexPage = () => {
                       Performance optimized with useCallback
                     </li>
                   </ul>
+                  <p style={{ marginTop: '16px', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                    This approach is used throughout my{' '}
+                    <Link to="/projects/" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
+                      portfolio projects
+                    </Link>{' '}
+                    to ensure maintainable and scalable React applications. By extracting logic into
+                    custom hooks, I create reusable pieces that can be easily unit tested, reduce
+                    component complexity, and follow the single responsibility principle. This pattern
+                    has proven invaluable in large-scale applications where state management and
+                    side effects need to be carefully orchestrated across multiple components.
+                  </p>
                 </InfoCard>
               </Card>
             </TwoColumnGrid>

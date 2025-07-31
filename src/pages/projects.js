@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { motion } from 'motion/react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
@@ -630,7 +630,14 @@ const Projects = ({ data }) => {
                 paragraph
                 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}
               >
-                A collection of my work demonstrating modern web development
+                A collection of my work demonstrating modern web development. Learn more{' '}
+                <Link to="/about/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                  about my approach
+                </Link>{' '}
+                or{' '}
+                <Link to="/contact/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                  discuss your project
+                </Link>.
               </Typography>
             </StyledBox>
           </motion.div>

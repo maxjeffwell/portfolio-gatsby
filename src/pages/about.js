@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { DiIntellij, DiMozilla, DiDebian, DiGit } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
@@ -255,7 +256,15 @@ function AboutPage() {
               >
                 Full stack developer passionate about creating elegant solutions to complex
                 problems. When I&apos;m not coding, I&apos;m exploring new technologies and perfecting my
-                craft.
+                craft. Explore my{' '}
+                <Link to="/projects/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                  featured projects
+                </Link>{' '}
+                or{' '}
+                <Link to="/contact/" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                  get in touch
+                </Link>{' '}
+                to discuss your next project.
               </Typography>
             </div>
           </StyledBox>
