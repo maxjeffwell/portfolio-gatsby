@@ -13,7 +13,7 @@ const StyledCanvas = styled.canvas`
   background: transparent;
 `;
 
-const CanvasTypingAnimation = React.memo(({
+const CanvasTypingAnimationInner = React.memo(({
   texts,
   typeSpeed = 100,
   deleteSpeed = 50,
@@ -57,7 +57,7 @@ const CanvasTypingAnimation = React.memo(({
 
   // Calculate canvas size based on longest text
   useEffect(() => {
-    if (!isMounted || !texts.length) return;
+    if (!isMounted || !texts.length || typeof window === 'undefined') return;
 
     // Create temporary canvas to measure text
     const tempCanvas = document.createElement('canvas');
@@ -80,7 +80,7 @@ const CanvasTypingAnimation = React.memo(({
 
   // Main animation loop
   useEffect(() => {
-    if (!isMounted || !canvasSize.width || !texts.length) return;
+    if (!isMounted || !canvasSize.width || !texts.length || typeof window === 'undefined') return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -258,6 +258,38 @@ const CanvasTypingAnimation = React.memo(({
     </CanvasContainer>
   );
 });
+
+CanvasTypingAnimationInner.displayName = 'CanvasTypingAnimationInner';
+
+// Client-side only wrapper to handle SSR properly
+const CanvasTypingAnimation = (props) => {
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Always render the fallback during SSR
+  if (!isClient) {
+    return (
+      <span style={{ 
+        display: 'inline-block',
+        fontSize: `${props.fontSize || 64}px`,
+        fontFamily: props.fontFamily || 'inherit',
+        color: props.color || '#2196f3',
+        minHeight: `${(props.fontSize || 64) * 1.4}px`,
+        background: 'inherit',
+        backgroundClip: 'inherit',
+        WebkitBackgroundClip: 'inherit',
+        WebkitTextFillColor: 'inherit',
+      }}>
+        {props.texts?.[0] || 'React Specialist'}
+      </span>
+    );
+  }
+
+  return <CanvasTypingAnimationInner {...props} />;
+};
 
 CanvasTypingAnimation.displayName = 'CanvasTypingAnimation';
 
