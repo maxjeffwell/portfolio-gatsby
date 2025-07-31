@@ -188,7 +188,7 @@ function DarkModeToggle() {
             colors: { primary: '#1565c0', secondary: '#e91e63' },
           }}
         >
-          <ClientOnlyIcon iconName="DarkModeToggle" fontSize="32px" />
+          <ClientOnlyIcon iconName="DarkModeToggle" fontSize="48px" />
         </StyledIconButton>
       </StyledTooltip>
 

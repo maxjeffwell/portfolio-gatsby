@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
 
 const pageVariants = {
@@ -23,6 +23,11 @@ const pageTransition = {
 };
 
 function PageTransition({ children, className }) {
+  useEffect(() => {
+    // Scroll to top when component mounts (page transition starts)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   return (
     <motion.div
       className={className}

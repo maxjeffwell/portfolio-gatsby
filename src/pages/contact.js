@@ -665,10 +665,10 @@ function Contact() {
       <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="hidden" name="form-name" value="contact" />
         <label htmlFor="netlify-name">
-          Name: <input type="text" name="name" id="netlify-name" />
+          Name: <input type="text" name="name" id="netlify-name" autoComplete="name" />
         </label>
         <label htmlFor="netlify-email">
-          Email: <input type="email" name="email" id="netlify-email" />
+          Email: <input type="email" name="email" id="netlify-email" autoComplete="email" />
         </label>
         <label htmlFor="netlify-message">
           Message: <textarea name="message" id="netlify-message" />
@@ -792,18 +792,18 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  <ClientOnlyIcon iconName="Email" style={{ fontSize: '2rem', color: '#1565c0' }} />
+                  <ClientOnlyIcon iconName="Email" style={{ fontSize: '2.5rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
                     variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)' }}
+                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)', fontSize: '1.25rem' }}
                   >
                     Email
                   </Typography>
                   <StyledLink
                     href="mailto:maxjeffwell@gmail.com"
-                    style={{ fontSize: '1rem', fontWeight: 500 }}
+                    style={{ fontSize: '1.125rem', fontWeight: 500 }}
                   >
                     maxjeffwell@gmail.com
                   </StyledLink>
@@ -832,18 +832,18 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  <ClientOnlyIcon iconName="Telephone" style={{ fontSize: '2rem', color: '#1565c0' }} />
+                  <ClientOnlyIcon iconName="Telephone" style={{ fontSize: '2.5rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
                     variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)' }}
+                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)', fontSize: '1.25rem' }}
                   >
                     Phone
                   </Typography>
                   <StyledLink
                     href="tel:+01-508-395-2008"
-                    style={{ fontSize: '1rem', fontWeight: 500 }}
+                    style={{ fontSize: '1.125rem', fontWeight: 500 }}
                   >
                     (508) 395-2008
                   </StyledLink>
@@ -872,12 +872,12 @@ function Contact() {
                     justifyContent: 'center',
                   }}
                 >
-                  <ClientOnlyIcon iconName="GitHubCharacter" style={{ fontSize: '2rem', color: '#1565c0' }} />
+                  <ClientOnlyIcon iconName="GitHubCharacter" style={{ fontSize: '2.5rem', color: '#1565c0' }} />
                 </div>
                 <div>
                   <Typography
                     variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)' }}
+                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)', fontSize: '1.25rem' }}
                   >
                     GitHub
                   </Typography>
@@ -885,7 +885,7 @@ function Contact() {
                     href="https://github.com/maxjeffwell"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ fontSize: '1rem', fontWeight: 500 }}
+                    style={{ fontSize: '1.125rem', fontWeight: 500 }}
                   >
                     View my projects
                   </StyledLink>

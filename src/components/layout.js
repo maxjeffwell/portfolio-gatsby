@@ -428,7 +428,7 @@ function ThemedLayout({ children, data }) {
             >
               <ClientOnlyIcon
                 iconName="Gatsby"
-                fontSize="clamp(2.5rem, 6vw, 3rem)"
+                fontSize="clamp(3.5rem, 8vw, 4.5rem)"
                 style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
                 }}

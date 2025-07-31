@@ -120,9 +120,7 @@ const StyledIconButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 12px;
+  padding: 8px;
   border-radius: 50%;
   border: none;
   background-color: transparent;
@@ -132,18 +130,19 @@ const StyledIconButton = styled.button`
       : 'rgba(0, 0, 0, 0.8)'};
   cursor: pointer;
   font-size: 1.5rem;
-  transition:
-    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s ease;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    transform: scale(1.05);
   }
 
   &:focus {
     outline: 2px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
     outline-offset: 2px;
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 
