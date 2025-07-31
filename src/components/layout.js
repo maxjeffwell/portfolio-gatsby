@@ -431,6 +431,8 @@ function ThemedLayout({ children, data }) {
                 fontSize="clamp(3.5rem, 8vw, 4.5rem)"
                 style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
+                  verticalAlign: 'middle',
+                  transform: 'translateY(-0.1em)',
                 }}
               />
             </Link>

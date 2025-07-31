@@ -158,7 +158,7 @@ const CanvasContainer = styled.div`
   color: #2d3748;
 
   @media (prefers-color-scheme: dark) {
-    background-color: #2d3748;
+    background-color: #1a202c;
     color: #ffffff;
   }
 `;
@@ -183,7 +183,7 @@ const FallbackPre = styled.pre`
   border: none;
 
   @media (prefers-color-scheme: dark) {
-    background-color: #2d3748;
+    background-color: #1a202c;
     color: #ffffff;
   }
 `;

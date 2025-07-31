@@ -17,15 +17,9 @@ const StyledIapfLogo = styled(IapfLogo)`
   width: 100%;
   max-width: 200px;
   height: auto;
-  
-  path[fill="#242a28"], 
-  text[fill="#242a28"] {
-    fill: ${props => props.theme?.mode === 'dark' ? '#e2e8f0' : '#242a28'};
-  }
-  
-  path[fill="#404040"] {
-    fill: ${props => props.theme?.mode === 'dark' ? '#cbd5e0' : '#404040'};
-  }
+  filter: ${props => props.theme?.mode === 'dark' 
+    ? 'invert(1) brightness(0.9)' 
+    : 'none'};
 `;
 
 const StyledAspcaLogo = styled(AspcaLogo)`
