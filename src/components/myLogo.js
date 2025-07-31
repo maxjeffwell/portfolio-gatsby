@@ -18,6 +18,14 @@ const StyledElephantLogo = styled(ElephantLogo)`
   path[fill="#34495e"] {
     fill: ${props => props.theme?.mode === 'dark' ? '#5a6575' : '#34495e'};
   }
+  
+  circle[fill="#ffffff"] {
+    fill: ${props => props.theme?.mode === 'dark' ? '#f7fafc' : '#ffffff'};
+  }
+  
+  circle[fill="#000000"] {
+    fill: ${props => props.theme?.mode === 'dark' ? '#2d3748' : '#000000'};
+  }
 `;
 
 function MyLogo() {
