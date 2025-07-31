@@ -650,8 +650,8 @@ function Contact() {
     <Layout>
       <PageTransition>
         <SEO
-        title="Contact"
-        description="Hire Jeff Maxwell for web development projects. Full stack React & Node.js developer available for freelance work and collaborations."
+        title="Get in Touch | Contact Jeff Maxwell Full Stack Developer"
+        description="Contact Jeff Maxwell for web development projects. Full stack React & Node.js developer available for freelance work."
         pathname="/contact/"
         keywords={[
           `contact web developer`,

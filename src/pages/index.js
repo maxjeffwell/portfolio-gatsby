@@ -230,6 +230,25 @@ const QuoteBox = styled.div`
     border-color 0.3s ease;
 `;
 
+const GradientTypingWrapper = styled.span`
+  font-weight: inherit;
+  background: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
+      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+  transition: background 0.3s ease;
+  display: inline-block;
+
+  /* Only make text transparent when browser supports background-clip */
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+`;
+
 const InfoCard = styled.div`
   background: ${(props) =>
     props.theme?.mode === 'dark'
@@ -303,8 +322,8 @@ const IndexPage = () => {
     <Layout>
       <PageTransition>
         <SEO
-          title="Home"
-          description="Full Stack React & Node.js Developer. Modern web applications, innovative projects, and scalable solutions. View portfolio and hire freelance."
+          title="Jeff Maxwell | Full Stack React & Node.js Developer"
+          description="Hi, I'm Jeff Maxwell, Full Stack React & Node.js Developer. Modern web applications, innovative projects, and scalable solutions."
           pathname="/"
           keywords={[
             'full stack developer',
@@ -333,33 +352,22 @@ const IndexPage = () => {
                 </p>
                 <HeroTitle theme={theme}>
                   I'm a{' '}
-                  <SimpleTypingAnimation
-                    texts={[
-                      'Node.js Expert',
-                      'React Specialist',
-                      'Full Stack Developer',
-                      'JavaScript Enthusiast',
-                      'Problem Solver',
-                    ]}
-                    typeSpeed={80}
-                    deleteSpeed={50}
-                    delayBetweenTexts={2000}
-                    startDelay={1000}
-                    loop
-                    style={{
-                      fontWeight: 'inherit',
-                      background:
-                        theme?.mode === 'dark'
-                          ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
-                          : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', // Fallback for browsers that don't support background-clip
-                      transition: 'background 0.3s ease',
-                      display: 'inline-block', // Ensure proper rendering of gradient text
-                    }}
-                  />
+                  <GradientTypingWrapper theme={theme}>
+                    <SimpleTypingAnimation
+                      texts={[
+                        'Node.js Expert',
+                        'React Specialist',
+                        'Full Stack Developer',
+                        'JavaScript Enthusiast',
+                        'Problem Solver',
+                      ]}
+                      typeSpeed={60}
+                      deleteSpeed={30}
+                      delayBetweenTexts={2000}
+                      startDelay={1000}
+                      loop
+                    />
+                  </GradientTypingWrapper>
                 </HeroTitle>
                 <HeroSubtitle theme={theme}>crafting exceptional web experiences</HeroSubtitle>
 

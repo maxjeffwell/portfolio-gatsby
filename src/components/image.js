@@ -98,7 +98,7 @@ function Image({ imageType }) {
     return (
       <GatsbyImage
         image={teamImage3}
-        alt="el jefe the developer"
+        alt="Jeff Maxwell in developer persona - professional portrait showing leadership in software development"
         loading="eager"
         sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
         style={{
@@ -137,7 +137,7 @@ function Image({ imageType }) {
       />
       <GatsbyImage
         image={teamImage3}
-        alt="el jefe the developer"
+        alt="Jeff Maxwell in developer persona - professional portrait showing leadership in software development"
         loading="eager"
         sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
         style={{

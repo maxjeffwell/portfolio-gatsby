@@ -368,7 +368,7 @@ function ThemedLayout({ children, data }) {
                 : 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63', // Fallback color for browsers that don't support background-clip
               display: 'inline-block',
               marginBottom: '32px',
               textDecoration: 'none',
@@ -445,19 +445,20 @@ function ThemedLayout({ children, data }) {
               />
             </SocialLink>
           </StyledBox>
-          <StyledBox display="flex" alignItems="center" justifyContent="center" gap={1}>
+          <StyledBox display="flex" flexDirection="column" alignItems="center" justifyContent="center" gap={1}>
             <Typography
-              as="span"
+              as="div"
               variant="body2"
               theme={theme}
               style={{
                 fontSize: 'clamp(1.125rem, 2.8vw, 1.25rem)',
                 fontWeight: 400,
                 color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important',
-                display: 'inline',
+                textAlign: 'center',
+                marginBottom: '16px',
               }}
             >
-              Built by Jeff Maxwell, created with
+              Built by Jeff Maxwell, created with Gatsby
             </Typography>
             <Link
               href="https://www.gatsbyjs.org"
@@ -465,10 +466,9 @@ function ThemedLayout({ children, data }) {
               rel="noopener noreferrer"
               theme={theme}
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
+                display: 'flex',
+                justifyContent: 'center',
                 textDecoration: 'none',
-                marginLeft: '8px',
                 transition: 'transform 0.2s ease',
               }}
               onMouseEnter={(e) => {
@@ -484,8 +484,6 @@ function ThemedLayout({ children, data }) {
                 fontSize="clamp(3.5rem, 8vw, 4.5rem)"
                 style={{
                   color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-                  verticalAlign: 'middle',
-                  transform: 'translateY(-0.3em)',
                 }}
               />
             </Link>

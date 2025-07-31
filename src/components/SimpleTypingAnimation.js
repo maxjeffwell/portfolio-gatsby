@@ -63,7 +63,7 @@ const SimpleTypingAnimation = ({
   useEffect(() => {
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
-    }, 500);
+    }, 400);
 
     return () => clearInterval(cursorInterval);
   }, []);

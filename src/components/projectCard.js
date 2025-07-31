@@ -417,6 +417,17 @@ function ProjectCard({
 }) {
   const { theme } = useTheme();
 
+  const getTechAriaLabel = (iconIndex, technologies) => {
+    const techMap = {
+      3: technologies.find(tech => ['Redux', 'GraphQL', 'CSS', 'MongoDB'].includes(tech)),
+      4: technologies.find(tech => ['MongoDB', 'NPM', 'Firebase'].includes(tech)),
+      5: technologies.find(tech => ['NPM', 'Redis', 'Node.js', 'Vercel'].includes(tech)),
+      6: technologies.find(tech => ['PostgreSQL', 'Neon'].includes(tech))
+    };
+    const tech = techMap[iconIndex];
+    return tech ? `${tech} technology icon` : 'Technology used in project';
+  };
+
   return (
     <StyledCard theme={theme}>
       <ColoredBar />
@@ -521,7 +532,7 @@ function ProjectCard({
           </Typography>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
             {techIcon3 && (
-              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(3, technologies)}>
                 {React.isValidElement(techIcon3) ? (
                   techIcon3
                 ) : typeof techIcon3 === 'function' ? (
@@ -536,7 +547,7 @@ function ProjectCard({
               </TechIcon>
             )}
             {techIcon4 && (
-              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(4, technologies)}>
                 {React.isValidElement(techIcon4) ? (
                   techIcon4
                 ) : typeof techIcon4 === 'function' ? (
@@ -551,7 +562,7 @@ function ProjectCard({
               </TechIcon>
             )}
             {techIcon5 && (
-              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(5, technologies)}>
                 {React.isValidElement(techIcon5) ? (
                   techIcon5
                 ) : typeof techIcon5 === 'function' ? (
@@ -566,7 +577,7 @@ function ProjectCard({
               </TechIcon>
             )}
             {techIcon6 && (
-              <TechIcon theme={theme} role="img" aria-label="Technology used in project">
+              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(6, technologies)}>
                 {React.isValidElement(techIcon6) ? (
                   techIcon6
                 ) : typeof techIcon6 === 'function' ? (
