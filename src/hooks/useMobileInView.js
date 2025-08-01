@@ -12,6 +12,15 @@ function useMobileInView(targetRef, options = {}) {
   // Use Motion's inView for non-mobile
   const [isInViewMotion, setIsInViewMotion] = useState(false);
   
+  // Debug logging for development
+  const isDebug = process.env.NODE_ENV === 'development';
+  
+  const debugLog = (message, data = {}) => {
+    if (isDebug && typeof console !== 'undefined') {
+      console.log(`[useMobileInView] ${message}`, data);
+    }
+  };
+  
   useEffect(() => {
     if (isMobile || !targetRef.current) return;
     
@@ -31,15 +40,45 @@ function useMobileInView(targetRef, options = {}) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isMobileDevice = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const isSmallScreen = window.innerWidth <= 768;
+        // More comprehensive mobile detection
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera || '';
+        const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|phone|tablet/i.test(userAgent.toLowerCase());
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 1024; // Increased threshold to include tablets
         
-        return isMobileDevice || (isTouchDevice && isSmallScreen);
+        // Check for iOS devices more specifically
+        const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+        
+        // Check for Android devices
+        const isAndroid = /Android/.test(userAgent);
+        
+        // Use a more inclusive approach - if any mobile indicator is present, use mobile fallback
+        return isMobileUA || isIOS || isAndroid || (isTouchDevice && isSmallScreen);
       };
       
-      setIsMobile(checkMobile());
+      const isMobileDevice = checkMobile();
+      setIsMobile(isMobileDevice);
+      debugLog('Mobile detection result', { 
+        isMobile: isMobileDevice, 
+        userAgent: userAgent.substring(0, 100),
+        windowWidth: window.innerWidth,
+        touchSupport: 'ontouchstart' in window
+      });
+      
+      // Add resize listener to handle orientation changes
+      const handleResize = () => {
+        const newMobileState = checkMobile();
+        setIsMobile(newMobileState);
+        debugLog('Mobile state changed on resize', { isMobile: newMobileState });
+      };
+      
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('orientationchange', handleResize);
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('orientationchange', handleResize);
+      };
     }
   }, []);
 
@@ -49,23 +88,47 @@ function useMobileInView(targetRef, options = {}) {
 
     const target = targetRef.current;
     
+    // Ensure IntersectionObserver is supported
+    if (!window.IntersectionObserver) {
+      // Fallback to always visible if IntersectionObserver not supported
+      setIsInViewFallback(true);
+      return;
+    }
+    
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        // More aggressive detection for mobile - consider partially visible as "in view"
-        const isVisible = entry.isIntersecting || entry.intersectionRatio > 0;
-        setIsInViewFallback(isVisible);
+      (entries) => {
+        entries.forEach((entry) => {
+          // More aggressive detection for mobile - consider partially visible as "in view"
+          // Use both isIntersecting and intersectionRatio for better compatibility
+          const isVisible = entry.isIntersecting || entry.intersectionRatio > 0 || entry.boundingClientRect.top < window.innerHeight;
+          debugLog('IntersectionObserver callback', {
+            isIntersecting: entry.isIntersecting,
+            intersectionRatio: entry.intersectionRatio,
+            boundingClientRect: entry.boundingClientRect,
+            isVisible
+          });
+          setIsInViewFallback(isVisible);
+        });
       },
       {
         root: null,
-        rootMargin: '150px', // Larger margin for mobile to trigger earlier
-        threshold: [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1.0] // Include very small threshold
+        rootMargin: '200px 0px', // Larger margin for mobile to trigger earlier
+        threshold: [0, 0.001, 0.01, 0.1] // Simplified thresholds for better mobile performance
       }
     );
 
-    observer.observe(target);
+    // Small delay to ensure element is properly mounted
+    const timeoutId = setTimeout(() => {
+      if (target && observer) {
+        observer.observe(target);
+      }
+    }, 100);
 
     return () => {
-      observer.disconnect();
+      clearTimeout(timeoutId);
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, [isMobile, targetRef]);
 
@@ -82,13 +145,24 @@ function useMobileInView(targetRef, options = {}) {
       
       // Element is considered visible if any part is in viewport plus generous margin
       const isVisible = (
-        rect.bottom >= -150 && // 150px before entering viewport
+        rect.bottom >= -200 && // 200px before entering viewport
         rect.right >= 0 &&
-        rect.top <= windowHeight + 150 && // 150px after leaving viewport
+        rect.top <= windowHeight + 200 && // 200px after leaving viewport
         rect.left <= windowWidth
       );
       
-      setIsInViewFallback(isVisible);
+      debugLog('Scroll visibility check', {
+        rect,
+        windowHeight,
+        isVisible,
+        elementTop: rect.top,
+        elementBottom: rect.bottom
+      });
+      
+      // Only update if it becomes visible (prevents flickering)
+      if (isVisible && !isInViewFallback) {
+        setIsInViewFallback(isVisible);
+      }
     };
 
     // Check on scroll with throttling
@@ -117,7 +191,17 @@ function useMobileInView(targetRef, options = {}) {
   }, [isMobile]);
 
   // Return Motion's result for desktop, fallback for mobile
-  return isMobile ? isInViewFallback : isInViewMotion;
+  const result = isMobile ? isInViewFallback : isInViewMotion;
+  
+  // Log final result for debugging
+  debugLog('Final inView result', { 
+    isMobile, 
+    isInViewFallback, 
+    isInViewMotion, 
+    result 
+  });
+  
+  return result;
 }
 
 export default useMobileInView;
