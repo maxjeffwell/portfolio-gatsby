@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import useMobileInView from '../hooks/useMobileInView';
 import { useTheme } from '../context/ThemeContext';
 
 // Simple icon components using text/Unicode
@@ -204,8 +203,8 @@ const CanvasCodeSnippetInner = React.memo(
     const animationRef = useRef(null);
     const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
 
-    // Track visibility to pause/resume animation - mobile-friendly
-    const isInView = useMobileInView(containerRef);
+    // Always show animation without intersection observer
+    const isInView = true;
     const [copied, setCopied] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 

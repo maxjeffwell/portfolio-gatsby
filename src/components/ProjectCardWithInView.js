@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { useRef } from 'react';
 import ProjectCard from './projectCard';
-import useMobileInView from '../hooks/useMobileInView';
 
 const cardVariants = {
   hidden: {
@@ -23,19 +21,11 @@ const cardVariants = {
 };
 
 function ProjectCardWithInView(props) {
-  const ref = useRef(null);
-  const isInView = useMobileInView(ref, { 
-    once: true, 
-    margin: "-50px",
-    amount: 0.1
-  });
-
   return (
     <motion.div
-      ref={ref}
       variants={cardVariants}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate="visible"
       style={{ width: '100%' }}
     >
       <ProjectCard {...props} />

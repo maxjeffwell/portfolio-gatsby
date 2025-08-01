@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import useMobileInView from '../hooks/useMobileInView';
 
 const CanvasContainer = styled.div`
   display: inline-block;
@@ -33,8 +32,8 @@ const CanvasTypingAnimationInner = React.memo(({
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const [isMounted, setIsMounted] = useState(false);
   
-  // Track visibility to pause/resume animation - mobile-friendly
-  const isInView = useMobileInView(containerRef);
+  // Always show animation without intersection observer
+  const isInView = true;
 
   // Animation state
   const stateRef = useRef({
