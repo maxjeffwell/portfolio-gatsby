@@ -154,7 +154,7 @@ const StyledPaper = styled.div`
 const CanvasContainer = styled.div`
   padding: 16px;
   background-color: #f8f9fa;
-  color: #2d3748;
+  color: #1a1a1a;
 
   @media (prefers-color-scheme: dark) {
     background-color: #1a202c;
@@ -178,7 +178,7 @@ const FallbackPre = styled.pre`
   white-space: pre-wrap;
   word-wrap: break-word;
   background-color: #f8f9fa;
-  color: #2d3748;
+  color: #1a1a1a;
   border: none;
 
   @media (prefers-color-scheme: dark) {
@@ -281,7 +281,7 @@ const CanvasCodeSnippetInner = React.memo(
 
       // Use theme context for dark mode detection
       const isDark = theme?.mode === 'dark';
-      ctx.fillStyle = isDark ? '#718096' : '#2d3748';
+      ctx.fillStyle = isDark ? '#718096' : '#1a1a1a';
 
       // Animation state tracking
       let startTime = null;
