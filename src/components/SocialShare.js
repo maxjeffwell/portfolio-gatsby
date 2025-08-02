@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
+import ClientOnlyIcon from './ClientOnlyIcon';
 
 const ShareContainer = styled.div`
   display: flex;
@@ -143,7 +144,7 @@ function SocialShare({ url, title, description }) {
           title="Share on Twitter"
           aria-label="Share on Twitter"
         >
-          <ShareIcon>🐦</ShareIcon>
+          <ClientOnlyIcon iconName="twitter" fontSize="18px" />
           Twitter
         </ShareButton>
         
@@ -155,7 +156,7 @@ function SocialShare({ url, title, description }) {
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn"
         >
-          <ShareIcon>💼</ShareIcon>
+          <ClientOnlyIcon iconName="linkedin" fontSize="18px" />
           LinkedIn
         </ShareButton>
         
@@ -167,7 +168,7 @@ function SocialShare({ url, title, description }) {
           title="Share on Facebook"
           aria-label="Share on Facebook"
         >
-          <ShareIcon>📘</ShareIcon>
+          <ClientOnlyIcon iconName="facebook" fontSize="18px" />
           Facebook
         </ShareButton>
         
@@ -179,7 +180,7 @@ function SocialShare({ url, title, description }) {
           title="Share on Reddit"
           aria-label="Share on Reddit"
         >
-          <ShareIcon>🔗</ShareIcon>
+          <ClientOnlyIcon iconName="reddit" fontSize="18px" />
           Reddit
         </ShareButton>
         
@@ -190,7 +191,7 @@ function SocialShare({ url, title, description }) {
           aria-label="Share via Email"
           theme={theme}
         >
-          <ShareIcon>✉️</ShareIcon>
+          <ClientOnlyIcon iconName="send" fontSize="18px" />
           Email
         </ShareButton>
       </ShareButtons>
