@@ -225,7 +225,14 @@ class ErrorBoundary extends React.Component {
         Additional details:
         ${errorInfo?.componentStack || 'No component stack available'}
       `);
-      window.open(`mailto:maxjeffwell@gmail.com?subject=${subject}&body=${body}`);
+      // Obfuscated email parts
+      const emailParts = {
+        user: 'maxjeffwell',
+        domain: 'gmail',
+        tld: 'com'
+      };
+      const email = `${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
+      window.open(`mailto:${email}?subject=${subject}&body=${body}`);
     }
   };
 

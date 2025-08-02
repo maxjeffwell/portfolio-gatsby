@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import ClientOnlyIcon from './ClientOnlyIcon';
+import ProtectedEmail from './ProtectedEmail';
 
 import Header from './header';
 // ThirdPartyScripts will be loaded client-side only
@@ -383,11 +384,8 @@ function ThemedLayout({ children, data }) {
           >
             Jeff Maxwell
           </Typography>
-          <Link
-            href="mailto:maxjeffwell@gmail.com"
+          <ProtectedEmail
             title="Send email to Jeff Maxwell"
-            underline="always"
-            theme={theme}
             style={{
               fontSize: 'clamp(1.125rem, 3vw, 1.25rem)',
               color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
@@ -416,7 +414,7 @@ function ThemedLayout({ children, data }) {
             }}
           >
             maxjeffwell@gmail.com
-          </Link>
+          </ProtectedEmail>
           <StyledBox
             as="nav"
             aria-label="Social media links"

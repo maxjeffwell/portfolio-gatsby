@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ProtectedEmail from '../components/ProtectedEmail';
 import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
@@ -805,12 +806,17 @@ function Contact() {
                   >
                     Email
                   </Typography>
-                  <StyledLink
-                    href="mailto:maxjeffwell@gmail.com"
-                    style={{ fontSize: '1.125rem', fontWeight: 500 }}
+                  <ProtectedEmail
+                    style={{ 
+                      fontSize: '1.125rem', 
+                      fontWeight: 500,
+                      color: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                      textDecoration: 'underline',
+                      textUnderlineOffset: '0.125em'
+                    }}
                   >
                     maxjeffwell@gmail.com
-                  </StyledLink>
+                  </ProtectedEmail>
                 </div>
               </div>
 
@@ -1025,14 +1031,14 @@ function Contact() {
               <StyledAlert severity="error" mb={3}>
                 ❌{' '}
                 {errorMessage ||
-                  'Sorry, there was an error sending your message. Please ensure all fields are filled out correctly, or contact me directly at maxjeffwell@gmail.com.'}
-                {!errorMessage.includes('maxjeffwell@gmail.com') && (
+                  'Sorry, there was an error sending your message. Please ensure all fields are filled out correctly, or contact me directly via email.'}
+                {!errorMessage.includes('email') && (
                   <>
                     {' '}
                     You can also reach me directly at{' '}
-                    <StyledLink href="mailto:maxjeffwell@gmail.com">
+                    <ProtectedEmail style={{ color: 'inherit', textDecoration: 'underline' }}>
                       maxjeffwell@gmail.com
-                    </StyledLink>
+                    </ProtectedEmail>
                   </>
                 )}
               </StyledAlert>

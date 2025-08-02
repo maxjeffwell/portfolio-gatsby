@@ -247,8 +247,11 @@ function CTASectionComponent({ visible }) {
     {
       icon: EmailIcon,
       text: 'Email Me',
-      href: 'mailto:maxjeffwell@gmail.com',
-      label: 'Send email to maxjeffwell@gmail.com',
+      href: (() => {
+        const emailParts = { user: 'maxjeffwell', domain: 'gmail', tld: 'com' };
+        return `mailto:${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
+      })(),
+      label: 'Send email to contact address',
     },
     {
       icon: PhoneIcon,

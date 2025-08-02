@@ -523,7 +523,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
           jobTitle: 'Full Stack Web Developer',
           specialization: ['React Development', 'Node.js Development', 'JavaScript Programming'],
           url: siteUrl,
-          email: 'maxjeffwell@gmail.com',
+          email: (() => {
+            const emailParts = { user: 'maxjeffwell', domain: 'gmail', tld: 'com' };
+            return `${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
+          })(),
           address: {
             '@type': 'PostalAddress',
             addressRegion: 'FL',
@@ -665,7 +668,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
           url: siteUrl,
           image: `${siteUrl}/icons/icon-512x512.png`,
           telephone: '+1-508-395-2008',
-          email: 'maxjeffwell@gmail.com',
+          email: (() => {
+            const emailParts = { user: 'maxjeffwell', domain: 'gmail', tld: 'com' };
+            return `${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
+          })(),
           address: {
             '@type': 'PostalAddress',
             addressRegion: 'FL',
