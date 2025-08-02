@@ -410,7 +410,7 @@ const IndexPage = () => {
               {/* Beyond the Code */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Paws" fontSize="large" style={{ marginRight: '8px', color: '#007bff' }} /> Beyond the Code
+                  <ClientOnlyIcon iconName="Paws" fontSize="32px" style={{ marginRight: '8px', color: '#007bff' }} /> Beyond the Code
                 </CardTitle>
                 <CardText theme={theme}>
                   When I'm not crafting pixel-perfect interfaces or debugging complex algorithms,
@@ -432,7 +432,7 @@ const IndexPage = () => {
               {/* Code Philosophy */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Computer" fontSize="large" style={{ marginRight: '8px', color: '#007bff' }} /> Code Philosophy
+                  <ClientOnlyIcon iconName="Computer" fontSize="32px" style={{ marginRight: '8px', color: '#007bff' }} /> Code Philosophy
                 </CardTitle>
                 <CardText theme={theme}>
                   Clean, readable, and maintainable — here's how I approach modern React
