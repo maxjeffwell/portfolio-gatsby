@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
-import AnimatedCursor from 'react-animated-cursor';
+import { useEffect, useState } from 'react';
 import ClientOnlyIcon from './ClientOnlyIcon';
 
 import Header from './header';
@@ -290,6 +290,62 @@ const SocialLink = styled(IconButton)`
 `;
 
 // Themed Layout Component
+// Client-side only animated cursor component
+const ClientOnlyAnimatedCursor = ({ theme }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [AnimatedCursor, setAnimatedCursor] = useState(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+    // Dynamically import the animated cursor only on client side
+    import('react-animated-cursor').then((module) => {
+      setAnimatedCursor(() => module.default);
+    });
+  }, []);
+
+  if (!isMounted || !AnimatedCursor) {
+    return null;
+  }
+
+  return (
+    <AnimatedCursor
+      innerSize={8}
+      outerSize={35}
+      color={theme?.mode === 'dark' ? '50, 255, 130' : '21, 101, 192'}
+      outerAlpha={0.2}
+      innerScale={0.7}
+      outerScale={5}
+      trailingSpeed={4}
+      showSystemCursor={false}
+      clickables={[
+        'a',
+        'input[type="text"]',
+        'input[type="email"]', 
+        'input[type="number"]',
+        'input[type="submit"]',
+        'input[type="image"]',
+        'label[for]',
+        'select',
+        'textarea',
+        'button',
+        '.link',
+        '.clickable',
+        '.card-link',
+        '.cta-button',
+        '[role="button"]',
+        {
+          target: '.custom',
+          options: {
+            innerSize: 12,
+            outerSize: 12,
+            color: '255, 255, 255',
+          }
+        }
+      ]}
+    />
+  );
+};
+
 function ThemedLayout({ children, data }) {
   const { theme } = useTheme();
 
@@ -297,37 +353,7 @@ function ThemedLayout({ children, data }) {
     <>
       <GlobalStyles theme={theme} />
       <ThirdPartyScripts />
-      <AnimatedCursor
-        innerSize={8}
-        outerSize={35}
-        color={theme?.mode === 'dark' ? '50, 255, 130' : '21, 101, 192'}
-        outerAlpha={0.2}
-        innerScale={0.7}
-        outerScale={5}
-        trailingSpeed={4}
-        showSystemCursor={false}
-        clickables={[
-          'a',
-          'input[type="text"]',
-          'input[type="email"]', 
-          'input[type="number"]',
-          'input[type="submit"]',
-          'input[type="image"]',
-          'label[for]',
-          'select',
-          'textarea',
-          'button',
-          '.link',
-          {
-            target: '.custom',
-            options: {
-              innerSize: 12,
-              outerSize: 12,
-              color: '255, 255, 255',
-            }
-          }
-        ]}
-      />
+      <ClientOnlyAnimatedCursor theme={theme} />
       <Header />
       <main
         suppressHydrationWarning
