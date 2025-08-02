@@ -1,6 +1,6 @@
 const siteMetadata = {
   title: 'Jeff Maxwell Developer Portfolio',
-  description: `Jeff Maxwell's developer portfolio made with Gatsby`,
+  description: `Full Stack Developer specializing in React & Node.js. Modern web applications and scalable solutions in Orlando, Florida.`,
   author: 'Jeff Maxwell',
   createdAt: 2019 - 2025,
   siteUrl: 'https://www.el-jefe.me',

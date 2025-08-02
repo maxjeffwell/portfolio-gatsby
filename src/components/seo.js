@@ -69,6 +69,10 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
       title={metaTitle}
       meta={[
         {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+        },
+        {
           charset: 'utf-8',
         },
         {
@@ -100,10 +104,6 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
         {
           property: `article:modified_time`,
           content: new Date().toISOString(),
-        },
-        {
-          name: `viewport`,
-          content: `width=device-width, initial-scale=1`,
         },
         {
           name: `robots`,

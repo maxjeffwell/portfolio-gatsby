@@ -10,6 +10,7 @@ import CanvasCodeSnippet from '../components/CanvasCodeSnippet';
 import PageTransition from '../components/PageTransition';
 import StaggeredAnimation from '../components/StaggeredAnimation';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
+import SocialShare from '../components/SocialShare';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -335,7 +336,7 @@ const IndexPage = () => {
       <PageTransition>
         <SEO
           title="Jeff Maxwell | Full Stack React & Node.js Developer"
-          description="Hi, I'm Jeff Maxwell, Full Stack React & Node.js Developer. Modern web applications, innovative projects, and scalable solutions."
+          description="Full Stack React & Node.js Developer creating modern web applications and scalable solutions in Orlando, Florida."
           pathname="/"
           keywords={[
             'full stack developer',
@@ -344,9 +345,8 @@ const IndexPage = () => {
             'javascript developer',
             'web developer portfolio',
             'orlando web developer',
-            'central florida developer',
-            'tampa bay developer',
             'florida react developer',
+            'central florida developer',
           ]}
         />
 
@@ -374,17 +374,19 @@ const IndexPage = () => {
                     />
                   </GradientTypingWrapper>
                 </HeroTitle>
-                <HeroSubtitle theme={theme}>crafting exceptional web experiences</HeroSubtitle>
+                <HeroSubtitle theme={theme}>crafting exceptional web experiences with modern technologies</HeroSubtitle>
 
                 <QuoteBox theme={theme}>
-                  As a <strong>Node.js Expert</strong> and <strong>React Specialist</strong>, I believe in <strong>clean, maintainable code</strong> and{' '}
-                  <strong>user-centered design</strong>. Every <strong>Full Stack Developer</strong> should be a <strong>Problem Solver</strong> first, and as a{' '}
-                  <strong>JavaScript Enthusiast</strong>, I craft every line with
+                  I believe in <strong>clean, maintainable code</strong> and{' '}
+                  <strong>user-centered design</strong>. As a developer, I focus on being a <strong>Problem Solver</strong> first, crafting every line with
                   performance, accessibility, and scalability in mind. Check out my{' '}
                   <Link to="/projects/" title="View my featured development projects and portfolio" style={{ color: 'inherit', fontWeight: 'bold', textDecoration: 'underline' }}>
                     featured projects
                   </Link>{' '}
-                  to see these principles in action.
+                  to see these principles in action, or{' '}
+                  <Link to="/about/" title="Learn more about my development background and experience" style={{ color: 'inherit', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    read more about my approach
+                  </Link>.
                 </QuoteBox>
 
                 <p className="hero-quote">
@@ -417,9 +419,20 @@ const IndexPage = () => {
                   you'll find me negotiating dinner arrangements with my two demanding canine
                   project managers — they're surprisingly good at code reviews! My approach to
                   development extends beyond just writing code; it's about understanding user needs,
-                  anticipating edge cases, and building solutions that scale gracefully. I'm passionate
-                  about continuous learning, whether it's exploring new frameworks, optimizing performance
-                  bottlenecks, or contributing to open-source projects. Want to know more about my{' '}
+                  anticipating edge cases, and building solutions that scale gracefully.
+                  <br /><br />
+                  I'm passionate about continuous learning, whether it's exploring emerging frameworks like Next.js and Astro, 
+                  optimizing performance bottlenecks with advanced webpack configurations, or contributing to open-source projects 
+                  that benefit the developer community. My experience spans across various industries, from e-learning platforms 
+                  and social networking applications to enterprise-level APIs and microservices architectures.
+                  <br /><br />
+                  When not coding, I enjoy mentoring junior developers, participating in code reviews, and staying current 
+                  with industry trends through tech conferences and developer meetups. This balance of technical expertise 
+                  and community involvement keeps me grounded and continuously improving my craft. Want to{' '}
+                  <Link to="/contact/" title="Contact Jeff Maxwell for your next development project" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    work together
+                  </Link>{' '}
+                  or learn more about my{' '}
                   <Link to="/about/" title="Learn more about Jeff's development philosophy and approach" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
                     development philosophy
                   </Link>?
@@ -441,6 +454,12 @@ const IndexPage = () => {
                   testable pieces. This <strong>Problem Solver</strong> philosophy extends to my component architecture, where
                   I prioritize composition over inheritance and leverage React's built-in patterns
                   for optimal performance:
+                  <br /><br />
+                  My development workflow incorporates modern tooling including TypeScript for type safety, 
+                  ESLint and Prettier for code consistency, and comprehensive testing with Jest and React Testing Library. 
+                  I implement responsive design with CSS-in-JS solutions like Styled Components and Emotion, 
+                  ensuring cross-browser compatibility and mobile-first approaches that deliver exceptional user experiences 
+                  across all devices and screen sizes.
                 </CardText>
 
                 <CanvasCodeSnippet
@@ -478,15 +497,73 @@ const IndexPage = () => {
                     <Link to="/projects/" title="View my complete portfolio of development projects" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
                       portfolio projects
                     </Link>{' '}
-                    to ensure maintainable and scalable React applications. As a <strong>Node.js Expert</strong>, I apply similar patterns on the backend, ensuring clean separation of concerns between frontend and server logic. By extracting logic into
+                    to ensure maintainable and scalable React applications. On the backend, I apply similar patterns, ensuring clean separation of concerns between frontend and server logic. By extracting logic into
                     custom hooks, I create reusable pieces that can be easily unit tested, reduce
-                    component complexity, and follow the single responsibility principle. This <strong>Full Stack Developer</strong> pattern
+                    component complexity, and follow the single responsibility principle. This development approach
                     has proven invaluable in large-scale applications where state management and
-                    side effects need to be carefully orchestrated across multiple components.
+                    side effects need to be carefully orchestrated across multiple components.{' '}
+                    <Link to="/contact/" title="Hire Jeff Maxwell for your next development project" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
+                      Let's discuss your project
+                    </Link>.
                   </p>
                 </InfoCard>
               </Card>
             </TwoColumnGrid>
+          </Container>
+        </ContentSection>
+
+        {/* Technologies & Expertise Section */}
+        <ContentSection theme={theme} as="section" aria-labelledby="technologies-heading">
+          <Container>
+            <TwoColumnGrid>
+              {/* Frontend Technologies */}
+              <Card theme={theme} as="article">
+                <CardTitle theme={theme} as="h2" id="technologies-heading">
+                  🚀 Frontend Technologies
+                </CardTitle>
+                <CardText theme={theme}>
+                  My frontend expertise encompasses the latest React ecosystem, including React 18 with Concurrent Features, 
+                  Server Components, and Suspense for optimal performance. I leverage modern state management solutions like 
+                  Zustand, Redux Toolkit, and React Query for efficient data fetching and caching strategies.
+                  <br /><br />
+                  Advanced CSS techniques include CSS Grid, Flexbox, and custom properties (CSS variables) for maintainable 
+                  styling systems. I implement design systems using Storybook, ensuring consistent UI components across 
+                  large-scale applications. Build tools like Vite, Webpack, and Parcel are integral to my development process, 
+                  enabling optimized bundle sizes and lightning-fast development experiences.
+                </CardText>
+              </Card>
+
+              {/* Backend & Infrastructure */}
+              <Card theme={theme} as="article">
+                <CardTitle theme={theme} as="h2">
+                  ⚡ Backend & Infrastructure
+                </CardTitle>
+                <CardText theme={theme}>
+                  On the backend, I specialize in Node.js microservices architecture using Express.js, Fastify, and NestJS frameworks. 
+                  Database expertise includes PostgreSQL for relational data, MongoDB for document storage, and Redis for caching 
+                  and session management. I implement robust API designs following OpenAPI specifications and GraphQL schemas.
+                  <br /><br />
+                  Cloud infrastructure experience spans AWS services (EC2, Lambda, S3, RDS), Docker containerization, 
+                  and Kubernetes orchestration. CI/CD pipelines using GitHub Actions, Jenkins, and GitLab CI ensure reliable 
+                  deployments with comprehensive testing coverage including unit, integration, and end-to-end testing suites 
+                  with Cypress and Playwright.{' '}
+                  <Link to="/projects/" title="View my backend and infrastructure projects" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    See my backend projects
+                  </Link>.
+                </CardText>
+              </Card>
+            </TwoColumnGrid>
+          </Container>
+        </ContentSection>
+
+        {/* Social Sharing Section */}
+        <ContentSection theme={theme} as="section" aria-labelledby="social-share">
+          <Container>
+            <SocialShare 
+              url={typeof window !== 'undefined' ? window.location.href : 'https://jeffmaxwell.dev'}
+              title="Jeff Maxwell - Full Stack React & Node.js Developer"
+              description="Experienced full stack developer specializing in React, Node.js, and modern web technologies. View my portfolio and get in touch!"
+            />
           </Container>
         </ContentSection>
       </PageTransition>

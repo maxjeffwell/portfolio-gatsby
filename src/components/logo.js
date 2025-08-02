@@ -40,10 +40,12 @@ function Logo() {
       <StyledIapfLogo
         theme={theme}
         aria-label="International Anti Poaching Foundation logo"
+        alt="International Anti Poaching Foundation logo"
       />
       <StyledAspcaLogo
         theme={theme}
         aria-label="American Society for the Prevention of Cruelty to Animals logo"
+        alt="ASPCA - American Society for the Prevention of Cruelty to Animals logo"
       />
     </LogoContainer>
   );
