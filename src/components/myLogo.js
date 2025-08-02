@@ -53,7 +53,8 @@ function MyLogo() {
           objectFit: 'contain',
           display: 'block',
           width: '100%',
-          height: '100%'
+          height: '100%',
+          transform: 'translateY(4px)'
         }}
       />
     </StyledLogoContainer>

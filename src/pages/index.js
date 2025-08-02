@@ -412,7 +412,7 @@ const IndexPage = () => {
               {/* Beyond the Code */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Paws" fontSize="96px" style={{ marginRight: '8px', color: '#007bff' }} /> Full Stack Developer Beyond the Code
+                  <ClientOnlyIcon iconName="Paws" fontSize="120px" style={{ marginRight: '8px', color: '#007bff' }} /> Full Stack Developer Beyond the Code
                 </CardTitle>
                 <CardText theme={theme}>
                   When I'm not crafting pixel-perfect interfaces or debugging complex algorithms,
@@ -552,7 +552,7 @@ const IndexPage = () => {
               {/* Frontend Technologies */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2" id="technologies-heading">
-                  <ClientOnlyIcon iconName="React" fontSize="24px" style={{ marginRight: '8px', color: '#61dafb' }} /> JavaScript Developer Frontend Technologies
+                  <ClientOnlyIcon iconName="React" fontSize="32px" style={{ marginRight: '8px', color: '#61dafb' }} /> JavaScript Developer Frontend Technologies
                 </CardTitle>
                 <CardText theme={theme}>
                   My frontend expertise encompasses the latest React ecosystem, including React 18 with Concurrent Features, 
