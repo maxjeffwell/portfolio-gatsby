@@ -76,6 +76,12 @@ const GET_SVG_ICONS = graphql`
     done: file(relativePath: { eq: "svg-icons/done.svg" }) {
       publicURL
     }
+    react: file(relativePath: { eq: "svg-icons/react.svg" }) {
+      publicURL
+    }
+    nodejs: file(relativePath: { eq: "svg-icons/nodejs.svg" }) {
+      publicURL
+    }
   }
 `;
 
@@ -86,11 +92,13 @@ const StyledSvgIcon = styled.div`
   justify-content: center;
   width: ${(props) => props.size};
   height: ${(props) => props.size};
+  background: transparent;
 
   svg {
     width: 100%;
     height: 100%;
     fill: currentColor;
+    background: transparent;
   }
 `;
 
@@ -222,6 +230,14 @@ const ClientOnlyIcon = ({ iconName, fontSize = 'medium', style = {}, ...props })
 
   if (iconName === 'done') {
     return <SvgIcon url={data.done?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'React') {
+    return <SvgIcon url={data.react?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'NodeJS') {
+    return <SvgIcon url={data.nodejs?.publicURL} size={size} style={style} {...props} />;
   }
 
   // Handle remaining react-icons
