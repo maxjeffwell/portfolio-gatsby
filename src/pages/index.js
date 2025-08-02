@@ -378,7 +378,7 @@ const IndexPage = () => {
 
                 <QuoteBox theme={theme}>
                   I believe in <strong>clean, maintainable code</strong> and{' '}
-                  <strong>user-centered design</strong>. As a developer, I focus on being a <strong>Problem Solver</strong> first, crafting every line with
+                  <strong>user-centered design</strong>. As a developer, I focus on crafting every line with
                   performance, accessibility, and scalability in mind. Check out my{' '}
                   <Link to="/projects/" title="View my featured development projects and portfolio" style={{ color: 'inherit', fontWeight: 'bold', textDecoration: 'underline' }}>
                     featured projects
@@ -449,9 +449,9 @@ const IndexPage = () => {
                 </CardTitle>
                 <CardText theme={theme}>
                   Clean, readable, and maintainable — here's how I approach modern React
-                  development as a <strong>React Specialist</strong>. As a <strong>JavaScript Enthusiast</strong>, I believe in writing code that tells a story, where each function
+                  development. I believe in writing code that tells a story, where each function
                   has a single responsibility and complex logic is broken down into digestible,
-                  testable pieces. This <strong>Problem Solver</strong> philosophy extends to my component architecture, where
+                  testable pieces. This philosophy extends to my component architecture, where
                   I prioritize composition over inheritance and leverage React's built-in patterns
                   for optimal performance:
                   <br /><br />
