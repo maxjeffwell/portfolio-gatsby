@@ -455,38 +455,17 @@ function ThemedLayout({ children, data }) {
                 color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important',
                 textAlign: 'center',
                 marginBottom: '8px',
-              }}
-            >
-              Built by Jeff Maxwell, created with Gatsby
-            </Typography>
-            <Link
-              href="https://www.gatsbyjs.com"
-              title="Learn more about Gatsby - The framework used to build this site"
-              target="_blank"
-              rel="noopener noreferrer"
-              theme={theme}
-              style={{
                 display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
                 justifyContent: 'center',
-                textDecoration: 'none',
-                transition: 'transform 0.2s ease',
+                flexWrap: 'wrap',
+                gap: '4px',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-              aria-label="Built with Gatsby"
             >
-              <ClientOnlyIcon
-                iconName="Gatsby"
-                fontSize="clamp(4rem, 10vw, 5.5rem)"
-                style={{
-                  color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-                }}
-              />
-            </Link>
+              <span>Built by Jeff Maxwell, created with</span>
+              <ClientOnlyIcon iconName="Gatsby" fontSize="medium" style={{ flexShrink: 0 }} />
+            </Typography>
           </StyledBox>
         </StyledContainer>
       </StyledFooter>

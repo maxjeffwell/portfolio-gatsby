@@ -409,7 +409,7 @@ const StyledTextField = styled.div`
   textarea {
     width: 100%;
     padding: 20px 18px;
-    border: 2px solid rgba(0, 0, 0, 0.12);
+    border: 2px solid rgba(0, 0, 0, 0.23);
     border-radius: 12px;
     font-size: 1.1rem;
     font-family: inherit;
