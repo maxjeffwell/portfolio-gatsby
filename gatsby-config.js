@@ -1,6 +1,6 @@
 const siteMetadata = {
   title: 'Jeff Maxwell Developer Portfolio',
-  description: `Full Stack Developer specializing in React & Node.js. Modern web applications and scalable solutions in Orlando, Florida.`,
+  description: `Full Stack Developer specializing in React & Node.js. Orlando, Florida.`,
   author: 'Jeff Maxwell',
   createdAt: 2019 - 2025,
   siteUrl: 'https://www.el-jefe.me',
