@@ -47,59 +47,50 @@ const ShareButton = styled.a`
   font-size: 0.9rem;
   transition: all 0.3s ease;
   border: 1px solid transparent;
+  background: transparent;
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'};
   }
 
   &.twitter {
-    background: #1da1f2;
-    color: white;
+    color: #1da1f2;
     
     &:hover {
-      background: #0d8bd9;
-      box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4);
+      color: #0d8bd9;
     }
   }
 
   &.linkedin {
-    background: #0077b5;
-    color: white;
+    color: #0077b5;
     
     &:hover {
-      background: #005885;
-      box-shadow: 0 4px 12px rgba(0, 119, 181, 0.4);
+      color: #005885;
     }
   }
 
   &.facebook {
-    background: #1877f2;
-    color: white;
+    color: #1877f2;
     
     &:hover {
-      background: #166fe5;
-      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
+      color: #166fe5;
     }
   }
 
   &.reddit {
-    background: #ff4500;
-    color: white;
+    color: #ff4500;
     
     &:hover {
-      background: #e03d00;
-      box-shadow: 0 4px 12px rgba(255, 69, 0, 0.4);
+      color: #e03d00;
     }
   }
 
   &.email {
-    background: ${props => props.theme?.mode === 'dark' ? '#333' : '#6c757d'};
-    color: white;
+    color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#6c757d'};
     
     &:hover {
-      background: ${props => props.theme?.mode === 'dark' ? '#444' : '#5a6268'};
-      box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+      color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.9)' : '#5a6268'};
     }
   }
 

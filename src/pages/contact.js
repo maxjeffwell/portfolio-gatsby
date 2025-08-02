@@ -7,6 +7,7 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
+import SocialShare from '../components/SocialShare';
 
 const StyledContainer = styled.div`
   max-width: 1200px;
@@ -1220,6 +1221,15 @@ function Contact() {
             Currently open to new opportunities and exciting projects. Let&apos;s build something
             together!
           </Typography>
+        </StyledBox>
+
+        {/* Social Sharing Section */}
+        <StyledBox as="section" aria-labelledby="social-share">
+          <SocialShare
+            url={typeof window !== 'undefined' && window.location ? window.location.href : 'https://jeffmaxwell.dev/contact/'}
+            title="Contact Jeff Maxwell - Full Stack Developer"
+            description="Get in touch with Jeff Maxwell for your next React or Node.js development project. Currently open to new opportunities and exciting projects."
+          />
         </StyledBox>
       </StyledContainer>
       </PageTransition>

@@ -11,6 +11,7 @@ import Logo from '../components/logo';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import PageTransition from '../components/PageTransition';
+import SocialShare from '../components/SocialShare';
 
 // Simple styled components to replace MUI components
 const Typography = styled.div`
@@ -907,6 +908,15 @@ function AboutPage() {
                 <Logo />
               </StyledBox>
             </div>
+          </StyledBox>
+
+          {/* Social Sharing Section */}
+          <StyledBox as="section" aria-labelledby="social-share">
+            <SocialShare
+              url={typeof window !== 'undefined' && window.location ? window.location.href : 'https://jeffmaxwell.dev/about/'}
+              title="About Jeff Maxwell - Full Stack React & Node.js Developer"
+              description="Learn about Jeff Maxwell's development background, experience with React and Node.js, and his approach to building modern web applications."
+            />
           </StyledBox>
         </StyledContainer>
       </PageTransition>

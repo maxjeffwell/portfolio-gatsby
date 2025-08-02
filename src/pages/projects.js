@@ -9,6 +9,7 @@ import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
+import SocialShare from '../components/SocialShare';
 
 import GraphQLIcon from '../images/svg-icons/graphql.svg';
 import ApolloClientIcon from '../images/svg-icons/apolloclient.svg';
@@ -830,6 +831,15 @@ const Projects = ({ data }) => {
                 ))}
               </div>
             )}
+          </StyledBox>
+
+          {/* Social Sharing Section */}
+          <StyledBox as="section" aria-labelledby="social-share">
+            <SocialShare
+              url={typeof window !== 'undefined' && window.location ? window.location.href : 'https://jeffmaxwell.dev/projects/'}
+              title="Jeff Maxwell's Development Projects Portfolio"
+              description="Explore Jeff Maxwell's featured development projects showcasing React, Node.js, and modern web technologies. View live demos and source code."
+            />
           </StyledBox>
         </StyledContainer>
         <div style={{ height: '80px' }} />
