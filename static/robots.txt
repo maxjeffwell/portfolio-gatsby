@@ -6,4 +6,4 @@ Disallow: /.cache/
 Disallow: /public/
 Crawl-delay: 1
 
-Sitemap: https://www.el-jefe.me/sitemap-index.xml
+Sitemap: https://el-jefe.me/sitemap-index.xml

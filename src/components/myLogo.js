@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { StaticImage } from 'gatsby-plugin-image';
+import { useStaticQuery, graphql } from 'gatsby';
 import { useTheme } from '../context/ThemeContext';
 
 const StyledLogoContainer = styled.div`
@@ -25,17 +25,36 @@ const StyledLogoContainer = styled.div`
 
 function MyLogo() {
   const { theme } = useTheme();
+  
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+      file(relativePath: { eq: "elephant_noun_project.png" }) {
+        publicURL
+      }
+    }
+  `);
 
   return (
     <StyledLogoContainer theme={theme}>
-      <StaticImage
-        src="../images/elephant_noun_project.png"
+      <img
+        src={data.file.publicURL}
         alt="Jeff Maxwell portfolio elephant logo"
-        placeholder="dominantColor"
+        width="60"
+        height="60"
         loading="eager"
-        width={60}
-        height={60}
-        quality={95}
+        role="img"
+        aria-label="Jeff Maxwell portfolio elephant logo"
+        style={{ 
+          objectFit: 'contain',
+          display: 'block',
+          width: '100%',
+          height: '100%'
+        }}
       />
     </StyledLogoContainer>
   );

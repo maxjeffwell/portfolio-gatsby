@@ -424,7 +424,11 @@ const IndexPage = () => {
                   I'm passionate about continuous learning, whether it's exploring emerging frameworks like Next.js and Astro, 
                   optimizing performance bottlenecks with advanced webpack configurations, or contributing to open-source projects 
                   that benefit the developer community. My experience spans across various industries, from e-learning platforms 
-                  and social networking applications to enterprise-level APIs and microservices architectures.
+                  and social networking applications to enterprise-level APIs and microservices architectures. View my{' '}
+                  <Link to="/projects/" title="Explore my portfolio of full stack development projects" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    complete project portfolio
+                  </Link>{' '}
+                  to see these diverse applications in action.
                   <br /><br />
                   When not coding, I enjoy mentoring junior developers, participating in code reviews, and staying current 
                   with industry trends through tech conferences and developer meetups. This balance of technical expertise 
@@ -459,7 +463,11 @@ const IndexPage = () => {
                   ESLint and Prettier for code consistency, and comprehensive testing with Jest and React Testing Library. 
                   I implement responsive design with CSS-in-JS solutions like Styled Components and Emotion, 
                   ensuring cross-browser compatibility and mobile-first approaches that deliver exceptional user experiences 
-                  across all devices and screen sizes.
+                  across all devices and screen sizes. Learn more about my{' '}
+                  <Link to="/about/" title="Discover my development workflow and methodologies" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    development methodologies
+                  </Link>{' '}
+                  and process.
                 </CardText>
 
                 <CanvasCodeSnippet
@@ -524,6 +532,21 @@ const IndexPage = () => {
               }}>
                 Web Developer Portfolio - Modern JavaScript Technologies
               </h3>
+              <p style={{ 
+                fontSize: '1.1rem', 
+                color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
+                margin: '0 0 32px 0',
+                textAlign: 'center'
+              }}>
+                Explore my expertise across the full development stack. Want to{' '}
+                <Link to="/contact/" title="Contact Jeff Maxwell to discuss your next project" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                  start a project
+                </Link>{' '}
+                or learn more{' '}
+                <Link to="/about/" title="Learn more about Jeff's development experience" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                  about my experience
+                </Link>?
+              </p>
             </div>
             <TwoColumnGrid>
               {/* Frontend Technologies */}
@@ -534,12 +557,18 @@ const IndexPage = () => {
                 <CardText theme={theme}>
                   My frontend expertise encompasses the latest React ecosystem, including React 18 with Concurrent Features, 
                   Server Components, and Suspense for optimal performance. I leverage modern state management solutions like 
-                  Zustand, Redux Toolkit, and React Query for efficient data fetching and caching strategies.
+                  Zustand, Redux Toolkit, and React Query for efficient data fetching and caching strategies. Curious about my{' '}
+                  <Link to="/about/" title="Learn about my technical background and expertise" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    technical background
+                  </Link>?
                   <br /><br />
                   Advanced CSS techniques include CSS Grid, Flexbox, and custom properties (CSS variables) for maintainable 
                   styling systems. I implement design systems using Storybook, ensuring consistent UI components across 
                   large-scale applications. Build tools like Vite, Webpack, and Parcel are integral to my development process, 
-                  enabling optimized bundle sizes and lightning-fast development experiences.
+                  enabling optimized bundle sizes and lightning-fast development experiences. See these technologies in action in my{' '}
+                  <Link to="/projects/" title="Browse my React and frontend development projects" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    React projects
+                  </Link>.
                 </CardText>
               </Card>
 
@@ -556,9 +585,13 @@ const IndexPage = () => {
                   Cloud infrastructure experience spans AWS services (EC2, Lambda, S3, RDS), Docker containerization, 
                   and Kubernetes orchestration. CI/CD pipelines using GitHub Actions, Jenkins, and GitLab CI ensure reliable 
                   deployments with comprehensive testing coverage including unit, integration, and end-to-end testing suites 
-                  with Cypress and Playwright.{' '}
+                  with Cypress and Playwright. Interested in working together? {' '}
+                  <Link to="/contact/" title="Get in touch for your next development project" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
+                    Let's discuss your project
+                  </Link>{' '}
+                  or{' '}
                   <Link to="/projects/" title="View my backend and infrastructure projects" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
-                    See my backend projects
+                    see my backend projects
                   </Link>.
                 </CardText>
               </Card>

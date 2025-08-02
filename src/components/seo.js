@@ -176,7 +176,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
 
   const metaTitle = createOptimizedTitle(title, pathname, keywords);
   const siteUrl =
-    data.site && data.site.siteMetadata ? data.site.siteMetadata.siteUrl : 'https://www.el-jefe.me';
+    data.site && data.site.siteMetadata ? data.site.siteMetadata.siteUrl : 'https://el-jefe.me';
   const siteTitle =
     data.site && data.site.siteMetadata ? data.site.siteMetadata.title : 'Jeff Maxwell - Portfolio';
   const siteDescription =

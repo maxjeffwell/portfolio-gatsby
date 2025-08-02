@@ -1,6 +1,6 @@
 [build]
   publish = "public"
-  command = "npm run build:netlify"
+  command = "npm run build"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -26,7 +26,7 @@ package = "netlify-plugin-submit-sitemap"
 [plugins.inputs]
 
 # The base url of your site (optional, default = main URL set in Netlify)
-baseUrl = "https://www.el-jefe.me"
+baseUrl = "https://el-jefe.me"
 
 # Path to the sitemap URL (optional, default = /sitemap.xml)
 sitemapPath = "/sitemap.xml"
@@ -135,6 +135,27 @@ renderJavaScript = true
   for = "/app-data.json"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# WWW to non-WWW redirect (canonical URL)
+[[redirects]]
+  from = "https://www.el-jefe.me/*"
+  to = "https://el-jefe.me/:splat"
+  status = 301
+  force = true
+
+# HTTP to HTTPS redirect
+[[redirects]]
+  from = "http://el-jefe.me/*"
+  to = "https://el-jefe.me/:splat"
+  status = 301
+  force = true
+
+# HTTP WWW to HTTPS non-WWW redirect
+[[redirects]]
+  from = "http://www.el-jefe.me/*"
+  to = "https://el-jefe.me/:splat"
+  status = 301
+  force = true
 
 # 404 redirect to handle Gatsby's dual 404 generation
 [[redirects]]

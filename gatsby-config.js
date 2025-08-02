@@ -3,7 +3,7 @@ const siteMetadata = {
   description: `Full Stack Developer specializing in React & Node.js. Orlando, Central Florida, Tampa Bay Area.`,
   author: 'Jeff Maxwell',
   createdAt: 2019 - 2025,
-  siteUrl: 'https://www.el-jefe.me',
+  siteUrl: 'https://el-jefe.me',
 };
 
 module.exports = {
