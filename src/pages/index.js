@@ -412,7 +412,7 @@ const IndexPage = () => {
               {/* Beyond the Code */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Paws" fontSize="32px" style={{ marginRight: '8px', color: '#007bff' }} /> Beyond the Code
+                  <ClientOnlyIcon iconName="Paws" fontSize="48px" style={{ marginRight: '8px', color: '#007bff' }} /> Beyond the Code
                 </CardTitle>
                 <CardText theme={theme}>
                   When I'm not crafting pixel-perfect interfaces or debugging complex algorithms,
