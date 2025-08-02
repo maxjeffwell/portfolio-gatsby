@@ -962,7 +962,7 @@ function Contact() {
                         gap: '8px',
                       }}
                     >
-                      <span style={{ fontSize: '1.8rem' }}>🎉</span>
+                      <ClientOnlyIcon iconName="done" fontSize="1.8rem" style={{ marginRight: '8px' }} />
                       Success! Your Message Has Been Sent!
                     </Typography>
                   </div>
@@ -982,7 +982,6 @@ function Contact() {
                     <Typography
                       variant="body2"
                       style={{
-                        fontStyle: 'italic',
                         opacity: 0.8,
                         fontSize: '0.95rem',
                       }}
