@@ -374,7 +374,7 @@ const IndexPage = () => {
                     />
                   </GradientTypingWrapper>
                 </HeroTitle>
-                <HeroSubtitle theme={theme}>crafting exceptional web experiences with modern technologies</HeroSubtitle>
+                <HeroSubtitle theme={theme}>Full Stack Web Developer crafting exceptional React & Node.js applications with modern technologies</HeroSubtitle>
 
                 <QuoteBox theme={theme}>
                   I believe in <strong>clean, maintainable code</strong> and{' '}
@@ -412,7 +412,7 @@ const IndexPage = () => {
               {/* Beyond the Code */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Paws" fontSize="48px" style={{ marginRight: '8px', color: '#007bff' }} /> Beyond the Code
+                  <ClientOnlyIcon iconName="Paws" fontSize="48px" style={{ marginRight: '8px', color: '#007bff' }} /> Full Stack Developer Beyond the Code
                 </CardTitle>
                 <CardText theme={theme}>
                   When I'm not crafting pixel-perfect interfaces or debugging complex algorithms,
@@ -445,7 +445,7 @@ const IndexPage = () => {
               {/* Code Philosophy */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Computer" fontSize="32px" style={{ marginRight: '8px', color: '#007bff' }} /> Code Philosophy
+                  <ClientOnlyIcon iconName="Computer" fontSize="32px" style={{ marginRight: '8px', color: '#007bff' }} /> React Developer Code Philosophy
                 </CardTitle>
                 <CardText theme={theme}>
                   Clean, readable, and maintainable — here's how I approach modern React
@@ -515,11 +515,21 @@ const IndexPage = () => {
         {/* Technologies & Expertise Section */}
         <ContentSection theme={theme} as="section" aria-labelledby="technologies-heading">
           <Container>
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <h3 style={{ 
+                fontSize: 'clamp(1.5rem, 4vw, 2rem)', 
+                fontWeight: 600, 
+                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                margin: '0 0 16px 0'
+              }}>
+                Web Developer Portfolio - Modern JavaScript Technologies
+              </h3>
+            </div>
             <TwoColumnGrid>
               {/* Frontend Technologies */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2" id="technologies-heading">
-                  🚀 Frontend Technologies
+                  🚀 JavaScript Developer Frontend Technologies
                 </CardTitle>
                 <CardText theme={theme}>
                   My frontend expertise encompasses the latest React ecosystem, including React 18 with Concurrent Features, 
@@ -536,7 +546,7 @@ const IndexPage = () => {
               {/* Backend & Infrastructure */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  ⚡ Backend & Infrastructure
+                  ⚡ Node.js Developer Backend & Infrastructure
                 </CardTitle>
                 <CardText theme={theme}>
                   On the backend, I specialize in Node.js microservices architecture using Express.js, Fastify, and NestJS frameworks. 
