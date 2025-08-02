@@ -58,6 +58,24 @@ const GET_SVG_ICONS = graphql`
     sourceCode: file(relativePath: { eq: "svg-icons/source_code.svg" }) {
       publicURL
     }
+    twitter: file(relativePath: { eq: "svg-icons/twitter.svg" }) {
+      publicURL
+    }
+    linkedin: file(relativePath: { eq: "svg-icons/linkedin.svg" }) {
+      publicURL
+    }
+    facebook: file(relativePath: { eq: "svg-icons/facebook.svg" }) {
+      publicURL
+    }
+    reddit: file(relativePath: { eq: "svg-icons/reddit.svg" }) {
+      publicURL
+    }
+    send: file(relativePath: { eq: "svg-icons/send.svg" }) {
+      publicURL
+    }
+    done: file(relativePath: { eq: "svg-icons/done.svg" }) {
+      publicURL
+    }
   }
 `;
 
@@ -180,6 +198,30 @@ const ClientOnlyIcon = ({ iconName, fontSize = 'medium', style = {}, ...props })
 
   if (iconName === 'SourceCode') {
     return <SvgIcon url={data.sourceCode?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'twitter') {
+    return <SvgIcon url={data.twitter?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'linkedin') {
+    return <SvgIcon url={data.linkedin?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'facebook') {
+    return <SvgIcon url={data.facebook?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'reddit') {
+    return <SvgIcon url={data.reddit?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'send') {
+    return <SvgIcon url={data.send?.publicURL} size={size} style={style} {...props} />;
+  }
+
+  if (iconName === 'done') {
+    return <SvgIcon url={data.done?.publicURL} size={size} style={style} {...props} />;
   }
 
   // Handle remaining react-icons

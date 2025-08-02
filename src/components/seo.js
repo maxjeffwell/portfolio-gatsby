@@ -29,25 +29,25 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
       ? data.site.siteMetadata.description
       : 'Jeff Maxwell - Full Stack Developer');
 
-  // Create longer, more SEO-optimized titles based on page
+  // Create SEO-optimized titles (50-60 characters for optimal SEO)
   const createOptimizedTitle = (pageTitle) => {
     const baseBrand = 'Jeff Maxwell';
-    const primarySkills = 'Full Stack React & Node.js Developer';
-    const location = 'Orlando, Tampa Bay & Central Florida';
-    const year = '2025';
+    const primarySkills = 'React & Node.js Developer';
+    const location = 'Orlando, FL';
+    const experience = 'Full Stack';
 
     if (!pageTitle) {
-      return `${baseBrand} - ${primarySkills} | ${location} Portfolio ${year}`;
+      return `${baseBrand} - ${experience} ${primarySkills}, ${location}`;
     }
 
     const titleMap = {
-      Home: `${baseBrand} - ${primarySkills} | Modern Web Development ${location} ${year}`,
-      Projects: `${pageTitle} - React & Node.js Portfolio | Full Stack Web Development by ${baseBrand} | ${location}`,
-      About: `${pageTitle} ${baseBrand} - ${primarySkills} | Professional Developer Bio | ${location}`,
-      Contact: `${pageTitle} ${baseBrand} - Hire ${primarySkills} | Freelance Web Development | ${location}`,
+      Home: `${baseBrand} - React & Node.js Developer, ${location}`,
+      Projects: `${pageTitle} Portfolio - ${baseBrand} ${experience} Developer`,
+      About: `${pageTitle} ${baseBrand} - ${experience} ${primarySkills}`,
+      Contact: `${pageTitle} | Hire ${baseBrand} - ${primarySkills}`,
     };
 
-    return titleMap[pageTitle] || `${pageTitle} | ${baseBrand} - ${primarySkills} | ${location}`;
+    return titleMap[pageTitle] || `${pageTitle} | ${baseBrand} ${experience} Developer`;
   };
 
   const metaTitle = createOptimizedTitle(title);
@@ -357,6 +357,12 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
         {
           rel: 'canonical',
           href: `${data.site.siteMetadata.siteUrl}${pathname || slug || ''}`,
+        },
+        {
+          rel: 'preload',
+          href: '/fonts/fonts.css',
+          as: 'style',
+          onload: "this.onload=null;this.rel='stylesheet'",
         },
         {
           rel: 'sitemap',

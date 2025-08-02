@@ -57,14 +57,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    {
-      resolve: 'gatsby-plugin-robots-txt',
-      options: {
-        host: 'https://www.el-jefe.me',
-        sitemap: 'https://www.el-jefe.me/sitemap-index.xml',
-        policy: [{ userAgent: '*', allow: '/' }],
-      },
-    },
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-transformer-ffmpeg`,
@@ -76,21 +68,21 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {
-          formats: [`auto`, `webp`, `avif`], // Re-enable AVIF for better compression
-          placeholder: `blurred`, // Re-enable blur for better UX
-          quality: 75, // Reduced quality for better compression
-          breakpoints: [480, 768, 1024, 1200], // Optimized breakpoints
+          formats: [`auto`, `webp`, `avif`], // AVIF for better compression
+          placeholder: `dominantColor`, // Use dominant color instead of blurred placeholders
+          quality: 65, // Further reduced quality for mobile performance
+          breakpoints: [375, 480, 768, 1024], // Mobile-first breakpoints
           backgroundColor: `transparent`,
           tracedSVGOptions: {},
           blurredOptions: {
-            width: 20,
+            width: 16,
             toFormat: 'jpg',
-            jpegOptions: { quality: 20 },
+            jpegOptions: { quality: 15 },
           },
-          jpgOptions: { quality: 75, progressive: true },
-          pngOptions: { quality: 75, compressionSpeed: 4 },
-          webpOptions: { quality: 75 },
-          avifOptions: { quality: 60, speed: 8 }, // AVIF with good compression
+          jpgOptions: { quality: 65, progressive: true, mozjpeg: true },
+          pngOptions: { quality: 65, compressionSpeed: 6 },
+          webpOptions: { quality: 65, lossless: false },
+          avifOptions: { quality: 50, speed: 9 }, // Aggressive AVIF compression
         },
         stripMetadata: true,
         failOnError: false, // Don't fail build on image processing errors
@@ -130,6 +122,7 @@ module.exports = {
           'https://www.google-analytics.com',
           'https://www.googletagmanager.com'
         ],
+        crossOrigin: true,
       },
     },
     {
@@ -160,6 +153,8 @@ module.exports = {
           ],
           urls: ['/fonts/fonts.css'],
         },
+        timeout: 3000, // 3 second timeout for mobile
+        display: 'swap', // Use font-display: swap for faster rendering
       },
     },
     {
@@ -262,6 +257,26 @@ module.exports = {
         removeScriptTypeAttributes: true,
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true,
+      },
+    },
+    // Service worker for offline functionality and performance
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/`, `/about/`, `/projects/`, `/contact/`],
+        workboxConfig: {
+          globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}'],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+              handler: 'StaleWhileRevalidate',
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+              handler: 'CacheFirst',
+            },
+          ],
+        },
       },
     },
   ],

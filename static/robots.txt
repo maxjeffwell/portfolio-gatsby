@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.cache/
+Disallow: /public/
+Crawl-delay: 1
+
+Sitemap: https://www.el-jefe.me/sitemap.xml
+Sitemap: https://www.el-jefe.me/sitemap-index.xml

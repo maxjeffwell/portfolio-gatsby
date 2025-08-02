@@ -31,7 +31,7 @@ function MyLogo() {
       <StaticImage
         src="../images/elephant_noun_project.png"
         alt="Jeff Maxwell portfolio elephant logo"
-        placeholder="blurred"
+        placeholder="dominantColor"
         loading="eager"
         width={60}
         height={60}

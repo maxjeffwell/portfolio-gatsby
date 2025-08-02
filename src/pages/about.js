@@ -202,7 +202,7 @@ function AboutPage() {
       <PageTransition>
         <SEO
           title="About Me | Jeff Maxwell Full Stack Developer"
-          description="Learn about Jeff Maxwell, Full Stack Developer specializing in React and Node.js. Technology stack and development approach."
+          description="Learn about Jeff Maxwell, Full Stack Developer specializing in React and Node.js. Discover my technology stack and development approach in Orlando, Florida."
           pathname="/about/"
           keywords={[
             `about me`,

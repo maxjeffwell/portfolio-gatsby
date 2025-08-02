@@ -490,7 +490,7 @@ function ThemedLayout({ children, data }) {
               <span>Built by Jeff Maxwell, created with</span>
               <ClientOnlyIcon 
                 iconName="Gatsby" 
-                fontSize="72px" 
+                fontSize="84px" 
                 style={{ 
                   flexShrink: 0,
                   color: theme?.mode === 'dark' ? '#ffffff' : 'rgba(0, 0, 0, 0.6)'

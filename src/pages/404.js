@@ -170,7 +170,7 @@ function NotFoundPage() {
       <PageTransition>
         <SEO
           title="404: Page Not Found"
-          description="The page you're looking for doesn't exist. Navigate back to explore Jeff Maxwell's portfolio and projects."
+          description="Page not found. Navigate back to explore Jeff Maxwell's full stack development portfolio and featured React & Node.js projects in Orlando, Florida."
         />
         <ErrorSection theme={theme}>
           <Container>

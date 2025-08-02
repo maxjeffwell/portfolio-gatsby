@@ -17,10 +17,14 @@ export default function HTML(props) {
         <meta charSet="utf-8" />
         <meta name="algolia-site-verification" content="620E7268392C7F85" />
         <title>Jeff Maxwell Developer Portfolio</title>
-        <meta
-          name="description"
-          content="Jeff Maxwell - Full Stack Web Developer specializing in React, Node.js, and modern web development. Explore my portfolio of innovative projects and development solutions."
-        />
+        {/* Critical CSS inlined for faster mobile loading */}
+        <style>{`
+          html{font-display:swap}
+          body{font-display:swap;font-family:system-ui,-apple-system,sans-serif}
+          *{box-sizing:border-box}
+          .gatsby-image-wrapper{max-width:100%;height:auto}
+          [data-gatsby-image-wrapper]{max-width:100%}
+        `}</style>
         {/* styled-components handles SSR automatically */}
         {headComponents}
       </head>
@@ -34,6 +38,40 @@ export default function HTML(props) {
           <input type="text" name="bot-field" />
         </form>
         {preBodyComponents}
+        {/* Alt attribute fix for placeholder images */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Fix missing alt attributes on placeholder images
+              function fixPlaceholderAltAttributes() {
+                const placeholderImages = document.querySelectorAll('img[src^="data:image/"]:not([alt])');
+                placeholderImages.forEach(img => {
+                  img.setAttribute('alt', 'Loading image...');
+                  img.setAttribute('aria-hidden', 'true');
+                });
+              }
+              
+              // Run on DOM ready and periodically for dynamic content
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', fixPlaceholderAltAttributes);
+              } else {
+                fixPlaceholderAltAttributes();
+              }
+              
+              // Monitor for new images being added
+              if (typeof MutationObserver !== 'undefined') {
+                const observer = new MutationObserver(function(mutations) {
+                  mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList') {
+                      fixPlaceholderAltAttributes();
+                    }
+                  });
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+              }
+            `,
+          }}
+        />
         {/* eslint-disable-next-line react/no-danger */}
         <script
           dangerouslySetInnerHTML={{

@@ -336,7 +336,7 @@ const IndexPage = () => {
       <PageTransition>
         <SEO
           title="Jeff Maxwell | Full Stack React & Node.js Developer"
-          description="Full Stack React & Node.js Developer in Orlando, Florida. Modern web applications and scalable solutions."
+          description="Experienced Full Stack React & Node.js Developer in Orlando, Florida. Building modern web applications and scalable solutions for businesses."
           pathname="/"
           keywords={[
             'full stack developer',
