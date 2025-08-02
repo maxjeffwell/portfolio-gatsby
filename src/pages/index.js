@@ -560,7 +560,7 @@ const IndexPage = () => {
         <ContentSection theme={theme} as="section" aria-labelledby="social-share">
           <Container>
             <SocialShare 
-              url={typeof window !== 'undefined' ? window.location.href : 'https://jeffmaxwell.dev'}
+              url={typeof window !== 'undefined' && window.location ? window.location.href : 'https://jeffmaxwell.dev'}
               title="Jeff Maxwell - Full Stack React & Node.js Developer"
               description="Experienced full stack developer specializing in React, Node.js, and modern web technologies. View my portfolio and get in touch!"
             />

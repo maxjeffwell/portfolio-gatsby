@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import ClientOnlyIcon from './ClientOnlyIcon';
 
 import Header from './header';
-import ThirdPartyScripts from './ThirdPartyScripts';
+// ThirdPartyScripts will be loaded client-side only
 import GlobalStyles from './GlobalStyles';
 import { useTheme } from '../context/ThemeContext';
 
@@ -352,7 +352,7 @@ function ThemedLayout({ children, data }) {
   return (
     <>
       <GlobalStyles theme={theme} />
-      <ThirdPartyScripts />
+{/* ThirdPartyScripts removed to prevent SSR issues */}
       <ClientOnlyAnimatedCursor theme={theme} />
       <Header />
       <main

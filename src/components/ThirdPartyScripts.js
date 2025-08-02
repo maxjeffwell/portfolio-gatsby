@@ -1,9 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const ThirdPartyScripts = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Set client flag
+    setIsClient(true);
+  }, []);
+
   useEffect(() => {
     // Only run client-side
-    if (typeof window === 'undefined') return;
+    if (!isClient || typeof window === 'undefined') return;
 
     // Google Analytics
     if (process.env.GATSBY_GA_TRACKING_ID) {
@@ -22,7 +29,7 @@ const ThirdPartyScripts = () => {
       gtag('js', new Date());
       gtag('config', process.env.GATSBY_GA_TRACKING_ID, {
         page_title: document.title,
-        page_location: window.location.href,
+        page_location: window.location?.href || '',
       });
 
       // Track scroll depth for SEO insights
@@ -107,7 +114,7 @@ const ThirdPartyScripts = () => {
         console.log('Page load time:', `${loadTime}ms`);
       });
     }
-  }, []);
+  }, [isClient]);
 
   // Return null since all scripts are loaded via useEffect
   return null;
