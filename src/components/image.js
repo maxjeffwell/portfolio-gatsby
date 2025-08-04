@@ -36,7 +36,6 @@ function Image({ imageType }) {
         childImageSharp {
           gatsbyImageData(
             width: 800
-            height: 800
             quality: 90
             formats: [AUTO, WEBP]
             transformOptions: { grayscale: true }
@@ -108,7 +107,7 @@ function Image({ imageType }) {
           willChange: 'opacity',
         }}
         imgStyle={{
-          objectFit: 'contain',
+          objectFit: 'cover',
           objectPosition: 'center',
         }}
       />
