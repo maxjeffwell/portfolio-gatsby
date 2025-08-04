@@ -21,7 +21,7 @@ const ShareContainer = styled.div`
 const ShareLabel = styled.span`
   font-weight: 500;
   color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)'};
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   margin-right: 8px;
 
   @media (max-width: 768px) {
@@ -44,7 +44,7 @@ const ShareButton = styled.a`
   border-radius: 25px;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   transition: all 0.3s ease;
   border: 1px solid transparent;
   background: transparent;
@@ -96,7 +96,7 @@ const ShareButton = styled.a`
 
   @media (max-width: 480px) {
     padding: 8px 12px;
-    font-size: 1rem;
+    font-size: 1.125rem;
     gap: 6px;
   }
 `;
