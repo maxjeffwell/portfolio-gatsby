@@ -430,7 +430,7 @@ const IndexPage = () => {
                   </Link>{' '}
                   to see these diverse applications in action.
                   <br /><br />
-                  When not coding, I enjoy mentoring junior developers, participating in code reviews, and staying current 
+                  When not coding, I enjoy participating in code reviews and staying current 
                   with industry trends through tech conferences and developer meetups. This balance of technical expertise 
                   and community involvement keeps me grounded and continuously improving my craft. Want to{' '}
                   <Link to="/contact/" title="Contact Jeff Maxwell for your next development project" style={{ color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63', fontWeight: 'bold', textDecoration: 'underline' }}>
