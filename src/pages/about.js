@@ -529,7 +529,7 @@ function AboutPage() {
               style={{
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                 '@media (min-width: 768px)': {
-                  gridTemplateColumns: '1fr 1fr',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
                 },
               }}
             >
@@ -591,11 +591,7 @@ function AboutPage() {
                   </StyledBox>
                 </div>
               </GridItem>
-            </GridContainer>
-
-            {/* Center the third image */}
-            <StyledBox mt={4} style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ maxWidth: '400px', width: '100%' }}>
+              <GridItem>
                 <div
                   style={{
                     borderRadius: '24px',
@@ -623,8 +619,8 @@ function AboutPage() {
                     <Image imageType="developer" />
                   </StyledBox>
                 </div>
-              </div>
-            </StyledBox>
+              </GridItem>
+            </GridContainer>
           </StyledBox>
 
           <StyledBox as="section" aria-labelledby="tech-stack" ref={techRef} mb={8} mt={8}>
