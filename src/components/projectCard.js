@@ -25,7 +25,7 @@ const Typography = styled.div`
       : props.variant === 'h6'
         ? '1.375rem'
         : props.variant === 'body1'
-          ? '1.25rem'
+          ? '1.375rem'
           : props.variant === 'body2'
             ? '0.9375rem'
             : '1rem'};
@@ -61,7 +61,7 @@ const Typography = styled.div`
         : props.variant === 'h6'
           ? '1.125rem'
           : props.variant === 'body1'
-            ? '1.05rem'
+            ? '1.1875rem'
             : props.variant === 'body2'
               ? '0.8rem'
               : '0.9rem'};
@@ -74,7 +74,7 @@ const Typography = styled.div`
         : props.variant === 'h6'
           ? '1rem'
           : props.variant === 'body1'
-            ? '1rem'
+            ? '1.125rem'
             : props.variant === 'body2'
               ? '0.75rem'
               : '0.85rem'};
