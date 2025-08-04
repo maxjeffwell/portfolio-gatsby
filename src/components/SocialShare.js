@@ -21,7 +21,7 @@ const ShareContainer = styled.div`
 const ShareLabel = styled.span`
   font-weight: 500;
   color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)'};
-  font-size: 1.2rem;
+  font-size: 1.375rem;
   margin-right: 8px;
 
   @media (max-width: 768px) {
@@ -44,7 +44,7 @@ const ShareButton = styled.a`
   border-radius: 25px;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   transition: all 0.3s ease;
   border: 1px solid transparent;
   background: transparent;
@@ -96,13 +96,13 @@ const ShareButton = styled.a`
 
   @media (max-width: 480px) {
     padding: 8px 12px;
-    font-size: 0.85rem;
+    font-size: 1rem;
     gap: 6px;
   }
 `;
 
 const ShareIcon = styled.span`
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   line-height: 1;
 `;
 
@@ -135,7 +135,7 @@ function SocialShare({ url, title, description }) {
           title="Share on Twitter"
           aria-label="Share on Twitter"
         >
-          <ClientOnlyIcon iconName="twitter" fontSize="24px" />
+          <ClientOnlyIcon iconName="twitter" fontSize="28px" />
           Twitter
         </ShareButton>
         
@@ -147,7 +147,7 @@ function SocialShare({ url, title, description }) {
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn"
         >
-          <ClientOnlyIcon iconName="linkedin" fontSize="24px" />
+          <ClientOnlyIcon iconName="linkedin" fontSize="28px" />
           LinkedIn
         </ShareButton>
         
@@ -159,7 +159,7 @@ function SocialShare({ url, title, description }) {
           title="Share on Facebook"
           aria-label="Share on Facebook"
         >
-          <ClientOnlyIcon iconName="facebook" fontSize="24px" />
+          <ClientOnlyIcon iconName="facebook" fontSize="28px" />
           Facebook
         </ShareButton>
         
@@ -171,7 +171,7 @@ function SocialShare({ url, title, description }) {
           title="Share on Reddit"
           aria-label="Share on Reddit"
         >
-          <ClientOnlyIcon iconName="reddit" fontSize="24px" />
+          <ClientOnlyIcon iconName="reddit" fontSize="28px" />
           Reddit
         </ShareButton>
         
@@ -182,7 +182,7 @@ function SocialShare({ url, title, description }) {
           aria-label="Share via Email"
           theme={theme}
         >
-          <ClientOnlyIcon iconName="send" fontSize="24px" />
+          <ClientOnlyIcon iconName="send" fontSize="28px" />
           Email
         </ShareButton>
       </ShareButtons>
