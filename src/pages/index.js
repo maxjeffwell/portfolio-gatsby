@@ -412,7 +412,7 @@ const IndexPage = () => {
               {/* Beyond the Code */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Paws" fontSize="120px" style={{ marginRight: '8px', color: '#007bff' }} /> Full Stack Developer Beyond the Code
+                  <ClientOnlyIcon iconName="Paws" fontSize="140px" style={{ marginRight: '8px', color: '#007bff' }} /> Full Stack Developer Beyond the Code
                 </CardTitle>
                 <CardText theme={theme}>
                   When I'm not crafting pixel-perfect interfaces or debugging complex algorithms,
@@ -449,7 +449,7 @@ const IndexPage = () => {
               {/* Code Philosophy */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Computer" fontSize="120px" style={{ marginRight: '8px', color: '#007bff' }} /> React Developer Code Philosophy
+                  <ClientOnlyIcon iconName="Computer" fontSize="110px" style={{ marginRight: '8px', color: '#007bff' }} /> React Developer Code Philosophy
                 </CardTitle>
                 <CardText theme={theme}>
                   Clean, readable, and maintainable — here's how I approach modern React
@@ -552,7 +552,7 @@ const IndexPage = () => {
               {/* Frontend Technologies */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2" id="technologies-heading">
-                  <ClientOnlyIcon iconName="React" fontSize="120px" style={{ marginRight: '8px', color: '#61dafb' }} /> JavaScript Developer Frontend Technologies
+                  <ClientOnlyIcon iconName="React" fontSize="110px" style={{ marginRight: '8px', color: '#61dafb' }} /> JavaScript Developer Frontend Technologies
                 </CardTitle>
                 <CardText theme={theme}>
                   My frontend expertise encompasses the latest React ecosystem, including React 18 with Concurrent Features, 
@@ -575,7 +575,7 @@ const IndexPage = () => {
               {/* Backend & Infrastructure */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="NodeJS" fontSize="120px" style={{ marginRight: '8px', color: '#68a063' }} /> Node.js Developer Backend & Infrastructure
+                  <ClientOnlyIcon iconName="NodeJS" fontSize="110px" style={{ marginRight: '8px', color: '#68a063' }} /> Node.js Developer Backend & Infrastructure
                 </CardTitle>
                 <CardText theme={theme}>
                   On the backend, I specialize in Node.js microservices architecture using Express.js, Fastify, and NestJS frameworks. 

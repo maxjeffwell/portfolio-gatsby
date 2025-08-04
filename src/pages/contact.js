@@ -899,7 +899,7 @@ function Contact() {
                     rel="noopener noreferrer"
                     style={{ fontSize: '1.125rem', fontWeight: 500 }}
                   >
-                    View my projects
+                    View my repositories
                   </StyledLink>
                 </div>
               </div>
