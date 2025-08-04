@@ -166,7 +166,7 @@ const CardTitle = styled.h2`
 `;
 
 const CardText = styled.p`
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.6;
   color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
   margin: 0 0 24px 0;
@@ -181,7 +181,7 @@ const QuoteBox = styled.div`
     props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.05)'};
   border-left: 4px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
   border-radius: 4px;
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   line-height: 1.6;
   color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#555')};
   transition:
@@ -302,7 +302,7 @@ const IndexPage = () => {
           color: #ad1457;
         }
         .hero-quote {
-          font-size: clamp(1rem, 3vw, 1.25rem);
+          font-size: clamp(1.125rem, 3vw, 1.375rem);
           line-height: 1.6;
           color: ${theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : '#777'};
           margin-bottom: clamp(24px, 6vw, 40px);
@@ -311,7 +311,7 @@ const IndexPage = () => {
         }
         .info-text {
           margin-top: 16px;
-          font-size: 0.95rem;
+          font-size: 1.0625rem;
           line-height: 1.5;
         }
         .cta-button {
@@ -449,7 +449,7 @@ const IndexPage = () => {
               {/* Code Philosophy */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="Computer" fontSize="32px" style={{ marginRight: '8px', color: '#007bff' }} /> React Developer Code Philosophy
+                  <ClientOnlyIcon iconName="Computer" fontSize="120px" style={{ marginRight: '8px', color: '#007bff' }} /> React Developer Code Philosophy
                 </CardTitle>
                 <CardText theme={theme}>
                   Clean, readable, and maintainable — here's how I approach modern React
@@ -533,7 +533,7 @@ const IndexPage = () => {
                 Web Developer Portfolio - Modern JavaScript Technologies
               </h3>
               <p style={{ 
-                fontSize: '1.1rem', 
+                fontSize: '1.25rem', 
                 color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
                 margin: '0 0 32px 0',
                 textAlign: 'center'
@@ -552,7 +552,7 @@ const IndexPage = () => {
               {/* Frontend Technologies */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2" id="technologies-heading">
-                  <ClientOnlyIcon iconName="React" fontSize="32px" style={{ marginRight: '8px', color: '#61dafb' }} /> JavaScript Developer Frontend Technologies
+                  <ClientOnlyIcon iconName="React" fontSize="120px" style={{ marginRight: '8px', color: '#61dafb' }} /> JavaScript Developer Frontend Technologies
                 </CardTitle>
                 <CardText theme={theme}>
                   My frontend expertise encompasses the latest React ecosystem, including React 18 with Concurrent Features, 
@@ -575,7 +575,7 @@ const IndexPage = () => {
               {/* Backend & Infrastructure */}
               <Card theme={theme} as="article">
                 <CardTitle theme={theme} as="h2">
-                  <ClientOnlyIcon iconName="NodeJS" fontSize="24px" style={{ marginRight: '8px', color: '#68a063' }} /> Node.js Developer Backend & Infrastructure
+                  <ClientOnlyIcon iconName="NodeJS" fontSize="120px" style={{ marginRight: '8px', color: '#68a063' }} /> Node.js Developer Backend & Infrastructure
                 </CardTitle>
                 <CardText theme={theme}>
                   On the backend, I specialize in Node.js microservices architecture using Express.js, Fastify, and NestJS frameworks. 
