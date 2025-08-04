@@ -261,11 +261,11 @@ function AboutPage() {
                 Full stack developer passionate about creating elegant solutions to complex
                 problems. When I&apos;m not coding, I&apos;m exploring new technologies and perfecting my
                 craft. Explore my{' '}
-                <Link to="/projects/" title="View my featured development projects and portfolio" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link to="/projects/" title="Explore my complete project portfolio showcasing full stack development" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
                   featured projects
                 </Link>{' '}
                 or{' '}
-                <Link to="/contact/" title="Get in touch to discuss your next project" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link to="/contact/" title="Contact me to start collaborating on your development needs" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
                   get in touch
                 </Link>{' '}
                 to discuss your next project.
