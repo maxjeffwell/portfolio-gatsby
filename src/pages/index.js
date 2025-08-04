@@ -291,7 +291,7 @@ const IndexPage = () => {
         .card-link {
           color: #e91e63;
           text-transform: none;
-          font-size: 1.125rem;
+          font-size: clamp(1.25rem, 4vw, 1.375rem);
           font-weight: 500;
           padding: 8px 16px;
           display: inline-block;
