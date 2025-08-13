@@ -195,6 +195,32 @@ const GridItem = styled.div`
   height: 100%;
 `;
 
+const TechnologyGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+
+  /* Center the 5th item (Anthropic) when it's alone in the second row */
+  @media (min-width: 768px) {
+    & > div:nth-child(5):last-child {
+      grid-column: 2 / 4;
+      justify-self: center;
+    }
+  }
+
+  /* For very large screens, ensure proper centering */
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+
+    & > div:nth-child(5):last-child {
+      grid-column: 2 / 4;
+      justify-self: center;
+    }
+  }
+`;
+
 function AboutPage() {
   const { theme } = useTheme();
   const [headerRef] = useScrollAnimation({ delay: 100 });
@@ -858,15 +884,7 @@ function AboutPage() {
                 The tools and technologies that power my development workflow
               </Typography>
 
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-                  gap: '32px',
-                  maxWidth: '800px',
-                  margin: '0 auto',
-                }}
-              >
+              <TechnologyGrid>
                 <div
                   style={{
                     background:
@@ -1143,7 +1161,7 @@ function AboutPage() {
                     projects.
                   </Typography>
                 </div>
-              </div>
+              </TechnologyGrid>
             </div>
           </StyledBox>
 
