@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 import IapfLogo from '../images/svg-icons/iapf.svg';
 import AspcaLogo from '../images/svg-icons/aspca.svg';
-import ZapatistaFlag from '../images/svg-icons/zapatista_flag.svg';
+import ZapatistaFlag from '../images/svg-icons/ezln.svg';
 
 const LogoContainer = styled.div`
   display: grid;
