@@ -229,7 +229,7 @@ const projectsData = [
     },
     screenshots: {
       screenshot1: 'firebook_screenshot1.webm',
-      screenshot2: 'firebook_screenshot2.mp4',
+      screenshot2: 'firebook_screenshot2.png',
     },
   },
   {
