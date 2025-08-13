@@ -32,15 +32,39 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
   // Utility function to enhance keywords based on page context
   const enhanceKeywordsForPage = (baseKeywords, pagePath, pageTitle) => {
     const enhancedKeywords = [...(baseKeywords || [])];
-    
+
+    // Add core profile keywords to all pages
+    if (!enhancedKeywords.includes('maxjeffwell github')) {
+      enhancedKeywords.push('maxjeffwell github');
+    }
+    if (!enhancedKeywords.includes('jeff maxwell github')) {
+      enhancedKeywords.push('jeff maxwell github');
+    }
+    if (!enhancedKeywords.includes('jeff maxwell orlando')) {
+      enhancedKeywords.push('jeff maxwell orlando');
+    }
+    if (!enhancedKeywords.includes('jeff maxwell central florida')) {
+      enhancedKeywords.push('jeff maxwell central florida');
+    }
+    if (!enhancedKeywords.includes('jeff maxwell volusia county')) {
+      enhancedKeywords.push('jeff maxwell volusia county');
+    }
+    if (!enhancedKeywords.includes('jeff maxwell sanford')) {
+      enhancedKeywords.push('jeff maxwell sanford');
+    }
+
     // Add contextual keywords based on page path
     if (pagePath) {
       const pathSegments = pagePath.split('/').filter(Boolean);
       const pageType = pathSegments[0];
-      
+
       switch (pageType) {
         case 'projects':
-          enhancedKeywords.unshift('web developer portfolio', 'react projects', 'node.js portfolio');
+          enhancedKeywords.unshift(
+            'web developer portfolio',
+            'react projects',
+            'node.js portfolio'
+          );
           break;
         case 'about':
           enhancedKeywords.unshift('full stack developer bio', 'react developer experience');
@@ -49,28 +73,35 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
           enhancedKeywords.unshift('hire developer', 'freelance web developer', 'react consultant');
           break;
         case 'blog':
-          enhancedKeywords.unshift('web development blog', 'react tutorials', 'javascript articles');
+          enhancedKeywords.unshift(
+            'web development blog',
+            'react tutorials',
+            'javascript articles'
+          );
           break;
         default:
           // Homepage - prioritize core skills
           enhancedKeywords.unshift('full stack developer', 'react developer', 'node.js developer');
       }
     }
-    
+
     // Add keywords based on page title content
     if (pageTitle) {
       const titleLower = pageTitle.toLowerCase();
-      if (titleLower.includes('react') && !enhancedKeywords.some(k => k.includes('react'))) {
+      if (titleLower.includes('react') && !enhancedKeywords.some((k) => k.includes('react'))) {
         enhancedKeywords.unshift('react specialist');
       }
-      if (titleLower.includes('node') && !enhancedKeywords.some(k => k.includes('node'))) {
+      if (titleLower.includes('node') && !enhancedKeywords.some((k) => k.includes('node'))) {
         enhancedKeywords.unshift('node.js expert');
       }
-      if (titleLower.includes('portfolio') && !enhancedKeywords.some(k => k.includes('portfolio'))) {
+      if (
+        titleLower.includes('portfolio') &&
+        !enhancedKeywords.some((k) => k.includes('portfolio'))
+      ) {
         enhancedKeywords.unshift('developer portfolio');
       }
     }
-    
+
     // Remove duplicates and limit to most relevant
     return [...new Set(enhancedKeywords)].slice(0, 5);
   };
@@ -81,75 +112,81 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
     const primarySkill = 'React & Node.js Developer';
     const location = 'Orlando, FL';
     const experience = 'Full Stack';
-    
+
     // Extract and enhance keywords for title optimization
     const baseKeywords = pageKeywords || keywords || [];
     const enhancedKeywords = enhanceKeywordsForPage(baseKeywords, currentPathname, pageTitle);
     const primaryKeywords = enhancedKeywords.slice(0, 3); // Use top 3 enhanced keywords
-    
+
     // Determine page type from pathname
     const pathSegments = (currentPathname || pathname || '').split('/').filter(Boolean);
     const pageType = pathSegments[0] || 'home';
-    
+
     // Dynamic title generation based on page context
     const generateContextualTitle = () => {
       switch (pageType) {
         case 'projects':
           // Check if it's a specific project page
           if (pathSegments.length > 1) {
-            const projectName = pathSegments[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const projectName = pathSegments[1]
+              .replace(/-/g, ' ')
+              .replace(/\b\w/g, (l) => l.toUpperCase());
             return `${projectName} | ${baseBrand} Portfolio`;
           }
           return `${experience} Developer Portfolio | ${baseBrand}`;
-          
+
         case 'about':
           return `About ${baseBrand} | ${primarySkill}`;
-          
+
         case 'contact':
           return `Hire ${baseBrand} | ${primarySkill}`;
-          
+
         case 'blog':
           if (pathSegments.length > 1) {
-            const postSlug = pathSegments[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            const postSlug = pathSegments[1]
+              .replace(/-/g, ' ')
+              .replace(/\b\w/g, (l) => l.toUpperCase());
             return `${postSlug} | ${baseBrand} Blog`;
           }
           return `Development Blog | ${baseBrand}`;
-          
+
         default:
           // Homepage or unknown page
           if (pageTitle && pageTitle !== 'Home') {
             // Custom page title provided
-            const hasKeywords = primaryKeywords.some(keyword => 
+            const hasKeywords = primaryKeywords.some((keyword) =>
               pageTitle.toLowerCase().includes(keyword.toLowerCase())
             );
-            
+
             if (!hasKeywords && primaryKeywords.length > 0) {
               // Enhance title with relevant keywords
-              const relevantKeyword = primaryKeywords.find(kw => 
-                kw.toLowerCase().includes('developer') || 
-                kw.toLowerCase().includes('react') ||
-                kw.toLowerCase().includes('javascript')
-              ) || primaryKeywords[0];
-              
+              const relevantKeyword =
+                primaryKeywords.find(
+                  (kw) =>
+                    kw.toLowerCase().includes('developer') ||
+                    kw.toLowerCase().includes('react') ||
+                    kw.toLowerCase().includes('javascript')
+                ) || primaryKeywords[0];
+
               return `${pageTitle} | ${baseBrand} ${relevantKeyword}`;
             }
-            
+
             return `${pageTitle} | ${baseBrand}`;
           }
-          
+
           return `${baseBrand} - ${primarySkill}, ${location}`;
       }
     };
-    
+
     let generatedTitle = generateContextualTitle();
-    
+
     // Ensure title is within optimal length (50-60 chars)
     if (generatedTitle.length > 60) {
       // Try shortening location
       if (generatedTitle.includes(location)) {
         generatedTitle = generatedTitle.replace(location, 'FL');
       }
-      
+
       // If still too long, use more concise version
       if (generatedTitle.length > 60) {
         switch (pageType) {
@@ -164,13 +201,13 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
         }
       }
     }
-    
+
     // Ensure minimum length (aim for 50+ chars when possible)
     if (generatedTitle.length < 50 && !generatedTitle.includes(location)) {
       const locationToAdd = generatedTitle.length < 45 ? `, ${location}` : ', FL';
       generatedTitle += locationToAdd;
     }
-    
+
     return generatedTitle;
   };
 
@@ -705,7 +742,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
             'Database Design',
             'Web Application Development',
             'Orlando Web Development',
-            'Central Florida Web Development', 
+            'Central Florida Web Development',
             'Tampa Bay Area Developer',
             'Florida React Developer',
             'Orlando React Developer',
@@ -787,7 +824,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
           },
           serviceType: [
             'Web Development',
-            'React Development', 
+            'React Development',
             'Node.js Development',
             'Full Stack Development',
             'JavaScript Programming',
@@ -802,7 +839,8 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
           '@context': 'https://schema.org',
           '@type': 'ProfessionalService',
           name: 'Jeff Maxwell - Full Stack Web Developer',
-          description: 'Professional web development services specializing in React, Node.js, and modern JavaScript applications',
+          description:
+            'Professional web development services specializing in React, Node.js, and modern JavaScript applications',
           url: siteUrl,
           image: `${siteUrl}/icons/icon-512x512.png`,
           telephone: '+1-508-395-2008',
@@ -828,7 +866,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
           serviceType: [
             'Web Development',
             'React Development',
-            'Node.js Development', 
+            'Node.js Development',
             'Full Stack Development',
             'JavaScript Programming',
             'Frontend Development',

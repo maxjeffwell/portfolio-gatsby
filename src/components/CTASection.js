@@ -6,36 +6,38 @@ import styled from 'styled-components';
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
-  font-weight: ${props => 
-    props.variant === 'h3' ? 400 :
-    props.variant === 'h4' ? 400 :
-    props.variant === 'body1' ? 400 :
-    400
-  };
-  font-size: ${props => 
-    props.variant === 'h3' ? '3rem' :
-    props.variant === 'h4' ? '2.125rem' :
-    props.variant === 'body1' ? '1rem' :
-    '1rem'
-  };
-  line-height: ${props => 
-    props.variant === 'h3' ? 1.167 :
-    props.variant === 'h4' ? 1.235 :
-    props.variant === 'body1' ? 1.5 :
-    1.5
-  };
-  color: ${props => 
-    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' :
-    'rgba(0, 0, 0, 0.87)'
-  };
-  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
-  text-align: ${props => props.align || 'inherit'};
-  
+  font-weight: ${(props) =>
+    props.variant === 'h3'
+      ? 400
+      : props.variant === 'h4'
+        ? 400
+        : props.variant === 'body1'
+          ? 400
+          : 400};
+  font-size: ${(props) =>
+    props.variant === 'h3'
+      ? '3rem'
+      : props.variant === 'h4'
+        ? '2.125rem'
+        : props.variant === 'body1'
+          ? '1rem'
+          : '1rem'};
+  line-height: ${(props) =>
+    props.variant === 'h3'
+      ? 1.167
+      : props.variant === 'h4'
+        ? 1.235
+        : props.variant === 'body1'
+          ? 1.5
+          : 1.5};
+  color: ${(props) =>
+    props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.87)'};
+  margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
+  text-align: ${(props) => props.align || 'inherit'};
+
   @media (prefers-color-scheme: dark) {
-    color: ${props => 
-      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' :
-      'rgba(255, 255, 255, 0.87)'
-    };
+    color: ${(props) =>
+      props.color === 'text.secondary' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(255, 255, 255, 0.87)'};
   }
 `;
 
@@ -62,9 +64,16 @@ const Button = styled.button`
   min-width: 64px;
   padding: 6px 16px;
   border-radius: 4px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  
-  ${props => props.variant === 'contained' && props.color === 'primary' && `
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  ${(props) =>
+    props.variant === 'contained' &&
+    props.color === 'primary' &&
+    `
     color: #fff;
     background-color: #1976d2;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
@@ -74,8 +83,10 @@ const Button = styled.button`
       box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
     }
   `}
-  
-  ${props => props.size === 'large' && `
+
+  ${(props) =>
+    props.size === 'large' &&
+    `
     padding: 8px 22px;
     font-size: 0.9375rem;
   `}
@@ -113,8 +124,11 @@ const CTASection = styled.div`
   text-align: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-  
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
   &::before {
     content: '';
     position: absolute;
@@ -126,20 +140,20 @@ const CTASection = styled.div`
     z-index: 0;
     will-change: auto;
   }
-  
+
   & > * {
     position: relative;
     z-index: 1;
   }
-  
+
   @media (max-width: 960px) {
     padding: 32px 24px;
   }
-  
+
   @media (max-width: 600px) {
     padding: 24px 16px;
   }
-  
+
   @media (max-width: 360px) {
     padding: 20px 12px;
     border-radius: 16px;
@@ -165,16 +179,16 @@ const ContactButton = styled(Button)`
   background-color: rgba(0, 0, 0, 0.04);
   color: #1976d2;
   transition: all 0.3s ease;
-  
+
   &:hover {
     transform: translateY(-3px);
     background-color: rgba(0, 0, 0, 0.08);
   }
-  
+
   @media (prefers-color-scheme: dark) {
     background-color: rgba(255, 255, 255, 0.08);
     color: white;
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.12);
     }
@@ -183,19 +197,19 @@ const ContactButton = styled(Button)`
 
 const StatBox = styled.div`
   text-align: center;
-  
+
   & .stat-number {
     font-size: 2.5rem;
     font-weight: bold;
     color: #fc4a1a;
     margin-bottom: 4px;
   }
-  
+
   & .stat-label {
     font-size: 1rem;
     color: rgba(0, 0, 0, 0.6);
   }
-  
+
   @media (prefers-color-scheme: dark) {
     & .stat-label {
       color: rgba(255, 255, 255, 0.7);
@@ -213,7 +227,7 @@ const StatsContainer = styled.div`
   gap: 32px;
   margin-bottom: 32px;
   justify-content: center;
-  
+
   @media (max-width: 600px) {
     flex-direction: column;
   }
@@ -229,7 +243,7 @@ const ContactContainer = styled.div`
   gap: 16px;
   margin-bottom: 32px;
   justify-content: center;
-  
+
   @media (max-width: 600px) {
     flex-direction: column;
   }
@@ -238,7 +252,6 @@ const ContactContainer = styled.div`
 const ContactItem = styled.div`
   flex: 1;
 `;
-
 
 function CTASectionComponent({ visible }) {
   const [, setHoveredCard] = useState(null);
@@ -294,10 +307,12 @@ function CTASectionComponent({ visible }) {
         <StatsContainer>
           {stats.map((stat, index) => (
             <StatsItem key={stat.label}>
-              <StatBox style={{ 
-                opacity: visible ? 1 : 0,
-                transition: `opacity 400ms ease-in-out ${index * 50}ms`
-              }}>
+              <StatBox
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transition: `opacity 400ms ease-in-out ${index * 50}ms`,
+                }}
+              >
                 <Typography className="stat-number">{stat.number}</Typography>
                 <Typography className="stat-label">{stat.label}</Typography>
               </StatBox>
@@ -321,10 +336,10 @@ function CTASectionComponent({ visible }) {
                   aria-label={method.label}
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  style={{ 
+                  style={{
                     opacity: visible ? 1 : 0,
                     transition: `opacity 400ms ease-in-out ${index * 50 + 200}ms`,
-                    width: '100%'
+                    width: '100%',
                   }}
                 >
                   <IconComponent />

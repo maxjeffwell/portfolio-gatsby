@@ -16,7 +16,7 @@ const StyledChip = styled.span`
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.23);
   color: rgba(0, 0, 0, 0.87);
-  
+
   @media (prefers-color-scheme: dark) {
     border-color: rgba(255, 255, 255, 0.23);
     color: rgba(255, 255, 255, 0.87);
@@ -25,11 +25,7 @@ const StyledChip = styled.span`
 
 // Simple fallback component that doesn't cause SSR issues
 const ChipFallback = ({ label, size, color, variant, ...props }) => {
-  return (
-    <StyledChip {...props}>
-      {label}
-    </StyledChip>
-  );
+  return <StyledChip {...props}>{label}</StyledChip>;
 };
 
 // Export as default and named export to match MUI Chip API

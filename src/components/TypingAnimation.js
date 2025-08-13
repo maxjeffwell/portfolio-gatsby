@@ -27,14 +27,16 @@ const Cursor = styled.span`
   width: 2px;
   height: 1em;
   margin-left: 2px;
-  animation: ${props => props.blink ? 'blink 1s infinite' : 'none'};
+  animation: ${(props) => (props.blink ? 'blink 1s infinite' : 'none')};
   vertical-align: text-top;
-  
+
   @keyframes blink {
-    0%, 50% {
+    0%,
+    50% {
       opacity: 1;
     }
-    51%, 100% {
+    51%,
+    100% {
       opacity: 0;
     }
   }

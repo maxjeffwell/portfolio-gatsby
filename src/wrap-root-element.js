@@ -5,7 +5,6 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import ErrorBoundary from './components/ErrorBoundary';
 import '../static/fonts/fonts.css';
 
-
 // Client-only PerformanceMonitor wrapper
 const ClientOnlyPerformanceMonitor = () => {
   const [PerformanceMonitor, setPerformanceMonitor] = React.useState(null);
@@ -35,7 +34,7 @@ const ClientOnlyPerformanceMonitor = () => {
 // Theme-connected wrapper
 const ThemedWrapper = ({ children }) => {
   const { theme } = useTheme();
-  
+
   return (
     <StyledThemeProvider theme={theme}>
       {typeof window !== 'undefined' && <ClientOnlyPerformanceMonitor />}
@@ -49,9 +48,7 @@ export const wrapRootElement = ({ element }) => (
   <ErrorBoundary>
     <HelmetProvider>
       <ThemeProvider>
-        <ThemedWrapper>
-          {element}
-        </ThemedWrapper>
+        <ThemedWrapper>{element}</ThemedWrapper>
       </ThemeProvider>
     </HelmetProvider>
   </ErrorBoundary>

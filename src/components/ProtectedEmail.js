@@ -1,46 +1,46 @@
 import React, { useState } from 'react';
 
 // Email obfuscation component to protect from spam harvesters
-const ProtectedEmail = ({ 
-  children, 
-  className = '', 
-  style = {}, 
+const ProtectedEmail = ({
+  children,
+  className = '',
+  style = {},
   title = 'Send email to Jeff Maxwell',
   'aria-label': ariaLabel = 'Send email to maxjeffwell@gmail.com',
   subject = '',
   body = '',
-  ...props 
+  ...props
 }) => {
   const [isRevealed, setIsRevealed] = useState(false);
-  
+
   // Obfuscated email parts
   const emailParts = {
     user: 'maxjeffwell',
     domain: 'gmail',
-    tld: 'com'
+    tld: 'com',
   };
-  
+
   // Create the email address
   const email = `${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
-  
+
   // Create mailto URL with optional subject and body
   const createMailtoUrl = () => {
     let url = `mailto:${email}`;
     const params = [];
-    
+
     if (subject) params.push(`subject=${encodeURIComponent(subject)}`);
     if (body) params.push(`body=${encodeURIComponent(body)}`);
-    
+
     if (params.length > 0) {
       url += `?${params.join('&')}`;
     }
-    
+
     return url;
   };
-  
+
   const handleClick = (e) => {
     e.preventDefault();
-    
+
     if (!isRevealed) {
       setIsRevealed(true);
       // Small delay before opening email client
@@ -51,13 +51,13 @@ const ProtectedEmail = ({
       window.location.href = createMailtoUrl();
     }
   };
-  
+
   const handleMouseEnter = () => {
     if (!isRevealed) {
       setIsRevealed(true);
     }
   };
-  
+
   return (
     <a
       href={isRevealed ? createMailtoUrl() : '#'}

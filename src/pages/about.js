@@ -13,58 +13,69 @@ import useScrollAnimation from '../hooks/useScrollAnimation';
 import PageTransition from '../components/PageTransition';
 import SocialShare from '../components/SocialShare';
 
-// Simple styled components to replace MUI components
+// Helper functions for Typography styles
+const getTypographyFontWeight = (variant) => {
+  switch (variant) {
+    case 'h1':
+    case 'h2':
+      return 300;
+    case 'h3':
+    case 'h4':
+    case 'h5':
+    case 'body1':
+    case 'body2':
+    default:
+      return 400;
+  }
+};
+
+const getTypographyFontSize = (variant) => {
+  switch (variant) {
+    case 'h1':
+      return '6rem';
+    case 'h2':
+      return '3.75rem';
+    case 'h3':
+      return '3rem';
+    case 'h4':
+      return '2.125rem';
+    case 'h5':
+      return '1.5rem';
+    case 'body1':
+      return '1rem';
+    case 'body2':
+      return '0.875rem';
+    default:
+      return '1rem';
+  }
+};
+
+const getTypographyLineHeight = (variant) => {
+  switch (variant) {
+    case 'h1':
+    case 'h3':
+      return 1.167;
+    case 'h2':
+      return 1.2;
+    case 'h4':
+      return 1.235;
+    case 'h5':
+      return 1.334;
+    case 'body1':
+      return 1.5;
+    case 'body2':
+      return 1.43;
+    default:
+      return 1.5;
+  }
+};
+
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
-  font-weight: ${(props) =>
-    props.variant === 'h1'
-      ? 300
-      : props.variant === 'h2'
-        ? 300
-        : props.variant === 'h3'
-          ? 400
-          : props.variant === 'h4'
-            ? 400
-            : props.variant === 'h5'
-              ? 400
-              : props.variant === 'body1'
-                ? 400
-                : props.variant === 'body2'
-                  ? 400
-                  : 400};
-  font-size: ${(props) =>
-    props.variant === 'h1'
-      ? '6rem'
-      : props.variant === 'h2'
-        ? '3.75rem'
-        : props.variant === 'h3'
-          ? '3rem'
-          : props.variant === 'h4'
-            ? '2.125rem'
-            : props.variant === 'h5'
-              ? '1.5rem'
-              : props.variant === 'body1'
-                ? '1rem'
-                : props.variant === 'body2'
-                  ? '0.875rem'
-                  : '1rem'};
-  line-height: ${(props) =>
-    props.variant === 'h1'
-      ? 1.167
-      : props.variant === 'h2'
-        ? 1.2
-        : props.variant === 'h3'
-          ? 1.167
-          : props.variant === 'h4'
-            ? 1.235
-            : props.variant === 'h5'
-              ? 1.334
-              : props.variant === 'body1'
-                ? 1.5
-                : props.variant === 'body2'
-                  ? 1.43
-                  : 1.5};
+  font-weight: ${(props) => getTypographyFontWeight(props.variant)};
+  font-size: ${(props) => getTypographyFontSize(props.variant)};
+  line-height: ${(props) => getTypographyLineHeight(props.variant)};
   color: ${(props) => {
     if (props.theme?.mode === 'dark') {
       if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
@@ -77,7 +88,6 @@ const Typography = styled.div`
   text-align: ${(props) => props.align || 'inherit'};
   transition: color 0.3s ease;
 `;
-
 
 const StyledContainer = styled.div`
   max-width: 1200px;
@@ -185,13 +195,6 @@ const GridItem = styled.div`
   height: 100%;
 `;
 
-
-
-
-
-
-
-
 function AboutPage() {
   const { theme } = useTheme();
   const [headerRef] = useScrollAnimation({ delay: 100 });
@@ -202,19 +205,20 @@ function AboutPage() {
     <Layout>
       <PageTransition>
         <SEO
-          title="About Me | Jeff Maxwell Full Stack Developer"
-          description="Learn about Jeff Maxwell, Full Stack Developer specializing in React and Node.js. Discover my technology stack and development approach in Orlando, Florida."
+          title="About Jeff Maxwell | React Node.js Developer Orlando"
+          description="About Jeff Maxwell - Full Stack React and Node.js Developer in Orlando, Florida. Learn about my JavaScript development experience, technology stack, and professional approach to modern web development."
           pathname="/about/"
           keywords={[
-            `about me`,
-            `development team`,
-            `web developer bio`,
+            `react developer`,
+            `node.js developer`,
+            `javascript developer`,
+            `full stack developer`,
+            `orlando web developer`,
             `technology stack`,
-            `development tools`,
-            `full stack developer profile`,
-            `orlando developer bio`,
-            `central florida web developer`,
-            `local developer profile`,
+            `web development experience`,
+            `react node.js specialist`,
+            `central florida developer`,
+            `modern web development`,
           ]}
         />
         <StyledContainer>
@@ -242,7 +246,7 @@ function AboutPage() {
                   letterSpacing: '-0.02em',
                 }}
               >
-                About Me
+                About Jeff Maxwell - React & Node.js Developer
               </Typography>
               <Typography
                 theme={theme}
@@ -259,20 +263,40 @@ function AboutPage() {
                 }}
               >
                 Full stack developer passionate about creating elegant solutions to complex
-                problems. When I&apos;m not coding, I&apos;m exploring new technologies and perfecting my
-                craft. Explore my{' '}
-                <Link to="/projects/" title="Explore my complete project portfolio showcasing full stack development" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                problems. When I&apos;m not coding, I&apos;m exploring new technologies and
+                perfecting my craft. Explore my{' '}
+                <Link
+                  to="/projects/"
+                  title="Explore my complete project portfolio showcasing full stack development"
+                  style={{
+                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    fontWeight: 'bold',
+                    textDecoration: 'underline',
+                  }}
+                >
                   featured projects
                 </Link>{' '}
                 or{' '}
-                <Link to="/contact/" title="Contact me to start collaborating on your development needs" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link
+                  to="/contact/"
+                  title="Contact me to start collaborating on your development needs"
+                  style={{
+                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    fontWeight: 'bold',
+                    textDecoration: 'underline',
+                  }}
+                >
                   get in touch
                 </Link>{' '}
                 to discuss your next project.
               </Typography>
             </div>
           </StyledBox>
-          <section aria-labelledby="personal-section" ref={personalRef} style={{ marginBottom: '64px' }}>
+          <section
+            aria-labelledby="personal-section"
+            ref={personalRef}
+            style={{ marginBottom: '64px' }}
+          >
             <div
               style={{
                 background: 'linear-gradient(135deg, #e8eaf6 0%, #ede7f6 50%, #f3e5f5 100%)',
@@ -286,14 +310,18 @@ function AboutPage() {
                 component="h2"
                 id="personal-section"
                 style={{
-                  position: 'absolute',
-                  left: '-10000px',
-                  width: '1px',
-                  height: '1px',
-                  overflow: 'hidden',
+                  fontSize: 'clamp(1.875rem, 5vw, 2.5rem)',
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                  marginBottom: '32px',
+                  textAlign: 'center',
+                  background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
-                Personal Interests
+                JavaScript Development Philosophy & Experience
               </Typography>
               <GridContainer className="center-last" spacing={3}>
                 <GridItem>
@@ -342,12 +370,15 @@ function AboutPage() {
                               ? theme?.colors?.primary || '#90caf9'
                               : '#1565c0',
                         }}
+                        aria-label="Code terminal icon representing clean development practices"
+                        role="img"
                       />
                     </div>
                     <StyledBox>
                       <Typography
                         theme={theme}
-                        variant="h6"
+                        variant="h3"
+                        component="h3"
                         style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }}
                         customColor={
                           theme?.mode === 'dark'
@@ -355,7 +386,7 @@ function AboutPage() {
                             : 'rgba(0, 0, 0, 0.87)'
                         }
                       >
-                        Clean Code
+                        React Development & Clean Code Philosophy
                       </Typography>
                       <Typography
                         theme={theme}
@@ -365,7 +396,13 @@ function AboutPage() {
                           theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                         }
                       >
-                        Readable, maintainable solutions
+                        I believe in writing code that tells a story - clean, readable, and
+                        maintainable solutions that scale gracefully. My approach emphasizes
+                        component composition, separation of concerns, and comprehensive testing. I
+                        leverage TypeScript for type safety, implement proper error handling, and
+                        follow established patterns like SOLID principles. Every React component I
+                        build focuses on single responsibility, making codebases easier to debug,
+                        extend, and maintain by entire development teams.
                       </Typography>
                     </StyledBox>
                   </div>
@@ -409,12 +446,15 @@ function AboutPage() {
                               ? theme?.colors?.primary || '#90caf9'
                               : '#1565c0',
                         }}
+                        aria-label="Coffee cup icon representing coding culture and developer lifestyle"
+                        role="img"
                       />
                     </div>
                     <StyledBox>
                       <Typography
                         theme={theme}
-                        variant="h6"
+                        variant="h3"
+                        component="h3"
                         style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }}
                         customColor={
                           theme?.mode === 'dark'
@@ -422,7 +462,7 @@ function AboutPage() {
                             : 'rgba(0, 0, 0, 0.87)'
                         }
                       >
-                        Coffee & Code
+                        Coffee & Code Culture
                       </Typography>
                       <Typography
                         theme={theme}
@@ -432,7 +472,13 @@ function AboutPage() {
                           theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                         }
                       >
-                        Fuel for late-night debugging
+                        My development workflow is powered by carefully crafted espresso and an
+                        appreciation for the ritual of coding. Whether it's early morning
+                        architecture planning sessions or late-night debugging marathons, coffee
+                        culture plays a central role in my productivity. I find that the methodical
+                        process of brewing coffee mirrors the patience required for thoughtful
+                        software development - both require attention to detail, timing, and the
+                        right environment to produce exceptional results.
                       </Typography>
                     </StyledBox>
                   </div>
@@ -476,12 +522,15 @@ function AboutPage() {
                               ? theme?.colors?.primary || '#90caf9'
                               : '#1565c0',
                         }}
+                        aria-label="Dog icon representing work-life balance and developer companionship"
+                        role="img"
                       />
                     </div>
                     <StyledBox>
                       <Typography
                         theme={theme}
-                        variant="h6"
+                        variant="h3"
+                        component="h3"
                         style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }}
                         customColor={
                           theme?.mode === 'dark'
@@ -489,7 +538,7 @@ function AboutPage() {
                             : 'rgba(0, 0, 0, 0.87)'
                         }
                       >
-                        Dog Parent
+                        Dog Parent & Developer Balance
                       </Typography>
                       <Typography
                         theme={theme}
@@ -499,7 +548,14 @@ function AboutPage() {
                           theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                         }
                       >
-                        Expert at dinner negotiations
+                        Life with two demanding canine project managers has taught me invaluable
+                        lessons about patience, adaptability, and time management - skills that
+                        directly translate to software development. My dogs have mastered the art of
+                        interrupting code reviews at precisely the right moment, reminding me that
+                        work-life balance isn&#39;t just a buzzword but a necessity for sustainable
+                        creativity. They&#39;ve also become excellent rubber duck debugging though
+                        their feedback tends to focus more on treat dispensing than code
+                        optimization.
                       </Typography>
                     </StyledBox>
                   </div>
@@ -507,6 +563,105 @@ function AboutPage() {
               </GridContainer>
             </div>
           </section>
+
+          {/* Technical Experience Section */}
+          <StyledBox as="section" aria-labelledby="technical-experience" mb={8}>
+            <Typography
+              variant="h2"
+              component="h2"
+              id="technical-experience"
+              style={{
+                fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
+                fontWeight: 600,
+                marginBottom: '32px',
+                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                textAlign: 'center',
+              }}
+            >
+              Professional React & Node.js Development Experience
+            </Typography>
+
+            <div
+              style={{
+                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                borderRadius: '24px',
+                padding: '48px',
+                marginBottom: '32px',
+                boxShadow:
+                  theme?.mode === 'dark'
+                    ? '0px 8px 24px rgba(0, 0, 0, 0.3)'
+                    : '0px 8px 24px rgba(0, 0, 0, 0.08)',
+                transition: 'background 0.3s ease',
+              }}
+            >
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  marginBottom: '24px',
+                }}
+              >
+                My journey in full stack development spans several years of hands-on experience
+                building scalable web applications with modern JavaScript technologies. I specialize
+                in React ecosystem development, creating responsive user interfaces that prioritize
+                both performance and accessibility. My React expertise includes advanced patterns
+                like custom hooks, context management, code splitting, and server-side rendering
+                with Next.js.
+              </Typography>
+
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  marginBottom: '24px',
+                }}
+              >
+                On the backend, I architect robust Node.js applications using Express.js and modern
+                frameworks, implementing RESTful APIs and GraphQL endpoints. My database experience
+                includes both SQL (PostgreSQL, MySQL) and NoSQL (MongoDB) solutions, with expertise
+                in query optimization and data modeling. I'm passionate about implementing proper
+                testing strategies, including unit tests with Jest, integration testing, and
+                end-to-end testing with Cypress.
+              </Typography>
+
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  marginBottom: '24px',
+                }}
+              >
+                My development workflow emphasizes collaboration and quality through Git version
+                control, code reviews, and CI/CD pipelines. I have experience with cloud deployment
+                on platforms like Vercel, Netlify, and AWS, implementing containerization with
+                Docker, and managing application monitoring and performance optimization. I stay
+                current with industry trends through continuous learning, contributing to open
+                source projects, and participating in the developer community.
+              </Typography>
+
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                }}
+              >
+                Currently, I'm focused on exploring emerging technologies like WebAssembly,
+                serverless architectures, and progressive web applications. I believe in writing
+                documentation that helps teams understand not just what the code does, but why
+                architectural decisions were made. My goal is always to deliver maintainable,
+                scalable solutions that solve real business problems while providing exceptional
+                user experiences.
+              </Typography>
+            </div>
+          </StyledBox>
 
           <StyledBox as="section" aria-labelledby="illustrations-section" mb={8}>
             <Typography
@@ -648,7 +803,7 @@ function AboutPage() {
                   letterSpacing: '-0.02em',
                 }}
               >
-                Technology Stack & Tools
+                JavaScript Technology Stack & Development Tools
               </Typography>
               <Typography
                 theme={theme}
@@ -700,17 +855,21 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiIntellij />
+                    <DiIntellij
+                      aria-label="IntelliJ IDEA development environment icon"
+                      role="img"
+                    />
                   </div>
                   <Typography
                     theme={theme}
-                    variant="h6"
+                    variant="h3"
+                    component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
                     }
                   >
-                    IntelliJ IDEA
+                    IntelliJ IDEA Development Environment
                   </Typography>
                   <Typography
                     theme={theme}
@@ -720,7 +879,10 @@ function AboutPage() {
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                     }
                   >
-                    Primary development environment
+                    My primary IDE for JavaScript and React development, featuring intelligent code
+                    completion, advanced debugging capabilities, and seamless Git integration. The
+                    robust plugin ecosystem enhances productivity with tools for code quality,
+                    testing, and deployment workflows.
                   </Typography>
                 </div>
 
@@ -751,17 +913,18 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiMozilla />
+                    <DiMozilla aria-label="Firefox web browser development tool icon" role="img" />
                   </div>
                   <Typography
                     theme={theme}
-                    variant="h6"
+                    variant="h3"
+                    component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
                     }
                   >
-                    Firefox
+                    Firefox Web Development
                   </Typography>
                   <Typography
                     theme={theme}
@@ -771,7 +934,12 @@ function AboutPage() {
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                     }
                   >
-                    Development & testing browser
+                    My preferred browser for web development and testing, offering excellent
+                    developer tools for debugging JavaScript, analyzing performance, and ensuring
+                    cross-browser compatibility. I rely heavily on Mozilla Developer Network (MDN)
+                    documentation for web standards and best practices. The responsive design mode
+                    and network throttling features are essential for testing React applications
+                    across different devices and connection speeds.
                   </Typography>
                 </div>
 
@@ -802,11 +970,12 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiDebian />
+                    <DiDebian aria-label="Debian Linux operating system icon" role="img" />
                   </div>
                   <Typography
                     theme={theme}
-                    variant="h6"
+                    variant="h3"
+                    component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
@@ -822,7 +991,11 @@ function AboutPage() {
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                     }
                   >
-                    Preferred operating system
+                    My development environment of choice, providing a stable and secure foundation
+                    for Node.js applications. The package management system and command-line tools
+                    create an efficient workflow for full stack development. I appreciate the
+                    open-source philosophy and the control it gives me over my development
+                    environment setup.
                   </Typography>
                 </div>
 
@@ -853,11 +1026,12 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiGit />
+                    <DiGit aria-label="Git version control system icon" role="img" />
                   </div>
                   <Typography
                     theme={theme}
-                    variant="h6"
+                    variant="h3"
+                    component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
@@ -873,7 +1047,11 @@ function AboutPage() {
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
                     }
                   >
-                    Version control system
+                    Essential for collaborative development and code management. I follow Git best
+                    practices including meaningful commit messages, feature branch workflows, and
+                    proper merge strategies. Experience with GitHub, GitLab, and advanced Git
+                    operations like rebasing, cherry-picking, and conflict resolution ensures smooth
+                    team collaboration.
                   </Typography>
                 </div>
               </div>
@@ -909,7 +1087,11 @@ function AboutPage() {
           {/* Social Sharing Section */}
           <StyledBox as="section" aria-labelledby="social-share">
             <SocialShare
-              url={typeof window !== 'undefined' && window.location ? window.location.href : 'https://jeffmaxwell.dev/about/'}
+              url={
+                typeof window !== 'undefined' && window.location
+                  ? window.location.href
+                  : 'https://el-jefe.me/about/'
+              }
               title="About Jeff Maxwell - Full Stack React & Node.js Developer"
               description="Learn about Jeff Maxwell's development background, experience with React and Node.js, and his approach to building modern web applications."
             />

@@ -15,7 +15,7 @@ const typography = new Typography({
   ],
   bodyFontFamily: [
     'HelveticaNeueLTStd-Roman',
-    'AvenirLTStd-Roman', 
+    'AvenirLTStd-Roman',
     'Helvetica Neue',
     'Avenir Next',
     'Segoe UI',
@@ -30,7 +30,7 @@ const typography = new Typography({
     body: {
       fontFamily: [
         'HelveticaNeueLTStd-Roman',
-        'AvenirLTStd-Roman', 
+        'AvenirLTStd-Roman',
         'Helvetica Neue',
         'Avenir Next',
         'Segoe UI',

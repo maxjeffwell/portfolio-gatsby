@@ -9,10 +9,10 @@ const createStyledComponent = (tag) => {
     // During SSR, just return the base element type
     return React.createElement(tag || 'div', restProps, children);
   };
-  
+
   // Add displayName for debugging
   StyledComponent.displayName = `Styled(${tag || 'Component'})`;
-  
+
   return StyledComponent;
 };
 
@@ -23,12 +23,12 @@ const styled = (tag) => {
     // Return the actual styled component
     return createStyledComponent(tag);
   };
-  
+
   // Add common styled methods
   styledFactory.withConfig = (config) => styledFactory;
   styledFactory.attrs = (attrs) => styledFactory;
   styledFactory.shouldForwardProp = () => true;
-  
+
   return styledFactory;
 };
 
@@ -40,12 +40,12 @@ const createMuiStyledFactory = (options) => {
     // Handle both object styles and template literal styles
     return createStyledComponent('span');
   };
-  
+
   // Add methods that might be expected
   muiStyledFunction.withConfig = (config) => muiStyledFunction;
   muiStyledFunction.attrs = (attrs) => muiStyledFunction;
   muiStyledFunction.shouldForwardProp = () => true;
-  
+
   return muiStyledFunction;
 };
 
@@ -95,7 +95,7 @@ styledApi.ZP = styledApi.Ay;
 styledApi.default = styledApi;
 
 // Copy all the element shortcuts to the API
-Object.keys(styled).forEach(key => {
+Object.keys(styled).forEach((key) => {
   if (typeof styled[key] === 'function') {
     styledApi[key] = styled[key];
   }
@@ -112,5 +112,5 @@ Object.defineProperty(module.exports, 'Ay', {
   value: createMuiStyledFactory,
   writable: false,
   enumerable: true,
-  configurable: false
+  configurable: false,
 });

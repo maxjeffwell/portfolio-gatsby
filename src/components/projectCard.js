@@ -419,13 +419,30 @@ function ProjectCard({
 
   const getTechAriaLabel = (iconIndex, technologies) => {
     const techMap = {
-      3: technologies.find(tech => ['Redux', 'GraphQL', 'CSS', 'MongoDB'].includes(tech)),
-      4: technologies.find(tech => ['MongoDB', 'NPM', 'Firebase'].includes(tech)),
-      5: technologies.find(tech => ['NPM', 'Redis', 'Node.js', 'Vercel'].includes(tech)),
-      6: technologies.find(tech => ['PostgreSQL', 'Neon'].includes(tech))
+      3: technologies.find((tech) => ['Redux', 'GraphQL', 'CSS', 'MongoDB'].includes(tech)),
+      4: technologies.find((tech) => ['MongoDB', 'NPM', 'Firebase'].includes(tech)),
+      5: technologies.find((tech) => ['NPM', 'Redis', 'Node.js', 'Vercel'].includes(tech)),
+      6: technologies.find((tech) => ['PostgreSQL', 'Neon', 'Apollo Client'].includes(tech)),
     };
     const tech = techMap[iconIndex];
-    return tech ? `${tech} technology icon` : 'Technology used in project';
+    
+    // Create more descriptive labels for SEO
+    const descriptions = {
+      'Redux': 'Redux state management library icon for React applications',
+      'GraphQL': 'GraphQL query language icon for API development',
+      'CSS': 'CSS stylesheet technology icon for web styling',
+      'MongoDB': 'MongoDB NoSQL database icon for data storage',
+      'NPM': 'NPM Node.js package manager icon for JavaScript dependencies',
+      'Firebase': 'Firebase Google cloud platform icon for web development',
+      'Redis': 'Redis in-memory database icon for caching and data storage',
+      'Node.js': 'Node.js JavaScript runtime icon for backend development',
+      'Vercel': 'Vercel deployment platform icon for web applications',
+      'PostgreSQL': 'PostgreSQL relational database icon for data management',
+      'Neon': 'Neon serverless PostgreSQL database icon',
+      'Apollo Client': 'Apollo Client GraphQL library icon for React applications',
+    };
+    
+    return tech && descriptions[tech] ? descriptions[tech] : 'Technology used in project development';
   };
 
   return (
@@ -534,12 +551,17 @@ function ProjectCard({
             {techIcon3 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(3, technologies)}>
                 {React.isValidElement(techIcon3) ? (
-                  techIcon3
+                  React.cloneElement(techIcon3, {
+                    alt: getTechAriaLabel(3, technologies),
+                    'aria-label': getTechAriaLabel(3, technologies),
+                  })
                 ) : typeof techIcon3 === 'function' ? (
                   React.createElement(techIcon3, {
                     width: 24,
                     height: 24,
                     fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                    alt: getTechAriaLabel(3, technologies),
+                    'aria-label': getTechAriaLabel(3, technologies),
                   })
                 ) : (
                   <span>Icon3</span>
@@ -549,12 +571,17 @@ function ProjectCard({
             {techIcon4 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(4, technologies)}>
                 {React.isValidElement(techIcon4) ? (
-                  techIcon4
+                  React.cloneElement(techIcon4, {
+                    alt: getTechAriaLabel(4, technologies),
+                    'aria-label': getTechAriaLabel(4, technologies),
+                  })
                 ) : typeof techIcon4 === 'function' ? (
                   React.createElement(techIcon4, {
                     width: 24,
                     height: 24,
                     fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                    alt: getTechAriaLabel(4, technologies),
+                    'aria-label': getTechAriaLabel(4, technologies),
                   })
                 ) : (
                   <span>Icon4</span>
@@ -564,12 +591,17 @@ function ProjectCard({
             {techIcon5 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(5, technologies)}>
                 {React.isValidElement(techIcon5) ? (
-                  techIcon5
+                  React.cloneElement(techIcon5, {
+                    alt: getTechAriaLabel(5, technologies),
+                    'aria-label': getTechAriaLabel(5, technologies),
+                  })
                 ) : typeof techIcon5 === 'function' ? (
                   React.createElement(techIcon5, {
                     width: 24,
                     height: 24,
                     fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                    alt: getTechAriaLabel(5, technologies),
+                    'aria-label': getTechAriaLabel(5, technologies),
                   })
                 ) : (
                   <span>Icon5</span>
@@ -579,12 +611,17 @@ function ProjectCard({
             {techIcon6 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(6, technologies)}>
                 {React.isValidElement(techIcon6) ? (
-                  techIcon6
+                  React.cloneElement(techIcon6, {
+                    alt: getTechAriaLabel(6, technologies),
+                    'aria-label': getTechAriaLabel(6, technologies),
+                  })
                 ) : typeof techIcon6 === 'function' ? (
                   React.createElement(techIcon6, {
                     width: 24,
                     height: 24,
                     fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                    alt: getTechAriaLabel(6, technologies),
+                    'aria-label': getTechAriaLabel(6, technologies),
                   })
                 ) : (
                   <span>Icon6</span>

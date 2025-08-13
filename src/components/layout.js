@@ -237,11 +237,11 @@ const SocialLink = styled(IconButton)`
   }
 
   /* Special handling for wellfound icon - W should be same color as "Jeff Maxwell" */
-  svg[data-icon="wellfound"] {
+  svg[data-icon='wellfound'] {
     color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
     fill: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
-    
-    path[style*="rgba(252, 13, 33, 1)"] {
+
+    path[style*='rgba(252, 13, 33, 1)'] {
       fill: rgba(252, 13, 33, 1) !important;
     }
   }
@@ -258,12 +258,12 @@ const SocialLink = styled(IconButton)`
   }
 
   /* Special hover handling for wellfound icon - keep W same color as default, keep red dots */
-  &[aria-label*="wellfound"]:hover {
+  &[aria-label*='wellfound']:hover {
     svg {
       color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
       fill: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
-      
-      path[style*="rgba(252, 13, 33, 1)"] {
+
+      path[style*='rgba(252, 13, 33, 1)'] {
         fill: rgba(252, 13, 33, 1) !important;
       }
     }
@@ -321,7 +321,7 @@ const ClientOnlyAnimatedCursor = ({ theme }) => {
       clickables={[
         'a',
         'input[type="text"]',
-        'input[type="email"]', 
+        'input[type="email"]',
         'input[type="number"]',
         'input[type="submit"]',
         'input[type="image"]',
@@ -340,8 +340,8 @@ const ClientOnlyAnimatedCursor = ({ theme }) => {
             innerSize: 12,
             outerSize: 12,
             color: '255, 255, 255',
-          }
-        }
+          },
+        },
       ]}
     />
   );
@@ -353,7 +353,7 @@ function ThemedLayout({ children, data }) {
   return (
     <>
       <GlobalStyles theme={theme} />
-{/* ThirdPartyScripts removed to prevent SSR issues */}
+      {/* ThirdPartyScripts removed to prevent SSR issues */}
       <ClientOnlyAnimatedCursor theme={theme} />
       <Header />
       <main
@@ -404,9 +404,10 @@ function ThemedLayout({ children, data }) {
             aria-label="Send email to maxjeffwell@gmail.com"
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = theme?.mode === 'dark' 
-                ? '0 8px 25px rgba(255, 64, 129, 0.3)' 
-                : '0 8px 25px rgba(233, 30, 99, 0.3)';
+              e.currentTarget.style.boxShadow =
+                theme?.mode === 'dark'
+                  ? '0 8px 25px rgba(255, 64, 129, 0.3)'
+                  : '0 8px 25px rgba(233, 30, 99, 0.3)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
@@ -433,10 +434,7 @@ function ThemedLayout({ children, data }) {
               size="large"
               theme={theme}
             >
-              <ClientOnlyIcon
-                iconName="GitHub"
-                fontSize="clamp(2.5rem, 5vw, 3rem)"
-              />
+              <ClientOnlyIcon iconName="GitHub" fontSize="clamp(2.5rem, 5vw, 3rem)" />
             </SocialLink>
             <SocialLink
               as="a"
@@ -448,10 +446,7 @@ function ThemedLayout({ children, data }) {
               size="large"
               theme={theme}
             >
-              <ClientOnlyIcon
-                iconName="wellfound"
-                fontSize="clamp(2.5rem, 5vw, 3rem)"
-              />
+              <ClientOnlyIcon iconName="wellfound" fontSize="clamp(2.5rem, 5vw, 3rem)" />
             </SocialLink>
             <SocialLink
               as="a"
@@ -468,7 +463,13 @@ function ThemedLayout({ children, data }) {
               />
             </SocialLink>
           </StyledBox>
-          <StyledBox display="flex" flexDirection="column" alignItems="center" justifyContent="center" gap={0.5}>
+          <StyledBox
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            gap={0.5}
+          >
             <Typography
               as="div"
               variant="body2"
@@ -488,13 +489,13 @@ function ThemedLayout({ children, data }) {
               }}
             >
               <span>Built by Jeff Maxwell, created with</span>
-              <ClientOnlyIcon 
-                iconName="Gatsby" 
-                fontSize="84px" 
-                style={{ 
+              <ClientOnlyIcon
+                iconName="Gatsby"
+                fontSize="84px"
+                style={{
                   flexShrink: 0,
-                  color: theme?.mode === 'dark' ? '#ffffff' : 'rgba(0, 0, 0, 0.6)'
-                }} 
+                  color: theme?.mode === 'dark' ? '#ffffff' : 'rgba(0, 0, 0, 0.6)',
+                }}
               />
             </Typography>
           </StyledBox>

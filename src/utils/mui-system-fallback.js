@@ -4,7 +4,7 @@
 // Color manipulation utilities
 const alpha = (color, value) => {
   if (typeof color !== 'string') return color;
-  
+
   // Handle hex colors
   if (color.startsWith('#')) {
     const hex = color.slice(1);
@@ -14,12 +14,12 @@ const alpha = (color, value) => {
     const b = num & 255;
     return `rgba(${r}, ${g}, ${b}, ${value})`;
   }
-  
+
   // Handle rgb/rgba colors - just return as is for SSR
   if (color.startsWith('rgb')) {
     return color;
   }
-  
+
   return color;
 };
 
@@ -52,7 +52,7 @@ const getLuminance = (color) => {
 const spacing = (...args) => {
   if (args.length === 0) return 8;
   if (args.length === 1) return args[0] * 8;
-  return args.map(arg => typeof arg === 'number' ? arg * 8 : arg).join(' ');
+  return args.map((arg) => (typeof arg === 'number' ? arg * 8 : arg)).join(' ');
 };
 
 // Breakpoints utilities
@@ -65,8 +65,9 @@ const breakpoints = {
     xl: 1920,
   },
   up: (key) => `@media (min-width:${typeof key === 'number' ? key : breakpoints.values[key]}px)`,
-  down: (key) => `@media (max-width:${typeof key === 'number' ? key - 1 : breakpoints.values[key] - 1}px)`,
-  between: (start, end) => 
+  down: (key) =>
+    `@media (max-width:${typeof key === 'number' ? key - 1 : breakpoints.values[key] - 1}px)`,
+  between: (start, end) =>
     `@media (min-width:${typeof start === 'number' ? start : breakpoints.values[start]}px) and (max-width:${typeof end === 'number' ? end - 1 : breakpoints.values[end] - 1}px)`,
   only: (key) => {
     const keys = Object.keys(breakpoints.values);
@@ -92,10 +93,10 @@ const style = (options) => {
   return (props) => {
     const value = props[prop];
     if (value == null) return {};
-    
+
     const finalValue = transform ? transform(value) : value;
     const finalCssProperty = cssProperty || prop;
-    
+
     return { [finalCssProperty]: finalValue };
   };
 };
@@ -107,11 +108,11 @@ const createTheme = (options) => {
       mode: 'light',
       primary: { main: '#1976d2' },
       secondary: { main: '#dc004e' },
-      ...options?.palette
+      ...options?.palette,
     },
     spacing: options?.spacing || spacing,
     breakpoints: options?.breakpoints || breakpoints,
-    ...options
+    ...options,
   };
 };
 
@@ -135,7 +136,7 @@ const keyframes = (template, ...expressions) => {
   if (typeof template === 'string') {
     return template;
   }
-  
+
   // Handle template literal
   let result = '';
   for (let i = 0; i < template.length; i++) {
@@ -144,7 +145,7 @@ const keyframes = (template, ...expressions) => {
       result += expressions[i];
     }
   }
-  
+
   // For SSR, return a simple object representation
   return {
     name: `keyframe-${Math.random().toString(36).substr(2, 9)}`,
@@ -168,11 +169,11 @@ module.exports = {
   emphasize,
   getContrastRatio,
   getLuminance,
-  
+
   // Layout
   spacing,
   breakpoints,
-  
+
   // System utilities
   compose,
   style,
@@ -184,7 +185,7 @@ module.exports = {
   keyframes,
   styled: styledFallback,
   Unstable_Grid: UnstableGrid,
-  
+
   // Default exports for common imports
   default: {
     alpha,
@@ -205,5 +206,5 @@ module.exports = {
     keyframes,
     styled: styledFallback,
     Unstable_Grid: UnstableGrid,
-  }
+  },
 };

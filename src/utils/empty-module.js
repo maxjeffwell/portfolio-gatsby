@@ -135,6 +135,6 @@ module.exports = muiExports;
 module.exports.default = muiExports;
 
 // Individual exports for specific imports
-Object.keys(muiExports).forEach(key => {
+Object.keys(muiExports).forEach((key) => {
   module.exports[key] = muiExports[key];
 });

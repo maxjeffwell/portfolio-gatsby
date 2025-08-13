@@ -90,10 +90,11 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     const initialTheme = getInitialTheme();
     let hasStoredPreference = false;
-    
+
     try {
-      hasStoredPreference = typeof window !== 'undefined' && 
-        typeof localStorage !== 'undefined' && 
+      hasStoredPreference =
+        typeof window !== 'undefined' &&
+        typeof localStorage !== 'undefined' &&
         localStorage.getItem('portfolio-theme') !== null;
     } catch (e) {
       // localStorage not available
@@ -180,11 +181,7 @@ export function ThemeProvider({ children }) {
     [theme, isDarkMode, isSystemPreference, isHydrated, toggleTheme, resetToSystemPreference]
   );
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 ThemeProvider.propTypes = {

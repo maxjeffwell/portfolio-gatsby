@@ -6,15 +6,19 @@ const createSvgIcon = (path, displayName) => {
   const SvgIcon = (props) => {
     // Ensure path is a string, not an object
     const pathData = typeof path === 'string' ? path : '';
-    
-    return React.createElement('svg', {
-      ...props,
-      viewBox: '0 0 24 24',
-      focusable: 'false',
-      'aria-hidden': 'true',
-    }, React.createElement('path', { d: pathData }));
+
+    return React.createElement(
+      'svg',
+      {
+        ...props,
+        viewBox: '0 0 24 24',
+        focusable: 'false',
+        'aria-hidden': 'true',
+      },
+      React.createElement('path', { d: pathData })
+    );
   };
-  
+
   SvgIcon.displayName = displayName;
   return SvgIcon;
 };

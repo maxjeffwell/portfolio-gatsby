@@ -8,7 +8,7 @@ const SimpleTypingAnimation = ({
   delayBetweenTexts = 2000,
   loop = true,
   startDelay = 0,
-  style = {}
+  style = {},
 }) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,12 +57,22 @@ const SimpleTypingAnimation = ({
     }
 
     return () => clearTimeout(timeout);
-  }, [displayText, currentIndex, isTyping, hasStarted, texts, typeSpeed, deleteSpeed, delayBetweenTexts, loop]);
+  }, [
+    displayText,
+    currentIndex,
+    isTyping,
+    hasStarted,
+    texts,
+    typeSpeed,
+    deleteSpeed,
+    delayBetweenTexts,
+    loop,
+  ]);
 
   // Cursor blinking effect
   useEffect(() => {
     const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
+      setShowCursor((prev) => !prev);
     }, 400);
 
     return () => clearInterval(cursorInterval);

@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Simple fallback icon component for SSR
-const FallbackIcon = ({ size = 24, color = 'currentColor', ...props }) => 
+const FallbackIcon = ({ size = 24, color = 'currentColor', ...props }) =>
   React.createElement('div', {
     ...props,
     style: {
@@ -12,7 +12,7 @@ const FallbackIcon = ({ size = 24, color = 'currentColor', ...props }) =>
       borderRadius: '2px',
       display: 'inline-block',
       opacity: 0.7,
-    }
+    },
   });
 
 // Export specific icons used in the app

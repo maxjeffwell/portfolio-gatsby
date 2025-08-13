@@ -8,44 +8,58 @@ import styled from '@emotion/styled';
 const Typography = styled.div`
   margin: 0;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  font-weight: ${props => props.fontWeight || 400};
-  font-size: ${props => {
-    switch(props.variant) {
-      case 'h1': return '2.125rem';
-      case 'h2': return '1.5rem';
-      case 'h3': return '1.25rem';
-      case 'h4': return '1.125rem';
-      case 'h5': return '1rem';
-      case 'h6': return '0.875rem';
-      case 'subtitle1': return '1rem';
-      case 'subtitle2': return '0.875rem';
-      case 'body1': return '1rem';
-      case 'body2': return '0.875rem';
-      case 'caption': return '0.75rem';
-      default: return '1rem';
+  font-weight: ${(props) => props.fontWeight || 400};
+  font-size: ${(props) => {
+    switch (props.variant) {
+      case 'h1':
+        return '2.125rem';
+      case 'h2':
+        return '1.5rem';
+      case 'h3':
+        return '1.25rem';
+      case 'h4':
+        return '1.125rem';
+      case 'h5':
+        return '1rem';
+      case 'h6':
+        return '0.875rem';
+      case 'subtitle1':
+        return '1rem';
+      case 'subtitle2':
+        return '0.875rem';
+      case 'body1':
+        return '1rem';
+      case 'body2':
+        return '0.875rem';
+      case 'caption':
+        return '0.75rem';
+      default:
+        return '1rem';
     }
   }};
-  line-height: ${props => {
-    switch(props.variant) {
-      case 'h1': 
-      case 'h2': 
-      case 'h3': 
-      case 'h4': 
-      case 'h5': 
-      case 'h6': return '1.2';
-      default: return '1.43';
+  line-height: ${(props) => {
+    switch (props.variant) {
+      case 'h1':
+      case 'h2':
+      case 'h3':
+      case 'h4':
+      case 'h5':
+      case 'h6':
+        return '1.2';
+      default:
+        return '1.43';
     }
   }};
-  color: ${props => {
+  color: ${(props) => {
     if (props.color === 'primary') return '#1976d2';
     if (props.color === 'secondary') return '#dc004e';
     if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
     return 'inherit';
   }};
-  margin-bottom: ${props => props.gutterBottom ? '0.35em' : '0'};
-  
+  margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
+
   @media (prefers-color-scheme: dark) {
-    color: ${props => {
+    color: ${(props) => {
       if (props.color === 'primary') return '#90caf9';
       if (props.color === 'secondary') return '#f48fb1';
       if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
@@ -60,15 +74,18 @@ const Paper = styled.div`
   color: rgba(0, 0, 0, 0.87);
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   border-radius: 4px;
-  box-shadow: ${props => {
+  box-shadow: ${(props) => {
     const elevation = props.elevation || 1;
     if (elevation === 0) return 'none';
-    if (elevation === 1) return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
-    if (elevation === 2) return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
-    if (elevation === 3) return '0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)';
+    if (elevation === 1)
+      return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
+    if (elevation === 2)
+      return '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)';
+    if (elevation === 3)
+      return '0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)';
     return '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)';
   }};
-  
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
     color: #fff;
@@ -82,8 +99,11 @@ const Card = styled.div`
   color: rgba(0, 0, 0, 0.87);
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   border-radius: 4px;
-  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-  
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
     color: #fff;
@@ -92,7 +112,7 @@ const Card = styled.div`
 
 const CardContent = styled.div`
   padding: 16px;
-  
+
   &:last-child {
     padding-bottom: 24px;
   }
@@ -104,7 +124,7 @@ const CardActions = styled.div`
   padding: 8px;
 `;
 
-// Button component  
+// Button component
 const Button = styled.button`
   display: inline-flex;
   align-items: center;
@@ -129,9 +149,15 @@ const Button = styled.button`
   letter-spacing: 0.02857em;
   text-transform: uppercase;
   min-width: 64px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  
-  ${props => props.variant === 'contained' && `
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  ${(props) =>
+    props.variant === 'contained' &&
+    `
     color: #fff;
     background-color: #1976d2;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
@@ -141,8 +167,10 @@ const Button = styled.button`
       box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
     }
   `}
-  
-  ${props => props.variant === 'outlined' && `
+
+  ${(props) =>
+    props.variant === 'outlined' &&
+    `
     border: 1px solid rgba(25, 118, 210, 0.5);
     
     &:hover {
@@ -151,7 +179,10 @@ const Button = styled.button`
     }
   `}
   
-  ${props => props.color === 'secondary' && props.variant === 'contained' && `
+  ${(props) =>
+    props.color === 'secondary' &&
+    props.variant === 'contained' &&
+    `
     background-color: #dc004e;
     
     &:hover {
@@ -159,7 +190,10 @@ const Button = styled.button`
     }
   `}
   
-  ${props => props.color === 'secondary' && props.variant === 'outlined' && `
+  ${(props) =>
+    props.color === 'secondary' &&
+    props.variant === 'outlined' &&
+    `
     color: #dc004e;
     border: 1px solid rgba(220, 0, 78, 0.5);
     
@@ -170,7 +204,7 @@ const Button = styled.button`
   `}
   
   &:hover {
-    ${props => !props.variant && 'background-color: rgba(25, 118, 210, 0.04);'}
+    ${(props) => !props.variant && 'background-color: rgba(25, 118, 210, 0.04);'}
   }
 `;
 
@@ -193,14 +227,14 @@ const IconButton = styled.button`
   text-decoration: none;
   color: rgba(0, 0, 0, 0.54);
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
   }
-  
+
   @media (prefers-color-scheme: dark) {
     color: rgba(255, 255, 255, 0.7);
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.08);
     }
@@ -211,11 +245,11 @@ const IconButton = styled.button`
 const Link = styled.a`
   color: #1976d2;
   text-decoration: underline;
-  
+
   &:hover {
     text-decoration: none;
   }
-  
+
   @media (prefers-color-scheme: dark) {
     color: #90caf9;
   }
@@ -224,9 +258,9 @@ const Link = styled.a`
 // Stack component
 const Stack = styled.div`
   display: flex;
-  flex-direction: ${props => props.direction || 'column'};
-  gap: ${props => typeof props.spacing === 'number' ? `${props.spacing * 8}px` : '8px'};
-  flex-wrap: ${props => props.flexWrap || 'nowrap'};
+  flex-direction: ${(props) => props.direction || 'column'};
+  gap: ${(props) => (typeof props.spacing === 'number' ? `${props.spacing * 8}px` : '8px')};
+  flex-wrap: ${(props) => props.flexWrap || 'nowrap'};
 `;
 
 // Select and MenuItem components
@@ -240,12 +274,12 @@ const Select = styled.select`
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.23);
   border-radius: 4px;
-  
+
   &:focus {
     outline: none;
     border-color: #1976d2;
   }
-  
+
   @media (prefers-color-scheme: dark) {
     color: #fff;
     border-color: rgba(255, 255, 255, 0.23);
@@ -255,7 +289,7 @@ const Select = styled.select`
 const MenuItem = styled.option`
   background-color: #fff;
   color: rgba(0, 0, 0, 0.87);
-  
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
     color: #fff;
@@ -270,8 +304,11 @@ const NoSsr = ({ children }) => children;
 const Menu = styled.div`
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
-  
+  box-shadow:
+    0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
   }
@@ -282,7 +319,7 @@ const ListItemIcon = styled.div`
   align-items: center;
   min-width: 56px;
   color: rgba(0, 0, 0, 0.54);
-  
+
   @media (prefers-color-scheme: dark) {
     color: rgba(255, 255, 255, 0.7);
   }
@@ -319,8 +356,11 @@ const AppBar = styled.header`
   background-color: #1976d2;
   color: #fff;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
-  
+  box-shadow:
+    0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
   }
@@ -333,7 +373,7 @@ const Toolbar = styled.div`
   padding-left: 16px;
   padding-right: 16px;
   min-height: 56px;
-  
+
   @media (min-width: 600px) {
     min-height: 64px;
   }
@@ -346,16 +386,21 @@ const Drawer = styled.div`
   width: 250px;
   height: 100%;
   background-color: #fff;
-  box-shadow: 0px 8px 10px -5px rgba(0,0,0,0.2), 0px 16px 24px 2px rgba(0,0,0,0.14), 0px 6px 30px 5px rgba(0,0,0,0.12);
+  box-shadow:
+    0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0px 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0px 6px 30px 5px rgba(0, 0, 0, 0.12);
   transform: translateX(-100%);
   transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   z-index: 1200;
-  
+
   @media (prefers-color-scheme: dark) {
     background-color: #424242;
   }
-  
-  ${props => props.open && `
+
+  ${(props) =>
+    props.open &&
+    `
     transform: translateX(0);
   `}
 `;

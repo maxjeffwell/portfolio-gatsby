@@ -13,7 +13,7 @@ const pageVariants = {
   out: {
     opacity: 0,
     y: -20,
-  }
+  },
 };
 
 const pageTransition = {

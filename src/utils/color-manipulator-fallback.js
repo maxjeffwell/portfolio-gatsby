@@ -2,7 +2,7 @@
 
 const alpha = (color, value) => {
   if (typeof color !== 'string') return color;
-  
+
   // Handle hex colors
   if (color.startsWith('#')) {
     const hex = color.slice(1);
@@ -12,12 +12,12 @@ const alpha = (color, value) => {
     const b = num & 255;
     return `rgba(${r}, ${g}, ${b}, ${value})`;
   }
-  
+
   // Handle rgb/rgba colors - just return as is for SSR
   if (color.startsWith('rgb')) {
     return color;
   }
-  
+
   return color;
 };
 

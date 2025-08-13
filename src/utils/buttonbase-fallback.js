@@ -3,10 +3,10 @@ const React = require('react');
 
 // Simple ButtonBase replacement for SSR that avoids all MUI dependencies
 const ButtonBase = React.forwardRef((props, ref) => {
-  const { 
-    children, 
-    onClick, 
-    component = 'button', 
+  const {
+    children,
+    onClick,
+    component = 'button',
     disabled = false,
     disableRipple = true, // Always disable ripple for SSR
     focusRipple = false,
@@ -15,9 +15,9 @@ const ButtonBase = React.forwardRef((props, ref) => {
     disableTouchRipple = true,
     tabIndex,
     type,
-    ...restProps 
+    ...restProps
   } = props;
-  
+
   // Filter out MUI-specific props
   const {
     focusVisibleClassName,
@@ -27,33 +27,37 @@ const ButtonBase = React.forwardRef((props, ref) => {
     onFocusVisible,
     ...cleanProps
   } = restProps;
-  
-  return React.createElement(component, {
-    ref,
-    onClick: disabled ? undefined : onClick,
-    type: component === 'button' ? (type || 'button') : undefined,
-    disabled: component === 'button' ? disabled : undefined,
-    tabIndex: disabled ? -1 : tabIndex,
-    style: {
-      border: 'none',
-      background: 'transparent',
-      cursor: disabled ? 'default' : 'pointer',
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textDecoration: 'none',
-      color: 'inherit',
-      padding: '8px',
-      borderRadius: '4px',
-      outline: 'none',
-      userSelect: 'none',
-      verticalAlign: 'middle',
-      appearance: 'none',
-      WebkitTapHighlightColor: 'transparent',
-      ...(disabled && { opacity: 0.6, pointerEvents: 'none' }),
+
+  return React.createElement(
+    component,
+    {
+      ref,
+      onClick: disabled ? undefined : onClick,
+      type: component === 'button' ? type || 'button' : undefined,
+      disabled: component === 'button' ? disabled : undefined,
+      tabIndex: disabled ? -1 : tabIndex,
+      style: {
+        border: 'none',
+        background: 'transparent',
+        cursor: disabled ? 'default' : 'pointer',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textDecoration: 'none',
+        color: 'inherit',
+        padding: '8px',
+        borderRadius: '4px',
+        outline: 'none',
+        userSelect: 'none',
+        verticalAlign: 'middle',
+        appearance: 'none',
+        WebkitTapHighlightColor: 'transparent',
+        ...(disabled && { opacity: 0.6, pointerEvents: 'none' }),
+      },
+      ...cleanProps,
     },
-    ...cleanProps
-  }, children);
+    children
+  );
 });
 
 ButtonBase.displayName = 'ButtonBase';

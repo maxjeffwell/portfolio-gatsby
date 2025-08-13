@@ -8,7 +8,8 @@ const ShareContainer = styled.div`
   align-items: center;
   gap: 12px;
   padding: 20px 0;
-  border-top: 1px solid ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+  border-top: 1px solid
+    ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')};
   margin-top: 32px;
 
   @media (max-width: 768px) {
@@ -20,7 +21,8 @@ const ShareContainer = styled.div`
 
 const ShareLabel = styled.span`
   font-weight: 500;
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)'};
+  color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)'};
   font-size: 1.5rem;
   margin-right: 8px;
 
@@ -48,15 +50,16 @@ const ShareButton = styled.a`
   transition: all 0.3s ease;
   border: 1px solid transparent;
   background: transparent;
-  
+
   &:hover {
     transform: translateY(-2px);
-    background: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'};
+    background: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'};
   }
 
   &.twitter {
     color: #1da1f2;
-    
+
     &:hover {
       color: #0d8bd9;
     }
@@ -64,7 +67,7 @@ const ShareButton = styled.a`
 
   &.linkedin {
     color: #0077b5;
-    
+
     &:hover {
       color: #005885;
     }
@@ -72,7 +75,7 @@ const ShareButton = styled.a`
 
   &.facebook {
     color: #1877f2;
-    
+
     &:hover {
       color: #166fe5;
     }
@@ -80,17 +83,17 @@ const ShareButton = styled.a`
 
   &.reddit {
     color: #ff4500;
-    
+
     &:hover {
       color: #e03d00;
     }
   }
 
   &.email {
-    color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#6c757d'};
-    
+    color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#6c757d')};
+
     &:hover {
-      color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.9)' : '#5a6268'};
+      color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.9)' : '#5a6268')};
     }
   }
 
@@ -108,7 +111,7 @@ const ShareIcon = styled.span`
 
 function SocialShare({ url, title, description }) {
   const { theme } = useTheme();
-  
+
   // Encode URL and text for sharing
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
@@ -120,14 +123,14 @@ function SocialShare({ url, title, description }) {
     linkedin: `https://linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
     facebook: `https://facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${shareText}`,
     reddit: `https://reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
-    email: `mailto:?subject=${encodedTitle}&body=${shareText}%0A%0A${encodedUrl}`
+    email: `mailto:?subject=${encodedTitle}&body=${shareText}%0A%0A${encodedUrl}`,
   };
 
   return (
     <ShareContainer theme={theme}>
       <ShareLabel theme={theme}>Share this page:</ShareLabel>
       <ShareButtons>
-        <ShareButton 
+        <ShareButton
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
@@ -138,8 +141,8 @@ function SocialShare({ url, title, description }) {
           <ClientOnlyIcon iconName="twitter" fontSize="28px" />
           Twitter
         </ShareButton>
-        
-        <ShareButton 
+
+        <ShareButton
           href={shareLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
@@ -150,8 +153,8 @@ function SocialShare({ url, title, description }) {
           <ClientOnlyIcon iconName="linkedin" fontSize="28px" />
           LinkedIn
         </ShareButton>
-        
-        <ShareButton 
+
+        <ShareButton
           href={shareLinks.facebook}
           target="_blank"
           rel="noopener noreferrer"
@@ -162,8 +165,8 @@ function SocialShare({ url, title, description }) {
           <ClientOnlyIcon iconName="facebook" fontSize="28px" />
           Facebook
         </ShareButton>
-        
-        <ShareButton 
+
+        <ShareButton
           href={shareLinks.reddit}
           target="_blank"
           rel="noopener noreferrer"
@@ -174,8 +177,8 @@ function SocialShare({ url, title, description }) {
           <ClientOnlyIcon iconName="reddit" fontSize="28px" />
           Reddit
         </ShareButton>
-        
-        <ShareButton 
+
+        <ShareButton
           href={shareLinks.email}
           className="email"
           title="Share via Email"

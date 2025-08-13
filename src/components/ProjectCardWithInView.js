@@ -23,10 +23,10 @@ const cardVariants = {
 
 function ProjectCardWithInView(props) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { 
-    once: true, 
-    margin: "-50px",
-    amount: 0.1
+  const isInView = useInView(ref, {
+    once: true,
+    margin: '-50px',
+    amount: 0.1,
   });
 
   return (
@@ -34,7 +34,7 @@ function ProjectCardWithInView(props) {
       ref={ref}
       variants={cardVariants}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={isInView ? 'visible' : 'hidden'}
       style={{ width: '100%' }}
     >
       <ProjectCard {...props} />

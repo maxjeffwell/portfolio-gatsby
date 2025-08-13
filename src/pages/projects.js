@@ -24,46 +24,61 @@ import NodeJSIcon from '../images/svg-icons/nodejs.svg';
 import FirebaseIcon from '../images/svg-icons/firebase.svg';
 import NeonTechIcon from '../images/svg-icons/neon-tech.svg';
 
+// Helper functions for Typography styles
+const getTypographyFontWeight = (variant) => {
+  switch (variant) {
+    case 'h1':
+    case 'h2':
+      return 300;
+    case 'h4':
+    case 'body1':
+    case 'body2':
+    default:
+      return 400;
+  }
+};
+
+const getTypographyFontSize = (variant) => {
+  switch (variant) {
+    case 'h1':
+      return '6rem';
+    case 'h2':
+      return '3.75rem';
+    case 'h4':
+      return '2.125rem';
+    case 'body1':
+      return '1rem';
+    case 'body2':
+      return '0.875rem';
+    default:
+      return '1rem';
+  }
+};
+
+const getTypographyLineHeight = (variant) => {
+  switch (variant) {
+    case 'h1':
+      return 1.167;
+    case 'h2':
+      return 1.2;
+    case 'h4':
+      return 1.235;
+    case 'body1':
+      return 1.5;
+    case 'body2':
+      return 1.43;
+    default:
+      return 1.5;
+  }
+};
+
 // Simple Typography replacement
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
-  font-weight: ${(props) =>
-    props.variant === 'h1'
-      ? 300
-      : props.variant === 'h2'
-        ? 300
-        : props.variant === 'h4'
-          ? 400
-          : props.variant === 'body1'
-            ? 400
-            : props.variant === 'body2'
-              ? 400
-              : 400};
-  font-size: ${(props) =>
-    props.variant === 'h1'
-      ? '6rem'
-      : props.variant === 'h2'
-        ? '3.75rem'
-        : props.variant === 'h4'
-          ? '2.125rem'
-          : props.variant === 'body1'
-            ? '1rem'
-            : props.variant === 'body2'
-              ? '0.875rem'
-              : '1rem'};
-  line-height: ${(props) =>
-    props.variant === 'h1'
-      ? 1.167
-      : props.variant === 'h2'
-        ? 1.2
-        : props.variant === 'h4'
-          ? 1.235
-          : props.variant === 'body1'
-            ? 1.5
-            : props.variant === 'body2'
-              ? 1.43
-              : 1.5};
+  font-weight: ${(props) => getTypographyFontWeight(props.variant)};
+  font-size: ${(props) => getTypographyFontSize(props.variant)};
+  line-height: ${(props) => getTypographyLineHeight(props.variant)};
   color: ${(props) => {
     if (props.theme?.mode === 'dark') {
       if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
@@ -322,7 +337,6 @@ const GradientText = styled(Typography)`
     color: transparent;
   }
 `;
-
 
 const CustomSelectContainer = styled.div`
   position: relative;
@@ -591,28 +605,20 @@ const Projects = ({ data }) => {
     <Layout>
       <PageTransition>
         <SEO
-          title="Featured Projects | Jeff Maxwell React & Node.js Developer"
-          description="Explore featured React, Node.js & GraphQL projects. Full stack web development portfolio showcasing modern applications and e-learning platforms."
+          title="React Node.js Portfolio | Jeff Maxwell JavaScript Developer"
+          description="Jeff Maxwell's React and Node.js development portfolio. Explore JavaScript projects, full stack web applications, and modern development examples showcasing React, Node.js, GraphQL, and API development skills."
           pathname="/projects/"
           keywords={[
-            `react projects`,
-            `node.js projects`,
-            `web development portfolio`,
-            `javascript projects`,
-            `full stack projects`,
-            `graphql projects`,
-            `mern stack examples`,
-            `react portfolio`,
-            `web app development`,
-            `api development`,
-            `react project examples`,
-            `node.js portfolio projects`,
-            `full stack web applications`,
-            `javascript portfolio examples`,
-            `Jeff Maxwell projects`,
-            `orlando developer portfolio`,
-            `central florida projects`,
-            `tampa bay web development`,
+            `react developer portfolio`,
+            `node.js developer projects`,
+            `javascript developer portfolio`,
+            `full stack developer projects`,
+            `react node.js examples`,
+            `javascript development portfolio`,
+            `web development projects`,
+            `react project showcase`,
+            `node.js applications`,
+            `modern javascript development`,
           ]}
         />
         <StyledContainer>
@@ -622,26 +628,57 @@ const Projects = ({ data }) => {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <StyledBox as="section" mb={6} textAlign="center">
-              <GradientText variant="h2" component="h1" align="center" gutterBottom>
-                Featured Projects
+              <GradientText variant="h1" component="h1" align="center" gutterBottom>
+                React & Node.js Developer Portfolio - JavaScript Projects
               </GradientText>
               <Typography
                 theme={theme}
-                variant="h4"
+                variant="h2"
                 component="h2"
+                align="center"
+                style={{
+                  fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
+                  fontWeight: 600,
+                  marginBottom: '16px',
+                  color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                }}
+              >
+                JavaScript & React Development Project Showcase
+              </Typography>
+              <Typography
+                theme={theme}
+                variant="body1"
                 align="center"
                 color="text.secondary"
                 paragraph
-                style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)' }}
+                style={{ fontSize: 'clamp(1.125rem, 2.5vw, 1.25rem)' }}
               >
-                A collection of my work demonstrating modern web development. Learn more{' '}
-                <Link to="/about/" title="Learn more about Jeff Maxwell's development approach and philosophy" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                A collection of full stack developer projects showcasing React, Node.js, and
+                JavaScript development. Learn more{' '}
+                <Link
+                  to="/about/"
+                  title="Learn more about Jeff Maxwell's development approach and philosophy"
+                  style={{
+                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    fontWeight: 'bold',
+                    textDecoration: 'underline',
+                  }}
+                >
                   about my approach
                 </Link>{' '}
                 or{' '}
-                <Link to="/contact/" title="Get in touch with Jeff Maxwell to discuss your next project" style={{ color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <Link
+                  to="/contact/"
+                  title="Get in touch with Jeff Maxwell to discuss your next project"
+                  style={{
+                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    fontWeight: 'bold',
+                    textDecoration: 'underline',
+                  }}
+                >
                   discuss your project
-                </Link>.
+                </Link>
+                .
               </Typography>
             </StyledBox>
           </motion.div>
@@ -651,6 +688,22 @@ const Projects = ({ data }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
+            <StyledBox mb={2}>
+              <Typography
+                theme={theme}
+                variant="h3"
+                component="h3"
+                style={{
+                  fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
+                  fontWeight: 600,
+                  marginBottom: '16px',
+                  color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                  textAlign: 'center',
+                }}
+              >
+                Filter JavaScript & React Projects by Technology
+              </Typography>
+            </StyledBox>
             <StyledBox display="flex" alignItems="center" justifyContent="flex-end" mb={3}>
               <CustomSelectContainer ref={dropdownRef}>
                 <CustomSelectButton
@@ -796,6 +849,22 @@ const Projects = ({ data }) => {
             </StyledBox>
           </motion.div>
 
+          <StyledBox mb={3}>
+            <Typography
+              theme={theme}
+              variant="h2"
+              component="h2"
+              style={{
+                fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
+                fontWeight: 600,
+                marginBottom: '24px',
+                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                textAlign: 'center',
+              }}
+            >
+              JavaScript Developer Projects - React & Node.js Applications
+            </Typography>
+          </StyledBox>
           <StyledBox as="section">
             {filteredProjects.length === 0 ? (
               <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
@@ -834,9 +903,30 @@ const Projects = ({ data }) => {
           </StyledBox>
 
           {/* Social Sharing Section */}
+          <StyledBox mb={3}>
+            <Typography
+              theme={theme}
+              variant="h2"
+              component="h2"
+              id="social-share"
+              style={{
+                fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
+                fontWeight: 600,
+                marginBottom: '24px',
+                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                textAlign: 'center',
+              }}
+            >
+              Share React & Node.js Developer Portfolio
+            </Typography>
+          </StyledBox>
           <StyledBox as="section" aria-labelledby="social-share">
             <SocialShare
-              url={typeof window !== 'undefined' && window.location ? window.location.href : 'https://jeffmaxwell.dev/projects/'}
+              url={
+                typeof window !== 'undefined' && window.location
+                  ? window.location.href
+                  : 'https://el-jefe.me/projects/'
+              }
               title="Jeff Maxwell's Development Projects Portfolio"
               description="Explore Jeff Maxwell's featured development projects showcasing React, Node.js, and modern web technologies. View live demos and source code."
             />

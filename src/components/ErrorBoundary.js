@@ -229,7 +229,7 @@ class ErrorBoundary extends React.Component {
       const emailParts = {
         user: 'maxjeffwell',
         domain: 'gmail',
-        tld: 'com'
+        tld: 'com',
       };
       const email = `${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
       window.open(`mailto:${email}?subject=${subject}&body=${body}`);

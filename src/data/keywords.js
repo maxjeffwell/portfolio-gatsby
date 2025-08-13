@@ -5,89 +5,89 @@ export const keywordConfig = {
     home: {
       primary: [
         'full stack developer',
-        'react developer', 
+        'react developer',
         'node.js developer',
         'javascript developer',
-        'web developer portfolio'
+        'web developer portfolio',
       ],
       secondary: [
         'mern stack developer',
         'frontend developer',
         'backend developer',
         'react specialist',
-        'modern web development'
+        'modern web development',
       ],
       longTail: [
         'experienced react developer',
         'full stack javascript developer',
         'hire react developer',
-        'professional web developer'
-      ]
+        'professional web developer',
+      ],
     },
-    
+
     projects: {
       primary: [
         'react projects',
         'node.js projects',
         'web development portfolio',
         'javascript projects',
-        'full stack projects'
+        'full stack projects',
       ],
       secondary: [
         'graphql projects',
         'mern stack examples',
         'react portfolio',
         'web app development',
-        'api development'
+        'api development',
       ],
       longTail: [
         'react project examples',
         'node.js portfolio projects',
         'full stack web applications',
-        'javascript portfolio examples'
-      ]
+        'javascript portfolio examples',
+      ],
     },
-    
+
     about: {
       primary: [
         'full stack developer experience',
         'react developer skills',
         'web developer background',
-        'javascript programmer'
+        'javascript programmer',
       ],
       secondary: [
         'software engineer',
         'web development expertise',
         'technical skills',
-        'programming experience'
+        'programming experience',
       ],
       longTail: [
         'experienced full stack web developer',
         'react and node.js specialist',
-        'professional web developer bio'
-      ]
+        'professional web developer bio',
+      ],
     },
-    
+
     contact: {
       primary: [
         'hire full stack developer',
         'react developer for hire',
         'freelance web developer',
-        'web development services'
+        'web development services',
       ],
       secondary: [
         'contact web developer',
         'hire react specialist',
         'web development consultation',
-        'custom web applications'
+        'custom web applications',
       ],
       longTail: [
         'hire experienced react developer',
         'full stack developer for startup',
         'professional web development services',
-        'custom web application development'
-      ]
-    }
+        'custom web application development',
+      ],
+    },
   },
 
   // Technical skill keywords
@@ -102,7 +102,7 @@ export const keywordConfig = {
       'Material-UI',
       'Emotion',
       'Gatsby',
-      'JAMstack'
+      'JAMstack',
     ],
     backend: [
       'Node.js',
@@ -113,19 +113,9 @@ export const keywordConfig = {
       'PostgreSQL',
       'Authentication',
       'JWT',
-      'Microservices'
+      'Microservices',
     ],
-    tools: [
-      'Git',
-      'Docker',
-      'AWS',
-      'Netlify',
-      'Heroku',
-      'Webpack',
-      'ESLint',
-      'Jest',
-      'Cypress'
-    ]
+    tools: ['Git', 'Docker', 'AWS', 'Netlify', 'Heroku', 'Webpack', 'ESLint', 'Jest', 'Cypress'],
   },
 
   // Industry and domain keywords
@@ -137,7 +127,7 @@ export const keywordConfig = {
     'e-commerce',
     'content management',
     'api development',
-    'database design'
+    'database design',
   ],
 
   // Location-based keywords (adjust as needed)
@@ -145,7 +135,7 @@ export const keywordConfig = {
     'remote developer',
     'us developer',
     'english speaking developer',
-    'timezone flexible developer'
+    'timezone flexible developer',
   ],
 
   // Competitor analysis keywords
@@ -154,20 +144,16 @@ export const keywordConfig = {
     'top full stack developer',
     'experienced web developer',
     'professional javascript developer',
-    'expert react programmer'
-  ]
+    'expert react programmer',
+  ],
 };
 
 // Helper function to get keywords for a specific page
 export const getPageKeywords = (pageName) => {
   const pageConfig = keywordConfig.pages[pageName];
   if (!pageConfig) return [];
-  
-  return [
-    ...pageConfig.primary,
-    ...pageConfig.secondary,
-    ...pageConfig.longTail
-  ];
+
+  return [...pageConfig.primary, ...pageConfig.secondary, ...pageConfig.longTail];
 };
 
 // Helper function to get all technical skills as keywords
@@ -175,7 +161,7 @@ export const getTechnicalKeywords = () => {
   return [
     ...keywordConfig.skills.frontend,
     ...keywordConfig.skills.backend,
-    ...keywordConfig.skills.tools
+    ...keywordConfig.skills.tools,
   ];
 };
 
@@ -183,14 +169,14 @@ export const getTechnicalKeywords = () => {
 export const generateMetaDescription = (pageName, customDescription) => {
   const pageKeywords = keywordConfig.pages[pageName];
   if (!pageKeywords || customDescription) return customDescription;
-  
+
   const templates = {
     home: `Jeff Maxwell - ${pageKeywords.primary[0]} specializing in ${pageKeywords.primary[1]}, ${pageKeywords.primary[2]}, and modern ${pageKeywords.primary[4]} development.`,
     projects: `Explore ${pageKeywords.primary[0]} and ${pageKeywords.primary[1]} showcasing ${pageKeywords.primary[2]} expertise in ${pageKeywords.primary[3]}.`,
     about: `Learn about Jeff Maxwell's ${pageKeywords.primary[0]} and ${pageKeywords.primary[1]} in modern ${pageKeywords.primary[2]}.`,
-    contact: `${pageKeywords.primary[0]} Jeff Maxwell for ${pageKeywords.primary[2]} and custom ${pageKeywords.primary[3]}.`
+    contact: `${pageKeywords.primary[0]} Jeff Maxwell for ${pageKeywords.primary[2]} and custom ${pageKeywords.primary[3]}.`,
   };
-  
+
   return templates[pageName] || customDescription;
 };
 

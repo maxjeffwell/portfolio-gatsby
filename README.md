@@ -7,7 +7,7 @@
 
 A modern, high-performance developer portfolio built with Gatsby and React, featuring responsive design, dark mode support, animated components, and optimized performance targeting sub-one-second load times.
 
-🌐 **Live Site**: [https://jeffmaxwell.dev](https://jeffmaxwell.dev)
+🌐 **Live Site**: [https://el-jefe.me](https://el-jefe.me)
 
 ## 📸 Screenshots
 
@@ -416,7 +416,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Jeff Maxwell**
 - Email: [maxjeffwell@gmail.com](mailto:maxjeffwell@gmail.com)
 - GitHub: [@maxjeffwell](https://github.com/maxjeffwell)
-- Portfolio: [https://jeffmaxwell.dev](https://jeffmaxwell.dev)
+- Portfolio: [https://el-jefe.me](https://el-jefe.me)
 - LinkedIn: [Jeff Maxwell](https://linkedin.com/in/jeffreymaxwell)
 
 ## 🙏 Acknowledgments

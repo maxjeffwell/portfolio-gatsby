@@ -17,9 +17,8 @@ const StyledIapfLogo = styled(IapfLogo)`
   width: 100%;
   max-width: 200px;
   height: auto;
-  filter: ${props => props.theme?.mode === 'dark' 
-    ? 'invert(1) brightness(1.2) contrast(1.2)' 
-    : 'none'};
+  filter: ${(props) =>
+    props.theme?.mode === 'dark' ? 'invert(1) brightness(1.2) contrast(1.2)' : 'none'};
 `;
 
 const StyledAspcaLogo = styled(AspcaLogo)`
@@ -27,14 +26,12 @@ const StyledAspcaLogo = styled(AspcaLogo)`
   width: 100%;
   max-width: 200px;
   height: auto;
-  filter: ${props => props.theme?.mode === 'light' 
-    ? 'brightness(1.2) contrast(1.1)' 
-    : 'none'};
+  filter: ${(props) => (props.theme?.mode === 'light' ? 'brightness(1.2) contrast(1.1)' : 'none')};
 `;
 
 function Logo() {
   const { theme } = useTheme();
-  
+
   return (
     <LogoContainer>
       <StyledIapfLogo

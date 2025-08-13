@@ -16,7 +16,7 @@ const StyledContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 0 20px;
-    
+
     .contact-form-card {
       border-radius: 20px !important;
       padding: 32px !important;
@@ -25,16 +25,16 @@ const StyledContainer = styled.div`
 
   @media (max-width: 600px) {
     padding: 0 16px;
-    
+
     .contact-form-card {
       border-radius: 16px !important;
       padding: 24px !important;
     }
   }
-  
+
   @media (max-width: 480px) {
     padding: 0 12px;
-    
+
     .contact-form-card {
       border-radius: 12px !important;
       padding: 20px !important;
@@ -138,16 +138,6 @@ const Typography = styled.div`
   transition: color 0.3s ease;
 `;
 
-// Simple icon components using Unicode symbols
-
-const SendIcon = styled.span`
-  font-size: 18px;
-  color: inherit;
-  &::before {
-    content: '→';
-  }
-`;
-
 const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -222,14 +212,12 @@ const StyledButton = styled.button`
   ${(props) =>
     props.size === 'large' &&
     `
-    padding: 8px 22px;
     font-size: 0.9375rem;
   `}
   
   ${(props) =>
     props.size === 'small' &&
     `
-    padding: 4px 10px;
     font-size: 0.8125rem;
   `}
   
@@ -239,12 +227,27 @@ const StyledButton = styled.button`
     pointer-events: none;
   }
 
+  /* Dynamic properties that can be overridden */
   margin-top: ${(props) => (props.mt ? `${props.mt * 8}px` : '0')};
   border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius}px` : '4px')};
-  padding-left: ${(props) => (props.px ? `${props.px * 8}px` : 'inherit')};
-  padding-right: ${(props) => (props.px ? `${props.px * 8}px` : 'inherit')};
   text-transform: ${(props) => props.textTransform || 'uppercase'};
 
+  /* Conditional padding based on size and px props */
+  ${(props) => {
+    if (props.px) {
+      return `
+        padding-left: ${props.px * 8}px;
+        padding-right: ${props.px * 8}px;
+      `;
+    }
+    if (props.size === 'large') {
+      return 'padding: 8px 22px;';
+    }
+    if (props.size === 'small') {
+      return 'padding: 4px 10px;';
+    }
+    return '';
+  }}
 `;
 
 const StyledAlert = styled.div`
@@ -390,7 +393,7 @@ const StyledTextField = styled.div`
     font-size: 1.1rem;
     letter-spacing: 0.02em;
     position: relative;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -421,7 +424,7 @@ const StyledTextField = styled.div`
     box-sizing: border-box;
     position: relative;
     z-index: 1;
-    
+
     &:hover {
       border-color: rgba(25, 118, 210, 0.4);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -431,7 +434,7 @@ const StyledTextField = styled.div`
     &:focus {
       outline: none;
       border-color: #1976d2;
-      box-shadow: 
+      box-shadow:
         0 0 0 3px rgba(25, 118, 210, 0.15),
         0 4px 16px rgba(25, 118, 210, 0.2);
       transform: translateY(-2px);
@@ -452,7 +455,7 @@ const StyledTextField = styled.div`
     @media (prefers-color-scheme: dark) {
       border-color: rgba(255, 255, 255, 0.15);
       background: rgba(255, 255, 255, 0.05);
-      
+
       &:hover {
         border-color: rgba(144, 202, 249, 0.4);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -460,7 +463,7 @@ const StyledTextField = styled.div`
 
       &:focus {
         border-color: #90caf9;
-        box-shadow: 
+        box-shadow:
           0 0 0 3px rgba(144, 202, 249, 0.25),
           0 4px 16px rgba(144, 202, 249, 0.3);
       }
@@ -483,7 +486,7 @@ const StyledTextField = styled.div`
   &.has-value label {
     transform: translateY(-2px) scale(0.95);
     color: #1976d2;
-    
+
     @media (prefers-color-scheme: dark) {
       color: #90caf9;
     }
@@ -492,39 +495,39 @@ const StyledTextField = styled.div`
   /* Responsive design improvements */
   @media (max-width: 768px) {
     margin-bottom: 24px;
-    
+
     label {
       font-size: 1rem;
       margin-bottom: 10px;
     }
-    
+
     input,
     textarea {
       padding: 16px 14px;
       font-size: 1rem;
       border-radius: 10px;
     }
-    
+
     textarea {
       min-height: 120px;
     }
   }
-  
+
   @media (max-width: 480px) {
     margin-bottom: 20px;
-    
+
     label {
       font-size: 0.95rem;
       margin-bottom: 8px;
     }
-    
+
     input,
     textarea {
       padding: 14px 12px;
       font-size: 0.95rem;
       border-radius: 8px;
     }
-    
+
     textarea {
       min-height: 100px;
     }
@@ -652,586 +655,740 @@ function Contact() {
     <Layout>
       <PageTransition>
         <SEO
-        title="Get in Touch | Contact Jeff Maxwell Full Stack Developer"
-        description="Contact Jeff Maxwell for professional web development projects. Full Stack React & Node.js developer available for freelance work in Orlando, Florida."
-        pathname="/contact/"
-        keywords={[
-          `contact web developer`,
-          `hire full stack developer`,
-          `freelance developer`,
-          `web development services`,
-          `Jeff Maxwell contact`,
-          `hire orlando developer`, 
-          `central florida web development`,
-          `local developer contact`,
-          `tampa bay freelance developer`,
-        ]}
-      />
-      {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
-      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-        <input type="hidden" name="form-name" value="contact" />
-        <label htmlFor="netlify-name">
-          Name: <input type="text" name="name" id="netlify-name" autoComplete="name" />
-        </label>
-        <label htmlFor="netlify-email">
-          Email: <input type="email" name="email" id="netlify-email" autoComplete="email" />
-        </label>
-        <label htmlFor="netlify-message">
-          Message: <textarea name="message" id="netlify-message" />
-        </label>
-        <label htmlFor="netlify-bot-field">
-          Bot field: <input type="text" name="bot-field" id="netlify-bot-field" />
-        </label>
-      </form>
-      <StyledContainer>
-        <StyledBox
-          as="section"
-          aria-labelledby="contact-header"
-          mb={8}
-          style={{ textAlign: 'center', paddingTop: '40px' }}
-        >
-          <Typography
-            as="h1"
-            id="contact-header"
-            style={{
-              fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-              fontWeight: 700,
-              lineHeight: 1.2,
-              marginBottom: '24px',
-              background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Let&apos;s Connect
-          </Typography>
-          <Typography
-            variant="h5"
-            style={{
-              fontSize: '1.375rem',
-              fontWeight: 400,
-              maxWidth: '600px',
-              margin: '0 auto',
-              lineHeight: 1.5,
-              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
-            }}
-          >
-            I&apos;m always interested in new opportunities and collaborations
-          </Typography>
-        </StyledBox>
-
-        <StyledBox as="section" aria-labelledby="contact-methods" mb={6}>
-          <Typography
-            as="h2"
-            variant="h2"
-            id="contact-methods"
-            style={{
-              position: 'absolute',
-              left: '-10000px',
-              width: '1px',
-              height: '1px',
-              overflow: 'hidden',
-            }}
-          >
-            Contact Information and Methods
-          </Typography>
-
-          {/* Get in Touch Card */}
-          <div
-            style={{
-              background: 'var(--paper-color)',
-              borderRadius: '24px',
-              padding: '40px',
-              marginBottom: '32px',
-              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
-              transition: 'background-color 0.3s ease',
-            }}
+          title="Hire React Node.js Developer | Jeff Maxwell Orlando FL"
+          description="Hire Jeff Maxwell - Full Stack React and Node.js Developer in Orlando, Florida. Available for web development projects, JavaScript applications, and freelance work. Contact for custom development solutions."
+          pathname="/contact/"
+          keywords={[
+            `hire react developer`,
+            `hire node.js developer`,
+            `contact javascript developer`,
+            `hire full stack developer orlando`,
+            `freelance react developer`,
+            `hire web developer florida`,
+            `contact orlando developer`,
+            `javascript developer for hire`,
+            `react node.js developer hire`,
+            `orlando web development services`,
+          ]}
+        />
+        {/* Hidden form for Netlify to detect - MUST be outside NoSsr */}
+        <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+          <input type="hidden" name="form-name" value="contact" />
+          <label htmlFor="netlify-name">
+            Name: <input type="text" name="name" id="netlify-name" autoComplete="name" />
+          </label>
+          <label htmlFor="netlify-email">
+            Email: <input type="email" name="email" id="netlify-email" autoComplete="email" />
+          </label>
+          <label htmlFor="netlify-message">
+            Message: <textarea name="message" id="netlify-message" />
+          </label>
+          <label htmlFor="netlify-bot-field">
+            Bot field: <input type="text" name="bot-field" id="netlify-bot-field" />
+          </label>
+        </form>
+        <StyledContainer>
+          <StyledBox
+            as="section"
+            aria-labelledby="contact-header"
+            mb={8}
+            style={{ textAlign: 'center', paddingTop: '40px' }}
           >
             <Typography
-              as="h3"
+              as="h1"
+              id="contact-header"
               style={{
-                fontSize: '1.75rem',
-                fontWeight: 600,
-                color: 'var(--text-color)',
-                marginBottom: '16px',
+                fontSize: 'clamp(2.5rem, 8vw, 4rem)',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                marginBottom: '24px',
+                background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em',
               }}
-              id="get-in-touch"
             >
-              Get in Touch
+              Hire React & Node.js Developer - Let&apos;s Connect
             </Typography>
             <Typography
-              variant="body1"
+              variant="h5"
               style={{
-                color: 'var(--text-secondary-color)',
-                marginBottom: '32px',
-                fontSize: '1.125rem',
+                fontSize: '1.375rem',
+                fontWeight: 400,
+                maxWidth: '600px',
+                margin: '0 auto',
                 lineHeight: 1.5,
+                color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
               }}
             >
-              Whether you have a project in mind, need technical expertise, or just want to say
-              hello, I&apos;d love to hear from you. Feel free to reach out through any of these
-              channels:
+              I&apos;m always interested in new opportunities and collaborations. As a full stack
+              React and Node.js developer, I help businesses build scalable web applications that
+              drive growth and improve user experience. Whether you&apos;re looking to launch a new
+              product, optimize existing systems, or need ongoing development support, I&apos;m here
+              to bring your vision to life with modern JavaScript technologies.
+            </Typography>
+          </StyledBox>
+
+          <StyledBox as="section" aria-labelledby="contact-methods" mb={6}>
+            <Typography
+              as="h2"
+              variant="h2"
+              id="contact-methods"
+              style={{
+                fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
+                fontWeight: 600,
+                marginBottom: '32px',
+                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                textAlign: 'center',
+              }}
+            >
+              Contact JavaScript & React Developer for Hire
             </Typography>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div
+            {/* Get in Touch Card */}
+            <div
+              style={{
+                background: 'var(--paper-color)',
+                borderRadius: '24px',
+                padding: '40px',
+                marginBottom: '32px',
+                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
+                transition: 'background-color 0.3s ease',
+              }}
+            >
+              <Typography
+                as="h3"
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '16px',
-                  borderRadius: '12px',
-                  background: 'var(--bg-color)',
-                  transition: 'all 0.2s ease',
+                  fontSize: '1.75rem',
+                  fontWeight: 600,
+                  color: 'var(--text-color)',
+                  marginBottom: '16px',
+                }}
+                id="get-in-touch"
+              >
+                Contact React Developer - Get in Touch
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: 'var(--text-secondary-color)',
+                  marginBottom: '32px',
+                  fontSize: '1.125rem',
+                  lineHeight: 1.5,
                 }}
               >
+                Whether you have a project in mind, need technical expertise, or just want to say
+                hello, I&apos;d love to hear from you. I specialize in React frontend development,
+                Node.js backend architecture, and full stack JavaScript applications. My experience
+                includes e-commerce platforms, content management systems, real-time applications,
+                and API development. I&apos;m particularly passionate about creating accessible,
+                performant web applications that provide exceptional user experiences. Feel free to
+                reach out through any of these channels:
+              </Typography>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div
                   style={{
-                    fontSize: '1.5rem',
-                    color: '#1565c0',
-                    width: '24px',
-                    height: '24px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    gap: '16px',
+                    padding: '16px',
+                    borderRadius: '12px',
+                    background: 'var(--bg-color)',
+                    transition: 'all 0.2s ease',
                   }}
                 >
-                  <ClientOnlyIcon iconName="Email" style={{ fontSize: '2.5rem', color: '#1565c0' }} />
-                </div>
-                <div>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)', fontSize: '1.25rem' }}
-                  >
-                    Email
-                  </Typography>
-                  <ProtectedEmail
-                    style={{ 
-                      fontSize: '1.125rem', 
-                      fontWeight: 500,
-                      color: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-                      textDecoration: 'underline',
-                      textUnderlineOffset: '0.125em'
+                  <div
+                    style={{
+                      fontSize: '1.5rem',
+                      color: '#1565c0',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
-                    maxjeffwell@gmail.com
-                  </ProtectedEmail>
+                    <ClientOnlyIcon
+                      iconName="Email"
+                      style={{ fontSize: '2.5rem', color: '#1565c0' }}
+                    />
+                  </div>
+                  <div>
+                    <Typography
+                      variant="subtitle2"
+                      style={{
+                        fontWeight: 600,
+                        marginBottom: '4px',
+                        color: 'var(--text-color)',
+                        fontSize: '1.25rem',
+                      }}
+                    >
+                      Email
+                    </Typography>
+                    <ProtectedEmail
+                      style={{
+                        fontSize: '1.125rem',
+                        fontWeight: 500,
+                        color: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                        textDecoration: 'underline',
+                        textUnderlineOffset: '0.125em',
+                      }}
+                    >
+                      maxjeffwell@gmail.com
+                    </ProtectedEmail>
+                  </div>
                 </div>
-              </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '16px',
-                  borderRadius: '12px',
-                  background: 'var(--bg-color)',
-                  transition: 'all 0.2s ease',
-                }}
-              >
                 <div
                   style={{
-                    fontSize: '1.5rem',
-                    color: '#1565c0',
-                    width: '24px',
-                    height: '24px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    gap: '16px',
+                    padding: '16px',
+                    borderRadius: '12px',
+                    background: 'var(--bg-color)',
+                    transition: 'all 0.2s ease',
                   }}
                 >
-                  <ClientOnlyIcon iconName="Telephone" style={{ fontSize: '2.5rem', color: '#1565c0' }} />
-                </div>
-                <div>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)', fontSize: '1.25rem' }}
+                  <div
+                    style={{
+                      fontSize: '1.5rem',
+                      color: '#1565c0',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   >
-                    Phone
-                  </Typography>
-                  <StyledLink
-                    href="tel:+01-508-395-2008"
-                    style={{ fontSize: '1.125rem', fontWeight: 500 }}
-                  >
-                    (508) 395-2008
-                  </StyledLink>
+                    <ClientOnlyIcon
+                      iconName="Telephone"
+                      style={{ fontSize: '2.5rem', color: '#1565c0' }}
+                    />
+                  </div>
+                  <div>
+                    <Typography
+                      variant="subtitle2"
+                      style={{
+                        fontWeight: 600,
+                        marginBottom: '4px',
+                        color: 'var(--text-color)',
+                        fontSize: '1.25rem',
+                      }}
+                    >
+                      Phone
+                    </Typography>
+                    <StyledLink
+                      href="tel:+01-508-395-2008"
+                      style={{ fontSize: '1.125rem', fontWeight: 500 }}
+                    >
+                      (508) 395-2008
+                    </StyledLink>
+                  </div>
                 </div>
-              </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '16px',
-                  borderRadius: '12px',
-                  background: 'var(--bg-color)',
-                  transition: 'all 0.2s ease',
-                }}
-              >
                 <div
                   style={{
-                    fontSize: '1.5rem',
-                    color: '#1565c0',
-                    width: '24px',
-                    height: '24px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    gap: '16px',
+                    padding: '16px',
+                    borderRadius: '12px',
+                    background: 'var(--bg-color)',
+                    transition: 'all 0.2s ease',
                   }}
                 >
-                  <ClientOnlyIcon iconName="GitHubCharacter" style={{ fontSize: '2.5rem', color: '#1565c0' }} />
-                </div>
-                <div>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ fontWeight: 600, marginBottom: '4px', color: 'var(--text-color)', fontSize: '1.25rem' }}
+                  <div
+                    style={{
+                      fontSize: '1.5rem',
+                      color: '#1565c0',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   >
-                    GitHub
-                  </Typography>
-                  <StyledLink
-                    href="https://github.com/maxjeffwell"
-                    title="View Jeff Maxwell's projects on GitHub"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ fontSize: '1.125rem', fontWeight: 500 }}
-                  >
-                    View my repositories
-                  </StyledLink>
+                    <ClientOnlyIcon
+                      iconName="GitHubCharacter"
+                      style={{ fontSize: '2.5rem', color: '#1565c0' }}
+                    />
+                  </div>
+                  <div>
+                    <Typography
+                      variant="subtitle2"
+                      style={{
+                        fontWeight: 600,
+                        marginBottom: '4px',
+                        color: 'var(--text-color)',
+                        fontSize: '1.25rem',
+                      }}
+                    >
+                      GitHub
+                    </Typography>
+                    <StyledLink
+                      href="https://github.com/maxjeffwell"
+                      title="View Jeff Maxwell's projects on GitHub"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ fontSize: '1.125rem', fontWeight: 500 }}
+                    >
+                      View my repositories
+                    </StyledLink>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Send a Message Card */}
-          <div
-            style={{
-              background: 'var(--paper-color)',
-              borderRadius: '28px',
-              padding: '48px',
-              marginBottom: '32px',
-              boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.12), 0px 2px 8px rgba(0, 0, 0, 0.08)',
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-            className="contact-form-card"
+            {/* Send a Message Card */}
+            <div
+              style={{
+                background: 'var(--paper-color)',
+                borderRadius: '28px',
+                padding: '48px',
+                marginBottom: '32px',
+                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.12), 0px 2px 8px rgba(0, 0, 0, 0.08)',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+              className="contact-form-card"
+            >
+              <Typography
+                as="h3"
+                style={{
+                  fontSize: '1.75rem',
+                  fontWeight: 600,
+                  color: 'var(--text-color)',
+                  marginBottom: '16px',
+                }}
+                id="send-message"
+              >
+                Hire JavaScript Developer - Send a Message
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{
+                  color: 'var(--text-secondary-color)',
+                  marginBottom: '32px',
+                  fontSize: '1.125rem',
+                  lineHeight: 1.5,
+                }}
+              >
+                Have a specific question or project in mind? Drop me a message and I&apos;ll get
+                back to you as soon as possible. When you contact me, I&apos;ll want to understand
+                your project goals, timeline, technical requirements, and budget considerations. I
+                believe in transparent communication throughout the development process, providing
+                regular updates and involving you in key decisions. My typical project workflow
+                includes discovery and planning, design and prototyping, development and testing,
+                deployment and optimization, and ongoing support and maintenance.
+              </Typography>
+
+              {formStatus === 'success' && (
+                <StyledBox style={{ position: 'relative', marginBottom: '32px' }}>
+                  <StyledAlert
+                    severity="success"
+                    animation="slideInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)"
+                  >
+                    <div style={{ marginBottom: '16px' }}>
+                      <Typography
+                        variant="h4"
+                        style={{
+                          fontWeight: 'bold',
+                          fontSize: '1.5rem',
+                          marginBottom: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                        }}
+                      >
+                        <ClientOnlyIcon
+                          iconName="done"
+                          fontSize="1.8rem"
+                          style={{ marginRight: '8px' }}
+                        />
+                        Success! Your Message Has Been Sent!
+                      </Typography>
+                    </div>
+
+                    <div style={{ marginBottom: '16px' }}>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          fontSize: '1.1rem',
+                          lineHeight: '1.6',
+                          marginBottom: '8px',
+                        }}
+                      >
+                        Thank you for reaching out! I appreciate your interest and will respond
+                        within 24 hours.
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        style={{
+                          opacity: 0.8,
+                          fontSize: '0.95rem',
+                        }}
+                      >
+                        Check your email for a confirmation of your message.
+                      </Typography>
+                    </div>
+
+                    <StyledButton
+                      variant="outlined"
+                      onClick={() => {
+                        setFormStatus('');
+                        setFormData({ name: '', email: '', message: '' });
+                      }}
+                      style={{
+                        alignSelf: 'flex-start',
+                        borderColor: '#4caf50',
+                        color: '#4caf50',
+                        fontWeight: '600',
+                        padding: '8px 20px',
+                        borderRadius: '8px',
+                        fontSize: '0.9rem',
+                        textTransform: 'none',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.backgroundColor = '#4caf50';
+                        e.target.style.color = 'white';
+                        e.target.style.transform = 'translateY(-1px)';
+                        e.target.style.boxShadow = '0 4px 8px rgba(76, 175, 80, 0.3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.backgroundColor = 'transparent';
+                        e.target.style.color = '#4caf50';
+                        e.target.style.transform = 'translateY(0)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    >
+                      Send Another Message
+                    </StyledButton>
+                  </StyledAlert>
+                </StyledBox>
+              )}
+
+              {formStatus === 'error' && (
+                <StyledAlert severity="error" mb={3}>
+                  ❌{' '}
+                  {errorMessage ||
+                    'Sorry, there was an error sending your message. Please ensure all fields are filled out correctly, or contact me directly via email.'}
+                  {!errorMessage.includes('email') && (
+                    <>
+                      {' '}
+                      You can also reach me directly at{' '}
+                      <ProtectedEmail style={{ color: 'inherit', textDecoration: 'underline' }}>
+                        maxjeffwell@gmail.com
+                      </ProtectedEmail>
+                    </>
+                  )}
+                </StyledAlert>
+              )}
+
+              <StyledBox
+                as="form"
+                onSubmit={handleSubmit}
+                method="POST"
+                mt={4}
+                name="contact"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                style={{
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  padding: '32px',
+                  borderRadius: '20px',
+                  background:
+                    'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  ...(formStatus === 'success' && {
+                    opacity: 0.75,
+                    transform: 'scale(0.98)',
+                    filter: 'blur(0.5px)',
+                  }),
+                }}
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <StyledBox position="absolute" left="-5000px" overflow="hidden">
+                  <label htmlFor="bot-field-input">
+                    Don&apos;t fill this out if you&apos;re human:
+                    <input
+                      type="text"
+                      name="bot-field"
+                      id="bot-field-input"
+                      tabIndex="-1"
+                      autoComplete="off"
+                    />
+                  </label>
+                </StyledBox>
+
+                <StyledTextField className={formData.name ? 'has-value' : ''}>
+                  <label htmlFor="contact-name">Your Name *</label>
+                  <input
+                    type="text"
+                    id="contact-name"
+                    name="name"
+                    autoComplete="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onFocus={(e) => e.target.parentElement.classList.add('focused')}
+                    onBlur={(e) => e.target.parentElement.classList.remove('focused')}
+                    required
+                    disabled={isSubmitting}
+                  />
+                </StyledTextField>
+                <StyledTextField className={formData.email ? 'has-value' : ''}>
+                  <label htmlFor="contact-email">Your Email *</label>
+                  <input
+                    type="email"
+                    id="contact-email"
+                    name="email"
+                    autoComplete="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onFocus={(e) => e.target.parentElement.classList.add('focused')}
+                    onBlur={(e) => e.target.parentElement.classList.remove('focused')}
+                    required
+                    disabled={isSubmitting}
+                  />
+                </StyledTextField>
+                <StyledTextField className={formData.message ? 'has-value' : ''}>
+                  <label htmlFor="contact-message">Your Message *</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    autoComplete="off"
+                    value={formData.message}
+                    onChange={handleChange}
+                    onFocus={(e) => e.target.parentElement.classList.add('focused')}
+                    onBlur={(e) => e.target.parentElement.classList.remove('focused')}
+                    required
+                    rows={5}
+                    disabled={isSubmitting}
+                  />
+                </StyledTextField>
+                <StyledButton
+                  type="submit"
+                  variant="contained"
+                  color={formStatus === 'success' ? 'success' : 'primary'}
+                  size="large"
+                  disabled={isSubmitting || formStatus === 'success'}
+                  style={{
+                    background:
+                      formStatus === 'success'
+                        ? 'linear-gradient(135deg, #2e7d32 0%, #4caf50 100%)'
+                        : 'linear-gradient(135deg, #1565c0 0%, #e91e63 100%)',
+                    color: 'white',
+                    padding: '18px 36px',
+                    fontSize: '1.2rem',
+                    fontWeight: 600,
+                    borderRadius: '16px',
+                    textTransform: 'none',
+                    boxShadow:
+                      formStatus === 'success'
+                        ? '0px 12px 24px rgba(46, 125, 50, 0.4), 0px 4px 12px rgba(76, 175, 80, 0.3)'
+                        : '0px 12px 24px rgba(25, 101, 192, 0.4), 0px 4px 12px rgba(233, 30, 99, 0.3)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    marginTop: '32px',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transform: isSubmitting ? 'scale(0.98)' : 'scale(1)',
+                    width: '100%',
+                    '@media (max-width: 768px)': {
+                      padding: '16px 28px',
+                      fontSize: '1.1rem',
+                      marginTop: '24px',
+                    },
+                    '@media (max-width: 480px)': {
+                      padding: '14px 24px',
+                      fontSize: '1rem',
+                      borderRadius: '12px',
+                      marginTop: '20px',
+                    },
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isSubmitting && formStatus !== 'success') {
+                      e.target.style.transform = 'translateY(-2px) scale(1.02)';
+                      e.target.style.boxShadow =
+                        '0px 16px 32px rgba(25, 101, 192, 0.5), 0px 6px 16px rgba(233, 30, 99, 0.4)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isSubmitting && formStatus !== 'success') {
+                      e.target.style.transform = 'translateY(0) scale(1)';
+                      e.target.style.boxShadow =
+                        '0px 12px 24px rgba(25, 101, 192, 0.4), 0px 4px 12px rgba(233, 30, 99, 0.3)';
+                    }
+                  }}
+                >
+                  <span>
+                    {(() => {
+                      if (isSubmitting) return 'Sending...';
+                      if (formStatus === 'success') return 'Message Sent!';
+                      return 'Send Message';
+                    })()}
+                  </span>
+                </StyledButton>
+              </StyledBox>
+            </div>
+          </StyledBox>
+
+          <StyledBox
+            as="section"
+            aria-labelledby="availability"
+            mt={8}
+            mb={8}
+            style={{ textAlign: 'center' }}
           >
             <Typography
-              as="h3"
+              as="h2"
+              variant="h2"
+              id="availability"
               style={{
-                fontSize: '1.75rem',
+                fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
                 fontWeight: 600,
-                color: 'var(--text-color)',
-                marginBottom: '16px',
+                marginBottom: '24px',
+                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                textAlign: 'center',
               }}
-              id="send-message"
             >
-              Send a Message
+              React Node.js Developer Available for Hire
             </Typography>
             <Typography
               variant="body1"
               style={{
-                color: 'var(--text-secondary-color)',
-                marginBottom: '32px',
-                fontSize: '1.125rem',
-                lineHeight: 1.5,
+                color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                fontSize: '1.5rem',
+                fontWeight: 400,
+                lineHeight: 1.6,
               }}
             >
-              Have a specific question or project in mind? Drop me a message and I&apos;ll get back
-              to you as soon as possible.
+              Currently open to new opportunities and exciting projects. Let&apos;s build something
+              together! I typically respond to inquiries within 24 hours and offer free initial
+              consultations to discuss your project requirements. Whether you need a complete web
+              application from scratch, want to modernize an existing system, or require ongoing
+              development support, I&apos;m equipped to help. I work with startups, established
+              businesses, and agencies, adapting my approach to fit your specific needs and
+              constraints. My goal is to deliver high-quality, maintainable code that grows with
+              your business.
+            </Typography>
+          </StyledBox>
+
+          {/* Services & Expertise Section */}
+          <StyledBox as="section" aria-labelledby="services-expertise" mt={8} mb={8}>
+            <Typography
+              as="h2"
+              variant="h2"
+              id="services-expertise"
+              style={{
+                fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
+                fontWeight: 600,
+                marginBottom: '32px',
+                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                textAlign: 'center',
+              }}
+            >
+              Development Services & Technical Expertise
             </Typography>
 
-            {formStatus === 'success' && (
-              <StyledBox style={{ position: 'relative', marginBottom: '32px' }}>
-                <StyledAlert
-                  severity="success"
-                  animation="slideInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)"
-                >
-                  <div style={{ marginBottom: '16px' }}>
-                    <Typography
-                      variant="h4"
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: '1.5rem',
-                        marginBottom: '8px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                      }}
-                    >
-                      <ClientOnlyIcon iconName="done" fontSize="1.8rem" style={{ marginRight: '8px' }} />
-                      Success! Your Message Has Been Sent!
-                    </Typography>
-                  </div>
-
-                  <div style={{ marginBottom: '16px' }}>
-                    <Typography
-                      variant="body1"
-                      style={{
-                        fontSize: '1.1rem',
-                        lineHeight: '1.6',
-                        marginBottom: '8px',
-                      }}
-                    >
-                      Thank you for reaching out! I appreciate your interest and will respond within
-                      24 hours.
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      style={{
-                        opacity: 0.8,
-                        fontSize: '0.95rem',
-                      }}
-                    >
-                      Check your email for a confirmation of your message.
-                    </Typography>
-                  </div>
-
-                  <StyledButton
-                    variant="outlined"
-                    onClick={() => {
-                      setFormStatus('');
-                      setFormData({ name: '', email: '', message: '' });
-                    }}
-                    style={{
-                      alignSelf: 'flex-start',
-                      borderColor: '#4caf50',
-                      color: '#4caf50',
-                      fontWeight: '600',
-                      padding: '8px 20px',
-                      borderRadius: '8px',
-                      fontSize: '0.9rem',
-                      textTransform: 'none',
-                      transition: 'all 0.2s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = '#4caf50';
-                      e.target.style.color = 'white';
-                      e.target.style.transform = 'translateY(-1px)';
-                      e.target.style.boxShadow = '0 4px 8px rgba(76, 175, 80, 0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = 'transparent';
-                      e.target.style.color = '#4caf50';
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = 'none';
-                    }}
-                  >
-                    Send Another Message
-                  </StyledButton>
-                </StyledAlert>
-              </StyledBox>
-            )}
-
-            {formStatus === 'error' && (
-              <StyledAlert severity="error" mb={3}>
-                ❌{' '}
-                {errorMessage ||
-                  'Sorry, there was an error sending your message. Please ensure all fields are filled out correctly, or contact me directly via email.'}
-                {!errorMessage.includes('email') && (
-                  <>
-                    {' '}
-                    You can also reach me directly at{' '}
-                    <ProtectedEmail style={{ color: 'inherit', textDecoration: 'underline' }}>
-                      maxjeffwell@gmail.com
-                    </ProtectedEmail>
-                  </>
-                )}
-              </StyledAlert>
-            )}
-
-            <StyledBox
-              as="form"
-              onSubmit={handleSubmit}
-              method="POST"
-              mt={4}
-              name="contact"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
+            <div
               style={{
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                padding: '32px',
-                borderRadius: '20px',
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                ...(formStatus === 'success' && {
-                  opacity: 0.75,
-                  transform: 'scale(0.98)',
-                  filter: 'blur(0.5px)',
-                }),
+                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                borderRadius: '24px',
+                padding: '48px',
+                marginBottom: '32px',
+                boxShadow:
+                  theme?.mode === 'dark'
+                    ? '0px 8px 24px rgba(0, 0, 0, 0.3)'
+                    : '0px 8px 24px rgba(0, 0, 0, 0.08)',
+                transition: 'background 0.3s ease',
               }}
             >
-              <input type="hidden" name="form-name" value="contact" />
-              <StyledBox position="absolute" left="-5000px" overflow="hidden">
-                <label htmlFor="bot-field-input">
-                  Don&apos;t fill this out if you&apos;re human:
-                  <input
-                    type="text"
-                    name="bot-field"
-                    id="bot-field-input"
-                    tabIndex="-1"
-                    autoComplete="off"
-                  />
-                </label>
-              </StyledBox>
-
-              <StyledTextField className={formData.name ? 'has-value' : ''}>
-                <label htmlFor="contact-name">Your Name *</label>
-                <input
-                  type="text"
-                  id="contact-name"
-                  name="name"
-                  autoComplete="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onFocus={(e) => e.target.parentElement.classList.add('focused')}
-                  onBlur={(e) => e.target.parentElement.classList.remove('focused')}
-                  required
-                  disabled={isSubmitting}
-                />
-              </StyledTextField>
-              <StyledTextField className={formData.email ? 'has-value' : ''}>
-                <label htmlFor="contact-email">Your Email *</label>
-                <input
-                  type="email"
-                  id="contact-email"
-                  name="email"
-                  autoComplete="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onFocus={(e) => e.target.parentElement.classList.add('focused')}
-                  onBlur={(e) => e.target.parentElement.classList.remove('focused')}
-                  required
-                  disabled={isSubmitting}
-                />
-              </StyledTextField>
-              <StyledTextField className={formData.message ? 'has-value' : ''}>
-                <label htmlFor="contact-message">Your Message *</label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  autoComplete="off"
-                  value={formData.message}
-                  onChange={handleChange}
-                  onFocus={(e) => e.target.parentElement.classList.add('focused')}
-                  onBlur={(e) => e.target.parentElement.classList.remove('focused')}
-                  required
-                  rows={5}
-                  disabled={isSubmitting}
-                />
-              </StyledTextField>
-              <StyledButton
-                type="submit"
-                variant="contained"
-                color={formStatus === 'success' ? 'success' : 'primary'}
-                size="large"
-                disabled={isSubmitting || formStatus === 'success'}
+              <Typography
+                variant="body1"
                 style={{
-                  background:
-                    formStatus === 'success'
-                      ? 'linear-gradient(135deg, #2e7d32 0%, #4caf50 100%)'
-                      : 'linear-gradient(135deg, #1565c0 0%, #e91e63 100%)',
-                  color: 'white',
-                  padding: '18px 36px',
-                  fontSize: '1.2rem',
-                  fontWeight: 600,
-                  borderRadius: '16px',
-                  textTransform: 'none',
-                  boxShadow: formStatus === 'success' 
-                    ? '0px 12px 24px rgba(46, 125, 50, 0.4), 0px 4px 12px rgba(76, 175, 80, 0.3)'
-                    : '0px 12px 24px rgba(25, 101, 192, 0.4), 0px 4px 12px rgba(233, 30, 99, 0.3)',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  marginTop: '32px',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transform: isSubmitting ? 'scale(0.98)' : 'scale(1)',
-                  width: '100%',
-                  '@media (max-width: 768px)': {
-                    padding: '16px 28px',
-                    fontSize: '1.1rem',
-                    marginTop: '24px',
-                  },
-                  '@media (max-width: 480px)': {
-                    padding: '14px 24px',
-                    fontSize: '1rem',
-                    borderRadius: '12px',
-                    marginTop: '20px',
-                  },
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSubmitting && formStatus !== 'success') {
-                    e.target.style.transform = 'translateY(-2px) scale(1.02)';
-                    e.target.style.boxShadow = '0px 16px 32px rgba(25, 101, 192, 0.5), 0px 6px 16px rgba(233, 30, 99, 0.4)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isSubmitting && formStatus !== 'success') {
-                    e.target.style.transform = 'translateY(0) scale(1)';
-                    e.target.style.boxShadow = '0px 12px 24px rgba(25, 101, 192, 0.4), 0px 4px 12px rgba(233, 30, 99, 0.3)';
-                  }
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  marginBottom: '24px',
                 }}
               >
-                <span>
-                  {(() => {
-                    if (isSubmitting) return 'Sending...';
-                    if (formStatus === 'success') return 'Message Sent!';
-                    return 'Send Message';
-                  })()}
-                </span>
-              </StyledButton>
-            </StyledBox>
-          </div>
-        </StyledBox>
+                <strong>Frontend Development:</strong> I create responsive, interactive user
+                interfaces using React, TypeScript, and modern CSS. My frontend work emphasizes
+                performance optimization, accessibility compliance, and seamless user experience
+                across all devices. I'm experienced with state management libraries like Redux and
+                Zustand, as well as styling solutions including Styled Components, Emotion, and
+                Tailwind CSS.
+              </Typography>
 
-        <StyledBox
-          as="section"
-          aria-labelledby="availability"
-          mt={8}
-          mb={8}
-          style={{ textAlign: 'center' }}
-        >
-          <Typography
-            as="h2"
-            variant="h2"
-            id="availability"
-            style={{
-              position: 'absolute',
-              left: '-10000px',
-              width: '1px',
-              height: '1px',
-              overflow: 'hidden',
-            }}
-          >
-            Current Availability
-          </Typography>
-          <Typography
-            variant="body1"
-            style={{
-              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
-              fontSize: '1.5rem',
-              fontWeight: 400,
-              lineHeight: 1.6,
-            }}
-          >
-            Currently open to new opportunities and exciting projects. Let&apos;s build something
-            together!
-          </Typography>
-        </StyledBox>
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  marginBottom: '24px',
+                }}
+              >
+                <strong>Backend Development:</strong> My Node.js expertise includes building RESTful
+                APIs, GraphQL endpoints, and real-time applications using Express.js, NestJS, and
+                Socket.io. I implement secure authentication systems, database design and
+                optimization, and third-party service integrations. I work with both SQL databases
+                (PostgreSQL, MySQL) and NoSQL solutions (MongoDB, Redis) depending on project
+                requirements.
+              </Typography>
 
-        {/* Social Sharing Section */}
-        <StyledBox as="section" aria-labelledby="social-share">
-          <SocialShare
-            url={typeof window !== 'undefined' && window.location ? window.location.href : 'https://jeffmaxwell.dev/contact/'}
-            title="Contact Jeff Maxwell - Full Stack Developer"
-            description="Get in touch with Jeff Maxwell for your next React or Node.js development project. Currently open to new opportunities and exciting projects."
-          />
-        </StyledBox>
-      </StyledContainer>
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  marginBottom: '24px',
+                }}
+              >
+                <strong>Full Stack Solutions:</strong> I deliver complete web applications from
+                concept to deployment, handling everything from database architecture to user
+                interface design. My development process includes comprehensive testing, performance
+                optimization, SEO implementation, and deployment to cloud platforms like Vercel,
+                Netlify, and AWS. I also provide ongoing maintenance and feature development
+                services.
+              </Typography>
+
+              <Typography
+                variant="body1"
+                style={{
+                  fontSize: '1.25rem',
+                  lineHeight: 1.7,
+                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                }}
+              >
+                <strong>Consultation & Code Review:</strong> Beyond development work, I offer
+                technical consultation for architecture decisions, code review services for existing
+                projects, and mentoring for development teams. I can help evaluate technical debt,
+                recommend performance improvements, and guide teams in adopting modern development
+                practices and tools.
+              </Typography>
+            </div>
+          </StyledBox>
+
+          {/* Social Sharing Section */}
+          <StyledBox as="section" aria-labelledby="social-share">
+            <SocialShare
+              url={
+                typeof window !== 'undefined' && window.location
+                  ? window.location.href
+                  : 'https://el-jefe.me/contact/'
+              }
+              title="Contact Jeff Maxwell - Full Stack Developer"
+              description="Get in touch with Jeff Maxwell for your next React or Node.js development project. Currently open to new opportunities and exciting projects."
+            />
+          </StyledBox>
+        </StyledContainer>
       </PageTransition>
     </Layout>
   );
