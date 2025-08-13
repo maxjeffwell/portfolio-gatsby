@@ -117,7 +117,7 @@ const projectsData = [
     },
     screenshots: {
       screenshot1: 'educationelly_screenshot1',
-      screenshot2: 'educationelly_screenshot2',
+      screenshot2: 'educationelly_screenshot2.mp4',
     },
   },
   {

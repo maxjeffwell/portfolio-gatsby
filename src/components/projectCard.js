@@ -156,50 +156,49 @@ const IconLink = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
   transition: all 0.3s ease;
-  background-color: ${(props) => 
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)'};
   
   &:hover {
     transform: scale(1.1);
-    background-color: ${(props) => 
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'};
   }
   
   &:focus {
     outline: 2px solid ${(props) => 
       props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2'};
-    outline-offset: 2px;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  
+  &:active {
+    transform: scale(0.95);
   }
   
   svg {
-    width: 24px;
-    height: 24px;
+    width: 64px;
+    height: 64px;
     fill: ${(props) => 
       props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2'};
     transition: fill 0.3s ease;
   }
   
-  @media (max-width: 480px) {
-    width: 44px;
-    height: 44px;
-    
+  @media (max-width: 768px) {
     svg {
-      width: 22px;
-      height: 22px;
+      width: 56px;
+      height: 56px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    svg {
+      width: 48px;
+      height: 48px;
     }
   }
   
   @media (max-width: 360px) {
-    width: 40px;
-    height: 40px;
-    
     svg {
-      width: 20px;
-      height: 20px;
+      width: 42px;
+      height: 42px;
     }
   }
 `;

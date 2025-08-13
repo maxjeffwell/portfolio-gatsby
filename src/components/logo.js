@@ -48,8 +48,6 @@ const StyledZapatistaFlag = styled(ZapatistaFlag)`
   width: 100%;
   max-width: 200px;
   height: auto;
-  filter: ${(props) =>
-    props.theme?.mode === 'dark' ? 'brightness(1.1) contrast(1.1)' : 'none'};
   
   @media (max-width: 480px) {
     max-width: 150px;
