@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 import IapfLogo from '../images/svg-icons/iapf.svg';
 import AspcaLogo from '../images/svg-icons/aspca.svg';
-import ZapatistaFlag from '../images/svg-icons/ezln.svg';
+import ChiapasMapImage from '../images/chiapas_map.png';
 
 const LogoContainer = styled.div`
   display: grid;
@@ -14,7 +14,7 @@ const LogoContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
   
-  /* Center the third item (Zapatista flag) when it wraps to its own row */
+  /* Center the third item (Chiapas map) when it wraps to its own row */
   & > *:nth-child(3):last-child {
     grid-column: 1 / -1;
     justify-self: center;
@@ -58,7 +58,7 @@ const StyledAspcaLogo = styled(AspcaLogo)`
   filter: ${(props) => (props.theme?.mode === 'light' ? 'brightness(1.2) contrast(1.1)' : 'none')};
 `;
 
-const StyledZapatistaFlag = styled(ZapatistaFlag)`
+const StyledChiapasMap = styled.img`
   transition: all 0.3s ease-in-out;
   width: 100%;
   max-width: 200px;
@@ -84,10 +84,10 @@ function Logo() {
         aria-label="American Society for the Prevention of Cruelty to Animals logo"
         alt="ASPCA - American Society for the Prevention of Cruelty to Animals logo"
       />
-      <StyledZapatistaFlag
-        theme={theme}
-        aria-label="Zapatista movement flag representing indigenous rights and social justice"
-        alt="Zapatista flag - Supporting indigenous rights and social justice movements"
+      <StyledChiapasMap
+        src={ChiapasMapImage}
+        aria-label="Map of Chiapas representing indigenous rights and social justice"
+        alt="Chiapas map - Supporting indigenous rights and social justice movements"
       />
     </LogoContainer>
   );
