@@ -6,6 +6,9 @@ import { FaReact, FaGit } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
 
+import DemoIcon from '../images/svg-icons/demo.svg';
+import OpenSourceIcon from '../images/svg-icons/open_source.svg';
+
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
@@ -148,20 +151,56 @@ const Stack = styled.div`
   }
 `;
 
-// Simple icon components
-const GitHubIcon = styled.span`
-  font-size: 20px;
-  margin-right: 8px;
-  &::before {
-    content: '🔗';
+// SVG Icon Link components
+const IconLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  background-color: ${(props) => 
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)'};
+  
+  &:hover {
+    transform: scale(1.1);
+    background-color: ${(props) => 
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'};
   }
-`;
-
-const LaunchIcon = styled.span`
-  font-size: 20px;
-  margin-right: 8px;
-  &::before {
-    content: '🚀';
+  
+  &:focus {
+    outline: 2px solid ${(props) => 
+      props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2'};
+    outline-offset: 2px;
+  }
+  
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: ${(props) => 
+      props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2'};
+    transition: fill 0.3s ease;
+  }
+  
+  @media (max-width: 480px) {
+    width: 44px;
+    height: 44px;
+    
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 
@@ -287,24 +326,20 @@ const StyledCardContent = styled.div`
 `;
 
 const StyledCardActions = styled.div`
-  justify-content: space-between;
+  justify-content: center;
   padding: 16px;
   padding-top: 0;
   display: flex;
-  gap: 8px;
+  gap: 16px;
+  align-items: center;
 
   @media (max-width: 480px) {
-    flex-direction: column;
-    gap: 12px;
-
-    button {
-      width: 100%;
-      justify-content: center;
-    }
+    gap: 20px;
   }
 
   @media (max-width: 360px) {
     padding: 0 12px 12px;
+    gap: 16px;
   }
 `;
 
@@ -644,42 +679,26 @@ function ProjectCard({
       </StyledCardContent>
 
       <StyledCardActions>
-        <Button
+        <IconLink
           theme={theme}
-          as="a"
-          variant="outlined"
           href={sourceURL}
           title={`View source code for ${title} on GitHub`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            borderRadius: 20,
-            textTransform: 'none',
-            paddingLeft: 24,
-            paddingRight: 24,
-          }}
+          aria-label={`View source code for ${title} on GitHub`}
         >
-          <GitHubIcon />
-          Source Code
-        </Button>
-        <Button
+          <OpenSourceIcon />
+        </IconLink>
+        <IconLink
           theme={theme}
-          as="a"
-          variant="outlined"
           href={hostedURL}
           title={`View live demo of ${title}`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            borderRadius: 20,
-            textTransform: 'none',
-            paddingLeft: 24,
-            paddingRight: 24,
-          }}
+          aria-label={`View live demo of ${title}`}
         >
-          <LaunchIcon />
-          Live Demo
-        </Button>
+          <DemoIcon />
+        </IconLink>
       </StyledCardActions>
     </StyledCard>
   );
