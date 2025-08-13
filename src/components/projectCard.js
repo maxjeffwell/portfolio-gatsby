@@ -494,8 +494,9 @@ function ProjectCard({
                 preload="metadata"
                 aria-label={`${title} demonstration video showing the application in action`}
               >
-                <source src={videoSrcPath} type="video/webm" />
+                {/* MP4 first for Safari/iPad compatibility */}
                 <source src={videoSrcPath.replace('.webm', '.mp4')} type="video/mp4" />
+                <source src={videoSrcPath} type="video/webm" />
                 Your browser does not support the video tag.
               </video>
             ) : getImage(imageSrcPath) ? (
@@ -534,8 +535,9 @@ function ProjectCard({
                 preload="metadata"
                 aria-label={`${title} secondary demonstration video showing additional features`}
               >
-                <source src={videoSrcPath2} type="video/webm" />
+                {/* MP4 first for Safari/iPad compatibility */}
                 <source src={videoSrcPath2.replace('.webm', '.mp4')} type="video/mp4" />
+                <source src={videoSrcPath2} type="video/webm" />
                 Your browser does not support the video tag.
               </video>
             ) : getImage(imageSrcPath2) ? (
