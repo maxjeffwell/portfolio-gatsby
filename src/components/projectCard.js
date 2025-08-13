@@ -141,6 +141,7 @@ const Stack = styled.div`
   flex-wrap: wrap;
   width: 100%;
   overflow: hidden;
+  justify-content: ${(props) => props.justifyContent || 'flex-start'};
 
   @media (max-width: 480px) {
     gap: ${(props) => (props.spacing ? `${props.spacing * 6}px` : '6px')};
@@ -580,10 +581,7 @@ function ProjectCard({
         </Typography>
 
         <TechContainer>
-          <Typography theme={theme} variant="subtitle2" color="text.secondary" gutterBottom>
-            Technologies Used:
-          </Typography>
-          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap justifyContent="center">
             {techIcon3 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(3, technologies)}>
                 {React.isValidElement(techIcon3) ? (
