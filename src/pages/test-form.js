@@ -10,7 +10,7 @@ function TestForm() {
         <input type="hidden" name="form-name" value="test-form" />
         <input type="text" name="name" />
         <input type="email" name="email" />
-        <textarea name="message"></textarea>
+        <textarea name="message" />
         <input type="text" name="bot-field" />
       </form>
 
@@ -25,7 +25,7 @@ function TestForm() {
         <input type="hidden" name="form-name" value="test-form" />
         <p style={{ position: 'absolute', left: '-9999px' }}>
           <label>
-            Don't fill this out if you're human:
+            Don&#39;t fill this out if you&#39;re human:
             <input name="bot-field" />
           </label>
         </p>
@@ -44,7 +44,7 @@ function TestForm() {
         <p>
           <label>
             Message: <br />
-            <textarea name="message" required></textarea>
+            <textarea name="message" required />
           </label>
         </p>
         <p>

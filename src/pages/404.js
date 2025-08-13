@@ -183,7 +183,7 @@ function NotFoundPage() {
               </Description>
 
               <QuoteBox theme={theme}>
-                "The best error messages are the ones that help you fix the problem." — Here are
+                &#34;The best error messages are the ones that help you fix the problem.&#34; — Here are
                 some helpful options to continue exploring.
               </QuoteBox>
 
