@@ -903,24 +903,7 @@ const Projects = ({ data }) => {
           </StyledBox>
 
           {/* Social Sharing Section */}
-          <StyledBox mb={3}>
-            <Typography
-              theme={theme}
-              variant="h2"
-              component="h2"
-              id="social-share"
-              style={{
-                fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
-                fontWeight: 600,
-                marginBottom: '24px',
-                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
-                textAlign: 'center',
-              }}
-            >
-              Share React & Node.js Developer Portfolio
-            </Typography>
-          </StyledBox>
-          <StyledBox as="section" aria-labelledby="social-share">
+          <StyledBox as="section">
             <SocialShare
               url={
                 typeof window !== 'undefined' && window.location
