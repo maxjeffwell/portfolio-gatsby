@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import { DiIntellij, DiMozilla, DiDebian, DiGit } from 'react-icons/di';
+import { SiWebstorm, SiMozilla, SiDebian, SiGit, SiAnthropic } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
@@ -330,10 +330,11 @@ function AboutPage() {
                       background:
                         theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                       borderRadius: '16px',
-                      padding: '24px',
+                      padding: '32px 24px',
                       display: 'flex',
+                      flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '16px',
+                      textAlign: 'center',
                       height: '100%',
                       boxShadow:
                         theme?.mode === 'dark'
@@ -351,10 +352,10 @@ function AboutPage() {
                   >
                     <div
                       style={{
-                        fontSize: '2rem',
+                        fontSize: '4rem',
                         color:
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
-                        flexShrink: 0,
+                        marginBottom: '24px',
                         transition: 'color 0.3s ease',
                         display: 'flex',
                         alignItems: 'center',
@@ -363,7 +364,7 @@ function AboutPage() {
                     >
                       <ClientOnlyIcon
                         iconName="CodeTerminal"
-                        fontSize="3rem"
+                        fontSize="4rem"
                         style={{
                           color:
                             theme?.mode === 'dark'
@@ -379,7 +380,13 @@ function AboutPage() {
                         theme={theme}
                         variant="h3"
                         component="h3"
-                        style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }}
+                        style={{
+                          fontWeight: 600,
+                          marginBottom: '16px',
+                          fontSize: '1.375rem',
+                          textAlign: 'center',
+                          lineHeight: 1.3,
+                        }}
                         customColor={
                           theme?.mode === 'dark'
                             ? 'rgba(255, 255, 255, 0.87)'
@@ -391,9 +398,15 @@ function AboutPage() {
                       <Typography
                         theme={theme}
                         variant="body2"
-                        style={{ lineHeight: 1.4, fontSize: '1.125rem' }}
+                        style={{
+                          lineHeight: 1.5,
+                          fontSize: '1rem',
+                          textAlign: 'center',
+                          maxWidth: '100%',
+                          margin: '0 auto',
+                        }}
                         customColor={
-                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
                         }
                       >
                         I believe in writing code that tells a story - clean, readable, and
@@ -413,10 +426,11 @@ function AboutPage() {
                       background:
                         theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                       borderRadius: '16px',
-                      padding: '24px',
+                      padding: '32px 24px',
                       display: 'flex',
+                      flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '16px',
+                      textAlign: 'center',
                       height: '100%',
                       boxShadow:
                         theme?.mode === 'dark'
@@ -427,10 +441,10 @@ function AboutPage() {
                   >
                     <div
                       style={{
-                        fontSize: '2rem',
+                        fontSize: '4rem',
                         color:
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
-                        flexShrink: 0,
+                        marginBottom: '24px',
                         transition: 'color 0.3s ease',
                         display: 'flex',
                         alignItems: 'center',
@@ -439,7 +453,7 @@ function AboutPage() {
                     >
                       <ClientOnlyIcon
                         iconName="Coffee"
-                        fontSize="3rem"
+                        fontSize="4rem"
                         style={{
                           color:
                             theme?.mode === 'dark'
@@ -455,7 +469,13 @@ function AboutPage() {
                         theme={theme}
                         variant="h3"
                         component="h3"
-                        style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }}
+                        style={{
+                          fontWeight: 600,
+                          marginBottom: '16px',
+                          fontSize: '1.375rem',
+                          textAlign: 'center',
+                          lineHeight: 1.3,
+                        }}
                         customColor={
                           theme?.mode === 'dark'
                             ? 'rgba(255, 255, 255, 0.87)'
@@ -467,9 +487,15 @@ function AboutPage() {
                       <Typography
                         theme={theme}
                         variant="body2"
-                        style={{ lineHeight: 1.4, fontSize: '1.125rem' }}
+                        style={{
+                          lineHeight: 1.5,
+                          fontSize: '1rem',
+                          textAlign: 'center',
+                          maxWidth: '100%',
+                          margin: '0 auto',
+                        }}
                         customColor={
-                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
                         }
                       >
                         My development workflow is powered by carefully crafted espresso and an
@@ -489,10 +515,11 @@ function AboutPage() {
                       background:
                         theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
                       borderRadius: '16px',
-                      padding: '24px',
+                      padding: '32px 24px',
                       display: 'flex',
+                      flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '16px',
+                      textAlign: 'center',
                       height: '100%',
                       boxShadow:
                         theme?.mode === 'dark'
@@ -503,10 +530,10 @@ function AboutPage() {
                   >
                     <div
                       style={{
-                        fontSize: '2rem',
+                        fontSize: '4rem',
                         color:
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
-                        flexShrink: 0,
+                        marginBottom: '24px',
                         transition: 'color 0.3s ease',
                         display: 'flex',
                         alignItems: 'center',
@@ -515,7 +542,7 @@ function AboutPage() {
                     >
                       <ClientOnlyIcon
                         iconName="Dog"
-                        fontSize="3rem"
+                        fontSize="4rem"
                         style={{
                           color:
                             theme?.mode === 'dark'
@@ -531,7 +558,13 @@ function AboutPage() {
                         theme={theme}
                         variant="h3"
                         component="h3"
-                        style={{ fontWeight: 600, marginBottom: '4px', fontSize: '1.5rem' }}
+                        style={{
+                          fontWeight: 600,
+                          marginBottom: '16px',
+                          fontSize: '1.375rem',
+                          textAlign: 'center',
+                          lineHeight: 1.3,
+                        }}
                         customColor={
                           theme?.mode === 'dark'
                             ? 'rgba(255, 255, 255, 0.87)'
@@ -543,9 +576,15 @@ function AboutPage() {
                       <Typography
                         theme={theme}
                         variant="body2"
-                        style={{ lineHeight: 1.4, fontSize: '1.125rem' }}
+                        style={{
+                          lineHeight: 1.5,
+                          fontSize: '1rem',
+                          textAlign: 'center',
+                          maxWidth: '100%',
+                          margin: '0 auto',
+                        }}
                         customColor={
-                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
                         }
                       >
                         Life with two demanding canine project managers has taught me invaluable
@@ -653,7 +692,7 @@ function AboutPage() {
                   color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
                 }}
               >
-                Currently, I'm focused on exploring emerging technologies like WebAssembly,
+                Currently, I&#39;m focused on exploring emerging technologies like WebAssembly,
                 serverless architectures, and progressive web applications. I believe in writing
                 documentation that helps teams understand not just what the code does, but why
                 architectural decisions were made. My goal is always to deliver maintainable,
@@ -845,8 +884,7 @@ function AboutPage() {
                   <div
                     style={{
                       fontSize: '3.5rem',
-                      color:
-                        theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                      color: 'rgba(255, 0, 251, 1)',
                       marginBottom: '16px',
                       display: 'flex',
                       justifyContent: 'center',
@@ -855,8 +893,8 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiIntellij
-                      aria-label="IntelliJ IDEA development environment icon"
+                    <SiWebstorm
+                      aria-label="JetBrains WebStorm JavaScript development environment icon"
                       role="img"
                     />
                   </div>
@@ -869,7 +907,7 @@ function AboutPage() {
                       theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
                     }
                   >
-                    IntelliJ IDEA Development Environment
+                    JetBrains WebStorm JavaScript Development Environment
                   </Typography>
                   <Typography
                     theme={theme}
@@ -903,8 +941,7 @@ function AboutPage() {
                   <div
                     style={{
                       fontSize: '3.5rem',
-                      color:
-                        theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                      color: 'rgba(255, 0, 251, 1)',
                       marginBottom: '16px',
                       display: 'flex',
                       justifyContent: 'center',
@@ -913,7 +950,7 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiMozilla aria-label="Firefox web browser development tool icon" role="img" />
+                    <SiMozilla aria-label="Firefox web browser development tool icon" role="img" />
                   </div>
                   <Typography
                     theme={theme}
@@ -960,8 +997,7 @@ function AboutPage() {
                   <div
                     style={{
                       fontSize: '3.5rem',
-                      color:
-                        theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                      color: 'rgba(255, 0, 251, 1)',
                       marginBottom: '16px',
                       display: 'flex',
                       justifyContent: 'center',
@@ -970,7 +1006,7 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiDebian aria-label="Debian Linux operating system icon" role="img" />
+                    <SiDebian aria-label="Debian Linux operating system icon" role="img" />
                   </div>
                   <Typography
                     theme={theme}
@@ -1016,8 +1052,7 @@ function AboutPage() {
                   <div
                     style={{
                       fontSize: '3.5rem',
-                      color:
-                        theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                      color: 'rgba(255, 0, 251, 1)',
                       marginBottom: '16px',
                       display: 'flex',
                       justifyContent: 'center',
@@ -1026,7 +1061,7 @@ function AboutPage() {
                       transition: 'color 0.3s ease',
                     }}
                   >
-                    <DiGit aria-label="Git version control system icon" role="img" />
+                    <SiGit aria-label="Git version control system icon" role="img" />
                   </div>
                   <Typography
                     theme={theme}
@@ -1052,6 +1087,60 @@ function AboutPage() {
                     proper merge strategies. Experience with GitHub, GitLab, and advanced Git
                     operations like rebasing, cherry-picking, and conflict resolution ensures smooth
                     team collaboration.
+                  </Typography>
+                </div>
+
+                <div
+                  style={{
+                    background:
+                      theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                    borderRadius: '16px',
+                    padding: '32px 16px',
+                    textAlign: 'center',
+                    boxShadow:
+                      theme?.mode === 'dark'
+                        ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
+                        : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: '3.5rem',
+                      color: 'rgba(255, 0, 251, 1)',
+                      marginBottom: '16px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: '80px',
+                      transition: 'color 0.3s ease',
+                    }}
+                  >
+                    <SiAnthropic aria-label="Anthropic AI company logo" role="img" />
+                  </div>
+                  <Typography
+                    theme={theme}
+                    variant="h3"
+                    component="h3"
+                    style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
+                    customColor={
+                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
+                    }
+                  >
+                    Anthropic Claude AI Assistant
+                  </Typography>
+                  <Typography
+                    theme={theme}
+                    variant="body2"
+                    style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
+                    customColor={
+                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                    }
+                  >
+                    Advanced AI assistant for code review, documentation, and development workflow
+                    optimization. Provides intelligent suggestions for architecture decisions,
+                    debugging complex issues, and maintaining code quality standards across large
+                    projects.
                   </Typography>
                 </div>
               </div>
