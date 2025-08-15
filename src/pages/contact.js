@@ -625,7 +625,7 @@ function Contact() {
           setErrorMessage('Network error: Please check your internet connection and try again.');
         } else if (error.message.includes('Netlify form handler not found')) {
           setErrorMessage(
-            'Form configuration error. Please contact me directly at maxjeffwell@gmail.com.'
+            'Form configuration error. Please contact me directly at jeff@el-jefe.me.'
           );
         } else if (error.message.includes('Server error')) {
           setErrorMessage(
@@ -836,7 +836,7 @@ function Contact() {
                         textUnderlineOffset: '0.125em',
                       }}
                     >
-                      maxjeffwell@gmail.com
+                      jeff@el-jefe.me
                     </ProtectedEmail>
                   </div>
                 </div>
@@ -1082,7 +1082,7 @@ function Contact() {
                       {' '}
                       You can also reach me directly at{' '}
                       <ProtectedEmail style={{ color: 'inherit', textDecoration: 'underline' }}>
-                        maxjeffwell@gmail.com
+                        jeff@el-jefe.me
                       </ProtectedEmail>
                     </>
                   )}

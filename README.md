@@ -414,7 +414,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👤 Author
 
 **Jeff Maxwell**
-- Email: [maxjeffwell@gmail.com](mailto:maxjeffwell@gmail.com)
+- Email: [jeff@el-jefe.me](mailto:jeff@el-jefe.me)
 - GitHub: [@maxjeffwell](https://github.com/maxjeffwell)
 - Portfolio: [https://el-jefe.me](https://el-jefe.me)
 - LinkedIn: [Jeff Maxwell](https://linkedin.com/in/jeffreymaxwell)

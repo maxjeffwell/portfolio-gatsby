@@ -401,7 +401,7 @@ function ThemedLayout({ children, data }) {
               border: `2px solid ${theme?.mode === 'dark' ? '#ff4081' : '#e91e63'}`,
               backgroundColor: 'transparent',
             }}
-            aria-label="Send email to maxjeffwell@gmail.com"
+            aria-label="Send email to jeff@el-jefe.me"
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow =
@@ -414,7 +414,7 @@ function ThemedLayout({ children, data }) {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            maxjeffwell@gmail.com
+            jeff@el-jefe.me
           </ProtectedEmail>
           <StyledBox
             as="nav"

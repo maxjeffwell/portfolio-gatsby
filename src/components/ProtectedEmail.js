@@ -6,7 +6,7 @@ const ProtectedEmail = ({
   className = '',
   style = {},
   title = 'Send email to Jeff Maxwell',
-  'aria-label': ariaLabel = 'Send email to maxjeffwell@gmail.com',
+  'aria-label': ariaLabel = 'Send email to jeff@el-jefe.me',
   subject = '',
   body = '',
   ...props
@@ -15,9 +15,9 @@ const ProtectedEmail = ({
 
   // Obfuscated email parts
   const emailParts = {
-    user: 'maxjeffwell',
-    domain: 'gmail',
-    tld: 'com',
+    user: 'jeff',
+    domain: 'el-jefe',
+    tld: 'me',
   };
 
   // Create the email address
