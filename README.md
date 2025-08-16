@@ -608,7 +608,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ![Netlify Logo](https://img.shields.io/badge/Deployed%20on-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
 
-### **Built with ❤️ by Jeff Maxwell**
+
 
 *Empowering the web with performance-first development*
 
