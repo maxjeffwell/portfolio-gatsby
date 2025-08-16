@@ -29,13 +29,25 @@
 
 A cutting-edge developer portfolio engineered for speed and user experience. Built with Gatsby's static site generation, optimized for Core Web Vitals, and deployed seamlessly on Netlify's global edge network.
 
-## 🎬 **Demo Video**
+## 🎬 **Demo Videos**
 
 <div align="center">
 
 https://github.com/maxjeffwell/portfolio-gatsby/raw/master/src/images/screenRecording-16-8-2025-4-49.mp4
 
 *Interactive portfolio demo showcasing project features and responsive design*
+
+https://github.com/maxjeffwell/portfolio-gatsby/raw/master/screenshots/Video_2025-08-16_01-20-17.mp4
+
+*Additional portfolio walkthrough demonstrating site functionality and user experience*
+
+https://github.com/maxjeffwell/portfolio-gatsby/raw/master/screenshots/Video_2025-08-16_00-12-56.mp4
+
+*Portfolio demonstration showcasing responsive design and navigation flow*
+
+https://github.com/maxjeffwell/portfolio-gatsby/raw/master/screenshots/Video_2025-08-16_00-32-19.mp4
+
+*Complete portfolio tour highlighting projects and contact functionality*
 
 </div>
 
