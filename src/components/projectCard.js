@@ -495,9 +495,12 @@ function ProjectCard({
                 preload="metadata"
                 aria-label={`${title} demonstration video showing the application in action`}
               >
-                {/* MP4 first for Safari/iPad compatibility */}
-                <source src={videoSrcPath.replace('.webm', '.mp4')} type="video/mp4" />
-                <source src={videoSrcPath} type="video/webm" />
+                {/* Load available video format */}
+                {videoSrcPath.endsWith('.mp4') ? (
+                  <source src={videoSrcPath} type="video/mp4" />
+                ) : videoSrcPath.endsWith('.webm') ? (
+                  <source src={videoSrcPath} type="video/webm" />
+                ) : null}
                 Your browser does not support the video tag.
               </video>
             ) : getImage(imageSrcPath) ? (

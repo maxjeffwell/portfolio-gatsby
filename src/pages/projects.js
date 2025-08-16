@@ -154,7 +154,7 @@ const projectsData = [
     },
     screenshots: {
       screenshot1: 'codetalk_screenshot1.mp4',
-      screenshot2: 'codetalk_screenshot2.webm',
+      screenshot2: 'codetalk_screenshot2.webm', // Fixed: using webm format
     },
   },
   {
