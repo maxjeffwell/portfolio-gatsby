@@ -181,10 +181,7 @@ const StyledFooter = styled.footer`
 const SocialLink = styled(IconButton)`
   color: ${(props) =>
     props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
-  transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s ease;
-  will-change: transform, color;
+  transition: color 0.3s ease;
   padding: 20px;
   background: transparent !important;
   border: none !important;
@@ -209,7 +206,6 @@ const SocialLink = styled(IconButton)`
   }
 
   &:hover {
-    transform: translateY(-4px) scale(1.15);
     color: #e91e63 !important;
     background: transparent !important;
 
@@ -231,9 +227,6 @@ const SocialLink = styled(IconButton)`
     }
   }
 
-  &:active {
-    transform: translateY(-2px) scale(1.1);
-  }
 
   @media (max-width: 768px) {
     padding: 18px;
@@ -242,9 +235,6 @@ const SocialLink = styled(IconButton)`
   @media (max-width: 600px) {
     padding: 16px;
 
-    &:hover {
-      transform: translateY(-2px) scale(1.1);
-    }
   }
 
   @media (max-width: 480px) {
@@ -369,14 +359,12 @@ function ThemedLayout({ children, _data }) {
             }}
             aria-label="Send email to jeff@el-jefe.me"
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow =
                 theme?.mode === 'dark'
                   ? '0 8px 25px rgba(255, 64, 129, 0.3)'
                   : '0 8px 25px rgba(233, 30, 99, 0.3)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = 'none';
             }}
           >

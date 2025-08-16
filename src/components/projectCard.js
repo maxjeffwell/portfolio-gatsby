@@ -159,10 +159,6 @@ const IconLink = styled.a`
   justify-content: center;
   transition: all 0.3s ease;
   
-  &:hover {
-    transform: scale(1.1);
-  }
-  
   &:focus {
     outline: 2px solid ${(props) => 
       props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2'};
@@ -170,9 +166,6 @@ const IconLink = styled.a`
     border-radius: 4px;
   }
   
-  &:active {
-    transform: scale(0.95);
-  }
   
   svg {
     width: 64px;
@@ -290,7 +283,6 @@ const StyledCard = styled.div`
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background 0.3s ease;
-  will-change: transform, box-shadow;
   background: ${(props) =>
     props.theme?.mode === 'dark'
       ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
@@ -301,7 +293,6 @@ const StyledCard = styled.div`
     0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 
   &:hover {
-    transform: translateY(-8px);
     box-shadow:
       0px 5px 5px -3px rgba(0, 0, 0, 0.2),
       0px 8px 10px 1px rgba(0, 0, 0, 0.14),
@@ -356,13 +347,7 @@ const ImageContainer = styled.div`
   border-radius: 8px;
 
   & [data-gatsby-image-wrapper] {
-    transition: transform 0.3s ease-in-out;
-    will-change: transform;
     border-radius: 8px;
-
-    &:hover {
-      transform: scale(1.05);
-    }
   }
 
   & video {
@@ -370,12 +355,6 @@ const ImageContainer = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
-    will-change: transform;
-
-    &:hover {
-      transform: scale(1.05);
-    }
   }
 
   @media (max-width: 600px) {
@@ -401,14 +380,10 @@ const TechIcon = styled.div`
   border-radius: 50%;
   background-color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
-  transition:
-    transform 0.3s ease,
-    background-color 0.3s ease;
-  will-change: transform, background-color;
+  transition: background-color 0.3s ease;
   flex-shrink: 0;
 
   &:hover {
-    transform: scale(1.1);
     background-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'};
   }
