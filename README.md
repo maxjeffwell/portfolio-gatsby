@@ -33,7 +33,7 @@ A cutting-edge developer portfolio engineered for speed and user experience. Bui
 
 <div align="center">
 
-https://github.com/user-attachments/assets/screenRecording-16-8-2025-4-49.mp4
+https://github.com/maxjeffwell/portfolio-gatsby/raw/master/src/images/screenRecording-16-8-2025-4-49.mp4
 
 *Interactive portfolio demo showcasing project features and responsive design*
 
