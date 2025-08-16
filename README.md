@@ -29,6 +29,32 @@
 
 A cutting-edge developer portfolio engineered for speed and user experience. Built with Gatsby's static site generation, optimized for Core Web Vitals, and deployed seamlessly on Netlify's global edge network.
 
+## 🎬 **Demo Video**
+
+<div align="center">
+
+https://github.com/user-attachments/assets/screenRecording-16-8-2025-4-49.mp4
+
+*Interactive portfolio demo showcasing project features and responsive design*
+
+</div>
+
+## 📱 **Mobile Screenshots**
+
+<div align="center">
+
+### **iPhone 13 Mini - iOS 15.0**
+
+<img src="src/images/screenshot-iPhone 13 Mini-15.0.png" alt="Portfolio homepage on iPhone 13 Mini" width="250">
+<img src="src/images/screenshot-iPhone 13 Mini-15.0 (1).png" alt="About page on iPhone 13 Mini" width="250">
+<img src="src/images/screenshot-iPhone 13 Mini-15.0 (2).png" alt="Projects page on iPhone 13 Mini" width="250">
+
+<img src="src/images/screenshot-iPhone 13 Mini-15.0 (3).png" alt="Contact page on iPhone 13 Mini" width="250">
+<img src="src/images/screenshot-iPhone 13 Mini-15.0 (4).png" alt="Mobile navigation on iPhone 13 Mini" width="250">
+
+*Responsive design optimized for mobile devices with perfect scaling and touch interactions*
+
+</div>
 
 ## ✨ **Key Features**
 
