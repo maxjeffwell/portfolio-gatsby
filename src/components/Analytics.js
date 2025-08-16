@@ -33,7 +33,9 @@ const Analytics = () => {
         try {
           await scriptWorker.loadScript(gtagUrl, { defer: true });
         } catch (error) {
-          console.warn('Script worker failed, falling back to main thread:', error);
+          if (process.env.NODE_ENV === 'development') {
+            console.warn('Script worker failed, falling back to main thread:', error);
+          }
           // Fallback to regular script loading
           loadAnalyticsMainThread();
         }

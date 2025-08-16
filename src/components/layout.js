@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import ClientOnlyIcon from './ClientOnlyIcon';
 import ProtectedEmail from './ProtectedEmail';
 import Analytics from './Analytics';
@@ -54,7 +53,6 @@ const StyledBox = styled.div`
   padding-bottom: ${(props) => (props.pb ? `${props.pb * 8}px` : 'inherit')};
 `;
 
-// Styled components to replace MUI components
 const Typography = styled.div`
   margin: 0;
   font-family: ${(props) => {
@@ -63,78 +61,54 @@ const Typography = styled.div`
     }
     return "'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif";
   }};
-  font-weight: ${(props) =>
-    props.variant === 'h1'
-      ? 700
-      : props.variant === 'h2'
-        ? 700
-        : props.variant === 'h3'
-          ? 600
-          : props.variant === 'h4'
-            ? 600
-            : props.variant === 'h5'
-              ? 500
-              : props.variant === 'h6'
-                ? 500
-                : props.variant === 'subtitle1'
-                  ? 400
-                  : props.variant === 'subtitle2'
-                    ? 500
-                    : props.variant === 'body1'
-                      ? 400
-                      : props.variant === 'body2'
-                        ? 400
-                        : props.variant === 'caption'
-                          ? 400
-                          : 400};
-  font-size: ${(props) =>
-    props.variant === 'h1'
-      ? 'clamp(3rem, 8vw, 6rem)'
-      : props.variant === 'h2'
-        ? 'clamp(2.5rem, 6vw, 3.75rem)'
-        : props.variant === 'h3'
-          ? 'clamp(2rem, 5vw, 3rem)'
-          : props.variant === 'h4'
-            ? 'clamp(1.5rem, 4vw, 2.125rem)'
-            : props.variant === 'h5'
-              ? 'clamp(1.25rem, 3vw, 1.5rem)'
-              : props.variant === 'h6'
-                ? 'clamp(1.125rem, 2.5vw, 1.25rem)'
-                : props.variant === 'subtitle1'
-                  ? '1rem'
-                  : props.variant === 'subtitle2'
-                    ? '0.875rem'
-                    : props.variant === 'body1'
-                      ? '1rem'
-                      : props.variant === 'body2'
-                        ? '0.875rem'
-                        : props.variant === 'caption'
-                          ? '0.75rem'
-                          : '1rem'};
-  line-height: ${(props) =>
-    props.variant === 'h1'
-      ? 1.2
-      : props.variant === 'h2'
-        ? 1.2
-        : props.variant === 'h3'
-          ? 1.2
-          : props.variant === 'h4'
-            ? 1.235
-            : props.variant === 'h5'
-              ? 1.334
-              : props.variant === 'h6'
-                ? 1.4
-                : props.variant === 'subtitle1'
-                  ? 1.6
-                  : props.variant === 'subtitle2'
-                    ? 1.5
-                    : props.variant === 'body1'
-                      ? 1.7
-                      : props.variant === 'body2'
-                        ? 1.6
-                        : props.variant === 'caption'
-                          ? 1.5
-                          : 1.6};
+  font-weight: ${(props) => {
+    const weights = {
+      h1: 700,
+      h2: 700,
+      h3: 600,
+      h4: 600,
+      h5: 500,
+      h6: 500,
+      subtitle1: 400,
+      subtitle2: 500,
+      body1: 400,
+      body2: 400,
+      caption: 400,
+    };
+    return weights[props.variant] || 400;
+  }};
+  font-size: ${(props) => {
+    const sizes = {
+      h1: 'clamp(3rem, 8vw, 6rem)',
+      h2: 'clamp(2.5rem, 6vw, 3.75rem)',
+      h3: 'clamp(2rem, 5vw, 3rem)',
+      h4: 'clamp(1.5rem, 4vw, 2.125rem)',
+      h5: 'clamp(1.25rem, 3vw, 1.5rem)',
+      h6: 'clamp(1.125rem, 2.5vw, 1.25rem)',
+      subtitle1: '1rem',
+      subtitle2: '0.875rem',
+      body1: '1rem',
+      body2: '0.875rem',
+      caption: '0.75rem',
+    };
+    return sizes[props.variant] || '1rem';
+  }};
+  line-height: ${(props) => {
+    const lineHeights = {
+      h1: 1.2,
+      h2: 1.2,
+      h3: 1.2,
+      h4: 1.235,
+      h5: 1.334,
+      h6: 1.4,
+      subtitle1: 1.6,
+      subtitle2: 1.5,
+      body1: 1.7,
+      body2: 1.6,
+      caption: 1.5,
+    };
+    return lineHeights[props.variant] || 1.6;
+  }};
   letter-spacing: ${(props) => (props.variant?.startsWith('h') ? '-0.02em' : '0.01em')};
   color: ${(props) => {
     if (props.theme?.mode === 'dark') {
@@ -148,28 +122,15 @@ const Typography = styled.div`
     if (props.color === 'secondary') return props.theme?.colors?.secondary || '#dc004e';
     return props.customColor || props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
   }};
-  margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : props.paragraph ? '1rem' : '0')};
+  margin-bottom: ${(props) => {
+    if (props.gutterBottom) return '0.35em';
+    if (props.paragraph) return '1rem';
+    return '0';
+  }};
   text-align: ${(props) => props.align || 'inherit'};
   transition: color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-`;
-
-const Link = styled.a`
-  color: ${(props) =>
-    props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-  text-decoration: underline;
-  text-decoration-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.4)' : 'rgba(25, 118, 210, 0.4)'};
-  text-underline-offset: 0.125em;
-  transition:
-    color 0.3s ease,
-    text-decoration-color 0.3s ease;
-
-  &:hover {
-    text-decoration-color: ${(props) =>
-      props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-  }
 `;
 
 const IconButton = styled.button`
@@ -348,7 +309,11 @@ const ClientOnlyAnimatedCursor = ({ theme }) => {
   );
 };
 
-function ThemedLayout({ children, data }) {
+ClientOnlyAnimatedCursor.propTypes = {
+  theme: PropTypes.object,
+};
+
+function ThemedLayout({ children, _data }) {
   const { theme } = useTheme();
 
   return (
@@ -508,7 +473,7 @@ function ThemedLayout({ children, data }) {
 
 ThemedLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  data: PropTypes.object.isRequired,
+  _data: PropTypes.object.isRequired,
 };
 
 // Main Layout Component

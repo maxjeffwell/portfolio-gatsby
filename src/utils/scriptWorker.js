@@ -114,6 +114,12 @@ class ScriptWorker {
 
   loadScript(url, config = {}) {
     return new Promise((resolve, reject) => {
+      // Early return if not in browser environment
+      if (typeof window === 'undefined') {
+        resolve();
+        return;
+      }
+      
       const id = Math.random().toString(36).substr(2, 9);
       
       this.queue.push({ id, resolve, reject, url, config, type: 'LOAD_SCRIPT' });
@@ -167,7 +173,7 @@ class ScriptWorker {
   executeFunction(functionName, args, config = {}) {
     if (!this.isWorkerSupported || !this.initialized) {
       // Fallback to main thread execution
-      if (typeof window[functionName] === 'function') {
+      if (typeof window !== 'undefined' && typeof window[functionName] === 'function') {
         return window[functionName](...args);
       }
       return Promise.resolve();
