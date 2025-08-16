@@ -321,9 +321,6 @@ const GradientText = styled(Typography)`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s ease;
   font-weight: 700 !important; /* Match other page headers */
