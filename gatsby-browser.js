@@ -72,7 +72,7 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
 // Performance optimization for page transitions
 export const onRouteUpdate = ({ location }) => {
   // Track page views with our custom analytics (with delay for better performance)
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+  if (typeof window !== 'undefined' && typeof window.gtag === 'function' && window.dataLayer) {
     // Use requestIdleCallback for better performance
     const trackPageView = () => {
       window.gtag('config', 'G-NL37L9SVQ0', {

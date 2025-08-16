@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import ClientOnlyIcon from './ClientOnlyIcon';
 import ProtectedEmail from './ProtectedEmail';
-import Analytics from './Analytics';
+// import Analytics from './Analytics'; // Disabled - using gatsby-plugin-google-gtag instead
 
 import Header from './header';
 // ThirdPartyScripts will be loaded client-side only
@@ -319,7 +319,7 @@ function ThemedLayout({ children, _data }) {
   return (
     <>
       <GlobalStyles theme={theme} />
-      <Analytics />
+      {/* <Analytics /> - Disabled - using gatsby-plugin-google-gtag instead */}
       <ClientOnlyAnimatedCursor theme={theme} />
       <Header />
       <main
