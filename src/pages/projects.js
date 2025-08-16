@@ -154,7 +154,7 @@ const projectsData = [
     },
     screenshots: {
       screenshot1: 'codetalk_screenshot1.mp4',
-      screenshot2: 'codetalk_screenshot2.webm',
+      screenshot2: 'codetalk_screenshot2.mp4',
     },
   },
   {
@@ -228,7 +228,7 @@ const projectsData = [
       icon5: NPMIcon,
     },
     screenshots: {
-      screenshot1: 'firebook_screenshot1.webm',
+      screenshot1: 'firebook_screenshot1.mp4',
       screenshot2: 'firebook_screenshot2.png',
     },
   },
