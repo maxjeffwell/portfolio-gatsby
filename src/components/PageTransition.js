@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 const pageVariants = {
@@ -23,10 +23,20 @@ const pageTransition = {
 };
 
 function PageTransition({ children, className }) {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
     // Scroll to top when component mounts (page transition starts)
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, []);
+
+  // Return static div during SSR
+  if (!isClient) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div

@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
-import { motion } from 'motion/react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
@@ -10,6 +9,7 @@ import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 import SocialShare from '../components/SocialShare';
+import MotionWrapper from '../components/MotionWrapper';
 
 import GraphQLIcon from '../images/svg-icons/graphql.svg';
 import ApolloClientIcon from '../images/svg-icons/apolloclient.svg';
@@ -622,7 +622,7 @@ const Projects = ({ data }) => {
           ]}
         />
         <StyledContainer>
-          <motion.div
+          <MotionWrapper
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -681,9 +681,9 @@ const Projects = ({ data }) => {
                 .
               </Typography>
             </StyledBox>
-          </motion.div>
+          </MotionWrapper>
 
-          <motion.div
+          <MotionWrapper
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
@@ -847,7 +847,7 @@ const Projects = ({ data }) => {
                 )}
               </CustomSelectContainer>
             </StyledBox>
-          </motion.div>
+          </MotionWrapper>
 
           <StyledBox mb={3}>
             <Typography
