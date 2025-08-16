@@ -91,11 +91,22 @@ const PerformanceMonitor = () => {
           }
         });
 
+        // Check supported entry types before observing
+        const supportedEntryTypes = PerformanceObserver.supportedEntryTypes || [];
+        
         try {
-          lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-          fidObserver.observe({ entryTypes: ['first-input'] });
-          clsObserver.observe({ entryTypes: ['layout-shift'] });
-          ttfbObserver.observe({ entryTypes: ['navigation'] });
+          if (supportedEntryTypes.includes('largest-contentful-paint')) {
+            lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+          }
+          if (supportedEntryTypes.includes('first-input')) {
+            fidObserver.observe({ entryTypes: ['first-input'] });
+          }
+          if (supportedEntryTypes.includes('layout-shift')) {
+            clsObserver.observe({ entryTypes: ['layout-shift'] });
+          }
+          if (supportedEntryTypes.includes('navigation')) {
+            ttfbObserver.observe({ entryTypes: ['navigation'] });
+          }
         } catch (error) {
           // Some browsers might not support all entry types
           if (process.env.NODE_ENV === 'development') {
@@ -155,8 +166,11 @@ const PerformanceMonitor = () => {
       });
 
       try {
-        resourceObserver.observe({ entryTypes: ['resource'] });
-        return () => resourceObserver.disconnect();
+        const supportedEntryTypes = PerformanceObserver.supportedEntryTypes || [];
+        if (supportedEntryTypes.includes('resource')) {
+          resourceObserver.observe({ entryTypes: ['resource'] });
+          return () => resourceObserver.disconnect();
+        }
       } catch (error) {
         if (process.env.NODE_ENV === 'development') {
           console.warn('Resource performance monitoring setup error:', error);
@@ -203,8 +217,11 @@ const PerformanceMonitor = () => {
         });
 
         try {
-          longTaskObserver.observe({ entryTypes: ['longtask'] });
-          return () => longTaskObserver.disconnect();
+          const supportedEntryTypes = PerformanceObserver.supportedEntryTypes || [];
+          if (supportedEntryTypes.includes('longtask')) {
+            longTaskObserver.observe({ entryTypes: ['longtask'] });
+            return () => longTaskObserver.disconnect();
+          }
         } catch (error) {
           if (process.env.NODE_ENV === 'development') {
             console.warn('Long task monitoring setup error:', error);
