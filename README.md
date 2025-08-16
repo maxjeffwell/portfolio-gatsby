@@ -39,6 +39,76 @@ https://github.com/maxjeffwell/portfolio-gatsby/raw/master/src/images/screenReco
 
 </div>
 
+## 📸 **Screenshots**
+
+<div align="center">
+
+### **Desktop Homepage & About Sections**
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.42.41.png" alt="Homepage hero section with Full Stack Developer introduction" width="600">
+
+*Homepage featuring hero section with professional introduction and development philosophy*
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.43.03.png" alt="Custom React Hook code example and development approach" width="600">
+
+*Interactive code examples showcasing custom React hooks and development best practices*
+
+### **Technology Stack & Development Tools**
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.43.29.png" alt="JavaScript technology stack featuring WebStorm and Firefox development tools" width="600">
+
+*Technology showcase highlighting primary development environment and tools*
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.43.40.png" alt="Development tools including Debian Linux and Git workflow" width="600">
+
+*Additional development tools and workflow optimization technologies*
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.43.53.png" alt="Supported organizations including IAPF and ASPCA" width="600">
+
+*Organizations and causes supported through development work and contributions*
+
+### **Portfolio Projects**
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.44.29.png" alt="Code Talk collaborative development platform project" width="600">
+
+*Code Talk - Real-time collaborative code editor and messaging platform*
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.44.48.png" alt="educationELLy student management system" width="600">
+
+*educationELLy - Student data management and collaboration platform*
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.44.52.png" alt="educationELLy admin dashboard with student management features" width="600">
+
+*Advanced administrative features and student management capabilities*
+
+### **Contact & Hire Me Sections**
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.45.26.png" alt="Hire JavaScript Developer contact form" width="600">
+
+*Professional contact form for project inquiries and collaboration opportunities*
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.45.34.png" alt="Let's Connect section with hiring information" width="600">
+
+*Connection section highlighting React & Node.js development expertise*
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.45.44.png" alt="Contact information with email, phone, and GitHub links" width="600">
+
+*Complete contact information and professional network links*
+
+### **Footer & Site Information**
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.45.56.png" alt="Site footer with social sharing and contact details" width="600">
+
+*Site footer featuring social media integration and developer attribution*
+
+### **Mobile Navigation**
+
+<img src="screenshots/Screen Shot 2025-08-16 at 06.46.06.png" alt="Mobile hamburger menu navigation" width="300">
+
+*Responsive mobile navigation menu with clean interface design*
+
+</div>
+
 ## 📱 **Mobile Screenshots**
 
 <div align="center">
