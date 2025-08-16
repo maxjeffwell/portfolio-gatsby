@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
@@ -7,41 +7,26 @@ import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 
 const StyledContainer = styled.div`
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 0 24px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   @media (max-width: 600px) {
     padding: 0 16px;
   }
 `;
 
-const ResumeFrame = styled.iframe`
-  width: 100%;
-  height: 80vh;
-  min-height: 600px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  background: #ffffff;
-  
-  @media (max-width: 768px) {
-    height: 70vh;
-    min-height: 500px;
-  }
-`;
-
-const HeaderSection = styled.div`
-  text-align: center;
-  margin-bottom: 32px;
-  padding-top: 40px;
-`;
-
 const Title = styled.h1`
   font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -50,43 +35,70 @@ const Title = styled.h1`
 `;
 
 const Description = styled.p`
-  font-size: 1.25rem;
-  line-height: 1.5;
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'};
-  max-width: 600px;
-  margin: 0 auto 24px auto;
+  font-size: 1.375rem;
+  line-height: 1.6;
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'};
+  margin: 0 auto 32px auto;
   transition: color 0.3s ease;
+  max-width: 600px;
+`;
+
+const CountdownText = styled.p`
+  font-size: 1.125rem;
+  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'};
+  margin-bottom: 32px;
 `;
 
 const ResumeLink = styled.a`
   display: inline-block;
-  padding: 12px 24px;
-  margin: 16px 8px;
+  padding: 16px 32px;
+  margin: 8px 16px;
   background: linear-gradient(135deg, #1565c0 0%, #9c27b0 100%);
   color: white;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.125rem;
   transition: all 0.3s ease;
+  box-shadow: 0px 4px 12px rgba(21, 101, 192, 0.2);
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 6px 16px rgba(21, 101, 192, 0.3);
+    box-shadow: 0px 8px 20px rgba(21, 101, 192, 0.3);
+  }
+
+  @media (max-width: 600px) {
+    display: block;
+    margin: 8px 0;
+    width: 100%;
+    max-width: 300px;
   }
 `;
 
-const LoadingMessage = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
-  font-size: 1.125rem;
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'};
+const BackLink = styled.a`
+  display: inline-block;
+  margin-top: 24px;
+  color: ${props => props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0'};
+  text-decoration: underline;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: ${props => props.theme?.mode === 'dark' ? '#64b5f6' : '#0d47a1'};
+  }
 `;
 
 function ResumePage() {
   const { theme } = useTheme();
+
+  useEffect(() => {
+    // Auto-redirect after 3 seconds
+    const timer = setTimeout(() => {
+      window.open('https://maxjeffwell.github.io/Resume', '_blank', 'noopener,noreferrer');
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Layout>
@@ -107,51 +119,33 @@ function ResumePage() {
           ]}
         />
         <StyledContainer>
-          <HeaderSection>
-            <Title>Professional Resume</Title>
-            <Description theme={theme}>
-              Comprehensive overview of my full stack development experience, technical skills, and professional background.
-            </Description>
-            <div>
-              <ResumeLink
-                href="https://maxjeffwell.github.io/Resume"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Open resume in new tab"
-              >
-                Open in New Tab
-              </ResumeLink>
-              <ResumeLink
-                href="https://maxjeffwell.github.io/Resume"
-                download
-                title="Download resume as PDF"
-              >
-                Download PDF
-              </ResumeLink>
-            </div>
-          </HeaderSection>
+          <Title>Professional Resume</Title>
+          <Description theme={theme}>
+            Redirecting you to my comprehensive resume showcasing full stack development experience, 
+            technical skills, and professional background.
+          </Description>
+          <CountdownText theme={theme}>
+            Opening resume in 3 seconds...
+          </CountdownText>
           
-          <ResumeFrame
-            src="https://maxjeffwell.github.io/Resume"
-            title="Jeff Maxwell Professional Resume"
-            loading="lazy"
-            allowFullScreen
+          <div>
+            <ResumeLink
+              href="https://maxjeffwell.github.io/Resume"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="View Jeff Maxwell's professional resume"
+            >
+              View Resume Now
+            </ResumeLink>
+          </div>
+
+          <BackLink 
+            href="/about/" 
+            theme={theme}
+            title="Return to About page"
           >
-            <LoadingMessage theme={theme}>
-              Loading resume... If the resume doesn't load, please{' '}
-              <a 
-                href="https://maxjeffwell.github.io/Resume"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ 
-                  color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
-                  textDecoration: 'underline'
-                }}
-              >
-                click here to view it directly
-              </a>.
-            </LoadingMessage>
-          </ResumeFrame>
+            ← Back to About
+          </BackLink>
         </StyledContainer>
       </PageTransition>
     </Layout>

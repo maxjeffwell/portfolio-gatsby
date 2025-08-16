@@ -10,14 +10,21 @@ const Analytics = () => {
     // Initialize analytics with script worker
     const initAnalytics = async () => {
       try {
+        // Initialize dataLayer first
+        window.dataLayer = window.dataLayer || [];
+        
         // Configure gtag function for worker communication
         window.gtag = function(...args) {
-          // Use script worker for better performance
-          scriptWorker.executeFunction('gtag', args);
-          
-          // Also maintain dataLayer for compatibility
+          // Ensure dataLayer exists before pushing
           window.dataLayer = window.dataLayer || [];
           window.dataLayer.push(arguments);
+          
+          // Use script worker for better performance (fallback)
+          try {
+            scriptWorker.executeFunction('gtag', args);
+          } catch (error) {
+            // Silently handle worker errors
+          }
         };
 
         // Load Google Analytics script through worker when possible

@@ -19,13 +19,20 @@ const PerformanceMonitor = () => {
       }
 
       // Optional: Send to Google Analytics or other analytics service
-      if (typeof gtag !== 'undefined') {
-        gtag('event', metric.name, {
-          event_category: 'Web Vitals',
-          value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-          event_label: metric.id,
-          non_interaction: true,
-        });
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        try {
+          window.gtag('event', metric.name, {
+            event_category: 'Web Vitals',
+            value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+            event_label: metric.id,
+            non_interaction: true,
+          });
+        } catch (error) {
+          // Silently fail if gtag is not ready
+          if (process.env.NODE_ENV === 'development') {
+            console.warn('gtag not ready for metric:', metric.name);
+          }
+        }
       }
     };
 
