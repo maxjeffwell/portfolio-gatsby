@@ -479,7 +479,7 @@ ThemedLayout.propTypes = {
 // Main Layout Component
 function Layout({ children }) {
   const data = useStaticQuery(GET_SITE_METADATA);
-  return <ThemedLayout data={data}>{children}</ThemedLayout>;
+  return <ThemedLayout _data={data}>{children}</ThemedLayout>;
 }
 
 Layout.propTypes = {
