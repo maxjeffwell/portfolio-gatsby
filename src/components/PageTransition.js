@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
 
 const pageVariants = {
   initial: {
@@ -24,22 +23,28 @@ const pageTransition = {
 
 function PageTransition({ children, className }) {
   const [isClient, setIsClient] = useState(false);
+  const [MotionDiv, setMotionDiv] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
+    // Dynamically import motion to avoid SSR issues
+    import('motion/react').then(({ motion }) => {
+      setMotionDiv(() => motion.div);
+    });
+    
     // Scroll to top when component mounts (page transition starts)
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, []);
 
-  // Return static div during SSR
-  if (!isClient) {
+  // Return static div during SSR or while loading motion
+  if (!isClient || !MotionDiv) {
     return <div className={className}>{children}</div>;
   }
 
   return (
-    <motion.div
+    <MotionDiv
       className={className}
       initial="initial"
       animate="in"
@@ -48,7 +53,7 @@ function PageTransition({ children, className }) {
       transition={pageTransition}
     >
       {children}
-    </motion.div>
+    </MotionDiv>
   );
 }
 

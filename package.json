@@ -59,7 +59,8 @@
     "react-icons": "^5.5.0",
     "react-typography": "^0.16.23",
     "styled-components": "^6.1.19",
-    "typography": "^0.16.24"
+    "typography": "^0.16.24",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",

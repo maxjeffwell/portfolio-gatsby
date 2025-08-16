@@ -71,17 +71,23 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
 
 // Performance optimization for page transitions
 export const onRouteUpdate = ({ location }) => {
-  // Track page views in analytics
-  if (
-    typeof window !== 'undefined' &&
-    typeof window.gtag !== 'undefined' &&
-    process.env.GATSBY_GA_TRACKING_ID
-  ) {
-    window.gtag('config', process.env.GATSBY_GA_TRACKING_ID, {
-      page_path: location.pathname,
-      page_title: document.title,
-      page_location: window.location.href,
-    });
+  // Track page views with our custom analytics (with delay for better performance)
+  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+    // Use requestIdleCallback for better performance
+    const trackPageView = () => {
+      window.gtag('config', 'G-NL37L9SVQ0', {
+        page_path: location.pathname,
+        page_title: document.title,
+        page_location: window.location.href,
+        send_page_view: true,
+      });
+    };
+
+    if (typeof requestIdleCallback !== 'undefined') {
+      requestIdleCallback(trackPageView, { timeout: 1000 });
+    } else {
+      setTimeout(trackPageView, 300);
+    }
   }
 
   // Preload next likely routes based on current page

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import ClientOnlyIcon from './ClientOnlyIcon';
 import ProtectedEmail from './ProtectedEmail';
+import Analytics from './Analytics';
 
 import Header from './header';
 // ThirdPartyScripts will be loaded client-side only
@@ -353,7 +354,7 @@ function ThemedLayout({ children, data }) {
   return (
     <>
       <GlobalStyles theme={theme} />
-      {/* ThirdPartyScripts removed to prevent SSR issues */}
+      <Analytics />
       <ClientOnlyAnimatedCursor theme={theme} />
       <Header />
       <main

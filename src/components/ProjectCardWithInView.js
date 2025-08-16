@@ -1,6 +1,4 @@
-import React from 'react';
-import { motion, useInView } from 'motion/react';
-import { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import ProjectCard from './projectCard';
 
 const cardVariants = {
@@ -23,14 +21,42 @@ const cardVariants = {
 
 function ProjectCardWithInView(props) {
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    margin: '-50px',
-    amount: 0.1,
-  });
+  const [isClient, setIsClient] = useState(false);
+  const [MotionDiv, setMotionDiv] = useState(null);
+  const [useInView, setUseInView] = useState(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Dynamically import motion to avoid SSR issues
+    import('motion/react').then(({ motion, useInView: useInViewHook }) => {
+      setMotionDiv(() => motion.div);
+      setUseInView(() => useInViewHook);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (useInView && ref.current) {
+      const inView = useInView(ref, {
+        once: true,
+        margin: '-50px',
+        amount: 0.1,
+      });
+      setIsInView(inView);
+    }
+  }, [useInView]);
+
+  // Return static div during SSR or while loading motion
+  if (!isClient || !MotionDiv) {
+    return (
+      <div ref={ref} style={{ width: '100%' }}>
+        <ProjectCard {...props} />
+      </div>
+    );
+  }
 
   return (
-    <motion.div
+    <MotionDiv
       ref={ref}
       variants={cardVariants}
       initial="hidden"
@@ -38,7 +64,7 @@ function ProjectCardWithInView(props) {
       style={{ width: '100%' }}
     >
       <ProjectCard {...props} />
-    </motion.div>
+    </MotionDiv>
   );
 }
 

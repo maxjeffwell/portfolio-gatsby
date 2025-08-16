@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState, useEffect } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -29,8 +28,30 @@ const itemVariants = {
 };
 
 function StaggeredAnimation({ children, className, delay = 0 }) {
+  const [isClient, setIsClient] = useState(false);
+  const [MotionDiv, setMotionDiv] = useState(null);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Dynamically import motion to avoid SSR issues
+    import('motion/react').then(({ motion }) => {
+      setMotionDiv(() => motion.div);
+    });
+  }, []);
+
+  // Return static div during SSR or while loading motion
+  if (!isClient || !MotionDiv) {
+    return (
+      <div className={className}>
+        {React.Children.map(children, (child, index) => (
+          <div key={index}>{child}</div>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <motion.div
+    <MotionDiv
       className={className}
       variants={containerVariants}
       initial="hidden"
@@ -38,11 +59,11 @@ function StaggeredAnimation({ children, className, delay = 0 }) {
       transition={{ delay }}
     >
       {React.Children.map(children, (child, index) => (
-        <motion.div key={index} variants={itemVariants}>
+        <MotionDiv key={index} variants={itemVariants}>
           {child}
-        </motion.div>
+        </MotionDiv>
       ))}
-    </motion.div>
+    </MotionDiv>
   );
 }
 

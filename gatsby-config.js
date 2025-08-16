@@ -164,11 +164,16 @@ module.exports = {
         gtagConfig: {
           optimize_id: 'GTM-N8HJBQM7',
           cookie_expires: 0,
+          send_page_view: false, // Manual page view tracking for better control
+          anonymize_ip: true,
+          allow_google_signals: false,
+          custom_map: {},
         },
         pluginConfig: {
-          head: true,
-          // Delays processing pageview events on route update (in milliseconds)
-          delayOnRouteUpdate: 0,
+          head: false, // Load in body for non-blocking
+          respectDNT: true,
+          exclude: ['/dev-404-page', '/404', '/404.html'],
+          delayOnRouteUpdate: 300, // Delay to reduce impact on navigation
         },
       },
     },
