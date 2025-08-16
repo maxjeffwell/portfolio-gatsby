@@ -315,11 +315,9 @@ function AboutPage() {
                   get in touch
                 </Link>{' '}
                 to discuss your next project. View my{' '}
-                <a
-                  href="https://maxjeffwell.github.io/Resume"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Download Jeff Maxwell's professional resume"
+                <Link
+                  to="/resume/"
+                  title="View Jeff Maxwell's professional resume"
                   style={{
                     color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
                     fontWeight: 'bold',
@@ -327,7 +325,7 @@ function AboutPage() {
                   }}
                 >
                   detailed resume
-                </a>{' '}
+                </Link>{' '}
                 for comprehensive work history.
               </Typography>
             </div>
