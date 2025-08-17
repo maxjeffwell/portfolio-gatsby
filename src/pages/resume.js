@@ -37,7 +37,8 @@ const Title = styled.h1`
 const Description = styled.p`
   font-size: 1.375rem;
   line-height: 1.6;
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'};
+  color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'};
   margin: 0 auto 32px auto;
   transition: color 0.3s ease;
   max-width: 600px;
@@ -45,7 +46,8 @@ const Description = styled.p`
 
 const CountdownText = styled.p`
   font-size: 1.125rem;
-  color: ${props => props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'};
+  color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'};
   margin-bottom: 32px;
 `;
 
@@ -61,7 +63,7 @@ const ResumeLink = styled.a`
   font-size: 1.125rem;
   transition: all 0.3s ease;
   box-shadow: 0px 4px 12px rgba(21, 101, 192, 0.2);
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0px 8px 20px rgba(21, 101, 192, 0.3);
@@ -77,14 +79,14 @@ const ResumeLink = styled.a`
 
 const BackLink = styled.a`
   display: inline-block;
-  margin-top: 24px;
-  color: ${props => props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0'};
+  margin-top: 40px;
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
   text-decoration: underline;
-  font-size: 1rem;
+  font-size: 1.125rem;
   transition: color 0.3s ease;
-  
+
   &:hover {
-    color: ${props => props.theme?.mode === 'dark' ? '#64b5f6' : '#0d47a1'};
+    color: ${(props) => (props.theme?.mode === 'dark' ? '#64b5f6' : '#0d47a1')};
   }
 `;
 
@@ -92,10 +94,10 @@ function ResumePage() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    // Auto-redirect after 3 seconds
+    // Auto-redirect after 5 seconds
     const timer = setTimeout(() => {
       window.open('https://maxjeffwell.github.io/Resume', '_blank', 'noopener,noreferrer');
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -115,19 +117,17 @@ function ResumePage() {
             'javascript developer resume',
             'orlando developer resume',
             'web developer cv',
-            'portfolio resume'
+            'portfolio resume',
           ]}
         />
         <StyledContainer>
           <Title>Professional Resume</Title>
           <Description theme={theme}>
-            Redirecting you to my comprehensive resume showcasing full stack development experience, 
+            Redirecting you to my comprehensive resume showcasing full stack development experience,
             technical skills, and professional background.
           </Description>
-          <CountdownText theme={theme}>
-            Opening resume in 3 seconds...
-          </CountdownText>
-          
+          <CountdownText theme={theme}>Opening resume in 5 seconds...</CountdownText>
+
           <div>
             <ResumeLink
               href="https://maxjeffwell.github.io/Resume"
@@ -139,11 +139,7 @@ function ResumePage() {
             </ResumeLink>
           </div>
 
-          <BackLink 
-            href="/about/" 
-            theme={theme}
-            title="Return to About page"
-          >
+          <BackLink href="/about/" theme={theme} title="Return to About page">
             ← Back to About
           </BackLink>
         </StyledContainer>

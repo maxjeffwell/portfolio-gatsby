@@ -63,9 +63,11 @@ const StyledChiapasMap = styled.img`
   width: 100%;
   max-width: 200px;
   height: auto;
+  margin-top: 24px;
   
   @media (max-width: 480px) {
     max-width: 150px;
+    margin-top: 16px;
   }
 `;
 
