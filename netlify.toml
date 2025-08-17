@@ -172,3 +172,5 @@ renderJavaScript = true
     # Simplified Permissions-Policy to avoid unrecognized feature warnings
     # Only include widely supported features
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    # Override X-Frame-Options to allow iframe embedding
+    X-Frame-Options = "SAMEORIGIN"
