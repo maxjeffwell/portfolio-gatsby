@@ -12,13 +12,13 @@ const Analytics = () => {
       try {
         // Initialize dataLayer first
         window.dataLayer = window.dataLayer || [];
-        
+
         // Configure gtag function for worker communication
-        window.gtag = function(...args) {
+        window.gtag = function (...args) {
           // Ensure dataLayer exists before pushing
           window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push(arguments);
-          
+          window.dataLayer.push(args);
+
           // Use script worker for better performance (fallback)
           try {
             scriptWorker.executeFunction('gtag', args);
@@ -29,11 +29,12 @@ const Analytics = () => {
 
         // Load Google Analytics script through worker when possible
         const gtagUrl = 'https://www.googletagmanager.com/gtag/js?id=G-NL37L9SVQ0';
-        
+
         try {
           await scriptWorker.loadScript(gtagUrl, { defer: true });
         } catch (error) {
           if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line no-console
             console.warn('Script worker failed, falling back to main thread:', error);
           }
           // Fallback to regular script loading
@@ -52,20 +53,22 @@ const Analytics = () => {
 
         // Track web vitals for performance monitoring
         try {
-          import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-            getCLS(sendToAnalytics);
-            getFID(sendToAnalytics);
-            getFCP(sendToAnalytics);
-            getLCP(sendToAnalytics);
-            getTTFB(sendToAnalytics);
-          }).catch(() => {
-            // Silently fail if web-vitals is not available
-          });
+          import('web-vitals')
+            .then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+              getCLS(sendToAnalytics);
+              getFID(sendToAnalytics);
+              getFCP(sendToAnalytics);
+              getLCP(sendToAnalytics);
+              getTTFB(sendToAnalytics);
+            })
+            .catch(() => {
+              // Silently fail if web-vitals is not available
+            });
         } catch (error) {
           // Silently fail if dynamic import is not supported
         }
-
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.warn('Analytics initialization failed:', error);
       }
     };
@@ -73,9 +76,8 @@ const Analytics = () => {
     // Delay initialization to avoid blocking critical resources
     const timeoutId = setTimeout(initAnalytics, 1000);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    // eslint-disable-next-line consistent-return
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return null; // This component doesn't render anything
@@ -86,7 +88,7 @@ const loadAnalyticsMainThread = () => {
   const script = document.createElement('script');
   script.async = true;
   script.src = 'https://www.googletagmanager.com/gtag/js?id=G-NL37L9SVQ0';
-  
+
   // Use requestIdleCallback for better performance
   const appendScript = () => {
     document.head.appendChild(script);
@@ -128,7 +130,7 @@ export const usePageTracking = () => {
       window.gtag('event', action, {
         event_category: category,
         event_label: label,
-        value: value,
+        value,
         non_interaction: false,
       });
     }
