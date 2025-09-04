@@ -85,7 +85,7 @@ module.exports = {
           avifOptions: { quality: 50, speed: 9 }, // Aggressive AVIF compression
         },
         stripMetadata: true,
-        failOnError: false, // Don't fail build on image processing errors
+        failOn: `none`, // Don't fail build on image processing errors (updated from deprecated failOnError)
       },
     },
     {
