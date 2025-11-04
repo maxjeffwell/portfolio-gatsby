@@ -136,26 +136,34 @@ renderJavaScript = true
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# WWW to non-WWW redirect (canonical URL)
+# WWW to non-WWW redirect with trailing slash (canonical URL)
 [[redirects]]
   from = "https://www.el-jefe.me/*"
-  to = "https://el-jefe.me/:splat"
+  to = "https://el-jefe.me/:splat/"
   status = 301
   force = true
 
-# HTTP to HTTPS redirect
+# HTTP to HTTPS redirect with trailing slash
 [[redirects]]
   from = "http://el-jefe.me/*"
-  to = "https://el-jefe.me/:splat"
+  to = "https://el-jefe.me/:splat/"
   status = 301
   force = true
 
-# HTTP WWW to HTTPS non-WWW redirect
+# HTTP WWW to HTTPS non-WWW redirect with trailing slash
 [[redirects]]
   from = "http://www.el-jefe.me/*"
-  to = "https://el-jefe.me/:splat"
+  to = "https://el-jefe.me/:splat/"
   status = 301
   force = true
+
+# Ensure trailing slashes on all pages (Gatsby convention)
+# This prevents double redirects by handling trailing slashes after HTTPS upgrade
+[[redirects]]
+  from = "/*"
+  to = "/:splat/"
+  status = 301
+  force = false
 
 # 404 redirect to handle Gatsby's dual 404 generation
 [[redirects]]
