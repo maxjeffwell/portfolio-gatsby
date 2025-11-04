@@ -667,7 +667,7 @@ function ProjectCard({
           rel="noopener noreferrer"
           aria-label={`View source code for ${title} on GitHub`}
         >
-          <OpenSourceIcon />
+          <OpenSourceIcon aria-hidden="true" />
         </IconLink>
         <IconLink
           theme={theme}
@@ -677,7 +677,7 @@ function ProjectCard({
           rel="noopener noreferrer"
           aria-label={`View live demo of ${title}`}
         >
-          <DemoIcon />
+          <DemoIcon aria-hidden="true" />
         </IconLink>
       </StyledCardActions>
     </StyledCard>

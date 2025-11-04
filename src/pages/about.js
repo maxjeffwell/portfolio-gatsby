@@ -232,7 +232,7 @@ function AboutPage() {
       <PageTransition>
         <SEO
           title="About Jeff Maxwell | React Node.js Developer Orlando"
-          description="About Jeff Maxwell - Full Stack React and Node.js Developer in Orlando, Florida. Learn about my JavaScript development experience, technology stack, and professional approach to modern web development."
+          description="Full Stack React and Node.js Developer in Orlando, FL. Learn about my JavaScript expertise and approach to modern web development."
           pathname="/about/"
           keywords={[
             `react developer`,
@@ -257,8 +257,8 @@ function AboutPage() {
           >
             <div style={{ willChange: 'opacity' }}>
               <Typography
+                as="h1"
                 variant="h1"
-                component="h1"
                 id="about-header"
                 style={{
                   fontSize: 'clamp(2.5rem, 8vw, 4rem)',

@@ -603,7 +603,7 @@ const Projects = ({ data }) => {
       <PageTransition>
         <SEO
           title="React Node.js Portfolio | Jeff Maxwell JavaScript Developer"
-          description="Jeff Maxwell's React and Node.js development portfolio. Explore JavaScript projects, full stack web applications, and modern development examples showcasing React, Node.js, GraphQL, and API development skills."
+          description="Explore Jeff Maxwell's React and Node.js projects. Full stack JavaScript applications showcasing modern web development and API design."
           pathname="/projects/"
           keywords={[
             `react developer portfolio`,
@@ -625,7 +625,7 @@ const Projects = ({ data }) => {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <StyledBox as="section" mb={6} textAlign="center">
-              <GradientText variant="h1" component="h1" align="center" gutterBottom>
+              <GradientText as="h1" variant="h1" align="center" gutterBottom>
                 React & Node.js Developer Portfolio - JavaScript Projects
               </GradientText>
               <Typography
