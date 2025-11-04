@@ -656,7 +656,7 @@ function Contact() {
       <PageTransition>
         <SEO
           title="Hire React Node.js Developer | Jeff Maxwell Orlando FL"
-          description="Hire Jeff Maxwell - Full Stack React and Node.js Developer in Orlando, Florida. Available for web development projects, JavaScript applications, and freelance work. Contact for custom development solutions."
+          description="Hire Jeff Maxwell - Full Stack React & Node.js Developer in Orlando, FL. Available for web development projects and JavaScript applications."
           pathname="/contact/"
           keywords={[
             `hire react developer`,
