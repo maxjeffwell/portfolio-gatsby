@@ -169,6 +169,8 @@ renderJavaScript = true
 [[headers]]
   for = "/*"
   [headers.values]
+    # HSTS with preload - prevents "Not Secure" warnings
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     # Simplified Permissions-Policy to avoid unrecognized feature warnings
     # Only include widely supported features
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
