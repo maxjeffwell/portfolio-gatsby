@@ -266,6 +266,43 @@ const projectsData = [
       screenshot2: 'bookmarked_screenshot2.mp4',
     },
   },
+  {
+    id: 'project6',
+    title: 'IntervalAI',
+    date: '2025',
+    year: '2025',
+    description:
+      'IntervalAI is a neural-enhanced spaced repetition learning system that uses machine learning to optimize\n' +
+      '  vocabulary review timing for maximum retention. The app combines the proven SM-2 algorithm with an 8-layer\n' +
+      '  neural network (961 parameters) that learns individual user patterns, achieving 96.1% improvement over\n' +
+      '  baseline methods. Built with React/Redux frontend and Node.js/Express/MongoDB backend, it features\n' +
+      '  WebGPU-accelerated ML inference (<1ms), real-time predictions of optimal review intervals, TensorFlow.js\n' +
+      '  for machine learning, and built-in A/B testing to compare algorithm performance. Perfect for language\n' +
+      '  learners seeking personalized, scientifically-optimized study schedules.',
+    sourceURL: 'https://github.com/maxjeffwell/spaced-repetition-capstone-client',
+    hostedURL: 'https://spaced-repetition-capstone-client.onrender.com/',
+    technologies: [
+      'JavaScript',
+      'React',
+      'Node.js',
+      'Redux',
+      'MongoDB',
+      'NPM',
+      'Git',
+      'TensorFlow.js',
+      'Machine Learning',
+      'WebGPU',
+    ],
+    techIcons: {
+      icon3: ReduxIcon,
+      icon4: MongoDBIcon,
+      icon5: NPMIcon,
+    },
+    screenshots: {
+      screenshot1: 'intervalai_screenshot1',
+      screenshot2: 'intervalai_screenshot2',
+    },
+  },
 ];
 
 const StyledContainer = styled.div`
