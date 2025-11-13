@@ -12,22 +12,19 @@ RUN apk add --no-cache python3 make g++
 # Set working directory
 WORKDIR /app
 
-# Set build environment variables (matching Netlify config)
-ENV NODE_ENV=production \
+# Copy all application code
+COPY . .
+
+# Install dependencies and build in one step
+# Don't set NODE_ENV during install
+RUN npm install --legacy-peer-deps && \
+    NODE_ENV=production \
     GATSBY_CPU_COUNT=4 \
     NODE_OPTIONS="--max-old-space-size=8192" \
     GATSBY_PARALLEL_BUILD_COUNT=2 \
     GATSBY_TELEMETRY_DISABLED=1 \
-    CI=true
-
-# Copy application files
-COPY package.json ./
-COPY . .
-
-# Install dependencies and build in one step
-# Use --include=dev to explicitly install devDependencies despite NODE_ENV=production
-# This is required because webpack and other build tools are devDependencies
-RUN npm install --legacy-peer-deps --include=dev && npm run build
+    CI=true \
+    npm run build
 
 # ============================================
 # Production Stage
