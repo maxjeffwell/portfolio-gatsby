@@ -13,29 +13,21 @@ RUN apk add --no-cache python3 make g++
 WORKDIR /app
 
 # Set build environment variables (matching Netlify config)
-# Note: NODE_ENV is NOT set here to allow devDependencies installation
-ENV GATSBY_CPU_COUNT=4 \
+ENV NODE_ENV=production \
+    GATSBY_CPU_COUNT=4 \
     NODE_OPTIONS="--max-old-space-size=8192" \
     GATSBY_PARALLEL_BUILD_COUNT=2 \
     GATSBY_TELEMETRY_DISABLED=1 \
     CI=true
 
-# Copy only package.json (not package-lock.json to avoid sync issues)
+# Copy application files
 COPY package.json ./
-
-# Install ALL dependencies (including devDependencies like webpack)
-# Using --legacy-peer-deps to handle Gatsby plugin peer dependency conflicts
-RUN npm install --legacy-peer-deps
-
-# Fix ajv-keywords compatibility issue by ensuring ajv is properly installed
-# This resolves "Cannot find module 'ajv/dist/compile/codegen'" error
-RUN npm install ajv@^8 --legacy-peer-deps --save-dev
-
-# Copy application code
 COPY . .
 
-# Build Gatsby site with production environment
-RUN NODE_ENV=production npm run build
+# Install dependencies and build in one step
+# This ensures devDependencies are installed despite NODE_ENV=production
+# and then builds the production site
+RUN npm install --legacy-peer-deps && npm run build
 
 # ============================================
 # Production Stage
