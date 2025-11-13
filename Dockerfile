@@ -13,31 +13,25 @@ RUN apk add --no-cache python3 make g++
 WORKDIR /app
 
 # Set build environment variables (matching Netlify config)
-ENV NODE_ENV=production \
-    GATSBY_CPU_COUNT=4 \
+# Note: NODE_ENV is NOT set here to allow devDependencies installation
+ENV GATSBY_CPU_COUNT=4 \
     NODE_OPTIONS="--max-old-space-size=8192" \
     GATSBY_PARALLEL_BUILD_COUNT=2 \
     GATSBY_TELEMETRY_DISABLED=1 \
     CI=true
 
-# Copy package files
-COPY package*.json ./
+# Copy only package.json (not package-lock.json to avoid sync issues)
+COPY package.json ./
 
-# Install dependencies
-# First install without legacy peer deps to get webpack
-RUN npm install 2>&1 || true
-
-# Then install with legacy peer deps to get remaining packages
+# Install ALL dependencies (including devDependencies like webpack)
+# Using --legacy-peer-deps to handle Gatsby plugin peer dependency conflicts
 RUN npm install --legacy-peer-deps
-
-# Ensure webpack is installed (critical dependency)
-RUN npm list webpack || npm install webpack@^5 --legacy-peer-deps
 
 # Copy application code
 COPY . .
 
-# Build Gatsby site
-RUN npm run build
+# Build Gatsby site with production environment
+RUN NODE_ENV=production npm run build
 
 # ============================================
 # Production Stage
