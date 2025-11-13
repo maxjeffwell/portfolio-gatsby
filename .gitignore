@@ -76,3 +76,6 @@ CLAUDE.md
 .netlify
 docs/
 
+# Docker - keep .env private but commit Docker configs
+.env.docker
+

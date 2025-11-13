@@ -7,9 +7,12 @@
 **A lightning-fast, modern portfolio built for the edge**
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/54a79ae3-eb7d-47a5-b7a0-ece69d629199/deploy-status?style=flat-square)](https://app.netlify.com/sites/jovial-chandrasekhar-b8b6b4/deploys)
+[![CI](https://img.shields.io/github/actions/workflow/status/maxjeffwell/portfolio-gatsby/ci.yml?branch=master&label=CI&style=flat-square&logo=github)](https://github.com/maxjeffwell/portfolio-gatsby/actions/workflows/ci.yml)
+[![Docker Build](https://img.shields.io/github/actions/workflow/status/maxjeffwell/portfolio-gatsby/docker-build-push.yml?branch=master&label=Docker%20Build&style=flat-square&logo=docker)](https://github.com/maxjeffwell/portfolio-gatsby/actions/workflows/docker-build-push.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-00C7B7?style=flat-square)](https://lbesson.mit-license.org/)
 [![Gatsby](https://img.shields.io/badge/Gatsby-5.14.5-663399?style=flat-square&logo=gatsby)](https://www.gatsbyjs.com/)
 [![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-maxjeffwell%2Fportfolio--gatsby-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/maxjeffwell/portfolio-gatsby)
 
 </div>
 
@@ -496,21 +499,28 @@ gh-pages -d public
 
 ## 🔄 Continuous Integration
 
-### GitHub Actions (Future Enhancement)
-```yaml
-# Planned CI/CD pipeline
-- Code quality checks (ESLint, Prettier)
-- Bundle size regression testing
-- Lighthouse performance testing
-- Automated dependency updates
-- Security vulnerability scanning
-```
+### GitHub Actions
+The project includes automated CI/CD workflows:
+
+**CI Workflow** (`.github/workflows/ci.yml`):
+- Node.js 20 testing
+- Dependency installation with `--legacy-peer-deps`
+- Gatsby build verification with production settings
+- Build artifact upload
+- Docker image test build
+
+**Docker Build & Push** (`.github/workflows/docker-build-push.yml`):
+- Multi-platform builds (linux/amd64, linux/arm64)
+- Automatic push to Docker Hub on main/master branch
+- Trivy security vulnerability scanning
+- Image tagging with semantic versioning
+- GitHub Security integration
 
 ### Build Optimization
-- Dependency caching
-- Incremental builds
-- Parallelized processing
-- Build artifact optimization
+- Dependency caching with GitHub Actions cache
+- Docker layer caching with buildx
+- Incremental builds with Gatsby
+- Parallelized processing (4 CPUs, 2 parallel builds)
 
 ## 📊 Analytics & Monitoring
 
