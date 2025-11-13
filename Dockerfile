@@ -4,7 +4,7 @@
 # ============================================
 # Build Stage
 # ============================================
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 
 # Install build dependencies (Python, make, g++ for native modules)
 RUN apk add --no-cache python3 make g++
@@ -15,16 +15,11 @@ WORKDIR /app
 # Copy all application code
 COPY . .
 
-# Install dependencies and build in one step
-# Don't set NODE_ENV during install
-RUN npm install --legacy-peer-deps && \
-    NODE_ENV=production \
-    GATSBY_CPU_COUNT=4 \
-    NODE_OPTIONS="--max-old-space-size=8192" \
-    GATSBY_PARALLEL_BUILD_COUNT=2 \
-    GATSBY_TELEMETRY_DISABLED=1 \
-    CI=true \
-    npm run build
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Build Gatsby site
+RUN npm run build
 
 # ============================================
 # Production Stage
@@ -62,7 +57,7 @@ CMD ["nginx", "-g", "daemon off;"]
 # ============================================
 # Development Stage
 # ============================================
-FROM node:20-alpine AS development
+FROM node:24-alpine AS development
 
 # Install build dependencies and image processing libraries
 RUN apk add --no-cache python3 make g++ automake autoconf libtool nasm && \
