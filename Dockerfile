@@ -27,6 +27,10 @@ COPY package.json ./
 # Using --legacy-peer-deps to handle Gatsby plugin peer dependency conflicts
 RUN npm install --legacy-peer-deps
 
+# Fix ajv-keywords compatibility issue by ensuring ajv is properly installed
+# This resolves "Cannot find module 'ajv/dist/compile/codegen'" error
+RUN npm install ajv@^8 --legacy-peer-deps --save-dev
+
 # Copy application code
 COPY . .
 
