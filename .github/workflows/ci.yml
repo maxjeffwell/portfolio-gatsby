@@ -28,9 +28,8 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build Gatsby site
-        run: npm run build
+        run: NODE_ENV=production npm run build
         env:
-          NODE_ENV: production
           GATSBY_CPU_COUNT: 4
           NODE_OPTIONS: --max-old-space-size=8192
           GATSBY_PARALLEL_BUILD_COUNT: 2
