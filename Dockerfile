@@ -6,6 +6,9 @@
 # ============================================
 FROM node:20-alpine AS build
 
+# Install build dependencies (Python, make, g++ for native modules)
+RUN apk add --no-cache python3 make g++
+
 # Set working directory
 WORKDIR /app
 
@@ -20,8 +23,15 @@ ENV NODE_ENV=production \
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies with legacy peer deps
+# Install dependencies
+# First install without legacy peer deps to get webpack
+RUN npm install 2>&1 || true
+
+# Then install with legacy peer deps to get remaining packages
 RUN npm install --legacy-peer-deps
+
+# Ensure webpack is installed (critical dependency)
+RUN npm list webpack || npm install webpack@^5 --legacy-peer-deps
 
 # Copy application code
 COPY . .
