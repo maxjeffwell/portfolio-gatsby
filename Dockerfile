@@ -25,9 +25,9 @@ COPY package.json ./
 COPY . .
 
 # Install dependencies and build in one step
-# This ensures devDependencies are installed despite NODE_ENV=production
-# and then builds the production site
-RUN npm install --legacy-peer-deps && npm run build
+# Use --include=dev to explicitly install devDependencies despite NODE_ENV=production
+# This is required because webpack and other build tools are devDependencies
+RUN npm install --legacy-peer-deps --include=dev && npm run build
 
 # ============================================
 # Production Stage
