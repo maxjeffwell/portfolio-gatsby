@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Gatsby Portfolio
+  # Gatsby Portfolio - Production
   portfolio:
     build:
       context: .
@@ -9,7 +9,7 @@ services:
       target: production
     container_name: portfolio-gatsby
     environment:
-      - NODE_ENV=${NODE_ENV:-production}
+      - NODE_ENV=production
     ports:
       - "${PORT:-8080}:80"
     networks:
@@ -21,6 +21,27 @@ services:
       timeout: 3s
       start_period: 40s
       retries: 3
+
+  # Gatsby Portfolio - Development
+  portfolio-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: portfolio-gatsby-dev
+    environment:
+      - NODE_ENV=development
+      - GATSBY_WEBPACK_PUBLICPATH=/
+    ports:
+      - "8000:8000"  # Gatsby dev server
+      - "9929:9929"  # VSCode debug port
+      - "9230:9230"  # VSCode debug port
+    volumes:
+      - .:/app
+      - /app/node_modules  # Prevent overwriting node_modules
+    networks:
+      - portfolio-network
+    command: ["gatsby", "develop", "-H", "0.0.0.0"]
 
 networks:
   portfolio-network:

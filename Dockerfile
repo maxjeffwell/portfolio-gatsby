@@ -67,6 +67,16 @@ CMD ["nginx", "-g", "daemon off;"]
 # ============================================
 FROM node:20-alpine AS development
 
+# Install build dependencies and image processing libraries
+RUN apk add --no-cache python3 make g++ automake autoconf libtool nasm && \
+    apk add vips-dev fftw-dev --update-cache \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main && \
+    rm -rf /var/cache/apk/*
+
+# Install Gatsby CLI globally
+RUN npm install -g gatsby-cli
+
 # Set working directory
 WORKDIR /app
 
@@ -79,11 +89,14 @@ RUN npm install --legacy-peer-deps
 # Copy application code
 COPY . .
 
-# Expose Gatsby development port
+# Expose Gatsby development server port
 EXPOSE 8000
 
-# Expose Gatsby GraphQL explorer port
-EXPOSE 8001
+# Expose VSCode debug ports
+EXPOSE 9929 9230
 
-# Start Gatsby development server
-CMD ["npm", "run", "develop"]
+# Set development environment
+ENV NODE_ENV=development
+
+# Start Gatsby development server on all interfaces
+CMD ["gatsby", "develop", "-H", "0.0.0.0"]
