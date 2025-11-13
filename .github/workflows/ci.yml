@@ -73,6 +73,7 @@ jobs:
           file: ./Dockerfile
           target: production
           push: false
+          load: true
           tags: portfolio-gatsby:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
