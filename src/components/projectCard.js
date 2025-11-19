@@ -2,12 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import { FaReact, FaGit, FaDocker } from 'react-icons/fa';
+import { FaReact, FaGit, FaDocker, FaNodeJs, FaDatabase, FaCss3Alt, FaJs } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
+import {
+  SiExpress,
+  SiJsonwebtokens,
+  SiApollographql,
+  SiRedux,
+  SiFirebase,
+  SiVercel,
+  SiRender,
+  SiGooglecloud,
+  SiMongodb,
+  SiPostgresql,
+  SiRedis,
+  SiGraphql,
+  SiNpm,
+  SiTensorflow,
+  SiWebgl,
+} from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
 import DemoIcon from '../images/svg-icons/demo.svg';
 import OpenSourceIcon from '../images/svg-icons/open_source.svg';
+import NeonIcon from '../images/svg-icons/neon-tech.svg';
 
 // Helper functions for Typography styles
 const getTypographyFontWeight = (variant) => {
@@ -220,24 +238,21 @@ const StyledCard = styled.div`
   flex-direction: column;
   border-radius: 16px;
   overflow: hidden;
-  transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    background 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  background 0.3s ease;
   background: ${(props) =>
     props.theme?.mode === 'dark'
       ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
       : 'white'};
-  box-shadow:
-    0 3px 3px -2px rgba(0, 0, 0, 0.2),
-    0 3px 4px 0 rgba(0, 0, 0, 0.14),
-    0 1px 8px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2),
+  0 3px 4px 0 rgba(0, 0, 0, 0.14),
+  0 1px 8px 0 rgba(0, 0, 0, 0.12);
 
   &:hover {
-    box-shadow:
-      0 5px 5px -3px rgba(0, 0, 0, 0.2),
-      0 8px 10px 1px rgba(0, 0, 0, 0.14),
-      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
 `;
 
@@ -369,10 +384,6 @@ function ProjectCard({
   imageSrcPath2,
   videoSrcPath,
   videoSrcPath2,
-  techIcon3,
-  techIcon4,
-  techIcon5,
-  techIcon6,
   title,
   date,
   description,
@@ -405,56 +416,46 @@ function ProjectCard({
     return null;
   };
 
-  const renderTechIcon = (techIcon, ariaLabel) => {
-    if (React.isValidElement(techIcon)) {
-      return React.cloneElement(techIcon, {
-        alt: ariaLabel,
-        'aria-label': ariaLabel,
-      });
-    }
+  // Map technology names to their icons and descriptions
+  const getTechnologyIcon = (tech) => {
+    const iconColor = theme?.mode === 'dark' ? '#90caf9' : '#1976d2';
+    const iconSize = 24;
 
-    if (typeof techIcon === 'function') {
-      return React.createElement(techIcon, {
-        width: 24,
-        height: 24,
-        fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-        alt: ariaLabel,
-        'aria-label': ariaLabel,
-      });
-    }
-
-    return null;
-  };
-
-  const getTechAriaLabel = (iconIndex, technologies) => {
     const techMap = {
-      3: technologies.find((tech) => ['Redux', 'GraphQL', 'CSS', 'MongoDB'].includes(tech)),
-      4: technologies.find((tech) => ['MongoDB', 'NPM', 'Firebase'].includes(tech)),
-      5: technologies.find((tech) => ['NPM', 'Redis', 'Node.js', 'Vercel'].includes(tech)),
-      6: technologies.find((tech) => ['PostgreSQL', 'Neon', 'Apollo Client'].includes(tech)),
+      'JavaScript': { icon: <FaJs size={iconSize} color={iconColor} />, label: 'JavaScript programming language' },
+      'React': { icon: <FaReact size={iconSize} color={iconColor} />, label: 'React JavaScript library' },
+      'Context API': { icon: <FaReact size={iconSize} color={iconColor} />, label: 'React Context API for state management' },
+      'Node.js': { icon: <FaNodeJs size={iconSize} color={iconColor} />, label: 'Node.js JavaScript runtime' },
+      'Express': { icon: <SiExpress size={iconSize} color={iconColor} />, label: 'Express.js web framework' },
+      'Redux': { icon: <SiRedux size={iconSize} color={iconColor} />, label: 'Redux state management' },
+      'MongoDB': { icon: <SiMongodb size={iconSize} color={iconColor} />, label: 'MongoDB NoSQL database' },
+      'PostgreSQL': { icon: <SiPostgresql size={iconSize} color={iconColor} />, label: 'PostgreSQL database' },
+      'Redis': { icon: <SiRedis size={iconSize} color={iconColor} />, label: 'Redis in-memory database' },
+      'GraphQL': { icon: <SiGraphql size={iconSize} color={iconColor} />, label: 'GraphQL query language' },
+      'Apollo Client': { icon: <SiApollographql size={iconSize} color={iconColor} />, label: 'Apollo Client GraphQL' },
+      'Apollo Server': { icon: <SiApollographql size={iconSize} color={iconColor} />, label: 'Apollo Server GraphQL' },
+      'JWT': { icon: <SiJsonwebtokens size={iconSize} color={iconColor} />, label: 'JSON Web Tokens' },
+      'WebSocket': { icon: <FaDatabase size={iconSize} color={iconColor} />, label: 'WebSocket real-time communication' },
+      'Git': { icon: <FaGit size={iconSize} color={iconColor} />, label: 'Git version control' },
+      'Docker': { icon: <FaDocker size={iconSize} color={iconColor} />, label: 'Docker containerization' },
+      'Heroku': { icon: <DiHeroku size={iconSize} color={iconColor} />, label: 'Heroku deployment platform' },
+      'Vercel': { icon: <SiVercel size={iconSize} color={iconColor} />, label: 'Vercel deployment platform' },
+      'Render': { icon: <SiRender size={iconSize} color={iconColor} />, label: 'Render deployment platform' },
+      'Firebase': { icon: <SiFirebase size={iconSize} color={iconColor} />, label: 'Firebase cloud platform' },
+      'Google Cloud': { icon: <SiGooglecloud size={iconSize} color={iconColor} />, label: 'Google Cloud Platform' },
+      'NPM': { icon: <SiNpm size={iconSize} color={iconColor} />, label: 'NPM package manager' },
+      'CSS': { icon: <FaCss3Alt size={iconSize} color={iconColor} />, label: 'CSS stylesheet language' },
+      'Emotion': { icon: <FaCss3Alt size={iconSize} color={iconColor} />, label: 'Emotion CSS-in-JS library' },
+      'Neon': {
+        icon: <NeonIcon width={iconSize} height={iconSize} style={{ fill: iconColor }} />,
+        label: 'Neon serverless PostgreSQL'
+      },
+      'TensorFlow.js': { icon: <SiTensorflow size={iconSize} color={iconColor} />, label: 'TensorFlow.js machine learning' },
+      'Machine Learning': { icon: <SiTensorflow size={iconSize} color={iconColor} />, label: 'Machine Learning' },
+      'WebGPU': { icon: <SiWebgl size={iconSize} color={iconColor} />, label: 'WebGPU graphics API' },
     };
-    const tech = techMap[iconIndex];
 
-    // Create more descriptive labels for SEO
-    const descriptions = {
-      Redux: 'Redux state management library icon for React applications',
-      GraphQL: 'GraphQL query language icon for API development',
-      CSS: 'CSS stylesheet technology icon for web styling',
-      MongoDB: 'MongoDB NoSQL database icon for data storage',
-      NPM: 'NPM Node.js package manager icon for JavaScript dependencies',
-      Firebase: 'Firebase Google cloud platform icon for web development',
-      Redis: 'Redis in-memory database icon for caching and data storage',
-      'Node.js': 'Node.js JavaScript runtime icon for backend development',
-      Vercel: 'Vercel deployment platform icon for web applications',
-      PostgreSQL: 'PostgreSQL relational database icon for data management',
-      Neon: 'Neon serverless PostgreSQL database icon',
-      'Apollo Client': 'Apollo Client GraphQL library icon for React applications',
-    };
-
-    if (tech && descriptions[tech]) {
-      return descriptions[tech];
-    }
-    return 'Technology used in project development';
+    return techMap[tech] || null;
   };
 
   const renderMediaContent = (videoPath, imagePath, altText) => {
@@ -542,37 +543,22 @@ function ProjectCard({
 
         <TechContainer>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap justifyContent="center">
-            {techIcon3 && (
-              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(3, technologies)}>
-                {renderTechIcon(techIcon3, getTechAriaLabel(3, technologies))}
-              </TechIcon>
-            )}
-            {techIcon4 && (
-              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(4, technologies)}>
-                {renderTechIcon(techIcon4, getTechAriaLabel(4, technologies))}
-              </TechIcon>
-            )}
-            {techIcon5 && (
-              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(5, technologies)}>
-                {renderTechIcon(techIcon5, getTechAriaLabel(5, technologies))}
-              </TechIcon>
-            )}
-            {techIcon6 && (
-              <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(6, technologies)}>
-                {renderTechIcon(techIcon6, getTechAriaLabel(6, technologies))}
-              </TechIcon>
-            )}
-            <TechIcon theme={theme} role="img" aria-label="React technology">
-              <FaReact size={24} color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'} />
-            </TechIcon>
-            <TechIcon theme={theme} role="img" aria-label="Git version control">
-              <FaGit size={24} color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'} />
-            </TechIcon>
-            {technologies.includes('Heroku') && (
-              <TechIcon theme={theme} role="img" aria-label="Heroku deployment platform">
-                <DiHeroku size={24} color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'} />
-              </TechIcon>
-            )}
+            {technologies.map((tech) => {
+              const techData = getTechnologyIcon(tech);
+              if (!techData) return null;
+
+              return (
+                <TechIcon
+                  key={tech}
+                  theme={theme}
+                  role="img"
+                  aria-label={techData.label}
+                  title={techData.label}
+                >
+                  {techData.icon}
+                </TechIcon>
+              );
+            })}
           </Stack>
         </TechContainer>
       </StyledCardContent>
@@ -636,10 +622,6 @@ ProjectCard.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ),
-  techIcon3: PropTypes.elementType,
-  techIcon4: PropTypes.elementType,
-  techIcon5: PropTypes.elementType,
-  techIcon6: PropTypes.elementType,
   technologies: PropTypes.arrayOf(PropTypes.string),
 };
 

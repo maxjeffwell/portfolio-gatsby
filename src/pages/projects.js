@@ -11,18 +11,6 @@ import PageTransition from '../components/PageTransition';
 import SocialShare from '../components/SocialShare';
 import MotionWrapper from '../components/MotionWrapper';
 
-import GraphQLIcon from '../images/svg-icons/graphql.svg';
-import ApolloClientIcon from '../images/svg-icons/apolloclient.svg';
-import ReduxIcon from '../images/svg-icons/redux.svg';
-import CSSIcon from '../images/svg-icons/css3.svg';
-import MongoDBIcon from '../images/svg-icons/mongodb.svg';
-import PostgresqlIcon from '../images/svg-icons/postgresql.svg';
-import RedisIcon from '../images/svg-icons/redis.svg';
-import NPMIcon from '../images/svg-icons/npm.svg';
-import VercelIcon from '../images/svg-icons/vercel.svg';
-import NodeJSIcon from '../images/svg-icons/nodejs.svg';
-import FirebaseIcon from '../images/svg-icons/firebase.svg';
-import NeonTechIcon from '../images/svg-icons/neon-tech.svg';
 
 // Helper functions for Typography styles
 const getTypographyFontWeight = (variant) => {
@@ -113,12 +101,7 @@ const projectsData = [
       { url: 'https://marmoset.el-jefe.me', label: 'Docker/NAS' },
       { url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general', label: 'Docker Hub' },
     ],
-    technologies: ['JavaScript', 'React', 'Node.js', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
-    techIcons: {
-      icon3: ReduxIcon,
-      icon4: MongoDBIcon,
-      icon5: NPMIcon,
-    },
+    technologies: ['JavaScript', 'React', 'Node.js', 'Express', 'Redux', 'MongoDB', 'JWT', 'NPM', 'Git', 'Docker', 'Heroku'],
     screenshots: {
       screenshot1: 'educationelly_screenshot1',
       screenshot2: 'educationelly_screenshot2.mp4',
@@ -147,19 +130,17 @@ const projectsData = [
       'JavaScript',
       'React',
       'Node.js',
+      'Express',
       'GraphQL',
+      'JWT',
+      'WebSocket',
       'NPM',
       'Git',
+      'Docker',
       'Heroku',
       'Redis',
       'PostgreSQL',
     ],
-    techIcons: {
-      icon3: GraphQLIcon,
-      icon4: NPMIcon,
-      icon5: RedisIcon,
-      icon6: PostgresqlIcon,
-    },
     screenshots: {
       screenshot1: 'codetalk_screenshot1.mp4',
       screenshot2: 'codetalk_screenshot2.webm', // Fixed: using webm format
@@ -187,19 +168,16 @@ const projectsData = [
       'JavaScript',
       'React',
       'Node.js',
+      'Express',
       'MongoDB',
-      'NPM',
-      'Git',
-      'Heroku',
+      'Apollo Server',
       'Apollo Client',
       'GraphQL',
+      'NPM',
+      'Git',
+      'Docker',
+      'Heroku',
     ],
-    techIcons: {
-      icon3: MongoDBIcon,
-      icon4: NPMIcon,
-      icon5: ApolloClientIcon,
-      icon6: GraphQLIcon,
-    },
     screenshots: {
       screenshot1: 'educationelly_graphql_screenshot1',
       screenshot2: 'educationelly_graphql_screenshot2',
@@ -232,17 +210,10 @@ const projectsData = [
       'PostgreSQL',
       'Git',
       'NPM',
+      'Docker',
       'Google Cloud',
       'Firebase',
-      'Firebase Studio',
-      'Firebase Firestore',
-      'Cloud Firestore',
     ],
-    techIcons: {
-      icon3: CSSIcon,
-      icon4: FirebaseIcon,
-      icon5: NPMIcon,
-    },
     screenshots: {
       screenshot1: 'firebook_screenshot1.mp4',
       screenshot2: 'firebook_screenshot2.png',
@@ -268,19 +239,14 @@ const projectsData = [
     technologies: [
       'JavaScript',
       'React',
-      'Git',
-      'Vercel',
+      'Context API',
+      'Emotion',
       'Node.js',
       'Neon',
-      'Neon Serverless Postgres',
-      'Neon Database',
+      'Git',
+      'Docker',
+      'Vercel',
     ],
-    techIcons: {
-      icon3: NPMIcon,
-      icon4: VercelIcon,
-      icon5: NodeJSIcon,
-      icon6: NeonTechIcon,
-    },
     screenshots: {
       screenshot1: 'bookmarked_screenshot1',
       screenshot2: 'bookmarked_screenshot2.mp4',
@@ -309,19 +275,17 @@ const projectsData = [
       'JavaScript',
       'React',
       'Node.js',
+      'Express',
       'Redux',
       'MongoDB',
       'NPM',
       'Git',
+      'Docker',
+      'Render',
       'TensorFlow.js',
       'Machine Learning',
       'WebGPU',
     ],
-    techIcons: {
-      icon3: ReduxIcon,
-      icon4: MongoDBIcon,
-      icon5: NPMIcon,
-    },
     screenshots: {
       screenshot1: 'intervalai_screenshot1.mp4',
       screenshot2: 'intervalai_screenshot2.mp4',
@@ -651,10 +615,6 @@ const Projects = ({ data }) => {
           project.screenshots.screenshot2.endsWith('.mp4')
             ? videoFile2?.[1]
             : null,
-        techIcon3: project.techIcons.icon3 || null,
-        techIcon4: project.techIcons.icon4 || null,
-        techIcon5: project.techIcons.icon5 || null,
-        techIcon6: project.techIcons.icon6 || null,
       };
     });
   }, [filteredProjects, data]);
@@ -792,9 +752,21 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
+                      onClick={() => handleTechnologyChange('Context API')}
+                    >
+                      Context API
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
                       onClick={() => handleTechnologyChange('Node.js')}
                     >
                       Node.js
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Express')}
+                    >
+                      Express
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
@@ -822,9 +794,21 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
+                      onClick={() => handleTechnologyChange('WebSocket')}
+                    >
+                      WebSocket
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
                       onClick={() => handleTechnologyChange('Apollo Client')}
                     >
                       Apollo Client
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Apollo Server')}
+                    >
+                      Apollo Server
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
@@ -832,8 +816,20 @@ const Projects = ({ data }) => {
                     >
                       Redux
                     </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('JWT')}
+                    >
+                      JWT
+                    </CustomSelectOption>
                     <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('Git')}>
                       Git
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Docker')}
+                    >
+                      Docker
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
@@ -849,6 +845,12 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
+                      onClick={() => handleTechnologyChange('Render')}
+                    >
+                      Render
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
                       onClick={() => handleTechnologyChange('Firebase')}
                     >
                       Firebase
@@ -861,45 +863,21 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
+                      onClick={() => handleTechnologyChange('Emotion')}
+                    >
+                      Emotion
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
                       onClick={() => handleTechnologyChange('Google Cloud')}
                     >
                       Google Cloud
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
-                      onClick={() => handleTechnologyChange('Firebase Studio')}
-                    >
-                      Firebase Studio
-                    </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
-                      onClick={() => handleTechnologyChange('Firebase Firestore')}
-                    >
-                      Firebase Firestore
-                    </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
-                      onClick={() => handleTechnologyChange('Cloud Firestore')}
-                    >
-                      Cloud Firestore
-                    </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
                       onClick={() => handleTechnologyChange('Neon')}
                     >
                       Neon
-                    </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
-                      onClick={() => handleTechnologyChange('Neon Serverless Postgres')}
-                    >
-                      Neon Serverless Postgres
-                    </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
-                      onClick={() => handleTechnologyChange('Neon Database')}
-                    >
-                      Neon Database
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}
@@ -951,10 +929,6 @@ const Projects = ({ data }) => {
                     imageSrcPath2={project.imageSrcPath2}
                     videoSrcPath={project.videoSrcPath}
                     videoSrcPath2={project.videoSrcPath2}
-                    techIcon3={project.techIcon3}
-                    techIcon4={project.techIcon4}
-                    techIcon5={project.techIcon5}
-                    techIcon6={project.techIcon6}
                   />
                 ))}
               </div>
