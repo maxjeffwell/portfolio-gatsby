@@ -220,6 +220,7 @@ const HeaderContainer = styled.div`
 
 const TechContainer = styled.div`
   margin-top: auto;
+  padding-top: 20px;
 `;
 
 const CustomChip = styled.span`
