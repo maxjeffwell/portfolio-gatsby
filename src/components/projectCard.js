@@ -309,6 +309,7 @@ const StyledCardActions = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
 
   @media (max-width: 480px) {
     gap: 20px;
@@ -318,6 +319,22 @@ const StyledCardActions = styled.div`
     padding: 0 12px 12px;
     gap: 16px;
   }
+`;
+
+const DeploymentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+`;
+
+const DeploymentLabel = styled.span`
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)')};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
 `;
 
 const ColoredBar = styled.div`
@@ -409,9 +426,17 @@ function ProjectCard({
   description,
   sourceURL,
   hostedURL,
+  deployments = [],
   technologies = [],
 }) {
   const { theme } = useTheme();
+
+  // Normalize deployments - support both single hostedURL and deployments array
+  const normalizedDeployments = deployments.length > 0
+    ? deployments
+    : hostedURL
+      ? [{ url: hostedURL, label: 'Live Demo' }]
+      : [];
 
   const getVideoSource = (videoPath) => {
     if (!videoPath) return null;
@@ -610,26 +635,35 @@ function ProjectCard({
       </StyledCardContent>
 
       <StyledCardActions>
-        <IconLink
-          theme={theme}
-          href={sourceURL}
-          title={`View source code for ${title} on GitHub`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View source code for ${title} on GitHub`}
-        >
-          <OpenSourceIcon aria-hidden="true" />
-        </IconLink>
-        <IconLink
-          theme={theme}
-          href={hostedURL}
-          title={`View live demo of ${title}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View live demo of ${title}`}
-        >
-          <DemoIcon aria-hidden="true" />
-        </IconLink>
+        <DeploymentContainer>
+          <IconLink
+            theme={theme}
+            href={sourceURL}
+            title={`View source code for ${title} on GitHub`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View source code for ${title} on GitHub`}
+          >
+            <OpenSourceIcon aria-hidden="true" />
+          </IconLink>
+          <DeploymentLabel theme={theme}>Source Code</DeploymentLabel>
+        </DeploymentContainer>
+
+        {normalizedDeployments.map((deployment, index) => (
+          <DeploymentContainer key={`${deployment.url}-${index}`}>
+            <IconLink
+              theme={theme}
+              href={deployment.url}
+              title={`${deployment.label} - ${title}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${deployment.label} - ${title}`}
+            >
+              <DemoIcon aria-hidden="true" />
+            </IconLink>
+            <DeploymentLabel theme={theme}>{deployment.label}</DeploymentLabel>
+          </DeploymentContainer>
+        ))}
       </StyledCardActions>
     </StyledCard>
   );
@@ -644,7 +678,13 @@ ProjectCard.propTypes = {
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   sourceURL: PropTypes.string.isRequired,
-  hostedURL: PropTypes.string.isRequired,
+  hostedURL: PropTypes.string,
+  deployments: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ),
   techIcon3: PropTypes.elementType,
   techIcon4: PropTypes.elementType,
   techIcon5: PropTypes.elementType,

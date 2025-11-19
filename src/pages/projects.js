@@ -108,7 +108,10 @@ const projectsData = [
       '  status), and a responsive interface with real-time data access for improved teacher collaboration and\n' +
       '  student support.',
     sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
-    hostedURL: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/',
+    deployments: [
+      { url: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/', label: 'Heroku' },
+      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+    ],
     technologies: ['JavaScript', 'React', 'Node.js', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
     techIcons: {
       icon3: ReduxIcon,
@@ -134,7 +137,10 @@ const projectsData = [
       '   like virtualized lists and code splitting. Perfect for remote pair programming, code reviews, or team\n' +
       '  collaboration sessions.',
     sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
-    hostedURL: 'https://code-talk-client-c46118c24c30.herokuapp.com/',
+    deployments: [
+      { url: 'https://code-talk-client-c46118c24c30.herokuapp.com/', label: 'Heroku' },
+      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+    ],
     technologies: [
       'JavaScript',
       'React',
@@ -170,7 +176,10 @@ const projectsData = [
       '  role-based access control for teachers and administrators to track and manage their ELL student\n' +
       '  population.',
     sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
-    hostedURL: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/',
+    deployments: [
+      { url: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/', label: 'Heroku' },
+      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+    ],
     technologies: [
       'JavaScript',
       'React',
@@ -208,7 +217,10 @@ const projectsData = [
       '   a secure, scalable, and user-friendly application that works seamlessly across devices while maintaining\n' +
       '  the simplicity of its original educational goals.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
-    hostedURL: 'https://marmoset-c2870.firebaseapp.com',
+    deployments: [
+      { url: 'https://marmoset-c2870.firebaseapp.com', label: 'Firebase' },
+      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+    ],
     technologies: [
       'JavaScript',
       'React',
@@ -244,7 +256,10 @@ const projectsData = [
       '  API backend for data persistence. Users can add bookmarks with titles, URLs, and descriptions, rate them\n' +
       '  on a 5-star scale, mark favorites, and filter their collection by rating or favorite status.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
-    hostedURL: 'https://bookmarks-react-hooks.vercel.app/',
+    deployments: [
+      { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
+      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+    ],
     technologies: [
       'JavaScript',
       'React',
@@ -280,7 +295,10 @@ const projectsData = [
       '  for machine learning, and built-in A/B testing to compare algorithm performance. Perfect for language\n' +
       '  learners seeking personalized, scientifically-optimized study schedules.',
     sourceURL: 'https://github.com/maxjeffwell/spaced-repetition-capstone-client',
-    hostedURL: 'https://spaced-repetition-capstone-client.onrender.com/',
+    deployments: [
+      { url: 'https://spaced-repetition-capstone-client.onrender.com/', label: 'Render' },
+      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+    ],
     technologies: [
       'JavaScript',
       'React',
@@ -921,6 +939,7 @@ const Projects = ({ data }) => {
                     description={project.description}
                     sourceURL={project.sourceURL}
                     hostedURL={project.hostedURL}
+                    deployments={project.deployments}
                     technologies={project.technologies}
                     imageSrcPath={project.imageSrcPath}
                     imageSrcPath2={project.imageSrcPath2}

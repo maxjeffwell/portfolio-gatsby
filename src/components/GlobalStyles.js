@@ -293,23 +293,24 @@ const GlobalStyles = createGlobalStyle`
     text-decoration-color: currentColor;
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
+    cursor: pointer;
     transition: color 0.3s ease, text-decoration-color 0.3s ease;
-    
+
     &:hover {
       color: #0d47a1;
     }
-    
+
     &:visited {
       color: #7b1fa2;
     }
-    
+
     @media (prefers-color-scheme: dark) {
       color: #90caf9;
-      
+
       &:hover {
         color: #64b5f6;
       }
-      
+
       &:visited {
         color: #ce93d8;
       }
