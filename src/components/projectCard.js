@@ -2,7 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import { FaReact, FaGit, FaDocker, FaNodeJs, FaDatabase, FaCss3Alt, FaJs } from 'react-icons/fa';
+import {
+  FaReact,
+  FaGit,
+  FaDocker,
+  FaNodeJs,
+  FaDatabase,
+  FaCss3Alt,
+  FaJs,
+  FaSitemap,
+} from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
 import {
   SiExpress,
@@ -435,7 +444,7 @@ function ProjectCard({
         label: 'React JavaScript library',
       },
       'Context API': {
-        icon: <FaReact size={iconSize} color={iconColor} />,
+        icon: <FaSitemap size={iconSize} color={iconColor} />,
         label: 'React Context API for state management',
       },
       'Node.js': {
