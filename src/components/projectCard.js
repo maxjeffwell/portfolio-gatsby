@@ -26,6 +26,7 @@ import { useTheme } from '../context/ThemeContext';
 import DemoIcon from '../images/svg-icons/demo.svg';
 import OpenSourceIcon from '../images/svg-icons/open_source.svg';
 import NeonIcon from '../images/svg-icons/neon-tech.svg';
+import DockerIcon from '../images/svg-icons/docker.svg';
 
 // Helper functions for Typography styles
 const getTypographyFontWeight = (variant) => {
@@ -664,11 +665,7 @@ function ProjectCard({
               aria-label={`${deployment.label} - ${title}`}
             >
               {deployment.label === 'Docker Hub' ? (
-                <FaDocker
-                  size={64}
-                  color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'}
-                  aria-hidden="true"
-                />
+                <DockerIcon aria-hidden="true" />
               ) : (
                 <DemoIcon aria-hidden="true" />
               )}

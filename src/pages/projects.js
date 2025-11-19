@@ -312,7 +312,6 @@ const projectsData = [
       'Docker',
       'Render',
       'TensorFlow.js',
-      'Machine Learning',
       'WebGPU',
     ],
     screenshots: {
