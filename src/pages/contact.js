@@ -1410,21 +1410,6 @@ function Contact() {
                 Netlify, and AWS. I also provide ongoing maintenance and feature development
                 services.
               </Typography>
-
-              <Typography
-                variant="body1"
-                style={{
-                  fontSize: '1.25rem',
-                  lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
-                }}
-              >
-                <strong>Consultation & Code Review:</strong> Beyond development work, I offer
-                technical consultation for architecture decisions, code review services for existing
-                projects, and mentoring for development teams. I can help evaluate technical debt,
-                recommend performance improvements, and guide teams in adopting modern development
-                practices and tools.
-              </Typography>
             </div>
           </StyledBox>
 
