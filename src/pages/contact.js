@@ -8,6 +8,7 @@ import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import SocialShare from '../components/SocialShare';
+import DockerHubIcon from '../images/svg-icons/docker-hub.svg';
 
 const StyledContainer = styled.div`
   max-width: 1200px;
@@ -414,7 +415,7 @@ const StyledTextField = styled.div`
   textarea {
     width: 100%;
     padding: 20px 18px;
-    border: 2px solid rgba(0, 0, 0, 0.23);
+    border: 2px solid #d1d5db;
     border-radius: 12px;
     font-size: 1.1rem;
     font-family: inherit;
@@ -426,7 +427,7 @@ const StyledTextField = styled.div`
     z-index: 1;
 
     &:hover {
-      border-color: rgba(25, 118, 210, 0.4);
+      border-color: #1976d2;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       transform: translateY(-1px);
     }
@@ -450,6 +451,7 @@ const StyledTextField = styled.div`
       opacity: 0.6;
       cursor: not-allowed;
       background: rgba(0, 0, 0, 0.04);
+      border-color: #d1d5db;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -470,6 +472,7 @@ const StyledTextField = styled.div`
 
       &:disabled {
         background: rgba(255, 255, 255, 0.02);
+        border-color: rgba(255, 255, 255, 0.15);
       }
     }
   }
@@ -936,6 +939,54 @@ function Contact() {
                       style={{ fontSize: '1.125rem', fontWeight: 500 }}
                     >
                       View my repositories
+                    </StyledLink>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    padding: '16px',
+                    borderRadius: '12px',
+                    background: 'var(--bg-color)',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: '1.5rem',
+                      color: '#1565c0',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <DockerHubIcon style={{ fontSize: '2.5rem', width: '40px', height: '40px' }} />
+                  </div>
+                  <div>
+                    <Typography
+                      variant="subtitle2"
+                      style={{
+                        fontWeight: 600,
+                        marginBottom: '4px',
+                        color: 'var(--text-color)',
+                        fontSize: '1.25rem',
+                      }}
+                    >
+                      Docker Hub
+                    </Typography>
+                    <StyledLink
+                      href="https://hub.docker.com/u/maxjeffwell"
+                      title="View Jeff Maxwell's Docker containers on Docker Hub"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ fontSize: '1.125rem', fontWeight: 500 }}
+                    >
+                      View my Docker containers
                     </StyledLink>
                   </div>
                 </div>
