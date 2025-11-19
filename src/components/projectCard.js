@@ -238,21 +238,24 @@ const StyledCard = styled.div`
   flex-direction: column;
   border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-  background 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s ease;
   background: ${(props) =>
     props.theme?.mode === 'dark'
       ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
       : 'white'};
-  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2),
-  0 3px 4px 0 rgba(0, 0, 0, 0.14),
-  0 1px 8px 0 rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0 3px 4px 0 rgba(0, 0, 0, 0.14),
+    0 1px 8px 0 rgba(0, 0, 0, 0.12);
 
   &:hover {
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
 `;
 
@@ -422,37 +425,109 @@ function ProjectCard({
     const iconSize = 24;
 
     const techMap = {
-      'JavaScript': { icon: <FaJs size={iconSize} color={iconColor} />, label: 'JavaScript programming language' },
-      'React': { icon: <FaReact size={iconSize} color={iconColor} />, label: 'React JavaScript library' },
-      'Context API': { icon: <FaReact size={iconSize} color={iconColor} />, label: 'React Context API for state management' },
-      'Node.js': { icon: <FaNodeJs size={iconSize} color={iconColor} />, label: 'Node.js JavaScript runtime' },
-      'Express': { icon: <SiExpress size={iconSize} color={iconColor} />, label: 'Express.js web framework' },
-      'Redux': { icon: <SiRedux size={iconSize} color={iconColor} />, label: 'Redux state management' },
-      'MongoDB': { icon: <SiMongodb size={iconSize} color={iconColor} />, label: 'MongoDB NoSQL database' },
-      'PostgreSQL': { icon: <SiPostgresql size={iconSize} color={iconColor} />, label: 'PostgreSQL database' },
-      'Redis': { icon: <SiRedis size={iconSize} color={iconColor} />, label: 'Redis in-memory database' },
-      'GraphQL': { icon: <SiGraphql size={iconSize} color={iconColor} />, label: 'GraphQL query language' },
-      'Apollo Client': { icon: <SiApollographql size={iconSize} color={iconColor} />, label: 'Apollo Client GraphQL' },
-      'Apollo Server': { icon: <SiApollographql size={iconSize} color={iconColor} />, label: 'Apollo Server GraphQL' },
-      'JWT': { icon: <SiJsonwebtokens size={iconSize} color={iconColor} />, label: 'JSON Web Tokens' },
-      'WebSocket': { icon: <FaDatabase size={iconSize} color={iconColor} />, label: 'WebSocket real-time communication' },
-      'Git': { icon: <FaGit size={iconSize} color={iconColor} />, label: 'Git version control' },
-      'Docker': { icon: <FaDocker size={iconSize} color={iconColor} />, label: 'Docker containerization' },
-      'Heroku': { icon: <DiHeroku size={iconSize} color={iconColor} />, label: 'Heroku deployment platform' },
-      'Vercel': { icon: <SiVercel size={iconSize} color={iconColor} />, label: 'Vercel deployment platform' },
-      'Render': { icon: <SiRender size={iconSize} color={iconColor} />, label: 'Render deployment platform' },
-      'Firebase': { icon: <SiFirebase size={iconSize} color={iconColor} />, label: 'Firebase cloud platform' },
-      'Google Cloud': { icon: <SiGooglecloud size={iconSize} color={iconColor} />, label: 'Google Cloud Platform' },
-      'NPM': { icon: <SiNpm size={iconSize} color={iconColor} />, label: 'NPM package manager' },
-      'CSS': { icon: <FaCss3Alt size={iconSize} color={iconColor} />, label: 'CSS stylesheet language' },
-      'Emotion': { icon: <FaCss3Alt size={iconSize} color={iconColor} />, label: 'Emotion CSS-in-JS library' },
-      'Neon': {
-        icon: <NeonIcon width={iconSize} height={iconSize} style={{ fill: iconColor }} />,
-        label: 'Neon serverless PostgreSQL'
+      JavaScript: {
+        icon: <FaJs size={iconSize} color={iconColor} />,
+        label: 'JavaScript programming language',
       },
-      'TensorFlow.js': { icon: <SiTensorflow size={iconSize} color={iconColor} />, label: 'TensorFlow.js machine learning' },
-      'Machine Learning': { icon: <SiTensorflow size={iconSize} color={iconColor} />, label: 'Machine Learning' },
-      'WebGPU': { icon: <SiWebgl size={iconSize} color={iconColor} />, label: 'WebGPU graphics API' },
+      React: {
+        icon: <FaReact size={iconSize} color={iconColor} />,
+        label: 'React JavaScript library',
+      },
+      'Context API': {
+        icon: <FaReact size={iconSize} color={iconColor} />,
+        label: 'React Context API for state management',
+      },
+      'Node.js': {
+        icon: <FaNodeJs size={iconSize} color={iconColor} />,
+        label: 'Node.js JavaScript runtime',
+      },
+      Express: {
+        icon: <SiExpress size={iconSize} color={iconColor} />,
+        label: 'Express.js web framework',
+      },
+      Redux: {
+        icon: <SiRedux size={iconSize} color={iconColor} />,
+        label: 'Redux state management',
+      },
+      MongoDB: {
+        icon: <SiMongodb size={iconSize} color={iconColor} />,
+        label: 'MongoDB NoSQL database',
+      },
+      PostgreSQL: {
+        icon: <SiPostgresql size={iconSize} color={iconColor} />,
+        label: 'PostgreSQL database',
+      },
+      Redis: {
+        icon: <SiRedis size={iconSize} color={iconColor} />,
+        label: 'Redis in-memory database',
+      },
+      GraphQL: {
+        icon: <SiGraphql size={iconSize} color={iconColor} />,
+        label: 'GraphQL query language',
+      },
+      'Apollo Client': {
+        icon: <SiApollographql size={iconSize} color={iconColor} />,
+        label: 'Apollo Client GraphQL',
+      },
+      'Apollo Server': {
+        icon: <SiApollographql size={iconSize} color={iconColor} />,
+        label: 'Apollo Server GraphQL',
+      },
+      JWT: {
+        icon: <SiJsonwebtokens size={iconSize} color={iconColor} />,
+        label: 'JSON Web Tokens',
+      },
+      WebSocket: {
+        icon: <FaDatabase size={iconSize} color={iconColor} />,
+        label: 'WebSocket real-time communication',
+      },
+      Git: { icon: <FaGit size={iconSize} color={iconColor} />, label: 'Git version control' },
+      Docker: {
+        icon: <FaDocker size={iconSize} color={iconColor} />,
+        label: 'Docker containerization',
+      },
+      Heroku: {
+        icon: <DiHeroku size={iconSize} color={iconColor} />,
+        label: 'Heroku deployment platform',
+      },
+      Vercel: {
+        icon: <SiVercel size={iconSize} color={iconColor} />,
+        label: 'Vercel deployment platform',
+      },
+      Render: {
+        icon: <SiRender size={iconSize} color={iconColor} />,
+        label: 'Render deployment platform',
+      },
+      Firebase: {
+        icon: <SiFirebase size={iconSize} color={iconColor} />,
+        label: 'Firebase cloud platform',
+      },
+      'Google Cloud': {
+        icon: <SiGooglecloud size={iconSize} color={iconColor} />,
+        label: 'Google Cloud Platform',
+      },
+      NPM: { icon: <SiNpm size={iconSize} color={iconColor} />, label: 'NPM package manager' },
+      CSS: {
+        icon: <FaCss3Alt size={iconSize} color={iconColor} />,
+        label: 'CSS stylesheet language',
+      },
+      Emotion: {
+        icon: <FaCss3Alt size={iconSize} color={iconColor} />,
+        label: 'Emotion CSS-in-JS library',
+      },
+      Neon: {
+        icon: <NeonIcon width={iconSize} height={iconSize} style={{ fill: iconColor }} />,
+        label: 'Neon serverless PostgreSQL',
+      },
+      'TensorFlow.js': {
+        icon: <SiTensorflow size={iconSize} color={iconColor} />,
+        label: 'TensorFlow.js machine learning',
+      },
+      'Machine Learning': {
+        icon: <SiTensorflow size={iconSize} color={iconColor} />,
+        label: 'Machine Learning',
+      },
+      WebGPU: { icon: <SiWebgl size={iconSize} color={iconColor} />, label: 'WebGPU graphics API' },
     };
 
     return techMap[tech] || null;
