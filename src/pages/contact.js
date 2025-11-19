@@ -415,7 +415,7 @@ const StyledTextField = styled.div`
   textarea {
     width: 100%;
     padding: 20px 18px;
-    border: 2px solid #d1d5db;
+    border: 2px solid #9ca3af;
     border-radius: 12px;
     font-size: 1.1rem;
     font-family: inherit;
@@ -425,6 +425,7 @@ const StyledTextField = styled.div`
     box-sizing: border-box;
     position: relative;
     z-index: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
     &:hover {
       border-color: #1976d2;
@@ -451,7 +452,7 @@ const StyledTextField = styled.div`
       opacity: 0.6;
       cursor: not-allowed;
       background: rgba(0, 0, 0, 0.04);
-      border-color: #d1d5db;
+      border-color: #9ca3af;
     }
 
     @media (prefers-color-scheme: dark) {
