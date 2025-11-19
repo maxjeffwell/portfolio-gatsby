@@ -269,7 +269,7 @@ const ClientOnlyAnimatedCursor = ({ theme }) => {
       innerScale={0.7}
       outerScale={5}
       trailingSpeed={4}
-      showSystemCursor={false}
+      showSystemCursor={true}
       clickables={[
         'a',
         'input[type="text"]',
@@ -285,6 +285,8 @@ const ClientOnlyAnimatedCursor = ({ theme }) => {
         '.clickable',
         '.card-link',
         '.cta-button',
+        'header',
+        'nav',
         '[role="button"]',
         {
           target: '.custom',

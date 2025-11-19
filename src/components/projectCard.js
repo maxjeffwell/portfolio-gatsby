@@ -9,39 +9,51 @@ import { useTheme } from '../context/ThemeContext';
 import DemoIcon from '../images/svg-icons/demo.svg';
 import OpenSourceIcon from '../images/svg-icons/open_source.svg';
 
+// Helper functions for Typography styles
+const getTypographyFontWeight = (variant) => {
+  if (variant === 'h5') return 700;
+  if (variant === 'h6') return 600;
+  return 400;
+};
+
+const getTypographyFontSize = (variant) => {
+  if (variant === 'h5') return '1.75rem';
+  if (variant === 'h6') return '1.375rem';
+  if (variant === 'body1') return '1.375rem';
+  if (variant === 'body2') return '0.9375rem';
+  return '1rem';
+};
+
+const getTypographyLineHeight = (variant) => {
+  if (variant === 'h5') return 1.334;
+  if (variant === 'h6') return 1.6;
+  if (variant === 'body1') return 1.5;
+  if (variant === 'body2') return 1.43;
+  return 1.5;
+};
+
+const getResponsiveFontSize480 = (variant) => {
+  if (variant === 'h5') return '1.25rem';
+  if (variant === 'h6') return '1.125rem';
+  if (variant === 'body1') return '1.1875rem';
+  if (variant === 'body2') return '0.8rem';
+  return '0.9rem';
+};
+
+const getResponsiveFontSize360 = (variant) => {
+  if (variant === 'h5') return '1.125rem';
+  if (variant === 'h6') return '1rem';
+  if (variant === 'body1') return '1.125rem';
+  if (variant === 'body2') return '0.75rem';
+  return '0.85rem';
+};
+
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
-  font-weight: ${(props) =>
-    props.variant === 'h5'
-      ? 700
-      : props.variant === 'h6'
-        ? 600
-        : props.variant === 'body1'
-          ? 400
-          : props.variant === 'body2'
-            ? 400
-            : 400};
-  font-size: ${(props) =>
-    props.variant === 'h5'
-      ? '1.75rem'
-      : props.variant === 'h6'
-        ? '1.375rem'
-        : props.variant === 'body1'
-          ? '1.375rem'
-          : props.variant === 'body2'
-            ? '0.9375rem'
-            : '1rem'};
-  line-height: ${(props) =>
-    props.variant === 'h5'
-      ? 1.334
-      : props.variant === 'h6'
-        ? 1.6
-        : props.variant === 'body1'
-          ? 1.5
-          : props.variant === 'body2'
-            ? 1.43
-            : 1.5};
+  font-weight: ${(props) => getTypographyFontWeight(props.variant)};
+  font-size: ${(props) => getTypographyFontSize(props.variant)};
+  line-height: ${(props) => getTypographyLineHeight(props.variant)};
   color: ${(props) => {
     if (props.theme?.mode === 'dark') {
       if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
@@ -58,29 +70,11 @@ const Typography = styled.div`
   overflow-wrap: break-word;
 
   @media (max-width: 480px) {
-    font-size: ${(props) =>
-      props.variant === 'h5'
-        ? '1.25rem'
-        : props.variant === 'h6'
-          ? '1.125rem'
-          : props.variant === 'body1'
-            ? '1.1875rem'
-            : props.variant === 'body2'
-              ? '0.8rem'
-              : '0.9rem'};
+    font-size: ${(props) => getResponsiveFontSize480(props.variant)};
   }
 
   @media (max-width: 360px) {
-    font-size: ${(props) =>
-      props.variant === 'h5'
-        ? '1.125rem'
-        : props.variant === 'h6'
-          ? '1rem'
-          : props.variant === 'body1'
-            ? '1.125rem'
-            : props.variant === 'body2'
-              ? '0.75rem'
-              : '0.85rem'};
+    font-size: ${(props) => getResponsiveFontSize360(props.variant)};
   }
 `;
 
@@ -158,37 +152,34 @@ const IconLink = styled.a`
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  
+
   &:focus {
-    outline: 2px solid ${(props) => 
-      props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2'};
+    outline: 2px solid ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
     outline-offset: 4px;
     border-radius: 4px;
   }
-  
-  
+
   svg {
     width: 64px;
     height: 64px;
-    fill: ${(props) => 
-      props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2'};
+    fill: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
     transition: fill 0.3s ease;
   }
-  
+
   @media (max-width: 768px) {
     svg {
       width: 56px;
       height: 56px;
     }
   }
-  
+
   @media (max-width: 480px) {
     svg {
       width: 48px;
       height: 48px;
     }
   }
-  
+
   @media (max-width: 360px) {
     svg {
       width: 42px;
@@ -279,23 +270,22 @@ const StyledCard = styled.div`
   flex-direction: column;
   border-radius: 16px;
   overflow: hidden;
-  transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    background 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  background 0.3s ease;
   background: ${(props) =>
     props.theme?.mode === 'dark'
       ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
       : 'white'};
   box-shadow:
-    0px 3px 3px -2px rgba(0, 0, 0, 0.2),
-    0px 3px 4px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+    0 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0 3px 4px 0 rgba(0, 0, 0, 0.14),
+    0 1px 8px 0 rgba(0, 0, 0, 0.12);
 
   &:hover {
     box-shadow:
-      0px 5px 5px -3px rgba(0, 0, 0, 0.2),
-      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0 8px 10px 1px rgba(0, 0, 0, 0.14),
       0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
 `;
@@ -303,16 +293,12 @@ const StyledCard = styled.div`
 const StyledCardContent = styled.div`
   flex-grow: 1;
   padding: 16px;
-  padding-top: 16px;
-
   @media (max-width: 480px) {
     padding: 12px;
-    padding-top: 12px;
   }
 
   @media (max-width: 360px) {
     padding: 10px;
-    padding-top: 10px;
   }
 `;
 
@@ -427,6 +413,38 @@ function ProjectCard({
 }) {
   const { theme } = useTheme();
 
+  const getVideoSource = (videoPath) => {
+    if (!videoPath) return null;
+    if (videoPath.endsWith('.mp4')) {
+      return <source src={videoPath} type="video/mp4" />;
+    }
+    if (videoPath.endsWith('.webm')) {
+      return <source src={videoPath} type="video/webm" />;
+    }
+    return null;
+  };
+
+  const renderTechIcon = (techIcon, ariaLabel) => {
+    if (React.isValidElement(techIcon)) {
+      return React.cloneElement(techIcon, {
+        alt: ariaLabel,
+        'aria-label': ariaLabel,
+      });
+    }
+
+    if (typeof techIcon === 'function') {
+      return React.createElement(techIcon, {
+        width: 24,
+        height: 24,
+        fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+        alt: ariaLabel,
+        'aria-label': ariaLabel,
+      });
+    }
+
+    return null;
+  };
+
   const getTechAriaLabel = (iconIndex, technologies) => {
     const techMap = {
       3: technologies.find((tech) => ['Redux', 'GraphQL', 'CSS', 'MongoDB'].includes(tech)),
@@ -435,24 +453,27 @@ function ProjectCard({
       6: technologies.find((tech) => ['PostgreSQL', 'Neon', 'Apollo Client'].includes(tech)),
     };
     const tech = techMap[iconIndex];
-    
+
     // Create more descriptive labels for SEO
     const descriptions = {
-      'Redux': 'Redux state management library icon for React applications',
-      'GraphQL': 'GraphQL query language icon for API development',
-      'CSS': 'CSS stylesheet technology icon for web styling',
-      'MongoDB': 'MongoDB NoSQL database icon for data storage',
-      'NPM': 'NPM Node.js package manager icon for JavaScript dependencies',
-      'Firebase': 'Firebase Google cloud platform icon for web development',
-      'Redis': 'Redis in-memory database icon for caching and data storage',
+      Redux: 'Redux state management library icon for React applications',
+      GraphQL: 'GraphQL query language icon for API development',
+      CSS: 'CSS stylesheet technology icon for web styling',
+      MongoDB: 'MongoDB NoSQL database icon for data storage',
+      NPM: 'NPM Node.js package manager icon for JavaScript dependencies',
+      Firebase: 'Firebase Google cloud platform icon for web development',
+      Redis: 'Redis in-memory database icon for caching and data storage',
       'Node.js': 'Node.js JavaScript runtime icon for backend development',
-      'Vercel': 'Vercel deployment platform icon for web applications',
-      'PostgreSQL': 'PostgreSQL relational database icon for data management',
-      'Neon': 'Neon serverless PostgreSQL database icon',
+      Vercel: 'Vercel deployment platform icon for web applications',
+      PostgreSQL: 'PostgreSQL relational database icon for data management',
+      Neon: 'Neon serverless PostgreSQL database icon',
       'Apollo Client': 'Apollo Client GraphQL library icon for React applications',
     };
-    
-    return tech && descriptions[tech] ? descriptions[tech] : 'Technology used in project development';
+
+    if (tech && descriptions[tech]) {
+      return descriptions[tech];
+    }
+    return 'Technology used in project development';
   };
 
   return (
@@ -470,12 +491,7 @@ function ProjectCard({
                 preload="metadata"
                 aria-label={`${title} demonstration video showing the application in action`}
               >
-                {/* Load available video format */}
-                {videoSrcPath.endsWith('.mp4') ? (
-                  <source src={videoSrcPath} type="video/mp4" />
-                ) : videoSrcPath.endsWith('.webm') ? (
-                  <source src={videoSrcPath} type="video/webm" />
-                ) : null}
+                {getVideoSource(videoSrcPath)}
                 Your browser does not support the video tag.
               </video>
             ) : getImage(imageSrcPath) ? (
@@ -514,12 +530,7 @@ function ProjectCard({
                 preload="metadata"
                 aria-label={`${title} secondary demonstration video showing additional features`}
               >
-                {/* Load available video format */}
-                {videoSrcPath2.endsWith('.mp4') ? (
-                  <source src={videoSrcPath2} type="video/mp4" />
-                ) : videoSrcPath2.endsWith('.webm') ? (
-                  <source src={videoSrcPath2} type="video/webm" />
-                ) : null}
+                {getVideoSource(videoSrcPath2)}
                 Your browser does not support the video tag.
               </video>
             ) : getImage(imageSrcPath2) ? (
@@ -565,82 +576,22 @@ function ProjectCard({
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap justifyContent="center">
             {techIcon3 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(3, technologies)}>
-                {React.isValidElement(techIcon3) ? (
-                  React.cloneElement(techIcon3, {
-                    alt: getTechAriaLabel(3, technologies),
-                    'aria-label': getTechAriaLabel(3, technologies),
-                  })
-                ) : typeof techIcon3 === 'function' ? (
-                  React.createElement(techIcon3, {
-                    width: 24,
-                    height: 24,
-                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-                    alt: getTechAriaLabel(3, technologies),
-                    'aria-label': getTechAriaLabel(3, technologies),
-                  })
-                ) : (
-                  <span>Icon3</span>
-                )}
+                {renderTechIcon(techIcon3, getTechAriaLabel(3, technologies))}
               </TechIcon>
             )}
             {techIcon4 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(4, technologies)}>
-                {React.isValidElement(techIcon4) ? (
-                  React.cloneElement(techIcon4, {
-                    alt: getTechAriaLabel(4, technologies),
-                    'aria-label': getTechAriaLabel(4, technologies),
-                  })
-                ) : typeof techIcon4 === 'function' ? (
-                  React.createElement(techIcon4, {
-                    width: 24,
-                    height: 24,
-                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-                    alt: getTechAriaLabel(4, technologies),
-                    'aria-label': getTechAriaLabel(4, technologies),
-                  })
-                ) : (
-                  <span>Icon4</span>
-                )}
+                {renderTechIcon(techIcon4, getTechAriaLabel(4, technologies))}
               </TechIcon>
             )}
             {techIcon5 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(5, technologies)}>
-                {React.isValidElement(techIcon5) ? (
-                  React.cloneElement(techIcon5, {
-                    alt: getTechAriaLabel(5, technologies),
-                    'aria-label': getTechAriaLabel(5, technologies),
-                  })
-                ) : typeof techIcon5 === 'function' ? (
-                  React.createElement(techIcon5, {
-                    width: 24,
-                    height: 24,
-                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-                    alt: getTechAriaLabel(5, technologies),
-                    'aria-label': getTechAriaLabel(5, technologies),
-                  })
-                ) : (
-                  <span>Icon5</span>
-                )}
+                {renderTechIcon(techIcon5, getTechAriaLabel(5, technologies))}
               </TechIcon>
             )}
             {techIcon6 && (
               <TechIcon theme={theme} role="img" aria-label={getTechAriaLabel(6, technologies)}>
-                {React.isValidElement(techIcon6) ? (
-                  React.cloneElement(techIcon6, {
-                    alt: getTechAriaLabel(6, technologies),
-                    'aria-label': getTechAriaLabel(6, technologies),
-                  })
-                ) : typeof techIcon6 === 'function' ? (
-                  React.createElement(techIcon6, {
-                    width: 24,
-                    height: 24,
-                    fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-                    alt: getTechAriaLabel(6, technologies),
-                    'aria-label': getTechAriaLabel(6, technologies),
-                  })
-                ) : (
-                  <span>Icon6</span>
-                )}
+                {renderTechIcon(techIcon6, getTechAriaLabel(6, technologies))}
               </TechIcon>
             )}
             <TechIcon theme={theme} role="img" aria-label="React technology">
