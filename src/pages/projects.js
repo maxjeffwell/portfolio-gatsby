@@ -110,7 +110,8 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
     deployments: [
       { url: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/', label: 'Heroku' },
-      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+      { url: 'https://marmoset.el-jefe.me', label: 'Docker/NAS' },
+      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general', label: 'Docker Hub' },
     ],
     technologies: ['JavaScript', 'React', 'Node.js', 'Redux', 'MongoDB', 'NPM', 'Git', 'Heroku'],
     techIcons: {
@@ -139,7 +140,8 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
     deployments: [
       { url: 'https://code-talk-client-c46118c24c30.herokuapp.com/', label: 'Heroku' },
-      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+      { url: 'https://code-talk.el-jefe.me', label: 'Docker/NAS' },
+      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/code-talk-graphql-client/general', label: 'Docker Hub' },
     ],
     technologies: [
       'JavaScript',
@@ -178,7 +180,8 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
     deployments: [
       { url: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/', label: 'Heroku' },
-      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+      { url: 'https://educationelly.el-jefe.me', label: 'Docker/NAS' },
+      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-client/general', label: 'Docker Hub' },
     ],
     technologies: [
       'JavaScript',
@@ -219,7 +222,8 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
     deployments: [
       { url: 'https://marmoset-c2870.firebaseapp.com', label: 'Firebase' },
-      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+      { url: 'https://firebook.el-jefe.me', label: 'Docker/NAS' },
+      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/firebook/general', label: 'Docker Hub' },
     ],
     technologies: [
       'JavaScript',
@@ -258,7 +262,8 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
-      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+      { url: 'https://bookmarked.el-jefe.me', label: 'Docker/NAS' },
+      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/bookmarks-react-hooks-client/general', label: 'Docker Hub' },
     ],
     technologies: [
       'JavaScript',
@@ -297,7 +302,8 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/spaced-repetition-capstone-client',
     deployments: [
       { url: 'https://spaced-repetition-capstone-client.onrender.com/', label: 'Render' },
-      // Add your NAS URL here: { url: 'YOUR_NAS_URL', label: 'Docker/NAS' },
+      { url: 'https://intervalai.el-jefe.me', label: 'Docker/NAS' },
+      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-client/general', label: 'Docker Hub' },
     ],
     technologies: [
       'JavaScript',
@@ -317,8 +323,8 @@ const projectsData = [
       icon5: NPMIcon,
     },
     screenshots: {
-      screenshot1: 'intervalai_screenshot1',
-      screenshot2: 'intervalai_screenshot2',
+      screenshot1: 'intervalai_screenshot1.mp4',
+      screenshot2: 'intervalai_screenshot2.mp4',
     },
   },
 ];

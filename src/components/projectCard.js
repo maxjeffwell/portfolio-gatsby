@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import { FaReact, FaGit } from 'react-icons/fa';
+import { FaReact, FaGit, FaDocker } from 'react-icons/fa';
 import { DiHeroku } from 'react-icons/di';
 import { useTheme } from '../context/ThemeContext';
 
@@ -76,56 +76,6 @@ const Typography = styled.div`
   @media (max-width: 360px) {
     font-size: ${(props) => getResponsiveFontSize360(props.variant)};
   }
-`;
-
-const Button = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-  background-color: transparent;
-  outline: 0;
-  border: 0;
-  margin: 0;
-  cursor: pointer;
-  user-select: none;
-  vertical-align: middle;
-  text-decoration: none;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.75;
-  letter-spacing: 0.02857em;
-  text-transform: uppercase;
-  min-width: 64px;
-  padding: 6px 16px;
-  border-radius: 4px;
-  transition:
-    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
-  ${(props) =>
-    props.variant === 'outlined' &&
-    `
-    color: ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    border: 2px solid ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.7)' : 'rgba(25, 118, 210, 0.7)'};
-    font-weight: 600;
-    
-    &:hover {
-      border: 2px solid ${props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-      background-color: ${props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.12)' : 'rgba(25, 118, 210, 0.08)'};
-    }
-  `}
-
-  ${(props) =>
-    props.size === 'small' &&
-    `
-    padding: 4px 10px;
-    font-size: 0.8125rem;
-  `}
 `;
 
 const Stack = styled.div`
@@ -270,9 +220,10 @@ const StyledCard = styled.div`
   flex-direction: column;
   border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-  background 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s ease;
   background: ${(props) =>
     props.theme?.mode === 'dark'
       ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
@@ -305,7 +256,7 @@ const StyledCardContent = styled.div`
 const StyledCardActions = styled.div`
   justify-content: center;
   padding: 16px;
-  padding-top: 0;
+  padding-top: 12px;
   display: flex;
   gap: 16px;
   align-items: center;
@@ -316,7 +267,7 @@ const StyledCardActions = styled.div`
   }
 
   @media (max-width: 360px) {
-    padding: 0 12px 12px;
+    padding: 8px 12px 12px;
     gap: 16px;
   }
 `;
@@ -331,7 +282,8 @@ const DeploymentContainer = styled.div`
 const DeploymentLabel = styled.span`
   font-size: 0.75rem;
   font-weight: 600;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)')};
+  color: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
@@ -432,11 +384,15 @@ function ProjectCard({
   const { theme } = useTheme();
 
   // Normalize deployments - support both single hostedURL and deployments array
-  const normalizedDeployments = deployments.length > 0
-    ? deployments
-    : hostedURL
-      ? [{ url: hostedURL, label: 'Live Demo' }]
-      : [];
+  const normalizedDeployments = (() => {
+    if (deployments.length > 0) {
+      return deployments;
+    }
+    if (hostedURL) {
+      return [{ url: hostedURL, label: 'Live Demo' }];
+    }
+    return [];
+  })();
 
   const getVideoSource = (videoPath) => {
     if (!videoPath) return null;
@@ -501,85 +457,72 @@ function ProjectCard({
     return 'Technology used in project development';
   };
 
+  const renderMediaContent = (videoPath, imagePath, altText) => {
+    if (videoPath) {
+      return (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label={`${title} ${altText}`}
+        >
+          {getVideoSource(videoPath)}
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
+
+    const imageData = getImage(imagePath);
+    if (imageData) {
+      return (
+        <GatsbyImage
+          image={imageData}
+          alt={`${title} ${altText}`}
+          loading="lazy"
+          sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 40vw, 33vw"
+          style={{
+            borderRadius: '8px',
+            width: '100%',
+            height: '100%',
+          }}
+          imgStyle={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        />
+      );
+    }
+
+    return (
+      <PlaceholderBox theme={theme}>
+        <Typography theme={theme} variant="body2" color="text.secondary">
+          Media loading...
+        </Typography>
+      </PlaceholderBox>
+    );
+  };
+
   return (
     <StyledCard theme={theme} as="article">
       <ColoredBar />
       <FlexContainer>
         <ImageBox>
           <ImageContainer>
-            {videoSrcPath ? (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label={`${title} demonstration video showing the application in action`}
-              >
-                {getVideoSource(videoSrcPath)}
-                Your browser does not support the video tag.
-              </video>
-            ) : getImage(imageSrcPath) ? (
-              <GatsbyImage
-                image={getImage(imageSrcPath)}
-                alt={`${title} main screenshot showing the application interface`}
-                loading="lazy"
-                sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 40vw, 33vw"
-                style={{
-                  borderRadius: '8px',
-                  width: '100%',
-                  height: '100%',
-                }}
-                imgStyle={{
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                }}
-              />
-            ) : (
-              <PlaceholderBox theme={theme}>
-                <Typography theme={theme} variant="body2" color="text.secondary">
-                  Media loading...
-                </Typography>
-              </PlaceholderBox>
+            {renderMediaContent(
+              videoSrcPath,
+              imageSrcPath,
+              'demonstration video showing the application in action'
             )}
           </ImageContainer>
         </ImageBox>
         <ImageBox>
           <ImageContainer>
-            {videoSrcPath2 ? (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label={`${title} secondary demonstration video showing additional features`}
-              >
-                {getVideoSource(videoSrcPath2)}
-                Your browser does not support the video tag.
-              </video>
-            ) : getImage(imageSrcPath2) ? (
-              <GatsbyImage
-                image={getImage(imageSrcPath2)}
-                alt={`${title} secondary screenshot showing additional features`}
-                loading="lazy"
-                sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 40vw, 33vw"
-                style={{
-                  borderRadius: '8px',
-                  width: '100%',
-                  height: '100%',
-                }}
-                imgStyle={{
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                }}
-              />
-            ) : (
-              <PlaceholderBox theme={theme}>
-                <Typography theme={theme} variant="body2" color="text.secondary">
-                  Media loading...
-                </Typography>
-              </PlaceholderBox>
+            {renderMediaContent(
+              videoSrcPath2,
+              imageSrcPath2,
+              'secondary demonstration video showing additional features'
             )}
           </ImageContainer>
         </ImageBox>
@@ -649,8 +592,8 @@ function ProjectCard({
           <DeploymentLabel theme={theme}>Source Code</DeploymentLabel>
         </DeploymentContainer>
 
-        {normalizedDeployments.map((deployment, index) => (
-          <DeploymentContainer key={`${deployment.url}-${index}`}>
+        {normalizedDeployments.map((deployment) => (
+          <DeploymentContainer key={deployment.url}>
             <IconLink
               theme={theme}
               href={deployment.url}
@@ -659,7 +602,15 @@ function ProjectCard({
               rel="noopener noreferrer"
               aria-label={`${deployment.label} - ${title}`}
             >
-              <DemoIcon aria-hidden="true" />
+              {deployment.label === 'Docker Hub' ? (
+                <FaDocker
+                  size={64}
+                  color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'}
+                  aria-hidden="true"
+                />
+              ) : (
+                <DemoIcon aria-hidden="true" />
+              )}
             </IconLink>
             <DeploymentLabel theme={theme}>{deployment.label}</DeploymentLabel>
           </DeploymentContainer>

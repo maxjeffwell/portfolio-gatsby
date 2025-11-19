@@ -12,6 +12,7 @@ module.exports = {
   flags: {
     PRESERVE_WEBPACK_CACHE: true,
     FAST_DEV: true,
+    DEV_SSR: false, // Disable SSR in development to avoid document errors
   },
   adapter: require('gatsby-adapter-netlify').default({
     excludeDatastoreFromEngineFunction: false,
@@ -32,13 +33,14 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet-async`,
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-        omitGoogleFont: false,
-      },
-    },
+    // Typography plugin disabled - using styled-components for all styling
+    // {
+    //   resolve: `gatsby-plugin-typography`,
+    //   options: {
+    //     pathToConfigModule: `src/utils/typography`,
+    //     omitGoogleFont: false,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
