@@ -11,7 +11,6 @@ import PageTransition from '../components/PageTransition';
 import SocialShare from '../components/SocialShare';
 import MotionWrapper from '../components/MotionWrapper';
 
-
 // Helper functions for Typography styles
 const getTypographyFontWeight = (variant) => {
   switch (variant) {
@@ -99,9 +98,24 @@ const projectsData = [
     deployments: [
       { url: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/', label: 'Heroku' },
       { url: 'https://marmoset.el-jefe.me', label: 'Docker/NAS' },
-      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general', label: 'Docker Hub' },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general',
+        label: 'Docker Hub',
+      },
     ],
-    technologies: ['JavaScript', 'React', 'Node.js', 'Express', 'Redux', 'MongoDB', 'JWT', 'NPM', 'Git', 'Docker', 'Heroku'],
+    technologies: [
+      'JavaScript',
+      'React',
+      'Node.js',
+      'Express',
+      'Redux',
+      'MongoDB',
+      'JWT',
+      'NPM',
+      'Git',
+      'Docker',
+      'Heroku',
+    ],
     screenshots: {
       screenshot1: 'educationelly_screenshot1',
       screenshot2: 'educationelly_screenshot2.mp4',
@@ -124,7 +138,10 @@ const projectsData = [
     deployments: [
       { url: 'https://code-talk-client-c46118c24c30.herokuapp.com/', label: 'Heroku' },
       { url: 'https://code-talk.el-jefe.me', label: 'Docker/NAS' },
-      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/code-talk-graphql-client/general', label: 'Docker Hub' },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/code-talk-graphql-client/general',
+        label: 'Docker Hub',
+      },
     ],
     technologies: [
       'JavaScript',
@@ -162,7 +179,10 @@ const projectsData = [
     deployments: [
       { url: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/', label: 'Heroku' },
       { url: 'https://educationelly.el-jefe.me', label: 'Docker/NAS' },
-      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-client/general', label: 'Docker Hub' },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-client/general',
+        label: 'Docker Hub',
+      },
     ],
     technologies: [
       'JavaScript',
@@ -201,7 +221,10 @@ const projectsData = [
     deployments: [
       { url: 'https://marmoset-c2870.firebaseapp.com', label: 'Firebase' },
       { url: 'https://firebook.el-jefe.me', label: 'Docker/NAS' },
-      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/firebook/general', label: 'Docker Hub' },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/firebook/general',
+        label: 'Docker Hub',
+      },
     ],
     technologies: [
       'JavaScript',
@@ -234,7 +257,10 @@ const projectsData = [
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
       { url: 'https://bookmarked.el-jefe.me', label: 'Docker/NAS' },
-      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/bookmarks-react-hooks-client/general', label: 'Docker Hub' },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/bookmarks-react-hooks-client/general',
+        label: 'Docker Hub',
+      },
     ],
     technologies: [
       'JavaScript',
@@ -269,7 +295,10 @@ const projectsData = [
     deployments: [
       { url: 'https://spaced-repetition-capstone-client.onrender.com/', label: 'Render' },
       { url: 'https://intervalai.el-jefe.me', label: 'Docker/NAS' },
-      { url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-client/general', label: 'Docker Hub' },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-client/general',
+        label: 'Docker Hub',
+      },
     ],
     technologies: [
       'JavaScript',
@@ -816,10 +845,7 @@ const Projects = ({ data }) => {
                     >
                       Redux
                     </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
-                      onClick={() => handleTechnologyChange('JWT')}
-                    >
+                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('JWT')}>
                       JWT
                     </CustomSelectOption>
                     <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('Git')}>
