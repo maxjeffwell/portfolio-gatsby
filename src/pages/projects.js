@@ -211,12 +211,15 @@ const projectsData = [
     date: '2018-2025',
     year: '2025',
     description:
-      'FireBook is a feature-rich web application that transforms how users save and organize their favorite\n' +
-      "  websites. Originally developed as a frontend-only application for Thinkful's Engineering Immersion\n" +
-      '  program, it has evolved into a full-stack solution powered by Firebase, offering secure authentication,\n' +
-      '  real-time synchronization, and personal bookmark collections. FireBook exemplifies how traditional web technologies can be enhanced with modern cloud services to create\n' +
-      '   a secure, scalable, and user-friendly application that works seamlessly across devices while maintaining\n' +
-      '  the simplicity of its original educational goals.',
+      'FireBook is an intelligent bookmark management platform built with React and Firebase that\n' +
+      '  automatically enriches saved links with metadata, screenshots, and AI-generated tags. The app features\n' +
+      '  Google OAuth authentication, real-time Firestore synchronization, and Firebase Cloud Functions that\n' +
+      '  capture webpage screenshots using Puppeteer, extract metadata (titles, descriptions, favicons), and\n' +
+      '  generate contextual tags via Google Natural Language API. Users can search bookmarks with Algolia\n' +
+      '  instant search, organize collections with collaborative sharing (viewer/editor permissions), edit\n' +
+      '  bookmarks in-app, and import/export data as JSON. Built with Vite, Tailwind CSS, and deployed on\n' +
+      '  Firebase Hosting with Docker support, FireBook demonstrates serverless architecture, cloud automation,\n' +
+      '  and modern React development patterns.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
     deployments: [
       { url: 'https://marmoset-c2870.firebaseapp.com', label: 'Firebase' },
@@ -227,15 +230,18 @@ const projectsData = [
       },
     ],
     technologies: [
-      'JavaScript',
       'React',
-      'CSS',
-      'PostgreSQL',
+      'Vite',
+      'Firebase',
+      'Firestore',
+      'Google Cloud',
+      'Tailwind CSS',
+      'Algolia',
+      'Puppeteer',
+      'JavaScript',
+      'Docker',
       'Git',
       'NPM',
-      'Docker',
-      'Google Cloud',
-      'Firebase',
     ],
     screenshots: {
       screenshot1: 'firebook_screenshot1.mp4',
@@ -988,6 +994,30 @@ const Projects = ({ data }) => {
                       onClick={() => handleTechnologyChange('Vite')}
                     >
                       Vite
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Tailwind CSS')}
+                    >
+                      Tailwind CSS
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Algolia')}
+                    >
+                      Algolia
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Puppeteer')}
+                    >
+                      Puppeteer
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Firestore')}
+                    >
+                      Firestore
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}

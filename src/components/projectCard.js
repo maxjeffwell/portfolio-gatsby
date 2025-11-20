@@ -36,6 +36,9 @@ import {
   SiHelm,
   SiPrometheus,
   SiGrafana,
+  SiTailwindcss,
+  SiAlgolia,
+  SiPuppeteer,
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
@@ -573,6 +576,22 @@ function ProjectCard({
       Grafana: {
         icon: <SiGrafana size={iconSize} color={iconColor} />,
         label: 'Grafana analytics and monitoring',
+      },
+      'Tailwind CSS': {
+        icon: <SiTailwindcss size={iconSize} color={iconColor} />,
+        label: 'Tailwind CSS utility-first framework',
+      },
+      Algolia: {
+        icon: <SiAlgolia size={iconSize} color={iconColor} />,
+        label: 'Algolia search platform',
+      },
+      Puppeteer: {
+        icon: <SiPuppeteer size={iconSize} color={iconColor} />,
+        label: 'Puppeteer headless browser automation',
+      },
+      Firestore: {
+        icon: <SiFirebase size={iconSize} color={iconColor} />,
+        label: 'Firestore NoSQL database',
       },
     };
 
