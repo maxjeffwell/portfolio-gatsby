@@ -412,6 +412,39 @@ const projectsData = [
       screenshot2: 'podrick_screenshot2',
     },
   },
+  {
+    id: 'project9',
+    title: 'TenantFlow',
+    date: '2025',
+    year: '2025',
+    description:
+      'Multi-tenant Kubernetes platform enabling isolated deployment of portfolio applications in separate\n' +
+      '  namespaces. Ideal for client demos, A/B testing, and staging environments. Features namespace isolation,\n' +
+      '  resource quotas, and per-tenant monitoring. Built with React, Vite, Node.js, and Kubernetes, the platform\n' +
+      '  provides isolated instances of educationELLy-graphql and educationELLy applications running in different\n' +
+      '  namespaces. Each tenant environment is completely isolated with its own resources, ensuring secure and\n' +
+      '  efficient multi-tenancy. Utilizes Helm charts for deployment management, Nginx Ingress for routing, and\n' +
+      '  Docker for containerization, demonstrating cloud-native architecture patterns and Kubernetes best practices\n' +
+      '  for multi-tenant applications.',
+    sourceURL: 'https://github.com/maxjeffwell/k8s-multi-tenant-platform',
+    deployments: [],
+    technologies: [
+      'Kubernetes',
+      'Docker',
+      'Vite',
+      'React',
+      'Node.js',
+      'Helm',
+      'Nginx Ingress',
+      'JavaScript',
+      'Git',
+      'NPM',
+    ],
+    screenshots: {
+      screenshot1: 'tenant_screenshot1',
+      screenshot2: 'tenant_screenshot2',
+    },
+  },
 ];
 
 const StyledContainer = styled.div`
@@ -1074,6 +1107,12 @@ const Projects = ({ data }) => {
                       onClick={() => handleTechnologyChange('Argo CD')}
                     >
                       Argo CD
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Nginx Ingress')}
+                    >
+                      Nginx Ingress
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}

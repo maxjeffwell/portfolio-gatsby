@@ -41,6 +41,7 @@ import {
   SiPuppeteer,
   SiGithubactions,
   SiArgo,
+  SiNginx,
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
@@ -602,6 +603,14 @@ function ProjectCard({
       'Argo CD': {
         icon: <SiArgo size={iconSize} color={iconColor} />,
         label: 'Argo CD GitOps continuous delivery',
+      },
+      'Nginx Ingress': {
+        icon: <SiNginx size={iconSize} color={iconColor} />,
+        label: 'Nginx Ingress Controller for Kubernetes',
+      },
+      Nginx: {
+        icon: <SiNginx size={iconSize} color={iconColor} />,
+        label: 'Nginx web server and reverse proxy',
       },
     };
 
