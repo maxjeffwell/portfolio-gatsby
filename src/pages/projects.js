@@ -335,7 +335,12 @@ const projectsData = [
       '  demonstrates cloud-native development practices and modern DevOps workflows with integrated Prometheus\n' +
       '  and Grafana monitoring.',
     sourceURL: 'https://github.com/maxjeffwell/portfolio-orchestration-platform',
-    deployments: [],
+    deployments: [
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/portfolio-dashboard/general',
+        label: 'Docker Hub',
+      },
+    ],
     technologies: [
       'JavaScript',
       'React',
