@@ -321,11 +321,11 @@ const projectsData = [
   },
   {
     id: 'project7',
-    title: 'Pop!_portfolio',
+    title: 'Pop!_Portfolio',
     date: '2025',
     year: '2025',
     description:
-      'Pop!_portfolio (Portfolio Orchestration Platform) is a Kubernetes-based orchestration platform that\n' +
+      'Pop!_Portfolio (Portfolio Orchestration Platform) is a Kubernetes-based orchestration platform that\n' +
       '  manages and monitors all portfolio applications as containerized workloads. Built with React and Node.js,\n' +
       '  it provides real-time pod status tracking, resource metrics visualization (CPU, memory, network),\n' +
       '  centralized log aggregation with search and filtering, and deployment controls for managing applications\n' +
