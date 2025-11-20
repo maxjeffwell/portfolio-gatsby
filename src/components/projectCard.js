@@ -39,6 +39,8 @@ import {
   SiTailwindcss,
   SiAlgolia,
   SiPuppeteer,
+  SiGithubactions,
+  SiArgo,
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
@@ -592,6 +594,14 @@ function ProjectCard({
       Firestore: {
         icon: <SiFirebase size={iconSize} color={iconColor} />,
         label: 'Firestore NoSQL database',
+      },
+      'GitHub Actions': {
+        icon: <SiGithubactions size={iconSize} color={iconColor} />,
+        label: 'GitHub Actions CI/CD',
+      },
+      'Argo CD': {
+        icon: <SiArgo size={iconSize} color={iconColor} />,
+        label: 'Argo CD GitOps continuous delivery',
       },
     };
 
