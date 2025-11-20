@@ -374,16 +374,16 @@ const projectsData = [
     date: '2025',
     year: '2025',
     description:
-      'Podrick is an automated DevOps platform implementing GitOps workflows for portfolio applications. It\n' +
-      '  features CI/CD pipelines with GitHub Actions for automated build, test, and deploy processes, Helm\n' +
-      '  charts for infrastructure-as-code management, and one-command rollback capabilities. The platform\n' +
-      '  provides centralized management of all portfolio applications with automated Kubernetes deployments,\n' +
-      '  Docker registry integration, and post-deployment health monitoring. Built with Node.js, React/Vite, and\n' +
-      '  Express, it includes a GitOps sync service that continuously monitors the repository and automatically\n' +
-      '  applies changes to the Kubernetes cluster. With support for multiple environments (dev, staging,\n' +
-      '  production), automated rollback on failure, and integration with Prometheus and Grafana for monitoring,\n' +
-      '  Podrick demonstrates modern DevOps best practices including immutable infrastructure, semantic\n' +
-      '  versioning, and blue-green deployments.',
+      'Automated DevOps platform implementing GitOps workflows for portfolio applications. Features CI/CD\n' +
+      '  pipelines with GitHub Actions for automated build, test, and deployment processes, automated\n' +
+      '  Kubernetes deployments with rollback capabilities, and infrastructure-as-code management with Helm\n' +
+      '  charts. The platform provides centralized management of all portfolio applications with Docker\n' +
+      '  registry integration, post-deployment health monitoring, and real-time status tracking. Built with\n' +
+      '  Node.js, React/Vite, and Express, it includes a GitOps sync service that continuously monitors the\n' +
+      '  repository and automatically applies changes to the Kubernetes cluster. With support for multiple\n' +
+      '  environments (dev, staging, production), automated rollback on failure, and integration with\n' +
+      '  Prometheus and Grafana for monitoring, Podrick demonstrates modern DevOps best practices including\n' +
+      '  immutable infrastructure, semantic versioning, and blue-green deployments.',
     sourceURL: 'https://github.com/maxjeffwell/devops-portfolio-manager',
     deployments: [
       {
