@@ -93,19 +93,18 @@ function generateCSPForFiles() {
   const headersPath = path.join(publicDir, '_headers');
   let headersContent = fs.readFileSync(headersPath, 'utf8');
 
-  // Remove any existing CSP line first
+  // Remove ALL existing CSP-related content (headers and comments)
+  // This regex removes both the CSP headers and the "Hash-based Content Security Policy" comments
+  headersContent = headersContent.replace(/# Hash-based Content Security Policy\n\/\*\n(\s*Content-Security-Policy:.*?\n)?/g, '');
+
+  // Also remove any standalone CSP lines
   headersContent = headersContent.replace(/\s*Content-Security-Policy:.*?\n/g, '');
 
-  // Find the security headers section and add CSP
-  if (headersContent.includes('Permissions-Policy:')) {
-    headersContent = headersContent.replace(
-      /(Permissions-Policy:.*\n)/,
-      `$1  Content-Security-Policy: ${csp}\n`
-    );
-  } else {
-    // Add CSP at the end of the file
-    headersContent += `\n# Hash-based Content Security Policy\n/*\n  Content-Security-Policy: ${csp}\n`;
-  }
+  // Ensure file ends properly before adding new content
+  headersContent = headersContent.trim();
+
+  // Add CSP at the end of the file (only once)
+  headersContent += `\n\n# Hash-based Content Security Policy\n/*\n  Content-Security-Policy: ${csp}\n`;
 
   fs.writeFileSync(headersPath, headersContent);
   // eslint-disable-next-line no-console

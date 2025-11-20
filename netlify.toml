@@ -172,15 +172,6 @@ renderJavaScript = true
   status = 200
 
 # Security headers
-# Note: Basic security headers are already set by gatsby-adapter-netlify in _headers file
-# Only add additional headers here that are not in the auto-generated _headers
-[[headers]]
-  for = "/*"
-  [headers.values]
-    # HSTS with preload - prevents "Not Secure" warnings
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    # Simplified Permissions-Policy to avoid unrecognized feature warnings
-    # Only include widely supported features
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
-    # Override X-Frame-Options to allow iframe embedding
-    X-Frame-Options = "SAMEORIGIN"
+# Note: gatsby-adapter-netlify generates _headers file with basic security headers
+# We're removing the [[headers]] section here to avoid conflicts
+# The _headers file will be the single source of truth for headers
