@@ -319,6 +319,43 @@ const projectsData = [
       screenshot2: 'intervalai_screenshot2.mp4',
     },
   },
+  {
+    id: 'project7',
+    title: 'Pop!_portfolio',
+    date: '2025',
+    year: '2025',
+    description:
+      'Pop!_portfolio (Portfolio Orchestration Platform) is a Kubernetes-based orchestration platform that\n' +
+      '  manages and monitors all portfolio applications as containerized workloads. Built with React and Node.js,\n' +
+      '  it provides real-time pod status tracking, resource metrics visualization (CPU, memory, network),\n' +
+      '  centralized log aggregation with search and filtering, and deployment controls for managing applications\n' +
+      '  through a web dashboard. The platform features automated health monitoring with liveness and readiness\n' +
+      '  probes, service discovery, intelligent load balancing, and horizontal pod autoscaling. Using the\n' +
+      '  Kubernetes API client, Socket.io for real-time updates, and Material-UI for the interface, it\n' +
+      '  demonstrates cloud-native development practices and modern DevOps workflows with integrated Prometheus\n' +
+      '  and Grafana monitoring.',
+    sourceURL: 'https://github.com/maxjeffwell/portfolio-orchestration-platform',
+    deployments: [],
+    technologies: [
+      'JavaScript',
+      'React',
+      'Node.js',
+      'Express',
+      'Kubernetes',
+      'Docker',
+      'Material-UI',
+      'Socket.io',
+      'Helm',
+      'Prometheus',
+      'Grafana',
+      'Git',
+      'NPM',
+    ],
+    screenshots: {
+      screenshot1: 'pop_screenshot1',
+      screenshot2: 'pop_screenshot2',
+    },
+  },
 ];
 
 const StyledContainer = styled.div`
@@ -903,6 +940,42 @@ const Projects = ({ data }) => {
                       onClick={() => handleTechnologyChange('Neon')}
                     >
                       Neon
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Kubernetes')}
+                    >
+                      Kubernetes
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Material-UI')}
+                    >
+                      Material-UI
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Socket.io')}
+                    >
+                      Socket.io
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Helm')}
+                    >
+                      Helm
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Prometheus')}
+                    >
+                      Prometheus
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Grafana')}
+                    >
+                      Grafana
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}
