@@ -400,7 +400,7 @@ const projectsData = [
       'Docker',
       'Helm',
       'GitHub Actions',
-      'ArgoCD',
+      'Argo CD',
       'Prometheus',
       'Grafana',
       'Vite',
@@ -1071,9 +1071,9 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
-                      onClick={() => handleTechnologyChange('ArgoCD')}
+                      onClick={() => handleTechnologyChange('Argo CD')}
                     >
-                      ArgoCD
+                      Argo CD
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}
