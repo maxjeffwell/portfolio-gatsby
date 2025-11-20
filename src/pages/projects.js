@@ -368,6 +368,50 @@ const projectsData = [
       screenshot2: 'pop_screenshot2',
     },
   },
+  {
+    id: 'project8',
+    title: 'Podrick',
+    date: '2025',
+    year: '2025',
+    description:
+      'Podrick is an automated DevOps platform implementing GitOps workflows for portfolio applications. It\n' +
+      '  features CI/CD pipelines with GitHub Actions for automated build, test, and deploy processes, Helm\n' +
+      '  charts for infrastructure-as-code management, and one-command rollback capabilities. The platform\n' +
+      '  provides centralized management of all portfolio applications with automated Kubernetes deployments,\n' +
+      '  Docker registry integration, and post-deployment health monitoring. Built with Node.js, React/Vite, and\n' +
+      '  Express, it includes a GitOps sync service that continuously monitors the repository and automatically\n' +
+      '  applies changes to the Kubernetes cluster. With support for multiple environments (dev, staging,\n' +
+      '  production), automated rollback on failure, and integration with Prometheus and Grafana for monitoring,\n' +
+      '  Podrick demonstrates modern DevOps best practices including immutable infrastructure, semantic\n' +
+      '  versioning, and blue-green deployments.',
+    sourceURL: 'https://github.com/maxjeffwell/devops-portfolio-manager',
+    deployments: [
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/devops-portfolio-dashboard',
+        label: 'Docker Hub',
+      },
+    ],
+    technologies: [
+      'JavaScript',
+      'React',
+      'Node.js',
+      'Express',
+      'Kubernetes',
+      'Docker',
+      'Helm',
+      'GitHub Actions',
+      'ArgoCD',
+      'Prometheus',
+      'Grafana',
+      'Vite',
+      'Git',
+      'NPM',
+    ],
+    screenshots: {
+      screenshot1: 'podrick_screenshot1',
+      screenshot2: 'podrick_screenshot2',
+    },
+  },
 ];
 
 const StyledContainer = styled.div`
@@ -1018,6 +1062,18 @@ const Projects = ({ data }) => {
                       onClick={() => handleTechnologyChange('Firestore')}
                     >
                       Firestore
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('GitHub Actions')}
+                    >
+                      GitHub Actions
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('ArgoCD')}
+                    >
+                      ArgoCD
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}
