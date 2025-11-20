@@ -348,6 +348,7 @@ const projectsData = [
       'Helm',
       'Prometheus',
       'Grafana',
+      'Vite',
       'Git',
       'NPM',
     ],
@@ -976,6 +977,12 @@ const Projects = ({ data }) => {
                       onClick={() => handleTechnologyChange('Grafana')}
                     >
                       Grafana
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Vite')}
+                    >
+                      Vite
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}

@@ -29,6 +29,13 @@ import {
   SiNpm,
   SiTensorflow,
   SiWebgl,
+  SiKubernetes,
+  SiVite,
+  SiMui,
+  SiSocketdotio,
+  SiHelm,
+  SiPrometheus,
+  SiGrafana,
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
@@ -539,6 +546,34 @@ function ProjectCard({
         label: 'Machine Learning',
       },
       WebGPU: { icon: <SiWebgl size={iconSize} color={iconColor} />, label: 'WebGPU graphics API' },
+      Kubernetes: {
+        icon: <SiKubernetes size={iconSize} color={iconColor} />,
+        label: 'Kubernetes container orchestration',
+      },
+      Vite: {
+        icon: <SiVite size={iconSize} color={iconColor} />,
+        label: 'Vite build tool',
+      },
+      'Material-UI': {
+        icon: <SiMui size={iconSize} color={iconColor} />,
+        label: 'Material-UI React component library',
+      },
+      'Socket.io': {
+        icon: <SiSocketdotio size={iconSize} color={iconColor} />,
+        label: 'Socket.io real-time communication',
+      },
+      Helm: {
+        icon: <SiHelm size={iconSize} color={iconColor} />,
+        label: 'Helm Kubernetes package manager',
+      },
+      Prometheus: {
+        icon: <SiPrometheus size={iconSize} color={iconColor} />,
+        label: 'Prometheus monitoring system',
+      },
+      Grafana: {
+        icon: <SiGrafana size={iconSize} color={iconColor} />,
+        label: 'Grafana analytics and monitoring',
+      },
     };
 
     return techMap[tech] || null;
