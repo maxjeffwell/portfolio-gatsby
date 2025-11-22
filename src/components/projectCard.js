@@ -761,7 +761,7 @@ function ProjectCard({
               rel="noopener noreferrer"
               aria-label={`${deployment.label} - ${title}`}
             >
-              {deployment.label === 'Docker Hub' ? (
+              {deployment.label.includes('Docker Hub') ? (
                 <DockerIcon aria-hidden="true" />
               ) : (
                 <DemoIcon aria-hidden="true" />
