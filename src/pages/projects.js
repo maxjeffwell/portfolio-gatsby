@@ -94,13 +94,26 @@ const projectsData = [
       '  authentication, comprehensive student profile management (demographics, language details, academic\n' +
       '  status), and a responsive interface with real-time data access for improved teacher collaboration and\n' +
       '  student support.',
-    sourceURL: 'https://github.com/maxjeffwell/full-stack-capstone-client',
+    sourceURLs: [
+      {
+        url: 'https://github.com/maxjeffwell/full-stack-capstone-client',
+        label: 'Source Code (Frontend)',
+      },
+      {
+        url: 'https://github.com/maxjeffwell/full-stack-capstone-server',
+        label: 'Source Code (Backend)',
+      },
+    ],
     deployments: [
       { url: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/', label: 'Heroku' },
       { url: 'https://marmoset.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general',
-        label: 'Docker Hub',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-server/general',
+        label: 'Docker Hub (Backend)',
       },
     ],
     technologies: [
@@ -134,13 +147,26 @@ const projectsData = [
       '  subscriptions for real-time updates, Redis pub/sub for scalability, and includes performance optimizations\n' +
       '   like virtualized lists and code splitting. Perfect for remote pair programming, code reviews, or team\n' +
       '  collaboration sessions.',
-    sourceURL: 'https://github.com/maxjeffwell/code-talk-graphql-client',
+    sourceURLs: [
+      {
+        url: 'https://github.com/maxjeffwell/code-talk-graphql-client',
+        label: 'Source Code (Frontend)',
+      },
+      {
+        url: 'https://github.com/maxjeffwell/code-talk-graphql-server',
+        label: 'Source Code (Backend)',
+      },
+    ],
     deployments: [
       { url: 'https://code-talk-client-c46118c24c30.herokuapp.com/', label: 'Heroku' },
       { url: 'https://code-talk.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/code-talk-graphql-client/general',
-        label: 'Docker Hub',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/code-talk-graphql-server/general',
+        label: 'Docker Hub (Backend)',
       },
     ],
     technologies: [
@@ -175,13 +201,26 @@ const projectsData = [
       '  student records (including personal info, educational details, native language, proficiency levels), and\n' +
       '  role-based access control for teachers and administrators to track and manage their ELL student\n' +
       '  population.',
-    sourceURL: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
+    sourceURLs: [
+      {
+        url: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
+        label: 'Source Code (Frontend)',
+      },
+      {
+        url: 'https://github.com/maxjeffwell/educationELLy-graphql-server',
+        label: 'Source Code (Backend)',
+      },
+    ],
     deployments: [
       { url: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/', label: 'Heroku' },
       { url: 'https://educationelly.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-client/general',
-        label: 'Docker Hub',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-server/general',
+        label: 'Docker Hub (Backend)',
       },
     ],
     technologies: [
@@ -265,7 +304,11 @@ const projectsData = [
       { url: 'https://bookmarked.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/bookmarks-react-hooks-client/general',
-        label: 'Docker Hub',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/bookmarks-react-hooks-server/general',
+        label: 'Docker Hub (Backend)',
       },
     ],
     technologies: [
@@ -297,13 +340,26 @@ const projectsData = [
       '  WebGPU-accelerated ML inference (<1ms), real-time predictions of optimal review intervals, TensorFlow.js\n' +
       '  for machine learning, and built-in A/B testing to compare algorithm performance. Perfect for language\n' +
       '  learners seeking personalized, scientifically-optimized study schedules.',
-    sourceURL: 'https://github.com/maxjeffwell/spaced-repetition-capstone-client',
+    sourceURLs: [
+      {
+        url: 'https://github.com/maxjeffwell/spaced-repetition-capstone-client',
+        label: 'Source Code (Frontend)',
+      },
+      {
+        url: 'https://github.com/maxjeffwell/spaced-repetition-capstone-server',
+        label: 'Source Code (Backend)',
+      },
+    ],
     deployments: [
       { url: 'https://spaced-repetition-capstone-client.onrender.com/', label: 'Render' },
       { url: 'https://intervalai.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-client/general',
-        label: 'Docker Hub',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-server/general',
+        label: 'Docker Hub (Backend)',
       },
     ],
     technologies: [
@@ -344,7 +400,11 @@ const projectsData = [
     deployments: [
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/portfolio-dashboard/general',
-        label: 'Docker Hub',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/portfolio-api/general',
+        label: 'Docker Hub (Backend)',
       },
     ],
     technologies: [
@@ -388,7 +448,11 @@ const projectsData = [
     deployments: [
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/devops-portfolio-dashboard',
-        label: 'Docker Hub',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/devops-portfolio-api/general',
+        label: 'Docker Hub (Backend)',
       },
     ],
     technologies: [
@@ -427,7 +491,16 @@ const projectsData = [
       '  Docker for containerization, demonstrating cloud-native architecture patterns and Kubernetes best practices\n' +
       '  for multi-tenant applications.',
     sourceURL: 'https://github.com/maxjeffwell/k8s-multi-tenant-platform',
-    deployments: [],
+    deployments: [
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/k8s-platform-frontend/general',
+        label: 'Docker Hub (Frontend)',
+      },
+      {
+        url: 'https://hub.docker.com/repository/docker/maxjeffwell/k8s-platform-backend/general',
+        label: 'Docker Hub (Backend)',
+      },
+    ],
     technologies: [
       'Kubernetes',
       'Docker',
@@ -1157,6 +1230,7 @@ const Projects = ({ data }) => {
                     date={project.date}
                     description={project.description}
                     sourceURL={project.sourceURL}
+                    sourceURLs={project.sourceURLs}
                     hostedURL={project.hostedURL}
                     deployments={project.deployments}
                     technologies={project.technologies}

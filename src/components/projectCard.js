@@ -415,11 +415,23 @@ function ProjectCard({
   date,
   description,
   sourceURL,
+  sourceURLs,
   hostedURL,
   deployments = [],
   technologies = [],
 }) {
   const { theme } = useTheme();
+
+  // Normalize source URLs - support both single sourceURL and sourceURLs array
+  const normalizedSources = (() => {
+    if (sourceURLs && sourceURLs.length > 0) {
+      return sourceURLs;
+    }
+    if (sourceURL) {
+      return [{ url: sourceURL, label: 'Source Code' }];
+    }
+    return [];
+  })();
 
   // Normalize deployments - support both single hostedURL and deployments array
   const normalizedDeployments = (() => {
@@ -723,19 +735,21 @@ function ProjectCard({
       </StyledCardContent>
 
       <StyledCardActions>
-        <DeploymentContainer>
-          <IconLink
-            theme={theme}
-            href={sourceURL}
-            title={`View source code for ${title} on GitHub`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`View source code for ${title} on GitHub`}
-          >
-            <OpenSourceIcon aria-hidden="true" />
-          </IconLink>
-          <DeploymentLabel theme={theme}>Source Code</DeploymentLabel>
-        </DeploymentContainer>
+        {normalizedSources.map((source) => (
+          <DeploymentContainer key={source.url}>
+            <IconLink
+              theme={theme}
+              href={source.url}
+              title={`${source.label} - ${title}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${source.label} - ${title}`}
+            >
+              <OpenSourceIcon aria-hidden="true" />
+            </IconLink>
+            <DeploymentLabel theme={theme}>{source.label}</DeploymentLabel>
+          </DeploymentContainer>
+        ))}
 
         {normalizedDeployments.map((deployment) => (
           <DeploymentContainer key={deployment.url}>
@@ -769,7 +783,13 @@ ProjectCard.propTypes = {
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  sourceURL: PropTypes.string.isRequired,
+  sourceURL: PropTypes.string,
+  sourceURLs: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ),
   hostedURL: PropTypes.string,
   deployments: PropTypes.arrayOf(
     PropTypes.shape({
