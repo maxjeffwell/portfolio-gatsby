@@ -518,6 +518,42 @@ const projectsData = [
       screenshot2: 'tenant_screenshot2',
     },
   },
+  {
+    id: 'project10',
+    title: 'Vertex Platform',
+    date: '2025',
+    year: '2025',
+    description:
+      'Enterprise-grade microservices platform demonstrating platform engineering and service-oriented\n' +
+      '  architecture. Currently implements authentication and analytics services with plans to orchestrate\n' +
+      '  educationELLy, Code Talk, FireBook, and IntervalAI applications. The auth service provides JWT-based\n' +
+      '  authentication with PostgreSQL and Redis for session management, while the analytics service captures\n' +
+      '  events with Kafka streaming and stores time-series data in InfluxDB. Built with Node.js and Express,\n' +
+      '  the platform uses Docker Compose for local development with MongoDB, Redis, Kafka, Zookeeper, and\n' +
+      '  InfluxDB infrastructure services. Features shared platform modules for logging, error handling, and\n' +
+      '  middleware, demonstrating microservices patterns including service decomposition, event-driven\n' +
+      '  architecture, and centralized authentication. The project showcases domain-driven design, API\n' +
+      '  development best practices, and modern DevOps workflows with Docker containerization.',
+    sourceURL: 'https://github.com/maxjeffwell/microservices-platform',
+    technologies: [
+      'JavaScript',
+      'Node.js',
+      'Express',
+      'PostgreSQL',
+      'MongoDB',
+      'Redis',
+      'InfluxDB',
+      'Kafka',
+      'JWT',
+      'Docker',
+      'Git',
+      'NPM',
+    ],
+    screenshots: {
+      screenshot1: 'vertex_screenshot1',
+      screenshot2: 'vertex_screenshot2',
+    },
+  },
 ];
 
 const StyledContainer = styled.div`
