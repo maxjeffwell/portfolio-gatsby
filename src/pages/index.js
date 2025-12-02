@@ -454,11 +454,10 @@ const IndexPage = () => {
                 </CardTitle>
                 <CardText theme={theme}>
                   When I&#39;m not crafting pixel-perfect interfaces or debugging complex
-                  algorithms, algorithms, you&#39;ll find me negotiating dinner arrangements with my
-                  two demanding project managers — they&#39;re surprisingly good at code reviews! My
-                  approach to development extends beyond just writing code; it&#39;s about
-                  understanding user needs, anticipating edge cases, and building solutions that
-                  scale gracefully.
+                  algorithms, you&#39;ll find me negotiating dinner arrangements with my demanding
+                  project managers — they&#39;re surprisingly good at code reviews! My approach to
+                  development extends beyond just writing code; it&#39;s about understanding user
+                  needs, anticipating edge cases, and building solutions that scale gracefully.
                   <br />
                   <br />
                   I&#39;m passionate about continuous learning, whether it&#39;s exploring emerging
