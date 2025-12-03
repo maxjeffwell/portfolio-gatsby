@@ -329,7 +329,7 @@ const projectsData = [
       'Vercel',
     ],
     screenshots: {
-      screenshot1: 'bookmarked_screenshot1',
+      screenshot1: 'bookmarked_screenshot1.mp4',
       screenshot2: 'bookmarked_screenshot2.mp4',
     },
   },
