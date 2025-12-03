@@ -283,7 +283,7 @@ const projectsData = [
       'NPM',
     ],
     screenshots: {
-      screenshot1: 'firebook_screenshot1.mp4',
+      screenshot1: 'firebook_screenshot1.png',
       screenshot2: 'firebook_screenshot2.png',
     },
   },
