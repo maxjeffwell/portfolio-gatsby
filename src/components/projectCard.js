@@ -42,6 +42,8 @@ import {
   SiGithubactions,
   SiArgo,
   SiNginx,
+  SiOpenai,
+  SiLangchain,
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
@@ -623,6 +625,14 @@ function ProjectCard({
       Nginx: {
         icon: <SiNginx size={iconSize} color={iconColor} />,
         label: 'Nginx web server and reverse proxy',
+      },
+      OpenAI: {
+        icon: <SiOpenai size={iconSize} color={iconColor} />,
+        label: 'OpenAI AI platform',
+      },
+      LangChain: {
+        icon: <SiLangchain size={iconSize} color={iconColor} />,
+        label: 'LangChain AI framework',
       },
     };
 
