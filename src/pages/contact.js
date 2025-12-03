@@ -104,7 +104,7 @@ const getTypographyLetterSpacing = (variant) => {
       return '0.00735em';
     case 'h3':
     case 'h5':
-      return 0;
+      return '0';
     case 'body1':
       return '0.00938em';
     case 'body2':
@@ -1167,7 +1167,7 @@ function Contact() {
                 <input type="hidden" name="form-name" value="contact" />
                 <StyledBox position="absolute" left="-5000px" overflow="hidden">
                   <label htmlFor="bot-field-input">
-                    Don&apos;t fill this out if you&apos;re human:
+                    Don&apos;t fill this out if you&apos;re human:{' '}
                     <input
                       type="text"
                       name="bot-field"
@@ -1177,7 +1177,6 @@ function Contact() {
                     />
                   </label>
                 </StyledBox>
-
                 <StyledTextField className={formData.name ? 'has-value' : ''}>
                   <label htmlFor="contact-name">Your Name *</label>
                   <input

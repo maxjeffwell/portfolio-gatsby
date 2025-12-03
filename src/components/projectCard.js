@@ -732,7 +732,6 @@ function ProjectCard({
                 <TechIcon
                   key={tech}
                   theme={theme}
-                  role="img"
                   aria-label={techData.label}
                   title={techData.label}
                 >
