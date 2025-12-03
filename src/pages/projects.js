@@ -436,7 +436,7 @@ const projectsData = [
   },
   {
     id: 'project8',
-    title: 'Podrick',
+    title: 'PodRick',
     date: '2025',
     year: '2025',
     description:
@@ -448,7 +448,7 @@ const projectsData = [
       '  Node.js, React/Vite, and Express, it includes a GitOps sync service that continuously monitors the\n' +
       '  repository and automatically applies changes to the Kubernetes cluster. With support for multiple\n' +
       '  environments (dev, staging, production), automated rollback on failure, and integration with\n' +
-      '  Prometheus and Grafana for monitoring, Podrick demonstrates modern DevOps best practices including\n' +
+      '  Prometheus and Grafana for monitoring, PodRick demonstrates modern DevOps best practices including\n' +
       '  immutable infrastructure, semantic versioning, and blue-green deployments.',
     sourceURL: 'https://github.com/maxjeffwell/devops-portfolio-manager',
     deployments: [
@@ -478,8 +478,8 @@ const projectsData = [
       'NPM',
     ],
     screenshots: {
-      screenshot1: 'podrick_screenshot1',
-      screenshot2: 'podrick_screenshot2',
+      screenshot1: 'podrick_screenshot1.png',
+      screenshot2: 'podrick_screenshot2.png',
     },
   },
   {
