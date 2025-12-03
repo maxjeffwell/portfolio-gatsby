@@ -430,8 +430,8 @@ const projectsData = [
       'NPM',
     ],
     screenshots: {
-      screenshot1: 'pop_screenshot1',
-      screenshot2: 'pop_screenshot2',
+      screenshot1: 'pop_screenshot1.png',
+      screenshot2: 'pop_screenshot2.png',
     },
   },
   {
