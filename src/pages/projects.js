@@ -293,11 +293,14 @@ const projectsData = [
     date: '2020-2025',
     year: '2025',
     description:
-      'Bookmarked is a modern bookmark manager application built with React Hooks. It lets users save, organize,\n' +
-      '  and manage their favorite web links with features like ratings, favorites, and smart filtering. The app\n' +
-      "  uses React's Context API and useReducer for state management, Emotion for styling, and connects to a REST\n" +
-      '  API backend for data persistence. Users can add bookmarks with titles, URLs, and descriptions, rate them\n' +
-      '  on a 5-star scale, mark favorites, and filter their collection by rating or favorite status.',
+      'Bookmarked is an AI-powered bookmark manager built with React Hooks and LangChain. It features intelligent\n' +
+      '  auto-tagging that uses OpenAI GPT-4o-mini to automatically generate 3-5 relevant tags for each bookmark by\n' +
+      '  analyzing titles, URLs, and descriptions. The app includes individual and batch tag generation, PostgreSQL-\n' +
+      '  backed caching to minimize API costs, and full-text search capabilities. Built with React Context API and\n' +
+      '  useReducer for state management, it connects to a Neon PostgreSQL database with a normalized tags schema.\n' +
+      '  Users can save bookmarks, rate them on a 5-star scale, mark favorites, filter by rating or tags, and benefit\n' +
+      '  from smart AI categorization that learns from bookmark content. The dual-deployment architecture supports both\n' +
+      '  Vercel serverless functions and Express backend, with cost optimization achieving 60-70% cache hit rates.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
@@ -317,7 +320,10 @@ const projectsData = [
       'Context API',
       'Emotion',
       'Node.js',
+      'PostgreSQL',
       'Neon',
+      'LangChain',
+      'OpenAI',
       'Git',
       'Docker',
       'Vercel',
@@ -1141,9 +1147,21 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
+                      onClick={() => handleTechnologyChange('OpenAI')}
+                    >
+                      OpenAI
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
                       onClick={() => handleTechnologyChange('Kubernetes')}
                     >
                       Kubernetes
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('LangChain')}
+                    >
+                      LangChain
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
