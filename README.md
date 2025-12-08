@@ -148,9 +148,9 @@ https://github.com/maxjeffwell/portfolio-gatsby/raw/master/screenshots/Video_202
 | 🎨 **Design** | ⚡ **Performance** | 🔧 **Development** |
 |:-------------:|:------------------:|:-------------------:|
 | Modern UI/UX | Sub-1s load times | Gatsby + React |
-| Dark/Light modes | WebP optimization | TypeScript ready |
-| Responsive design | Edge caching | Hot reloading |
-| Smooth animations | Code splitting | ESLint + Prettier |
+| Dark/Light modes | WebP optimization | Hot reloading |
+| Responsive design | Edge caching | ESLint + Prettier |
+| Smooth animations | Code splitting | - |
 
 </div>
 
