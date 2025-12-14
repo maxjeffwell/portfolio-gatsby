@@ -51,6 +51,7 @@ import DemoIcon from '../images/svg-icons/demo.svg';
 import OpenSourceIcon from '../images/svg-icons/open_source.svg';
 import NeonIcon from '../images/svg-icons/neon-tech.svg';
 import DockerIcon from '../images/svg-icons/docker.svg';
+import KubernetesIcon from '../images/svg-icons/kubernetes.svg';
 
 // Helper functions for Typography styles
 const getTypographyFontWeight = (variant) => {
@@ -760,25 +761,47 @@ function ProjectCard({
           </DeploymentContainer>
         ))}
 
-        {normalizedDeployments.map((deployment) => (
-          <DeploymentContainer key={deployment.url}>
-            <IconLink
-              theme={theme}
-              href={deployment.url}
-              title={`${deployment.label} - ${title}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${deployment.label} - ${title}`}
-            >
-              {deployment.label.includes('Docker Hub') ? (
-                <DockerIcon aria-hidden="true" />
+        {normalizedDeployments.map((deployment, index) => {
+          let DeploymentIconComponent = DemoIcon;
+          if (deployment.label.includes('Docker Hub')) {
+            DeploymentIconComponent = DockerIcon;
+          } else if (deployment.label === 'Kubernetes') {
+            DeploymentIconComponent = KubernetesIcon;
+          }
+
+          return (
+            <DeploymentContainer key={deployment.url || `${deployment.label}-${index}`}>
+              {deployment.url ? (
+                <IconLink
+                  theme={theme}
+                  href={deployment.url}
+                  title={`${deployment.label} - ${title}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${deployment.label} - ${title}`}
+                >
+                  <DeploymentIconComponent aria-hidden="true" />
+                </IconLink>
               ) : (
-                <DemoIcon aria-hidden="true" />
+                <div
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                  title={`${deployment.label} - ${title}`}
+                  aria-label={`${deployment.label} - ${title}`}
+                >
+                  <DeploymentIconComponent
+                    aria-hidden="true"
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                    }}
+                  />
+                </div>
               )}
-            </IconLink>
-            <DeploymentLabel theme={theme}>{deployment.label}</DeploymentLabel>
-          </DeploymentContainer>
-        ))}
+              <DeploymentLabel theme={theme}>{deployment.label}</DeploymentLabel>
+            </DeploymentContainer>
+          );
+        })}
       </StyledCardActions>
     </StyledCard>
   );

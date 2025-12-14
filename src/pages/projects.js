@@ -404,6 +404,7 @@ const projectsData = [
       '  and Grafana monitoring.',
     sourceURL: 'https://github.com/maxjeffwell/portfolio-orchestration-platform',
     deployments: [
+      { url: 'https://pop-portfolio.el-jefe.me/login', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/portfolio-dashboard/general',
         label: 'Docker Hub (Frontend)',
@@ -452,6 +453,7 @@ const projectsData = [
       '  immutable infrastructure, semantic versioning, and blue-green deployments.',
     sourceURL: 'https://github.com/maxjeffwell/devops-portfolio-manager',
     deployments: [
+      { url: 'https://podrick.el-jefe.me/applications', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/devops-portfolio-dashboard',
         label: 'Docker Hub (Frontend)',
@@ -498,6 +500,7 @@ const projectsData = [
       '  for multi-tenant applications.',
     sourceURL: 'https://github.com/maxjeffwell/k8s-multi-tenant-platform',
     deployments: [
+      { url: 'https://tenantflow.el-jefe.me/', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/k8s-platform-frontend/general',
         label: 'Docker Hub (Frontend)',
@@ -541,6 +544,9 @@ const projectsData = [
       '  architecture, and centralized authentication. The project showcases domain-driven design, API\n' +
       '  development best practices, and modern DevOps workflows with Docker containerization.',
     sourceURL: 'https://github.com/maxjeffwell/microservices-platform',
+    deployments: [
+      { url: '', label: 'Kubernetes' },
+    ],
     technologies: [
       'JavaScript',
       'Node.js',
