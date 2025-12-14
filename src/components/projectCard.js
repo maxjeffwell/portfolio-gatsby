@@ -157,7 +157,8 @@ const IconLink = styled.a`
     width: 64px;
     height: 64px;
     fill: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    transition: fill 0.3s ease;
+    color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    transition: fill 0.3s ease, color 0.3s ease;
   }
 
   @media (max-width: 768px) {
@@ -794,6 +795,7 @@ function ProjectCard({
                       width: '64px',
                       height: '64px',
                       fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                      color: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
                     }}
                   />
                 </div>
