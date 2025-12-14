@@ -404,7 +404,7 @@ const projectsData = [
       '  and Grafana monitoring.',
     sourceURL: 'https://github.com/maxjeffwell/portfolio-orchestration-platform',
     deployments: [
-      { url: 'https://pop-portfolio.el-jefe.me/login', label: 'Kubernetes' },
+      { url: 'https://pop-portfolio.el-jefe.me/portfolio/login', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/portfolio-dashboard/general',
         label: 'Docker Hub (Frontend)',
