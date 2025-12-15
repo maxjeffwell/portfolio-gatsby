@@ -493,11 +493,11 @@ const projectsData = [
       'Multi-tenant Kubernetes platform enabling isolated deployment of portfolio applications in separate\n' +
       '  namespaces. Ideal for client demos, A/B testing, and staging environments. Features namespace isolation,\n' +
       '  resource quotas, and per-tenant monitoring. Built with React, Vite, Node.js, and Kubernetes, the platform\n' +
-      '  provides isolated instances of educationELLy-graphql and educationELLy applications running in different\n' +
-      '  namespaces. Each tenant environment is completely isolated with its own resources, ensuring secure and\n' +
-      '  efficient multi-tenancy. Utilizes Helm charts for deployment management, Nginx Ingress for routing, and\n' +
-      '  Docker for containerization, demonstrating cloud-native architecture patterns and Kubernetes best practices\n' +
-      '  for multi-tenant applications.',
+      '  provides isolated instances of educationELLy, educationELLy GraphQL, Code Talk, Bookmarked, FireBook, and\n' +
+      '  IntervalAI applications running in different namespaces. Each tenant environment is completely isolated with\n' +
+      '  its own resources, ensuring secure and efficient multi-tenancy. Utilizes Helm charts for deployment\n' +
+      '  management, Nginx Ingress for routing, and Docker for containerization, demonstrating cloud-native\n' +
+      '  architecture patterns and Kubernetes best practices for multi-tenant applications.',
     sourceURL: 'https://github.com/maxjeffwell/k8s-multi-tenant-platform',
     deployments: [
       { url: 'https://tenantflow.el-jefe.me/', label: 'Kubernetes' },

@@ -784,21 +784,14 @@ function ProjectCard({
                   <DeploymentIconComponent aria-hidden="true" />
                 </IconLink>
               ) : (
-                <div
-                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                <IconLink
+                  as="div"
+                  theme={theme}
                   title={`${deployment.label} - ${title}`}
                   aria-label={`${deployment.label} - ${title}`}
                 >
-                  <DeploymentIconComponent
-                    aria-hidden="true"
-                    style={{
-                      width: '64px',
-                      height: '64px',
-                      fill: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-                      color: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
-                    }}
-                  />
-                </div>
+                  <DeploymentIconComponent aria-hidden="true" />
+                </IconLink>
               )}
               <DeploymentLabel theme={theme}>{deployment.label}</DeploymentLabel>
             </DeploymentContainer>
