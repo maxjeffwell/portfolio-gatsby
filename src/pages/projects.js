@@ -105,7 +105,6 @@ const projectsData = [
       },
     ],
     deployments: [
-      { url: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/', label: 'Heroku' },
       { url: 'https://educationelly-k8s.el-jefe.me', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general',
@@ -127,7 +126,6 @@ const projectsData = [
       'NPM',
       'Git',
       'Docker',
-      'Heroku',
     ],
     screenshots: {
       screenshot1: 'educationelly_screenshot1',
