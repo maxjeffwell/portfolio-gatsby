@@ -300,6 +300,7 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
+      { url: 'https://bookmarked-k8s.el-jefe.me/', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/bookmarks-react-hooks-client/general',
         label: 'Docker Hub (Frontend)',
