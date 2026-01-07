@@ -12,7 +12,6 @@ import {
   FaJs,
   FaSitemap,
 } from 'react-icons/fa';
-import { DiHeroku } from 'react-icons/di';
 import {
   SiExpress,
   SiJsonwebtokens,
@@ -44,6 +43,9 @@ import {
   SiNginx,
   SiOpenai,
   SiLangchain,
+  SiNvidia,
+  SiInfluxdb,
+  SiApachekafka,
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 
@@ -526,10 +528,6 @@ function ProjectCard({
         icon: <FaDocker size={iconSize} color={iconColor} />,
         label: 'Docker containerization',
       },
-      Heroku: {
-        icon: <DiHeroku size={iconSize} color={iconColor} />,
-        label: 'Heroku deployment platform',
-      },
       Vercel: {
         icon: <SiVercel size={iconSize} color={iconColor} />,
         label: 'Vercel deployment platform',
@@ -635,6 +633,18 @@ function ProjectCard({
       LangChain: {
         icon: <SiLangchain size={iconSize} color={iconColor} />,
         label: 'LangChain AI framework',
+      },
+      Triton: {
+        icon: <SiNvidia size={iconSize} color={iconColor} />,
+        label: 'NVIDIA Triton Inference Server',
+      },
+      InfluxDB: {
+        icon: <SiInfluxdb size={iconSize} color={iconColor} />,
+        label: 'InfluxDB time-series database',
+      },
+      Kafka: {
+        icon: <SiApachekafka size={iconSize} color={iconColor} />,
+        label: 'Apache Kafka event streaming',
       },
     };
 
