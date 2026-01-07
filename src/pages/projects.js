@@ -106,6 +106,7 @@ const projectsData = [
     ],
     deployments: [
       { url: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/', label: 'Heroku' },
+      { url: 'https://educationelly-k8s.el-jefe.me', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general',
         label: 'Docker Hub (Frontend)',
@@ -359,7 +360,6 @@ const projectsData = [
       },
     ],
     deployments: [
-      { url: 'https://spaced-repetition-capstone-client.onrender.com/', label: 'Render' },
       { url: 'https://intervalai-k8s.el-jefe.me', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-client/general',
@@ -380,7 +380,6 @@ const projectsData = [
       'NPM',
       'Git',
       'Docker',
-      'Render',
       'TensorFlow.js',
       'WebGPU',
     ],
