@@ -88,12 +88,11 @@ const projectsData = [
     description:
       'educationELLy is a full-stack web application for managing English Language Learner (ELL) students in\n' +
       '  educational settings. It provides a collaborative platform for ELL and mainstream teachers to track\n' +
-      '  student information, English proficiency levels, and academic progress.\n' +
-      '\n' +
-      '  Built with React/Redux frontend and Node.js/Express/MongoDB backend, it features secure JWT\n' +
-      '  authentication, comprehensive student profile management (demographics, language details, academic\n' +
-      '  status), and a responsive interface with real-time data access for improved teacher collaboration and\n' +
-      '  student support.',
+      '  student information, English proficiency levels, and academic progress. Built with React/Redux frontend\n' +
+      '  and Node.js/Express/MongoDB backend, it features secure JWT authentication, comprehensive student profile\n' +
+      '  management (demographics, language details, academic status), and a responsive interface with real-time\n' +
+      '  data access for improved teacher collaboration and student support. Deployed on Kubernetes with\n' +
+      '  containerized microservices and MongoDB for persistent document storage.',
     sourceURLs: [
       {
         url: 'https://github.com/maxjeffwell/full-stack-capstone-client',
@@ -126,6 +125,8 @@ const projectsData = [
       'NPM',
       'Git',
       'Docker',
+      'Kubernetes',
+      'Helm',
     ],
     screenshots: {
       screenshot1: 'educationelly_screenshot1',
@@ -139,12 +140,13 @@ const projectsData = [
     year: '2026',
     description:
       'Code Talk is a real-time collaborative code editor and messaging platform that enables developers to write\n' +
-      '   code together while communicating seamlessly. Built with React and GraphQL, it features live\n' +
-      '  collaborative editing where multiple users can work on the same code simultaneously, integrated instant\n' +
-      '  messaging with room-based organization, and secure JWT authentication. The app leverages WebSocket\n' +
-      '  subscriptions for real-time updates, Redis pub/sub for scalability, and includes performance optimizations\n' +
-      '   like virtualized lists and code splitting. Perfect for remote pair programming, code reviews, or team\n' +
-      '  collaboration sessions.',
+      '  code together while communicating seamlessly. Built with React and GraphQL, it features live collaborative\n' +
+      '  editing where multiple users can work on the same code simultaneously, integrated instant messaging with\n' +
+      '  room-based organization, and secure JWT authentication. The app leverages WebSocket subscriptions for\n' +
+      '  real-time updates, Redis pub/sub for scalability, and includes performance optimizations like virtualized\n' +
+      '  lists and code splitting. Perfect for remote pair programming, code reviews, or team collaboration sessions.\n' +
+      '  Deployed on Kubernetes with horizontally scaled server replicas, PostgreSQL for persistent storage, and\n' +
+      '  Redis for real-time pub/sub messaging.',
     sourceURLs: [
       {
         url: 'https://github.com/maxjeffwell/code-talk-graphql-client',
@@ -179,6 +181,8 @@ const projectsData = [
       'Docker',
       'Redis',
       'PostgreSQL',
+      'Kubernetes',
+      'Helm',
     ],
     screenshots: {
       screenshot1: 'codetalk_screenshot1.mp4',
@@ -196,7 +200,10 @@ const projectsData = [
       '  Server, Express, and MongoDB. The app provides user authentication, full CRUD operations for managing ELL\n' +
       '  student records (including personal info, educational details, native language, proficiency levels), and\n' +
       '  role-based access control for teachers and administrators to track and manage their ELL student\n' +
-      '  population.',
+      '  population. Deployed on Kubernetes with containerized Apollo Server and MongoDB for persistent storage.\n' +
+      '  The educationELLy REST version and GraphQL version use separate MongoDB StatefulSets, allowing independent\n' +
+      '  scaling and data isolation. The GraphQL version benefits from Apollo Server built-in features like query\n' +
+      '  batching and caching.',
     sourceURLs: [
       {
         url: 'https://github.com/maxjeffwell/educationELLy-graphql-client',
@@ -227,9 +234,12 @@ const projectsData = [
       'MongoDB',
       'Apollo Server',
       'GraphQL',
+      'JWT',
       'NPM',
       'Git',
       'Docker',
+      'Kubernetes',
+      'Helm',
     ],
     screenshots: {
       screenshot1: 'educationelly_graphql_screenshot1',
@@ -251,7 +261,7 @@ const projectsData = [
       '  generate contextual tags via Google Natural Language API. Users can search bookmarks with Algolia\n' +
       '  instant search, organize collections with collaborative sharing (viewer/editor permissions), edit\n' +
       '  bookmarks in-app, and import/export data as JSON. Built with Vite, Tailwind CSS, and deployed on\n' +
-      '  Firebase Hosting with Docker support, FireBook demonstrates serverless architecture, cloud automation,\n' +
+      '  both Firebase Hosting and Kubernetes, FireBook demonstrates serverless architecture, cloud automation,\n' +
       '  and modern React development patterns.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
     deployments: [
@@ -275,6 +285,8 @@ const projectsData = [
       'Docker',
       'Git',
       'NPM',
+      'Kubernetes',
+      'Helm',
     ],
     screenshots: {
       screenshot1: 'firebook_screenshot1.png',
@@ -292,10 +304,10 @@ const projectsData = [
       '  and descriptions to generate 3-5 relevant tags instantly—either individually or in batches. Users can save,\n' +
       '  rate, and favorite bookmarks while leveraging full-text search and tag-based filtering to find what they need.\n' +
       '  Built with React Context API and useReducer for state management, the app connects to a Neon PostgreSQL database\n' +
-      '  with a normalized tags schema and PostgreSQL-backed caching to minimize API costs. The production infrastructure\n' +
-      '  runs on both Vercel serverless functions and Kubernetes, with the latter featuring a cost-efficient hybrid AI\n' +
-      '  architecture: TinyLlama-1.1B (Q4_K_M quantization) via llama.cpp for local inference, falling back to OpenAI\n' +
-      '  when needed for maximum reliability.',
+      '  with a normalized tags schema and PostgreSQL-backed caching to minimize API costs. Features a cost-efficient\n' +
+      '  hybrid AI architecture with Llama 3.2 3B Instruct (Q4_K_M quantization) via llama.cpp for local inference,\n' +
+      '  falling back to OpenAI when needed. Deployed on both Vercel serverless functions and Kubernetes with\n' +
+      '  containerized microservices and a shared AI gateway for high-performance production inference.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
@@ -322,6 +334,8 @@ const projectsData = [
       'Git',
       'Docker',
       'Vercel',
+      'Kubernetes',
+      'Helm',
     ],
     screenshots: {
       screenshot1: 'bookmarked_screenshot1.mp4',
@@ -338,10 +352,10 @@ const projectsData = [
       '  vocabulary review timing for maximum retention. The app combines the proven SM-2 algorithm with a 10-layer\n' +
       '  deep neural network (18,305 parameters) using 51 engineered features including forgetting curve modeling,\n' +
       '  interaction features, and cyclical time encoding. The advanced model achieves 96.1% improvement over baseline\n' +
-      '  methods (MAE: 0.0735 vs 1.8889 days). Deployed with NVIDIA Triton Inference Server on Kubernetes for\n' +
-      '  high-performance production inference. Built with React/Redux frontend and Node.js/Express/MongoDB backend,\n' +
+      '  methods (MAE: 0.0735 vs 1.8889 days). Built with React/Redux frontend and Node.js/Express/MongoDB backend,\n' +
       '  it features WebGPU-accelerated ML inference (<1ms) on the client, real-time predictions of optimal review\n' +
       '  intervals, TensorFlow.js for machine learning, and built-in A/B testing to compare algorithm performance.\n' +
+      '  Deployed with NVIDIA Triton Inference Server on Kubernetes for high-performance production inference.\n' +
       '  Perfect for language learners seeking personalized, scientifically-optimized study schedules.',
     sourceURLs: [
       {
@@ -376,6 +390,9 @@ const projectsData = [
       'Docker',
       'TensorFlow.js',
       'WebGPU',
+      'Kubernetes',
+      'Helm',
+      'Triton',
     ],
     screenshots: {
       screenshot1: 'intervalai_screenshot1.mp4',
@@ -1120,12 +1137,6 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
-                      onClick={() => handleTechnologyChange('Heroku')}
-                    >
-                      Heroku
-                    </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
                       onClick={() => handleTechnologyChange('Vercel')}
                     >
                       Vercel
@@ -1255,6 +1266,36 @@ const Projects = ({ data }) => {
                       onClick={() => handleTechnologyChange('Nginx Ingress')}
                     >
                       Nginx Ingress
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Triton')}
+                    >
+                      Triton
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('TensorFlow.js')}
+                    >
+                      TensorFlow.js
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('WebGPU')}
+                    >
+                      WebGPU
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('InfluxDB')}
+                    >
+                      InfluxDB
+                    </CustomSelectOption>
+                    <CustomSelectOption
+                      theme={theme}
+                      onClick={() => handleTechnologyChange('Kafka')}
+                    >
+                      Kafka
                     </CustomSelectOption>
                   </CustomSelectDropdown>
                 )}
