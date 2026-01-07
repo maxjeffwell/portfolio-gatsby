@@ -106,7 +106,6 @@ const projectsData = [
     ],
     deployments: [
       { url: 'https://educationelly-client-71a1b1901aaa.herokuapp.com/', label: 'Heroku' },
-      { url: 'https://marmoset.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-client/general',
         label: 'Docker Hub (Frontend)',
@@ -159,7 +158,6 @@ const projectsData = [
     ],
     deployments: [
       { url: 'https://code-talk-client-c46118c24c30.herokuapp.com/', label: 'Heroku' },
-      { url: 'https://code-talk.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/code-talk-graphql-client/general',
         label: 'Docker Hub (Frontend)',
@@ -213,7 +211,6 @@ const projectsData = [
     ],
     deployments: [
       { url: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/', label: 'Heroku' },
-      { url: 'https://educationelly.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-client/general',
         label: 'Docker Hub (Frontend)',
@@ -262,7 +259,6 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
     deployments: [
       { url: 'https://marmoset-c2870.firebaseapp.com', label: 'Firebase' },
-      { url: 'https://firebook.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/firebook/general',
         label: 'Docker Hub',
@@ -304,7 +300,6 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
-      { url: 'https://bookmarked.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/bookmarks-react-hooks-client/general',
         label: 'Docker Hub (Frontend)',
@@ -358,7 +353,6 @@ const projectsData = [
     ],
     deployments: [
       { url: 'https://spaced-repetition-capstone-client.onrender.com/', label: 'Render' },
-      { url: 'https://intervalai.el-jefe.me', label: 'Docker/NAS' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-client/general',
         label: 'Docker Hub (Frontend)',
@@ -544,9 +538,7 @@ const projectsData = [
       '  architecture, and centralized authentication. The project showcases domain-driven design, API\n' +
       '  development best practices, and modern DevOps workflows with Docker containerization.',
     sourceURL: 'https://github.com/maxjeffwell/microservices-platform',
-    deployments: [
-      { url: '', label: 'Kubernetes' },
-    ],
+    deployments: [],
     technologies: [
       'JavaScript',
       'Node.js',
@@ -558,6 +550,7 @@ const projectsData = [
       'Kafka',
       'JWT',
       'Docker',
+      'Kubernetes',
       'Git',
       'NPM',
     ],

@@ -766,8 +766,6 @@ function ProjectCard({
           let DeploymentIconComponent = DemoIcon;
           if (deployment.label.includes('Docker Hub')) {
             DeploymentIconComponent = DockerIcon;
-          } else if (deployment.label === 'Kubernetes') {
-            DeploymentIconComponent = KubernetesIcon;
           }
 
           return (
