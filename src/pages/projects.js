@@ -259,6 +259,7 @@ const projectsData = [
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-capstone-api',
     deployments: [
       { url: 'https://marmoset-c2870.firebaseapp.com', label: 'Firebase' },
+      { url: 'https://firebook-k8s.el-jefe.me/', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/firebook/general',
         label: 'Docker Hub',
