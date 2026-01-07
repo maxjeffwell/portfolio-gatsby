@@ -338,12 +338,13 @@ const projectsData = [
     year: '2025',
     description:
       'IntervalAI is a neural-enhanced spaced repetition learning system that uses machine learning to optimize\n' +
-      '  vocabulary review timing for maximum retention. The app combines the proven SM-2 algorithm with an 8-layer\n' +
-      '  neural network (961 parameters) that learns individual user patterns, achieving 96.1% improvement over\n' +
-      '  baseline methods. Built with React/Redux frontend and Node.js/Express/MongoDB backend, it features\n' +
-      '  WebGPU-accelerated ML inference (<1ms), real-time predictions of optimal review intervals, TensorFlow.js\n' +
-      '  for machine learning, and built-in A/B testing to compare algorithm performance. Perfect for language\n' +
-      '  learners seeking personalized, scientifically-optimized study schedules.',
+      '  vocabulary review timing for maximum retention. The app combines the proven SM-2 algorithm with a 10-layer\n' +
+      '  deep neural network (18,305 parameters) using 51 engineered features including forgetting curve modeling,\n' +
+      '  interaction features, and cyclical time encoding. The advanced model achieves 96.1% improvement over baseline\n' +
+      '  methods (MAE: 0.0735 vs 1.8889 days). Built with React/Redux frontend and Node.js/Express/MongoDB backend,\n' +
+      '  it features WebGPU-accelerated ML inference (<1ms), real-time predictions of optimal review intervals,\n' +
+      '  TensorFlow.js for machine learning, and built-in A/B testing to compare algorithm performance. Perfect for\n' +
+      '  language learners seeking personalized, scientifically-optimized study schedules.',
     sourceURLs: [
       {
         url: 'https://github.com/maxjeffwell/spaced-repetition-capstone-client',
