@@ -144,9 +144,9 @@ const projectsData = [
       '  editing where multiple users can work on the same code simultaneously, integrated instant messaging with\n' +
       '  room-based organization, and secure JWT authentication. The app leverages WebSocket subscriptions for\n' +
       '  real-time updates, Redis pub/sub for scalability, and includes performance optimizations like virtualized\n' +
-      '  lists and code splitting. Perfect for remote pair programming, code reviews, or team collaboration sessions.\n' +
-      '  Deployed on Kubernetes with horizontally scaled server replicas, PostgreSQL for persistent storage, and\n' +
-      '  Redis for real-time pub/sub messaging.',
+      '  lists and code splitting. Deployed on Kubernetes with horizontally scaled server replicas, PostgreSQL for\n' +
+      '  persistent storage, and Redis for real-time pub/sub messaging. Perfect for remote pair programming, code\n' +
+      '  reviews, or team collaboration sessions.',
     sourceURLs: [
       {
         url: 'https://github.com/maxjeffwell/code-talk-graphql-client',
