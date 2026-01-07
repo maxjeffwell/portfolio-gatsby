@@ -360,6 +360,7 @@ const projectsData = [
     ],
     deployments: [
       { url: 'https://spaced-repetition-capstone-client.onrender.com/', label: 'Render' },
+      { url: 'https://intervalai-k8s.el-jefe.me', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/spaced-repetition-capstone-client/general',
         label: 'Docker Hub (Frontend)',
