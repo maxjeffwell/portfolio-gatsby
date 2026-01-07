@@ -82,9 +82,9 @@ const Typography = styled.div`
 const projectsData = [
   {
     id: 'project1',
-    date: '2018-2025',
+    date: '2018-2026',
     title: 'educationELLy',
-    year: '2025',
+    year: '2026',
     description:
       'educationELLy is a full-stack web application for managing English Language Learner (ELL) students in\n' +
       '  educational settings. It provides a collaborative platform for ELL and mainstream teachers to track\n' +
@@ -136,8 +136,8 @@ const projectsData = [
   {
     id: 'project2',
     title: 'Code Talk',
-    date: '2018-2025',
-    year: '2025',
+    date: '2018-2026',
+    year: '2026',
     description:
       'Code Talk is a real-time collaborative code editor and messaging platform that enables developers to write\n' +
       '   code together while communicating seamlessly. Built with React and GraphQL, it features live\n' +
@@ -190,8 +190,8 @@ const projectsData = [
   {
     id: 'project3',
     title: 'educationELLy (GraphQL version)',
-    date: '2021-2025',
-    year: '2025',
+    date: '2021-2026',
+    year: '2026',
     description:
       'educationELLy GraphQL is an education management system for English Language Learner (ELL) students. It\n' +
       '  features a React frontend with Apollo Client for GraphQL integration and a Node.js backend with Apollo\n' +
@@ -245,8 +245,8 @@ const projectsData = [
   {
     id: 'project4',
     title: 'FireBook',
-    date: '2018-2025',
-    year: '2025',
+    date: '2018-2026',
+    year: '2026',
     description:
       'FireBook is an intelligent bookmark management platform built with React and Firebase that\n' +
       '  automatically enriches saved links with metadata, screenshots, and AI-generated tags. The app features\n' +
@@ -288,18 +288,18 @@ const projectsData = [
   {
     id: 'project5',
     title: 'Bookmarked',
-    date: '2020-2025',
-    year: '2025',
+    date: '2020-2026',
+    year: '2026',
     description:
-      'Bookmarked is an AI-powered bookmark manager built with React Hooks and LangChain. It features intelligent\n' +
-      '  auto-tagging that uses OpenAI GPT-4o-mini to automatically generate 3-5 relevant tags for each bookmark by\n' +
-      '  analyzing titles, URLs, and descriptions. The app includes individual and batch tag generation, PostgreSQL-\n' +
-      '  backed caching to minimize API costs, and full-text search capabilities. Built with React Context API and\n' +
-      '  useReducer for state management, it connects to a Neon PostgreSQL database with a normalized tags schema.\n' +
-      '  Users can save bookmarks, rate them on a 5-star scale, mark favorites, filter by rating or tags, and benefit\n' +
-      '  from smart AI categorization. The Kubernetes production deployment features a hybrid AI architecture with\n' +
-      '  TinyLlama-1.1B (Q4_K_M quantization) running via llama.cpp alongside OpenAI for cost-efficient local inference.\n' +
-      '  Dual production deployments support both Vercel serverless functions and Kubernetes Express backend.',
+      'Bookmarked is an AI-powered bookmark manager built with React Hooks and LangChain that automatically organizes\n' +
+      '  your saved links with intelligent tagging. Using OpenAI GPT-4o-mini, the app analyzes bookmark titles, URLs,\n' +
+      '  and descriptions to generate 3-5 relevant tags instantly—either individually or in batches. Users can save,\n' +
+      '  rate, and favorite bookmarks while leveraging full-text search and tag-based filtering to find what they need.\n' +
+      '  Built with React Context API and useReducer for state management, the app connects to a Neon PostgreSQL database\n' +
+      '  with a normalized tags schema and PostgreSQL-backed caching to minimize API costs. The production infrastructure\n' +
+      '  runs on both Vercel serverless functions and Kubernetes, with the latter featuring a cost-efficient hybrid AI\n' +
+      '  architecture: TinyLlama-1.1B (Q4_K_M quantization) via llama.cpp for local inference, falling back to OpenAI\n' +
+      '  when needed for maximum reliability.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
@@ -335,8 +335,8 @@ const projectsData = [
   {
     id: 'project6',
     title: 'IntervalAI',
-    date: '2025',
-    year: '2025',
+    date: '2025-2026',
+    year: '2026',
     description:
       'IntervalAI is a neural-enhanced spaced repetition learning system that uses machine learning to optimize\n' +
       '  vocabulary review timing for maximum retention. The app combines the proven SM-2 algorithm with a 10-layer\n' +
@@ -390,8 +390,8 @@ const projectsData = [
   {
     id: 'project7',
     title: 'Pop!_Portfolio',
-    date: '2025',
-    year: '2025',
+    date: '2025-2026',
+    year: '2026',
     description:
       'Pop!_Portfolio (Portfolio Orchestration Platform) is a Kubernetes-based orchestration platform that\n' +
       '  manages and monitors all portfolio applications as containerized workloads. Built with React and Node.js,\n' +
@@ -438,8 +438,8 @@ const projectsData = [
   {
     id: 'project8',
     title: 'PodRick',
-    date: '2025',
-    year: '2025',
+    date: '2025-2026',
+    year: '2026',
     description:
       'Automated DevOps platform implementing GitOps workflows for portfolio applications. Features CI/CD\n' +
       '  pipelines with GitHub Actions for automated build, test, and deployment processes, automated\n' +
@@ -487,8 +487,8 @@ const projectsData = [
   {
     id: 'project9',
     title: 'TenantFlow',
-    date: '2025',
-    year: '2025',
+    date: '2025-2026',
+    year: '2026',
     description:
       'Multi-tenant Kubernetes platform enabling isolated deployment of portfolio applications in separate\n' +
       '  namespaces. Ideal for client demos, A/B testing, and staging environments. Features namespace isolation,\n' +
@@ -530,8 +530,8 @@ const projectsData = [
   {
     id: 'project10',
     title: 'Vertex Platform',
-    date: '2025',
-    year: '2025',
+    date: '2025-2026',
+    year: '2026',
     description:
       'Enterprise-grade microservices platform demonstrating platform engineering and service-oriented\n' +
       '  architecture. Currently implements authentication and analytics services with plans to orchestrate\n' +
