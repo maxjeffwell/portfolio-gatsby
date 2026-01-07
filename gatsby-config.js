@@ -162,7 +162,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingIds: ['G-NL37L9SVQ0'],
+        trackingIds: [process.env.GATSBY_GA_TRACKING_ID || 'G-NL37L9SVQ0'],
         gtagConfig: {
           optimize_id: 'GTM-N8HJBQM7',
           cookie_expires: 0,
