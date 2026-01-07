@@ -211,6 +211,7 @@ const projectsData = [
     ],
     deployments: [
       { url: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/', label: 'Heroku' },
+      { url: 'https://educationelly-graphql-k8s.el-jefe.me/', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-client/general',
         label: 'Docker Hub (Frontend)',
