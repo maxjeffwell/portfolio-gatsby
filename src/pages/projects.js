@@ -158,7 +158,6 @@ const projectsData = [
       },
     ],
     deployments: [
-      { url: 'https://code-talk-client-c46118c24c30.herokuapp.com/', label: 'Heroku' },
       { url: 'https://code-talk-k8s.el-jefe.me/', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/code-talk-graphql-client/general',
@@ -180,7 +179,6 @@ const projectsData = [
       'NPM',
       'Git',
       'Docker',
-      'Heroku',
       'Redis',
       'PostgreSQL',
     ],
