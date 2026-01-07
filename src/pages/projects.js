@@ -210,7 +210,6 @@ const projectsData = [
       },
     ],
     deployments: [
-      { url: 'https://educationelly-client-graphql-176ac5044d94.herokuapp.com/', label: 'Heroku' },
       { url: 'https://educationelly-graphql-k8s.el-jefe.me/', label: 'Kubernetes' },
       {
         url: 'https://hub.docker.com/repository/docker/maxjeffwell/educationelly-graphql-client/general',
@@ -233,7 +232,6 @@ const projectsData = [
       'NPM',
       'Git',
       'Docker',
-      'Heroku',
     ],
     screenshots: {
       screenshot1: 'educationelly_graphql_screenshot1',
