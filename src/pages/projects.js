@@ -300,8 +300,8 @@ const projectsData = [
     year: '2026',
     description:
       'Bookmarked is an AI-powered bookmark manager built with React Hooks and LangChain that automatically organizes\n' +
-      '  your saved links with intelligent tagging. Using OpenAI GPT-4o-mini, the app analyzes bookmark titles, URLs,\n' +
-      '  and descriptions to generate 3-5 relevant tags instantly—either individually or in batches. Users can save,\n' +
+      '  your saved links with intelligent tagging. Using Llama 3.2 3B Instruct (with GPT-4o-mini as fallback), the app\n' +
+      '  analyzes bookmark titles, URLs, and descriptions to generate 3-5 relevant tags instantly—either individually or in batches. Users can save,\n' +
       '  rate, and favorite bookmarks while leveraging full-text search and tag-based filtering to find what they need.\n' +
       '  Built with React Context API and useReducer for state management, the app connects to a Neon PostgreSQL database\n' +
       '  with a normalized tags schema and PostgreSQL-backed caching to minimize API costs. Features a cost-efficient\n' +
