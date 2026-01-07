@@ -1132,12 +1132,6 @@ const Projects = ({ data }) => {
                     </CustomSelectOption>
                     <CustomSelectOption
                       theme={theme}
-                      onClick={() => handleTechnologyChange('Render')}
-                    >
-                      Render
-                    </CustomSelectOption>
-                    <CustomSelectOption
-                      theme={theme}
                       onClick={() => handleTechnologyChange('Firebase')}
                     >
                       Firebase
