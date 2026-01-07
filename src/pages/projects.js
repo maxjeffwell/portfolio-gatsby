@@ -297,8 +297,9 @@ const projectsData = [
       '  backed caching to minimize API costs, and full-text search capabilities. Built with React Context API and\n' +
       '  useReducer for state management, it connects to a Neon PostgreSQL database with a normalized tags schema.\n' +
       '  Users can save bookmarks, rate them on a 5-star scale, mark favorites, filter by rating or tags, and benefit\n' +
-      '  from smart AI categorization that learns from bookmark content. The dual-deployment architecture supports both\n' +
-      '  Vercel serverless functions and Express backend, with cost optimization achieving 60-70% cache hit rates.',
+      '  from smart AI categorization. The Kubernetes production deployment features a hybrid AI architecture with\n' +
+      '  TinyLlama-1.1B (Q4_K_M quantization) running via llama.cpp alongside OpenAI for cost-efficient local inference.\n' +
+      '  Dual production deployments support both Vercel serverless functions and Kubernetes Express backend.',
     sourceURL: 'https://github.com/maxjeffwell/bookmarks-react-hooks',
     deployments: [
       { url: 'https://bookmarks-react-hooks.vercel.app/', label: 'Vercel' },
