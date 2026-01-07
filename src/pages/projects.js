@@ -341,10 +341,11 @@ const projectsData = [
       '  vocabulary review timing for maximum retention. The app combines the proven SM-2 algorithm with a 10-layer\n' +
       '  deep neural network (18,305 parameters) using 51 engineered features including forgetting curve modeling,\n' +
       '  interaction features, and cyclical time encoding. The advanced model achieves 96.1% improvement over baseline\n' +
-      '  methods (MAE: 0.0735 vs 1.8889 days). Built with React/Redux frontend and Node.js/Express/MongoDB backend,\n' +
-      '  it features WebGPU-accelerated ML inference (<1ms), real-time predictions of optimal review intervals,\n' +
-      '  TensorFlow.js for machine learning, and built-in A/B testing to compare algorithm performance. Perfect for\n' +
-      '  language learners seeking personalized, scientifically-optimized study schedules.',
+      '  methods (MAE: 0.0735 vs 1.8889 days). Deployed with NVIDIA Triton Inference Server on Kubernetes for\n' +
+      '  high-performance production inference. Built with React/Redux frontend and Node.js/Express/MongoDB backend,\n' +
+      '  it features WebGPU-accelerated ML inference (<1ms) on the client, real-time predictions of optimal review\n' +
+      '  intervals, TensorFlow.js for machine learning, and built-in A/B testing to compare algorithm performance.\n' +
+      '  Perfect for language learners seeking personalized, scientifically-optimized study schedules.',
     sourceURLs: [
       {
         url: 'https://github.com/maxjeffwell/spaced-repetition-capstone-client',
