@@ -857,21 +857,40 @@ const Projects = ({ data }) => {
     }
 
     return filteredProjects.map((project) => {
+      // Safety check for screenshots
+      if (!project.screenshots) {
+        return { ...project };
+      }
+
       // Find image files (remove video extensions for matching)
-      const screenshot1File = Array.from(imageMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot1.replace('.webm', '').replace('.mp4', ''))
-      );
-      const screenshot2File = Array.from(imageMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot2.replace('.webm', '').replace('.mp4', ''))
-      );
+      const screenshot1File =
+        project.screenshots.screenshot1
+          ? Array.from(imageMap.entries()).find(([path]) =>
+              path.includes(project.screenshots.screenshot1.replace('.webm', '').replace('.mp4', ''))
+            )
+          : null;
+
+      const screenshot2File =
+        project.screenshots.screenshot2
+          ? Array.from(imageMap.entries()).find(([path]) =>
+              path.includes(project.screenshots.screenshot2.replace('.webm', '').replace('.mp4', ''))
+            )
+          : null;
 
       // Find video files
-      const videoFile1 = Array.from(videoMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot1)
-      );
-      const videoFile2 = Array.from(videoMap.entries()).find(([path]) =>
-        path.includes(project.screenshots.screenshot2)
-      );
+      const videoFile1 =
+        project.screenshots.screenshot1
+          ? Array.from(videoMap.entries()).find(([path]) =>
+              path.includes(project.screenshots.screenshot1)
+            )
+          : null;
+
+      const videoFile2 =
+        project.screenshots.screenshot2
+          ? Array.from(videoMap.entries()).find(([path]) =>
+              path.includes(project.screenshots.screenshot2)
+            )
+          : null;
 
       return {
         ...project,
@@ -880,13 +899,15 @@ const Projects = ({ data }) => {
         imageSrcPath3: screenshot2File?.[1],
         imageSrcPath4: screenshot2File?.[1],
         videoSrcPath:
-          project.screenshots.screenshot1.endsWith('.webm') ||
-          project.screenshots.screenshot1.endsWith('.mp4')
+          project.screenshots.screenshot1 &&
+          (project.screenshots.screenshot1.endsWith('.webm') ||
+            project.screenshots.screenshot1.endsWith('.mp4'))
             ? videoFile1?.[1]
             : null,
         videoSrcPath2:
-          project.screenshots.screenshot2.endsWith('.webm') ||
-          project.screenshots.screenshot2.endsWith('.mp4')
+          project.screenshots.screenshot2 &&
+          (project.screenshots.screenshot2.endsWith('.webm') ||
+            project.screenshots.screenshot2.endsWith('.mp4'))
             ? videoFile2?.[1]
             : null,
       };
@@ -1374,7 +1395,7 @@ export const pageQuery = graphql`
       }
     }
     allVideoFile: allFile(
-      filter: { sourceInstanceName: { eq: "images" }, extension: { regex: "/(webm|mp4)/" } }
+      filter: { sourceInstanceName: { eq: "images" }, extension: { in: ["mp4", "webm"] } }
     ) {
       edges {
         node {
