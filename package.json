@@ -91,7 +91,6 @@
     "fastestsmallesttextencoderdecoder": "^1.0.22",
     "gatsby-plugin-brotli": "^2.1.0",
     "gatsby-plugin-eslint": "^4.0.4",
-    "gatsby-plugin-html-minifier": "^2.0.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.32",
     "gatsby-plugin-zopfli": "^2.0.0",
     "html-minifier": "^4.0.0",

@@ -264,32 +264,6 @@ module.exports = {
         createLinkInHead: true,
       },
     },
-    // HTML minification for production optimization
-    {
-      resolve: `gatsby-plugin-html-minifier`,
-      options: {
-        caseSensitive: true,
-        collapseBooleanAttributes: true,
-        collapseInlineTagWhitespace: false, // Keep some whitespace for readability
-        collapseWhitespace: true,
-        conservativeCollapse: true, // More conservative approach
-        continueOnParseError: false,
-        decodeEntities: true,
-        html5: true,
-        minifyCSS: true,
-        minifyJS: true,
-        minifyURLs: true,
-        preserveLineBreaks: false,
-        processConditionalComments: true,
-        removeComments: true,
-        removeEmptyAttributes: true,
-        removeEmptyElements: false,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-      },
-    },
     // Service worker for offline functionality and performance
     {
       resolve: `gatsby-plugin-offline`,
