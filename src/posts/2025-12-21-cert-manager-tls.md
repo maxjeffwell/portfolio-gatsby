@@ -171,4 +171,4 @@ For wildcard certificates (`*.el-jefe.me`), I'll need DNS-01 challenges instead 
 
 ---
 
-*Documenting the evolution of my homelab kubernetes infrastructure.*
+*Documenting the evolution of my homelab infrastructure.*

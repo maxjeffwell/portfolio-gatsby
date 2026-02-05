@@ -239,4 +239,4 @@ Not blazing fast, but acceptable for my portfolio apps and definitely beats payi
 
 ---
 
-*Documenting the evolution of my homelab kubernetes infrastructure.*
+*Documenting the evolution of my homelab infrastructure.*

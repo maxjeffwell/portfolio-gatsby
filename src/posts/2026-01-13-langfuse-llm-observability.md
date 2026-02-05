@@ -263,4 +263,4 @@ The local Ollama inference is slower but free. For user-facing features where sp
 
 ---
 
-*Documenting the evolution of my homelab kubernetes infrastructure.*
+*Documenting the evolution of my homelab infrastructure.*

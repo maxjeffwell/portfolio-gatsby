@@ -223,4 +223,4 @@ The GitOps foundation is solid. Next I'm planning to:
 
 ---
 
-*Documenting the evolution of my homelab kubernetes infrastructure.*
+*Documenting the evolution of my homelab infrastructure.*

@@ -174,4 +174,4 @@ Tomorrow I'll set up GitHub Actions workflows to automate the build → push →
 
 ---
 
-*Documenting the evolution of my homelab kubernetes infrastructure.*
+*Documenting the evolution of my homelab infrastructure.*
