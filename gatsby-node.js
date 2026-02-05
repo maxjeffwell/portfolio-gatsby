@@ -6,6 +6,73 @@
 
 const path = require('path');
 
+// Create blog post pages from markdown files
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions;
+
+  const blogPostTemplate = path.resolve('./src/templates/blog-post.js');
+
+  const result = await graphql(`
+    query {
+      allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+        nodes {
+          id
+          frontmatter {
+            title
+            date
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    reporter.panicOnBuild('Error loading blog posts', result.errors);
+    return;
+  }
+
+  const posts = result.data.allMarkdownRemark.nodes;
+
+  if (posts.length > 0) {
+    posts.forEach((post, index) => {
+      const previousPost = index === posts.length - 1 ? null : posts[index + 1];
+      const nextPost = index === 0 ? null : posts[index - 1];
+
+      createPage({
+        path: `/blog${post.fields.slug}`,
+        component: blogPostTemplate,
+        context: {
+          id: post.id,
+          slug: post.fields.slug,
+          previousPostId: previousPost?.id,
+          nextPostId: nextPost?.id,
+        },
+      });
+    });
+  }
+};
+
+// Create slug field for markdown posts
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === 'MarkdownRemark') {
+    const fileNode = getNode(node.parent);
+    const filename = path.basename(fileNode.relativePath, '.md');
+    // Strip date prefix from filename: 2025-12-04-my-post -> my-post
+    const slug = '/' + filename.replace(/^\d{4}-\d{2}-\d{2}-/, '') + '/';
+
+    createNodeField({
+      node,
+      name: 'slug',
+      value: slug,
+    });
+  }
+};
+
 // Create schema customization to avoid deprecated createTypes in sourceNodes API
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;

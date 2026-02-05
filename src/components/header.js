@@ -280,6 +280,7 @@ function Header() {
     { text: 'Home', to: '/' },
     { text: 'Bio', to: '/about' },
     { text: 'Projects', to: '/projects' },
+    { text: 'Blog', to: '/blog' },
     { text: 'Contact', to: '/contact' },
   ];
 
