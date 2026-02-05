@@ -191,7 +191,7 @@ https://github.com/maxjeffwell/portfolio-gatsby/raw/master/screenshots/Video_202
 {
   "framework": "Gatsby 5.14.5",
   "runtime": "React 18.3.1", 
-  "styling": "Styled Components + Emotion",
+  "styling": "Styled Components",
   "deployment": "Netlify Edge Network",
   "performance": "Static Site Generation"
 }
