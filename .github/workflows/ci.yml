@@ -27,6 +27,10 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Security audit (informational)
+        run: npm audit --audit-level=high || true
+        continue-on-error: true
+
       - name: Build Gatsby site
         run: NODE_ENV=production npm run build
         env:
