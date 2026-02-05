@@ -31,6 +31,9 @@ jobs:
         run: npm audit --audit-level=high || true
         continue-on-error: true
 
+      - name: Run tests
+        run: npm run test:ci
+
       - name: Build Gatsby site
         run: NODE_ENV=production npm run build
         env:
