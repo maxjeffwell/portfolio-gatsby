@@ -129,9 +129,15 @@ exports.onCreatePage = ({ page, actions }) => {
 
   // Delete test pages in production
   if (process.env.NODE_ENV === 'production') {
-    const testPagePatterns = ['/test-form', '/test-form-success'];
+    // Match both with and without trailing slashes
+    const testPagePaths = [
+      '/test-form/',
+      '/test-form',
+      '/test-form-success/',
+      '/test-form-success',
+    ];
 
-    if (testPagePatterns.some(pattern => page.path.startsWith(pattern))) {
+    if (testPagePaths.includes(page.path)) {
       deletePage(page);
     }
   }
