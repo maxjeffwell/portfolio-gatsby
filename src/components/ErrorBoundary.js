@@ -204,7 +204,7 @@ class ErrorBoundary extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   handleGoHome = () => {
     if (typeof window !== 'undefined') {
-      window.location.href = '/';
+      window.location.assign('/');
     }
   };
 

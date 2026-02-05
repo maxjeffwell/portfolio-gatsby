@@ -4,6 +4,12 @@ import '@testing-library/jest-dom';
 // Global Mocks
 // ============================================
 
+// Note: window.location mocking is handled per-test as jsdom's location
+// object has non-configurable properties. Tests should use:
+//   delete window.location;
+//   window.location = { ...mockLocation };
+// See test files for examples.
+
 // Mock window.matchMedia for responsive/theme tests
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -98,12 +104,13 @@ window.cancelIdleCallback = jest.fn((id) => clearTimeout(id));
 const originalError = console.error;
 beforeAll(() => {
   console.error = (...args) => {
-    // Filter out known harmless warnings
+    // Filter out known harmless warnings and jsdom navigation errors
     if (
       typeof args[0] === 'string' &&
       (args[0].includes('Warning: ReactDOM.render is no longer supported') ||
         args[0].includes('Warning: An update to') ||
-        args[0].includes('act(...)'))
+        args[0].includes('act(...)') ||
+        args[0].includes('Not implemented: navigation'))
     ) {
       return;
     }
