@@ -339,7 +339,6 @@ Showcase development projects and professional information with emphasis on perf
 |   |   |-- CanvasCodeSnippet.js
 |   |   |-- CanvasTypingAnimation.js
 |   |   |-- ClientOnlyButton.js
-|   |   |-- ClientOnlyDarkModeToggle.js
 |   |   |-- ClientOnlyIconInternal.js
 |   |   |-- ClientOnlyIcon.js
 |   |   |-- ClientOnlyMUI.js
@@ -412,7 +411,6 @@ Showcase development projects and professional information with emphasis on perf
 |   |   |-- tenant_screenshot2.mp4
 |   |   |-- vertex_screenshot1.png
 |   |   `-- vertex_screenshot2.png
-|   |-- mui-styled-engine.js
 |   |-- pages
 |   |   |-- 404.js
 |   |   |-- about.js
@@ -424,8 +422,6 @@ Showcase development projects and professional information with emphasis on perf
 |   |   `-- test-form-success.js
 |   |-- polyfills
 |   |   `-- textencoder-inline.js
-|   |-- styled-engine.js
-|   |-- theme.js
 |   |-- utils
 |   |   |-- buttonbase-fallback.js
 |   |   |-- chip-fallback.js
@@ -505,7 +501,7 @@ Reusable React components organized by functionality:
 - **Layout Components**: layout.js, header.js, GlobalStyles.js
 - **SEO & Analytics**: seo.js, Analytics.js, ThirdPartyScripts.js
 - **Performance**: PerformanceMonitor.js, MotionWrapper.js
-- **Theme & Styling**: DarkModeToggle.js, ClientOnlyDarkModeToggle.js, SSRSafeDarkModeToggle.js
+- **Theme & Styling**: DarkModeToggle.js, SSRSafeDarkModeToggle.js
 - **Animations**: TypingAnimation.js, SimpleTypingAnimation.js, CanvasTypingAnimation.js, StaggeredAnimation.js, PageTransition.js
 - **Client-Only Wrappers**: ClientOnlyIcon.js, ClientOnlyButton.js, ClientOnlyMUI.js
 - **Content Display**: CodeSnippet.js, CanvasCodeSnippet.js, projectCard.js, ProjectCardWithInView.js
@@ -772,7 +768,6 @@ The project uniquely employs both Emotion and Styled Components for styling flex
 
 Multiple client-only wrapper components handle browser APIs safely to prevent SSR hydration mismatches:
 - **ClientOnlyIcon.js**: SVG icon components with browser API access
-- **ClientOnlyDarkModeToggle.js**: Theme switcher requiring localStorage
 - **ClientOnlyMUI.js**: Material-UI components with window access
 - **ClientOnlyButton.js**: Interactive buttons with browser-specific features
 

@@ -21,8 +21,6 @@ if (typeof global !== 'undefined') {
 }
 
 import React from 'react';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { muiTheme } from './src/theme';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
 // Error boundary component for SSR
