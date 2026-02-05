@@ -206,9 +206,8 @@ https://github.com/maxjeffwell/portfolio-gatsby/raw/master/screenshots/Video_202
 
 ### 🎪 **User Experience**
 - **✨ Motion (Framer)** → Smooth page transitions and animations
-- **🎯 React Icons** → Comprehensive icon library  
-- **🖱️ React Animated Cursor** → Interactive cursor effects
-- **📝 Typography.js** → Responsive typography system
+- **🎯 React Icons** → Comprehensive icon library
+- **🖱️ React Animated Cursor** → Interactive cursor effects (desktop only)
 
 ### 🔧 **Developer Experience**
 - **📏 ESLint + Prettier** → Code quality and formatting
