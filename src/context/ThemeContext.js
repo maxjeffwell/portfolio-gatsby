@@ -73,7 +73,7 @@ const getInitialTheme = () => {
     }
   } catch (e) {
     // localStorage might not be available
-    console.warn('localStorage not available:', e);
+    // Silently handle - localStorage unavailable during SSR is expected
   }
 
   return getSystemPreference();
@@ -149,7 +149,7 @@ export function ThemeProvider({ children }) {
         localStorage.setItem('portfolio-theme', newMode ? 'dark' : 'light');
       }
     } catch (e) {
-      console.warn('Could not save theme preference:', e);
+      // Silently handle - localStorage may be unavailable
     }
   }, [isDarkMode]);
 
@@ -162,7 +162,7 @@ export function ThemeProvider({ children }) {
         localStorage.removeItem('portfolio-theme');
       }
     } catch (e) {
-      console.warn('Could not remove theme preference:', e);
+      // Silently handle - localStorage may be unavailable
     }
   }, []);
 

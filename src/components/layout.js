@@ -243,20 +243,32 @@ const SocialLink = styled(IconButton)`
 `;
 
 // Themed Layout Component
-// Client-side only animated cursor component
+// Client-side only animated cursor component (desktop only)
 const ClientOnlyAnimatedCursor = ({ theme }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [AnimatedCursor, setAnimatedCursor] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    // Dynamically import the animated cursor only on client side
-    import('react-animated-cursor').then((module) => {
-      setAnimatedCursor(() => module.default);
-    });
+
+    // Only load on desktop devices with mouse support
+    const isDesktopDevice =
+      window.innerWidth >= 1024 &&
+      !window.matchMedia('(pointer: coarse)').matches;
+
+    setIsDesktop(isDesktopDevice);
+
+    // Only import the cursor on desktop devices
+    if (isDesktopDevice) {
+      import('react-animated-cursor').then((module) => {
+        setAnimatedCursor(() => module.default);
+      });
+    }
   }, []);
 
-  if (!isMounted || !AnimatedCursor) {
+  // Skip rendering on mobile/touch devices
+  if (!isMounted || !isDesktop || !AnimatedCursor) {
     return null;
   }
 

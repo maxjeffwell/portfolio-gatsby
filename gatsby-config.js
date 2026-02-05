@@ -33,14 +33,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet-async`,
-    // Typography plugin disabled - using styled-components for all styling
-    // {
-    //   resolve: `gatsby-plugin-typography`,
-    //   options: {
-    //     pathToConfigModule: `src/utils/typography`,
-    //     omitGoogleFont: false,
-    //   },
-    // },
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
