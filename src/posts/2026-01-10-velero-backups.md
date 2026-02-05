@@ -187,4 +187,4 @@ CloudCasa also sends email alerts if backups miss their schedule.
 
 ---
 
-*Part of my K8s Cluster Journal - documenting the evolution of my homelab infrastructure.*
+*Documenting the evolution of my homelab kubernetes infrastructure.*

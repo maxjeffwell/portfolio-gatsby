@@ -6,9 +6,17 @@ import Seo from '../components/seo';
 import { useTheme } from '../context/ThemeContext';
 
 const ArticleContainer = styled.article`
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 40px 24px;
+
+  @media (min-width: 1200px) {
+    max-width: 1000px;
+  }
+
+  @media (min-width: 1400px) {
+    max-width: 1100px;
+  }
 
   @media (max-width: 600px) {
     padding: 24px 16px;

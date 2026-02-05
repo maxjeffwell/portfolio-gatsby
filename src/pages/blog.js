@@ -20,8 +20,15 @@ const PageTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 16px;
-  color: ${(props) => props.theme?.colors?.primary || '#1976d2'};
-  transition: color 0.3s ease;
+  text-align: center;
+  background: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
+      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background 0.3s ease;
 
   @media (max-width: 600px) {
     font-size: 2rem;
@@ -34,6 +41,9 @@ const PageDescription = styled.p`
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
   margin-bottom: 40px;
   max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   line-height: 1.6;
   transition: color 0.3s ease;
 
@@ -45,7 +55,7 @@ const PageDescription = styled.p`
 
 const PostsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
   gap: 32px;
 
   @media (max-width: 600px) {

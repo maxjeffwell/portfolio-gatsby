@@ -223,4 +223,4 @@ The GitOps foundation is solid. Next I'm planning to:
 
 ---
 
-*Part of my K8s Cluster Journal - documenting the evolution of my homelab infrastructure.*
+*Documenting the evolution of my homelab kubernetes infrastructure.*

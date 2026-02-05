@@ -173,4 +173,4 @@ The monitoring namespace now gives me full visibility into cluster health. Next 
 
 ---
 
-*Part of my K8s Cluster Journal - documenting the evolution of my homelab infrastructure.*
+*Documenting the evolution of my homelab kubernetes infrastructure.*
