@@ -102,6 +102,8 @@ export const Head = () => (
   <Seo
     title="K8s Cluster Journal"
     description="Documenting my Kubernetes homelab journey - cluster setup, GitOps, GPU workloads, and self-hosted AI."
+    pathname="/blog/"
+    keywords={['kubernetes', 'homelab', 'k8s', 'gitops', 'self-hosted', 'devops']}
   />
 );
 

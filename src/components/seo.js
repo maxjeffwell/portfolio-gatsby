@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 import { useStaticQuery, graphql } from 'gatsby';
 
-function SEO({ description, lang, meta, keywords, title, image, slug, pathname }) {
+function SEO({ description, lang, meta, keywords, title, image, slug, pathname, article }) {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -264,15 +264,15 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
         },
         {
           name: `article:published_time`,
-          content: `2019-01-01T00:00:00.000Z`,
+          content: article?.publishedTime || `2019-01-01T00:00:00.000Z`,
         },
         {
           name: `article:modified_time`,
-          content: new Date().toISOString(),
+          content: article?.modifiedTime || new Date().toISOString(),
         },
         {
           property: `article:modified_time`,
-          content: new Date().toISOString(),
+          content: article?.modifiedTime || new Date().toISOString(),
         },
         {
           name: `robots`,
@@ -380,7 +380,7 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
         },
         {
           property: `og:type`,
-          content: `website`,
+          content: article ? `article` : `website`,
         },
         {
           property: `og:url`,
@@ -878,6 +878,42 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname }
           },
         })}
       </script>
+
+      {/* Structured Data - BlogPosting Schema (only for articles) */}
+      {article && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: title,
+            description: metaDescription,
+            url: `${siteUrl}${pathname || ''}`,
+            image: metaImage,
+            datePublished: article.publishedTime,
+            dateModified: article.modifiedTime || article.publishedTime,
+            author: {
+              '@type': 'Person',
+              name: 'Jeff Maxwell',
+              url: siteUrl,
+            },
+            publisher: {
+              '@type': 'Person',
+              name: 'Jeff Maxwell',
+              logo: {
+                '@type': 'ImageObject',
+                url: `${siteUrl}/icons/icon-512x512.png`,
+              },
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': `${siteUrl}${pathname || ''}`,
+            },
+            keywords: article.tags?.join(', ') || '',
+            articleSection: 'Technology',
+            inLanguage: 'en-US',
+          })}
+        </script>
+      )}
     </Helmet>
   );
 }
@@ -888,6 +924,7 @@ SEO.defaultProps = {
   keywords: [],
   slug: ``,
   pathname: ``,
+  article: null,
 };
 
 SEO.propTypes = {
@@ -899,6 +936,11 @@ SEO.propTypes = {
   image: PropTypes.string,
   slug: PropTypes.string,
   pathname: PropTypes.string,
+  article: PropTypes.shape({
+    publishedTime: PropTypes.string,
+    modifiedTime: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 // Search Console verification meta tag component

@@ -4,6 +4,8 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /.cache/
 Disallow: /public/
+Disallow: /test-form/
+Disallow: /test-form-success/
 Crawl-delay: 1
 
 Sitemap: https://el-jefe.me/sitemap-index.xml

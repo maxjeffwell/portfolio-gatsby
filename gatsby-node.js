@@ -122,3 +122,17 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
     });
   }
 };
+
+// Remove test/development pages from production builds
+exports.onCreatePage = ({ page, actions }) => {
+  const { deletePage } = actions;
+
+  // Delete test pages in production
+  if (process.env.NODE_ENV === 'production') {
+    const testPagePatterns = ['/test-form', '/test-form-success'];
+
+    if (testPagePatterns.some(pattern => page.path.startsWith(pattern))) {
+      deletePage(page);
+    }
+  }
+};

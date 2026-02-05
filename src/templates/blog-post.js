@@ -311,12 +311,22 @@ function BlogPostTemplate({ data }) {
   );
 }
 
-export const Head = ({ data }) => (
-  <Seo
-    title={data.markdownRemark.frontmatter.title}
-    description={data.markdownRemark.frontmatter.excerpt || data.markdownRemark.excerpt}
-  />
-);
+export const Head = ({ data }) => {
+  const post = data.markdownRemark;
+  return (
+    <Seo
+      title={post.frontmatter.title}
+      description={post.frontmatter.excerpt || post.excerpt}
+      pathname={`/blog${post.fields.slug}`}
+      keywords={post.frontmatter.tags || []}
+      article={{
+        publishedTime: post.frontmatter.rawDate,
+        modifiedTime: post.frontmatter.rawDate,
+        tags: post.frontmatter.tags || [],
+      }}
+    />
+  );
+};
 
 export const query = graphql`
   query BlogPostBySlug($id: String!, $previousPostId: String, $nextPostId: String) {
@@ -325,6 +335,9 @@ export const query = graphql`
       html
       excerpt(pruneLength: 160)
       timeToRead
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
