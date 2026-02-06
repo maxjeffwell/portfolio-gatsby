@@ -1,0 +1,46 @@
+@import 'variables';
+
+/**
+ * Custom theme matching the portfolio design system.
+ * Colors sourced from src/context/ThemeContext.js.
+ */
+
+:root {
+  /* Primary: #1976d2 with generated shade variants */
+  --ifm-color-primary: #1976d2;
+  --ifm-color-primary-dark: #1569bd;
+  --ifm-color-primary-darker: #1463b3;
+  --ifm-color-primary-darkest: #105193;
+  --ifm-color-primary-light: #2d83d7;
+  --ifm-color-primary-lighter: #3a8cdb;
+  --ifm-color-primary-lightest: #5ea3e3;
+
+  --ifm-background-color: #f5f5f5;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-font-color-base: #212121;
+  --ifm-font-color-secondary: #424242;
+
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(25, 118, 210, 0.1);
+
+  --ifm-font-family-base: 'Avenir', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+}
+
+[data-theme='dark'] {
+  /* Primary: #90caf9 with generated shade variants */
+  --ifm-color-primary: #90caf9;
+  --ifm-color-primary-dark: #77bdf7;
+  --ifm-color-primary-darker: #6db7f7;
+  --ifm-color-primary-darkest: #3d9cf4;
+  --ifm-color-primary-light: #a9d7fb;
+  --ifm-color-primary-lighter: #b3dcfb;
+  --ifm-color-primary-lightest: #d6ecfd;
+
+  --ifm-background-color: #0a0a0a;
+  --ifm-background-surface-color: #1a1a1a;
+  --ifm-font-color-base: #ffffff;
+  --ifm-font-color-secondary: #e0e0e0;
+
+  --docusaurus-highlighted-code-line-bg: rgba(144, 202, 249, 0.15);
+}

@@ -28,6 +28,18 @@ const config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
 
+  plugins: [
+    'docusaurus-plugin-sass',
+    'docusaurus-plugin-image-zoom',
+    [
+      require.resolve('@cmfcmf/docusaurus-search-local'),
+      {
+        indexDocs: true,
+        indexBlog: false,
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -39,7 +51,7 @@ const config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: './src/css/custom.scss',
         },
       }),
     ],
@@ -47,6 +59,14 @@ const config = {
 
   /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
   themeConfig: {
+    zoom: {
+      selector: '.markdown :not(em) > img',
+      background: {
+        light: 'rgb(255, 255, 255)',
+        dark: 'rgb(50, 50, 50)'
+      },
+      config: {}
+    },
     colorMode: {
       respectPrefersColorScheme: true,
     },

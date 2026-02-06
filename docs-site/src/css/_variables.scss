@@ -1,0 +1,17 @@
+// src/css/_variables.scss
+
+// 🎨 Use the colors from your Gatsby Portfolio here!
+$primary-color: #2563eb; // Example Blue
+$secondary-color: #64748b;
+$dark-background: #0f172a;
+$font-family-base: 'Inter', sans-serif;
+
+:root {
+  --ifm-color-primary: #{$primary-color};
+  --ifm-color-primary-dark: darken($primary-color, 10%);
+  --ifm-color-primary-darker: darken($primary-color, 15%);
+  --ifm-color-primary-darkest: darken($primary-color, 20%);
+  --ifm-color-primary-light: lighten($primary-color, 10%);
+  --ifm-color-primary-lighter: lighten($primary-color, 15%);
+  --ifm-color-primary-lightest: lighten($primary-color, 20%);
+}
