@@ -26,6 +26,11 @@ const config = {
   },
 
   async viteFinal(config) {
+    // Prevent Vite from copying Gatsby's public/ into the Storybook build.
+    // Gatsby uses public/ as its build output, not as a static assets dir,
+    // so Storybook must not inherit it as publicDir.
+    config.publicDir = false;
+
     // Alias Gatsby modules to our mock implementations
     config.resolve = config.resolve || {};
     config.resolve.alias = {
