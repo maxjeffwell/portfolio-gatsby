@@ -77,7 +77,7 @@ const config = {
           type: 'docSidebar',
           sidebarId: 'docsSidebar',
           position: 'left',
-          label: 'Docs',
+          label: 'Guide',
         },
         {
           href: 'https://el-jefe.me',

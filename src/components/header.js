@@ -88,16 +88,26 @@ const NavButton = styled.a`
   line-height: 1;
   border-radius: 10px;
   text-transform: none;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
+
+  &:link,
+  &:visited {
+    color: ${(props) => props.theme?.colors?.text || '#333'};
+    text-decoration: none;
+  }
 
   &:hover {
     background-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : '#c5cae9'};
-    transform: translateY(-1px);
   }
 
   &.active {
     background-color: ${(props) => props.theme?.colors?.primary || '#1976d2'};
+    color: ${(props) => (props.theme?.mode === 'dark' ? '#000' : '#fff')};
+  }
+
+  &.active:link,
+  &.active:visited {
     color: ${(props) => (props.theme?.mode === 'dark' ? '#000' : '#fff')};
   }
 
@@ -113,6 +123,48 @@ const NavButton = styled.a`
   @media (max-width: 960px) {
     font-size: 0.95rem;
     padding: 10px 16px;
+  }
+`;
+
+const SecondaryNavBar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 16px;
+  background: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.02)'};
+  border-top: 1px solid ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)'};
+
+  @media (max-width: 959px) {
+    display: none;
+  }
+`;
+
+const SecondaryNavLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  text-decoration: none;
+  color: ${(props) => props.theme?.colors?.text || '#333'};
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  opacity: 0.75;
+
+  &:link,
+  &:visited {
+    color: ${(props) => props.theme?.colors?.text || '#333'};
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    opacity: 1;
   }
 `;
 
@@ -204,16 +256,38 @@ const MobileNavButton = styled.a`
     background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
     color 0.3s ease;
 
+  &:link,
+  &:visited {
+    color: ${(props) => props.theme?.colors?.text || '#333'};
+    text-decoration: none;
+  }
+
   &:hover {
     background-color: ${(props) =>
       props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   }
 `;
 
-const ToolbarSpacer = styled.div`
-  min-height: 80px;
+const MobileNavDivider = styled.div`
+  height: 1px;
+  margin: 8px 16px;
+  background: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'};
+`;
 
-  @media (max-width: 599px) {
+const MobileNavLabel = styled.div`
+  padding: 12px 18px 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#888' : '#999')};
+`;
+
+const ToolbarSpacer = styled.div`
+  min-height: 116px;
+
+  @media (max-width: 959px) {
     min-height: 64px;
   }
 `;
@@ -276,12 +350,15 @@ function Header() {
     }
   };
 
-  const menuItems = [
+  const primaryItems = [
     { text: 'Home', to: '/' },
     { text: 'Bio', to: '/about' },
     { text: 'Projects', to: '/projects' },
     { text: 'Blog', to: '/blog' },
     { text: 'Contact', to: '/contact' },
+  ];
+
+  const secondaryItems = [
     { text: 'Live Cluster', to: '/cluster/' },
     { text: 'Storybook', to: '/storybook/' },
     { text: 'Infrastructure', to: '/docs/' },
@@ -301,7 +378,20 @@ function Header() {
         flexDirection="column"
         p={2}
       >
-        {menuItems.map((item) => {
+        {primaryItems.map((item) => (
+          <MobileNavButton
+            key={item.text}
+            as={Link}
+            to={item.to}
+            theme={theme}
+            onClick={handleDrawerToggle}
+          >
+            {item.text}
+          </MobileNavButton>
+        ))}
+        <MobileNavDivider theme={theme} />
+        <MobileNavLabel theme={theme}>Tools</MobileNavLabel>
+        {secondaryItems.map((item) => {
           const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
           return (
             <MobileNavButton
@@ -345,20 +435,18 @@ function Header() {
 
               {!isMobile && (
                 <StyledBox as="nav" aria-label="Main navigation" display="flex" alignItems="center">
-                  {menuItems.map((item) => {
-                    const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
-                    return (
-                      <NavButton
-                        key={item.text}
-                        {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
-                        theme={theme}
-                        className={currentPath === item.to ? 'active' : ''}
-                        aria-current={currentPath === item.to ? 'page' : undefined}
-                      >
-                        {item.text}
-                      </NavButton>
-                    );
-                  })}
+                  {primaryItems.map((item) => (
+                    <NavButton
+                      key={item.text}
+                      as={Link}
+                      to={item.to}
+                      theme={theme}
+                      className={currentPath === item.to ? 'active' : ''}
+                      aria-current={currentPath === item.to ? 'page' : undefined}
+                    >
+                      {item.text}
+                    </NavButton>
+                  ))}
                 </StyledBox>
               )}
             </StyledBox>
@@ -372,6 +460,22 @@ function Header() {
               <SSRSafeDarkModeToggle />
             </StyledBox>
           </StyledToolbar>
+          {!isMobile && (
+            <SecondaryNavBar theme={theme}>
+              {secondaryItems.map((item) => {
+                const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
+                return (
+                  <SecondaryNavLink
+                    key={item.text}
+                    {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
+                    theme={theme}
+                  >
+                    {item.text}
+                  </SecondaryNavLink>
+                );
+              })}
+            </SecondaryNavBar>
+          )}
         </StyledContainer>
       </StyledAppBar>
 

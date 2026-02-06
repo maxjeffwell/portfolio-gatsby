@@ -286,29 +286,40 @@ const RefreshBar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   margin-bottom: 32px;
-  font-size: 12px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#808080' : '#999')};
+  font-size: 16px;
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#aaa' : '#666')};
 `;
 
 const RefreshButton = styled.button`
-  background: none;
-  border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#555' : '#ccc')};
-  border-radius: 6px;
-  padding: 4px 12px;
-  font-size: 12px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+  background: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? 'linear-gradient(135deg, #1565c0, #1976d2)'
+      : 'linear-gradient(135deg, #1976d2, #42a5f5)'};
+  border: none;
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
 
   &:hover {
-    border-color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: default;
+    transform: none;
   }
 `;
 
