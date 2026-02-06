@@ -10,6 +10,10 @@ const config = {
     '../src/docs/**/*.mdx',
     '../src/components/**/*.stories.@(js|jsx)',
   ],
+  staticDirs: [
+    '../static',
+    { from: '../src/images', to: '/images' },
+  ],
   addons: [
     '@chromatic-com/storybook',
     '@storybook/addon-a11y',

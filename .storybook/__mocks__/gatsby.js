@@ -15,8 +15,11 @@ const navigate = (to) => {
 const graphql = (strings, ...args) =>
   strings.reduce((result, str, i) => result + str + (args[i] || ''), '');
 
-// Placeholder publicURL used for all file queries (SVGs, images, etc.)
-const PLACEHOLDER = 'https://via.placeholder.com/60';
+// SVG icons are served from staticDirs: src/images → /images
+const ICON = (name) => `/images/svg-icons/${name}`;
+
+// Placeholder for raster images (logo, social, favicon, team photos)
+const IMG_PLACEHOLDER = 'https://via.placeholder.com/600x400';
 
 // Superset of every data shape that any useStaticQuery caller expects.
 // Each component destructures only the fields it needs:
@@ -35,40 +38,40 @@ const staticQueryData = {
     },
   },
   // myLogo.js — file(relativePath: "elephant_noun_project.png")
-  file: { publicURL: PLACEHOLDER },
+  file: { publicURL: '/images/elephant_noun_project.png' },
   // seo.js
-  social: { publicURL: PLACEHOLDER },
-  favicon: { publicURL: PLACEHOLDER },
+  social: { publicURL: IMG_PLACEHOLDER },
+  favicon: { publicURL: '/favicon.ico' },
   // image.js — GatsbyImage data
-  teamImage: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
-  teamImage2: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
-  teamImage3: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
+  teamImage: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: IMG_PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
+  teamImage2: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: IMG_PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
+  teamImage3: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: IMG_PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
   // ClientOnlyIconInternal.js — all SVG icon queries
-  github: { publicURL: PLACEHOLDER },
-  wellfound: { publicURL: PLACEHOLDER },
-  phone: { publicURL: PLACEHOLDER },
-  gatsby: { publicURL: PLACEHOLDER },
-  arrowForward: { publicURL: PLACEHOLDER },
-  computer: { publicURL: PLACEHOLDER },
-  checkCircle: { publicURL: PLACEHOLDER },
-  paws: { publicURL: PLACEHOLDER },
-  codeTerminal: { publicURL: PLACEHOLDER },
-  coffee: { publicURL: PLACEHOLDER },
-  dog: { publicURL: PLACEHOLDER },
-  darkModeToggle: { publicURL: PLACEHOLDER },
-  email: { publicURL: PLACEHOLDER },
-  githubCharacter: { publicURL: PLACEHOLDER },
-  telephone: { publicURL: PLACEHOLDER },
-  burger: { publicURL: PLACEHOLDER },
-  sourceCode: { publicURL: PLACEHOLDER },
-  twitter: { publicURL: PLACEHOLDER },
-  linkedin: { publicURL: PLACEHOLDER },
-  facebook: { publicURL: PLACEHOLDER },
-  reddit: { publicURL: PLACEHOLDER },
-  send: { publicURL: PLACEHOLDER },
-  done: { publicURL: PLACEHOLDER },
-  react: { publicURL: PLACEHOLDER },
-  nodejs: { publicURL: PLACEHOLDER },
+  github: { publicURL: ICON('github.svg') },
+  wellfound: { publicURL: ICON('wellfound.svg') },
+  phone: { publicURL: ICON('phone.svg') },
+  gatsby: { publicURL: ICON('gatsby_logo.svg') },
+  arrowForward: { publicURL: ICON('arrow_forward.svg') },
+  computer: { publicURL: ICON('computer.svg') },
+  checkCircle: { publicURL: ICON('check-circle.svg') },
+  paws: { publicURL: ICON('paws.svg') },
+  codeTerminal: { publicURL: ICON('code-terminal.svg') },
+  coffee: { publicURL: ICON('coffee.svg') },
+  dog: { publicURL: ICON('dog.svg') },
+  darkModeToggle: { publicURL: ICON('dark_mode_toggle.svg') },
+  email: { publicURL: ICON('email.svg') },
+  githubCharacter: { publicURL: ICON('github_character.svg') },
+  telephone: { publicURL: ICON('telephone.svg') },
+  burger: { publicURL: ICON('burger.svg') },
+  sourceCode: { publicURL: ICON('source_code.svg') },
+  twitter: { publicURL: ICON('twitter.svg') },
+  linkedin: { publicURL: ICON('linkedin.svg') },
+  facebook: { publicURL: ICON('facebook.svg') },
+  reddit: { publicURL: ICON('reddit.svg') },
+  send: { publicURL: ICON('send.svg') },
+  done: { publicURL: ICON('done.svg') },
+  react: { publicURL: ICON('react.svg') },
+  nodejs: { publicURL: ICON('nodejs.svg') },
 };
 
 // Mock useStaticQuery — returns superset of all component data shapes

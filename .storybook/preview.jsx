@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from '../src/context/ThemeContext';
 import GlobalStyles from '../src/components/GlobalStyles';
+import '../static/fonts/fonts.css';
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
