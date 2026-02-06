@@ -185,11 +185,14 @@ renderJavaScript = true
   to = "/404.html"
   status = 200
 
-# CORS for Storybook Composition (allows showcase.el-jefe.me to load index.json)
+# Storybook Composition: allow showcase.el-jefe.me to fetch index.json (CORS)
+# and embed stories in an iframe (override DENY with SAMEORIGIN; CSP frame-ancestors
+# takes precedence in modern browsers and allows showcase.el-jefe.me)
 [[headers]]
-  for = "/storybook/index.json"
+  for = "/storybook/*"
   [headers.values]
-    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Origin = "https://showcase.el-jefe.me"
+    X-Frame-Options = "SAMEORIGIN"
 
 # Security headers
 # Note: gatsby-adapter-netlify generates _headers file with basic security headers

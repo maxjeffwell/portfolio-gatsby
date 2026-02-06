@@ -78,7 +78,7 @@ function generateCSPForFiles() {
     "manifest-src 'self'",
     "frame-src *.hotjar.com *.clarity.ms 'self'",
     "object-src 'none'",
-    "frame-ancestors 'self' https://iframetester.com https://webofdevs.com",
+    "frame-ancestors 'self' https://iframetester.com https://webofdevs.com https://showcase.el-jefe.me",
     "base-uri 'self'",
     "form-action 'self' https://el-jefe.me",
     'upgrade-insecure-requests',

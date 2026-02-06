@@ -1,10 +1,10 @@
 // src/css/_variables.scss
+// Colors from src/context/ThemeContext.js
 
-// 🎨 Use the colors from your Gatsby Portfolio here!
-$primary-color: #2563eb; // Example Blue
-$secondary-color: #64748b;
-$dark-background: #0f172a;
-$font-family-base: 'Inter', sans-serif;
+$primary-color: #1976d2;
+$secondary-color: #dc004e;
+$dark-background: #0a0a0a;
+$font-family-base: 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 :root {
   --ifm-color-primary: #{$primary-color};

@@ -124,3 +124,6 @@ dist/
 /cypress/screenshots/
 /cypress/downloads/
 
+# Storybook build output
+storybook-static/
+
