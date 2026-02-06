@@ -12,9 +12,6 @@
   GATSBY_GA_TRACKING_ID = "G-NL37L9SVQ0"
   CI = "true"
 
-[[plugins]]
-  package = "@netlify/plugin-gatsby"
-
 # Cache Gatsby directories for faster builds
 [[plugins]]
   package = "netlify-plugin-cache"
