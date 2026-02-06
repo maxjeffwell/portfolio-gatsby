@@ -1,6 +1,6 @@
 [build]
   publish = "public"
-  command = "npm run build"
+  command = "npm run build:all"
 
 [build.environment]
   NODE_VERSION = "22"
@@ -171,6 +171,12 @@ renderJavaScript = true
   from = "/404"
   to = "/404.html"
   status = 200
+
+# CORS for Storybook Composition (allows showcase.el-jefe.me to load index.json)
+[[headers]]
+  for = "/storybook/index.json"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
 
 # Security headers
 # Note: gatsby-adapter-netlify generates _headers file with basic security headers

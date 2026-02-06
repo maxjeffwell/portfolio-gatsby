@@ -106,11 +106,21 @@ dist/
 
 # Local Netlify folder
 .netlify
-docs/
+/docs/
 
 # Docker - keep .env private but commit Docker configs
 .env.docker
 
 # ArtiForge
 .artiforge
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+/cypress/downloads/
 

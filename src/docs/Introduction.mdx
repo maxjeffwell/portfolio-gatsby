@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Portfolio Component Library
+
+Interactive component library for [el-jefe.me](https://el-jefe.me) — Jeff Maxwell's developer portfolio built with **Gatsby**, **styled-components**, and **React**.
+
+## What's Inside
+
+This Storybook documents all reusable components powering the portfolio site:
+
+| Category | Components | Description |
+|----------|-----------|-------------|
+| **Design System** | Typography, Colors, Cards | Fluid `clamp()` typography, CSS custom properties, card primitives |
+| **Animation** | SimpleTypingAnimation, StaggeredAnimation | Typewriter effect and Framer Motion stagger reveals |
+| **Navigation** | Header, DarkModeToggle | Responsive nav with mobile drawer, light/dark theme toggle |
+| **Home Sections** | HeroSection, DeveloperCard, CodePhilosophyCard, TechnologiesSection | Landing page sections with theme-aware styling |
+| **Projects** | ProjectCard | Multi-source project cards with tech icons, video support |
+| **Utilities** | ErrorBoundary, ProtectedEmail, CTASection | Error handling, email obfuscation, call-to-action |
+
+## Design System
+
+The portfolio uses a **CSS custom properties** approach with two themes:
+
+- **Light**: `#f5f5f5` background, `#333` text, `#1976d2` primary
+- **Dark**: `#0a0a0a` background, `#e0e0e0` text, `#64b5f6` primary
+
+Typography uses fluid sizing with `clamp()` for responsive scaling without breakpoints.
+
+## Architecture
+
+```
+portfolio-gatsby/
+├── src/
+│   ├── components/       ← React components (this Storybook)
+│   │   ├── home/         ← Landing page sections
+│   │   └── __mocks__/    ← Test data for stories
+│   ├── context/          ← ThemeContext (light/dark)
+│   └── pages/            ← Gatsby pages
+├── .storybook/           ← Storybook config + Gatsby mocks
+└── docs-site/            ← Docusaurus architecture docs
+```
+
+## Related Resources
+
+- **Live Site**: [el-jefe.me](https://el-jefe.me)
+- **Architecture Docs**: [el-jefe.me/docs](https://el-jefe.me/docs)
+- **Applications Showcase**: [showcase.el-jefe.me](https://showcase.el-jefe.me) — 9 deployed apps in a shared Storybook
+
+> This Storybook uses **composition** to cross-reference the Applications Showcase.
+> Look for "Applications Showcase" in the sidebar to browse components from all deployed apps.
