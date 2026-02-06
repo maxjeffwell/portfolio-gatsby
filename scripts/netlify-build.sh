@@ -1,30 +1,47 @@
 #!/bin/bash
 set -e
 
-echo "Starting full build pipeline..."
+# Logging function
+log() {
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S')] $1"
+}
+
+log "Starting full build pipeline..."
+log "Environment: NODE_VERSION=$NODE_VERSION, NODE_ENV=$NODE_ENV"
 
 # 1. Build Gatsby Site
-echo "Step 1: Building Gatsby site..."
+log "Step 1: Building Gatsby site..."
 npm run build
 
 # 2. Build Storybook
-echo "Step 2: Building Storybook..."
-# Use npm run to ensure local storybook is used
+log "Step 2: Building Storybook..."
+if [ -d "public/storybook" ]; then
+  log "Cleaning existing storybook directory..."
+  rm -rf public/storybook
+fi
 npm run build-storybook -- -o public/storybook
 
 # 3. Build Documentation Site
-echo "Step 3: Building Documentation site..."
-cd docs-site
-echo "Installing documentation dependencies..."
-npm install --legacy-peer-deps
-echo "Running docusaurus build..."
-npm run build
-cd ..
+log "Step 3: Building Documentation site..."
+if [ -d "docs-site" ]; then
+  cd docs-site
+  log "Installing documentation dependencies..."
+  npm install --legacy-peer-deps
+  log "Running docusaurus build..."
+  npm run build
+  cd ..
+else
+  log "WARNING: docs-site directory not found, skipping..."
+fi
 
 # 4. Copy Documentation Site to Public
-echo "Step 4: Integrating documentation into public directory..."
-mkdir -p public/docs
-# Use /. to copy contents instead of the directory itself
-cp -rv docs-site/build/. public/docs/
+log "Step 4: Integrating documentation into public directory..."
+if [ -d "docs-site/build" ]; then
+  mkdir -p public/docs
+  log "Copying documentation assets..."
+  cp -rv docs-site/build/. public/docs/
+else
+  log "WARNING: docs-site/build not found, skipping copy..."
+fi
 
-echo "Build pipeline completed successfully!"
+log "Build pipeline completed successfully!"
