@@ -51,6 +51,10 @@ spec:
       interval: 30s
 ```
 
+:::tip Live Metrics
+The [Cluster Dashboard](https://el-jefe.me/cluster/) displays live Prometheus metrics including node count, pod count, and CPU/memory utilization sourced from the devops-portfolio-manager API.
+:::
+
 ## Key Metrics
 
 | Metric Category | Examples |

@@ -43,3 +43,7 @@ graph TB
 - Memory usage and pressure
 - Disk I/O and capacity
 - Network throughput
+
+:::tip See Also
+The [Cluster Dashboard](https://el-jefe.me/cluster/) on the portfolio site provides a public view of key cluster metrics, complementing the internal Grafana dashboards. The [PodRick](https://showcase.el-jefe.me/?path=/story/podrick-workflowcard--default) stories in the Storybook Showcase demonstrate the dashboard components used for deployment monitoring.
+:::

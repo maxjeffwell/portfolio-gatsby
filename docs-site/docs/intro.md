@@ -76,6 +76,12 @@ graph TB
     AC -->|sync| BK & ED & EG & IA & CT & TF & PR & PF & UI
 ```
 
+## Live Dashboards
+
+- **[Cluster Dashboard](https://el-jefe.me/cluster/)** — Live K8s metrics, ArgoCD application health, and recent deployments
+- **[Component Showcase](https://showcase.el-jefe.me)** — Interactive Storybook with extracted components from all 9 applications
+- **[Portfolio Storybook](https://el-jefe.me/storybook/)** — Portfolio site component library
+
 ## Documentation Sections
 
 - **[Architecture](/architecture/overview)** — High-level system design and networking

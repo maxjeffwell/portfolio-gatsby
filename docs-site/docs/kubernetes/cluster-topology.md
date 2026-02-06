@@ -57,6 +57,10 @@ Each application follows a consistent pattern:
 - **IngressRoute**: Traefik CRD for external HTTPS routing
 - **HPA**: Horizontal Pod Autoscaler for auto-scaling
 
+:::tip Interactive Components
+Explore extracted UI components from each application in the [Storybook Showcase](https://showcase.el-jefe.me). See the [Applications Overview](/applications/overview#component-showcase) for per-app story links.
+:::
+
 ### Example: Bookmarked
 
 ```mermaid

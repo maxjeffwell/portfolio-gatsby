@@ -52,6 +52,10 @@ graph TD
     LIVE -.->|actual state| AAC
 ```
 
+:::tip Live Status
+View real-time ArgoCD application health and sync status on the [Cluster Dashboard](https://el-jefe.me/cluster/). The PodRick dashboard app also provides K8s-native views — see the [ApplicationCard](https://showcase.el-jefe.me/?path=/story/podrick-applicationcard--default) and [PipelineTimeline](https://showcase.el-jefe.me/?path=/story/podrick-pipelinetimeline--default) stories in the Storybook Showcase.
+:::
+
 ## Application Manifest Pattern
 
 Each application's ArgoCD Application resource follows this pattern:

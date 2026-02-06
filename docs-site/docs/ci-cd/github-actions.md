@@ -100,3 +100,7 @@ CI/CD secrets are managed through **Doppler**:
 - API keys
 
 Doppler injects secrets into GitHub Actions via the Doppler CLI or GitHub Actions integration, keeping sensitive values out of repository settings.
+
+:::tip Live Deployments
+The [Cluster Dashboard](https://el-jefe.me/cluster/) shows recent GitHub Actions workflow runs with status indicators, linking back to each run on GitHub. The [PodRick PipelineTimeline](https://showcase.el-jefe.me/?path=/story/podrick-pipelinetimeline--default) story demonstrates the pipeline visualization component.
+:::

@@ -21,6 +21,22 @@ All applications follow the same deployment pattern: GitHub Actions builds Docke
 | **Portfolio** | el-jefe.me | Gatsby | — | — | Yes |
 | **k8s-ui-library** | showcase.el-jefe.me | Storybook | — | — | No |
 
+## Component Showcase
+
+Each application's UI components are extracted and displayed in the [Storybook Showcase](https://showcase.el-jefe.me) with interactive stories, mock data, and play-function tests.
+
+| App | Stories | Highlights |
+|-----|---------|------------|
+| [**Bookmarked**](https://showcase.el-jefe.me/?path=/story/bookmarked-bookmarkform--create-new) | BookmarkForm, SemanticSearch, Header, Footer, Landing | Emotion theming, pgvector semantic search UI |
+| [**educationELLy**](https://showcase.el-jefe.me/?path=/story/educationelly-studentlist--default) | StudentList, Pagination, ChatBubble, Header, LoadingSpinner | Semantic UI components |
+| [**educationELLy GraphQL**](https://showcase.el-jefe.me/?path=/story/educationelly-graphql-createstudent--default) | CreateStudent, Students, ChatBubble, Header | Apollo Client integration patterns |
+| [**IntervalAI**](https://showcase.el-jefe.me/?path=/story/intervalai-statsdashboard--default) | StatsDashboard, LearningPage, MLStatus, NeuralNetworkVisualizer | ML visualization, Tailwind v4 |
+| [**Code Talk**](https://showcase.el-jefe.me/?path=/story/code-talk-editor--default) | Editor, MessageContainer, RoomCreate, RoomGrid, RoomList | Real-time chat UI, styled-components |
+| [**TenantFlow**](https://showcase.el-jefe.me/?path=/story/tenantflow-tenantcard--default) | TenantCard, Navigation, MetricsCharts, DeploymentControls | MUI v7, multi-tenant dashboard |
+| [**PodRick**](https://showcase.el-jefe.me/?path=/story/podrick-applicationcard--default) | ApplicationCard, WorkflowCard, PipelineTimeline | K8s dashboard, CSS variables |
+| [**FireBook**](https://showcase.el-jefe.me/?path=/story/firebook-bookmarkcard--default) | BookmarkCard, EditBookmarkModal, AlgoliaSearch, ErrorBoundary | CSS Modules, Algolia search |
+| [**Pop!_Portfolio**](https://showcase.el-jefe.me/?path=/story/pop-portfolio-layout--default) | Layout, ConnectionStatus, NotificationBell | Pure CSS, notification patterns |
+
 ## Architecture Pattern
 
 Most applications follow a client-server split:

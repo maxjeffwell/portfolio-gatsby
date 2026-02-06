@@ -67,3 +67,9 @@ sequenceDiagram
 ```
 
 All traffic flows through Cloudflare (DNS proxy mode), which terminates the first TLS hop. Traefik handles the second hop with certificates issued by cert-manager via Let's Encrypt.
+
+## Live Observability
+
+- **[Cluster Dashboard](https://el-jefe.me/cluster/)** — Real-time node/pod metrics, ArgoCD app health, and recent GitHub Actions deployments
+- **[Storybook Showcase](https://showcase.el-jefe.me)** — Interactive component demos extracted from all 9 applications
+- **[Portfolio Storybook](https://el-jefe.me/storybook/)** — Portfolio site UI components with theme support
