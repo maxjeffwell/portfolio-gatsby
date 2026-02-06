@@ -358,21 +358,22 @@ const ClusterPage = () => {
     refetch: refetchMetrics,
   } = useQuery(CLUSTER_METRICS_QUERY);
 
-  // REST state for ArgoCD and GitHub
+  // REST state for ArgoCD, GitHub, and Prometheus
   const [apps, setApps] = useState([]);
   const [deployments, setDeployments] = useState([]);
+  const [promMetrics, setPromMetrics] = useState(null);
   const [restErrors, setRestErrors] = useState({});
   const [refreshing, setRefreshing] = useState(false);
   const [lastRefreshed, setLastRefreshed] = useState(null);
 
-  // Derive cluster data from Apollo response
+  // Derive cluster data from Apollo (node/pod counts) + Prometheus REST (CPU/memory)
   const metrics = metricsData?.clusterMetrics;
   const cluster = metrics
     ? {
         totalNodes: metrics.nodeCount,
         totalPods: metrics.totalPods,
-        cpuUsage: metrics.cpuUsageCores,
-        memoryUsage: metrics.memoryUsageBytes,
+        cpuUsage: promMetrics?.cpuUsage ?? metrics.cpuUsageCores,
+        memoryUsage: promMetrics?.memoryUsage ?? metrics.memoryUsageBytes,
       }
     : null;
 
@@ -382,6 +383,7 @@ const ClusterPage = () => {
     const results = await Promise.allSettled([
       fetch(`${API_BASE}/api/argocd/applications`).then((r) => r.json()),
       fetch(`${API_BASE}/api/github/runs/recent`).then((r) => r.json()),
+      fetch(`${API_BASE}/api/prometheus/cluster/overview`).then((r) => r.json()),
     ]);
 
     if (results[0].status === 'fulfilled') {
@@ -412,6 +414,14 @@ const ClusterPage = () => {
       );
     } else {
       newErrors.deployments = results[1].reason?.message || 'Failed to load deployments';
+    }
+
+    if (results[2].status === 'fulfilled') {
+      const prom = results[2].value;
+      setPromMetrics({
+        cpuUsage: prom.cpuUsage ? parseFloat(prom.cpuUsage) : null,
+        memoryUsage: prom.memoryUsage ? parseFloat(prom.memoryUsage) : null,
+      });
     }
 
     setRestErrors(newErrors);
