@@ -118,7 +118,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type GitHubDeployment implements Node {
-      runId: Int!
+      runId: String!
       name: String
       repoDisplayName: String
       conclusion: String
@@ -193,7 +193,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest, repor
     const runs = data.workflow_runs || [];
     runs.forEach((run) => {
       createNode({
-        runId: run.id,
+        runId: String(run.id),
         name: run.name,
         repoDisplayName: run.repo_display_name || run.repository?.name || '',
         conclusion: run.conclusion || 'pending',
