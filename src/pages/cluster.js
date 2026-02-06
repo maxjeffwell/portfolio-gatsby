@@ -47,10 +47,11 @@ const PageSubtitle = styled.p`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: clamp(1.25rem, 3vw, 1.5rem);
-  font-weight: 600;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#333')};
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
 `;
 
 const StatsGrid = styled.div`
@@ -61,59 +62,70 @@ const StatsGrid = styled.div`
 `;
 
 const StatCard = styled.div`
-  background: ${(props) => (props.theme?.mode === 'dark' ? '#1a1a1a' : '#ffffff')};
+  background: ${(props) =>
+    props.theme?.mode === 'dark'
+      ? 'linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%)'
+      : 'linear-gradient(135deg, #ffffff 0%, #f5f7ff 100%)'};
   border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
-  border-radius: 12px;
-  padding: 20px;
-  transition: border-color 0.2s;
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s ease;
 
   &:hover {
     border-color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    transform: translateY(-4px);
+    box-shadow: ${(props) =>
+      props.theme?.mode === 'dark'
+        ? '0 8px 32px rgba(144,202,249,0.15)'
+        : '0 8px 32px rgba(25,118,210,0.12)'};
   }
 `;
 
 const StatLabel = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#808080' : '#999')};
-  margin-bottom: 8px;
+  letter-spacing: 1px;
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+  margin-bottom: 10px;
+  font-weight: 600;
 `;
 
 const StatValue = styled.div`
-  font-size: 32px;
-  font-weight: 700;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#e0e0e0' : '#212121')};
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 800;
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#212121')};
   line-height: 1;
 `;
 
 const StatUnit = styled.span`
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#b0b0b0' : '#666')};
   margin-left: 4px;
 `;
 
 const UsageBarTrack = styled.div`
-  height: 6px;
+  height: 8px;
   background: ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
-  margin-top: 12px;
+  margin-top: 14px;
 `;
 
 const UsageBarFill = styled.div`
   height: 100%;
-  border-radius: 3px;
-  transition: width 0.6s ease;
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   background: ${(props) => props.color || '#1976d2'};
   width: ${(props) => props.percent || 0}%;
+  box-shadow: 0 0 12px ${(props) => (props.color || '#1976d2')}66;
 `;
 
 const UsageDetail = styled.div`
-  font-size: 12px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#808080' : '#999')};
-  margin-top: 6px;
+  font-size: 14px;
+  color: ${(props) => (props.theme?.mode === 'dark' ? '#a0a0a0' : '#666')};
+  margin-top: 8px;
+  font-weight: 500;
 `;
 
 const AppGrid = styled.div`
@@ -129,24 +141,29 @@ const AppRow = styled.div`
   justify-content: space-between;
   background: ${(props) => (props.theme?.mode === 'dark' ? '#1a1a1a' : '#ffffff')};
   border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
-  border-radius: 8px;
-  padding: 14px 18px;
-  transition: border-color 0.2s;
+  border-radius: 12px;
+  padding: 18px 22px;
+  transition: all 0.3s ease;
 
   &:hover {
     border-color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    transform: translateY(-2px);
+    box-shadow: ${(props) =>
+      props.theme?.mode === 'dark'
+        ? '0 4px 20px rgba(144,202,249,0.1)'
+        : '0 4px 20px rgba(25,118,210,0.08)'};
   }
 
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
   }
 `;
 
 const AppName = styled.span`
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#e0e0e0' : '#212121')};
 `;
 
@@ -160,14 +177,15 @@ const Badge = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 6px;
   color: #fff;
   background: ${(props) => props.bg || '#666'};
+  box-shadow: 0 2px 8px ${(props) => (props.bg || '#666')}44;
 `;
 
 const DeploymentList = styled.div`
@@ -180,24 +198,26 @@ const DeploymentList = styled.div`
 const DeploymentItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background: ${(props) => (props.theme?.mode === 'dark' ? '#1a1a1a' : '#ffffff')};
   border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
-  border-radius: 8px;
-  padding: 12px 16px;
-  transition: border-color 0.2s;
+  border-radius: 12px;
+  padding: 16px 20px;
+  transition: all 0.3s ease;
 
   &:hover {
     border-color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    transform: translateX(4px);
   }
 `;
 
 const Indicator = styled.div`
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
   background: ${(props) => props.color || '#666'};
+  box-shadow: 0 0 8px ${(props) => (props.color || '#666')}88;
 `;
 
 const DeploymentInfo = styled.div`
@@ -206,8 +226,8 @@ const DeploymentInfo = styled.div`
 `;
 
 const DeploymentName = styled.div`
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#e0e0e0' : '#212121')};
   white-space: nowrap;
   overflow: hidden;
@@ -215,11 +235,11 @@ const DeploymentName = styled.div`
 `;
 
 const DeploymentMeta = styled.div`
-  font-size: 12px;
+  font-size: 13px;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#808080' : '#999')};
   display: flex;
-  gap: 8px;
-  margin-top: 2px;
+  gap: 10px;
+  margin-top: 4px;
 `;
 
 const DeploymentRepo = styled.span`
@@ -228,13 +248,20 @@ const DeploymentRepo = styled.span`
 `;
 
 const ViewLink = styled.a`
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 600;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
   text-decoration: none;
   flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: ${(props) =>
+    props.theme?.mode === 'dark' ? 'rgba(144,202,249,0.08)' : 'rgba(25,118,210,0.06)'};
+  transition: all 0.2s ease;
 
   &:hover {
-    text-decoration: underline;
+    background: ${(props) =>
+      props.theme?.mode === 'dark' ? 'rgba(144,202,249,0.16)' : 'rgba(25,118,210,0.12)'};
   }
 `;
 
@@ -242,17 +269,17 @@ const LoadingText = styled.div`
   text-align: center;
   padding: 48px 0;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#808080' : '#999')};
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 const ErrorText = styled.div`
   text-align: center;
   padding: 24px;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#f48fb1' : '#d32f2f')};
-  font-size: 14px;
+  font-size: 15px;
   background: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(244,143,177,0.08)' : 'rgba(211,47,47,0.05)'};
-  border-radius: 8px;
+  border-radius: 12px;
 `;
 
 const RefreshBar = styled.div`

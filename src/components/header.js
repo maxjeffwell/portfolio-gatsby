@@ -282,6 +282,7 @@ function Header() {
     { text: 'Projects', to: '/projects' },
     { text: 'Blog', to: '/blog' },
     { text: 'Contact', to: '/contact' },
+    { text: 'Live Cluster', to: '/cluster/' },
     { text: 'Storybook', to: '/storybook/' },
     { text: 'Infrastructure', to: '/docs/' },
   ];
