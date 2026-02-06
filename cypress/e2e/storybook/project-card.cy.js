@@ -1,7 +1,7 @@
 describe('ProjectCard Component', () => {
   it('should render the default project card', () => {
     cy.visitStory('components-projectcard--default');
-    cy.getStoryCanvas().find('[class*="card"], [class*="project"], article')
+    cy.getStoryCanvas().find('article')
       .should('exist');
   });
 

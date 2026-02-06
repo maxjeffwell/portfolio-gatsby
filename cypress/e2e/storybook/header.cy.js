@@ -7,28 +7,35 @@ describe('Header Component', () => {
 
   it('should display navigation links with correct text', () => {
     cy.visitStory('navigation-header--desktop');
-    // Header should contain links to key pages
-    cy.getStoryCanvas().then(($body) => {
-      const text = $body.text();
-      expect(text).to.match(/about|projects|blog|contact/i);
-    });
+    // Wait for isMobile useEffect to flip to false, then nav renders.
+    cy.getStoryCanvas().find('nav[aria-label="Main navigation"]')
+      .should('exist');
+    // Verify at least one expected nav link text is visible
+    cy.getStoryCanvas().find('nav[aria-label="Main navigation"]')
+      .contains(/projects|blog|contact/i)
+      .should('exist');
   });
 
   it('should render mobile viewport with hamburger menu', () => {
-    cy.visitStory('navigation-header--mobile');
-    // In mobile story, a hamburger/menu button should be visible
-    cy.getStoryCanvas().find('button, [class*="hamburger"], [class*="menu"], [aria-label*="menu"]')
-      .should('have.length.at.least', 1);
+    // Visit the iframe URL directly so the component gets the full
+    // 375px viewport — the Storybook sidebar won't consume space.
+    cy.viewport(375, 812);
+    cy.visit('/iframe.html?id=navigation-header--mobile&viewMode=story', {
+      timeout: 30000,
+    });
+    cy.get('body').should('not.be.empty');
+    cy.get('button[aria-label="open drawer"]').should('exist');
   });
 
   it('should open mobile drawer on hamburger click', () => {
-    cy.visitStory('navigation-header--mobile');
-    // Click the hamburger/menu button
-    cy.getStoryCanvas()
-      .find('button, [class*="hamburger"], [class*="menu"], [aria-label*="menu"]')
-      .first()
+    cy.viewport(375, 812);
+    cy.visit('/iframe.html?id=navigation-header--mobile&viewMode=story', {
+      timeout: 30000,
+    });
+    cy.get('button[aria-label="open drawer"]')
+      .should('exist')
       .click();
-    // After click, navigation links should be visible
-    cy.getStoryCanvas().find('a').should('have.length.at.least', 1);
+    // Drawer renders MobileNavButton <a> links
+    cy.get('a').should('have.length.at.least', 1);
   });
 });

@@ -10,20 +10,32 @@ const meta = {
 
 export default meta;
 
+// Map mock data fields to the component's prop names
+const toProps = ({ title, date, description, source, hosted, techIcons, image, video }) => ({
+  title,
+  date,
+  description,
+  sourceURLs: source,
+  deployments: hosted,
+  technologies: techIcons,
+  imageSrcPath: image,
+  videoSrcPath: video?.publicURL || null,
+});
+
 export const Default = {
-  render: () => <ProjectCard project={mockProject} />,
+  render: () => <ProjectCard {...toProps(mockProject)} />,
 };
 
 export const WithVideo = {
-  render: () => <ProjectCard project={mockProjectWithVideo} />,
+  render: () => <ProjectCard {...toProps(mockProjectWithVideo)} />,
 };
 
 export const Minimal = {
-  render: () => <ProjectCard project={mockProjectMinimal} />,
+  render: () => <ProjectCard {...toProps(mockProjectMinimal)} />,
 };
 
 export const Mobile = {
-  render: () => <ProjectCard project={mockProject} />,
+  render: () => <ProjectCard {...toProps(mockProject)} />,
   parameters: {
     viewport: { defaultViewport: 'mobile' },
   },
