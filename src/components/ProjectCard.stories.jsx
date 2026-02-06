@@ -41,8 +41,8 @@ export const ManyTechnologies = {
         ...mockProject,
         title: 'Full-Stack Platform',
         techIcons: [
-          'React', 'Node', 'PostgreSQL', 'Docker', 'Kubernetes',
-          'GraphQL', 'Redis', 'MongoDB', 'TypeScript', 'Nginx',
+          'React', 'Node.js', 'PostgreSQL', 'Docker', 'Kubernetes',
+          'GraphQL', 'Redis', 'MongoDB', 'Express', 'Nginx',
         ],
       })}
     />

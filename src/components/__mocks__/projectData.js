@@ -8,7 +8,7 @@ export const mockProject = {
     { url: 'https://github.com/maxjeffwell/bookmarks-server', label: 'Backend' },
   ],
   hosted: [{ url: 'https://bookmarked.el-jefe.me', label: 'Live Demo' }],
-  techIcons: ['React', 'Node', 'PostgreSQL', 'Docker', 'Kubernetes'],
+  techIcons: ['React', 'Node.js', 'PostgreSQL', 'Docker', 'Kubernetes'],
   image: null,
   video: null,
 };
@@ -19,7 +19,7 @@ export const mockProjectWithVideo = {
   description:
     'Spaced repetition learning platform with AI-powered flashcards and interval scheduling.',
   video: { publicURL: 'https://example.com/demo.mp4' },
-  techIcons: ['React', 'Node', 'MongoDB', 'Docker'],
+  techIcons: ['React', 'Node.js', 'MongoDB', 'Docker'],
   hosted: [{ url: 'https://intervalai.el-jefe.me', label: 'Live Demo' }],
 };
 
