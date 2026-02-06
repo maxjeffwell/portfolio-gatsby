@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { graphql } from 'gatsby';
 import styled from 'styled-components';
+import { useQuery } from '@apollo/client';
 import { useTheme } from '../context/ThemeContext';
+import { CLUSTER_METRICS_QUERY } from '../graphql/gateway';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -319,40 +320,45 @@ const conclusionColors = {
 
 // ── Page Component ─────────────────────────────────────────────
 
-const ClusterPage = ({ data }) => {
+const ClusterPage = () => {
   const { theme } = useTheme();
 
-  // Build-time data from Gatsby GraphQL layer (initial render)
-  const buildCluster = data.clusterMetrics;
-  const buildApps = data.allArgocdApplication?.nodes || [];
-  const buildDeployments = data.allGitHubDeployment?.nodes || [];
+  // GraphQL query for cluster metrics via Apollo
+  const {
+    data: metricsData,
+    loading: metricsLoading,
+    error: metricsError,
+    refetch: refetchMetrics,
+  } = useQuery(CLUSTER_METRICS_QUERY);
 
-  // Client-side state: starts with build-time data, refreshed on demand
-  const [cluster, setCluster] = useState(buildCluster);
-  const [apps, setApps] = useState(buildApps);
-  const [deployments, setDeployments] = useState(buildDeployments);
-  const [errors, setErrors] = useState({});
+  // REST state for ArgoCD and GitHub
+  const [apps, setApps] = useState([]);
+  const [deployments, setDeployments] = useState([]);
+  const [restErrors, setRestErrors] = useState({});
   const [refreshing, setRefreshing] = useState(false);
   const [lastRefreshed, setLastRefreshed] = useState(null);
 
-  const refreshData = useCallback(async () => {
-    setRefreshing(true);
+  // Derive cluster data from Apollo response
+  const metrics = metricsData?.clusterMetrics;
+  const cluster = metrics
+    ? {
+        totalNodes: metrics.nodeCount,
+        totalPods: metrics.totalPods,
+        cpuUsage: metrics.cpuUsageCores,
+        memoryUsage: metrics.memoryUsageBytes,
+      }
+    : null;
+
+  const fetchRestData = useCallback(async () => {
     const newErrors = {};
 
     const results = await Promise.allSettled([
-      fetch(`${API_BASE}/api/prometheus/cluster/overview`).then((r) => r.json()),
       fetch(`${API_BASE}/api/argocd/applications`).then((r) => r.json()),
       fetch(`${API_BASE}/api/github/runs/recent`).then((r) => r.json()),
     ]);
 
     if (results[0].status === 'fulfilled') {
-      setCluster(results[0].value);
-    } else {
-      newErrors.cluster = results[0].reason?.message || 'Failed to load cluster metrics';
-    }
-
-    if (results[1].status === 'fulfilled') {
-      const appData = results[1].value;
+      const appData = results[0].value;
       const appList = Array.isArray(appData) ? appData : appData.items || [];
       setApps(
         appList.map((app) => ({
@@ -362,11 +368,11 @@ const ClusterPage = ({ data }) => {
         }))
       );
     } else {
-      newErrors.apps = results[1].reason?.message || 'Failed to load application status';
+      newErrors.apps = results[0].reason?.message || 'Failed to load application status';
     }
 
-    if (results[2].status === 'fulfilled') {
-      const runs = results[2].value.workflow_runs || [];
+    if (results[1].status === 'fulfilled') {
+      const runs = results[1].value.workflow_runs || [];
       setDeployments(
         runs.map((run) => ({
           runId: run.id,
@@ -378,18 +384,23 @@ const ClusterPage = ({ data }) => {
         }))
       );
     } else {
-      newErrors.deployments = results[2].reason?.message || 'Failed to load deployments';
+      newErrors.deployments = results[1].reason?.message || 'Failed to load deployments';
     }
 
-    setErrors(newErrors);
-    setRefreshing(false);
-    setLastRefreshed(new Date());
+    setRestErrors(newErrors);
   }, []);
 
-  // Auto-refresh once on mount to get the latest data
+  const refreshData = useCallback(async () => {
+    setRefreshing(true);
+    await Promise.all([refetchMetrics(), fetchRestData()]);
+    setRefreshing(false);
+    setLastRefreshed(new Date());
+  }, [refetchMetrics, fetchRestData]);
+
+  // Fetch REST data on mount (Apollo handles its own initial fetch)
   useEffect(() => {
-    refreshData();
-  }, [refreshData]);
+    fetchRestData();
+  }, [fetchRestData]);
 
   const hasCluster = cluster && (cluster.totalNodes || cluster.totalPods);
   const hasApps = apps && apps.length > 0;
@@ -433,8 +444,10 @@ const ClusterPage = ({ data }) => {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <SectionTitle theme={theme}>Cluster Resources</SectionTitle>
-            {errors.cluster ? (
-              <ErrorText theme={theme}>{errors.cluster}</ErrorText>
+            {metricsError ? (
+              <ErrorText theme={theme}>{metricsError.message}</ErrorText>
+            ) : metricsLoading && !cluster ? (
+              <LoadingText theme={theme}>Loading cluster metrics...</LoadingText>
             ) : hasCluster ? (
               <StatsGrid>
                 <StatCard theme={theme}>
@@ -509,8 +522,8 @@ const ClusterPage = ({ data }) => {
             transition={{ delay: 0.4, duration: 0.5 }}
           >
             <SectionTitle theme={theme}>Application Status</SectionTitle>
-            {errors.apps ? (
-              <ErrorText theme={theme}>{errors.apps}</ErrorText>
+            {restErrors.apps ? (
+              <ErrorText theme={theme}>{restErrors.apps}</ErrorText>
             ) : hasApps ? (
               <AppGrid>
                 {apps.map((app) => (
@@ -539,8 +552,8 @@ const ClusterPage = ({ data }) => {
             transition={{ delay: 0.6, duration: 0.5 }}
           >
             <SectionTitle theme={theme}>Recent Deployments</SectionTitle>
-            {errors.deployments ? (
-              <ErrorText theme={theme}>{errors.deployments}</ErrorText>
+            {restErrors.deployments ? (
+              <ErrorText theme={theme}>{restErrors.deployments}</ErrorText>
             ) : hasDeployments ? (
               <DeploymentList>
                 {deployments.map((run) => (
@@ -578,36 +591,3 @@ const ClusterPage = ({ data }) => {
 };
 
 export default ClusterPage;
-
-// ── Gatsby Page Query ──────────────────────────────────────────
-// This query runs at build time. The data is baked into the static HTML,
-// providing a real initial render with no loading spinner.
-// Client-side refresh replaces it with live data after hydration.
-
-export const query = graphql`
-  query ClusterPageQuery {
-    clusterMetrics {
-      totalNodes
-      totalPods
-      cpuUsage
-      memoryUsage
-    }
-    allArgocdApplication(sort: { appName: ASC }) {
-      nodes {
-        appName
-        healthStatus
-        syncStatus
-      }
-    }
-    allGitHubDeployment(sort: { createdAt: DESC }, limit: 15) {
-      nodes {
-        runId
-        name
-        repoDisplayName
-        conclusion
-        htmlUrl
-        createdAt
-      }
-    }
-  }
-`;
