@@ -17,6 +17,12 @@ const config = {
   ],
   framework: '@storybook/react-vite',
 
+  // Use the non-Babel react-docgen parser so the react-docgen-plugin
+  // never loads babel-preset-gatsby (which requires Gatsby's .cache).
+  typescript: {
+    reactDocgen: 'react-docgen',
+  },
+
   // Storybook Composition — reference the Applications Showcase
   refs: {
     applications: {
