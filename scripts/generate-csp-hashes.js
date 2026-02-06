@@ -76,7 +76,7 @@ function generateCSPForFiles() {
     "img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com",
     "connect-src 'self' https://showcase.el-jefe.me *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com *.posthog.com plausible.io",
     "manifest-src 'self'",
-    "frame-src *.hotjar.com *.clarity.ms 'self'",
+    "frame-src https://showcase.el-jefe.me *.hotjar.com *.clarity.ms 'self'",
     "object-src 'none'",
     "frame-ancestors 'self' https://iframetester.com https://webofdevs.com https://showcase.el-jefe.me",
     "base-uri 'self'",
