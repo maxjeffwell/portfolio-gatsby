@@ -30,7 +30,9 @@ RUN npm run build
 # ============================================
 FROM nginx:alpine AS production
 
-# Copy custom nginx configuration
+# Copy custom nginx configuration and header snippets
+RUN mkdir -p /etc/nginx/snippets
+COPY nginx-snippets/ /etc/nginx/snippets/
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy built Gatsby site from build stage
