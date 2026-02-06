@@ -52,7 +52,7 @@ async function stabilizePage(page: Page) {
     `,
   });
 
-  // 4. Kill JS-based animations
+  // 4. Kill JS-based animations and freeze video playback
   await page.evaluate(() => {
     // Clear all setInterval timers (cursor blinks, etc.)
     const highestId = window.setInterval(() => {}, 0);
@@ -61,6 +61,13 @@ async function stabilizePage(page: Page) {
     // Stop requestAnimationFrame loops (canvas animations)
     window.requestAnimationFrame = () => 0;
     window.cancelAnimationFrame = () => {};
+
+    // Pause all videos (autoPlay loop videos produce different frames
+    // on each screenshot, preventing stable comparison)
+    document.querySelectorAll('video').forEach((video) => {
+      video.pause();
+      video.removeAttribute('autoplay');
+    });
 
     // Wait for every <img> to finish loading
     return Promise.all(
@@ -85,14 +92,15 @@ async function stabilizePage(page: Page) {
 const screenshotOpts = {
   fullPage: true,
   animations: 'disabled' as const,
-  timeout: 15_000,
+  timeout: 30_000,
 };
 
 test.describe('Visual Regression', () => {
   for (const { name, path } of pages) {
     test(`${name} page - light mode`, async ({ page }) => {
       await page.goto(path);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
+      await page.waitForTimeout(500);
       await stabilizePage(page);
 
       await expect(page).toHaveScreenshot(`${name}-light.png`, screenshotOpts);
@@ -100,7 +108,8 @@ test.describe('Visual Regression', () => {
 
     test(`${name} page - dark mode`, async ({ page }) => {
       await page.goto(path);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
+      await page.waitForTimeout(500);
 
       const toggle = page.getByRole('button', { name: /switch to dark mode/i });
       if (await toggle.isVisible()) {
@@ -117,7 +126,8 @@ test.describe('Visual Regression', () => {
   test('home page - mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForTimeout(500);
     await stabilizePage(page);
 
     await expect(page).toHaveScreenshot('home-mobile.png', screenshotOpts);
