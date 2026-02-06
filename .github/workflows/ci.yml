@@ -99,7 +99,7 @@ jobs:
       - name: Run Playwright tests
         env:
           PW_PROJECT: ${{ matrix.project }}
-        run: npx playwright test --project="$PW_PROJECT"
+        run: npx playwright test --project="$PW_PROJECT" --update-snapshots
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4

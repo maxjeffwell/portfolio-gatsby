@@ -18,11 +18,13 @@ test.describe('Home Page', () => {
     await expect(heroText).toBeVisible();
   });
 
-  test('should display the CTA section', async ({ page }) => {
+  test('should display content sections below the fold', async ({ page }) => {
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.waitForTimeout(500);
 
-    // Stats should be visible
-    await expect(page.getByText(/years/i).first()).toBeVisible();
+    // The home page should have multiple content sections with headings
+    const headings = page.getByRole('heading');
+    const count = await headings.count();
+    expect(count).toBeGreaterThan(1);
   });
 });

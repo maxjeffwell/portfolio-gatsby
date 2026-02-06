@@ -4,6 +4,8 @@ test.describe('Desktop Navigation', () => {
   test('should navigate through all pages via header links', async ({ page }) => {
     await page.goto('/');
 
+    const nav = page.locator('nav[aria-label="Main navigation"]');
+
     const navLinks = [
       { name: 'Bio', path: '/about/' },
       { name: 'Projects', path: '/projects/' },
@@ -12,7 +14,7 @@ test.describe('Desktop Navigation', () => {
     ];
 
     for (const { name, path } of navLinks) {
-      await page.getByRole('link', { name }).click();
+      await nav.getByRole('link', { name }).click();
       await expect(page).toHaveURL(path);
     }
   });
@@ -32,17 +34,19 @@ test.describe('Mobile Navigation', () => {
 
     // Open drawer
     await page.getByRole('button', { name: 'open drawer' }).click();
-    await expect(page.locator('nav[aria-label="Mobile navigation"]')).toBeVisible();
+    await expect(page.locator('[aria-label="Mobile navigation"]')).toBeVisible();
 
     // Close drawer
     await page.getByRole('button', { name: 'close drawer' }).click();
-    await expect(page.locator('nav[aria-label="Mobile navigation"]')).not.toBeVisible();
+    await expect(page.locator('[aria-label="Mobile navigation"]')).not.toBeVisible();
   });
 
   test('should navigate via mobile drawer', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'open drawer' }).click();
-    await page.getByRole('link', { name: 'Projects' }).click();
+
+    const drawer = page.locator('[aria-label="Mobile navigation"]');
+    await drawer.getByRole('link', { name: 'Projects' }).click();
     await expect(page).toHaveURL('/projects/');
   });
 });
