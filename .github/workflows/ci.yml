@@ -59,7 +59,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gatsby-build
-          path: public/
+          path: |
+            public/
+            .cache/match-paths.json
           retention-days: 7
 
   e2e-tests:
@@ -93,15 +95,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: gatsby-build
-          path: public/
 
       - name: Run Playwright tests
         env:
           PW_PROJECT: ${{ matrix.project }}
-        run: |
-          npx gatsby serve &
-          npx wait-on http://localhost:9000 --timeout 30000
-          npx playwright test --project="$PW_PROJECT"
+        run: npx playwright test --project="$PW_PROJECT"
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
