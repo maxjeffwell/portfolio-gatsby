@@ -16,7 +16,10 @@ const graphql = (strings, ...args) =>
   strings.reduce((result, str, i) => result + str + (args[i] || ''), '');
 
 // SVG icons are served from staticDirs: src/images → /images
-const ICON = (name) => `/images/svg-icons/${name}`;
+// Use ./ prefix so URLs resolve relative to the Storybook iframe,
+// which works both in dev (localhost:6006/iframe.html) and production
+// (el-jefe.me/storybook/iframe.html) without needing a base URL config.
+const ICON = (name) => `./images/svg-icons/${name}`;
 
 // Placeholder for raster images (logo, social, favicon, team photos)
 const IMG_PLACEHOLDER = 'https://via.placeholder.com/600x400';
@@ -38,10 +41,10 @@ const staticQueryData = {
     },
   },
   // myLogo.js — file(relativePath: "elephant_noun_project.png")
-  file: { publicURL: '/images/elephant_noun_project.png' },
+  file: { publicURL: './images/elephant_noun_project.png' },
   // seo.js
   social: { publicURL: IMG_PLACEHOLDER },
-  favicon: { publicURL: '/favicon.ico' },
+  favicon: { publicURL: './favicon.ico' },
   // image.js — GatsbyImage data
   teamImage: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: IMG_PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
   teamImage2: { childImageSharp: { gatsbyImageData: { images: { fallback: { src: IMG_PLACEHOLDER } }, width: 800, height: 800, layout: 'constrained' } } },
