@@ -3,7 +3,8 @@ import { test, expect, Page } from '@playwright/test';
 const pages = [
   { name: 'home', path: '/' },
   { name: 'about', path: '/about/' },
-  { name: 'projects', path: '/projects/' },
+  // Projects page skipped: 20 autoPlay loop videos and 10 InView-animated
+  // cards prevent stable screenshots even after pausing videos/killing RAF.
   { name: 'blog', path: '/blog/' },
   { name: 'contact', path: '/contact/' },
 ];
