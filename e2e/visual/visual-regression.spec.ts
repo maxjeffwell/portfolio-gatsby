@@ -17,8 +17,26 @@ const pages = [
  *    SimpleTypingAnimation)
  *  - requestAnimationFrame loops (CanvasTypingAnimation / CanvasCodeSnippet)
  *  - smooth-scroll behavior
+ *  - IntersectionObserver-triggered Framer Motion animations (pre-scrolled
+ *    so all InView callbacks fire before we kill timers/RAF)
  */
 async function stabilizePage(page: Page) {
+  // 1. Scroll through the full page to trigger every IntersectionObserver
+  //    callback (e.g. ProjectCardWithInView Framer Motion animations).
+  await page.evaluate(async () => {
+    const height = document.body.scrollHeight;
+    const step = window.innerHeight;
+    for (let y = 0; y <= height; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 100));
+    }
+    window.scrollTo(0, 0);
+  });
+
+  // 2. Brief wait for triggered animations to start
+  await page.waitForTimeout(300);
+
+  // 3. Inject CSS to nuke all transitions and animations
   await page.addStyleTag({
     content: `
       *, *::before, *::after {
@@ -28,15 +46,15 @@ async function stabilizePage(page: Page) {
         transition-delay: 0s !important;
         scroll-behavior: auto !important;
       }
-      /* Hide blinking cursors */
       [class*="cursor"], [class*="Cursor"] {
         opacity: 1 !important;
       }
     `,
   });
 
+  // 4. Kill JS-based animations
   await page.evaluate(() => {
-    // Kill all setInterval timers (cursor blinks, etc.)
+    // Clear all setInterval timers (cursor blinks, etc.)
     const highestId = window.setInterval(() => {}, 0);
     for (let i = 1; i <= highestId; i++) window.clearInterval(i);
 
@@ -57,10 +75,10 @@ async function stabilizePage(page: Page) {
     );
   });
 
-  // Wait for web fonts to finish loading
+  // 5. Wait for web fonts
   await page.evaluate(() => document.fonts.ready);
 
-  // Brief settle time for any final paints
+  // 6. Final settle time
   await page.waitForTimeout(250);
 }
 
