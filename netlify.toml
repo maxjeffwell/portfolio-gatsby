@@ -158,6 +158,19 @@ renderJavaScript = true
   status = 301
   force = true
 
+# Serve Storybook and Docs as static files (bypass Gatsby SSR)
+[[redirects]]
+  from = "/storybook/*"
+  to = "/storybook/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/docs/:splat"
+  status = 200
+  force = true
+
 # Ensure trailing slashes on all pages (Gatsby convention)
 # This prevents double redirects by handling trailing slashes after HTTPS upgrade
 [[redirects]]
