@@ -282,6 +282,8 @@ function Header() {
     { text: 'Projects', to: '/projects' },
     { text: 'Blog', to: '/blog' },
     { text: 'Contact', to: '/contact' },
+    { text: 'Storybook', to: '/storybook/' },
+    { text: 'Infrastructure', to: '/docs/' },
   ];
 
   const drawer = (
@@ -298,17 +300,19 @@ function Header() {
         flexDirection="column"
         p={2}
       >
-        {menuItems.map((item) => (
-          <MobileNavButton
-            key={item.text}
-            as={Link}
-            to={item.to}
-            theme={theme}
-            onClick={handleDrawerToggle}
-          >
-            {item.text}
-          </MobileNavButton>
-        ))}
+        {menuItems.map((item) => {
+          const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
+          return (
+            <MobileNavButton
+              key={item.text}
+              {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
+              theme={theme}
+              onClick={handleDrawerToggle}
+            >
+              {item.text}
+            </MobileNavButton>
+          );
+        })}
       </StyledBox>
     </StyledBox>
   );
@@ -340,18 +344,20 @@ function Header() {
 
               {!isMobile && (
                 <StyledBox as="nav" aria-label="Main navigation" display="flex" alignItems="center">
-                  {menuItems.map((item) => (
-                    <NavButton
-                      key={item.text}
-                      as={Link}
-                      to={item.to}
-                      theme={theme}
-                      className={currentPath === item.to ? 'active' : ''}
-                      aria-current={currentPath === item.to ? 'page' : undefined}
-                    >
-                      {item.text}
-                    </NavButton>
-                  ))}
+                  {menuItems.map((item) => {
+                    const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
+                    return (
+                      <NavButton
+                        key={item.text}
+                        {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
+                        theme={theme}
+                        className={currentPath === item.to ? 'active' : ''}
+                        aria-current={currentPath === item.to ? 'page' : undefined}
+                      >
+                        {item.text}
+                      </NavButton>
+                    );
+                  })}
                 </StyledBox>
               )}
             </StyledBox>
