@@ -106,6 +106,10 @@ function generateCSPForFiles() {
   // Add CSP at the end of the file (only once)
   headersContent += `\n\n# Hash-based Content Security Policy\n/*\n  Content-Security-Policy: ${csp}\n`;
 
+  // Storybook Composition: override X-Frame-Options and add CORS for /storybook/*
+  // Must come AFTER the /* rules so Netlify uses these values for /storybook/ paths
+  headersContent += `\n# Storybook Composition headers (must be after /* rules)\n/storybook/*\n  Access-Control-Allow-Origin: https://showcase.el-jefe.me\n  X-Frame-Options: SAMEORIGIN\n`;
+
   fs.writeFileSync(headersPath, headersContent);
   // eslint-disable-next-line no-console
   console.log('Updated _headers file with hash-based CSP');
