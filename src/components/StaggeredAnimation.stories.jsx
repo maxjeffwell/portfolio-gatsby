@@ -60,25 +60,22 @@ export const ManyItems = {
 
 export const WithCards = {
   render: () => {
-    const Wrapper = () => {
-      const { theme } = useTheme();
-      return (
-        <StaggeredAnimation>
-          <Card theme={theme} style={{ marginBottom: '1rem' }}>
-            <CardTitle theme={theme}>Frontend</CardTitle>
-            <CardText theme={theme}>React, TypeScript, CSS-in-JS</CardText>
-          </Card>
-          <Card theme={theme} style={{ marginBottom: '1rem' }}>
-            <CardTitle theme={theme}>Backend</CardTitle>
-            <CardText theme={theme}>Node.js, Express, PostgreSQL</CardText>
-          </Card>
-          <Card theme={theme}>
-            <CardTitle theme={theme}>DevOps</CardTitle>
-            <CardText theme={theme}>Docker, Kubernetes, ArgoCD</CardText>
-          </Card>
-        </StaggeredAnimation>
-      );
-    };
-    return <Wrapper />;
+    const { theme } = useTheme();
+    return (
+      <StaggeredAnimation>
+        <Card theme={theme} style={{ marginBottom: '1rem' }}>
+          <CardTitle theme={theme}>Frontend</CardTitle>
+          <CardText theme={theme}>React, TypeScript, CSS-in-JS</CardText>
+        </Card>
+        <Card theme={theme} style={{ marginBottom: '1rem' }}>
+          <CardTitle theme={theme}>Backend</CardTitle>
+          <CardText theme={theme}>Node.js, Express, PostgreSQL</CardText>
+        </Card>
+        <Card theme={theme}>
+          <CardTitle theme={theme}>DevOps</CardTitle>
+          <CardText theme={theme}>Docker, Kubernetes, ArgoCD</CardText>
+        </Card>
+      </StaggeredAnimation>
+    );
   },
 };

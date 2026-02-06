@@ -12,11 +12,8 @@ export default meta;
 
 export const Light = {
   render: () => {
-    const Wrapper = () => {
-      const { theme } = useTheme();
-      return <HeroSection theme={theme} />;
-    };
-    return <Wrapper />;
+    const { theme } = useTheme();
+    return <HeroSection theme={theme} />;
   },
 };
 
@@ -40,11 +37,8 @@ export const Dark = {
 
 export const Mobile = {
   render: () => {
-    const Wrapper = () => {
-      const { theme } = useTheme();
-      return <HeroSection theme={theme} />;
-    };
-    return <Wrapper />;
+    const { theme } = useTheme();
+    return <HeroSection theme={theme} />;
   },
   parameters: {
     viewport: { defaultViewport: 'mobile' },

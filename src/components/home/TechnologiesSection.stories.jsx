@@ -12,11 +12,8 @@ export default meta;
 
 export const Default = {
   render: () => {
-    const Wrapper = () => {
-      const { theme } = useTheme();
-      return <TechnologiesSection theme={theme} />;
-    };
-    return <Wrapper />;
+    const { theme } = useTheme();
+    return <TechnologiesSection theme={theme} />;
   },
 };
 

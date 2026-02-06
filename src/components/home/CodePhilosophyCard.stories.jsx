@@ -12,10 +12,7 @@ export default meta;
 
 export const Default = {
   render: () => {
-    const Wrapper = () => {
-      const { theme } = useTheme();
-      return <CodePhilosophyCard theme={theme} />;
-    };
-    return <Wrapper />;
+    const { theme } = useTheme();
+    return <CodePhilosophyCard theme={theme} />;
   },
 };

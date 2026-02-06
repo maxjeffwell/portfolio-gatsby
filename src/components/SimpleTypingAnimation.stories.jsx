@@ -49,22 +49,19 @@ export const SingleText = {
 
 export const GradientStyle = {
   render: () => {
-    const Wrapper = () => {
-      const { theme } = useTheme();
-      return (
-        <GradientTypingWrapper theme={theme}>
-          <SimpleTypingAnimation
-            texts={['React Developer', 'UI Engineer', 'Problem Solver']}
-            typeSpeed={60}
-            deleteSpeed={30}
-            delayBetweenTexts={2000}
-            loop
-            style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', fontWeight: 700 }}
-          />
-        </GradientTypingWrapper>
-      );
-    };
-    return <Wrapper />;
+    const { theme } = useTheme();
+    return (
+      <GradientTypingWrapper theme={theme}>
+        <SimpleTypingAnimation
+          texts={['React Developer', 'UI Engineer', 'Problem Solver']}
+          typeSpeed={60}
+          deleteSpeed={30}
+          delayBetweenTexts={2000}
+          loop
+          style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)', fontWeight: 700 }}
+        />
+      </GradientTypingWrapper>
+    );
   },
 };
 
