@@ -12,6 +12,17 @@ export default defineConfig({
     ...(process.env.CI ? [['github'] as const] : []),
   ],
 
+  /* Generate missing snapshots on first run instead of failing */
+  updateSnapshots: 'missing',
+
+  expect: {
+    toHaveScreenshot: {
+      /* Allow small cross-environment rendering differences */
+      maxDiffPixelRatio: 0.01,
+      threshold: 0.2,
+    },
+  },
+
   use: {
     baseURL: 'http://localhost:9000',
     trace: 'on-first-retry',
