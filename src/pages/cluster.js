@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { useTheme } from '../context/ThemeContext';
 import { CLUSTER_METRICS_QUERY } from '../graphql/gateway';
 
