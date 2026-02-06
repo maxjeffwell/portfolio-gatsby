@@ -34,9 +34,36 @@ export const Minimal = {
   render: () => <ProjectCard {...toProps(mockProjectMinimal)} />,
 };
 
+export const ManyTechnologies = {
+  render: () => (
+    <ProjectCard
+      {...toProps({
+        ...mockProject,
+        title: 'Full-Stack Platform',
+        techIcons: [
+          'React', 'Node', 'PostgreSQL', 'Docker', 'Kubernetes',
+          'GraphQL', 'Redis', 'MongoDB', 'TypeScript', 'Nginx',
+        ],
+      })}
+    />
+  ),
+};
+
 export const Mobile = {
   render: () => <ProjectCard {...toProps(mockProject)} />,
   parameters: {
     viewport: { defaultViewport: 'mobile' },
   },
+};
+
+export const CardGrid = {
+  name: 'Multiple Cards (Grid)',
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px', maxWidth: '1200px' }}>
+      <ProjectCard {...toProps(mockProject)} />
+      <ProjectCard {...toProps(mockProjectWithVideo)} />
+      <ProjectCard {...toProps(mockProjectMinimal)} />
+    </div>
+  ),
+  parameters: { layout: 'fullscreen' },
 };

@@ -84,9 +84,11 @@ graph TB
 
 ## Documentation Sections
 
-- **[Architecture](/architecture/overview)** — High-level system design and networking
+- **[Architecture](/architecture/overview)** — High-level system design and GitOps workflow
 - **[Kubernetes](/kubernetes/cluster-topology)** — Cluster topology, Helm charts, HPA, ArgoCD
-- **[Databases](/databases/overview)** — PostgreSQL and MongoDB instances
-- **[Applications](/applications/overview)** — Per-app architecture details
-- **[CI/CD](/ci-cd/github-actions)** — GitHub Actions workflows and Docker builds
-- **[Monitoring](/monitoring/prometheus)** — Prometheus and Grafana setup
+- **[Networking](/networking/traefik)** — Traefik ingress, TLS, middleware, and domain routing
+- **[Security](/security/secrets-management)** — Doppler secrets management, RBAC, and service accounts
+- **[Databases](/databases/overview)** — PostgreSQL, MongoDB, and Redis instances
+- **[Applications](/applications/overview)** — Per-app architecture and deployment details
+- **[CI/CD](/ci-cd/github-actions)** — GitHub Actions workflows and Docker build strategy
+- **[Monitoring](/monitoring/prometheus)** — Prometheus metrics and Grafana dashboards
