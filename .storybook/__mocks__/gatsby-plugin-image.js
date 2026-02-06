@@ -2,7 +2,7 @@ import React from 'react';
 
 // Mock GatsbyImage — renders a plain <img> with the image src
 const GatsbyImage = ({ image, alt, className, style, ...rest }) => {
-  const src = image?.images?.fallback?.src || image?.src || 'https://via.placeholder.com/600x400';
+  const src = image?.images?.fallback?.src || image?.src || '';
   return (
     <img
       src={src}
@@ -25,16 +25,12 @@ const StaticImage = ({ src, alt, className, style, ...rest }) => (
   />
 );
 
-// Mock getImage — returns the image data object as-is (or a fallback)
-const getImage = (imageData) => imageData || {
-  images: { fallback: { src: 'https://via.placeholder.com/600x400' } },
-  width: 600,
-  height: 400,
-  layout: 'constrained',
-};
+// Mock getImage — mirrors Gatsby's real behaviour: returns undefined for
+// null/undefined input so components can branch on the result.
+const getImage = (imageData) => imageData || undefined;
 
 // Mock getSrc
-const getSrc = (imageData) => imageData?.images?.fallback?.src || 'https://via.placeholder.com/600x400';
+const getSrc = (imageData) => imageData?.images?.fallback?.src || '';
 
 // Mock withArtDirection
 const withArtDirection = (image) => image;

@@ -21,8 +21,8 @@ const graphql = (strings, ...args) =>
 // (el-jefe.me/storybook/iframe.html) without needing a base URL config.
 const ICON = (name) => `./images/svg-icons/${name}`;
 
-// Placeholder for raster images (logo, social, favicon, team photos)
-const IMG_PLACEHOLDER = 'https://via.placeholder.com/600x400';
+// Placeholder for raster images — empty string avoids CSP-blocked external requests
+const IMG_PLACEHOLDER = '';
 
 // Superset of every data shape that any useStaticQuery caller expects.
 // Each component destructures only the fields it needs:
