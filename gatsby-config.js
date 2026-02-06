@@ -10,7 +10,6 @@ module.exports = {
   siteMetadata,
   // Flags for performance improvements
   flags: {
-    PRESERVE_WEBPACK_CACHE: true,
     FAST_DEV: true,
     DEV_SSR: false, // Disable SSR in development to avoid document errors
   },
