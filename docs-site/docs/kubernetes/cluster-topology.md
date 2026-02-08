@@ -51,7 +51,7 @@ graph TB
 
 Each application follows a consistent pattern:
 
-- **Client deployment**: Nginx serving the built frontend (React/Gatsby/Storybook)
+- **Client deployment**: Nginx serving the built frontend (React/Storybook)
 - **Server deployment** (where applicable): Node.js Express/Apollo API server
 - **Service**: ClusterIP service for internal routing
 - **IngressRoute**: Traefik CRD for external HTTPS routing

@@ -145,7 +145,7 @@ graph LR
 
 | Domain | Application | Port |
 |--------|-------------|------|
-| `el-jefe.me` | Portfolio (Gatsby) | 80 |
+| `pop-portfolio.el-jefe.me/portfolio` | Pop!_Portfolio | 80 |
 | `bookmarked.el-jefe.me` | Bookmarked Client | 80 |
 | `educationelly.el-jefe.me` | educationELLy Client | 80 |
 | `educationelly-graphql.el-jefe.me` | educationELLy GraphQL Client | 80 |

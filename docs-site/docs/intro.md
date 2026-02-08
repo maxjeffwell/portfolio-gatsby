@@ -32,7 +32,7 @@ A self-hosted Kubernetes platform running **9 full-stack applications** on a K3s
 | **Code Talk** | React, Node.js, Express | PostgreSQL, Redis |
 | **TenantFlow** | React, Node.js, Express | PostgreSQL |
 | **PodRick** | React | — (K8s API) |
-| **Portfolio** | Gatsby | — (static) |
+| **Pop!_Portfolio** | React, Node.js, Express | PostgreSQL |
 | **k8s-ui-library** | Storybook | — (static) |
 
 ## Architecture Diagram
@@ -55,7 +55,7 @@ graph TB
             CT[code-talk]
             TF[tenantflow]
             PR[podrick]
-            PF[portfolio]
+            PF[pop-portfolio]
             UI[k8s-ui-library]
         end
 
