@@ -18,7 +18,7 @@ All applications follow the same deployment pattern: GitHub Actions builds Docke
 | **Code Talk** | code-talk.el-jefe.me | React | Node.js + Express | PostgreSQL + Redis | No |
 | **TenantFlow** | tenantflow.el-jefe.me | React | Node.js + Express | PostgreSQL | Yes |
 | **PodRick** | podrick.el-jefe.me | React | — | K8s API | No |
-| **Portfolio** | el-jefe.me | Gatsby | — | — | Yes |
+| **Pop!_Portfolio** | pop-portfolio.el-jefe.me/portfolio | React | Node.js + Express | PostgreSQL | Yes |
 | **k8s-ui-library** | showcase.el-jefe.me | Storybook | — | — | No |
 
 ## Component Showcase
@@ -57,5 +57,5 @@ graph TB
 ### Exceptions
 
 - **PodRick**: Dashboard-only app that talks to the K8s API directly
-- **Portfolio**: Static Gatsby site, no backend
+- **Pop!_Portfolio**: Portfolio orchestration app at pop-portfolio.el-jefe.me/portfolio
 - **k8s-ui-library**: Static Storybook, no backend
