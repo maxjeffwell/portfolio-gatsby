@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useQuery } from '@apollo/client';
-import { useSubscription } from '@apollo/client/react';
+import { useQuery, useSubscription } from '@apollo/client';
 import { RECENT_AI_EVENTS_QUERY, AI_EVENT_SUBSCRIPTION } from '../graphql/gateway';
 
 const pulse = keyframes`

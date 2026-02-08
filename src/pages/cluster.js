@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useQuery } from '@apollo/client';
-import { useSubscription } from '@apollo/client/react';
+import { useQuery, useSubscription } from '@apollo/client';
 import { useTheme } from '../context/ThemeContext';
 import {
   CLUSTER_METRICS_QUERY,
