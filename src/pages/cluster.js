@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useQuery, useSubscription } from '@apollo/client';
 import { useTheme } from '../context/ThemeContext';
 import {
   CLUSTER_METRICS_QUERY,
   CLUSTER_METRICS_SUBSCRIPTION,
+  ARGOCD_APPS_QUERY,
+  ARGOCD_APPS_SUBSCRIPTION,
+  GITHUB_RUNS_QUERY,
+  GITHUB_RUNS_SUBSCRIPTION,
 } from '../graphql/gateway';
 
 import Layout from '../components/layout';
@@ -12,9 +16,6 @@ import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 import MotionWrapper from '../components/MotionWrapper';
 import AIEventFeed from '../components/AIEventFeed';
-
-const API_BASE = 'https://podrick.el-jefe.me/devops-api';
-const REST_POLL_INTERVAL = 60000; // 60s
 
 // ── Styled Components ──────────────────────────────────────────
 
@@ -346,98 +347,39 @@ const conclusionColors = {
   cancelled: '#808080',
 };
 
-// ── Client-only Dashboard (uses subscriptions + hooks) ──────────
+// ── Client-only Dashboard (all data via GraphQL subscriptions) ──
 
 const ClusterDashboard = ({ theme }) => {
-  // Live cluster metrics via subscription (updates every 30s)
+  // Cluster metrics: subscription (30s) with query fallback
   const { data: subMetrics } = useSubscription(CLUSTER_METRICS_SUBSCRIPTION);
-
-  // Fallback: one-shot query for initial render before subscription connects
-  const {
-    data: queryMetrics,
-    loading: metricsLoading,
-    error: metricsError,
-  } = useQuery(CLUSTER_METRICS_QUERY);
-
-  // Use subscription data if available, otherwise fallback to query
+  const { data: queryMetrics, loading: metricsLoading, error: metricsError } =
+    useQuery(CLUSTER_METRICS_QUERY);
   const metrics = subMetrics?.clusterMetricsStream || queryMetrics?.clusterMetrics;
 
-  // REST state for ArgoCD, GitHub, and Prometheus
-  const [apps, setApps] = useState([]);
-  const [deployments, setDeployments] = useState([]);
-  const [promMetrics, setPromMetrics] = useState(null);
-  const [restErrors, setRestErrors] = useState({});
+  // ArgoCD apps: subscription (60s) with query fallback
+  const { data: subApps } = useSubscription(ARGOCD_APPS_SUBSCRIPTION);
+  const { data: queryApps, loading: appsLoading, error: appsError } =
+    useQuery(ARGOCD_APPS_QUERY);
+  const apps = subApps?.argoCDAppsStream || queryApps?.argoCDApplications || [];
 
-  // Derive cluster data
+  // GitHub runs: subscription (60s) with query fallback
+  const { data: subRuns } = useSubscription(GITHUB_RUNS_SUBSCRIPTION);
+  const { data: queryRuns, loading: runsLoading, error: runsError } =
+    useQuery(GITHUB_RUNS_QUERY);
+  const deployments = subRuns?.githubRunsStream || queryRuns?.recentGitHubRuns || [];
+
   const cluster = metrics
     ? {
         totalNodes: metrics.nodeCount,
         totalPods: metrics.totalPods,
-        cpuUsage: promMetrics?.cpuUsage ?? metrics.cpuUsageCores,
-        memoryUsage: promMetrics?.memoryUsage ?? metrics.memoryUsageBytes,
+        cpuUsage: metrics.cpuUsageCores,
+        memoryUsage: metrics.memoryUsageBytes,
       }
     : null;
 
-  const fetchRestData = useCallback(async () => {
-    const newErrors = {};
-
-    const results = await Promise.allSettled([
-      fetch(`${API_BASE}/api/argocd/applications`).then((r) => r.json()),
-      fetch(`${API_BASE}/api/github/runs/recent`).then((r) => r.json()),
-      fetch(`${API_BASE}/api/prometheus/cluster/overview`).then((r) => r.json()),
-    ]);
-
-    if (results[0].status === 'fulfilled') {
-      const appData = results[0].value;
-      const appList = Array.isArray(appData) ? appData : appData.items || [];
-      setApps(
-        appList.map((app) => ({
-          appName: app.metadata?.name || 'unknown',
-          healthStatus: app.status?.health?.status || 'Unknown',
-          syncStatus: app.status?.sync?.status || 'Unknown',
-        }))
-      );
-    } else {
-      newErrors.apps = results[0].reason?.message || 'Failed to load application status';
-    }
-
-    if (results[1].status === 'fulfilled') {
-      const runs = results[1].value.workflow_runs || [];
-      setDeployments(
-        runs.map((run) => ({
-          runId: run.id,
-          name: run.name,
-          repoDisplayName: run.repo_display_name || run.repository?.name || '',
-          conclusion: run.conclusion || 'pending',
-          htmlUrl: run.html_url || '',
-          createdAt: run.created_at,
-        }))
-      );
-    } else {
-      newErrors.deployments = results[1].reason?.message || 'Failed to load deployments';
-    }
-
-    if (results[2].status === 'fulfilled') {
-      const prom = results[2].value;
-      setPromMetrics({
-        cpuUsage: prom.cpuUsage ? parseFloat(prom.cpuUsage) : null,
-        memoryUsage: prom.memoryUsage ? parseFloat(prom.memoryUsage) : null,
-      });
-    }
-
-    setRestErrors(newErrors);
-  }, []);
-
-  // Fetch REST data on mount and auto-poll every 60s
-  useEffect(() => {
-    fetchRestData();
-    const interval = setInterval(fetchRestData, REST_POLL_INTERVAL);
-    return () => clearInterval(interval);
-  }, [fetchRestData]);
-
   const hasCluster = cluster && (cluster.totalNodes || cluster.totalPods);
-  const hasApps = apps && apps.length > 0;
-  const hasDeployments = deployments && deployments.length > 0;
+  const hasApps = apps.length > 0;
+  const hasDeployments = deployments.length > 0;
 
   return (
     <>
@@ -526,13 +468,15 @@ const ClusterDashboard = ({ theme }) => {
         transition={{ delay: 0.4, duration: 0.5 }}
       >
         <SectionTitle theme={theme}>Application Status</SectionTitle>
-        {restErrors.apps ? (
-          <ErrorText theme={theme}>{restErrors.apps}</ErrorText>
+        {appsError && !hasApps ? (
+          <ErrorText theme={theme}>{appsError.message}</ErrorText>
+        ) : appsLoading && !hasApps ? (
+          <LoadingText theme={theme}>Loading application status...</LoadingText>
         ) : hasApps ? (
           <AppGrid>
             {apps.map((app) => (
-              <AppRow key={app.appName} theme={theme}>
-                <AppName theme={theme}>{app.appName}</AppName>
+              <AppRow key={app.name} theme={theme}>
+                <AppName theme={theme}>{app.name}</AppName>
                 <BadgeGroup>
                   <Badge bg={healthColors[app.healthStatus] || '#9f7aea'}>
                     {app.healthStatus}
@@ -556,8 +500,10 @@ const ClusterDashboard = ({ theme }) => {
         transition={{ delay: 0.6, duration: 0.5 }}
       >
         <SectionTitle theme={theme}>Recent Deployments</SectionTitle>
-        {restErrors.deployments ? (
-          <ErrorText theme={theme}>{restErrors.deployments}</ErrorText>
+        {runsError && !hasDeployments ? (
+          <ErrorText theme={theme}>{runsError.message}</ErrorText>
+        ) : runsLoading && !hasDeployments ? (
+          <LoadingText theme={theme}>Loading recent deployments...</LoadingText>
         ) : hasDeployments ? (
           <DeploymentList>
             {deployments.map((run) => (

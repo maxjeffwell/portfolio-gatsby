@@ -69,3 +69,51 @@ export const AI_EVENT_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const ARGOCD_APPS_QUERY = gql`
+  query ArgoCDApplications {
+    argoCDApplications {
+      name
+      healthStatus
+      syncStatus
+    }
+  }
+`;
+
+export const ARGOCD_APPS_SUBSCRIPTION = gql`
+  subscription ArgoCDAppsStream {
+    argoCDAppsStream {
+      name
+      healthStatus
+      syncStatus
+    }
+  }
+`;
+
+export const GITHUB_RUNS_QUERY = gql`
+  query RecentGitHubRuns {
+    recentGitHubRuns {
+      runId
+      name
+      repo
+      repoDisplayName
+      conclusion
+      htmlUrl
+      createdAt
+    }
+  }
+`;
+
+export const GITHUB_RUNS_SUBSCRIPTION = gql`
+  subscription GitHubRunsStream {
+    githubRunsStream {
+      runId
+      name
+      repo
+      repoDisplayName
+      conclusion
+      htmlUrl
+      createdAt
+    }
+  }
+`;
