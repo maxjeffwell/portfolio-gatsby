@@ -17,7 +17,7 @@ graph TB
         GW[Shared AI Gateway<br/>port 8002]
     end
 
-    subgraph default namespace
+    subgraph "default namespace"
         LIT[LiteLLM Proxy<br/>port 4000]
         RD[Redis<br/>port 6379]
     end
