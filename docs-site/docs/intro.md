@@ -92,3 +92,4 @@ graph TB
 - **[Applications](/applications/overview)** — Per-app architecture and deployment details
 - **[CI/CD](/ci-cd/github-actions)** — GitHub Actions workflows and Docker build strategy
 - **[Monitoring](/monitoring/prometheus)** — Prometheus metrics and Grafana dashboards
+- **[AI / ML](/ai-ml/overview)** — Shared AI Gateway, Triton semantic search, and Langfuse observability
