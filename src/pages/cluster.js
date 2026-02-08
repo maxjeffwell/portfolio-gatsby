@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useQuery, useSubscription } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { useSubscription } from '@apollo/client/react';
 import { useTheme } from '../context/ThemeContext';
 import {
   CLUSTER_METRICS_QUERY,
@@ -346,11 +347,9 @@ const conclusionColors = {
   cancelled: '#808080',
 };
 
-// ── Page Component ─────────────────────────────────────────────
+// ── Client-only Dashboard (uses subscriptions + hooks) ──────────
 
-const ClusterPage = () => {
-  const { theme } = useTheme();
-
+const ClusterDashboard = ({ theme }) => {
   // Live cluster metrics via subscription (updates every 30s)
   const { data: subMetrics } = useSubscription(CLUSTER_METRICS_SUBSCRIPTION);
 
@@ -442,6 +441,178 @@ const ClusterPage = () => {
   const hasDeployments = deployments && deployments.length > 0;
 
   return (
+    <>
+      {/* Cluster Overview */}
+      <MotionWrapper
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        <SectionTitle theme={theme}>Cluster Resources</SectionTitle>
+        {metricsError && !metrics ? (
+          <ErrorText theme={theme}>{metricsError.message}</ErrorText>
+        ) : metricsLoading && !cluster ? (
+          <LoadingText theme={theme}>Loading cluster metrics...</LoadingText>
+        ) : hasCluster ? (
+          <StatsGrid>
+            <StatCard theme={theme}>
+              <StatLabel theme={theme}>Nodes</StatLabel>
+              <StatValue theme={theme}>{cluster.totalNodes}</StatValue>
+            </StatCard>
+            <StatCard theme={theme}>
+              <StatLabel theme={theme}>Pods</StatLabel>
+              <StatValue theme={theme}>{cluster.totalPods}</StatValue>
+            </StatCard>
+            <StatCard theme={theme}>
+              <StatLabel theme={theme}>CPU Usage</StatLabel>
+              <StatValue theme={theme}>
+                {parseFloat(cluster.cpuUsage).toFixed(1)}
+                <StatUnit theme={theme}>cores</StatUnit>
+              </StatValue>
+              {(() => {
+                const pct = Math.min(
+                  (parseFloat(cluster.cpuUsage) / (parseInt(cluster.totalNodes, 10) * 4)) *
+                    100,
+                  100
+                );
+                return (
+                  <>
+                    <UsageBarTrack theme={theme}>
+                      <UsageBarFill
+                        color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'}
+                        percent={pct}
+                      />
+                    </UsageBarTrack>
+                    <UsageDetail theme={theme}>{pct.toFixed(0)}% of capacity</UsageDetail>
+                  </>
+                );
+              })()}
+            </StatCard>
+            <StatCard theme={theme}>
+              <StatLabel theme={theme}>Memory Usage</StatLabel>
+              <StatValue theme={theme}>
+                {formatBytes(cluster.memoryUsage)}
+                <StatUnit theme={theme}>GB</StatUnit>
+              </StatValue>
+              {(() => {
+                const pct = Math.min(
+                  (parseFloat(formatBytes(cluster.memoryUsage)) /
+                    (parseInt(cluster.totalNodes, 10) * 8)) *
+                    100,
+                  100
+                );
+                return (
+                  <>
+                    <UsageBarTrack theme={theme}>
+                      <UsageBarFill
+                        color={theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0'}
+                        percent={pct}
+                      />
+                    </UsageBarTrack>
+                    <UsageDetail theme={theme}>{pct.toFixed(0)}% of capacity</UsageDetail>
+                  </>
+                );
+              })()}
+            </StatCard>
+          </StatsGrid>
+        ) : (
+          <LoadingText theme={theme}>No cluster metrics available</LoadingText>
+        )}
+      </MotionWrapper>
+
+      {/* Application Status */}
+      <MotionWrapper
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
+        <SectionTitle theme={theme}>Application Status</SectionTitle>
+        {restErrors.apps ? (
+          <ErrorText theme={theme}>{restErrors.apps}</ErrorText>
+        ) : hasApps ? (
+          <AppGrid>
+            {apps.map((app) => (
+              <AppRow key={app.appName} theme={theme}>
+                <AppName theme={theme}>{app.appName}</AppName>
+                <BadgeGroup>
+                  <Badge bg={healthColors[app.healthStatus] || '#9f7aea'}>
+                    {app.healthStatus}
+                  </Badge>
+                  <Badge bg={syncColors[app.syncStatus] || '#9f7aea'}>
+                    {app.syncStatus}
+                  </Badge>
+                </BadgeGroup>
+              </AppRow>
+            ))}
+          </AppGrid>
+        ) : (
+          <LoadingText theme={theme}>No applications found</LoadingText>
+        )}
+      </MotionWrapper>
+
+      {/* Recent Deployments */}
+      <MotionWrapper
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+      >
+        <SectionTitle theme={theme}>Recent Deployments</SectionTitle>
+        {restErrors.deployments ? (
+          <ErrorText theme={theme}>{restErrors.deployments}</ErrorText>
+        ) : hasDeployments ? (
+          <DeploymentList>
+            {deployments.map((run) => (
+              <DeploymentItem key={run.runId} theme={theme}>
+                <Indicator color={conclusionColors[run.conclusion] || '#fbbf24'} />
+                <DeploymentInfo>
+                  <DeploymentName theme={theme}>{run.name}</DeploymentName>
+                  <DeploymentMeta theme={theme}>
+                    <DeploymentRepo theme={theme}>{run.repoDisplayName}</DeploymentRepo>
+                    <span>{timeAgo(run.createdAt)}</span>
+                  </DeploymentMeta>
+                </DeploymentInfo>
+                {run.htmlUrl && (
+                  <ViewLink
+                    theme={theme}
+                    href={run.htmlUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View
+                  </ViewLink>
+                )}
+              </DeploymentItem>
+            ))}
+          </DeploymentList>
+        ) : (
+          <LoadingText theme={theme}>No recent deployments</LoadingText>
+        )}
+      </MotionWrapper>
+
+      {/* AI Gateway Activity */}
+      <MotionWrapper
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
+      >
+        <SectionTitle theme={theme}>AI Gateway Activity</SectionTitle>
+        <AIEventFeed theme={theme} />
+      </MotionWrapper>
+    </>
+  );
+};
+
+// ── Page Component (SSR-safe) ───────────────────────────────────
+
+const ClusterPage = () => {
+  const { theme } = useTheme();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return (
     <Layout>
       <PageTransition>
         <SEO
@@ -460,168 +631,19 @@ const ClusterPage = () => {
               <PageSubtitle theme={theme}>
                 Live status of the Kubernetes cluster powering the portfolio applications
               </PageSubtitle>
-              <LiveBadge>
-                <LiveDot /> Live
-              </LiveBadge>
+              {isClient && (
+                <LiveBadge>
+                  <LiveDot /> Live
+                </LiveBadge>
+              )}
             </div>
           </MotionWrapper>
 
-          {/* Cluster Overview */}
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <SectionTitle theme={theme}>Cluster Resources</SectionTitle>
-            {metricsError && !metrics ? (
-              <ErrorText theme={theme}>{metricsError.message}</ErrorText>
-            ) : metricsLoading && !cluster ? (
-              <LoadingText theme={theme}>Loading cluster metrics...</LoadingText>
-            ) : hasCluster ? (
-              <StatsGrid>
-                <StatCard theme={theme}>
-                  <StatLabel theme={theme}>Nodes</StatLabel>
-                  <StatValue theme={theme}>{cluster.totalNodes}</StatValue>
-                </StatCard>
-                <StatCard theme={theme}>
-                  <StatLabel theme={theme}>Pods</StatLabel>
-                  <StatValue theme={theme}>{cluster.totalPods}</StatValue>
-                </StatCard>
-                <StatCard theme={theme}>
-                  <StatLabel theme={theme}>CPU Usage</StatLabel>
-                  <StatValue theme={theme}>
-                    {parseFloat(cluster.cpuUsage).toFixed(1)}
-                    <StatUnit theme={theme}>cores</StatUnit>
-                  </StatValue>
-                  {(() => {
-                    const pct = Math.min(
-                      (parseFloat(cluster.cpuUsage) / (parseInt(cluster.totalNodes, 10) * 4)) *
-                        100,
-                      100
-                    );
-                    return (
-                      <>
-                        <UsageBarTrack theme={theme}>
-                          <UsageBarFill
-                            color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'}
-                            percent={pct}
-                          />
-                        </UsageBarTrack>
-                        <UsageDetail theme={theme}>{pct.toFixed(0)}% of capacity</UsageDetail>
-                      </>
-                    );
-                  })()}
-                </StatCard>
-                <StatCard theme={theme}>
-                  <StatLabel theme={theme}>Memory Usage</StatLabel>
-                  <StatValue theme={theme}>
-                    {formatBytes(cluster.memoryUsage)}
-                    <StatUnit theme={theme}>GB</StatUnit>
-                  </StatValue>
-                  {(() => {
-                    const pct = Math.min(
-                      (parseFloat(formatBytes(cluster.memoryUsage)) /
-                        (parseInt(cluster.totalNodes, 10) * 8)) *
-                        100,
-                      100
-                    );
-                    return (
-                      <>
-                        <UsageBarTrack theme={theme}>
-                          <UsageBarFill
-                            color={theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0'}
-                            percent={pct}
-                          />
-                        </UsageBarTrack>
-                        <UsageDetail theme={theme}>{pct.toFixed(0)}% of capacity</UsageDetail>
-                      </>
-                    );
-                  })()}
-                </StatCard>
-              </StatsGrid>
-            ) : (
-              <LoadingText theme={theme}>No cluster metrics available</LoadingText>
-            )}
-          </MotionWrapper>
-
-          {/* Application Status */}
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-          >
-            <SectionTitle theme={theme}>Application Status</SectionTitle>
-            {restErrors.apps ? (
-              <ErrorText theme={theme}>{restErrors.apps}</ErrorText>
-            ) : hasApps ? (
-              <AppGrid>
-                {apps.map((app) => (
-                  <AppRow key={app.appName} theme={theme}>
-                    <AppName theme={theme}>{app.appName}</AppName>
-                    <BadgeGroup>
-                      <Badge bg={healthColors[app.healthStatus] || '#9f7aea'}>
-                        {app.healthStatus}
-                      </Badge>
-                      <Badge bg={syncColors[app.syncStatus] || '#9f7aea'}>
-                        {app.syncStatus}
-                      </Badge>
-                    </BadgeGroup>
-                  </AppRow>
-                ))}
-              </AppGrid>
-            ) : (
-              <LoadingText theme={theme}>No applications found</LoadingText>
-            )}
-          </MotionWrapper>
-
-          {/* Recent Deployments */}
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-          >
-            <SectionTitle theme={theme}>Recent Deployments</SectionTitle>
-            {restErrors.deployments ? (
-              <ErrorText theme={theme}>{restErrors.deployments}</ErrorText>
-            ) : hasDeployments ? (
-              <DeploymentList>
-                {deployments.map((run) => (
-                  <DeploymentItem key={run.runId} theme={theme}>
-                    <Indicator color={conclusionColors[run.conclusion] || '#fbbf24'} />
-                    <DeploymentInfo>
-                      <DeploymentName theme={theme}>{run.name}</DeploymentName>
-                      <DeploymentMeta theme={theme}>
-                        <DeploymentRepo theme={theme}>{run.repoDisplayName}</DeploymentRepo>
-                        <span>{timeAgo(run.createdAt)}</span>
-                      </DeploymentMeta>
-                    </DeploymentInfo>
-                    {run.htmlUrl && (
-                      <ViewLink
-                        theme={theme}
-                        href={run.htmlUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View
-                      </ViewLink>
-                    )}
-                  </DeploymentItem>
-                ))}
-              </DeploymentList>
-            ) : (
-              <LoadingText theme={theme}>No recent deployments</LoadingText>
-            )}
-          </MotionWrapper>
-
-          {/* AI Gateway Activity */}
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-          >
-            <SectionTitle theme={theme}>AI Gateway Activity</SectionTitle>
-            <AIEventFeed theme={theme} />
-          </MotionWrapper>
+          {isClient ? (
+            <ClusterDashboard theme={theme} />
+          ) : (
+            <LoadingText theme={theme}>Loading cluster dashboard...</LoadingText>
+          )}
         </Container>
         <div style={{ height: '80px' }} />
       </PageTransition>
