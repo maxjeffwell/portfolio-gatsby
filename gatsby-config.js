@@ -264,6 +264,20 @@ module.exports = {
           globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}'],
           runtimeCaching: [
             {
+              // Bypass SW for Storybook assets — Storybook manages its own
+              // caching; the default StaleWhileRevalidate catch-all serves
+              // stale JS/CSS after deploys, breaking Composition refs.
+              urlPattern: /\/storybook\//,
+              handler: 'NetworkOnly',
+            },
+            {
+              // Bypass SW for Storybook Composition ref (showcase.el-jefe.me).
+              // The cross-origin index.json fetch must always hit the network
+              // so the sidebar reflects the latest stories.
+              urlPattern: /^https:\/\/showcase\.el-jefe\.me\//,
+              handler: 'NetworkOnly',
+            },
+            {
               urlPattern: /^https:\/\/fonts\.googleapis\.com/,
               handler: 'StaleWhileRevalidate',
             },
