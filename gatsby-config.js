@@ -260,6 +260,7 @@ module.exports = {
       resolve: `gatsby-plugin-offline`,
       options: {
         precachePages: [`/`, `/about/`, `/projects/`, `/contact/`],
+        appendScript: `${__dirname}/sw-bypass-subapps.js`,
         workboxConfig: {
           globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}'],
           runtimeCaching: [
