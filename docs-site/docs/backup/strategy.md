@@ -62,7 +62,6 @@ includedNamespaces:
   - vertex-platform
   - argocd
   - cert-manager
-  - educationelly
   - gpu-operator
   - keel
 ```
@@ -241,6 +240,5 @@ velero backup logs <backup-name>
 
 | Issue | Impact | Status |
 |-------|--------|--------|
-| `educationelly` namespace in schedule but doesn't exist | Backup error (non-fatal) | Schedule references a namespace that was likely renamed or merged |
 | GPU daemonset pods not running on node | Backup warning for `gpu-operator` pods | GPU operator pods only run when GPU node is active |
 | PodVolumeBackup timeout | Backup completes as `PartiallyFailed` | Large PVs (models, Prometheus) occasionally exceed the default timeout |
