@@ -57,5 +57,4 @@ graph TB
 ### Exceptions
 
 - **PodRick**: Dashboard-only app that talks to the K8s API directly
-- **Pop!_Portfolio**: Portfolio orchestration app at pop-portfolio.el-jefe.me/portfolio
 - **k8s-ui-library**: Static Storybook, no backend
