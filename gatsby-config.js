@@ -262,6 +262,10 @@ module.exports = {
         precachePages: [`/`, `/about/`, `/projects/`, `/contact/`],
         workboxConfig: {
           globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}'],
+          // Exclude non-Gatsby SPAs from the NavigationRoute so the SW
+          // doesn't serve the Gatsby app shell for /storybook/ or /docs/
+          // navigations — those are separate static builds served by nginx.
+          navigateFallbackDenylist: [/\/storybook/, /\/docs/],
           runtimeCaching: [
             {
               // Bypass SW for Storybook assets — Storybook manages its own
