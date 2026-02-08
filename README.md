@@ -373,6 +373,16 @@ No environment variables required for basic functionality. Optional configuratio
 
 ## 🚢 Deployment
 
+### Kubernetes (K3s)
+
+The site also runs on a self-hosted **K3s cluster** managed via ArgoCD GitOps:
+
+- **Live:** [el-jefe.me](https://el-jefe.me)
+- **Ingress:** Traefik with automatic TLS via cert-manager + Let's Encrypt
+- **CI/CD:** GitHub Actions → Docker Hub → ArgoCD auto-sync
+- **Helm:** Deployed via shared `portfolio-common` library chart
+- **Storybook:** [el-jefe.me/storybook](https://el-jefe.me/storybook/) — Component library
+
 ### Automatic Deployment (Netlify)
 The site automatically deploys to Netlify on pushes to the main branch:
 - Build command: `npm run build:netlify`
