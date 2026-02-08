@@ -15,7 +15,7 @@ graph LR
     AM -->|critical + warning| GB[Gotify Bridge]
     GB -->|HTTP webhook| GOT[Gotify Server]
     GOT -->|push| PHONE[Mobile / Desktop]
-    AM -->|silenced| NULL[/dev/null]
+    AM -->|silenced| NULL["/dev/null"]
 ```
 
 ## AlertManager Configuration
