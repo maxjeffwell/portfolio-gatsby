@@ -262,7 +262,7 @@ module.exports = {
         precachePages: [`/`, `/about/`, `/projects/`, `/contact/`],
         appendScript: `${__dirname}/sw-bypass-subapps.js`,
         workboxConfig: {
-          globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}'],
+          globPatterns: ['*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}', 'page-data/**', 'static/**'],
           runtimeCaching: [
             {
               // Bypass SW for Storybook assets — Storybook manages its own

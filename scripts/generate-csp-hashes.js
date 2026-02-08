@@ -93,18 +93,22 @@ function generateCSPForFiles() {
   const headersPath = path.join(publicDir, '_headers');
   let headersContent = fs.readFileSync(headersPath, 'utf8');
 
-  // Remove ALL existing CSP-related content (headers and comments)
-  // This regex removes both the CSP headers and the "Hash-based Content Security Policy" comments
+  // Strip all content this script manages (CSP, storybook headers, SW cache)
+  // so we never produce duplicates across repeated builds.
   headersContent = headersContent.replace(/# Hash-based Content Security Policy\n\/\*\n(\s*Content-Security-Policy:.*?\n)?/g, '');
-
-  // Also remove any standalone CSP lines
   headersContent = headersContent.replace(/\s*Content-Security-Policy:.*?\n/g, '');
+  // Remove ALL /storybook/* header blocks (with or without comment prefix)
+  headersContent = headersContent.replace(/(# Storybook Composition[^\n]*\n)?\/storybook\/\*\n(\s+[^\n]+\n)*/g, '');
+  headersContent = headersContent.replace(/(# Service worker[^\n]*\n)?\/sw\.js\n(\s+[^\n]+\n)*/g, '');
 
   // Ensure file ends properly before adding new content
   headersContent = headersContent.trim();
 
-  // Add CSP at the end of the file (only once)
-  headersContent += `\n\n# Hash-based Content Security Policy\n/*\n  Content-Security-Policy: ${csp}\n`;
+  // Service worker: must never be long-cached so SW updates propagate through CDN
+  headersContent += `\n\n# Service worker must never be cached\n/sw.js\n  Cache-Control: public, max-age=0, must-revalidate\n`;
+
+  // CSP (only once)
+  headersContent += `\n# Hash-based Content Security Policy\n/*\n  Content-Security-Policy: ${csp}\n`;
 
   // Storybook Composition: override X-Frame-Options and add CORS for /storybook/*
   // Must come AFTER the /* rules so Netlify uses these values for /storybook/ paths

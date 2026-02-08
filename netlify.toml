@@ -52,6 +52,13 @@ renderJavaScript = true
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Service worker must never be cached — browsers check for updates,
+# but CDN edge / Cloudflare would serve a stale copy otherwise.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 [[headers]]
   for = "/*.js"
   [headers.values]
