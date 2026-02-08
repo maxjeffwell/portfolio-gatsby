@@ -47,7 +47,7 @@ graph TB
         TK[Traefik Ingress Controller]
         CM[cert-manager]
 
-        subgraph default-ns["default namespace"]
+        subgraph ns-default["default namespace"]
             BK[bookmarked]
             ED[educationelly]
             EG[educationelly-graphql]

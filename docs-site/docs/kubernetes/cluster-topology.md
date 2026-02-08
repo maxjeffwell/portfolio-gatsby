@@ -11,7 +11,7 @@ The platform runs on a K3s cluster — a lightweight, certified Kubernetes distr
 
 ```mermaid
 graph TB
-    subgraph default-ns["default namespace"]
+    subgraph ns-default["default namespace"]
         direction TB
         BK[bookmarked<br/>client + server]
         ED[educationelly<br/>client + server]

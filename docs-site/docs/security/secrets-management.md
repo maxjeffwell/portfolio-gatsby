@@ -22,7 +22,7 @@ graph TB
         ESO[External Secrets Operator]
         CSS[ClusterSecretStore]
 
-        subgraph default namespace
+        subgraph ns-default["default namespace"]
             ES1[ExternalSecret: bookmarked]
             ES2[ExternalSecret: code-talk]
             ES3[ExternalSecret: tenantflow]
