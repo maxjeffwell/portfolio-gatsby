@@ -80,6 +80,8 @@ graph TB
 ## Live Dashboards
 
 - **[Cluster Dashboard](https://el-jefe.me/cluster/)** — Live K8s metrics, ArgoCD application health, and recent deployments
+- **[Pop!_Portfolio Dashboard](https://pop-portfolio.el-jefe.me/portfolio)** — Pop!_Portfolio application dashboard
+- **[Podrick](https://podrick.el-jefe.me)** — Podrick podcast discovery application
 - **[Component Showcase](https://showcase.el-jefe.me)** — Interactive Storybook with extracted components from all 9 applications
 - **[Portfolio Storybook](https://el-jefe.me/storybook/)** — Portfolio site component library
 
