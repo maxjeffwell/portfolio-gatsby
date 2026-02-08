@@ -3,11 +3,6 @@ import styled, { keyframes } from 'styled-components';
 import { useQuery, useSubscription } from '@apollo/client/react';
 import { RECENT_AI_EVENTS_QUERY, AI_EVENT_SUBSCRIPTION } from '../graphql/gateway';
 
-const pulse = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-`;
-
 const slideIn = keyframes`
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -82,23 +77,6 @@ const EmptyText = styled.div`
   font-size: 15px;
 `;
 
-const LiveDot = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #48bb78;
-  box-shadow: 0 0 6px #48bb78;
-  animation: ${pulse} 2s infinite;
-  display: inline-block;
-`;
-
-const SectionHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-`;
-
 const statusColors = { success: '#48bb78', error: '#f56565' };
 const appColors = {
   bookmarks: '#9c27b0',
@@ -136,51 +114,32 @@ export default function AIEventFeed({ theme }) {
     }
   }, [subData]);
 
-  return (
-    <>
-      <SectionHeader>
-        <LiveDot />
-        <span
-          style={{
-            fontSize: '12px',
-            fontWeight: 600,
-            color: theme?.mode === 'dark' ? '#808080' : '#999',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-          }}
-        >
-          Live
-        </span>
-      </SectionHeader>
-
-      {events.length === 0 ? (
-        <EmptyText theme={theme}>Waiting for AI events...</EmptyText>
-      ) : (
-        <FeedContainer>
-          {events.map((ev) => (
-            <EventCard key={ev.eventId} theme={theme}>
-              <EventHeader>
-                <EventEndpoint theme={theme}>{ev.endpoint}</EventEndpoint>
-                <EventTime theme={theme}>{timeAgo(ev.timestamp)}</EventTime>
-              </EventHeader>
-              <BadgeRow>
-                <Badge bg={appColors[ev.app] || '#666'}>{ev.app}</Badge>
-                <Badge bg={statusColors[ev.status]}>{ev.status}</Badge>
-                <Badge bg="#555">{ev.backend}</Badge>
-                <Badge bg="#777">{Math.round(ev.latencyMs)}ms</Badge>
-                {ev.fromCache && <Badge bg="#d4a017">cached</Badge>}
-                {ev.model && (
-                  <Badge bg={theme?.mode === 'dark' ? '#333' : '#bbb'}>
-                    {ev.model.length > 25
-                      ? ev.model.substring(0, 25) + '...'
-                      : ev.model}
-                  </Badge>
-                )}
-              </BadgeRow>
-            </EventCard>
-          ))}
-        </FeedContainer>
-      )}
-    </>
+  return events.length === 0 ? (
+    <EmptyText theme={theme}>Waiting for AI events...</EmptyText>
+  ) : (
+    <FeedContainer>
+      {events.map((ev) => (
+        <EventCard key={ev.eventId} theme={theme}>
+          <EventHeader>
+            <EventEndpoint theme={theme}>{ev.endpoint}</EventEndpoint>
+            <EventTime theme={theme}>{timeAgo(ev.timestamp)}</EventTime>
+          </EventHeader>
+          <BadgeRow>
+            <Badge bg={appColors[ev.app] || '#666'}>{ev.app}</Badge>
+            <Badge bg={statusColors[ev.status]}>{ev.status}</Badge>
+            <Badge bg="#555">{ev.backend}</Badge>
+            <Badge bg="#777">{Math.round(ev.latencyMs)}ms</Badge>
+            {ev.fromCache && <Badge bg="#d4a017">cached</Badge>}
+            {ev.model && (
+              <Badge bg={theme?.mode === 'dark' ? '#333' : '#bbb'}>
+                {ev.model.length > 25
+                  ? ev.model.substring(0, 25) + '...'
+                  : ev.model}
+              </Badge>
+            )}
+          </BadgeRow>
+        </EventCard>
+      ))}
+    </FeedContainer>
   );
 }
