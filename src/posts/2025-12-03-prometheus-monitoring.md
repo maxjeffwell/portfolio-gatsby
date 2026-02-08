@@ -171,6 +171,8 @@ histogram_quantile(0.95,
 
 The monitoring namespace now gives me full visibility into cluster health. Next up: adding GPU metrics once I add the GPU node.
 
+**Update:** This stack has since grown significantly. I added Grafana Mimir for long-term metric storage backed by S3, Loki for log aggregation, and Alloy as a unified collector — all deployed as an umbrella Helm chart. The Mimir rollout came with a fun debugging session involving a Kafka message size mismatch that crash-looped the distributor. Full write-up: [Building a Long-Term Metrics Stack with Mimir](/blog/mimir-observability-stack).
+
 ---
 
 *Documenting the evolution of my homelab infrastructure.*
