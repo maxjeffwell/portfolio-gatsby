@@ -32,6 +32,7 @@ const config = {
     applications: {
       title: 'Applications Showcase',
       url: 'https://showcase.el-jefe.me',
+      type: 'server-checked',
     },
   },
 
