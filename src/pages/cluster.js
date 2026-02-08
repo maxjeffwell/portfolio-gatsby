@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
-import { useQuery } from '@apollo/client/react';
+import styled, { keyframes } from 'styled-components';
+import { useQuery, useSubscription } from '@apollo/client';
 import { useTheme } from '../context/ThemeContext';
-import { CLUSTER_METRICS_QUERY } from '../graphql/gateway';
+import {
+  CLUSTER_METRICS_QUERY,
+  CLUSTER_METRICS_SUBSCRIPTION,
+} from '../graphql/gateway';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 import MotionWrapper from '../components/MotionWrapper';
+import AIEventFeed from '../components/AIEventFeed';
 
 const API_BASE = 'https://podrick.el-jefe.me/devops-api';
+const REST_POLL_INTERVAL = 60000; // 60s
 
 // ── Styled Components ──────────────────────────────────────────
 
@@ -282,45 +287,30 @@ const ErrorText = styled.div`
   border-radius: 12px;
 `;
 
-const RefreshBar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 32px;
-  font-size: 16px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#aaa' : '#666')};
+const pulse = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 `;
 
-const RefreshButton = styled.button`
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, #1565c0, #1976d2)'
-      : 'linear-gradient(135deg, #1976d2, #42a5f5)'};
-  border: none;
-  border-radius: 10px;
-  padding: 12px 28px;
-  font-size: 16px;
+const LiveBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
   font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+  color: #48bb78;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+`;
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.4);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: default;
-    transform: none;
-  }
+const LiveDot = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #48bb78;
+  box-shadow: 0 0 6px #48bb78;
+  animation: ${pulse} 2s infinite;
+  display: inline-block;
 `;
 
 // ── Helper functions ───────────────────────────────────────────
@@ -361,24 +351,26 @@ const conclusionColors = {
 const ClusterPage = () => {
   const { theme } = useTheme();
 
-  // GraphQL query for cluster metrics via Apollo
+  // Live cluster metrics via subscription (updates every 30s)
+  const { data: subMetrics } = useSubscription(CLUSTER_METRICS_SUBSCRIPTION);
+
+  // Fallback: one-shot query for initial render before subscription connects
   const {
-    data: metricsData,
+    data: queryMetrics,
     loading: metricsLoading,
     error: metricsError,
-    refetch: refetchMetrics,
   } = useQuery(CLUSTER_METRICS_QUERY);
+
+  // Use subscription data if available, otherwise fallback to query
+  const metrics = subMetrics?.clusterMetricsStream || queryMetrics?.clusterMetrics;
 
   // REST state for ArgoCD, GitHub, and Prometheus
   const [apps, setApps] = useState([]);
   const [deployments, setDeployments] = useState([]);
   const [promMetrics, setPromMetrics] = useState(null);
   const [restErrors, setRestErrors] = useState({});
-  const [refreshing, setRefreshing] = useState(false);
-  const [lastRefreshed, setLastRefreshed] = useState(null);
 
-  // Derive cluster data from Apollo (node/pod counts) + Prometheus REST (CPU/memory)
-  const metrics = metricsData?.clusterMetrics;
+  // Derive cluster data
   const cluster = metrics
     ? {
         totalNodes: metrics.nodeCount,
@@ -438,16 +430,11 @@ const ClusterPage = () => {
     setRestErrors(newErrors);
   }, []);
 
-  const refreshData = useCallback(async () => {
-    setRefreshing(true);
-    await Promise.all([refetchMetrics(), fetchRestData()]);
-    setRefreshing(false);
-    setLastRefreshed(new Date());
-  }, [refetchMetrics, fetchRestData]);
-
-  // Fetch REST data on mount (Apollo handles its own initial fetch)
+  // Fetch REST data on mount and auto-poll every 60s
   useEffect(() => {
     fetchRestData();
+    const interval = setInterval(fetchRestData, REST_POLL_INTERVAL);
+    return () => clearInterval(interval);
   }, [fetchRestData]);
 
   const hasCluster = cluster && (cluster.totalNodes || cluster.totalPods);
@@ -473,17 +460,11 @@ const ClusterPage = () => {
               <PageSubtitle theme={theme}>
                 Live status of the Kubernetes cluster powering the portfolio applications
               </PageSubtitle>
+              <LiveBadge>
+                <LiveDot /> Live
+              </LiveBadge>
             </div>
           </MotionWrapper>
-
-          <RefreshBar theme={theme}>
-            {lastRefreshed && (
-              <span>Updated {timeAgo(lastRefreshed.toISOString())}</span>
-            )}
-            <RefreshButton theme={theme} onClick={refreshData} disabled={refreshing}>
-              {refreshing ? 'Refreshing...' : 'Refresh'}
-            </RefreshButton>
-          </RefreshBar>
 
           {/* Cluster Overview */}
           <MotionWrapper
@@ -492,7 +473,7 @@ const ClusterPage = () => {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <SectionTitle theme={theme}>Cluster Resources</SectionTitle>
-            {metricsError ? (
+            {metricsError && !metrics ? (
               <ErrorText theme={theme}>{metricsError.message}</ErrorText>
             ) : metricsLoading && !cluster ? (
               <LoadingText theme={theme}>Loading cluster metrics...</LoadingText>
@@ -630,6 +611,16 @@ const ClusterPage = () => {
             ) : (
               <LoadingText theme={theme}>No recent deployments</LoadingText>
             )}
+          </MotionWrapper>
+
+          {/* AI Gateway Activity */}
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+          >
+            <SectionTitle theme={theme}>AI Gateway Activity</SectionTitle>
+            <AIEventFeed theme={theme} />
           </MotionWrapper>
         </Container>
         <div style={{ height: '80px' }} />
