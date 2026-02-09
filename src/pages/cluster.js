@@ -374,6 +374,8 @@ const ClusterDashboard = ({ theme }) => {
         totalPods: metrics.totalPods,
         cpuUsage: metrics.cpuUsageCores,
         memoryUsage: metrics.memoryUsageBytes,
+        totalCpuCores: metrics.totalCpuCores,
+        totalMemoryBytes: metrics.totalMemoryBytes,
       }
     : null;
 
@@ -411,11 +413,12 @@ const ClusterDashboard = ({ theme }) => {
                 <StatUnit theme={theme}>cores</StatUnit>
               </StatValue>
               {(() => {
-                const pct = Math.min(
-                  (parseFloat(cluster.cpuUsage) / (parseInt(cluster.totalNodes, 10) * 4)) *
-                    100,
-                  100
-                );
+                const pct = cluster.totalCpuCores
+                  ? Math.min(
+                      (parseFloat(cluster.cpuUsage) / cluster.totalCpuCores) * 100,
+                      100
+                    )
+                  : 0;
                 return (
                   <>
                     <UsageBarTrack theme={theme}>
@@ -436,12 +439,12 @@ const ClusterDashboard = ({ theme }) => {
                 <StatUnit theme={theme}>GB</StatUnit>
               </StatValue>
               {(() => {
-                const pct = Math.min(
-                  (parseFloat(formatBytes(cluster.memoryUsage)) /
-                    (parseInt(cluster.totalNodes, 10) * 8)) *
-                    100,
-                  100
-                );
+                const pct = cluster.totalMemoryBytes
+                  ? Math.min(
+                      (cluster.memoryUsage / cluster.totalMemoryBytes) * 100,
+                      100
+                    )
+                  : 0;
                 return (
                   <>
                     <UsageBarTrack theme={theme}>

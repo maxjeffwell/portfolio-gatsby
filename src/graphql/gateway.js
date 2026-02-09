@@ -11,6 +11,8 @@ export const CLUSTER_METRICS_QUERY = gql`
       namespaceCount
       cpuUsageCores
       memoryUsageBytes
+      totalCpuCores
+      totalMemoryBytes
     }
   }
 `;
@@ -26,6 +28,8 @@ export const CLUSTER_METRICS_SUBSCRIPTION = gql`
       namespaceCount
       cpuUsageCores
       memoryUsageBytes
+      totalCpuCores
+      totalMemoryBytes
     }
   }
 `;
