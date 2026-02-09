@@ -5,18 +5,19 @@ title: HPA & Scaling
 
 # Horizontal Pod Autoscaler
 
-Six applications have HPA enabled for automatic scaling based on CPU utilization.
+Seven applications have HPA enabled for automatic scaling based on CPU utilization.
 
 ## HPA-Managed Applications
 
 | Application | Min Replicas | Max Replicas | CPU Target |
 |------------|-------------|-------------|-----------|
-| bookmarked | 1 | 3 | 70% |
-| educationelly | 1 | 3 | 70% |
-| educationelly-graphql | 1 | 3 | 70% |
-| intervalai | 1 | 3 | 70% |
-| portfolio-api | 1 | 3 | 70% |
-| tenantflow | 1 | 3 | 70% |
+| bookmarked | 1 | 10 | 80% |
+| educationelly | 1 | 10 | 80% |
+| educationelly-graphql | 1 | 10 | 80% |
+| firebook | 1 | 10 | 80% |
+| intervalai | 1 | 10 | 80% |
+| portfolio-api | 1 | 10 | 80% |
+| tenantflow | 1 | 10 | 80% |
 
 ## The HPA vs ArgoCD Flapping Problem
 

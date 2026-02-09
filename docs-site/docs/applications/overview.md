@@ -11,11 +11,12 @@ All applications follow the same deployment pattern: GitHub Actions builds Docke
 
 | App | Domain | Frontend | Backend | Database | HPA |
 |-----|--------|----------|---------|----------|-----|
-| **Bookmarked** | bookmarked.el-jefe.me | React (Hooks) | Node.js + Express | PostgreSQL (Neon + pgvector) | Yes |
-| **educationELLy** | educationelly.el-jefe.me | React | Node.js + Express | MongoDB | Yes |
-| **educationELLy GraphQL** | educationelly-graphql.el-jefe.me | React + Apollo Client | Node.js + Apollo Server | MongoDB | Yes |
-| **IntervalAI** | intervalai.el-jefe.me | React | Node.js + Express | MongoDB | Yes |
-| **Code Talk** | code-talk.el-jefe.me | React | Node.js + Express | PostgreSQL + Redis | No |
+| **Bookmarked** | bookmarked-k8s.el-jefe.me | React (Hooks) | Node.js + Express | PostgreSQL (Neon + pgvector) | Yes |
+| **educationELLy** | educationelly-k8s.el-jefe.me | React | Node.js + Express | MongoDB | Yes |
+| **educationELLy GraphQL** | educationelly-graphql-k8s.el-jefe.me | React + Apollo Client | Node.js + Apollo Server | MongoDB | Yes |
+| **IntervalAI** | intervalai-k8s.el-jefe.me | React | Node.js + Express | MongoDB | Yes |
+| **Code Talk** | code-talk-k8s.el-jefe.me | React | Node.js + Express | PostgreSQL + Redis | No |
+| **FireBook** | firebook-k8s.el-jefe.me | React | — | Firebase | Yes |
 | **TenantFlow** | tenantflow.el-jefe.me | React | Node.js + Express | PostgreSQL | Yes |
 | **PodRick** | podrick.el-jefe.me | React | — | K8s API | No |
 | **Pop!_Portfolio** | pop-portfolio.el-jefe.me/portfolio | React | Node.js + Express | PostgreSQL | Yes |

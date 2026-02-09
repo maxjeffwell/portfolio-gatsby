@@ -54,7 +54,7 @@ Each application follows a consistent pattern:
 - **Client deployment**: Nginx serving the built frontend (React/Storybook)
 - **Server deployment** (where applicable): Node.js Express/Apollo API server
 - **Service**: ClusterIP service for internal routing
-- **IngressRoute**: Traefik CRD for external HTTPS routing
+- **Ingress**: Standard Kubernetes Ingress with `ingressClassName: traefik`
 - **HPA**: Horizontal Pod Autoscaler for auto-scaling
 
 :::tip Interactive Components
@@ -65,7 +65,7 @@ Explore extracted UI components from each application in the [Storybook Showcase
 
 ```mermaid
 graph LR
-    TR[Traefik IngressRoute<br/>bookmarked.el-jefe.me] --> CS[Client Service<br/>ClusterIP:80]
+    TR[Traefik Ingress<br/>bookmarked-k8s.el-jefe.me] --> CS[Client Service<br/>ClusterIP:80]
     TR --> SS[Server Service<br/>ClusterIP:8080]
     CS --> CD[Client Deployment<br/>Nginx + React build]
     SS --> SD[Server Deployment<br/>Node.js Express]
