@@ -7,6 +7,7 @@ on:
       - 'v*'
   pull_request:
     branches: [master, main]
+  workflow_dispatch:
 
 env:
   DOCKER_IMAGE: maxjeffwell/portfolio-gatsby
@@ -14,6 +15,8 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.image-tag.outputs.tag }}
 
     steps:
       - name: Checkout code
@@ -45,18 +48,14 @@ jobs:
           username: ${{ steps.dockerhub.outputs.username }}
           password: ${{ steps.dockerhub.outputs.password }}
 
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.DOCKER_IMAGE }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=raw,value=latest,enable={{is_default_branch}}
+      - name: Generate image tag
+        id: image-tag
+        run: |
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          TAG="${TIMESTAMP}-${SHORT_SHA}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "Building with tag: ${TAG}"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -66,20 +65,23 @@ jobs:
           target: production
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            ${{ env.DOCKER_IMAGE }}:${{ steps.image-tag.outputs.tag }}
+            ${{ env.DOCKER_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Run Trivy vulnerability scanner
+        if: github.event_name != 'pull_request'
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.DOCKER_IMAGE }}:latest
+          image-ref: ${{ env.DOCKER_IMAGE }}:${{ steps.image-tag.outputs.tag }}
           format: 'sarif'
           output: 'trivy-results.sarif'
         continue-on-error: true
 
       - name: Upload Trivy results to GitHub Security
+        if: github.event_name != 'pull_request'
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'trivy-results.sarif'
@@ -87,4 +89,33 @@ jobs:
 
       - name: Image digest
         if: github.event_name != 'pull_request'
-        run: echo "Image pushed with digest ${{ steps.meta.outputs.digest }}"
+        run: echo "Image pushed with tag ${{ steps.image-tag.outputs.tag }}"
+
+  trigger-k8s-deploy:
+    runs-on: ubuntu-latest
+    needs: [build-and-push]
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+    steps:
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@v3
+
+      - name: Get deploy PAT from Doppler
+        id: doppler
+        env:
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+        run: |
+          echo "deploy_pat=$(doppler secrets get GH_PAT_WORKFLOW_TRIGGER --plain)" >> $GITHUB_OUTPUT
+
+      - name: Trigger K8s deployment
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ steps.doppler.outputs.deploy_pat }}
+          repository: maxjeffwell/devops-portfolio-manager
+          event-type: deploy-portfolio-gatsby
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "image_tag": "${{ needs.build-and-push.outputs.image-tag }}"}'
+
+      - name: Log trigger
+        env:
+          IMAGE_TAG: ${{ needs.build-and-push.outputs.image-tag }}
+        run: |
+          echo "Triggered deploy-portfolio-gatsby with image tag: ${IMAGE_TAG}"
