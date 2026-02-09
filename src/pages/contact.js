@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useMutation } from '@apollo/client';
 import ProtectedEmail from '../components/ProtectedEmail';
 import { useTheme } from '../context/ThemeContext';
+import { SUBMIT_CONTACT_FORM } from '../graphql/gateway';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -548,6 +550,11 @@ function Contact() {
   const [formStatus, setFormStatus] = React.useState(() => '');
   const [errorMessage, setErrorMessage] = React.useState(() => '');
   const [isSubmitting, setIsSubmitting] = React.useState(() => false);
+  const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM);
+
+  // Detect whether we're on Netlify (el-jefe.me) or K8s (portfolio.el-jefe.me)
+  const isNetlify =
+    typeof window === 'undefined' || window.location.hostname === 'el-jefe.me';
 
   const handleChange = (e) => {
     setFormData({
@@ -556,7 +563,7 @@ function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setFormStatus('');
@@ -593,66 +600,84 @@ function Contact() {
       return;
     }
 
-    const form = e.target;
-    const formDataNetlify = new FormData(form);
+    try {
+      if (isNetlify) {
+        // Netlify form submission
+        const form = e.target;
+        const formDataNetlify = new FormData(form);
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formDataNetlify).toString(),
+        });
 
-    // Try native Netlify form submission first, then fallback to fetch
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formDataNetlify).toString(),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setFormStatus('success');
-          setFormData({ name: '', email: '', message: '' });
-          // Scroll to top of form to show success message
-          const formElement = e.target;
-          const formTop = formElement.getBoundingClientRect().top + window.pageYOffset - 100;
-          window.scrollTo({ top: formTop, behavior: 'smooth' });
-        } else if (response.status === 404) {
-          throw new Error('Netlify form handler not found. Please check form configuration.');
-        } else if (response.status >= 500) {
-          throw new Error('Server error occurred. Please try again later.');
-        } else if (response.status === 429) {
-          throw new Error('Too many requests. Please wait a moment before trying again.');
-        } else {
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('Netlify form handler not found. Please check form configuration.');
+          } else if (response.status >= 500) {
+            throw new Error('Server error occurred. Please try again later.');
+          } else if (response.status === 429) {
+            throw new Error('Too many requests. Please wait a moment before trying again.');
+          } else {
+            throw new Error(
+              `Form submission failed with status ${response.status}. Please try again.`
+            );
+          }
+        }
+      } else {
+        // GraphQL mutation via gateway (K8s deployment)
+        const { data } = await submitContactForm({
+          variables: {
+            input: {
+              name: formData.name.trim(),
+              email: formData.email.trim(),
+              message: formData.message.trim(),
+            },
+          },
+        });
+
+        if (!data?.submitContactForm?.success) {
           throw new Error(
-            `Form submission failed with status ${response.status}. Please try again.`
+            data?.submitContactForm?.message || 'Failed to send message.'
           );
         }
-      })
-      .catch((error) => {
-        setFormStatus('error');
+      }
 
-        if (error.name === 'TypeError' && error.message.includes('fetch')) {
-          setErrorMessage('Network error: Please check your internet connection and try again.');
-        } else if (error.message.includes('Netlify form handler not found')) {
-          setErrorMessage(
-            'Form configuration error. Please contact me directly at jeff@el-jefe.me.'
-          );
-        } else if (error.message.includes('Server error')) {
-          setErrorMessage(
-            'Server error occurred. Please try again in a few minutes or contact me directly.'
-          );
-        } else if (error.message.includes('Too many requests')) {
-          setErrorMessage('Too many attempts. Please wait a moment before trying again.');
-        } else {
-          setErrorMessage(
-            error.message ||
-              'An unexpected error occurred. Please try again or contact me directly.'
-          );
-        }
+      setFormStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      const formElement = e.target;
+      const formTop = formElement.getBoundingClientRect().top + window.pageYOffset - 100;
+      window.scrollTo({ top: formTop, behavior: 'smooth' });
+    } catch (error) {
+      setFormStatus('error');
 
-        // Clear error message after 10 seconds
-        setTimeout(() => {
-          setFormStatus('');
-          setErrorMessage('');
-        }, 10000);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        setErrorMessage('Network error: Please check your internet connection and try again.');
+      } else if (error.message.includes('Netlify form handler not found')) {
+        setErrorMessage(
+          'Form configuration error. Please contact me directly at jeff@el-jefe.me.'
+        );
+      } else if (error.message.includes('Server error')) {
+        setErrorMessage(
+          'Server error occurred. Please try again in a few minutes or contact me directly.'
+        );
+      } else if (error.message.includes('Too many requests')) {
+        setErrorMessage('Too many attempts. Please wait a moment before trying again.');
+      } else {
+        setErrorMessage(
+          error.message ||
+            'An unexpected error occurred. Please try again or contact me directly.'
+        );
+      }
+
+      // Clear error message after 10 seconds
+      setTimeout(() => {
+        setFormStatus('');
+        setErrorMessage('');
+      }, 10000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

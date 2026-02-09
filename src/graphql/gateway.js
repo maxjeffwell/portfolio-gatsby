@@ -117,3 +117,12 @@ export const GITHUB_RUNS_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const SUBMIT_CONTACT_FORM = gql`
+  mutation SubmitContactForm($input: ContactFormInput!) {
+    submitContactForm(input: $input) {
+      success
+      message
+    }
+  }
+`;
