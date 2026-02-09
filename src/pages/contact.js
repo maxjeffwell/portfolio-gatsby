@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import ProtectedEmail from '../components/ProtectedEmail';
 import { useTheme } from '../context/ThemeContext';
 import { SUBMIT_CONTACT_FORM } from '../graphql/gateway';
@@ -553,8 +553,9 @@ function Contact() {
   const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM);
 
   // Detect whether we're on Netlify (el-jefe.me) or K8s (portfolio.el-jefe.me)
+  // Guard against SSR where window.location may not exist (gatsby-ssr.js mocks window without location)
   const isNetlify =
-    typeof window === 'undefined' || window.location.hostname === 'el-jefe.me';
+    typeof window === 'undefined' || !window.location || window.location.hostname === 'el-jefe.me';
 
   const handleChange = (e) => {
     setFormData({
