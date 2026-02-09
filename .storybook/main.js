@@ -36,6 +36,14 @@ const config = {
     },
   },
 
+  // Preload the composition ref's index.json so the fetch completes
+  // during JS bundle parse time, not after Storybook fully initializes.
+  // Also force-update the service worker so stale SW caches don't block
+  // the composition ref fetch on first visit after a deploy.
+  managerHead: `<link rel="preconnect" href="https://showcase.el-jefe.me" crossorigin="anonymous" />
+<link rel="preload" href="https://showcase.el-jefe.me/index.json" as="fetch" crossorigin="anonymous" />
+<script>navigator.serviceWorker&&navigator.serviceWorker.getRegistration().then(function(r){r&&r.update()})</script>`,
+
   async viteFinal(config) {
     // Prevent Vite from copying Gatsby's public/ into the Storybook build.
     // Gatsby uses public/ as its build output, not as a static assets dir,
