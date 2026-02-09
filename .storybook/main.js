@@ -38,11 +38,26 @@ const config = {
 
   // Preload the composition ref's index.json so the fetch completes
   // during JS bundle parse time, not after Storybook fully initializes.
-  // Also force-update the service worker so stale SW caches don't block
-  // the composition ref fetch on first visit after a deploy.
+  // Also force-update the service worker and add fetch retry logic so
+  // transient failures (SW race, cold DNS) don't permanently break the
+  // composition sidebar — Storybook's checkRef fires once with no retry.
   managerHead: `<link rel="preconnect" href="https://showcase.el-jefe.me" crossorigin="anonymous" />
 <link rel="preload" href="https://showcase.el-jefe.me/index.json" as="fetch" crossorigin="anonymous" />
-<script>navigator.serviceWorker&&navigator.serviceWorker.getRegistration().then(function(r){r&&r.update()})</script>`,
+<script>
+(function(){
+  if(navigator.serviceWorker)navigator.serviceWorker.getRegistration().then(function(r){r&&r.update()});
+  var orig=window.fetch;
+  window.fetch=function(u,o){
+    var s=typeof u==='string'?u:(u&&u.url)||'';
+    if(s.indexOf('showcase.el-jefe.me')!==-1){
+      return orig.apply(this,arguments).catch(function(){
+        return new Promise(function(ok){setTimeout(ok,1500)}).then(function(){return orig.call(window,u,o)});
+      });
+    }
+    return orig.apply(this,arguments);
+  };
+})();
+</script>`,
 
   async viteFinal(config) {
     // Prevent Vite from copying Gatsby's public/ into the Storybook build.
