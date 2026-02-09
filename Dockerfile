@@ -22,8 +22,8 @@ RUN --mount=type=cache,target=/root/.npm \
 # Copy application code
 COPY . .
 
-# Build Gatsby site
-RUN npm run build
+# Build Gatsby site, Storybook, and Docusaurus docs
+RUN npm run build:all
 
 # ============================================
 # Production Stage
