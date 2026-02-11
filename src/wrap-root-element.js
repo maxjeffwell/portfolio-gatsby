@@ -5,7 +5,7 @@ import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import ErrorBoundary from './components/ErrorBoundary';
 import apolloClient from './lib/apolloClient';
-import '../static/fonts/fonts.css';
+
 
 // Client-only PerformanceMonitor wrapper
 const ClientOnlyPerformanceMonitor = () => {

@@ -528,12 +528,6 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname, 
           href: `${data.site.siteMetadata.siteUrl}${pathname || slug || ''}`,
         },
         {
-          rel: 'preload',
-          href: '/fonts/fonts.css',
-          as: 'style',
-          onload: "this.onload=null;this.rel='stylesheet'",
-        },
-        {
           rel: 'sitemap',
           type: 'application/xml',
           href: `${data.site.siteMetadata.siteUrl}/sitemap-index.xml`,

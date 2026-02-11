@@ -204,22 +204,4 @@ export const onInitialClientRender = () => {
   // Add loaded class for progressive enhancement
   document.documentElement.classList.add('loaded');
 
-  // Optimize font loading with font-display: swap fallback
-  if ('fontDisplay' in document.documentElement.style) {
-    const fontFaces = [
-      'AvenirLTStd-Roman',
-      'HelveticaNeueLTStd-Bd',
-      'HelveticaNeueLTStd-Roman',
-      'SabonLTStd-Roman',
-    ];
-
-    fontFaces.forEach((fontFamily) => {
-      if (document.fonts && document.fonts.load) {
-        document.fonts.load(`1em ${fontFamily}`).catch(() => {
-          // Font loading failed - fallback fonts will be used
-          console.log(`Failed to load font: ${fontFamily}`);
-        });
-      }
-    });
-  }
 };

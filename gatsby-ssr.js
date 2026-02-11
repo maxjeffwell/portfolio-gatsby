@@ -40,6 +40,11 @@ export const wrapRootElement = ({ element }) => {
 export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
   // Add TextEncoder polyfill script before any other scripts
   setHeadComponents([
+    <link
+      key="fonts-stylesheet"
+      rel="stylesheet"
+      href="/fonts/fonts.css"
+    />,
     <script
       key="textencoder-polyfill"
       dangerouslySetInnerHTML={{

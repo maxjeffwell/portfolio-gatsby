@@ -2,9 +2,9 @@
   font-family: 'HelveticaNeueLTStd-Bd';
   font-style: normal;
   font-weight: bold;
-  src: url('HelveticaNeueLTStd-Bd.svg') format('svg'),
+  src: url('HelveticaNeueLTStd-Bd.woff2') format('woff2'),
        url('HelveticaNeueLTStd-Bd.woff') format('woff'),
-       url('HelveticaNeueLTStd-Bd.woff2') format('woff2');
+       url('HelveticaNeueLTStd-Bd.svg') format('svg');
   font-display: swap;
 }
 
@@ -12,9 +12,9 @@
   font-family: 'HelveticaNeueLTStd-Roman';
   font-style: normal;
   font-weight: normal;
-  src: url('HelveticaNeueLTStd-Roman.svg') format('svg'),
+  src: url('HelveticaNeueLTStd-Roman.woff2') format('woff2'),
        url('HelveticaNeueLTStd-Roman.woff') format('woff'),
-       url('HelveticaNeueLTStd-Roman.woff2') format('woff2');
+       url('HelveticaNeueLTStd-Roman.svg') format('svg');
   font-display: swap;
 }
 
@@ -22,9 +22,9 @@
   font-family: 'AvenirLTStd-Roman';
   font-style: normal;
   font-weight: normal;
-  src: url('AvenirLTStd-Roman.svg') format('svg'),
+  src: url('AvenirLTStd-Roman.woff2') format('woff2'),
        url('AvenirLTStd-Roman.woff') format('woff'),
-       url('AvenirLTStd-Roman.woff2') format('woff2');
+       url('AvenirLTStd-Roman.svg') format('svg');
   font-display: swap;
 }
 
@@ -32,8 +32,8 @@
   font-family: 'SabonLTStd-Roman';
   font-style: normal;
   font-weight: normal;
-  src: url('SabonLTStd-Roman.svg') format('svg'),
+  src: url('SabonLTStd-Roman.woff2') format('woff2'),
        url('SabonLTStd-Roman.woff') format('woff'),
-       url('SabonLTStd-Roman.woff2') format('woff2');
+       url('SabonLTStd-Roman.svg') format('svg');
   font-display: swap;
 }

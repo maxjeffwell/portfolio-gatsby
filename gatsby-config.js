@@ -159,22 +159,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-web-font-loader`,
-      options: {
-        custom: {
-          families: [
-            'AvenirLTStd-Roman',
-            'HelveticaNeueLTStd-Bd',
-            'HelveticaNeueLTStd-Roman',
-            'SabonLTStd-Roman',
-          ],
-          urls: ['/fonts/fonts.css'],
-        },
-        timeout: 3000, // 3 second timeout for mobile
-        display: 'swap', // Use font-display: swap for faster rendering
-      },
-    },
-    {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         trackingIds: [process.env.GATSBY_GA_TRACKING_ID || 'G-NL37L9SVQ0'],

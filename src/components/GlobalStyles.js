@@ -317,21 +317,6 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-  /* Smooth font loading */
-  @font-face {
-    font-family: 'AvenirLTStd-Roman';
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'HelveticaNeueLTStd-Roman';
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'HelveticaNeueLTStd-Bd';
-    font-display: swap;
-  }
 `;
 
 export default GlobalStyles;
