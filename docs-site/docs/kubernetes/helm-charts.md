@@ -70,6 +70,30 @@ ingress:
   host: bookmarked.el-jefe.me
 ```
 
+## Init Containers
+
+The library chart conditionally renders init containers when defined in an app's `values.yaml`:
+
+```yaml
+# In portfolio-common/_deployment.tpl
+{{- if $.Values.initContainers }}
+initContainers:
+  {{- toYaml $.Values.initContainers | nindent 8 }}
+{{- end }}
+```
+
+This is used by apps that depend on external services being available at startup. For example, the AI gateway and GraphQL gateway use an init container to wait for Kafka:
+
+```yaml
+# gateway/values.yaml
+initContainers:
+  - name: wait-for-kafka
+    image: busybox:1.37
+    command: ['sh', '-c', 'until nc -z kafka-bootstrap.microservices.svc 9092; do sleep 5; done']
+```
+
+The init container blocks pod startup until the dependency is reachable, preventing race conditions where the application tries to connect before the dependency is ready.
+
 ## Dependency Resolution
 
 Each app chart declares `portfolio-common` as a file dependency:

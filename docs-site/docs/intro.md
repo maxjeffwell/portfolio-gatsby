@@ -19,7 +19,7 @@ A self-hosted Kubernetes platform running **9 full-stack applications** on a K3s
 | **TLS** | cert-manager with Let's Encrypt |
 | **Secrets** | Doppler + External Secrets Operator |
 | **Monitoring** | Prometheus + Grafana |
-| **Backup** | Velero + Backblaze B2, CloudCasa |
+| **Backup** | Velero + Backblaze B2, database logical dumps, DNS/secrets cold storage, CloudCasa |
 | **Helm** | `portfolio-common` library chart shared across all apps |
 
 ## Deployed Applications
@@ -95,5 +95,5 @@ graph TB
 - **[Applications](/applications/overview)** — Per-app architecture and deployment details
 - **[CI/CD](/ci-cd/github-actions)** — GitHub Actions workflows and Docker build strategy
 - **[Monitoring](/monitoring/prometheus)** — Prometheus metrics and Grafana dashboards
-- **[Backup](/backup/strategy)** — Velero + Backblaze B2, CloudCasa, automated restore verification
+- **[Backup](/backup/strategy)** — Velero, database logical dumps, DNS/secrets cold storage, CloudCasa, automated restore verification
 - **[AI / ML](/ai-ml/overview)** — Shared AI Gateway, Triton semantic search, and Langfuse observability

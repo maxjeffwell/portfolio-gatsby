@@ -5,7 +5,7 @@ title: Shared AI Gateway
 
 # Shared AI Gateway
 
-A Node.js/Express API gateway that provides unified AI inference to all portfolio applications. It abstracts multiple LLM backends behind a single API with intelligent fallback, Redis caching, and Prometheus metrics.
+A Node.js/Express API gateway that provides unified AI inference to all portfolio applications. It abstracts multiple LLM backends behind a single API with intelligent fallback, Redis caching, Kafka event streaming, and Prometheus metrics.
 
 **Port:** 8002 | **Image:** `maxjeffwell/shared-ai-gateway` | **Runtime:** Node.js 20 Alpine
 
@@ -42,6 +42,10 @@ graph TB
         EMB2[Tier 2: Local GPU Triton<br/>GTX 1080]
     end
 
+    subgraph "Event Streaming"
+        KF[Kafka<br/>ai.gateway.events topic]
+    end
+
     subgraph Observability
         LL[Lens Loop]
         LIT[LiteLLM Proxy]
@@ -51,6 +55,7 @@ graph TB
     BK & ED & EG & CT --> GW
     GW --> CACHE
     GW --> PROM
+    GW -->|fire-and-forget| KF
     GW -->|auto fallback| T1
     T1 -.->|fail| T2
     T2 -.->|fail| T3
@@ -167,6 +172,50 @@ Pre-configured prompts per application context:
 | `quiz` | Quiz question generation with difficulty |
 | `describe` | Bookmark URL description |
 | `general` | General-purpose assistant |
+
+## Kafka Event Streaming
+
+Every AI request (success or error) emits a metadata-only event to Kafka for analytics and downstream processing.
+
+**Topic:** `ai.gateway.events` | **Broker:** Vertex Kafka in `microservices` namespace
+
+### Event Schema
+
+```json
+{
+  "eventId": "uuid",
+  "timestamp": 1707600000000,
+  "endpoint": "/api/ai/generate",
+  "app": "bookmarks",
+  "backend": "groq",
+  "model": "llama-3.3-70b-versatile",
+  "status": "success",
+  "latencyMs": 342,
+  "usage": { "promptTokens": 128, "completionTokens": 256 },
+  "fromCache": false
+}
+```
+
+**Privacy:** No prompt or response text is included — only request metadata, timing, and token counts.
+
+**Fire-and-forget pattern:** Events are sent asynchronously and never block AI responses. If Kafka is unavailable, the gateway logs a warning and continues serving requests normally.
+
+**Producer resilience:** The KafkaJS producer uses infinite retry with exponential backoff (2s initial, 30s max). If KafkaJS's internal retries exhaust, the producer instance is recreated transparently.
+
+### Startup Race Condition Fix
+
+The gateway pod uses an **init container** to wait for Kafka availability before starting the main application:
+
+```yaml
+initContainers:
+  - name: wait-for-kafka
+    image: busybox:1.37
+    command: ['sh', '-c', 'until nc -z vertex-kafka-kafka-bootstrap.microservices.svc 9092; do echo "Waiting for Kafka..."; sleep 5; done']
+```
+
+This prevents the chicken-and-egg problem where the gateway starts before Kafka is ready. The init container polls every 5 seconds with `nc -z` (TCP connectivity check) and only allows the main container to start once Kafka is reachable.
+
+**Network policy:** Dedicated egress rules allow the AI gateway and GraphQL gateway to reach port 9092 in the `microservices` namespace.
 
 ## Kubernetes Deployment
 
