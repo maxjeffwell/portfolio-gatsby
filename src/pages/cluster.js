@@ -581,7 +581,7 @@ const ClusterPage = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <div style={{ textAlign: 'center', paddingTop: '40px', marginBottom: '48px' }}>
               <PageTitle>K8s Cluster</PageTitle>
               <PageSubtitle>
                 Live status of the Kubernetes cluster powering the portfolio applications
