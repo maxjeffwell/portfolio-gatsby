@@ -51,6 +51,7 @@
     "@apollo/client": "^4.1.4",
     "@docsearch/css": "^4.5.4",
     "@docsearch/react": "^4.5.4",
+    "@sentry/gatsby": "^10.38.0",
     "babel-plugin-styled-components": "^2.1.4",
     "gatsby": "^5.14.5",
     "gatsby-adapter-netlify": "^1.2.0",

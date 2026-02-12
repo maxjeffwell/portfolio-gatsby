@@ -31,6 +31,13 @@ module.exports = {
         extensions: ['css', 'html', 'js', 'svg'],
       },
     },
+    {
+      resolve: '@sentry/gatsby',
+      options: {
+        dsn: process.env.SENTRY_DSN,
+        tracesSampleRate: 0.2,
+      },
+    },
     `gatsby-plugin-react-helmet-async`,
     {
       resolve: `gatsby-plugin-styled-components`,
