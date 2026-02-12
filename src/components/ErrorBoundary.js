@@ -47,7 +47,7 @@ const ErrorIcon = styled.div`
 `;
 
 const ErrorTitle = styled.h1`
-  font-family: 'HelveticaNeueLTStd-Bd', sans-serif;
+  font-family: 'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', sans-serif;
   font-size: 2rem;
   color: #ffffff;
   margin-bottom: 1rem;
@@ -62,7 +62,7 @@ const ErrorTitle = styled.h1`
 `;
 
 const ErrorMessage = styled.p`
-  font-family: 'HelveticaNeueLTStd-Roman', sans-serif;
+  font-family: 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif;
   font-size: 1.125rem;
   color: #e0e0e0;
   line-height: 1.6;
@@ -78,7 +78,7 @@ const ErrorDetails = styled.details`
   summary {
     color: #ffc947;
     cursor: pointer;
-    font-family: 'HelveticaNeueLTStd-Roman', sans-serif;
+    font-family: 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif;
     font-size: 0.9rem;
     padding: 0.5rem;
     border-radius: 4px;
@@ -119,7 +119,7 @@ const ActionButton = styled.button`
   color: ${(props) => (props.primary ? '#000000' : '#ffffff')};
   border: 2px solid ${(props) => (props.primary ? 'transparent' : '#404040')};
   border-radius: 8px;
-  font-family: 'HelveticaNeueLTStd-Roman', sans-serif;
+  font-family: 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif;
   font-size: 1rem;
   font-weight: ${(props) => (props.primary ? 'bold' : 'normal')};
   cursor: pointer;

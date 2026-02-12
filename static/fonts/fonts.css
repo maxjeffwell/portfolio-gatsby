@@ -37,3 +37,32 @@
        url('SabonLTStd-Roman.svg') format('svg');
   font-display: swap;
 }
+
+/* Adjusted fallback fonts - metrics matched to custom fonts to prevent CLS during font swap */
+@font-face {
+  font-family: 'AvenirFallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 92.0%;
+  ascent-override: 82.2%;
+  descent-override: 26.5%;
+  line-gap-override: 21.7%;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueBdFallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica Neue'), local('Helvetica');
+  font-weight: bold;
+  size-adjust: 94.9%;
+  ascent-override: 75.2%;
+  descent-override: 30.1%;
+  line-gap-override: 21.1%;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueRomanFallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 90.9%;
+  ascent-override: 78.5%;
+  descent-override: 31.5%;
+  line-gap-override: 22.0%;
+}

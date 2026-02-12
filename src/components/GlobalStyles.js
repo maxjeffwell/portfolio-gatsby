@@ -43,7 +43,7 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
     width: 100%;
     max-width: 100vw;
-    font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    font-family: 'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
     line-height: 1.6;
     font-size: 16px;
     scroll-behavior: smooth;
@@ -158,7 +158,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Typography styles to match design */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'HelveticaNeueLTStd-Bd', 'AvenirLTStd-Roman', sans-serif;
+    font-family: 'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif;
     font-weight: bold;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -223,7 +223,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Body text with better readability */
   p {
-    font-family: 'AvenirLTStd-Roman', 'HelveticaNeueLTStd-Roman', sans-serif;
+    font-family: 'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif;
     line-height: 1.7;
     margin-bottom: 1rem;
     color: var(--text-color);

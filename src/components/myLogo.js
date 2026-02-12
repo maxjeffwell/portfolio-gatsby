@@ -9,7 +9,7 @@ const StyledLogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
   filter: brightness(0) saturate(100%) invert(21%) sepia(15%) saturate(350%) hue-rotate(158deg)
     brightness(95%) contrast(85%);
 
