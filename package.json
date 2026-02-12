@@ -22,6 +22,7 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
+    "lint": "eslint src/ gatsby-config.js gatsby-node.js gatsby-browser.js gatsby-ssr.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

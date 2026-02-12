@@ -27,12 +27,23 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Lint
+        run: npm run lint
+
       - name: Security audit (informational)
         run: npm audit --audit-level=high || true
         continue-on-error: true
 
       - name: Run tests
         run: npm run test:ci
+
+      - name: Restore Gatsby cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: gatsby-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            gatsby-cache-${{ runner.os }}-
 
       - name: Build Gatsby site
         run: NODE_ENV=production npm run build
@@ -55,10 +66,30 @@ jobs:
           fi
           echo "Build verification successful"
 
+      - name: Check bundle size
+        run: |
+          echo "=== Build Size Report ==="
+          echo "Total build: $(du -sh public/ | cut -f1)"
+          JS_BYTES=$(find public -name '*.js' -not -path '*/storybook/*' -exec cat {} + 2>/dev/null | wc -c)
+          CSS_BYTES=$(find public -name '*.css' -not -path '*/storybook/*' -exec cat {} + 2>/dev/null | wc -c)
+          HTML_BYTES=$(find public -name '*.html' -exec cat {} + 2>/dev/null | wc -c)
+          echo "JavaScript: $((JS_BYTES / 1024))KB"
+          echo "CSS: $((CSS_BYTES / 1024))KB"
+          echo "HTML: $((HTML_BYTES / 1024))KB"
+          if [ "$JS_BYTES" -gt 2097152 ]; then
+            echo "::warning::JavaScript bundle size exceeds 2MB ($((JS_BYTES / 1024))KB)"
+          fi
+
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.15.x
           lhci autorun
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --exclude-mail public/
+          fail: false
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
