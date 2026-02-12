@@ -12,28 +12,28 @@ const LogoContainer = styled.div`
   justify-items: center;
   max-width: 800px;
   margin: 0 auto;
-  
+
   /* Center the third item (Chiapas map) when it wraps to its own row */
   & > *:nth-child(3):last-child {
     grid-column: 1 / -1;
     justify-self: center;
   }
-  
+
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 24px;
-    
+
     & > *:nth-child(3):last-child {
       grid-column: 1 / -1;
       justify-self: center;
     }
   }
-  
+
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
     gap: 20px;
     max-width: 300px;
-    
+
     & > *:nth-child(3) {
       justify-self: center;
     }
@@ -66,7 +66,7 @@ const StyledChiapasMap = styled.img`
   max-width: 200px;
   height: auto;
   padding: 24px;
-  
+
   @media (max-width: 480px) {
     max-width: 150px;
     padding: 16px;

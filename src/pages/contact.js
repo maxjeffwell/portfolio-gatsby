@@ -635,9 +635,7 @@ function Contact() {
         });
 
         if (!data?.submitContactForm?.success) {
-          throw new Error(
-            data?.submitContactForm?.message || 'Failed to send message.'
-          );
+          throw new Error(data?.submitContactForm?.message || 'Failed to send message.');
         }
       }
 
@@ -652,9 +650,7 @@ function Contact() {
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
         setErrorMessage('Network error: Please check your internet connection and try again.');
       } else if (error.message.includes('Netlify form handler not found')) {
-        setErrorMessage(
-          'Form configuration error. Please contact me directly at jeff@el-jefe.me.'
-        );
+        setErrorMessage('Form configuration error. Please contact me directly at jeff@el-jefe.me.');
       } else if (error.message.includes('Server error')) {
         setErrorMessage(
           'Server error occurred. Please try again in a few minutes or contact me directly.'
@@ -663,8 +659,7 @@ function Contact() {
         setErrorMessage('Too many attempts. Please wait a moment before trying again.');
       } else {
         setErrorMessage(
-          error.message ||
-            'An unexpected error occurred. Please try again or contact me directly.'
+          error.message || 'An unexpected error occurred. Please try again or contact me directly.'
         );
       }
 

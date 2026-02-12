@@ -281,7 +281,8 @@ const CanvasCodeSnippetInner = React.memo(
 
       // Read text color from CSS variables for theme-aware rendering
       const computedColor = getComputedStyle(document.documentElement)
-        .getPropertyValue('--text-color').trim();
+        .getPropertyValue('--text-color')
+        .trim();
       ctx.fillStyle = computedColor || '#2d3748';
 
       // Animation state tracking
@@ -421,9 +422,7 @@ const CanvasCodeSnippetInner = React.memo(
               </StyledTooltip>
             )}
           </StyledHeader>
-          <FallbackPre>
-            {code}
-          </FallbackPre>
+          <FallbackPre>{code}</FallbackPre>
         </StyledPaper>
       );
     }
@@ -473,7 +472,7 @@ const CanvasCodeSnippetInner = React.memo(
 CanvasCodeSnippetInner.displayName = 'CanvasCodeSnippetInner';
 
 // Client-side only wrapper to handle SSR properly
-const CanvasCodeSnippet = (props) => {
+const CanvasCodeSnippet = ({ code, title, showCopyButton, ...otherProps }) => {
   const [isClient, setIsClient] = React.useState(false);
   const [useCanvas, setUseCanvas] = React.useState(false);
 
@@ -505,15 +504,15 @@ const CanvasCodeSnippet = (props) => {
               fontWeight: 'bold',
             }}
           >
-            {props.title || 'Code Example'}
+            {title || 'Code Example'}
           </StyledTypography>
-          {props.showCopyButton !== false && isClient && (
+          {showCopyButton !== false && isClient && (
             <StyledTooltip>
               <StyledIconButton
                 size="small"
                 onClick={async () => {
                   try {
-                    await navigator.clipboard.writeText(props.code);
+                    await navigator.clipboard.writeText(code);
                   } catch (err) {
                     console.warn('Copy failed:', err);
                   }
@@ -529,14 +528,19 @@ const CanvasCodeSnippet = (props) => {
             </StyledTooltip>
           )}
         </StyledHeader>
-        <FallbackPre>
-          {props.code}
-        </FallbackPre>
+        <FallbackPre>{code}</FallbackPre>
       </StyledPaper>
     );
   }
 
-  return <CanvasCodeSnippetInner {...props} />;
+  return (
+    <CanvasCodeSnippetInner
+      code={code}
+      title={title}
+      showCopyButton={showCopyButton}
+      {...otherProps}
+    />
+  );
 };
 
 CanvasCodeSnippet.displayName = 'CanvasCodeSnippet';

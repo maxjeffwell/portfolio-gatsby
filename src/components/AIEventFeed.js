@@ -25,7 +25,7 @@ const EventCard = styled.div`
   transition: border-color 0.2s ease;
 
   .dark-mode & {
-    background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(30, 30, 50, 0.9) 100%);
   }
 
   &:hover {
@@ -133,9 +133,7 @@ export default function AIEventFeed() {
             {ev.fromCache && <Badge bg="#d4a017">cached</Badge>}
             {ev.model && (
               <Badge bg="#888">
-                {ev.model.length > 25
-                  ? ev.model.substring(0, 25) + '...'
-                  : ev.model}
+                {ev.model.length > 25 ? `${ev.model.substring(0, 25)}...` : ev.model}
               </Badge>
             )}
           </BadgeRow>
