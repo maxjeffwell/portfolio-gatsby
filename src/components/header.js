@@ -1,11 +1,15 @@
 import { Link } from 'gatsby';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 
 import MyLogo from './myLogo';
 import SSRSafeDarkModeToggle from './SSRSafeDarkModeToggle';
 import ClientOnlyIcon from './ClientOnlyIcon';
 import { useTheme } from '../context/ThemeContext';
+
+const DocSearch = typeof window !== 'undefined'
+  ? lazy(() => import('@docsearch/react').then(mod => ({ default: mod.DocSearch })))
+  : () => null;
 
 // Simple icon components using Unicode symbols
 
@@ -276,6 +280,24 @@ const MobileNavLabel = styled.div`
   color: ${(props) => (props.theme?.mode === 'dark' ? '#888' : '#999')};
 `;
 
+const MobileOnly = styled.div`
+  display: none;
+
+  @media (max-width: 959px) {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const DesktopOnly = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 959px) {
+    display: none;
+  }
+`;
+
 const ToolbarSpacer = styled.div`
   min-height: 116px;
 
@@ -289,33 +311,14 @@ function Header() {
   const [currentPath, setCurrentPath] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(true); // Default to mobile-first for SSR
   const menuButtonRef = useRef(null);
 
-  // Client-side only theme and media query handling
+  // Set current path client-side
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Set current path from window.location
       setCurrentPath(window.location.pathname);
-
-      // Handle media query with client-side fallback
-      const mediaQuery = window.matchMedia('(max-width: 959px)');
-      setIsMobile(mediaQuery.matches);
-
-      const handleMediaChange = (e) => {
-        setIsMobile(e.matches);
-      };
-
-      mediaQuery.addEventListener('change', handleMediaChange);
-
-      return () => {
-        mediaQuery.removeEventListener('change', handleMediaChange);
-      };
     }
-    return () => {};
   }, []);
-
-  // Remove theme dependency - use CSS media queries instead
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -407,7 +410,7 @@ function Header() {
           <StyledToolbar>
             {/* Left section: Menu/Navigation */}
             <StyledBox display="flex" alignItems="center">
-              {isMobile && (
+              <MobileOnly>
                 <StyledIconButton
                   theme={theme}
                   aria-label="open drawer"
@@ -423,28 +426,42 @@ function Header() {
                     }}
                   />
                 </StyledIconButton>
-              )}
+              </MobileOnly>
 
-              {!isMobile && (
-                <StyledBox as="nav" aria-label="Main navigation" display="flex" alignItems="center">
-                  {primaryItems.map((item) => (
-                    <NavButton
-                      key={item.text}
-                      as={Link}
-                      to={item.to}
-                      theme={theme}
-                      className={currentPath === item.to ? 'active' : ''}
-                      aria-current={currentPath === item.to ? 'page' : undefined}
-                    >
-                      {item.text}
-                    </NavButton>
-                  ))}
-                </StyledBox>
-              )}
+              <DesktopOnly as="nav" aria-label="Main navigation">
+                {primaryItems.map((item) => (
+                  <NavButton
+                    key={item.text}
+                    as={Link}
+                    to={item.to}
+                    theme={theme}
+                    className={currentPath === item.to ? 'active' : ''}
+                    aria-current={currentPath === item.to ? 'page' : undefined}
+                  >
+                    {item.text}
+                  </NavButton>
+                ))}
+              </DesktopOnly>
             </StyledBox>
 
-            {/* Center section: Empty for spacing */}
-            <StyledBox display="flex" alignItems="center" justifyContent="center" />
+            {/* Center section: Search */}
+            <StyledBox display="flex" alignItems="center" justifyContent="center">
+              {typeof window !== 'undefined' && (
+                <Suspense fallback={null}>
+                  <DocSearch
+                    appId="E2O1YZJVJI"
+                    indexName="el-jefe-me"
+                    apiKey="e036cac75dbca995c2c61173f72c05e2"
+                    askAi={{
+                      indexName: 'el-jefe-me-askai',
+                      apiKey: 'e036cac75dbca995c2c61173f72c05e2',
+                      appId: 'E2O1YZJVJI',
+                      assistantId: 'g2MyPVDcN5aX',
+                    }}
+                  />
+                </Suspense>
+              )}
+            </StyledBox>
 
             {/* Right section: Logo and Dark mode toggle */}
             <StyledBox display="flex" alignItems="center" justifyContent="flex-end" gap={2}>
@@ -452,22 +469,20 @@ function Header() {
               <SSRSafeDarkModeToggle />
             </StyledBox>
           </StyledToolbar>
-          {!isMobile && (
-            <SecondaryNavBar theme={theme}>
-              {secondaryItems.map((item) => {
-                const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
-                return (
-                  <SecondaryNavLink
-                    key={item.text}
-                    {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
-                    theme={theme}
-                  >
-                    {item.text}
-                  </SecondaryNavLink>
-                );
-              })}
-            </SecondaryNavBar>
-          )}
+          <SecondaryNavBar theme={theme}>
+            {secondaryItems.map((item) => {
+              const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
+              return (
+                <SecondaryNavLink
+                  key={item.text}
+                  {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
+                  theme={theme}
+                >
+                  {item.text}
+                </SecondaryNavLink>
+              );
+            })}
+          </SecondaryNavBar>
         </StyledContainer>
       </StyledAppBar>
 

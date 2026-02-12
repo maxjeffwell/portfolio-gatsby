@@ -335,6 +335,42 @@ const GlobalStyles = createGlobalStyle`
     transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease !important;
   }
 
+  /* DocSearch theme overrides */
+  :root {
+    --docsearch-primary-color: var(--primary-color);
+    --docsearch-text-color: var(--text-color);
+    --docsearch-muted-color: var(--text-secondary-color);
+    --docsearch-container-background: rgba(0, 0, 0, 0.5);
+  }
+
+  .dark-mode {
+    --docsearch-text-color: #f5f5f5;
+    --docsearch-container-background: rgba(0, 0, 0, 0.7);
+    --docsearch-modal-background: #1a1a1a;
+    --docsearch-searchbox-background: #2a2a2a;
+    --docsearch-searchbox-focus-background: #333;
+    --docsearch-hit-background: #2a2a2a;
+    --docsearch-hit-color: #f5f5f5;
+    --docsearch-hit-active-color: #fff;
+    --docsearch-highlight-color: var(--primary-color);
+    --docsearch-footer-background: #1a1a1a;
+    --docsearch-footer-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1);
+    --docsearch-key-gradient: linear-gradient(-225deg, #444, #333);
+    --docsearch-key-shadow: inset 0 -2px 0 0 #222, inset 0 0 1px 1px #555, 0 1px 2px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  /* DocSearch button styling to match nav */
+  .DocSearch-Button {
+    border-radius: 10px !important;
+    font-family: inherit !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure modal renders above header */
+  .DocSearch-Container {
+    z-index: 1400 !important;
+  }
+
 `;
 
 export default GlobalStyles;
