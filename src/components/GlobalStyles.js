@@ -56,7 +56,6 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Ensure all container elements respect viewport width */
@@ -145,7 +144,7 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 16px !important;
     box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12) !important;
     overflow: hidden !important;
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease !important;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out !important;
   }
 
   /* Optimize image loading */
@@ -164,7 +163,6 @@ const GlobalStyles = createGlobalStyle`
     line-height: 1.2;
     letter-spacing: -0.02em;
     color: var(--text-color);
-    transition: color 0.3s ease;
   }
 
   h1 {
@@ -229,13 +227,11 @@ const GlobalStyles = createGlobalStyle`
     line-height: 1.7;
     margin-bottom: 1rem;
     color: var(--text-color);
-    transition: color 0.3s ease;
   }
 
   /* Secondary text styles */
   .text-secondary {
     color: var(--text-secondary-color);
-    transition: color 0.3s ease;
   }
 
   /* Footer styles to prevent FOUC */
@@ -243,7 +239,6 @@ const GlobalStyles = createGlobalStyle`
     background-color: var(--paper-color) !important;
     padding: 48px 0 !important;
     border-top: 3px solid #9c27b0 !important;
-    transition: background-color 0.3s ease !important;
     
     @media (max-width: 600px) {
       padding: 40px 0 !important;
@@ -294,7 +289,6 @@ const GlobalStyles = createGlobalStyle`
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
     cursor: pointer;
-    transition: color 0.3s ease, text-decoration-color 0.3s ease;
 
     &:hover {
       color: #0d47a1;
@@ -315,6 +309,30 @@ const GlobalStyles = createGlobalStyle`
         color: #ce93d8;
       }
     }
+  }
+
+  /* Theme transitions - only during user-initiated theme toggle */
+  html.theme-transitioning body,
+  html.theme-transitioning main,
+  html.theme-transitioning header,
+  html.theme-transitioning footer {
+    transition: background-color 0.3s ease, color 0.3s ease !important;
+  }
+
+  html.theme-transitioning h1,
+  html.theme-transitioning h2,
+  html.theme-transitioning h3,
+  html.theme-transitioning h4,
+  html.theme-transitioning h5,
+  html.theme-transitioning h6,
+  html.theme-transitioning p,
+  html.theme-transitioning a,
+  html.theme-transitioning .text-secondary {
+    transition: color 0.3s ease !important;
+  }
+
+  html.theme-transitioning [class*="StyledCard"] {
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease !important;
   }
 
 `;

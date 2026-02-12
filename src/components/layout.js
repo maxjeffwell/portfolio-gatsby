@@ -128,7 +128,6 @@ const Typography = styled.div`
     return '0';
   }};
   text-align: ${(props) => props.align || 'inherit'};
-  transition: color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 `;
@@ -151,9 +150,7 @@ const IconButton = styled.button`
   text-decoration: none;
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.54)'};
-  transition:
-    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    color 0.3s ease;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
     background-color: ${(props) =>
@@ -171,7 +168,6 @@ const StyledFooter = styled.footer`
   padding: 48px 0;
   background-color: ${(props) => (props.theme?.mode === 'dark' ? '#0a0a0a' : '#fafafa')};
   border-top: 3px solid #9c27b0;
-  transition: background-color 0.3s ease;
 
   @media (max-width: 600px) {
     padding: 40px 0;
@@ -181,7 +177,6 @@ const StyledFooter = styled.footer`
 const SocialLink = styled(IconButton)`
   color: ${(props) =>
     props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
-  transition: color 0.3s ease;
   padding: 20px;
   background: transparent !important;
   border: none !important;
@@ -331,11 +326,9 @@ function ThemedLayout({ children, _data }) {
         style={{
           margin: 0,
           padding: 0,
-          paddingTop: '80px',
-          minHeight: 'calc(100vh - 80px)',
+          minHeight: 'calc(100vh - 116px)',
           backgroundColor: theme?.colors?.background || 'var(--bg-color)',
           color: theme?.colors?.text || 'var(--text-color)',
-          transition: 'background-color 0.3s ease, color 0.3s ease',
         }}
       >
         {children}
@@ -364,7 +357,7 @@ function ThemedLayout({ children, _data }) {
               textDecoration: 'none',
               fontWeight: 600,
               letterSpacing: '0.5px',
-              transition: 'all 0.3s ease',
+              transition: 'box-shadow 0.3s ease',
               position: 'relative',
               padding: '8px 16px',
               borderRadius: '8px',

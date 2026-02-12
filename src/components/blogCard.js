@@ -60,7 +60,6 @@ const CardTitle = styled.h2`
   margin-bottom: 8px;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
   line-height: 1.3;
-  transition: color 0.3s ease;
 
   @media (max-width: 480px) {
     font-size: 1.25rem;
@@ -72,7 +71,6 @@ const CardDate = styled.time`
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.45)'};
   margin-bottom: 16px;
-  transition: color 0.3s ease;
 `;
 
 const CardExcerpt = styled.p`
@@ -82,7 +80,6 @@ const CardExcerpt = styled.p`
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
   margin-bottom: 16px;
   flex-grow: 1;
-  transition: color 0.3s ease;
 `;
 
 const TagsContainer = styled.div`
@@ -102,7 +99,6 @@ const Tag = styled.span`
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)'};
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
-  transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
 function BlogCard({ title, date, excerpt, tags, slug }) {

@@ -76,7 +76,6 @@ const Typography = styled.div`
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
   text-align: ${(props) => props.align || 'inherit'};
-  transition: color 0.3s ease;
 `;
 
 const projectsData = [
@@ -797,6 +796,70 @@ const CustomSelectOption = styled.div`
   }
 `;
 
+const INITIAL_VISIBLE = 3;
+
+function LazyProjectList({ projects }) {
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const sentinelRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') {
+      setVisibleCount(projects.length);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + 3, projects.length));
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    const el = sentinelRef.current;
+    if (el) observer.observe(el);
+
+    return () => {
+      if (el) observer.unobserve(el);
+    };
+  }, [visibleCount, projects.length]);
+
+  // Reset when projects change (e.g., filter applied)
+  useEffect(() => {
+    setVisibleCount(INITIAL_VISIBLE);
+  }, [projects]);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      {projects.slice(0, visibleCount).map((project) => (
+        <ProjectCard
+          key={project.id}
+          title={project.title}
+          date={project.date}
+          description={project.description}
+          sourceURL={project.sourceURL}
+          sourceURLs={project.sourceURLs}
+          hostedURL={project.hostedURL}
+          deployments={project.deployments}
+          technologies={project.technologies}
+          imageSrcPath={project.imageSrcPath}
+          imageSrcPath2={project.imageSrcPath2}
+          videoSrcPath={project.videoSrcPath}
+          videoSrcPath2={project.videoSrcPath2}
+        />
+      ))}
+      {visibleCount < projects.length && (
+        <div ref={sentinelRef} style={{ height: '1px' }} />
+      )}
+    </div>
+  );
+}
+
+LazyProjectList.propTypes = {
+  projects: PropTypes.array.isRequired,
+};
+
 const Projects = ({ data }) => {
   const { theme } = useTheme();
   const [filters, setFilters] = useState({
@@ -1332,25 +1395,7 @@ const Projects = ({ data }) => {
                 </Typography>
               </StyledBox>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                {enhancedProjects.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    title={project.title}
-                    date={project.date}
-                    description={project.description}
-                    sourceURL={project.sourceURL}
-                    sourceURLs={project.sourceURLs}
-                    hostedURL={project.hostedURL}
-                    deployments={project.deployments}
-                    technologies={project.technologies}
-                    imageSrcPath={project.imageSrcPath}
-                    imageSrcPath2={project.imageSrcPath2}
-                    videoSrcPath={project.videoSrcPath}
-                    videoSrcPath2={project.videoSrcPath2}
-                  />
-                ))}
-              </div>
+              <LazyProjectList projects={enhancedProjects} />
             )}
           </StyledBox>
 

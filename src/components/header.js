@@ -52,9 +52,6 @@ const StyledAppBar = styled.header`
   background: ${(props) => props.theme?.colors?.paper || '#ffffff'};
   color: ${(props) => props.theme?.colors?.text || '#333333'};
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 `;
 
 const StyledToolbar = styled.div`
@@ -182,7 +179,7 @@ const StyledIconButton = styled.button`
       : 'rgba(0, 0, 0, 0.8)'};
   cursor: pointer;
   font-size: 1.5rem;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
@@ -213,10 +210,7 @@ const StyledDrawer = styled.div`
     0px 16px 24px 2px rgba(0, 0, 0, 0.14),
     0px 6px 30px 5px rgba(0, 0, 0, 0.12);
   transform: ${(props) => (props.open ? 'translateX(0)' : 'translateX(-100%)')};
-  transition:
-    transform 225ms cubic-bezier(0, 0, 0.2, 1),
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1);
 
   @media (max-width: 360px) {
     width: 85%;
@@ -252,9 +246,7 @@ const MobileNavButton = styled.a`
   font-size: 1.4rem;
   font-weight: 500;
   text-align: center;
-  transition:
-    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s ease;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:link,
   &:visited {

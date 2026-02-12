@@ -35,7 +35,6 @@ const HeroTitle = styled.h1`
   margin: 0;
   line-height: 1.2;
   color: ${(props) => getHeroTitleColor(props.theme)};
-  transition: color 0.3s ease;
 
   .highlight {
     background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
@@ -51,7 +50,6 @@ const HeroSubtitle = styled.p`
   color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
   margin: 20px 0 40px;
   font-weight: 600;
-  transition: color 0.3s ease;
 
   @media (max-width: 600px) {
     font-size: 1.3rem;
@@ -62,7 +60,6 @@ const HeroIntro = styled.p`
   font-size: clamp(1.5rem, 4vw, 2rem);
   margin: 0 0 clamp(12px, 3vw, 16px) 0;
   color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
-  transition: color 0.3s ease;
   font-weight: 700;
 `;
 
@@ -71,7 +68,6 @@ const HeroQuote = styled.p`
   line-height: 1.6;
   color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : '#777')};
   margin-bottom: clamp(24px, 6vw, 40px);
-  transition: color 0.3s ease;
   padding: 0 8px;
 `;
 

@@ -111,7 +111,6 @@ const Typography = styled.div`
     return 'rgba(0, 0, 0, 0.87)';
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
-  transition: color 0.3s ease;
   word-wrap: break-word;
   overflow-wrap: break-word;
 
@@ -160,7 +159,6 @@ const IconLink = styled.a`
     height: 64px;
     fill: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
     color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    transition: fill 0.3s ease, color 0.3s ease;
   }
 
   @media (max-width: 768px) {
@@ -216,7 +214,6 @@ const PlaceholderBox = styled.div`
   background-color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
   border-radius: 8px;
-  transition: background-color 0.3s ease;
 `;
 
 const HeaderContainer = styled.div`
@@ -334,7 +331,6 @@ const DeploymentLabel = styled.span`
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: color 0.3s ease;
 `;
 
 const ColoredBar = styled.div`
@@ -383,7 +379,6 @@ const TechIcon = styled.div`
   border-radius: 50%;
   background-color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
-  transition: background-color 0.3s ease;
   flex-shrink: 0;
 
   &:hover {

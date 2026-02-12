@@ -86,7 +86,6 @@ const Typography = styled.div`
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
   text-align: ${(props) => props.align || 'inherit'};
-  transition: color 0.3s ease;
 `;
 
 const StyledContainer = styled.div`
@@ -255,7 +254,7 @@ function AboutPage() {
             mb={8}
             style={{ textAlign: 'center', paddingTop: '40px' }}
           >
-            <div style={{ willChange: 'opacity' }}>
+            <div>
               <Typography
                 as="h1"
                 variant="h1"
@@ -394,7 +393,6 @@ function AboutPage() {
                         color:
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                         marginBottom: '24px',
-                        transition: 'color 0.3s ease',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -483,7 +481,6 @@ function AboutPage() {
                         color:
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                         marginBottom: '24px',
-                        transition: 'color 0.3s ease',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -572,7 +569,6 @@ function AboutPage() {
                         color:
                           theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
                         marginBottom: '24px',
-                        transition: 'color 0.3s ease',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -920,7 +916,6 @@ function AboutPage() {
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: '80px',
-                      transition: 'color 0.3s ease',
                     }}
                   >
                     <SiWebstorm
@@ -977,7 +972,6 @@ function AboutPage() {
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: '80px',
-                      transition: 'color 0.3s ease',
                     }}
                   >
                     <SiMozilla aria-label="Firefox web browser development tool icon" role="img" />
@@ -1033,7 +1027,6 @@ function AboutPage() {
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: '80px',
-                      transition: 'color 0.3s ease',
                     }}
                   >
                     <SiDebian aria-label="Debian Linux operating system icon" role="img" />
@@ -1088,7 +1081,6 @@ function AboutPage() {
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: '80px',
-                      transition: 'color 0.3s ease',
                     }}
                   >
                     <SiGit aria-label="Git version control system icon" role="img" />
@@ -1143,7 +1135,6 @@ function AboutPage() {
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: '80px',
-                      transition: 'color 0.3s ease',
                     }}
                   >
                     <SiAnthropic aria-label="Anthropic AI company logo" role="img" />

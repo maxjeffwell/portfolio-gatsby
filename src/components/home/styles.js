@@ -74,9 +74,6 @@ export const Card = styled.div`
   padding: 40px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   height: 100%;
-  transition:
-    background 0.3s ease,
-    color 0.3s ease;
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
@@ -109,7 +106,6 @@ export const CardTitle = styled.h2`
   display: flex;
   align-items: center;
   gap: 12px;
-  transition: color 0.3s ease;
   line-height: 1.3;
 
   @media (max-width: 480px) {
@@ -122,7 +118,6 @@ export const CardText = styled.p`
   line-height: 1.6;
   color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
   margin: 0 0 24px 0;
-  transition: color 0.3s ease;
 `;
 
 export const CardLink = styled(Link)`
@@ -133,7 +128,6 @@ export const CardLink = styled(Link)`
   padding: 8px 16px;
   display: inline-block;
   text-decoration: none;
-  transition: color 0.3s ease;
 
   &:hover {
     color: #ad1457;
@@ -151,10 +145,6 @@ export const QuoteBox = styled.div`
   font-size: 1.375rem;
   line-height: 1.6;
   color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#555')};
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
 `;
 
 export const InfoCard = styled.div`
@@ -165,7 +155,6 @@ export const InfoCard = styled.div`
   border-radius: 12px;
   padding: 32px;
   margin-top: 24px;
-  transition: background 0.3s ease;
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
@@ -175,8 +164,7 @@ export const InfoCard = styled.div`
     font-weight: 600;
     color: ${(props) => (props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63')};
     margin: 0 0 16px 0;
-    transition: color 0.3s ease;
-    line-height: 1.3;
+      line-height: 1.3;
     word-wrap: break-word;
   }
 
@@ -191,8 +179,7 @@ export const InfoCard = styled.div`
       gap: 8px;
       margin-bottom: 12px;
       color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#333')};
-      transition: color 0.3s ease;
-      font-size: clamp(0.9rem, 2.5vw, 1rem);
+          font-size: clamp(0.9rem, 2.5vw, 1rem);
       line-height: 1.5;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -200,8 +187,7 @@ export const InfoCard = styled.div`
       svg {
         color: ${(props) => (props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63')};
         flex-shrink: 0;
-        transition: color 0.3s ease;
-        margin-top: 2px;
+              margin-top: 2px;
       }
     }
   }
@@ -239,7 +225,6 @@ export const GradientTypingWrapper = styled.span`
   background-clip: text;
   -webkit-background-clip: text;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
-  transition: background 0.3s ease;
   display: inline-block;
 
   /* Only make text transparent when browser supports background-clip */

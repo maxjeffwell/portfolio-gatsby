@@ -5,6 +5,9 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 import { useTheme } from '../context/ThemeContext';
 
+// Prism syntax highlighting theme - only needed on blog post pages
+import 'prismjs/themes/prism-tomorrow.css';
+
 const ArticleContainer = styled.article`
   max-width: 900px;
   margin: 0 auto;
@@ -53,7 +56,6 @@ const ArticleTitle = styled.h1`
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.87)'};
   line-height: 1.2;
-  transition: color 0.3s ease;
 
   @media (max-width: 600px) {
     font-size: 1.875rem;
@@ -68,7 +70,6 @@ const ArticleMeta = styled.div`
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.5)'};
   font-size: 0.95rem;
-  transition: color 0.3s ease;
 `;
 
 const TagsContainer = styled.div`
@@ -87,7 +88,6 @@ const Tag = styled.span`
   background-color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.15)' : 'rgba(25, 118, 210, 0.1)'};
   color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-  transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
 const ArticleContent = styled.div`
@@ -95,7 +95,6 @@ const ArticleContent = styled.div`
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.8)'};
   font-size: 1.125rem;
   line-height: 1.8;
-  transition: color 0.3s ease;
 
   h2 {
     font-size: 1.75rem;
@@ -248,14 +247,12 @@ const NavLabel = styled.span`
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.4)'};
   margin-bottom: 4px;
-  transition: color 0.3s ease;
 `;
 
 const NavTitle = styled.span`
   display: block;
   font-weight: 500;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-  transition: color 0.3s ease;
 `;
 
 function BlogPostTemplate({ data }) {

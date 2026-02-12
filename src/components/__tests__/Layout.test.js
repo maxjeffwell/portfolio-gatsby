@@ -294,7 +294,7 @@ describe('Layout', () => {
       );
 
       const main = screen.getByRole('main');
-      expect(main).toHaveStyle({ transition: 'background-color 0.3s ease, color 0.3s ease' });
+      expect(main).toHaveStyle({ backgroundColor: '#f5f5f5' });
     });
   });
 });

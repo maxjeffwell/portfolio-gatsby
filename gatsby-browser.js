@@ -13,9 +13,6 @@ if (typeof window !== 'undefined') {
 import React from 'react';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
-// Prism syntax highlighting theme for blog code blocks
-import 'prismjs/themes/prism-tomorrow.css';
-
 // styled-components handles SSR automatically, no cache needed
 
 // Fix for React 18 ContextRegistry issue

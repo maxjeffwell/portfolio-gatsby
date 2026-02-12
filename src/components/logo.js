@@ -42,7 +42,6 @@ const LogoContainer = styled.div`
 `;
 
 const StyledIapfLogo = styled(IapfLogo)`
-  transition: all 0.3s ease-in-out;
   width: 100%;
   max-width: 200px;
   height: auto;
@@ -51,7 +50,6 @@ const StyledIapfLogo = styled(IapfLogo)`
 `;
 
 const StyledAspcaLogo = styled(AspcaLogo)`
-  transition: all 0.3s ease-in-out;
   width: 100%;
   max-width: 200px;
   height: auto;
@@ -59,7 +57,6 @@ const StyledAspcaLogo = styled(AspcaLogo)`
 `;
 
 const StyledChiapasMap = styled.img`
-  transition: all 0.3s ease-in-out;
   width: 100%;
   max-width: 200px;
   height: auto;
@@ -88,6 +85,8 @@ function Logo() {
       />
       <StyledChiapasMap
         src={ChiapasMapImage}
+        width={200}
+        height={200}
         aria-label="Map of Chiapas representing indigenous rights and social justice"
         alt="Chiapas map - Supporting indigenous rights and social justice movements"
       />

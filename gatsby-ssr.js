@@ -41,6 +41,30 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
   // Add TextEncoder polyfill script before any other scripts
   setHeadComponents([
     <link
+      key="preload-font-avenir"
+      rel="preload"
+      href="/fonts/AvenirLTStd-Roman.woff2"
+      as="font"
+      type="font/woff2"
+      crossOrigin="anonymous"
+    />,
+    <link
+      key="preload-font-helvetica-bd"
+      rel="preload"
+      href="/fonts/HelveticaNeueLTStd-Bd.woff2"
+      as="font"
+      type="font/woff2"
+      crossOrigin="anonymous"
+    />,
+    <link
+      key="preload-font-helvetica-roman"
+      rel="preload"
+      href="/fonts/HelveticaNeueLTStd-Roman.woff2"
+      as="font"
+      type="font/woff2"
+      crossOrigin="anonymous"
+    />,
+    <link
       key="fonts-stylesheet"
       rel="stylesheet"
       href="/fonts/fonts.css"
@@ -244,7 +268,6 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
           body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
           }
           
           h1, h2, h3, h4, h5, h6 {

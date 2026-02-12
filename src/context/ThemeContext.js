@@ -140,6 +140,15 @@ export function ThemeProvider({ children }) {
 
   const toggleTheme = useCallback(() => {
     const newMode = !isDarkMode;
+
+    // Enable transitions only during user-initiated toggle
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.add('theme-transitioning');
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 400);
+    }
+
     setIsDarkMode(newMode);
     setIsSystemPreference(false);
 
@@ -154,6 +163,14 @@ export function ThemeProvider({ children }) {
   }, [isDarkMode]);
 
   const resetToSystemPreference = useCallback(() => {
+    // Enable transitions only during user-initiated toggle
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.add('theme-transitioning');
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 400);
+    }
+
     setIsSystemPreference(true);
     setIsDarkMode(getSystemPreference() === 'dark');
 

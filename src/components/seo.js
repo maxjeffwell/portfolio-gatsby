@@ -634,7 +634,6 @@ function SEO({ description, lang, meta, keywords, title, image, slug, pathname, 
             body {
               background-color: var(--bg-color) !important;
               color: var(--text-color) !important;
-              transition: background-color 0.3s ease, color 0.3s ease;
             }
             
             h1, h2, h3, h4, h5, h6 {

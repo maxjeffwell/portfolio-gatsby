@@ -138,7 +138,6 @@ const Typography = styled.div`
     if (props.paragraph) return '16px';
     return '0';
   }};
-  transition: color 0.3s ease;
 `;
 
 const StyledButton = styled.button`
@@ -784,7 +783,6 @@ function Contact() {
                 padding: '40px',
                 marginBottom: '32px',
                 boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.04)',
-                transition: 'background-color 0.3s ease',
               }}
             >
               <Typography

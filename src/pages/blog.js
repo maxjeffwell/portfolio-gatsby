@@ -32,7 +32,6 @@ const PageTitle = styled.h1`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  transition: background 0.3s ease;
 `;
 
 const PageDescription = styled.p`
@@ -45,7 +44,6 @@ const PageDescription = styled.p`
   margin-right: auto;
   text-align: center;
   line-height: 1.6;
-  transition: color 0.3s ease;
 
   @media (max-width: 600px) {
     font-size: 1.1rem;
@@ -69,7 +67,6 @@ const EmptyState = styled.div`
   padding: 60px 24px;
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.5)'};
-  transition: color 0.3s ease;
 `;
 
 function BlogPage({ data }) {

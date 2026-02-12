@@ -40,7 +40,6 @@ const Description = styled.p`
   color: ${(props) =>
     props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'};
   margin: 0 auto 32px auto;
-  transition: color 0.3s ease;
   max-width: 600px;
 `;
 
@@ -61,7 +60,7 @@ const ResumeLink = styled.a`
   border-radius: 8px;
   font-weight: 600;
   font-size: 1.125rem;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0px 4px 12px rgba(21, 101, 192, 0.2);
 
   &:hover {
@@ -83,7 +82,6 @@ const BackLink = styled.a`
   color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
   text-decoration: underline;
   font-size: 1.125rem;
-  transition: color 0.3s ease;
 
   &:hover {
     color: ${(props) => (props.theme?.mode === 'dark' ? '#64b5f6' : '#0d47a1')};

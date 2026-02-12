@@ -60,7 +60,6 @@ const Title = styled.h1`
   font-weight: 700;
   margin-bottom: 1.5rem;
   color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#333')};
-  transition: color 0.3s ease;
 `;
 
 const Description = styled.p`
@@ -71,7 +70,6 @@ const Description = styled.p`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  transition: color 0.3s ease;
 `;
 
 const ButtonGroup = styled.div`
