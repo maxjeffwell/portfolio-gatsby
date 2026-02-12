@@ -331,7 +331,7 @@ jobs:
           echo "deploy_pat=$(doppler secrets get GH_PAT_WORKFLOW_TRIGGER --plain)" >> $GITHUB_OUTPUT
 
       - name: Trigger K8s deployment
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ steps.doppler.outputs.deploy_pat }}
           repository: maxjeffwell/devops-portfolio-manager
