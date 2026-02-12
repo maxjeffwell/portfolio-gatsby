@@ -279,11 +279,10 @@ const CanvasCodeSnippetInner = React.memo(
       ctx.textBaseline = 'top';
       ctx.textAlign = 'left';
 
-      // Read text color from CSS variables for theme-aware rendering
-      const computedColor = getComputedStyle(document.documentElement)
-        .getPropertyValue('--text-color')
-        .trim();
-      ctx.fillStyle = computedColor || '#2d3748';
+      // Use theme object directly — reading CSS variables here would race
+      // with ThemeProvider's effect that toggles the dark-mode class,
+      // because React fires child effects before parent effects.
+      ctx.fillStyle = theme.colors.text;
 
       // Animation state tracking
       let startTime = null;
