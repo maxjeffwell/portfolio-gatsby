@@ -12,7 +12,6 @@ if (typeof window !== 'undefined') {
 
 import React from 'react';
 import { StyleSheetManager } from 'styled-components';
-import '@docsearch/css';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
 // Fix for React 18 ContextRegistry issue

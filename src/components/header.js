@@ -7,7 +7,9 @@ import SSRSafeDarkModeToggle from './SSRSafeDarkModeToggle';
 import ClientOnlyIcon from './ClientOnlyIcon';
 
 const DocSearch = lazy(() =>
-  import('@docsearch/react').then((mod) => ({ default: mod.DocSearch }))
+  Promise.all([import('@docsearch/react'), import('@docsearch/css')]).then(
+    ([mod]) => ({ default: mod.DocSearch })
+  )
 );
 
 // Simple icon components using Unicode symbols
