@@ -1,23 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
-// Helper functions for theme-based styling
-export const getHeroSectionBackground = (theme) => {
-  if (theme?.mode === 'dark') {
-    return 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)';
-  }
-  return 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
-};
-
-export const getHeroTitleColor = (theme) => {
-  if (theme?.mode === 'dark') {
-    return '#ffffff';
-  }
-  if (theme?.mode === 'light') {
-    return '#333';
-  }
-  return 'var(--text-color)';
-};
+// CSS variable references for hero section (used in HeroSection.js styled components)
+// Background: use .dark-mode & selector; Title color: use var(--text-color)
 
 // Layout Components
 export const Container = styled.div`
@@ -68,8 +53,8 @@ export const TwoColumnGrid = styled.div`
 
 // Card Components
 export const Card = styled.div`
-  background: ${(props) => props.theme?.colors?.paper || 'var(--paper-color)'};
-  color: ${(props) => props.theme?.colors?.text || 'var(--text-color)'};
+  background: var(--paper-color);
+  color: var(--text-color);
   border-radius: 16px;
   padding: 40px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -102,7 +87,7 @@ export const CardTitle = styled.h2`
   font-size: clamp(1.375rem, 4vw, 1.875rem);
   font-weight: 700;
   margin: 0 0 clamp(16px, 4vw, 24px) 0;
-  color: ${(props) => props.theme?.colors?.text || '#333'};
+  color: var(--text-color);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -116,7 +101,7 @@ export const CardTitle = styled.h2`
 export const CardText = styled.p`
   font-size: 1.125rem;
   line-height: 1.6;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
+  color: var(--text-secondary-color);
   margin: 0 0 24px 0;
 `;
 
@@ -138,21 +123,25 @@ export const CardLink = styled(Link)`
 export const QuoteBox = styled.div`
   margin: 20px 0;
   padding: 16px 20px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.05)'};
-  border-left: 4px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
+  background: rgba(25, 118, 210, 0.05);
+  border-left: 4px solid var(--primary-color);
   border-radius: 4px;
   font-size: 1.375rem;
   line-height: 1.6;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#555')};
+  color: var(--text-secondary-color);
+
+  .dark-mode & {
+    background: rgba(144, 202, 249, 0.1);
+  }
 `;
 
 export const InfoCard = styled.div`
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(233, 30, 99, 0.15) 0%, rgba(233, 30, 99, 0.1) 100%)'
-      : 'linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%)'};
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
   border-radius: 12px;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.15) 0%, rgba(233, 30, 99, 0.1) 100%);
+  }
   padding: 32px;
   margin-top: 24px;
   box-sizing: border-box;
@@ -162,7 +151,7 @@ export const InfoCard = styled.div`
   h3 {
     font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: 600;
-    color: ${(props) => (props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63')};
+    color: var(--accent-pink);
     margin: 0 0 16px 0;
       line-height: 1.3;
     word-wrap: break-word;
@@ -178,14 +167,14 @@ export const InfoCard = styled.div`
       align-items: flex-start;
       gap: 8px;
       margin-bottom: 12px;
-      color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#333')};
+      color: var(--text-color);
           font-size: clamp(0.9rem, 2.5vw, 1rem);
       line-height: 1.5;
       word-wrap: break-word;
       overflow-wrap: break-word;
 
       svg {
-        color: ${(props) => (props.theme?.mode === 'dark' ? '#f48fb1' : '#e91e63')};
+        color: var(--accent-pink);
         flex-shrink: 0;
               margin-top: 2px;
       }
@@ -218,13 +207,16 @@ export const InfoText = styled.p`
 // Gradient Text Wrapper
 export const GradientTypingWrapper = styled.span`
   font-weight: inherit;
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
-      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+  color: var(--primary-color);
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
   display: inline-block;
 
   /* Only make text transparent when browser supports background-clip */

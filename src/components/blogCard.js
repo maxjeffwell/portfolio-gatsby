@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import { useTheme } from '../context/ThemeContext';
 
 const StyledCard = styled(Link)`
   display: flex;
@@ -15,14 +14,15 @@ const StyledCard = styled(Link)`
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background 0.3s ease;
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
-      : 'white'};
+  background: var(--paper-color);
   box-shadow:
     0 3px 3px -2px rgba(0, 0, 0, 0.2),
     0 3px 4px 0 rgba(0, 0, 0, 0.14),
     0 1px 8px 0 rgba(0, 0, 0, 0.12);
+
+  .dark-mode & {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
+  }
 
   &:hover {
     transform: translateY(-4px);
@@ -33,7 +33,7 @@ const StyledCard = styled(Link)`
   }
 
   &:focus {
-    outline: 2px solid ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
 `;
@@ -58,7 +58,7 @@ const CardTitle = styled.h2`
   font-size: 1.375rem;
   font-weight: 600;
   margin-bottom: 8px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+  color: var(--primary-color);
   line-height: 1.3;
 
   @media (max-width: 480px) {
@@ -68,16 +68,14 @@ const CardTitle = styled.h2`
 
 const CardDate = styled.time`
   font-size: 0.875rem;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.45)'};
+  color: var(--text-muted-color);
   margin-bottom: 16px;
 `;
 
 const CardExcerpt = styled.p`
   font-size: 1rem;
   line-height: 1.6;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+  color: var(--text-secondary-color);
   margin-bottom: 16px;
   flex-grow: 1;
 `;
@@ -95,26 +93,22 @@ const Tag = styled.span`
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 500;
-  background-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)'};
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+  background-color: var(--tag-bg);
+  color: var(--text-secondary-color);
 `;
 
 function BlogCard({ title, date, excerpt, tags, slug }) {
-  const { theme } = useTheme();
-
   return (
-    <StyledCard to={`/blog${slug}`} theme={theme}>
+    <StyledCard to={`/blog${slug}`}>
       <ColoredBar />
       <CardContent>
-        <CardTitle theme={theme}>{title}</CardTitle>
-        <CardDate theme={theme}>{date}</CardDate>
-        <CardExcerpt theme={theme}>{excerpt}</CardExcerpt>
+        <CardTitle>{title}</CardTitle>
+        <CardDate>{date}</CardDate>
+        <CardExcerpt>{excerpt}</CardExcerpt>
         {tags && tags.length > 0 && (
           <TagsContainer>
             {tags.map((tag) => (
-              <Tag key={tag} theme={theme}>
+              <Tag key={tag}>
                 {tag}
               </Tag>
             ))}

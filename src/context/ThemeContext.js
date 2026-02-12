@@ -81,31 +81,31 @@ const getInitialTheme = () => {
 
 // Theme Provider Component
 export function ThemeProvider({ children }) {
-  // Always initialize with light theme for SSR consistency
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isSystemPreference, setIsSystemPreference] = useState(true);
+  // Initialize theme synchronously from pre-body script's class on <html>
+  // The pre-body script already determined the correct theme and set html.dark-mode
+  // Reading it here avoids a SSR-light → client-dark flip that causes CLS
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('dark-mode');
+    }
+    return false; // SSR default
+  });
+  const [isSystemPreference, setIsSystemPreference] = useState(() => {
+    try {
+      if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        return localStorage.getItem('portfolio-theme') === null;
+      }
+    } catch (e) {
+      // ignore
+    }
+    return true;
+  });
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Initialize theme on mount (client-side only)
+  // Mark hydration complete on mount
   useEffect(() => {
-    const initialTheme = getInitialTheme();
-    let hasStoredPreference = false;
-
-    try {
-      hasStoredPreference =
-        typeof window !== 'undefined' &&
-        typeof localStorage !== 'undefined' &&
-        localStorage.getItem('portfolio-theme') !== null;
-    } catch (e) {
-      // localStorage not available
-      hasStoredPreference = false;
-    }
-
-    // Set the actual theme after hydration to prevent mismatch
-    setIsDarkMode(initialTheme === 'dark');
-    setIsSystemPreference(!hasStoredPreference);
     setIsHydrated(true);
-  }, []); // Remove isDarkMode dependency to prevent loops
+  }, []);
 
   // Listen for system preference changes
   useEffect(() => {

@@ -29,7 +29,7 @@ const StyledMenu = styled.div`
   z-index: 1300;
   overflow: hidden;
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     background-color: #424242;
   }
 `;
@@ -45,7 +45,7 @@ const StyledMenuItem = styled.div`
     background-color: rgba(0, 0, 0, 0.04);
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     &:hover {
       background-color: rgba(255, 255, 255, 0.08);
     }
@@ -58,7 +58,7 @@ const MenuIcon = styled.div`
   min-width: 56px;
   color: rgba(0, 0, 0, 0.54);
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     color: rgba(255, 255, 255, 0.7);
   }
 `;
@@ -72,7 +72,7 @@ const MenuText = styled.span`
   letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.87);
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     color: rgba(255, 255, 255, 0.87);
   }
 `;
@@ -91,7 +91,7 @@ const StyledIconButton = styled.button`
   vertical-align: middle;
   appearance: none;
   text-decoration: none;
-  color: ${(props) => props.theme?.colors?.primary || '#1565c0'};
+  color: var(--primary-color);
   padding: 8px;
   border-radius: 50%;
   overflow: visible;
@@ -104,7 +104,7 @@ const StyledIconButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${(props) => props.theme?.colors?.secondary || '#e91e63'};
+    outline: 2px solid var(--secondary-color);
     outline-offset: 2px;
   }
 
@@ -183,10 +183,6 @@ function DarkModeToggle() {
           onClick={handleClick}
           onContextMenu={handleRightClick}
           aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
-          theme={{
-            mode: isDarkMode ? 'dark' : 'light',
-            colors: { primary: '#1565c0', secondary: '#e91e63' },
-          }}
         >
           <ClientOnlyIcon iconName="DarkModeToggle" fontSize="48px" />
         </StyledIconButton>

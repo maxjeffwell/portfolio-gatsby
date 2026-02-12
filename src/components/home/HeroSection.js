@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import SimpleTypingAnimation from '../SimpleTypingAnimation';
@@ -8,12 +7,10 @@ import {
   Container,
   QuoteBox,
   GradientTypingWrapper,
-  getHeroSectionBackground,
-  getHeroTitleColor,
 } from './styles';
 
 const HeroSectionWrapper = styled.section`
-  background: ${(props) => getHeroSectionBackground(props.theme)};
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding: 80px 0 60px;
   text-align: center;
   position: relative;
@@ -34,7 +31,7 @@ const HeroTitle = styled.h1`
   font-weight: 700;
   margin: 0;
   line-height: 1.2;
-  color: ${(props) => getHeroTitleColor(props.theme)};
+  color: var(--text-color);
 
   .highlight {
     background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
@@ -47,7 +44,7 @@ const HeroTitle = styled.h1`
 
 const HeroSubtitle = styled.p`
   font-size: 1.5rem;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
+  color: var(--text-secondary-color);
   margin: 20px 0 40px;
   font-weight: 600;
 
@@ -59,14 +56,14 @@ const HeroSubtitle = styled.p`
 const HeroIntro = styled.p`
   font-size: clamp(1.5rem, 4vw, 2rem);
   margin: 0 0 clamp(12px, 3vw, 16px) 0;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
+  color: var(--text-secondary-color);
   font-weight: 700;
 `;
 
 const HeroQuote = styled.p`
   font-size: clamp(1.125rem, 3vw, 1.375rem);
   line-height: 1.6;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : '#777')};
+  color: var(--text-muted-color);
   margin-bottom: clamp(24px, 6vw, 40px);
   padding: 0 8px;
 `;
@@ -91,15 +88,15 @@ const CtaButton = styled(Link)`
   }
 `;
 
-const HeroSection = ({ theme }) => {
+const HeroSection = () => {
   return (
-    <HeroSectionWrapper theme={theme} as="section" aria-labelledby="hero-title" id="home">
+    <HeroSectionWrapper as="section" aria-labelledby="hero-title" id="home">
       <Container>
         <StaggeredAnimation>
-          <HeroIntro theme={theme}>My name&#39;s Jeff</HeroIntro>
-          <HeroTitle theme={theme} as="h1" id="hero-title">
+          <HeroIntro>My name&#39;s Jeff</HeroIntro>
+          <HeroTitle as="h1" id="hero-title">
             I&#39;m a{' '}
-            <GradientTypingWrapper theme={theme}>
+            <GradientTypingWrapper>
               <SimpleTypingAnimation
                 texts={[
                   'Node.js Expert',
@@ -116,12 +113,12 @@ const HeroSection = ({ theme }) => {
               />
             </GradientTypingWrapper>
           </HeroTitle>
-          <HeroSubtitle theme={theme}>
+          <HeroSubtitle>
             Full Stack Web Developer crafting exceptional React & Node.js applications with modern
             technologies
           </HeroSubtitle>
 
-          <QuoteBox theme={theme}>
+          <QuoteBox>
             I believe in <strong>clean, maintainable code</strong> and{' '}
             <strong>user-centered design</strong>. As a developer, I focus on crafting every line
             with performance, accessibility, and scalability in mind. Check out my{' '}
@@ -143,14 +140,14 @@ const HeroSection = ({ theme }) => {
             .
           </QuoteBox>
 
-          <HeroQuote theme={theme}>
+          <HeroQuote>
             "Code is like humor. When you have to explain it, it's bad." — That's why I focus on
             intuitive, self-documenting solutions. Ready to discuss your next project?{' '}
             <Link
               to="/contact/"
               title="Get in touch to discuss your next project"
               style={{
-                color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                color: 'var(--primary-color)',
                 fontWeight: 'bold',
                 textDecoration: 'underline',
               }}
@@ -167,17 +164,6 @@ const HeroSection = ({ theme }) => {
       </Container>
     </HeroSectionWrapper>
   );
-};
-
-HeroSection.propTypes = {
-  theme: PropTypes.shape({
-    mode: PropTypes.string,
-    colors: PropTypes.object,
-  }),
-};
-
-HeroSection.defaultProps = {
-  theme: null,
 };
 
 export default HeroSection;

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTheme } from '../context/ThemeContext';
 import ClientOnlyIcon from './ClientOnlyIcon';
 
 const ShareContainer = styled.div`
@@ -8,8 +7,7 @@ const ShareContainer = styled.div`
   align-items: center;
   gap: 12px;
   padding: 20px 0;
-  border-top: 1px solid
-    ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')};
+  border-top: 1px solid var(--border-color);
   margin-top: 32px;
 
   @media (max-width: 768px) {
@@ -21,8 +19,7 @@ const ShareContainer = styled.div`
 
 const ShareLabel = styled.span`
   font-weight: 500;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)'};
+  color: var(--text-secondary-color);
   font-size: 1.5rem;
   margin-right: 8px;
 
@@ -53,8 +50,7 @@ const ShareButton = styled.a`
 
   &:hover {
     transform: translateY(-2px);
-    background: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'};
+    background: var(--hover-bg);
   }
 
   &.twitter {
@@ -90,10 +86,18 @@ const ShareButton = styled.a`
   }
 
   &.email {
-    color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#6c757d')};
+    color: #6c757d;
 
     &:hover {
-      color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.9)' : '#5a6268')};
+      color: #5a6268;
+    }
+
+    .dark-mode & {
+      color: rgba(255, 255, 255, 0.8);
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.9);
+      }
     }
   }
 
@@ -110,8 +114,6 @@ const ShareIcon = styled.span`
 `;
 
 function SocialShare({ url, title, description }) {
-  const { theme } = useTheme();
-
   // Encode URL and text for sharing
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
@@ -127,8 +129,8 @@ function SocialShare({ url, title, description }) {
   };
 
   return (
-    <ShareContainer theme={theme}>
-      <ShareLabel theme={theme}>Share this page:</ShareLabel>
+    <ShareContainer>
+      <ShareLabel>Share this page:</ShareLabel>
       <ShareButtons>
         <ShareButton
           href={shareLinks.twitter}
@@ -183,7 +185,6 @@ function SocialShare({ url, title, description }) {
           className="email"
           title="Share via Email"
           aria-label="Share via Email"
-          theme={theme}
         >
           <ClientOnlyIcon iconName="send" fontSize="28px" />
           Email

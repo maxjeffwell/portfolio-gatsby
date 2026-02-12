@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/client/react';
 import ProtectedEmail from '../components/ProtectedEmail';
-import { useTheme } from '../context/ThemeContext';
 import { SUBMIT_CONTACT_FORM } from '../graphql/gateway';
 
 import Layout from '../components/layout';
@@ -540,7 +539,6 @@ const StyledTextField = styled.div`
 `;
 
 function Contact() {
-  const { theme } = useTheme();
   const [formData, setFormData] = React.useState(() => ({
     name: '',
     email: '',
@@ -748,7 +746,7 @@ function Contact() {
                 maxWidth: '600px',
                 margin: '0 auto',
                 lineHeight: 1.5,
-                color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                color: 'var(--text-secondary-color)',
               }}
             >
               I&apos;m always interested in new opportunities and collaborations. As a full stack
@@ -768,7 +766,7 @@ function Contact() {
                 fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
                 fontWeight: 600,
                 marginBottom: '32px',
-                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                color: 'var(--text-color)',
                 textAlign: 'center',
               }}
             >
@@ -859,7 +857,7 @@ function Contact() {
                       style={{
                         fontSize: '1.125rem',
                         fontWeight: 500,
-                        color: theme?.mode === 'dark' ? '#90caf9' : '#1976d2',
+                        color: 'var(--primary-color)',
                         textDecoration: 'underline',
                         textUnderlineOffset: '0.125em',
                       }}
@@ -1327,7 +1325,7 @@ function Contact() {
                 fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
                 fontWeight: 600,
                 marginBottom: '24px',
-                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                color: 'var(--text-color)',
                 textAlign: 'center',
               }}
             >
@@ -1336,7 +1334,7 @@ function Contact() {
             <Typography
               variant="body1"
               style={{
-                color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+                color: 'var(--text-secondary-color)',
                 fontSize: '1.5rem',
                 fontWeight: 400,
                 lineHeight: 1.6,
@@ -1363,7 +1361,7 @@ function Contact() {
                 fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
                 fontWeight: 600,
                 marginBottom: '32px',
-                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                color: 'var(--text-color)',
                 textAlign: 'center',
               }}
             >
@@ -1372,14 +1370,11 @@ function Contact() {
 
             <div
               style={{
-                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                background: 'var(--paper-color)',
                 borderRadius: '24px',
                 padding: '48px',
                 marginBottom: '32px',
-                boxShadow:
-                  theme?.mode === 'dark'
-                    ? '0px 8px 24px rgba(0, 0, 0, 0.3)'
-                    : '0px 8px 24px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.12)',
                 transition: 'background 0.3s ease',
               }}
             >
@@ -1388,7 +1383,7 @@ function Contact() {
                 style={{
                   fontSize: '1.25rem',
                   lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: 'var(--text-color)',
                   marginBottom: '24px',
                 }}
               >
@@ -1405,7 +1400,7 @@ function Contact() {
                 style={{
                   fontSize: '1.25rem',
                   lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: 'var(--text-color)',
                   marginBottom: '24px',
                 }}
               >
@@ -1422,7 +1417,7 @@ function Contact() {
                 style={{
                   fontSize: '1.25rem',
                   lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: 'var(--text-color)',
                   marginBottom: '24px',
                 }}
               >

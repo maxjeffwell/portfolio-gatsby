@@ -111,16 +111,10 @@ const Typography = styled.div`
   }};
   letter-spacing: ${(props) => (props.variant?.startsWith('h') ? '-0.02em' : '0.01em')};
   color: ${(props) => {
-    if (props.theme?.mode === 'dark') {
-      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
-      if (props.color === 'primary') return props.theme?.colors?.primary || '#90caf9';
-      if (props.color === 'secondary') return props.theme?.colors?.secondary || '#f48fb1';
-      return props.customColor || props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)';
-    }
-    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
-    if (props.color === 'primary') return props.theme?.colors?.primary || '#1976d2';
-    if (props.color === 'secondary') return props.theme?.colors?.secondary || '#dc004e';
-    return props.customColor || props.theme?.colors?.text || 'rgba(0, 0, 0, 0.87)';
+    if (props.color === 'text.secondary') return 'var(--text-secondary-color)';
+    if (props.color === 'primary') return 'var(--primary-color)';
+    if (props.color === 'secondary') return 'var(--secondary-color)';
+    return props.customColor || 'var(--text-color)';
   }};
   margin-bottom: ${(props) => {
     if (props.gutterBottom) return '0.35em';
@@ -148,25 +142,35 @@ const IconButton = styled.button`
   user-select: none;
   vertical-align: middle;
   text-decoration: none;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.54)'};
+  color: var(--icon-color);
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    background-color: var(--hover-bg);
   }
 
   &:focus-visible {
-    outline: 2px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
+  }
+`;
+
+const StyledMain = styled.main`
+  margin: 0;
+  padding: 0;
+  min-height: calc(100vh - 116px);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+
+  @media (max-width: 959px) {
+    min-height: calc(100vh - 64px);
   }
 `;
 
 const StyledFooter = styled.footer`
   margin-top: 0;
   padding: 48px 0;
-  background-color: ${(props) => (props.theme?.mode === 'dark' ? '#0a0a0a' : '#fafafa')};
+  background-color: var(--footer-bg);
   border-top: 3px solid #9c27b0;
 
   @media (max-width: 600px) {
@@ -175,25 +179,34 @@ const StyledFooter = styled.footer`
 `;
 
 const SocialLink = styled(IconButton)`
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
+  color: rgba(0, 0, 0, 0.6) !important;
   padding: 20px;
   background: transparent !important;
   border: none !important;
 
-  /* Ensure icons inherit the color and are visible */
-  svg {
-    color: ${(props) =>
-      props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
-    fill: ${(props) =>
-      props.theme?.mode === 'dark' ? '#ffffff !important' : 'rgba(0, 0, 0, 0.6) !important'};
-    opacity: 1 !important;
+  .dark-mode & {
+    color: #ffffff !important;
   }
 
-  /* Special handling for wellfound icon - W should be same color as "Jeff Maxwell" */
+  svg {
+    color: rgba(0, 0, 0, 0.6) !important;
+    fill: rgba(0, 0, 0, 0.6) !important;
+    opacity: 1 !important;
+
+    .dark-mode & {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
   svg[data-icon='wellfound'] {
-    color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
-    fill: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
+    color: #1a1a1a !important;
+    fill: #1a1a1a !important;
+
+    .dark-mode & {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
 
     path[style*='rgba(252, 13, 33, 1)'] {
       fill: rgba(252, 13, 33, 1) !important;
@@ -210,11 +223,15 @@ const SocialLink = styled(IconButton)`
     }
   }
 
-  /* Special hover handling for wellfound icon - keep W same color as default, keep red dots */
   &[aria-label*='wellfound']:hover {
     svg {
-      color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
-      fill: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a')} !important;
+      color: #1a1a1a !important;
+      fill: #1a1a1a !important;
+
+      .dark-mode & {
+        color: #ffffff !important;
+        fill: #ffffff !important;
+      }
 
       path[style*='rgba(252, 13, 33, 1)'] {
         fill: rgba(252, 13, 33, 1) !important;
@@ -222,14 +239,12 @@ const SocialLink = styled(IconButton)`
     }
   }
 
-
   @media (max-width: 768px) {
     padding: 18px;
   }
 
   @media (max-width: 600px) {
     padding: 16px;
-
   }
 
   @media (max-width: 480px) {
@@ -237,9 +252,40 @@ const SocialLink = styled(IconButton)`
   }
 `;
 
+const FooterEmail = styled.div`
+  a {
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
+    color: #e91e63;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 2px solid #e91e63;
+    background-color: transparent;
+    margin-bottom: 32px;
+
+    .dark-mode & {
+      color: #ff4081;
+      border-color: #ff4081;
+    }
+
+    &:hover {
+      box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+
+      .dark-mode & {
+        box-shadow: 0 8px 25px rgba(255, 64, 129, 0.3);
+      }
+    }
+  }
+`;
+
 // Themed Layout Component
 // Client-side only animated cursor component (desktop only)
-const ClientOnlyAnimatedCursor = ({ theme }) => {
+const ClientOnlyAnimatedCursor = ({ isDarkMode }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [AnimatedCursor, setAnimatedCursor] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -271,7 +317,7 @@ const ClientOnlyAnimatedCursor = ({ theme }) => {
     <AnimatedCursor
       innerSize={8}
       outerSize={35}
-      color={theme?.mode === 'dark' ? '50, 255, 130' : '21, 101, 192'}
+      color={isDarkMode ? '50, 255, 130' : '21, 101, 192'}
       outerAlpha={0.2}
       innerScale={0.7}
       outerScale={5}
@@ -309,31 +355,22 @@ const ClientOnlyAnimatedCursor = ({ theme }) => {
 };
 
 ClientOnlyAnimatedCursor.propTypes = {
-  theme: PropTypes.object,
+  isDarkMode: PropTypes.bool,
 };
 
 function ThemedLayout({ children, _data }) {
-  const { theme } = useTheme();
+  const { isDarkMode } = useTheme();
 
   return (
     <>
-      <GlobalStyles theme={theme} />
+      <GlobalStyles />
       {/* <Analytics /> - Disabled - using gatsby-plugin-google-gtag instead */}
-      <ClientOnlyAnimatedCursor theme={theme} />
+      <ClientOnlyAnimatedCursor isDarkMode={isDarkMode} />
       <Header />
-      <main
-        suppressHydrationWarning
-        style={{
-          margin: 0,
-          padding: 0,
-          minHeight: 'calc(100vh - 116px)',
-          backgroundColor: theme?.colors?.background || 'var(--bg-color)',
-          color: theme?.colors?.text || 'var(--text-color)',
-        }}
-      >
+      <StyledMain>
         {children}
-      </main>
-      <StyledFooter as="footer" theme={theme} role="contentinfo">
+      </StyledMain>
+      <StyledFooter as="footer" role="contentinfo">
         <StyledContainer style={{ textAlign: 'center' }}>
           <Typography
             as="h2"
@@ -342,41 +379,19 @@ function ThemedLayout({ children, _data }) {
               fontSize: 'clamp(1.75rem, 4vw, 2rem)',
               fontWeight: 400,
               marginBottom: '12px',
-              color: theme?.mode === 'dark' ? '#ffffff' : '#1a1a1a',
+              color: 'var(--text-color)',
             }}
           >
             Jeff Maxwell
           </Typography>
-          <ProtectedEmail
-            title="Send email to Jeff Maxwell"
-            style={{
-              fontSize: 'clamp(1.125rem, 3vw, 1.25rem)',
-              color: theme?.mode === 'dark' ? '#ff4081' : '#e91e63',
-              display: 'inline-block',
-              marginBottom: '32px',
-              textDecoration: 'none',
-              fontWeight: 600,
-              letterSpacing: '0.5px',
-              transition: 'box-shadow 0.3s ease',
-              position: 'relative',
-              padding: '8px 16px',
-              borderRadius: '8px',
-              border: `2px solid ${theme?.mode === 'dark' ? '#ff4081' : '#e91e63'}`,
-              backgroundColor: 'transparent',
-            }}
-            aria-label="Send email to jeff@el-jefe.me"
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow =
-                theme?.mode === 'dark'
-                  ? '0 8px 25px rgba(255, 64, 129, 0.3)'
-                  : '0 8px 25px rgba(233, 30, 99, 0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-          >
-            jeff@el-jefe.me
-          </ProtectedEmail>
+          <FooterEmail>
+            <ProtectedEmail
+              title="Send email to Jeff Maxwell"
+              aria-label="Send email to jeff@el-jefe.me"
+            >
+              jeff@el-jefe.me
+            </ProtectedEmail>
+          </FooterEmail>
           <StyledBox
             as="nav"
             aria-label="Social media links"
@@ -393,7 +408,6 @@ function ThemedLayout({ children, _data }) {
               title="Visit Jeff Maxwell's GitHub profile - View projects and code repositories"
               aria-label="Visit Jeff Maxwell's GitHub profile"
               size="large"
-              theme={theme}
             >
               <ClientOnlyIcon iconName="GitHub" fontSize="clamp(2.5rem, 5vw, 3rem)" />
             </SocialLink>
@@ -405,7 +419,6 @@ function ThemedLayout({ children, _data }) {
               title="Visit Jeff Maxwell's Wellfound profile - Startup and tech career opportunities"
               aria-label="Visit Jeff Maxwell's wellfound profile"
               size="large"
-              theme={theme}
             >
               <ClientOnlyIcon iconName="wellfound" fontSize="clamp(2.5rem, 5vw, 3rem)" />
             </SocialLink>
@@ -415,7 +428,6 @@ function ThemedLayout({ children, _data }) {
               title="Call Jeff Maxwell at 508-395-2008 - Direct phone contact"
               aria-label="Call Jeff Maxwell at 508-395-2008"
               size="large"
-              theme={theme}
             >
               <ClientOnlyIcon
                 iconName="Phone"
@@ -434,11 +446,10 @@ function ThemedLayout({ children, _data }) {
             <Typography
               as="div"
               variant="body2"
-              theme={theme}
               style={{
                 fontSize: 'clamp(1.125rem, 2.8vw, 1.25rem)',
                 fontWeight: 400,
-                color: theme?.mode === 'dark' ? '#ffffff !important' : '#666 !important',
+                color: 'var(--text-secondary-color)',
                 textAlign: 'center',
                 marginBottom: '8px',
                 display: 'flex',
@@ -455,7 +466,7 @@ function ThemedLayout({ children, _data }) {
                 fontSize="84px"
                 style={{
                   flexShrink: 0,
-                  color: theme?.mode === 'dark' ? '#ffffff' : 'rgba(0, 0, 0, 0.6)',
+                  color: 'var(--icon-color)',
                 }}
               />
             </Typography>

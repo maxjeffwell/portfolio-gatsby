@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -18,8 +17,6 @@ import {
 } from '../components/home';
 
 const IndexPage = () => {
-  const { theme } = useTheme();
-
   return (
     <Layout>
       <PageTransition>
@@ -41,23 +38,23 @@ const IndexPage = () => {
         />
 
         {/* Hero Section */}
-        <HeroSection theme={theme} />
+        <HeroSection />
 
         {/* Content Section - Developer & Code Philosophy */}
         <ContentSection id="about-developer">
           <Container>
             <TwoColumnGrid>
-              <DeveloperCard theme={theme} />
-              <CodePhilosophyCard theme={theme} />
+              <DeveloperCard />
+              <CodePhilosophyCard />
             </TwoColumnGrid>
           </Container>
         </ContentSection>
 
         {/* Technologies & Expertise Section */}
-        <TechnologiesSection theme={theme} />
+        <TechnologiesSection />
 
         {/* Social Sharing Section */}
-        <SocialShareSection theme={theme} />
+        <SocialShareSection />
       </PageTransition>
     </Layout>
   );

@@ -17,18 +17,19 @@ const FeedContainer = styled.div`
 `;
 
 const EventCard = styled.div`
-  background: ${(p) =>
-    p.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%)'
-      : 'linear-gradient(135deg, #ffffff 0%, #f5f7ff 100%)'};
-  border: 1px solid ${(p) => (p.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
+  background: linear-gradient(135deg, #ffffff 0%, #f5f7ff 100%);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
   padding: 14px 18px;
   animation: ${slideIn} 0.3s ease;
   transition: border-color 0.2s ease;
 
+  .dark-mode & {
+    background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%);
+  }
+
   &:hover {
-    border-color: ${(p) => (p.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    border-color: var(--primary-color);
   }
 `;
 
@@ -42,14 +43,14 @@ const EventHeader = styled.div`
 const EventEndpoint = styled.span`
   font-weight: 700;
   font-size: 13px;
-  color: ${(p) => (p.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+  color: var(--primary-color);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 `;
 
 const EventTime = styled.span`
   font-size: 12px;
-  color: ${(p) => (p.theme?.mode === 'dark' ? '#808080' : '#999')};
+  color: var(--text-muted-color);
 `;
 
 const BadgeRow = styled.div`
@@ -73,7 +74,7 @@ const Badge = styled.span`
 const EmptyText = styled.div`
   text-align: center;
   padding: 32px 0;
-  color: ${(p) => (p.theme?.mode === 'dark' ? '#808080' : '#999')};
+  color: var(--text-muted-color);
   font-size: 15px;
 `;
 
@@ -96,7 +97,7 @@ function timeAgo(ts) {
   return `${Math.floor(m / 60)}h ago`;
 }
 
-export default function AIEventFeed({ theme }) {
+export default function AIEventFeed() {
   const [events, setEvents] = useState([]);
 
   const { data: recentData } = useQuery(RECENT_AI_EVENTS_QUERY);
@@ -115,14 +116,14 @@ export default function AIEventFeed({ theme }) {
   }, [subData]);
 
   return events.length === 0 ? (
-    <EmptyText theme={theme}>Waiting for AI events...</EmptyText>
+    <EmptyText>Waiting for AI events...</EmptyText>
   ) : (
     <FeedContainer>
       {events.map((ev) => (
-        <EventCard key={ev.eventId} theme={theme}>
+        <EventCard key={ev.eventId}>
           <EventHeader>
-            <EventEndpoint theme={theme}>{ev.endpoint}</EventEndpoint>
-            <EventTime theme={theme}>{timeAgo(ev.timestamp)}</EventTime>
+            <EventEndpoint>{ev.endpoint}</EventEndpoint>
+            <EventTime>{timeAgo(ev.timestamp)}</EventTime>
           </EventHeader>
           <BadgeRow>
             <Badge bg={appColors[ev.app] || '#666'}>{ev.app}</Badge>
@@ -131,7 +132,7 @@ export default function AIEventFeed({ theme }) {
             <Badge bg="#777">{Math.round(ev.latencyMs)}ms</Badge>
             {ev.fromCache && <Badge bg="#d4a017">cached</Badge>}
             {ev.model && (
-              <Badge bg={theme?.mode === 'dark' ? '#333' : '#bbb'}>
+              <Badge bg="#888">
                 {ev.model.length > 25
                   ? ev.model.substring(0, 25) + '...'
                   : ev.model}

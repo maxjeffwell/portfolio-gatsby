@@ -19,8 +19,7 @@ export default function HTML(props) {
         <title>Jeff Maxwell Developer Portfolio</title>
         {/* Critical CSS inlined for faster mobile loading */}
         <style>{`
-          html{font-display:swap}
-          body{font-display:swap;font-family:system-ui,-apple-system,sans-serif}
+          body{font-family:system-ui,-apple-system,sans-serif}
           *{box-sizing:border-box}
           .gatsby-image-wrapper{max-width:100%;height:auto}
           [data-gatsby-image-wrapper]{max-width:100%}

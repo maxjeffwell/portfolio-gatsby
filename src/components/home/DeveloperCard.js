@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import ClientOnlyIcon from '../ClientOnlyIcon';
 import { Card, CardTitle, CardText, CardLink } from './styles';
 
-const DeveloperCard = ({ theme }) => {
+const DeveloperCard = () => {
   return (
-    <Card theme={theme} as="article">
-      <CardTitle theme={theme} as="h2">
+    <Card as="article">
+      <CardTitle as="h2">
         <ClientOnlyIcon
           iconName="Paws"
           fontSize="140px"
@@ -15,7 +14,7 @@ const DeveloperCard = ({ theme }) => {
         />{' '}
         Full Stack Developer Beyond the Code
       </CardTitle>
-      <CardText theme={theme}>
+      <CardText>
         When I&#39;m not crafting pixel-perfect interfaces or debugging complex algorithms,
         you&#39;ll find me negotiating dinner arrangements with my demanding project managers —
         they&#39;re surprisingly good at code reviews! My approach to development extends beyond
@@ -33,7 +32,7 @@ const DeveloperCard = ({ theme }) => {
           to="/projects/"
           title="Explore my portfolio of full stack development projects"
           style={{
-            color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+            color: 'var(--primary-color)',
             fontWeight: 'bold',
             textDecoration: 'underline',
           }}
@@ -50,7 +49,7 @@ const DeveloperCard = ({ theme }) => {
           to="/contact/"
           title="Contact Jeff Maxwell for your next development project"
           style={{
-            color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63',
+            color: 'var(--accent-pink)',
             fontWeight: 'bold',
             textDecoration: 'underline',
           }}
@@ -62,7 +61,7 @@ const DeveloperCard = ({ theme }) => {
           to="/about/"
           title="Learn more about Jeff's development philosophy and approach"
           style={{
-            color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63',
+            color: 'var(--accent-pink)',
             fontWeight: 'bold',
             textDecoration: 'underline',
           }}
@@ -76,17 +75,6 @@ const DeveloperCard = ({ theme }) => {
       </CardLink>
     </Card>
   );
-};
-
-DeveloperCard.propTypes = {
-  theme: PropTypes.shape({
-    mode: PropTypes.string,
-    colors: PropTypes.object,
-  }),
-};
-
-DeveloperCard.defaultProps = {
-  theme: null,
 };
 
 export default DeveloperCard;

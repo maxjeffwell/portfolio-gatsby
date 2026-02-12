@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useQuery, useSubscription } from '@apollo/client/react';
-import { useTheme } from '../context/ThemeContext';
 import {
   CLUSTER_METRICS_QUERY,
   CLUSTER_METRICS_SUBSCRIPTION,
@@ -31,10 +30,7 @@ const Container = styled.div`
 `;
 
 const PageTitle = styled.h1`
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
-      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -43,19 +39,25 @@ const PageTitle = styled.h1`
   line-height: 1.2;
   text-align: center;
   margin-bottom: 8px;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
 `;
 
 const PageSubtitle = styled.p`
   text-align: center;
   font-size: clamp(1rem, 2.5vw, 1.125rem);
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#e0e0e0' : 'rgba(0,0,0,0.6)')};
+  color: var(--text-secondary-color);
   margin-bottom: 48px;
 `;
 
 const SectionTitle = styled.h2`
   font-size: clamp(1.5rem, 3.5vw, 2rem);
   font-weight: 700;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#333')};
+  color: var(--text-color);
   margin-bottom: 20px;
   letter-spacing: -0.5px;
 `;
@@ -68,22 +70,24 @@ const StatsGrid = styled.div`
 `;
 
 const StatCard = styled.div`
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%)'
-      : 'linear-gradient(135deg, #ffffff 0%, #f5f7ff 100%)'};
-  border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
+  background: linear-gradient(135deg, #ffffff 0%, #f5f7ff 100%);
+  border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 28px;
   transition: all 0.3s ease;
 
+  .dark-mode & {
+    background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%);
+  }
+
   &:hover {
-    border-color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    border-color: var(--primary-color);
     transform: translateY(-4px);
-    box-shadow: ${(props) =>
-      props.theme?.mode === 'dark'
-        ? '0 8px 32px rgba(144,202,249,0.15)'
-        : '0 8px 32px rgba(25,118,210,0.12)'};
+    box-shadow: 0 8px 32px rgba(25,118,210,0.12);
+
+    .dark-mode & {
+      box-shadow: 0 8px 32px rgba(144,202,249,0.15);
+    }
   }
 `;
 
@@ -91,7 +95,7 @@ const StatLabel = styled.div`
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+  color: var(--primary-color);
   margin-bottom: 10px;
   font-weight: 600;
 `;
@@ -99,20 +103,20 @@ const StatLabel = styled.div`
 const StatValue = styled.div`
   font-size: clamp(36px, 5vw, 48px);
   font-weight: 800;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#212121')};
+  color: var(--text-color);
   line-height: 1;
 `;
 
 const StatUnit = styled.span`
   font-size: 16px;
   font-weight: 500;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#b0b0b0' : '#666')};
+  color: var(--text-secondary-color);
   margin-left: 4px;
 `;
 
 const UsageBarTrack = styled.div`
   height: 8px;
-  background: ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
+  background: var(--usage-bar-track);
   border-radius: 4px;
   overflow: hidden;
   margin-top: 14px;
@@ -129,7 +133,7 @@ const UsageBarFill = styled.div`
 
 const UsageDetail = styled.div`
   font-size: 14px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#a0a0a0' : '#666')};
+  color: var(--text-secondary-color);
   margin-top: 8px;
   font-weight: 500;
 `;
@@ -145,19 +149,20 @@ const AppRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${(props) => (props.theme?.mode === 'dark' ? '#1a1a1a' : '#ffffff')};
-  border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
+  background: var(--paper-color);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
   padding: 18px 22px;
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    border-color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: ${(props) =>
-      props.theme?.mode === 'dark'
-        ? '0 4px 20px rgba(144,202,249,0.1)'
-        : '0 4px 20px rgba(25,118,210,0.08)'};
+    box-shadow: 0 4px 20px rgba(25,118,210,0.08);
+
+    .dark-mode & {
+      box-shadow: 0 4px 20px rgba(144,202,249,0.1);
+    }
   }
 
   @media (max-width: 600px) {
@@ -170,7 +175,7 @@ const AppRow = styled.div`
 const AppName = styled.span`
   font-size: 16px;
   font-weight: 700;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#e0e0e0' : '#212121')};
+  color: var(--text-color);
 `;
 
 const BadgeGroup = styled.div`
@@ -205,14 +210,14 @@ const DeploymentItem = styled.div`
   display: flex;
   align-items: center;
   gap: 14px;
-  background: ${(props) => (props.theme?.mode === 'dark' ? '#1a1a1a' : '#ffffff')};
-  border: 1px solid ${(props) => (props.theme?.mode === 'dark' ? '#333' : '#e0e0e0')};
+  background: var(--paper-color);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
   padding: 16px 20px;
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    border-color: var(--primary-color);
     transform: translateX(4px);
   }
 `;
@@ -234,7 +239,7 @@ const DeploymentInfo = styled.div`
 const DeploymentName = styled.div`
   font-size: 15px;
   font-weight: 700;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#e0e0e0' : '#212121')};
+  color: var(--text-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -242,50 +247,64 @@ const DeploymentName = styled.div`
 
 const DeploymentMeta = styled.div`
   font-size: 13px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#808080' : '#999')};
+  color: var(--text-muted-color);
   display: flex;
   gap: 10px;
   margin-top: 4px;
 `;
 
 const DeploymentRepo = styled.span`
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
+  color: var(--accent-purple);
   font-weight: 500;
 `;
 
 const ViewLink = styled.a`
   font-size: 13px;
   font-weight: 600;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+  color: var(--primary-color);
   text-decoration: none;
   flex-shrink: 0;
   padding: 4px 10px;
   border-radius: 6px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(144,202,249,0.08)' : 'rgba(25,118,210,0.06)'};
+  background: var(--hover-bg);
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(144,202,249,0.16)' : 'rgba(25,118,210,0.12)'};
+    background: rgba(25,118,210,0.12);
+
+    .dark-mode & {
+      background: rgba(144,202,249,0.16);
+    }
+  }
+`;
+
+const DashboardSection = styled.div`
+  min-height: 550px;
+
+  @media (min-width: 600px) {
+    min-height: 200px;
   }
 `;
 
 const LoadingText = styled.div`
   text-align: center;
   padding: 48px 0;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#808080' : '#999')};
+  color: var(--text-muted-color);
   font-size: 16px;
 `;
 
 const ErrorText = styled.div`
   text-align: center;
   padding: 24px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#f48fb1' : '#d32f2f')};
+  color: #d32f2f;
   font-size: 15px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(244,143,177,0.08)' : 'rgba(211,47,47,0.05)'};
+  background: rgba(211,47,47,0.05);
   border-radius: 12px;
+
+  .dark-mode & {
+    color: #f48fb1;
+    background: rgba(244,143,177,0.08);
+  }
 `;
 
 const pulse = keyframes`
@@ -349,7 +368,7 @@ const conclusionColors = {
 
 // ── Client-only Dashboard (all data via GraphQL subscriptions) ──
 
-const ClusterDashboard = ({ theme }) => {
+const ClusterDashboard = () => {
   // Cluster metrics: subscription (30s) with query fallback
   const { data: subMetrics } = useSubscription(CLUSTER_METRICS_SUBSCRIPTION);
   const { data: queryMetrics, loading: metricsLoading, error: metricsError } =
@@ -391,77 +410,79 @@ const ClusterDashboard = ({ theme }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        <SectionTitle theme={theme}>Cluster Resources</SectionTitle>
-        {metricsError && !metrics ? (
-          <ErrorText theme={theme}>{metricsError.message}</ErrorText>
-        ) : metricsLoading && !cluster ? (
-          <LoadingText theme={theme}>Loading cluster metrics...</LoadingText>
-        ) : hasCluster ? (
-          <StatsGrid>
-            <StatCard theme={theme}>
-              <StatLabel theme={theme}>Nodes</StatLabel>
-              <StatValue theme={theme}>{cluster.totalNodes}</StatValue>
-            </StatCard>
-            <StatCard theme={theme}>
-              <StatLabel theme={theme}>Pods</StatLabel>
-              <StatValue theme={theme}>{cluster.totalPods}</StatValue>
-            </StatCard>
-            <StatCard theme={theme}>
-              <StatLabel theme={theme}>CPU Usage</StatLabel>
-              <StatValue theme={theme}>
-                {parseFloat(cluster.cpuUsage).toFixed(1)}
-                <StatUnit theme={theme}>cores</StatUnit>
-              </StatValue>
-              {(() => {
-                const pct = cluster.totalCpuCores
-                  ? Math.min(
-                      (parseFloat(cluster.cpuUsage) / cluster.totalCpuCores) * 100,
-                      100
-                    )
-                  : 0;
-                return (
-                  <>
-                    <UsageBarTrack theme={theme}>
-                      <UsageBarFill
-                        color={theme?.mode === 'dark' ? '#90caf9' : '#1976d2'}
-                        percent={pct}
-                      />
-                    </UsageBarTrack>
-                    <UsageDetail theme={theme}>{pct.toFixed(0)}% of capacity</UsageDetail>
-                  </>
-                );
-              })()}
-            </StatCard>
-            <StatCard theme={theme}>
-              <StatLabel theme={theme}>Memory Usage</StatLabel>
-              <StatValue theme={theme}>
-                {formatBytes(cluster.memoryUsage)}
-                <StatUnit theme={theme}>GB</StatUnit>
-              </StatValue>
-              {(() => {
-                const pct = cluster.totalMemoryBytes
-                  ? Math.min(
-                      (cluster.memoryUsage / cluster.totalMemoryBytes) * 100,
-                      100
-                    )
-                  : 0;
-                return (
-                  <>
-                    <UsageBarTrack theme={theme}>
-                      <UsageBarFill
-                        color={theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0'}
-                        percent={pct}
-                      />
-                    </UsageBarTrack>
-                    <UsageDetail theme={theme}>{pct.toFixed(0)}% of capacity</UsageDetail>
-                  </>
-                );
-              })()}
-            </StatCard>
-          </StatsGrid>
-        ) : (
-          <LoadingText theme={theme}>No cluster metrics available</LoadingText>
-        )}
+        <DashboardSection>
+          <SectionTitle>Cluster Resources</SectionTitle>
+          {metricsError && !metrics ? (
+            <ErrorText>{metricsError.message}</ErrorText>
+          ) : metricsLoading && !cluster ? (
+            <LoadingText>Loading cluster metrics...</LoadingText>
+          ) : hasCluster ? (
+            <StatsGrid>
+              <StatCard>
+                <StatLabel>Nodes</StatLabel>
+                <StatValue>{cluster.totalNodes}</StatValue>
+              </StatCard>
+              <StatCard>
+                <StatLabel>Pods</StatLabel>
+                <StatValue>{cluster.totalPods}</StatValue>
+              </StatCard>
+              <StatCard>
+                <StatLabel>CPU Usage</StatLabel>
+                <StatValue>
+                  {parseFloat(cluster.cpuUsage).toFixed(1)}
+                  <StatUnit>cores</StatUnit>
+                </StatValue>
+                {(() => {
+                  const pct = cluster.totalCpuCores
+                    ? Math.min(
+                        (parseFloat(cluster.cpuUsage) / cluster.totalCpuCores) * 100,
+                        100
+                      )
+                    : 0;
+                  return (
+                    <>
+                      <UsageBarTrack>
+                        <UsageBarFill
+                          color="var(--primary-color)"
+                          percent={pct}
+                        />
+                      </UsageBarTrack>
+                      <UsageDetail>{pct.toFixed(0)}% of capacity</UsageDetail>
+                    </>
+                  );
+                })()}
+              </StatCard>
+              <StatCard>
+                <StatLabel>Memory Usage</StatLabel>
+                <StatValue>
+                  {formatBytes(cluster.memoryUsage)}
+                  <StatUnit>GB</StatUnit>
+                </StatValue>
+                {(() => {
+                  const pct = cluster.totalMemoryBytes
+                    ? Math.min(
+                        (cluster.memoryUsage / cluster.totalMemoryBytes) * 100,
+                        100
+                      )
+                    : 0;
+                  return (
+                    <>
+                      <UsageBarTrack>
+                        <UsageBarFill
+                          color="var(--accent-purple)"
+                          percent={pct}
+                        />
+                      </UsageBarTrack>
+                      <UsageDetail>{pct.toFixed(0)}% of capacity</UsageDetail>
+                    </>
+                  );
+                })()}
+              </StatCard>
+            </StatsGrid>
+          ) : (
+            <LoadingText>No cluster metrics available</LoadingText>
+          )}
+        </DashboardSection>
       </MotionWrapper>
 
       {/* Application Status */}
@@ -470,30 +491,32 @@ const ClusterDashboard = ({ theme }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.5 }}
       >
-        <SectionTitle theme={theme}>Application Status</SectionTitle>
-        {appsError && !hasApps ? (
-          <ErrorText theme={theme}>{appsError.message}</ErrorText>
-        ) : appsLoading && !hasApps ? (
-          <LoadingText theme={theme}>Loading application status...</LoadingText>
-        ) : hasApps ? (
-          <AppGrid>
-            {apps.map((app) => (
-              <AppRow key={app.name} theme={theme}>
-                <AppName theme={theme}>{app.name}</AppName>
-                <BadgeGroup>
-                  <Badge bg={healthColors[app.healthStatus] || '#9f7aea'}>
-                    {app.healthStatus}
-                  </Badge>
-                  <Badge bg={syncColors[app.syncStatus] || '#9f7aea'}>
-                    {app.syncStatus}
-                  </Badge>
-                </BadgeGroup>
-              </AppRow>
-            ))}
-          </AppGrid>
-        ) : (
-          <LoadingText theme={theme}>No applications found</LoadingText>
-        )}
+        <DashboardSection>
+          <SectionTitle>Application Status</SectionTitle>
+          {appsError && !hasApps ? (
+            <ErrorText>{appsError.message}</ErrorText>
+          ) : appsLoading && !hasApps ? (
+            <LoadingText>Loading application status...</LoadingText>
+          ) : hasApps ? (
+            <AppGrid>
+              {apps.map((app) => (
+                <AppRow key={app.name}>
+                  <AppName>{app.name}</AppName>
+                  <BadgeGroup>
+                    <Badge bg={healthColors[app.healthStatus] || '#9f7aea'}>
+                      {app.healthStatus}
+                    </Badge>
+                    <Badge bg={syncColors[app.syncStatus] || '#9f7aea'}>
+                      {app.syncStatus}
+                    </Badge>
+                  </BadgeGroup>
+                </AppRow>
+              ))}
+            </AppGrid>
+          ) : (
+            <LoadingText>No applications found</LoadingText>
+          )}
+        </DashboardSection>
       </MotionWrapper>
 
       {/* Recent Deployments */}
@@ -502,39 +525,40 @@ const ClusterDashboard = ({ theme }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.5 }}
       >
-        <SectionTitle theme={theme}>Recent Deployments</SectionTitle>
-        {runsError && !hasDeployments ? (
-          <ErrorText theme={theme}>{runsError.message}</ErrorText>
-        ) : runsLoading && !hasDeployments ? (
-          <LoadingText theme={theme}>Loading recent deployments...</LoadingText>
-        ) : hasDeployments ? (
-          <DeploymentList>
-            {deployments.map((run) => (
-              <DeploymentItem key={run.runId} theme={theme}>
-                <Indicator color={conclusionColors[run.conclusion] || '#fbbf24'} />
-                <DeploymentInfo>
-                  <DeploymentName theme={theme}>{run.name}</DeploymentName>
-                  <DeploymentMeta theme={theme}>
-                    <DeploymentRepo theme={theme}>{run.repoDisplayName}</DeploymentRepo>
-                    <span>{timeAgo(run.createdAt)}</span>
-                  </DeploymentMeta>
-                </DeploymentInfo>
-                {run.htmlUrl && (
-                  <ViewLink
-                    theme={theme}
-                    href={run.htmlUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View
-                  </ViewLink>
-                )}
-              </DeploymentItem>
-            ))}
-          </DeploymentList>
-        ) : (
-          <LoadingText theme={theme}>No recent deployments</LoadingText>
-        )}
+        <DashboardSection>
+          <SectionTitle>Recent Deployments</SectionTitle>
+          {runsError && !hasDeployments ? (
+            <ErrorText>{runsError.message}</ErrorText>
+          ) : runsLoading && !hasDeployments ? (
+            <LoadingText>Loading recent deployments...</LoadingText>
+          ) : hasDeployments ? (
+            <DeploymentList>
+              {deployments.map((run) => (
+                <DeploymentItem key={run.runId}>
+                  <Indicator color={conclusionColors[run.conclusion] || '#fbbf24'} />
+                  <DeploymentInfo>
+                    <DeploymentName>{run.name}</DeploymentName>
+                    <DeploymentMeta>
+                      <DeploymentRepo>{run.repoDisplayName}</DeploymentRepo>
+                      <span>{timeAgo(run.createdAt)}</span>
+                    </DeploymentMeta>
+                  </DeploymentInfo>
+                  {run.htmlUrl && (
+                    <ViewLink
+                      href={run.htmlUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View
+                    </ViewLink>
+                  )}
+                </DeploymentItem>
+              ))}
+            </DeploymentList>
+          ) : (
+            <LoadingText>No recent deployments</LoadingText>
+          )}
+        </DashboardSection>
       </MotionWrapper>
 
       {/* AI Gateway Activity */}
@@ -543,8 +567,8 @@ const ClusterDashboard = ({ theme }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <SectionTitle theme={theme}>AI Gateway Activity</SectionTitle>
-        <AIEventFeed theme={theme} />
+        <SectionTitle>AI Gateway Activity</SectionTitle>
+        <AIEventFeed />
       </MotionWrapper>
     </>
   );
@@ -552,15 +576,7 @@ const ClusterDashboard = ({ theme }) => {
 
 // ── Page Component (SSR-safe) ───────────────────────────────────
 
-const ClusterPage = () => {
-  const { theme } = useTheme();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  return (
+const ClusterPage = () => (
     <Layout>
       <PageTransition>
         <SEO
@@ -575,28 +591,21 @@ const ClusterPage = () => {
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-              <PageTitle theme={theme}>K8s Cluster</PageTitle>
-              <PageSubtitle theme={theme}>
+              <PageTitle>K8s Cluster</PageTitle>
+              <PageSubtitle>
                 Live status of the Kubernetes cluster powering the portfolio applications
               </PageSubtitle>
-              {isClient && (
-                <LiveBadge>
-                  <LiveDot /> Live
-                </LiveBadge>
-              )}
+              <LiveBadge>
+                <LiveDot /> Live
+              </LiveBadge>
             </div>
           </MotionWrapper>
 
-          {isClient ? (
-            <ClusterDashboard theme={theme} />
-          ) : (
-            <LoadingText theme={theme}>Loading cluster dashboard...</LoadingText>
-          )}
+          <ClusterDashboard />
         </Container>
         <div style={{ height: '80px' }} />
       </PageTransition>
     </Layout>
-  );
-};
+);
 
 export default ClusterPage;

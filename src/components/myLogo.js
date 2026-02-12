@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
-import { useTheme } from '../context/ThemeContext';
 
 const StyledLogoContainer = styled.div`
   width: 60px;
@@ -26,8 +25,6 @@ const StyledLogoContainer = styled.div`
 `;
 
 function MyLogo() {
-  const { theme } = useTheme();
-
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -42,20 +39,19 @@ function MyLogo() {
   `);
 
   return (
-    <StyledLogoContainer theme={theme}>
+    <StyledLogoContainer>
       <img
         src={data.file.publicURL}
         alt="Jeff Maxwell portfolio elephant logo"
         width="60"
         height="60"
         loading="eager"
+        fetchpriority="high"
         role="img"
         aria-label="Jeff Maxwell portfolio elephant logo"
         style={{
           objectFit: 'contain',
           display: 'block',
-          width: '100%',
-          height: '100%',
           transform: 'translateY(4px)',
         }}
       />

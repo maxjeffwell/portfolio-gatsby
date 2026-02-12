@@ -1,59 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  in: {
-    opacity: 1,
-    y: 0,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-  },
-};
-
-const pageTransition = {
-  type: 'tween',
-  ease: [0.25, 0.46, 0.45, 0.94], // Custom cubic-bezier
-  duration: 0.4,
-};
+// Module-level state persists across component mounts within the same client session.
+// This lets us distinguish the initial hydration mount from subsequent client-side
+// route transitions without triggering React re-renders.
+let animateFn = null;
+let isHydrationMount = true;
 
 function PageTransition({ children, className }) {
-  const [isClient, setIsClient] = useState(false);
-  const [MotionDiv, setMotionDiv] = useState(null);
+  const ref = useRef(null);
 
   useEffect(() => {
-    setIsClient(true);
-    // Dynamically import motion to avoid SSR issues
-    import('motion/react').then(({ motion }) => {
-      setMotionDiv(() => motion.div);
-    });
-    
-    // Scroll to top when component mounts (page transition starts)
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isHydrationMount) {
+      // Initial page load: content is already visible from SSR, skip animation.
+      // Preload the motion library so it's ready for client-side navigations.
+      isHydrationMount = false;
+      import('motion').then(({ animate }) => {
+        animateFn = animate;
+      });
+      return;
+    }
+
+    // Client-side route transition: animate content in
+    if (animateFn && ref.current) {
+      animateFn(
+        ref.current,
+        { opacity: [0, 1], y: [20, 0] },
+        { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
+      );
     }
   }, []);
 
-  // Return static div during SSR or while loading motion
-  if (!isClient || !MotionDiv) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
-    <MotionDiv
-      className={className}
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </MotionDiv>
+    </div>
   );
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
-import { useTheme } from '../context/ThemeContext';
 import ClientOnlyIcon from '../components/ClientOnlyIcon';
 import ClientOnlyButton from '../components/ClientOnlyButton';
 
@@ -10,11 +9,12 @@ import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
 
 const ErrorSection = styled.section`
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)'
-      : 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'};
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: calc(100vh - 160px);
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  }
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,26 +45,29 @@ const ErrorCode = styled.div`
   font-weight: 800;
   line-height: 0.8;
   margin-bottom: 2rem;
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
-      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: background 0.3s ease;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
 `;
 
 const Title = styled.h1`
   font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#ffffff' : '#333')};
+  color: var(--text-color);
 `;
 
 const Description = styled.p`
   font-size: 1.25rem;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666')};
+  color: var(--text-secondary-color);
   margin-bottom: 3rem;
   line-height: 1.6;
   max-width: 600px;
@@ -108,8 +111,8 @@ const HomeButton = styled(ClientOnlyButton)`
 const NavButton = styled(ClientOnlyButton)`
   && {
     background: transparent !important;
-    color: ${(props) => props.theme?.colors?.primary || '#1565c0'} !important;
-    border: 2px solid ${(props) => props.theme?.colors?.primary || '#1565c0'} !important;
+    color: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
     border-radius: 50px !important;
     padding: 14px 28px !important;
     font-size: 1rem !important;
@@ -118,7 +121,7 @@ const NavButton = styled(ClientOnlyButton)`
     transition: all 0.3s ease !important;
 
     &:hover {
-      background: ${(props) => props.theme?.colors?.primary || '#1565c0'} !important;
+      background: var(--primary-color) !important;
       color: white !important;
       transform: translateY(-2px) !important;
     }
@@ -146,13 +149,16 @@ const QuoteBox = styled.div`
   margin: 2rem auto;
   padding: 1.5rem 2rem;
   max-width: 500px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.05)'};
-  border-left: 4px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
+  background: rgba(25, 118, 210, 0.05);
+  border-left: 4px solid var(--primary-color);
   border-radius: 8px;
   font-size: 1.125rem;
   line-height: 1.6;
-  color: ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : '#555')};
+  color: var(--text-secondary-color);
+
+  .dark-mode & {
+    background: rgba(144, 202, 249, 0.1);
+  }
   transition:
     background 0.3s ease,
     color 0.3s ease,
@@ -161,8 +167,6 @@ const QuoteBox = styled.div`
 `;
 
 function NotFoundPage() {
-  const { theme } = useTheme();
-
   return (
     <Layout>
       <PageTransition>
@@ -170,17 +174,17 @@ function NotFoundPage() {
           title="404: Page Not Found"
           description="Page not found. Navigate back to explore Jeff Maxwell's full stack development portfolio and featured React & Node.js projects in Orlando, Florida."
         />
-        <ErrorSection theme={theme}>
+        <ErrorSection>
           <Container>
             <ErrorContainer>
-              <ErrorCode theme={theme}>404</ErrorCode>
-              <Title theme={theme}>Oops! Page Not Found</Title>
-              <Description theme={theme}>
+              <ErrorCode>404</ErrorCode>
+              <Title>Oops! Page Not Found</Title>
+              <Description>
                 The page you&apos;re looking for seems to have wandered off into the digital void.
                 Don&apos;t worry though — let&apos;s get you back on track!
               </Description>
 
-              <QuoteBox theme={theme}>
+              <QuoteBox>
                 &#34;The best error messages are the ones that help you fix the problem.&#34; — Here are
                 some helpful options to continue exploring.
               </QuoteBox>
@@ -198,7 +202,6 @@ function NotFoundPage() {
                   component={Link}
                   to="/projects/"
                   title="Browse my development projects and portfolio"
-                  theme={theme}
                 >
                   View Projects
                 </NavButton>
@@ -207,7 +210,6 @@ function NotFoundPage() {
                   component={Link}
                   to="/about/"
                   title="Learn more about Jeff and his development approach"
-                  theme={theme}
                 >
                   About Me
                 </NavButton>

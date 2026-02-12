@@ -1,19 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import ClientOnlyIcon from '../ClientOnlyIcon';
 import { Container, ContentSection, TwoColumnGrid, Card, CardTitle, CardText } from './styles';
 
-const TechnologiesSection = ({ theme }) => {
+const TechnologiesSection = () => {
   return (
-    <ContentSection theme={theme} as="section" aria-labelledby="technologies-heading" id="technologies">
+    <ContentSection as="section" aria-labelledby="technologies-heading" id="technologies">
       <Container>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <h3
             style={{
               fontSize: 'clamp(1.5rem, 4vw, 2rem)',
               fontWeight: 600,
-              color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+              color: 'var(--text-color)',
               margin: '0 0 16px 0',
             }}
           >
@@ -22,7 +21,7 @@ const TechnologiesSection = ({ theme }) => {
           <p
             style={{
               fontSize: '1.25rem',
-              color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#666',
+              color: 'var(--text-secondary-color)',
               margin: '0 0 32px 0',
               textAlign: 'center',
             }}
@@ -32,7 +31,7 @@ const TechnologiesSection = ({ theme }) => {
               to="/contact/"
               title="Contact Jeff Maxwell to discuss your next project"
               style={{
-                color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                color: 'var(--primary-color)',
                 fontWeight: 'bold',
                 textDecoration: 'underline',
               }}
@@ -44,7 +43,7 @@ const TechnologiesSection = ({ theme }) => {
               to="/about/"
               title="Learn more about Jeff's development experience"
               style={{
-                color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                color: 'var(--primary-color)',
                 fontWeight: 'bold',
                 textDecoration: 'underline',
               }}
@@ -56,8 +55,8 @@ const TechnologiesSection = ({ theme }) => {
         </div>
         <TwoColumnGrid>
           {/* Frontend Technologies */}
-          <Card theme={theme} as="article">
-            <CardTitle theme={theme} as="h2" id="technologies-heading">
+          <Card as="article">
+            <CardTitle as="h2" id="technologies-heading">
               <ClientOnlyIcon
                 iconName="React"
                 fontSize="110px"
@@ -65,7 +64,7 @@ const TechnologiesSection = ({ theme }) => {
               />{' '}
               JavaScript Developer Frontend Technologies
             </CardTitle>
-            <CardText theme={theme}>
+            <CardText>
               My frontend expertise encompasses the latest React ecosystem, including React 18 with
               Concurrent Features, Server Components, and Suspense for optimal performance. I
               leverage modern state management solutions like Zustand, Redux Toolkit, and React
@@ -74,7 +73,7 @@ const TechnologiesSection = ({ theme }) => {
                 to="/about/"
                 title="Learn about my technical background and expertise"
                 style={{
-                  color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                  color: 'var(--primary-color)',
                   fontWeight: 'bold',
                   textDecoration: 'underline',
                 }}
@@ -94,7 +93,7 @@ const TechnologiesSection = ({ theme }) => {
                 to="/projects/"
                 title="Browse my React and frontend development projects"
                 style={{
-                  color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                  color: 'var(--primary-color)',
                   fontWeight: 'bold',
                   textDecoration: 'underline',
                 }}
@@ -106,8 +105,8 @@ const TechnologiesSection = ({ theme }) => {
           </Card>
 
           {/* Backend & Infrastructure */}
-          <Card theme={theme} as="article">
-            <CardTitle theme={theme} as="h2">
+          <Card as="article">
+            <CardTitle as="h2">
               <ClientOnlyIcon
                 iconName="NodeJS"
                 fontSize="110px"
@@ -115,7 +114,7 @@ const TechnologiesSection = ({ theme }) => {
               />{' '}
               Node.js Developer Backend & Infrastructure
             </CardTitle>
-            <CardText theme={theme}>
+            <CardText>
               On the backend, I specialize in Node.js microservices architecture using Express.js,
               Fastify, and NestJS frameworks. Database expertise includes PostgreSQL for relational
               data, MongoDB for document storage, and Redis for caching and session management. I
@@ -131,7 +130,7 @@ const TechnologiesSection = ({ theme }) => {
                 to="/contact/"
                 title="Get in touch for your next development project"
                 style={{
-                  color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63',
+                  color: 'var(--accent-pink)',
                   fontWeight: 'bold',
                   textDecoration: 'underline',
                 }}
@@ -143,7 +142,7 @@ const TechnologiesSection = ({ theme }) => {
                 to="/projects/"
                 title="View my backend and infrastructure projects"
                 style={{
-                  color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63',
+                  color: 'var(--accent-pink)',
                   fontWeight: 'bold',
                   textDecoration: 'underline',
                 }}
@@ -157,17 +156,6 @@ const TechnologiesSection = ({ theme }) => {
       </Container>
     </ContentSection>
   );
-};
-
-TechnologiesSection.propTypes = {
-  theme: PropTypes.shape({
-    mode: PropTypes.string,
-    colors: PropTypes.object,
-  }),
-};
-
-TechnologiesSection.defaultProps = {
-  theme: null,
 };
 
 export default TechnologiesSection;

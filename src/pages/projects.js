@@ -2,8 +2,6 @@ import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
-import { useTheme } from '../context/ThemeContext';
-
 import Layout from '../components/layout';
 import ProjectCard from '../components/projectCard';
 import SEO from '../components/seo';
@@ -67,12 +65,8 @@ const Typography = styled.div`
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
   color: ${(props) => {
-    if (props.theme?.mode === 'dark') {
-      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
-      return 'rgba(255, 255, 255, 0.87)';
-    }
-    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
-    return 'rgba(0, 0, 0, 0.87)';
+    if (props.color === 'text.secondary') return 'var(--text-secondary-color)';
+    return 'var(--text-color)';
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
   text-align: ${(props) => props.align || 'inherit'};
@@ -623,25 +617,29 @@ const StyledBox = styled.div`
 `;
 
 const GradientText = styled(Typography)`
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
-      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s ease;
-  font-weight: 700 !important; /* Match other page headers */
-  font-size: clamp(2.5rem, 8vw, 4rem) !important; /* Consistent with about page */
+  font-weight: 700 !important;
+  font-size: clamp(2.5rem, 8vw, 4rem) !important;
   line-height: 1.2 !important;
-
-  /* Fallback color for browsers that don't support background-clip */
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+  color: #1565c0;
 
   @supports (background-clip: text) or (-webkit-background-clip: text) {
     color: transparent;
+  }
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    color: #90caf9;
+
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      color: transparent;
+    }
   }
 `;
 
@@ -661,16 +659,12 @@ const CustomSelectContainer = styled.div`
 const CustomSelectButton = styled.button`
   width: 100%;
   padding: 12px 36px 12px 16px;
-  border: 1px solid
-    ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'};
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 0.9rem;
   font-family: inherit;
-  background-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(42, 42, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
+  background-color: var(--paper-color);
+  color: var(--text-color);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -687,19 +681,17 @@ const CustomSelectButton = styled.button`
   }
 
   &:hover {
-    border-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.25)'};
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(50, 50, 50, 0.95)' : 'rgba(248, 248, 248, 0.95)'};
+    background-color: var(--hover-bg);
   }
 
   &:focus {
     outline: none;
-    border-color: ${(props) =>
-      props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    box-shadow: 0 0 0 2px
-      ${(props) =>
-        props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.2)' : 'rgba(25, 118, 210, 0.2)'};
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+
+    .dark-mode & {
+      box-shadow: 0 0 0 2px rgba(144, 202, 249, 0.2);
+    }
   }
 `;
 
@@ -709,10 +701,8 @@ const CustomSelectDropdown = styled.div`
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: ${(props) => (props.theme?.mode === 'dark' ? '#2a2a2a' : '#ffffff')};
-  border: 1px solid
-    ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)'};
+  background-color: var(--paper-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   margin-top: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -731,34 +721,29 @@ const CustomSelectDropdown = styled.div`
     border-radius: 6px;
   }
 
-  /* Custom scrollbar for better mobile experience */
   &::-webkit-scrollbar {
     width: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+    background: var(--hover-bg);
     border-radius: 3px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.2)'};
+    background: var(--icon-color);
     border-radius: 3px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.3)'};
+    opacity: 0.85;
   }
 `;
 
 const CustomSelectOption = styled.div`
   padding: 12px 16px;
   font-size: 0.9rem;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'};
+  color: var(--text-color);
   cursor: pointer;
   transition: background-color 0.2s ease;
   min-height: 44px;
@@ -769,8 +754,7 @@ const CustomSelectOption = styled.div`
 
   &:hover,
   &:active {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.1)' : 'rgba(25, 118, 210, 0.08)'};
+    background-color: var(--hover-bg);
   }
 
   &:first-child {
@@ -861,7 +845,6 @@ LazyProjectList.propTypes = {
 };
 
 const Projects = ({ data }) => {
-  const { theme } = useTheme();
   const [filters, setFilters] = useState({
     technologies: [],
   });
@@ -1020,7 +1003,7 @@ const Projects = ({ data }) => {
                 React & Node.js Developer Portfolio - JavaScript Projects
               </GradientText>
               <Typography
-                theme={theme}
+
                 variant="h2"
                 component="h2"
                 align="center"
@@ -1028,13 +1011,13 @@ const Projects = ({ data }) => {
                   fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
                   fontWeight: 600,
                   marginBottom: '16px',
-                  color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                  color: 'var(--text-color)',
                 }}
               >
                 JavaScript & React Development Project Showcase
               </Typography>
               <Typography
-                theme={theme}
+
                 variant="body1"
                 align="center"
                 color="text.secondary"
@@ -1047,7 +1030,7 @@ const Projects = ({ data }) => {
                   to="/about/"
                   title="Learn more about Jeff Maxwell's development approach and philosophy"
                   style={{
-                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    color: 'var(--primary-color)',
                     fontWeight: 'bold',
                     textDecoration: 'underline',
                   }}
@@ -1059,7 +1042,7 @@ const Projects = ({ data }) => {
                   to="/contact/"
                   title="Get in touch with Jeff Maxwell to discuss your next project"
                   style={{
-                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    color: 'var(--primary-color)',
                     fontWeight: 'bold',
                     textDecoration: 'underline',
                   }}
@@ -1078,14 +1061,14 @@ const Projects = ({ data }) => {
           >
             <StyledBox mb={2}>
               <Typography
-                theme={theme}
+
                 variant="h3"
                 component="h3"
                 style={{
                   fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
                   fontWeight: 600,
                   marginBottom: '16px',
-                  color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                  color: 'var(--text-color)',
                   textAlign: 'center',
                 }}
               >
@@ -1095,7 +1078,7 @@ const Projects = ({ data }) => {
             <StyledBox display="flex" alignItems="center" justifyContent="flex-end" mb={3}>
               <CustomSelectContainer ref={dropdownRef}>
                 <CustomSelectButton
-                  theme={theme}
+  
                   open={dropdownOpen}
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   aria-label="Filter projects by technology"
@@ -1104,258 +1087,258 @@ const Projects = ({ data }) => {
                   {filters.technologies[0] || 'All Projects'}
                 </CustomSelectButton>
                 {dropdownOpen && (
-                  <CustomSelectDropdown theme={theme}>
-                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('')}>
+                  <CustomSelectDropdown>
+                    <CustomSelectOption onClick={() => handleTechnologyChange('')}>
                       All Projects
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('JavaScript')}
                     >
                       JavaScript
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('React')}
                     >
                       React
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Context API')}
                     >
                       Context API
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Node.js')}
                     >
                       Node.js
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Express')}
                     >
                       Express
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('GraphQL')}
                     >
                       GraphQL
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('MongoDB')}
                     >
                       MongoDB
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('PostgreSQL')}
                     >
                       PostgreSQL
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Redis')}
                     >
                       Redis
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('WebSocket')}
                     >
                       WebSocket
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Apollo Client')}
                     >
                       Apollo Client
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Apollo Server')}
                     >
                       Apollo Server
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Redux')}
                     >
                       Redux
                     </CustomSelectOption>
-                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('JWT')}>
+                    <CustomSelectOption onClick={() => handleTechnologyChange('JWT')}>
                       JWT
                     </CustomSelectOption>
-                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('Git')}>
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Git')}>
                       Git
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Docker')}
                     >
                       Docker
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Vercel')}
                     >
                       Vercel
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Firebase')}
                     >
                       Firebase
                     </CustomSelectOption>
-                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('NPM')}>
+                    <CustomSelectOption onClick={() => handleTechnologyChange('NPM')}>
                       NPM
                     </CustomSelectOption>
-                    <CustomSelectOption theme={theme} onClick={() => handleTechnologyChange('CSS')}>
+                    <CustomSelectOption onClick={() => handleTechnologyChange('CSS')}>
                       CSS
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Emotion')}
                     >
                       Emotion
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Google Cloud')}
                     >
                       Google Cloud
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Neon')}
                     >
                       Neon
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('OpenAI')}
                     >
                       OpenAI
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Kubernetes')}
                     >
                       Kubernetes
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('LangChain')}
                     >
                       LangChain
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Material-UI')}
                     >
                       Material-UI
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Socket.io')}
                     >
                       Socket.io
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Helm')}
                     >
                       Helm
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Prometheus')}
                     >
                       Prometheus
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Grafana')}
                     >
                       Grafana
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Vite')}
                     >
                       Vite
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Tailwind CSS')}
                     >
                       Tailwind CSS
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Algolia')}
                     >
                       Algolia
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Puppeteer')}
                     >
                       Puppeteer
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Firestore')}
                     >
                       Firestore
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('GitHub Actions')}
                     >
                       GitHub Actions
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Argo CD')}
                     >
                       Argo CD
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Nginx Ingress')}
                     >
                       Nginx Ingress
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Triton')}
                     >
                       Triton
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('TensorFlow.js')}
                     >
                       TensorFlow.js
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('WebGPU')}
                     >
                       WebGPU
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('InfluxDB')}
                     >
                       InfluxDB
                     </CustomSelectOption>
                     <CustomSelectOption
-                      theme={theme}
+      
                       onClick={() => handleTechnologyChange('Kafka')}
                     >
                       Kafka
@@ -1368,14 +1351,13 @@ const Projects = ({ data }) => {
 
           <StyledBox mb={3}>
             <Typography
-              theme={theme}
-              variant="h2"
+                           variant="h2"
               component="h2"
               style={{
                 fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
                 fontWeight: 600,
                 marginBottom: '24px',
-                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                color: 'var(--text-color)',
                 textAlign: 'center',
               }}
             >
@@ -1386,7 +1368,7 @@ const Projects = ({ data }) => {
             {filteredProjects.length === 0 ? (
               <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
                 <Typography
-                  theme={theme}
+  
                   variant="body1"
                   color="text.secondary"
                   sx={{ fontSize: '1.125rem' }}

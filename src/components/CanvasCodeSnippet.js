@@ -155,6 +155,11 @@ const CanvasContainer = styled.div`
   padding: 16px;
   background-color: #f8f9fa;
   color: #2d3748;
+
+  .dark-mode & {
+    background-color: #1a202c;
+    color: #ffffff;
+  }
 `;
 
 const StyledCanvas = styled.canvas`
@@ -175,6 +180,11 @@ const FallbackPre = styled.pre`
   background-color: #f8f9fa;
   color: #2d3748;
   border: none;
+
+  .dark-mode & {
+    background-color: #1a202c;
+    color: #ffffff;
+  }
 `;
 
 const CanvasCodeSnippetInner = React.memo(
@@ -269,9 +279,10 @@ const CanvasCodeSnippetInner = React.memo(
       ctx.textBaseline = 'top';
       ctx.textAlign = 'left';
 
-      // Use theme context for dark mode detection
-      const isDark = theme?.mode === 'dark';
-      ctx.fillStyle = isDark ? '#e2e8f0' : '#2d3748';
+      // Read text color from CSS variables for theme-aware rendering
+      const computedColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--text-color').trim();
+      ctx.fillStyle = computedColor || '#2d3748';
 
       // Animation state tracking
       let startTime = null;
@@ -410,12 +421,7 @@ const CanvasCodeSnippetInner = React.memo(
               </StyledTooltip>
             )}
           </StyledHeader>
-          <FallbackPre
-            style={{
-              backgroundColor: theme?.mode === 'dark' ? '#1a202c' : '#f8f9fa',
-              color: theme?.mode === 'dark' ? '#ffffff' : '#2d3748',
-            }}
-          >
+          <FallbackPre>
             {code}
           </FallbackPre>
         </StyledPaper>
@@ -450,12 +456,7 @@ const CanvasCodeSnippetInner = React.memo(
             </StyledTooltip>
           )}
         </StyledHeader>
-        <CanvasContainer
-          style={{
-            backgroundColor: theme?.mode === 'dark' ? '#1a202c' : '#f8f9fa',
-            color: theme?.mode === 'dark' ? '#ffffff' : '#2d3748',
-          }}
-        >
+        <CanvasContainer>
           <StyledCanvas
             ref={canvasRef}
             style={{
@@ -473,7 +474,6 @@ CanvasCodeSnippetInner.displayName = 'CanvasCodeSnippetInner';
 
 // Client-side only wrapper to handle SSR properly
 const CanvasCodeSnippet = (props) => {
-  const { theme } = useTheme();
   const [isClient, setIsClient] = React.useState(false);
   const [useCanvas, setUseCanvas] = React.useState(false);
 
@@ -529,12 +529,7 @@ const CanvasCodeSnippet = (props) => {
             </StyledTooltip>
           )}
         </StyledHeader>
-        <FallbackPre
-          style={{
-            backgroundColor: theme?.mode === 'dark' ? '#1a202c' : '#f8f9fa',
-            color: theme?.mode === 'dark' ? '#ffffff' : '#2d3748',
-          }}
-        >
+        <FallbackPre>
           {props.code}
         </FallbackPre>
       </StyledPaper>

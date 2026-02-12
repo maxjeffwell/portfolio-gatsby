@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useTheme } from '../context/ThemeContext';
-
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import PageTransition from '../components/PageTransition';
@@ -37,16 +35,14 @@ const Title = styled.h1`
 const Description = styled.p`
   font-size: 1.375rem;
   line-height: 1.6;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)'};
+  color: var(--text-color);
   margin: 0 auto 32px auto;
   max-width: 600px;
 `;
 
 const CountdownText = styled.p`
   font-size: 1.125rem;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'};
+  color: var(--text-secondary-color);
   margin-bottom: 32px;
 `;
 
@@ -79,18 +75,16 @@ const ResumeLink = styled.a`
 const BackLink = styled.a`
   display: inline-block;
   margin-top: 40px;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1565c0')};
+  color: var(--primary-color);
   text-decoration: underline;
   font-size: 1.125rem;
 
   &:hover {
-    color: ${(props) => (props.theme?.mode === 'dark' ? '#64b5f6' : '#0d47a1')};
+    color: var(--primary-hover);
   }
 `;
 
 function ResumePage() {
-  const { theme } = useTheme();
-
   useEffect(() => {
     // Auto-redirect after 5 seconds
     const timer = setTimeout(() => {
@@ -120,11 +114,11 @@ function ResumePage() {
         />
         <StyledContainer>
           <Title>Professional Resume</Title>
-          <Description theme={theme}>
+          <Description>
             Redirecting you to my comprehensive resume showcasing full stack development experience,
             technical skills, and professional background.
           </Description>
-          <CountdownText theme={theme}>Opening resume in 5 seconds...</CountdownText>
+          <CountdownText>Opening resume in 5 seconds...</CountdownText>
 
           <div>
             <ResumeLink
@@ -137,7 +131,7 @@ function ResumePage() {
             </ResumeLink>
           </div>
 
-          <BackLink href="/about/" theme={theme} title="Return to About page">
+          <BackLink href="/about/" title="Return to About page">
             ← Back to About
           </BackLink>
         </StyledContainer>

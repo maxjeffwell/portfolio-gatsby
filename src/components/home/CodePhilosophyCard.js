@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import ClientOnlyIcon from '../ClientOnlyIcon';
 import CanvasCodeSnippet from '../CanvasCodeSnippet';
@@ -22,10 +21,10 @@ const CODE_EXAMPLE = `const useTheme = () => {
   return { isDark, toggleTheme };
 };`;
 
-const CodePhilosophyCard = ({ theme }) => {
+const CodePhilosophyCard = () => {
   return (
-    <Card theme={theme} as="article" id="development-philosophy">
-      <CardTitle theme={theme} as="h2">
+    <Card as="article" id="development-philosophy">
+      <CardTitle as="h2">
         <ClientOnlyIcon
           iconName="Computer"
           fontSize="110px"
@@ -33,7 +32,7 @@ const CodePhilosophyCard = ({ theme }) => {
         />{' '}
         React Developer Code Philosophy
       </CardTitle>
-      <CardText theme={theme}>
+      <CardText>
         Clean, readable, and maintainable — here&#39;s how I approach modern React development. I
         believe in writing code that tells a story, where each function has a single responsibility
         and complex logic is broken down into digestible, testable pieces. This philosophy extends
@@ -51,7 +50,7 @@ const CodePhilosophyCard = ({ theme }) => {
           to="/about/"
           title="Discover my development workflow and methodologies"
           style={{
-            color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+            color: 'var(--primary-color)',
             fontWeight: 'bold',
             textDecoration: 'underline',
           }}
@@ -68,7 +67,7 @@ const CodePhilosophyCard = ({ theme }) => {
         code={CODE_EXAMPLE}
       />
 
-      <InfoCard theme={theme}>
+      <InfoCard>
         <h3>Why I Like This Pattern</h3>
         <ul>
           <li>✓ Separation of concerns — logic stays in the hook</li>
@@ -82,7 +81,7 @@ const CodePhilosophyCard = ({ theme }) => {
             to="/projects/"
             title="View my complete portfolio of development projects"
             style={{
-              color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63',
+              color: 'var(--accent-pink)',
               fontWeight: 'bold',
               textDecoration: 'underline',
             }}
@@ -99,7 +98,7 @@ const CodePhilosophyCard = ({ theme }) => {
             to="/contact/"
             title="Hire Jeff Maxwell for your next development project"
             style={{
-              color: theme?.mode === 'dark' ? '#f48fb1' : '#e91e63',
+              color: 'var(--accent-pink)',
               fontWeight: 'bold',
               textDecoration: 'underline',
             }}
@@ -111,17 +110,6 @@ const CodePhilosophyCard = ({ theme }) => {
       </InfoCard>
     </Card>
   );
-};
-
-CodePhilosophyCard.propTypes = {
-  theme: PropTypes.shape({
-    mode: PropTypes.string,
-    colors: PropTypes.object,
-  }),
-};
-
-CodePhilosophyCard.defaultProps = {
-  theme: null,
 };
 
 export default CodePhilosophyCard;

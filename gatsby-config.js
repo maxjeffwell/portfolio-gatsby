@@ -39,16 +39,8 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet-async`,
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {
-        // Display component names in devtools
-        displayName: process.env.NODE_ENV !== 'production',
-        // Add babel plugin for SSR optimization
-        fileName: true,
-        pure: true,
-      },
-    }, // Switch to styled-components for better SSR support
+    // styled-components SSR handled directly in gatsby-ssr.js
+    // babel-plugin-styled-components configured in .babelrc.js
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,

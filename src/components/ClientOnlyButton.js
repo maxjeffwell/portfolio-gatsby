@@ -31,7 +31,7 @@ const StyledButton = styled.button`
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:focus-visible {
-    outline: 2px solid ${(props) => getPrimaryColor(props)};
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
 
@@ -49,74 +49,87 @@ const StyledButton = styled.button`
     padding: 8px 22px;
     font-size: 0.9375rem;
   `}
-  
+
   /* Contained variant */
   ${(props) =>
     props.variant === 'contained' &&
     `
     color: #fff;
-    background-color: ${getPrimaryColor(props)};
+    background-color: ${props.color === 'secondary' ? '#d32f2f' : 'var(--primary-color)'};
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-    
+
     &:hover {
-      background-color: ${getHoverColor(props, 'contained')};
+      background-color: ${props.color === 'secondary' ? '#c62828' : 'var(--primary-hover)'};
       box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
     }
+    ${
+      props.color === 'secondary'
+        ? `
+    .dark-mode & {
+      background-color: #f48fb1;
+      &:hover { background-color: #f06292; }
+    }`
+        : ''
+    }
   `}
-  
+
   /* Outlined variant */
   ${(props) =>
     props.variant === 'outlined' &&
     `
-    color: ${getPrimaryColor(props)};
-    border: 1px solid ${props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'};
-    
+    color: ${props.color === 'secondary' ? '#d32f2f' : 'var(--primary-color)'};
+    border: 1px solid var(--outline-border);
+
     &:hover {
-      background-color: ${getHoverColor(props, 'outlined')};
-      border-color: ${getPrimaryColor(props)};
+      background-color: ${props.color === 'secondary' ? 'rgba(211, 47, 47, 0.04)' : 'rgba(25, 118, 210, 0.04)'};
+      border-color: ${props.color === 'secondary' ? '#d32f2f' : 'var(--primary-color)'};
+    }
+    ${
+      props.color === 'secondary'
+        ? `
+    .dark-mode & {
+      color: #f48fb1;
+      &:hover {
+        background-color: rgba(244, 143, 177, 0.08);
+        border-color: #f48fb1;
+      }
+    }`
+        : `
+    .dark-mode & {
+      &:hover {
+        background-color: rgba(144, 202, 249, 0.08);
+      }
+    }`
     }
   `}
-  
+
   /* Text variant (default) */
   ${(props) =>
     (!props.variant || props.variant === 'text') &&
     `
-    color: ${getPrimaryColor(props)};
-    
+    color: ${props.color === 'secondary' ? '#d32f2f' : 'var(--primary-color)'};
+
     &:hover {
-      background-color: ${getHoverColor(props, 'text')};
+      background-color: ${props.color === 'secondary' ? 'rgba(211, 47, 47, 0.04)' : 'rgba(25, 118, 210, 0.04)'};
+    }
+    ${
+      props.color === 'secondary'
+        ? `
+    .dark-mode & {
+      color: #f48fb1;
+      &:hover {
+        background-color: rgba(244, 143, 177, 0.08);
+      }
+    }`
+        : `
+    .dark-mode & {
+      &:hover {
+        background-color: rgba(144, 202, 249, 0.08);
+      }
+    }`
     }
   `}
 `;
-
-// Helper functions for color calculations
-const getPrimaryColor = (props) => {
-  if (props.color === 'secondary') {
-    return props.theme?.mode === 'dark' ? '#f48fb1' : '#d32f2f';
-  }
-  return props.theme?.colors?.primary || (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2');
-};
-
-const getHoverColor = (props, variant) => {
-  const isDark = props.theme?.mode === 'dark';
-  const isSecondary = props.color === 'secondary';
-
-  if (variant === 'contained') {
-    if (isSecondary) {
-      return isDark ? '#f06292' : '#c62828';
-    }
-    return isDark ? '#64b5f6' : '#1565c0';
-  }
-
-  if (variant === 'outlined' || variant === 'text') {
-    if (isSecondary) {
-      return isDark ? 'rgba(244, 143, 177, 0.08)' : 'rgba(211, 47, 47, 0.04)';
-    }
-    return isDark ? 'rgba(144, 202, 249, 0.08)' : 'rgba(25, 118, 210, 0.04)';
-  }
-
-  return 'transparent';
-};
 
 const ClientOnlyButton = ({
   children,

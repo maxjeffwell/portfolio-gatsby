@@ -5,11 +5,8 @@ import styled from 'styled-components';
 import MyLogo from './myLogo';
 import SSRSafeDarkModeToggle from './SSRSafeDarkModeToggle';
 import ClientOnlyIcon from './ClientOnlyIcon';
-import { useTheme } from '../context/ThemeContext';
 
-const DocSearch = typeof window !== 'undefined'
-  ? lazy(() => import('@docsearch/react').then(mod => ({ default: mod.DocSearch })))
-  : () => null;
+const DocSearch = lazy(() => import('@docsearch/react').then(mod => ({ default: mod.DocSearch })));
 
 // Simple icon components using Unicode symbols
 
@@ -53,8 +50,8 @@ const StyledAppBar = styled.header`
   right: 0;
   z-index: 1100;
   width: 100%;
-  background: ${(props) => props.theme?.colors?.paper || '#ffffff'};
-  color: ${(props) => props.theme?.colors?.text || '#333333'};
+  background: var(--paper-color);
+  color: var(--text-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 `;
 
@@ -78,9 +75,8 @@ const NavButton = styled.a`
   padding: 14px 24px;
   margin: 0 8px;
   text-decoration: none;
-  color: ${(props) => props.theme?.colors?.text || '#333'};
-  background-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : '#e8eaf6'};
+  color: var(--text-color);
+  background-color: var(--nav-bg);
   border: none;
   cursor: pointer;
   font-family: inherit;
@@ -93,23 +89,22 @@ const NavButton = styled.a`
 
   &:link,
   &:visited {
-    color: ${(props) => props.theme?.colors?.text || '#333'};
+    color: var(--text-color);
     text-decoration: none;
   }
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : '#c5cae9'};
+    background-color: var(--nav-hover-bg);
   }
 
   &.active {
-    background-color: ${(props) => props.theme?.colors?.primary || '#1976d2'};
-    color: ${(props) => (props.theme?.mode === 'dark' ? '#000' : '#fff')};
+    background-color: var(--primary-color);
+    color: var(--nav-active-text);
   }
 
   &.active:link,
   &.active:visited {
-    color: ${(props) => (props.theme?.mode === 'dark' ? '#000' : '#fff')};
+    color: var(--nav-active-text);
   }
 
   &:first-child {
@@ -133,10 +128,8 @@ const SecondaryNavBar = styled.div`
   align-items: center;
   gap: 4px;
   padding: 6px 16px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.02)'};
-  border-top: 1px solid ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)'};
+  background: var(--secondary-nav-bg);
+  border-top: 1px solid var(--secondary-nav-border);
 
   @media (max-width: 959px) {
     display: none;
@@ -148,7 +141,7 @@ const SecondaryNavLink = styled.a`
   align-items: center;
   padding: 6px 16px;
   text-decoration: none;
-  color: ${(props) => props.theme?.colors?.text || '#333'};
+  color: var(--text-color);
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 500;
@@ -158,13 +151,12 @@ const SecondaryNavLink = styled.a`
 
   &:link,
   &:visited {
-    color: ${(props) => props.theme?.colors?.text || '#333'};
+    color: var(--text-color);
     text-decoration: none;
   }
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    background-color: var(--hover-bg);
     opacity: 1;
   }
 `;
@@ -177,10 +169,7 @@ const StyledIconButton = styled.button`
   border-radius: 50%;
   border: none;
   background-color: transparent;
-  color: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? props.theme?.colors?.text || 'rgba(255, 255, 255, 0.87)'
-      : 'rgba(0, 0, 0, 0.8)'};
+  color: var(--text-color);
   cursor: pointer;
   font-size: 1.5rem;
   transition: transform 0.2s ease;
@@ -190,7 +179,7 @@ const StyledIconButton = styled.button`
   }
 
   &:focus {
-    outline: 2px solid ${(props) => props.theme?.colors?.primary || '#1976d2'};
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
 
@@ -207,8 +196,8 @@ const StyledDrawer = styled.div`
   height: 100%;
   width: 80%;
   max-width: 300px;
-  background-color: ${(props) => props.theme?.colors?.paper || '#ffffff'};
-  color: ${(props) => props.theme?.colors?.text || '#333333'};
+  background-color: var(--paper-color);
+  color: var(--text-color);
   box-shadow:
     0px 8px 10px -5px rgba(0, 0, 0, 0.2),
     0px 16px 24px 2px rgba(0, 0, 0, 0.14),
@@ -242,7 +231,7 @@ const MobileNavButton = styled.a`
   width: 100%;
   padding: 18px;
   text-decoration: none;
-  color: ${(props) => props.theme?.colors?.text || '#333'};
+  color: var(--text-color);
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -254,21 +243,19 @@ const MobileNavButton = styled.a`
 
   &:link,
   &:visited {
-    color: ${(props) => props.theme?.colors?.text || '#333'};
+    color: var(--text-color);
     text-decoration: none;
   }
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+    background-color: var(--hover-bg);
   }
 `;
 
 const MobileNavDivider = styled.div`
   height: 1px;
   margin: 8px 16px;
-  background: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'};
+  background: var(--divider-subtle);
 `;
 
 const MobileNavLabel = styled.div`
@@ -277,7 +264,7 @@ const MobileNavLabel = styled.div`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#888' : '#999')};
+  color: var(--mobile-nav-label);
 `;
 
 const MobileOnly = styled.div`
@@ -307,7 +294,6 @@ const ToolbarSpacer = styled.div`
 `;
 
 function Header() {
-  const { theme } = useTheme();
   const [currentPath, setCurrentPath] = useState('');
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -362,7 +348,7 @@ function Header() {
   const drawer = (
     <StyledBox textAlign="center">
       <StyledBox display="flex" justifyContent="flex-end" p={2}>
-        <StyledIconButton theme={theme} onClick={handleDrawerToggle} aria-label="close drawer">
+        <StyledIconButton onClick={handleDrawerToggle} aria-label="close drawer">
           <CloseIcon />
         </StyledIconButton>
       </StyledBox>
@@ -378,21 +364,19 @@ function Header() {
             key={item.text}
             as={Link}
             to={item.to}
-            theme={theme}
             onClick={handleDrawerToggle}
           >
             {item.text}
           </MobileNavButton>
         ))}
-        <MobileNavDivider theme={theme} />
-        <MobileNavLabel theme={theme}>Tools</MobileNavLabel>
+        <MobileNavDivider />
+        <MobileNavLabel>Tools</MobileNavLabel>
         {secondaryItems.map((item) => {
           const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
           return (
             <MobileNavButton
               key={item.text}
               {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
-              theme={theme}
               onClick={handleDrawerToggle}
             >
               {item.text}
@@ -405,14 +389,13 @@ function Header() {
 
   return (
     <>
-      <StyledAppBar theme={theme} scrolled={isScrolled ? 1 : 0}>
+      <StyledAppBar scrolled={isScrolled ? 1 : 0}>
         <StyledContainer>
           <StyledToolbar>
             {/* Left section: Menu/Navigation */}
             <StyledBox display="flex" alignItems="center">
               <MobileOnly>
                 <StyledIconButton
-                  theme={theme}
                   aria-label="open drawer"
                   onClick={handleDrawerToggle}
                   ref={menuButtonRef}
@@ -422,7 +405,7 @@ function Header() {
                     iconName="Burger"
                     fontSize="32px"
                     style={{
-                      color: theme?.colors?.primary || '#1565c0',
+                      color: 'var(--primary-color)',
                     }}
                   />
                 </StyledIconButton>
@@ -434,7 +417,6 @@ function Header() {
                     key={item.text}
                     as={Link}
                     to={item.to}
-                    theme={theme}
                     className={currentPath === item.to ? 'active' : ''}
                     aria-current={currentPath === item.to ? 'page' : undefined}
                   >
@@ -446,21 +428,19 @@ function Header() {
 
             {/* Center section: Search */}
             <StyledBox display="flex" alignItems="center" justifyContent="center">
-              {typeof window !== 'undefined' && (
-                <Suspense fallback={null}>
-                  <DocSearch
-                    appId="E2O1YZJVJI"
-                    indexName="el-jefe-me"
-                    apiKey="e036cac75dbca995c2c61173f72c05e2"
-                    askAi={{
-                      indexName: 'el-jefe-me-askai',
-                      apiKey: 'e036cac75dbca995c2c61173f72c05e2',
-                      appId: 'E2O1YZJVJI',
-                      assistantId: 'g2MyPVDcN5aX',
-                    }}
-                  />
-                </Suspense>
-              )}
+              <Suspense fallback={null}>
+                <DocSearch
+                  appId="E2O1YZJVJI"
+                  indexName="el-jefe-me"
+                  apiKey="e036cac75dbca995c2c61173f72c05e2"
+                  askAi={{
+                    indexName: 'el-jefe-me-askai',
+                    apiKey: 'e036cac75dbca995c2c61173f72c05e2',
+                    appId: 'E2O1YZJVJI',
+                    assistantId: 'g2MyPVDcN5aX',
+                  }}
+                />
+              </Suspense>
             </StyledBox>
 
             {/* Right section: Logo and Dark mode toggle */}
@@ -469,14 +449,13 @@ function Header() {
               <SSRSafeDarkModeToggle />
             </StyledBox>
           </StyledToolbar>
-          <SecondaryNavBar theme={theme}>
+          <SecondaryNavBar>
             {secondaryItems.map((item) => {
               const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
               return (
                 <SecondaryNavLink
                   key={item.text}
                   {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
-                  theme={theme}
                 >
                   {item.text}
                 </SecondaryNavLink>
@@ -489,7 +468,7 @@ function Header() {
       {mobileOpen && (
         <>
           <DrawerBackdrop open={mobileOpen} onClick={handleDrawerToggle} />
-          <StyledDrawer theme={theme} open={mobileOpen}>
+          <StyledDrawer open={mobileOpen}>
             {drawer}
           </StyledDrawer>
         </>

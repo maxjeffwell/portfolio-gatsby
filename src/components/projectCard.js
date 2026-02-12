@@ -47,8 +47,6 @@ import {
   SiInfluxdb,
   SiApachekafka,
 } from 'react-icons/si';
-import { useTheme } from '../context/ThemeContext';
-
 import DemoIcon from '../images/svg-icons/demo.svg';
 import OpenSourceIcon from '../images/svg-icons/open_source.svg';
 import NeonIcon from '../images/svg-icons/neon-tech.svg';
@@ -101,14 +99,9 @@ const Typography = styled.div`
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
   color: ${(props) => {
-    if (props.theme?.mode === 'dark') {
-      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
-      if (props.color === 'primary') return '#90caf9';
-      return 'rgba(255, 255, 255, 0.87)';
-    }
-    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
-    if (props.color === 'primary') return '#1976d2';
-    return 'rgba(0, 0, 0, 0.87)';
+    if (props.color === 'text.secondary') return 'var(--text-secondary-color)';
+    if (props.color === 'primary') return 'var(--primary-color)';
+    return 'var(--text-color)';
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
   word-wrap: break-word;
@@ -149,7 +142,7 @@ const IconLink = styled.a`
   transition: all 0.3s ease;
 
   &:focus {
-    outline: 2px solid ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    outline: 2px solid var(--primary-color);
     outline-offset: 4px;
     border-radius: 4px;
   }
@@ -157,8 +150,8 @@ const IconLink = styled.a`
   svg {
     width: 64px;
     height: 64px;
-    fill: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    fill: var(--primary-color);
+    color: var(--primary-color);
   }
 
   @media (max-width: 768px) {
@@ -211,8 +204,7 @@ const PlaceholderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+  background-color: var(--hover-bg);
   border-radius: 8px;
 `;
 
@@ -251,8 +243,8 @@ const CustomChip = styled.span`
   line-height: 1.43;
   letter-spacing: 0.01071em;
   background-color: transparent;
-  border: 2px solid ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#ce93d8' : '#9c27b0')};
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
   white-space: nowrap;
   transition:
     border-color 0.3s ease,
@@ -269,10 +261,7 @@ const StyledCard = styled.div`
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background 0.3s ease;
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%)'
-      : 'white'};
+  background: var(--paper-color);
   box-shadow:
     0 3px 3px -2px rgba(0, 0, 0, 0.2),
     0 3px 4px 0 rgba(0, 0, 0, 0.14),
@@ -327,8 +316,7 @@ const DeploymentContainer = styled.div`
 const DeploymentLabel = styled.span`
   font-size: 0.75rem;
   font-weight: 600;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+  color: var(--text-secondary-color);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 `;
@@ -365,7 +353,7 @@ const ImageContainer = styled.div`
     border-radius: 6px;
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     background-color: rgba(255, 255, 255, 0.08);
   }
 `;
@@ -377,13 +365,12 @@ const TechIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+  background-color: var(--tag-bg);
+  color: var(--primary-color);
   flex-shrink: 0;
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'};
+    background-color: var(--hover-bg);
   }
 
   @media (max-width: 480px) {
@@ -421,8 +408,6 @@ function ProjectCard({
   deployments = [],
   technologies = [],
 }) {
-  const { theme } = useTheme();
-
   // Normalize source URLs - support both single sourceURL and sourceURLs array
   const normalizedSources = (() => {
     if (sourceURLs && sourceURLs.length > 0) {
@@ -458,7 +443,7 @@ function ProjectCard({
 
   // Map technology names to their icons and descriptions
   const getTechnologyIcon = (tech) => {
-    const iconColor = theme?.mode === 'dark' ? '#90caf9' : '#1976d2';
+    const iconColor = 'currentColor';
     const iconSize = 24;
 
     const techMap = {
@@ -685,8 +670,8 @@ function ProjectCard({
     }
 
     return (
-      <PlaceholderBox theme={theme}>
-        <Typography theme={theme} variant="body2" color="text.secondary">
+      <PlaceholderBox>
+        <Typography variant="body2" color="text.secondary">
           Media loading...
         </Typography>
       </PlaceholderBox>
@@ -694,7 +679,7 @@ function ProjectCard({
   };
 
   return (
-    <StyledCard theme={theme} as="article">
+    <StyledCard as="article">
       <ColoredBar />
       <FlexContainer>
         <ImageBox>
@@ -719,13 +704,13 @@ function ProjectCard({
 
       <StyledCardContent>
         <HeaderContainer as="header">
-          <Typography theme={theme} variant="h5" component="h2" color="primary" fontWeight="bold">
+          <Typography variant="h5" component="h2" color="primary" fontWeight="bold">
             {title}
           </Typography>
-          <CustomChip theme={theme}>{date}</CustomChip>
+          <CustomChip>{date}</CustomChip>
         </HeaderContainer>
 
-        <Typography theme={theme} variant="body1" color="text.secondary" paragraph>
+        <Typography variant="body1" color="text.secondary" paragraph>
           {description}
         </Typography>
 
@@ -738,8 +723,7 @@ function ProjectCard({
               return (
                 <TechIcon
                   key={tech}
-                  theme={theme}
-                  aria-label={techData.label}
+                                   aria-label={techData.label}
                   title={techData.label}
                 >
                   {techData.icon}
@@ -754,8 +738,7 @@ function ProjectCard({
         {normalizedSources.map((source) => (
           <DeploymentContainer key={source.url}>
             <IconLink
-              theme={theme}
-              href={source.url}
+                           href={source.url}
               title={`${source.label} - ${title}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -763,7 +746,7 @@ function ProjectCard({
             >
               <OpenSourceIcon aria-hidden="true" />
             </IconLink>
-            <DeploymentLabel theme={theme}>{source.label}</DeploymentLabel>
+            <DeploymentLabel>{source.label}</DeploymentLabel>
           </DeploymentContainer>
         ))}
 
@@ -777,8 +760,7 @@ function ProjectCard({
             <DeploymentContainer key={deployment.url || `${deployment.label}-${index}`}>
               {deployment.url ? (
                 <IconLink
-                  theme={theme}
-                  href={deployment.url}
+                                   href={deployment.url}
                   title={`${deployment.label} - ${title}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -789,14 +771,13 @@ function ProjectCard({
               ) : (
                 <IconLink
                   as="div"
-                  theme={theme}
-                  title={`${deployment.label} - ${title}`}
+                                   title={`${deployment.label} - ${title}`}
                   aria-label={`${deployment.label} - ${title}`}
                 >
                   <DeploymentIconComponent aria-hidden="true" />
                 </IconLink>
               )}
-              <DeploymentLabel theme={theme}>{deployment.label}</DeploymentLabel>
+              <DeploymentLabel>{deployment.label}</DeploymentLabel>
             </DeploymentContainer>
           );
         })}

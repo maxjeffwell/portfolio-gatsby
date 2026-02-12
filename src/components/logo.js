@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTheme } from '../context/ThemeContext';
 import IapfLogo from '../images/svg-icons/iapf.svg';
 import AspcaLogo from '../images/svg-icons/aspca.svg';
 import ChiapasMapImage from '../images/chiapas_map.png';
@@ -45,15 +44,21 @@ const StyledIapfLogo = styled(IapfLogo)`
   width: 100%;
   max-width: 200px;
   height: auto;
-  filter: ${(props) =>
-    props.theme?.mode === 'dark' ? 'invert(1) brightness(1.2) contrast(1.2)' : 'none'};
+
+  .dark-mode & {
+    filter: invert(1) brightness(1.2) contrast(1.2);
+  }
 `;
 
 const StyledAspcaLogo = styled(AspcaLogo)`
   width: 100%;
   max-width: 200px;
   height: auto;
-  filter: ${(props) => (props.theme?.mode === 'light' ? 'brightness(1.2) contrast(1.1)' : 'none')};
+  filter: brightness(1.2) contrast(1.1);
+
+  .dark-mode & {
+    filter: none;
+  }
 `;
 
 const StyledChiapasMap = styled.img`
@@ -69,17 +74,13 @@ const StyledChiapasMap = styled.img`
 `;
 
 function Logo() {
-  const { theme } = useTheme();
-
   return (
     <LogoContainer>
       <StyledIapfLogo
-        theme={theme}
         aria-label="International Anti Poaching Foundation logo"
         alt="International Anti Poaching Foundation logo"
       />
       <StyledAspcaLogo
-        theme={theme}
         aria-label="American Society for the Prevention of Cruelty to Animals logo"
         alt="ASPCA - American Society for the Prevention of Cruelty to Animals logo"
       />

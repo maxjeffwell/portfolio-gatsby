@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { SiWebstorm, SiMozilla, SiDebian, SiGit, SiAnthropic } from 'react-icons/si';
-import { useTheme } from '../context/ThemeContext';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -77,12 +76,8 @@ const Typography = styled.div`
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
   color: ${(props) => {
-    if (props.theme?.mode === 'dark') {
-      if (props.color === 'text.secondary') return 'rgba(255, 255, 255, 0.7)';
-      return props.customColor || 'rgba(255, 255, 255, 0.87)';
-    }
-    if (props.color === 'text.secondary') return 'rgba(0, 0, 0, 0.6)';
-    return props.customColor || 'rgba(0, 0, 0, 0.87)';
+    if (props.color === 'text.secondary') return 'var(--text-secondary-color)';
+    return 'var(--text-color)';
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
   text-align: ${(props) => props.align || 'inherit'};
@@ -221,7 +216,6 @@ const TechnologyGrid = styled.div`
 `;
 
 function AboutPage() {
-  const { theme } = useTheme();
   const [headerRef] = useScrollAnimation({ delay: 100 });
   const [techRef] = useScrollAnimation({ delay: 300 });
   const [personalRef] = useScrollAnimation({ delay: 500 });
@@ -274,7 +268,7 @@ function AboutPage() {
                 About Jeff Maxwell - React & Node.js Developer
               </Typography>
               <Typography
-                theme={theme}
+
                 variant="h5"
                 component="h2"
                 color="text.secondary"
@@ -294,7 +288,7 @@ function AboutPage() {
                   to="/projects/"
                   title="Explore my complete project portfolio showcasing full stack development"
                   style={{
-                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    color: 'var(--primary-color)',
                     fontWeight: 'bold',
                     textDecoration: 'underline',
                   }}
@@ -306,7 +300,7 @@ function AboutPage() {
                   to="/contact/"
                   title="Contact me to start collaborating on your development needs"
                   style={{
-                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    color: 'var(--primary-color)',
                     fontWeight: 'bold',
                     textDecoration: 'underline',
                   }}
@@ -318,7 +312,7 @@ function AboutPage() {
                   to="/resume/"
                   title="View Jeff Maxwell's professional resume"
                   style={{
-                    color: theme?.mode === 'dark' ? '#90caf9' : '#1565c0',
+                    color: 'var(--primary-color)',
                     fontWeight: 'bold',
                     textDecoration: 'underline',
                   }}
@@ -365,7 +359,7 @@ function AboutPage() {
                   <div
                     style={{
                       background:
-                        theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                        'var(--paper-color)',
                       borderRadius: '16px',
                       padding: '32px 24px',
                       display: 'flex',
@@ -374,16 +368,11 @@ function AboutPage() {
                       textAlign: 'center',
                       height: '100%',
                       boxShadow:
-                        theme?.mode === 'dark'
-                          ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                          : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                        '0px 2px 8px rgba(0, 0, 0, 0.06)',
                       transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                       '&:hover': {
                         transform: 'translateY(-2px)',
-                        boxShadow:
-                          theme?.mode === 'dark'
-                            ? '0px 4px 16px rgba(0, 0, 0, 0.4)'
-                            : '0px 4px 16px rgba(0, 0, 0, 0.12)',
+                        boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.12)',
                       },
                     }}
                   >
@@ -391,7 +380,7 @@ function AboutPage() {
                       style={{
                         fontSize: '4rem',
                         color:
-                          theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                          'var(--primary-color)',
                         marginBottom: '24px',
                         display: 'flex',
                         alignItems: 'center',
@@ -402,10 +391,7 @@ function AboutPage() {
                         iconName="CodeTerminal"
                         fontSize="4rem"
                         style={{
-                          color:
-                            theme?.mode === 'dark'
-                              ? theme?.colors?.primary || '#90caf9'
-                              : '#1565c0',
+                          color: 'var(--primary-color)',
                         }}
                         aria-label="Code terminal icon representing clean development practices"
                         role="img"
@@ -413,7 +399,7 @@ function AboutPage() {
                     </div>
                     <StyledBox>
                       <Typography
-                        theme={theme}
+        
                         variant="h3"
                         component="h3"
                         style={{
@@ -423,16 +409,12 @@ function AboutPage() {
                           textAlign: 'center',
                           lineHeight: 1.3,
                         }}
-                        customColor={
-                          theme?.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.87)'
-                            : 'rgba(0, 0, 0, 0.87)'
-                        }
+                        customColor="var(--text-color)"
                       >
                         React Development & Clean Code Philosophy
                       </Typography>
                       <Typography
-                        theme={theme}
+        
                         variant="body2"
                         style={{
                           lineHeight: 1.5,
@@ -441,9 +423,7 @@ function AboutPage() {
                           maxWidth: '100%',
                           margin: '0 auto',
                         }}
-                        customColor={
-                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
-                        }
+                        customColor="var(--text-secondary-color)"
                       >
                         I believe in writing code that tells a story - clean, readable, and
                         maintainable solutions that scale gracefully. My approach emphasizes
@@ -460,7 +440,7 @@ function AboutPage() {
                   <div
                     style={{
                       background:
-                        theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                        'var(--paper-color)',
                       borderRadius: '16px',
                       padding: '32px 24px',
                       display: 'flex',
@@ -469,9 +449,7 @@ function AboutPage() {
                       textAlign: 'center',
                       height: '100%',
                       boxShadow:
-                        theme?.mode === 'dark'
-                          ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                          : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                        '0px 2px 8px rgba(0, 0, 0, 0.06)',
                       transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                     }}
                   >
@@ -479,7 +457,7 @@ function AboutPage() {
                       style={{
                         fontSize: '4rem',
                         color:
-                          theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                          'var(--primary-color)',
                         marginBottom: '24px',
                         display: 'flex',
                         alignItems: 'center',
@@ -490,10 +468,7 @@ function AboutPage() {
                         iconName="Coffee"
                         fontSize="4rem"
                         style={{
-                          color:
-                            theme?.mode === 'dark'
-                              ? theme?.colors?.primary || '#90caf9'
-                              : '#1565c0',
+                          color: 'var(--primary-color)',
                         }}
                         aria-label="Coffee cup icon representing coding culture and developer lifestyle"
                         role="img"
@@ -501,7 +476,7 @@ function AboutPage() {
                     </div>
                     <StyledBox>
                       <Typography
-                        theme={theme}
+        
                         variant="h3"
                         component="h3"
                         style={{
@@ -511,16 +486,12 @@ function AboutPage() {
                           textAlign: 'center',
                           lineHeight: 1.3,
                         }}
-                        customColor={
-                          theme?.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.87)'
-                            : 'rgba(0, 0, 0, 0.87)'
-                        }
+                        customColor="var(--text-color)"
                       >
                         Coffee & Code Culture
                       </Typography>
                       <Typography
-                        theme={theme}
+        
                         variant="body2"
                         style={{
                           lineHeight: 1.5,
@@ -529,9 +500,7 @@ function AboutPage() {
                           maxWidth: '100%',
                           margin: '0 auto',
                         }}
-                        customColor={
-                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
-                        }
+                        customColor="var(--text-secondary-color)"
                       >
                         My development workflow is powered by carefully crafted espresso and an
                         appreciation for the ritual of coding. Whether it's early morning
@@ -548,7 +517,7 @@ function AboutPage() {
                   <div
                     style={{
                       background:
-                        theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                        'var(--paper-color)',
                       borderRadius: '16px',
                       padding: '32px 24px',
                       display: 'flex',
@@ -557,9 +526,7 @@ function AboutPage() {
                       textAlign: 'center',
                       height: '100%',
                       boxShadow:
-                        theme?.mode === 'dark'
-                          ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                          : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                        '0px 2px 8px rgba(0, 0, 0, 0.06)',
                       transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                     }}
                   >
@@ -567,7 +534,7 @@ function AboutPage() {
                       style={{
                         fontSize: '4rem',
                         color:
-                          theme?.mode === 'dark' ? theme?.colors?.primary || '#90caf9' : '#1565c0',
+                          'var(--primary-color)',
                         marginBottom: '24px',
                         display: 'flex',
                         alignItems: 'center',
@@ -578,10 +545,7 @@ function AboutPage() {
                         iconName="Dog"
                         fontSize="4rem"
                         style={{
-                          color:
-                            theme?.mode === 'dark'
-                              ? theme?.colors?.primary || '#90caf9'
-                              : '#1565c0',
+                          color: 'var(--primary-color)',
                         }}
                         aria-label="Dog icon representing work-life balance and developer companionship"
                         role="img"
@@ -589,7 +553,7 @@ function AboutPage() {
                     </div>
                     <StyledBox>
                       <Typography
-                        theme={theme}
+        
                         variant="h3"
                         component="h3"
                         style={{
@@ -599,16 +563,12 @@ function AboutPage() {
                           textAlign: 'center',
                           lineHeight: 1.3,
                         }}
-                        customColor={
-                          theme?.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.87)'
-                            : 'rgba(0, 0, 0, 0.87)'
-                        }
+                        customColor="var(--text-color)"
                       >
                         Dog Parent & Developer Balance
                       </Typography>
                       <Typography
-                        theme={theme}
+        
                         variant="body2"
                         style={{
                           lineHeight: 1.5,
@@ -617,9 +577,7 @@ function AboutPage() {
                           maxWidth: '100%',
                           margin: '0 auto',
                         }}
-                        customColor={
-                          theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
-                        }
+                        customColor="var(--text-secondary-color)"
                       >
                         Life with two demanding canine project managers has taught me invaluable
                         lessons about patience, adaptability, and time management - skills that
@@ -647,7 +605,7 @@ function AboutPage() {
                 fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
                 fontWeight: 600,
                 marginBottom: '32px',
-                color: theme?.mode === 'dark' ? '#ffffff' : '#333',
+                color: 'var(--text-color)',
                 textAlign: 'center',
               }}
             >
@@ -656,14 +614,12 @@ function AboutPage() {
 
             <div
               style={{
-                background: theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                background: 'var(--paper-color)',
                 borderRadius: '24px',
                 padding: '48px',
                 marginBottom: '32px',
                 boxShadow:
-                  theme?.mode === 'dark'
-                    ? '0px 8px 24px rgba(0, 0, 0, 0.3)'
-                    : '0px 8px 24px rgba(0, 0, 0, 0.08)',
+                  '0px 8px 24px rgba(0, 0, 0, 0.08)',
                 transition: 'background 0.3s ease',
               }}
             >
@@ -672,7 +628,7 @@ function AboutPage() {
                 style={{
                   fontSize: '1.25rem',
                   lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: 'var(--text-color)',
                   marginBottom: '24px',
                 }}
               >
@@ -689,7 +645,7 @@ function AboutPage() {
                 style={{
                   fontSize: '1.25rem',
                   lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: 'var(--text-color)',
                   marginBottom: '24px',
                 }}
               >
@@ -706,7 +662,7 @@ function AboutPage() {
                 style={{
                   fontSize: '1.25rem',
                   lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: 'var(--text-color)',
                   marginBottom: '24px',
                 }}
               >
@@ -723,7 +679,7 @@ function AboutPage() {
                 style={{
                   fontSize: '1.25rem',
                   lineHeight: 1.7,
-                  color: theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                  color: 'var(--text-color)',
                 }}
               >
                 Currently, I&#39;m focused on exploring emerging technologies like WebAssembly,
@@ -879,7 +835,7 @@ function AboutPage() {
                 JavaScript Technology Stack & Development Tools
               </Typography>
               <Typography
-                theme={theme}
+
                 variant="body1"
                 color="text.secondary"
                 style={{
@@ -895,15 +851,11 @@ function AboutPage() {
               <TechnologyGrid>
                 <div
                   style={{
-                    background:
-                      theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                    background: 'var(--paper-color)',
                     borderRadius: '16px',
                     padding: '32px 16px',
                     textAlign: 'center',
-                    boxShadow:
-                      theme?.mode === 'dark'
-                        ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                        : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                   }}
                 >
@@ -924,22 +876,22 @@ function AboutPage() {
                     />
                   </div>
                   <Typography
-                    theme={theme}
+    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
+                      'var(--text-color)'
                     }
                   >
                     JetBrains WebStorm JavaScript Development Environment
                   </Typography>
                   <Typography
-                    theme={theme}
+    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                      'var(--text-secondary-color)'
                     }
                   >
                     My primary IDE for JavaScript and React development, featuring intelligent code
@@ -951,15 +903,11 @@ function AboutPage() {
 
                 <div
                   style={{
-                    background:
-                      theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                    background: 'var(--paper-color)',
                     borderRadius: '16px',
                     padding: '32px 16px',
                     textAlign: 'center',
-                    boxShadow:
-                      theme?.mode === 'dark'
-                        ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                        : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                   }}
                 >
@@ -977,22 +925,22 @@ function AboutPage() {
                     <SiMozilla aria-label="Firefox web browser development tool icon" role="img" />
                   </div>
                   <Typography
-                    theme={theme}
+    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
+                      'var(--text-color)'
                     }
                   >
                     Firefox Web Development
                   </Typography>
                   <Typography
-                    theme={theme}
+    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                      'var(--text-secondary-color)'
                     }
                   >
                     My preferred browser for web development and testing, offering excellent
@@ -1006,15 +954,11 @@ function AboutPage() {
 
                 <div
                   style={{
-                    background:
-                      theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                    background: 'var(--paper-color)',
                     borderRadius: '16px',
                     padding: '32px 16px',
                     textAlign: 'center',
-                    boxShadow:
-                      theme?.mode === 'dark'
-                        ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                        : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                   }}
                 >
@@ -1032,22 +976,22 @@ function AboutPage() {
                     <SiDebian aria-label="Debian Linux operating system icon" role="img" />
                   </div>
                   <Typography
-                    theme={theme}
+    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
+                      'var(--text-color)'
                     }
                   >
                     Debian Linux
                   </Typography>
                   <Typography
-                    theme={theme}
+    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                      'var(--text-secondary-color)'
                     }
                   >
                     My development environment of choice, providing a stable and secure foundation
@@ -1060,15 +1004,11 @@ function AboutPage() {
 
                 <div
                   style={{
-                    background:
-                      theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                    background: 'var(--paper-color)',
                     borderRadius: '16px',
                     padding: '32px 16px',
                     textAlign: 'center',
-                    boxShadow:
-                      theme?.mode === 'dark'
-                        ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                        : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                   }}
                 >
@@ -1086,22 +1026,22 @@ function AboutPage() {
                     <SiGit aria-label="Git version control system icon" role="img" />
                   </div>
                   <Typography
-                    theme={theme}
+    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
+                      'var(--text-color)'
                     }
                   >
                     Git
                   </Typography>
                   <Typography
-                    theme={theme}
+    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                      'var(--text-secondary-color)'
                     }
                   >
                     Essential for collaborative development and code management. I follow Git best
@@ -1114,15 +1054,11 @@ function AboutPage() {
 
                 <div
                   style={{
-                    background:
-                      theme?.mode === 'dark' ? theme?.colors?.paper || '#1a1a1a' : '#ffffff',
+                    background: 'var(--paper-color)',
                     borderRadius: '16px',
                     padding: '32px 16px',
                     textAlign: 'center',
-                    boxShadow:
-                      theme?.mode === 'dark'
-                        ? '0px 2px 8px rgba(0, 0, 0, 0.3)'
-                        : '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                   }}
                 >
@@ -1140,22 +1076,22 @@ function AboutPage() {
                     <SiAnthropic aria-label="Anthropic AI company logo" role="img" />
                   </div>
                   <Typography
-                    theme={theme}
+    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)'
+                      'var(--text-color)'
                     }
                   >
                     Anthropic Claude AI Assistant
                   </Typography>
                   <Typography
-                    theme={theme}
+    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
                     customColor={
-                      theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'
+                      'var(--text-secondary-color)'
                     }
                   >
                     Advanced AI assistant for code review, documentation, and development workflow

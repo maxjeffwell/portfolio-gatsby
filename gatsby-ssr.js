@@ -21,23 +21,35 @@ if (typeof global !== 'undefined') {
 }
 
 import React from 'react';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { wrapRootElement as wrap } from './src/wrap-root-element';
 
-// Error boundary component for SSR
-const SSRErrorBoundary = ({ children }) => {
-  return children;
-};
+// styled-components SSR: collect styles during render
+const sheetByPathname = new Map();
 
-export const wrapRootElement = ({ element }) => {
+export const wrapRootElement = ({ element, pathname }) => {
+  const sheet = new ServerStyleSheet();
+  sheetByPathname.set(pathname, sheet);
+
   return (
-    <SSRErrorBoundary>
+    <StyleSheetManager sheet={sheet.instance}>
       {wrap({ element })}
-    </SSRErrorBoundary>
+    </StyleSheetManager>
   );
 };
 
 // Inject theme detection script and handle SSR issues
-export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
+export const onRenderBody = ({ setPreBodyComponents, setHeadComponents, pathname }) => {
+  // Extract collected styled-components CSS and inject into <head>
+  const sheet = sheetByPathname.get(pathname);
+  if (sheet) {
+    const styleElements = sheet.getStyleElement();
+    if (styleElements && styleElements.length > 0) {
+      setHeadComponents(styleElements);
+    }
+    sheetByPathname.delete(pathname);
+  }
+
   // Add TextEncoder polyfill script before any other scripts
   setHeadComponents([
     <link
@@ -64,10 +76,19 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
       type="font/woff2"
       crossOrigin="anonymous"
     />,
-    <link
-      key="fonts-stylesheet"
-      rel="stylesheet"
-      href="/fonts/fonts.css"
+    <style
+      key="fonts-inline"
+      dangerouslySetInnerHTML={{
+        __html: `
+          @font-face{font-family:'HelveticaNeueLTStd-Bd';font-style:normal;font-weight:bold;src:url('/fonts/HelveticaNeueLTStd-Bd.woff2') format('woff2'),url('/fonts/HelveticaNeueLTStd-Bd.woff') format('woff');font-display:optional}
+          @font-face{font-family:'HelveticaNeueLTStd-Roman';font-style:normal;font-weight:normal;src:url('/fonts/HelveticaNeueLTStd-Roman.woff2') format('woff2'),url('/fonts/HelveticaNeueLTStd-Roman.woff') format('woff');font-display:optional}
+          @font-face{font-family:'AvenirLTStd-Roman';font-style:normal;font-weight:normal;src:url('/fonts/AvenirLTStd-Roman.woff2') format('woff2'),url('/fonts/AvenirLTStd-Roman.woff') format('woff');font-display:optional}
+          @font-face{font-family:'SabonLTStd-Roman';font-style:normal;font-weight:normal;src:url('/fonts/SabonLTStd-Roman.woff2') format('woff2'),url('/fonts/SabonLTStd-Roman.woff') format('woff');font-display:optional}
+          @font-face{font-family:'AvenirFallback';src:local('Arial'),local('Liberation Sans'),local('Helvetica Neue'),local('Helvetica');size-adjust:92.0%;ascent-override:82.2%;descent-override:26.5%;line-gap-override:21.7%}
+          @font-face{font-family:'HelveticaNeueBdFallback';src:local('Arial'),local('Liberation Sans'),local('Helvetica Neue'),local('Helvetica');font-weight:bold;size-adjust:94.9%;ascent-override:75.2%;descent-override:30.1%;line-gap-override:21.1%}
+          @font-face{font-family:'HelveticaNeueRomanFallback';src:local('Arial'),local('Liberation Sans'),local('Helvetica Neue'),local('Helvetica');size-adjust:90.9%;ascent-override:78.5%;descent-override:31.5%;line-gap-override:22.0%}
+        `,
+      }}
     />,
     <script
       key="textencoder-polyfill"
@@ -150,39 +171,6 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
       }}
     />,
   ]);
-  // Mock window and document APIs for SSR to prevent issues
-  if (typeof window === 'undefined') {
-    // Ensure polyfills are available (already set at top of file)
-    if (!global.TextEncoder) {
-      const { TextEncoder, TextDecoder } = require('fastestsmallesttextencoderdecoder');
-      global.TextEncoder = TextEncoder;
-      global.TextDecoder = TextDecoder;
-    }
-    
-    global.window = {
-      matchMedia: () => ({
-        matches: false,
-        addEventListener: () => {},
-        removeEventListener: () => {},
-      }),
-      navigator: { userAgent: 'SSR' },
-      document: {
-        createElement: () => ({}),
-        addEventListener: () => {},
-        removeEventListener: () => {},
-      },
-    };
-    
-    global.document = {
-      createElement: () => ({}),
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      body: {},
-      documentElement: { style: {} },
-    };
-  }
-
-  // styled-components handles SSR automatically, no manual insertion point needed
   const themeScript = `
     (function() {
       try {
@@ -197,23 +185,47 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
         if (initialTheme === 'dark') {
           root.classList.add('dark-mode');
           root.classList.remove('light-mode');
-          // Set CSS variables immediately
           root.style.setProperty('--bg-color', '#0a0a0a');
           root.style.setProperty('--text-color', '#ffffff');
           root.style.setProperty('--paper-color', '#1a1a1a');
           root.style.setProperty('--primary-color', '#90caf9');
           root.style.setProperty('--secondary-color', '#f48fb1');
           root.style.setProperty('--text-secondary-color', 'rgba(255, 255, 255, 0.7)');
+          root.style.setProperty('--text-muted-color', 'rgba(255, 255, 255, 0.5)');
+          root.style.setProperty('--border-color', 'rgba(255, 255, 255, 0.1)');
+          root.style.setProperty('--tag-bg', 'rgba(255, 255, 255, 0.08)');
+          root.style.setProperty('--hover-bg', 'rgba(255, 255, 255, 0.08)');
+          root.style.setProperty('--icon-color', 'rgba(255, 255, 255, 0.7)');
+          root.style.setProperty('--footer-bg', '#0a0a0a');
+          root.style.setProperty('--nav-bg', 'rgba(255, 255, 255, 0.08)');
+          root.style.setProperty('--nav-hover-bg', 'rgba(255, 255, 255, 0.12)');
+          root.style.setProperty('--nav-active-text', '#000000');
+          root.style.setProperty('--divider-subtle', 'rgba(255, 255, 255, 0.1)');
+          root.style.setProperty('--secondary-nav-bg', 'rgba(255, 255, 255, 0.03)');
+          root.style.setProperty('--secondary-nav-border', 'rgba(255, 255, 255, 0.06)');
+          root.style.setProperty('--mobile-nav-label', '#888');
         } else {
           root.classList.add('light-mode');
           root.classList.remove('dark-mode');
-          // Set CSS variables immediately
           root.style.setProperty('--bg-color', '#f5f5f5');
           root.style.setProperty('--text-color', '#212121');
           root.style.setProperty('--paper-color', '#ffffff');
           root.style.setProperty('--primary-color', '#1976d2');
           root.style.setProperty('--secondary-color', '#dc004e');
           root.style.setProperty('--text-secondary-color', 'rgba(0, 0, 0, 0.6)');
+          root.style.setProperty('--text-muted-color', 'rgba(0, 0, 0, 0.45)');
+          root.style.setProperty('--border-color', 'rgba(0, 0, 0, 0.1)');
+          root.style.setProperty('--tag-bg', 'rgba(0, 0, 0, 0.06)');
+          root.style.setProperty('--hover-bg', 'rgba(0, 0, 0, 0.04)');
+          root.style.setProperty('--icon-color', 'rgba(0, 0, 0, 0.54)');
+          root.style.setProperty('--footer-bg', '#fafafa');
+          root.style.setProperty('--nav-bg', '#e8eaf6');
+          root.style.setProperty('--nav-hover-bg', '#c5cae9');
+          root.style.setProperty('--nav-active-text', '#ffffff');
+          root.style.setProperty('--divider-subtle', 'rgba(0, 0, 0, 0.08)');
+          root.style.setProperty('--secondary-nav-bg', 'rgba(0, 0, 0, 0.02)');
+          root.style.setProperty('--secondary-nav-border', 'rgba(0, 0, 0, 0.06)');
+          root.style.setProperty('--mobile-nav-label', '#999');
         }
         
         // Body styles are handled by CSS variables in stylesheet
@@ -228,12 +240,6 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
         var root = document.documentElement;
         root.classList.add('light-mode');
         root.classList.remove('dark-mode');
-        root.style.setProperty('--bg-color', '#f5f5f5');
-        root.style.setProperty('--text-color', '#212121');
-        root.style.setProperty('--paper-color', '#ffffff');
-        root.style.setProperty('--primary-color', '#1976d2');
-        root.style.setProperty('--secondary-color', '#dc004e');
-        root.style.setProperty('--text-secondary-color', 'rgba(0, 0, 0, 0.6)');
         // Body styles are handled by CSS variables in stylesheet
       }
     })();
@@ -252,8 +258,21 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
             --primary-color: #1976d2;
             --secondary-color: #dc004e;
             --text-secondary-color: rgba(0, 0, 0, 0.6);
+            --text-muted-color: rgba(0, 0, 0, 0.45);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --tag-bg: rgba(0, 0, 0, 0.06);
+            --hover-bg: rgba(0, 0, 0, 0.04);
+            --icon-color: rgba(0, 0, 0, 0.54);
+            --footer-bg: #fafafa;
+            --nav-bg: #e8eaf6;
+            --nav-hover-bg: #c5cae9;
+            --nav-active-text: #ffffff;
+            --divider-subtle: rgba(0, 0, 0, 0.08);
+            --secondary-nav-bg: rgba(0, 0, 0, 0.02);
+            --secondary-nav-border: rgba(0, 0, 0, 0.06);
+            --mobile-nav-label: #999;
           }
-          
+
           @media (prefers-color-scheme: dark) {
             :root {
               --bg-color: #0a0a0a;
@@ -262,6 +281,19 @@ export const onRenderBody = ({ setPreBodyComponents, setHeadComponents }) => {
               --primary-color: #90caf9;
               --secondary-color: #f48fb1;
               --text-secondary-color: rgba(255, 255, 255, 0.7);
+              --text-muted-color: rgba(255, 255, 255, 0.5);
+              --border-color: rgba(255, 255, 255, 0.1);
+              --tag-bg: rgba(255, 255, 255, 0.08);
+              --hover-bg: rgba(255, 255, 255, 0.08);
+              --icon-color: rgba(255, 255, 255, 0.7);
+              --footer-bg: #0a0a0a;
+              --nav-bg: rgba(255, 255, 255, 0.08);
+              --nav-hover-bg: rgba(255, 255, 255, 0.12);
+              --nav-active-text: #000000;
+              --divider-subtle: rgba(255, 255, 255, 0.1);
+              --secondary-nav-bg: rgba(255, 255, 255, 0.03);
+              --secondary-nav-border: rgba(255, 255, 255, 0.06);
+              --mobile-nav-label: #888;
             }
           }
           

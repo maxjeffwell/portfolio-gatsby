@@ -2,11 +2,10 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '../components/layout';
-import Seo from '../components/seo';
+import SEO from '../components/seo';
 import BlogCard from '../components/blogCard';
 import PageTransition from '../components/PageTransition';
 import SocialShare from '../components/SocialShare';
-import { useTheme } from '../context/ThemeContext';
 
 const PageContainer = styled.div`
   max-width: 1200px;
@@ -25,19 +24,21 @@ const PageTitle = styled.h1`
   text-align: center;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  background: ${(props) =>
-    props.theme?.mode === 'dark'
-      ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
-      : 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)'};
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
 `;
 
 const PageDescription = styled.p`
   font-size: 1.25rem;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'};
+  color: var(--text-secondary-color);
   margin-bottom: 40px;
   max-width: 700px;
   margin-left: auto;
@@ -65,20 +66,24 @@ const PostsGrid = styled.div`
 const EmptyState = styled.div`
   text-align: center;
   padding: 60px 24px;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.5)'};
+  color: var(--text-secondary-color);
 `;
 
 function BlogPage({ data }) {
-  const { theme } = useTheme();
   const posts = data.allMarkdownRemark.nodes;
 
   return (
     <Layout>
       <PageTransition>
+        <SEO
+          title="K8s Cluster Journal"
+          description="Documenting my Kubernetes homelab journey - cluster setup, GitOps, GPU workloads, and self-hosted AI."
+          pathname="/blog/"
+          keywords={['kubernetes', 'homelab', 'k8s', 'gitops', 'self-hosted', 'devops']}
+        />
         <PageContainer>
-          <PageTitle theme={theme}>K8s Cluster Journal</PageTitle>
-          <PageDescription theme={theme}>
+          <PageTitle>K8s Cluster Journal</PageTitle>
+          <PageDescription>
             Documenting my Kubernetes homelab journey - from initial cluster setup to running
             production workloads with GPUs, GitOps, and self-hosted AI.
           </PageDescription>
@@ -97,7 +102,7 @@ function BlogPage({ data }) {
               ))}
             </PostsGrid>
           ) : (
-            <EmptyState theme={theme}>
+            <EmptyState>
               <p>No posts yet. Check back soon!</p>
             </EmptyState>
           )}
@@ -116,15 +121,6 @@ function BlogPage({ data }) {
     </Layout>
   );
 }
-
-export const Head = () => (
-  <Seo
-    title="K8s Cluster Journal"
-    description="Documenting my Kubernetes homelab journey - cluster setup, GitOps, GPU workloads, and self-hosted AI."
-    pathname="/blog/"
-    keywords={['kubernetes', 'homelab', 'k8s', 'gitops', 'self-hosted', 'devops']}
-  />
-);
 
 export const query = graphql`
   query BlogListQuery {

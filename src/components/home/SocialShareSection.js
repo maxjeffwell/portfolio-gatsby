@@ -1,16 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SocialShare from '../SocialShare';
 import { Container, ContentSection } from './styles';
 
-const SocialShareSection = ({ theme }) => {
+const SocialShareSection = () => {
   const url =
     typeof window !== 'undefined' && window.location
       ? window.location.href
       : 'https://el-jefe.me';
 
   return (
-    <ContentSection theme={theme} as="section" aria-labelledby="social-share" id="share">
+    <ContentSection as="section" aria-labelledby="social-share" id="share">
       <Container>
         <SocialShare
           url={url}
@@ -20,17 +19,6 @@ const SocialShareSection = ({ theme }) => {
       </Container>
     </ContentSection>
   );
-};
-
-SocialShareSection.propTypes = {
-  theme: PropTypes.shape({
-    mode: PropTypes.string,
-    colors: PropTypes.object,
-  }),
-};
-
-SocialShareSection.defaultProps = {
-  theme: null,
 };
 
 export default SocialShareSection;

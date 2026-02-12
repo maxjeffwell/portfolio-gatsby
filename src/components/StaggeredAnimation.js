@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,19 +28,20 @@ const itemVariants = {
 };
 
 function StaggeredAnimation({ children, className, delay = 0 }) {
-  const [isClient, setIsClient] = useState(false);
   const [MotionDiv, setMotionDiv] = useState(null);
+  const isInitialLoad = useRef(true);
 
   useEffect(() => {
-    setIsClient(true);
-    // Dynamically import motion to avoid SSR issues
     import('motion/react').then(({ motion }) => {
       setMotionDiv(() => motion.div);
+      requestAnimationFrame(() => {
+        isInitialLoad.current = false;
+      });
     });
   }, []);
 
   // Return static div during SSR or while loading motion
-  if (!isClient || !MotionDiv) {
+  if (!MotionDiv) {
     return (
       <div className={className}>
         {React.Children.map(children, (child, index) => (
@@ -50,11 +51,12 @@ function StaggeredAnimation({ children, className, delay = 0 }) {
     );
   }
 
+  // Skip entry animation on initial page load to prevent CLS
   return (
     <MotionDiv
       className={className}
       variants={containerVariants}
-      initial="hidden"
+      initial={isInitialLoad.current ? false : 'hidden'}
       animate="visible"
       transition={{ delay }}
     >

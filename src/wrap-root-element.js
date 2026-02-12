@@ -39,7 +39,7 @@ const ThemedWrapper = ({ children }) => {
 
   return (
     <StyledThemeProvider theme={theme}>
-      {typeof window !== 'undefined' && <ClientOnlyPerformanceMonitor />}
+      <ClientOnlyPerformanceMonitor />
       {children}
     </StyledThemeProvider>
   );

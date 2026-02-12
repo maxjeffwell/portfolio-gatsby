@@ -2,9 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '../components/layout';
-import Seo from '../components/seo';
-import { useTheme } from '../context/ThemeContext';
-
+import SEO from '../components/seo';
 // Prism syntax highlighting theme - only needed on blog post pages
 import 'prismjs/themes/prism-tomorrow.css';
 
@@ -30,7 +28,7 @@ const BackLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: ${(props) => props.theme?.colors?.primary || '#1976d2'};
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 500;
   margin-bottom: 32px;
@@ -53,8 +51,7 @@ const ArticleTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 16px;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.87)'};
+  color: var(--text-color);
   line-height: 1.2;
 
   @media (max-width: 600px) {
@@ -67,8 +64,7 @@ const ArticleMeta = styled.div`
   flex-wrap: wrap;
   align-items: center;
   gap: 16px;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.5)'};
+  color: var(--text-muted-color);
   font-size: 0.95rem;
 `;
 
@@ -85,14 +81,12 @@ const Tag = styled.span`
   border-radius: 16px;
   font-size: 0.8rem;
   font-weight: 500;
-  background-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(144, 202, 249, 0.15)' : 'rgba(25, 118, 210, 0.1)'};
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+  background-color: var(--primary-subtle-bg);
+  color: var(--primary-color);
 `;
 
 const ArticleContent = styled.div`
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.8)'};
+  color: var(--text-color);
   font-size: 1.125rem;
   line-height: 1.8;
 
@@ -101,8 +95,7 @@ const ArticleContent = styled.div`
     font-weight: 600;
     margin-top: 48px;
     margin-bottom: 16px;
-    color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(0, 0, 0, 0.87)'};
+    color: var(--text-color);
   }
 
   h3 {
@@ -110,8 +103,7 @@ const ArticleContent = styled.div`
     font-weight: 600;
     margin-top: 32px;
     margin-bottom: 12px;
-    color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.8)'};
+    color: var(--text-color);
   }
 
   p {
@@ -119,7 +111,7 @@ const ArticleContent = styled.div`
   }
 
   a {
-    color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+    color: var(--primary-color);
     text-decoration: underline;
     text-underline-offset: 2px;
 
@@ -143,8 +135,7 @@ const ArticleContent = styled.div`
     font-size: 0.9em;
     padding: 2px 6px;
     border-radius: 4px;
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)'};
+    background-color: var(--tag-bg);
   }
 
   pre {
@@ -164,9 +155,8 @@ const ArticleContent = styled.div`
   blockquote {
     margin: 24px 0;
     padding: 16px 24px;
-    border-left: 4px solid ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'};
+    border-left: 4px solid var(--primary-color);
+    background-color: var(--secondary-nav-bg);
     font-style: italic;
 
     p:last-child {
@@ -210,8 +200,7 @@ const PostNavigation = styled.nav`
   gap: 24px;
   margin-top: 60px;
   padding-top: 32px;
-  border-top: 1px solid
-    ${(props) => (props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')};
+  border-top: 1px solid var(--border-color);
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -224,13 +213,11 @@ const NavLink = styled(Link)`
   padding: 16px;
   border-radius: 8px;
   text-decoration: none;
-  background-color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'};
+  background-color: var(--secondary-nav-bg);
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+    background-color: var(--hover-bg);
   }
 
   &[data-direction='next'] {
@@ -244,19 +231,17 @@ const NavLabel = styled.span`
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: ${(props) =>
-    props.theme?.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.4)'};
+  color: var(--text-muted-color);
   margin-bottom: 4px;
 `;
 
 const NavTitle = styled.span`
   display: block;
   font-weight: 500;
-  color: ${(props) => (props.theme?.mode === 'dark' ? '#90caf9' : '#1976d2')};
+  color: var(--primary-color);
 `;
 
 function BlogPostTemplate({ data }) {
-  const { theme } = useTheme();
   const post = data.markdownRemark;
   const { previous, next } = data;
 
@@ -266,14 +251,25 @@ function BlogPostTemplate({ data }) {
 
   return (
     <Layout>
+      <SEO
+        title={post.frontmatter.title}
+        description={post.frontmatter.excerpt || post.excerpt}
+        pathname={`/blog${post.fields.slug}`}
+        keywords={post.frontmatter.tags || []}
+        article={{
+          publishedTime: post.frontmatter.rawDate,
+          modifiedTime: post.frontmatter.rawDate,
+          tags: post.frontmatter.tags || [],
+        }}
+      />
       <ArticleContainer>
-        <BackLink to="/blog/" theme={theme}>
+        <BackLink to="/blog/">
           Back to all posts
         </BackLink>
 
         <ArticleHeader>
-          <ArticleTitle theme={theme}>{post.frontmatter.title}</ArticleTitle>
-          <ArticleMeta theme={theme}>
+          <ArticleTitle>{post.frontmatter.title}</ArticleTitle>
+          <ArticleMeta>
             <time dateTime={post.frontmatter.rawDate}>{post.frontmatter.date}</time>
             <span>&bull;</span>
             <span>{post.timeToRead} min read</span>
@@ -281,7 +277,7 @@ function BlogPostTemplate({ data }) {
           {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
             <TagsContainer>
               {post.frontmatter.tags.map((tag) => (
-                <Tag key={tag} theme={theme}>
+                <Tag key={tag}>
                   {tag}
                 </Tag>
               ))}
@@ -290,24 +286,23 @@ function BlogPostTemplate({ data }) {
         </ArticleHeader>
 
         <ArticleContent
-          theme={theme}
           // Content is generated at build-time from trusted local markdown files
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: trustedHtml }}
         />
 
-        <PostNavigation theme={theme}>
+        <PostNavigation>
           {previous && (
-            <NavLink to={`/blog${previous.fields.slug}`} theme={theme} data-direction="previous">
-              <NavLabel theme={theme}>Previous</NavLabel>
-              <NavTitle theme={theme}>{previous.frontmatter.title}</NavTitle>
+            <NavLink to={`/blog${previous.fields.slug}`} data-direction="previous">
+              <NavLabel>Previous</NavLabel>
+              <NavTitle>{previous.frontmatter.title}</NavTitle>
             </NavLink>
           )}
           {!previous && <div />}
           {next && (
-            <NavLink to={`/blog${next.fields.slug}`} theme={theme} data-direction="next">
-              <NavLabel theme={theme}>Next</NavLabel>
-              <NavTitle theme={theme}>{next.frontmatter.title}</NavTitle>
+            <NavLink to={`/blog${next.fields.slug}`} data-direction="next">
+              <NavLabel>Next</NavLabel>
+              <NavTitle>{next.frontmatter.title}</NavTitle>
             </NavLink>
           )}
         </PostNavigation>
@@ -315,23 +310,6 @@ function BlogPostTemplate({ data }) {
     </Layout>
   );
 }
-
-export const Head = ({ data }) => {
-  const post = data.markdownRemark;
-  return (
-    <Seo
-      title={post.frontmatter.title}
-      description={post.frontmatter.excerpt || post.excerpt}
-      pathname={`/blog${post.fields.slug}`}
-      keywords={post.frontmatter.tags || []}
-      article={{
-        publishedTime: post.frontmatter.rawDate,
-        modifiedTime: post.frontmatter.rawDate,
-        tags: post.frontmatter.tags || [],
-      }}
-    />
-  );
-};
 
 export const query = graphql`
   query BlogPostBySlug($id: String!, $previousPostId: String, $nextPostId: String) {
