@@ -33,16 +33,13 @@ const MotionWrapper = ({
 
     // Client-side route transition: animate content in
     if (animateFn && ref.current && animateTarget) {
-      animateFn(
-        ref.current,
-        animateTarget,
-        {
-          duration: transition?.duration || 0.5,
-          delay: transition?.delay || 0,
-          ease: transition?.ease || [0.25, 0.46, 0.45, 0.94],
-        }
-      );
+      animateFn(ref.current, animateTarget, {
+        duration: transition?.duration || 0.5,
+        delay: transition?.delay || 0,
+        ease: transition?.ease || [0.25, 0.46, 0.45, 0.94],
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

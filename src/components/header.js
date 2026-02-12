@@ -6,7 +6,9 @@ import MyLogo from './myLogo';
 import SSRSafeDarkModeToggle from './SSRSafeDarkModeToggle';
 import ClientOnlyIcon from './ClientOnlyIcon';
 
-const DocSearch = lazy(() => import('@docsearch/react').then(mod => ({ default: mod.DocSearch })));
+const DocSearch = lazy(() =>
+  import('@docsearch/react').then((mod) => ({ default: mod.DocSearch }))
+);
 
 // Simple icon components using Unicode symbols
 
@@ -360,12 +362,7 @@ function Header() {
         p={2}
       >
         {primaryItems.map((item) => (
-          <MobileNavButton
-            key={item.text}
-            as={Link}
-            to={item.to}
-            onClick={handleDrawerToggle}
-          >
+          <MobileNavButton key={item.text} as={Link} to={item.to} onClick={handleDrawerToggle}>
             {item.text}
           </MobileNavButton>
         ))}
@@ -451,7 +448,8 @@ function Header() {
           </StyledToolbar>
           <SecondaryNavBar>
             {secondaryItems.map((item) => {
-              const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
+              const isGatsbyPage =
+                !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
               return (
                 <SecondaryNavLink
                   key={item.text}
@@ -468,9 +466,7 @@ function Header() {
       {mobileOpen && (
         <>
           <DrawerBackdrop open={mobileOpen} onClick={handleDrawerToggle} />
-          <StyledDrawer open={mobileOpen}>
-            {drawer}
-          </StyledDrawer>
+          <StyledDrawer open={mobileOpen}>{drawer}</StyledDrawer>
         </>
       )}
       <ToolbarSpacer />

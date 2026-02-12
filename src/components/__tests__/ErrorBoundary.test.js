@@ -65,7 +65,7 @@ describe('ErrorBoundary', () => {
     it('catches the error and displays fallback UI', () => {
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -77,7 +77,7 @@ describe('ErrorBoundary', () => {
     it('displays action buttons', () => {
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -92,7 +92,7 @@ describe('ErrorBoundary', () => {
 
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -111,7 +111,7 @@ describe('ErrorBoundary', () => {
     it('Try Again button renders and is clickable', () => {
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -126,7 +126,7 @@ describe('ErrorBoundary', () => {
     it('Go Home button renders and is clickable', () => {
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -145,7 +145,7 @@ describe('ErrorBoundary', () => {
 
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -165,7 +165,7 @@ describe('ErrorBoundary', () => {
 
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -181,7 +181,7 @@ describe('ErrorBoundary', () => {
 
       render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 
@@ -197,9 +197,9 @@ describe('ErrorBoundary', () => {
 
   describe('recovery', () => {
     it('can recover when error condition is fixed', () => {
-      const { rerender } = render(
+      render(
         <ErrorBoundary>
-          <ThrowError shouldThrow={true} />
+          <ThrowError shouldThrow />
         </ErrorBoundary>
       );
 

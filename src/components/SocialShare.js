@@ -108,16 +108,10 @@ const ShareButton = styled.a`
   }
 `;
 
-const ShareIcon = styled.span`
-  font-size: 1.25rem;
-  line-height: 1;
-`;
-
 function SocialShare({ url, title, description }) {
   // Encode URL and text for sharing
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
-  const encodedDescription = encodeURIComponent(description);
   const shareText = encodeURIComponent(`${title} - ${description}`);
 
   const shareLinks = {

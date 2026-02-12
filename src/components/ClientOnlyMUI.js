@@ -3,28 +3,21 @@
 
 import React from 'react';
 
+const variantMap = { h1: 'h1', h2: 'h2', h3: 'h3', h4: 'h4', h5: 'h5', h6: 'h6' };
+
 const ClientOnlyMUI = ({ component: ComponentName, children, fallback = null, ...props }) => {
   // Provide basic HTML fallbacks for common components
   if (ComponentName === 'Typography') {
-    const Component =
-      props.variant === 'h1'
-        ? 'h1'
-        : props.variant === 'h2'
-          ? 'h2'
-          : props.variant === 'h3'
-            ? 'h3'
-            : props.variant === 'h4'
-              ? 'h4'
-              : props.variant === 'h5'
-                ? 'h5'
-                : props.variant === 'h6'
-                  ? 'h6'
-                  : 'p';
+    const Component = variantMap[props.variant] || 'p';
     return React.createElement(Component, { ...props, variant: undefined }, children);
   }
 
   if (ComponentName === 'Button') {
-    return <button {...props}>{children}</button>;
+    return (
+      <button type="button" {...props}>
+        {children}
+      </button>
+    );
   }
 
   // Return fallback or simple div for other components

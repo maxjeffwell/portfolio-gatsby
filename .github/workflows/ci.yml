@@ -29,6 +29,8 @@ jobs:
 
       - name: Lint
         run: npm run lint
+        env:
+          NODE_ENV: test
 
       - name: Security audit (informational)
         run: npm audit --audit-level=high || true

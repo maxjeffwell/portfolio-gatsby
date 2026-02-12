@@ -33,7 +33,7 @@ export default function HTML(props) {
           <input type="hidden" name="form-name" value="contact" />
           <input type="text" name="name" />
           <input type="email" name="email" />
-          <textarea name="message"></textarea>
+          <textarea name="message" />
           <input type="text" name="bot-field" />
         </form>
         {preBodyComponents}

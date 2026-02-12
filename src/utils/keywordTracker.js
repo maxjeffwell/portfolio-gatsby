@@ -1,5 +1,5 @@
 // Keyword tracking utilities for SEO monitoring
-import { keywordConfig, getPageKeywords } from '../data/keywords';
+// import { keywordConfig, getPageKeywords } from '../data/keywords';
 
 /**
  * Track keyword performance using Google Analytics events
@@ -38,7 +38,7 @@ export const trackOrganicLanding = (page, referrer) => {
  * Get Search Console performance data (requires API setup)
  * This is a template for future server-side implementation
  */
-export const getSearchConsoleData = async (startDate, endDate) => {
+export const getSearchConsoleData = async (_startDate, _endDate) => {
   // This would require Google Search Console API setup on the server side
   // For now, this is a placeholder structure for future implementation
   console.warn('Search Console API integration requires server-side implementation');

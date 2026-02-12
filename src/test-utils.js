@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { ThemeProvider } from './context/ThemeContext';
 import { HelmetProvider } from 'react-helmet-async';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Default light theme for tests
 const defaultTheme = {
@@ -99,7 +99,10 @@ const mockLocalStorage = (values = {}) => {
 /**
  * Wait for all pending promises
  */
-const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
+const flushPromises = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 0);
+  });
 
 // Re-export everything from testing-library
 export * from '@testing-library/react';

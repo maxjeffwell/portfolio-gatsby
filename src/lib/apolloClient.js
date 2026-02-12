@@ -3,8 +3,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { createClient } from 'graphql-ws';
 
-const GATEWAY_URL =
-  process.env.GATSBY_GATEWAY_URL || 'https://gateway.el-jefe.me/graphql';
+const GATEWAY_URL = process.env.GATSBY_GATEWAY_URL || 'https://gateway.el-jefe.me/graphql';
 
 const WS_URL = GATEWAY_URL.replace(/^https/, 'wss').replace(/^http/, 'ws');
 
@@ -18,7 +17,7 @@ const wsLink =
           url: WS_URL,
           retryAttempts: 5,
           shouldRetry: () => true,
-        }),
+        })
       )
     : null;
 
@@ -27,13 +26,10 @@ const link =
     ? split(
         ({ query }) => {
           const def = getMainDefinition(query);
-          return (
-            def.kind === 'OperationDefinition' &&
-            def.operation === 'subscription'
-          );
+          return def.kind === 'OperationDefinition' && def.operation === 'subscription';
         },
         wsLink,
-        httpLink,
+        httpLink
       )
     : httpLink;
 

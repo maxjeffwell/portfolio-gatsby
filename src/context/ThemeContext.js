@@ -60,25 +60,6 @@ const getSystemPreference = () => {
   return 'light'; // Default to light theme on the server
 };
 
-// Get stored preference or system preference
-const getInitialTheme = () => {
-  if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
-    return 'light'; // Default to light theme on the server
-  }
-
-  try {
-    const stored = localStorage.getItem('portfolio-theme');
-    if (stored && (stored === 'light' || stored === 'dark')) {
-      return stored;
-    }
-  } catch (e) {
-    // localStorage might not be available
-    // Silently handle - localStorage unavailable during SSR is expected
-  }
-
-  return getSystemPreference();
-};
-
 // Theme Provider Component
 export function ThemeProvider({ children }) {
   // Initialize theme synchronously from pre-body script's class on <html>

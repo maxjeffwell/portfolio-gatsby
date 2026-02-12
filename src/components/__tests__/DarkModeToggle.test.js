@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
 import { ThemeProvider } from '../../context/ThemeContext';
 import DarkModeToggle from '../DarkModeToggle';
 import { mockMatchMedia, mockLocalStorage } from '../../test-utils';
@@ -8,17 +8,16 @@ import { mockMatchMedia, mockLocalStorage } from '../../test-utils';
 // Mock ClientOnlyIcon
 jest.mock('../ClientOnlyIcon', () => {
   return function MockClientOnlyIcon({ iconName, ...props }) {
-    return <span data-testid={`icon-${iconName}`} {...props}>{iconName}</span>;
+    return (
+      <span data-testid={`icon-${iconName}`} {...props}>
+        {iconName}
+      </span>
+    );
   };
 });
 
 const renderWithTheme = (ui, options = {}) => {
-  return render(
-    <ThemeProvider>
-      {ui}
-    </ThemeProvider>,
-    options
-  );
+  return render(<ThemeProvider>{ui}</ThemeProvider>, options);
 };
 
 describe('DarkModeToggle', () => {
@@ -58,7 +57,9 @@ describe('DarkModeToggle', () => {
       renderWithTheme(<DarkModeToggle />);
 
       // Wait for hydration and dark mode to be applied
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
 
       const button = screen.getByRole('button');
       expect(button).toHaveAttribute('aria-label', 'Switch to light mode');
@@ -78,7 +79,9 @@ describe('DarkModeToggle', () => {
       fireEvent.click(button);
 
       // After click, should switch to dark - aria-label should mention switching to light
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
       expect(button).toHaveAttribute('aria-label', 'Switch to light mode');
     });
 
@@ -119,7 +122,9 @@ describe('DarkModeToggle', () => {
       renderWithTheme(<DarkModeToggle />);
 
       // Wait for hydration
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
 
       const button = screen.getByRole('button');
       fireEvent.contextMenu(button);
@@ -145,7 +150,9 @@ describe('DarkModeToggle', () => {
       renderWithTheme(<DarkModeToggle />);
 
       // Wait for hydration
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
 
       const button = screen.getByRole('button');
       fireEvent.contextMenu(button);
@@ -171,7 +178,9 @@ describe('DarkModeToggle', () => {
 
       // Menu should close - the menu text should no longer be visible
       // Note: The menu is conditionally rendered, so it should be gone
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
       expect(screen.queryByText('Follow system preference')).not.toBeInTheDocument();
     });
   });
@@ -189,7 +198,9 @@ describe('DarkModeToggle', () => {
 
       renderWithTheme(<DarkModeToggle />);
 
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 50);
+      });
 
       const tooltip = screen.getByRole('button').closest('[data-tooltip]');
       expect(tooltip).toHaveAttribute('data-tooltip', 'Switch to light mode');

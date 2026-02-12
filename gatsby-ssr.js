@@ -31,11 +31,7 @@ export const wrapRootElement = ({ element, pathname }) => {
   const sheet = new ServerStyleSheet();
   sheetByPathname.set(pathname, sheet);
 
-  return (
-    <StyleSheetManager sheet={sheet.instance}>
-      {wrap({ element })}
-    </StyleSheetManager>
-  );
+  return <StyleSheetManager sheet={sheet.instance}>{wrap({ element })}</StyleSheetManager>;
 };
 
 // Inject theme detection script and handle SSR issues

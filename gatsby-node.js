@@ -63,7 +63,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     const fileNode = getNode(node.parent);
     const filename = path.basename(fileNode.relativePath, '.md');
     // Strip date prefix from filename: 2025-12-04-my-post -> my-post
-    const slug = '/' + filename.replace(/^\d{4}-\d{2}-\d{2}-/, '') + '/';
+    const slug = `/${filename.replace(/^\d{4}-\d{2}-\d{2}-/, '')}/`;
 
     createNodeField({
       node,
@@ -118,8 +118,8 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
           fs: false,
           path: false,
           crypto: false,
-        }
-      }
+        },
+      },
     });
   }
 };

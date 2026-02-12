@@ -136,7 +136,7 @@ module.exports = {
           'https://fonts.googleapis.com',
           'https://fonts.gstatic.com',
           'https://www.google-analytics.com',
-          'https://www.googletagmanager.com'
+          'https://www.googletagmanager.com',
         ],
         crossOrigin: true,
       },
@@ -194,10 +194,9 @@ module.exports = {
           }
         `,
         resolveSiteUrl: () => siteMetadata.siteUrl,
-        serialize: ({ path, modifiedGmt }, { site }) => {
+        serialize: ({ path, modifiedGmt }) => {
           // Use current date for more accurate freshness signals
           const currentDate = new Date().toISOString();
-          const buildTime = site?.buildTime || currentDate.split('T')[0];
 
           const pageMetadata = {
             '/': {
@@ -245,7 +244,11 @@ module.exports = {
         precachePages: [`/`, `/about/`, `/projects/`, `/contact/`],
         appendScript: `${__dirname}/sw-bypass-subapps.js`,
         workboxConfig: {
-          globPatterns: ['*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}', 'page-data/**', 'static/**'],
+          globPatterns: [
+            '*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}',
+            'page-data/**',
+            'static/**',
+          ],
           runtimeCaching: [
             {
               // Bypass SW for Storybook assets — Storybook manages its own

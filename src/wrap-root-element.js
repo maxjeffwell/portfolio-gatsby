@@ -1,11 +1,10 @@
 import React from 'react';
 import { ApolloProvider } from '@apollo/client/react';
 import { HelmetProvider } from 'react-helmet-async';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import apolloClient from './lib/apolloClient';
-
 
 // Client-only PerformanceMonitor wrapper
 const ClientOnlyPerformanceMonitor = () => {

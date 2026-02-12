@@ -42,17 +42,15 @@ const SimpleTypingAnimation = ({
           setIsTyping(false);
         }, delayBetweenTexts);
       }
+    } else if (displayText.length > 0) {
+      timeout = setTimeout(() => {
+        setDisplayText(displayText.slice(0, -1));
+      }, deleteSpeed);
     } else {
-      if (displayText.length > 0) {
-        timeout = setTimeout(() => {
-          setDisplayText(displayText.slice(0, -1));
-        }, deleteSpeed);
-      } else {
-        const nextIndex = (currentIndex + 1) % texts.length;
-        if (loop || nextIndex !== 0) {
-          setCurrentIndex(nextIndex);
-          setIsTyping(true);
-        }
+      const nextIndex = (currentIndex + 1) % texts.length;
+      if (loop || nextIndex !== 0) {
+        setCurrentIndex(nextIndex);
+        setIsTyping(true);
       }
     }
 

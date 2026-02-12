@@ -2,8 +2,6 @@
 // This will be used by webpack to replace TextEncoder references
 
 (function () {
-  'use strict';
-
   // Create polyfill constructors
   function TextEncoderPolyfill() {
     this.encode = function (str) {
@@ -39,7 +37,7 @@
       let str = '';
       let i = 0;
       while (i < bytes.length) {
-        let c = bytes[i];
+        const c = bytes[i];
         if (c < 128) {
           str += String.fromCharCode(c);
           i++;

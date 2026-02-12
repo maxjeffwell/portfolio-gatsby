@@ -74,10 +74,10 @@ class ScriptWorker {
 
       const blob = new Blob([workerScript], { type: 'application/javascript' });
       this.worker = new Worker(URL.createObjectURL(blob));
-      
+
       this.worker.onmessage = this.handleWorkerMessage.bind(this);
       this.worker.onerror = this.handleWorkerError.bind(this);
-      
+
       this.initialized = true;
       this.processQueue();
     } catch (error) {
@@ -87,17 +87,17 @@ class ScriptWorker {
   }
 
   handleWorkerMessage(e) {
-    const { type, id, success, error } = e.data;
-    
+    const { id, success, error } = e.data;
+
     // Find and resolve promise in queue
-    const queueItem = this.queue.find(item => item.id === id);
+    const queueItem = this.queue.find((item) => item.id === id);
     if (queueItem) {
       if (success) {
         queueItem.resolve();
       } else {
         queueItem.reject(new Error(error));
       }
-      this.queue = this.queue.filter(item => item.id !== id);
+      this.queue = this.queue.filter((item) => item.id !== id);
     }
   }
 
@@ -119,11 +119,11 @@ class ScriptWorker {
         resolve();
         return;
       }
-      
+
       const id = Math.random().toString(36).substr(2, 9);
-      
+
       this.queue.push({ id, resolve, reject, url, config, type: 'LOAD_SCRIPT' });
-      
+
       if (this.initialized) {
         this.processQueue();
       } else if (!this.isWorkerSupported) {
@@ -134,27 +134,28 @@ class ScriptWorker {
 
   processQueue() {
     if (!this.worker || !this.initialized) return;
-    
-    this.queue.forEach(item => {
+
+    this.queue.forEach((item) => {
       if (!item.sent) {
         this.worker.postMessage({
           type: item.type,
           url: item.url,
           config: item.config,
-          id: item.id
+          id: item.id,
         });
         item.sent = true;
       }
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   loadScriptMainThread(url, config = {}) {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = url;
       script.async = true;
       script.defer = config.defer || false;
-      
+
       // Use requestIdleCallback for better performance
       const loadScript = () => {
         script.onload = resolve;
@@ -181,19 +182,19 @@ class ScriptWorker {
 
     return new Promise((resolve, reject) => {
       const id = Math.random().toString(36).substr(2, 9);
-      
-      this.queue.push({ 
-        id, 
-        resolve, 
-        reject, 
+
+      this.queue.push({
+        id,
+        resolve,
+        reject,
         type: 'EXECUTE_FUNCTION',
-        config: { function: functionName, args, ...config }
+        config: { function: functionName, args, ...config },
       });
-      
+
       this.worker.postMessage({
         type: 'EXECUTE_FUNCTION',
         id,
-        config: { function: functionName, args, ...config }
+        config: { function: functionName, args, ...config },
       });
     });
   }

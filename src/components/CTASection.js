@@ -2,34 +2,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+const fontSizeMap = { h3: '3rem', h4: '2.125rem', body1: '1rem' };
+const lineHeightMap = { h3: 1.167, h4: 1.235, body1: 1.5 };
+
 // Simple styled components to replace MUI components
 const Typography = styled.div`
   margin: 0;
   font-family: inherit;
-  font-weight: ${(props) =>
-    props.variant === 'h3'
-      ? 400
-      : props.variant === 'h4'
-        ? 400
-        : props.variant === 'body1'
-          ? 400
-          : 400};
-  font-size: ${(props) =>
-    props.variant === 'h3'
-      ? '3rem'
-      : props.variant === 'h4'
-        ? '2.125rem'
-        : props.variant === 'body1'
-          ? '1rem'
-          : '1rem'};
-  line-height: ${(props) =>
-    props.variant === 'h3'
-      ? 1.167
-      : props.variant === 'h4'
-        ? 1.235
-        : props.variant === 'body1'
-          ? 1.5
-          : 1.5};
+  font-weight: 400;
+  font-size: ${(props) => fontSizeMap[props.variant] || '1rem'};
+  line-height: ${(props) => lineHeightMap[props.variant] || 1.5};
   color: ${(props) =>
     props.color === 'text.secondary' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.87)'};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};

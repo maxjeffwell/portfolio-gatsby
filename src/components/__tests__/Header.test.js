@@ -16,7 +16,11 @@ jest.mock('gatsby', () => ({
 // Mock ClientOnlyIcon
 jest.mock('../ClientOnlyIcon', () => {
   return function MockClientOnlyIcon({ iconName, ...props }) {
-    return <span data-testid={`icon-${iconName}`} {...props}>{iconName}</span>;
+    return (
+      <span data-testid={`icon-${iconName}`} {...props}>
+        {iconName}
+      </span>
+    );
   };
 });
 
@@ -30,16 +34,16 @@ jest.mock('../myLogo', () => {
 // Mock SSRSafeDarkModeToggle
 jest.mock('../SSRSafeDarkModeToggle', () => {
   return function MockSSRSafeDarkModeToggle() {
-    return <button data-testid="dark-mode-toggle">Toggle Dark Mode</button>;
+    return (
+      <button type="button" data-testid="dark-mode-toggle">
+        Toggle Dark Mode
+      </button>
+    );
   };
 });
 
 const renderWithTheme = (ui) => {
-  return render(
-    <ThemeProvider>
-      {ui}
-    </ThemeProvider>
-  );
+  return render(<ThemeProvider>{ui}</ThemeProvider>);
 };
 
 describe('Header', () => {
@@ -54,7 +58,7 @@ describe('Header', () => {
     // Default to desktop viewport
     mockMatchMedia(false);
     window.matchMedia = jest.fn().mockImplementation((query) => ({
-      matches: query === '(max-width: 959px)' ? false : false,
+      matches: false,
       media: query,
       onchange: null,
       addListener: jest.fn(),
@@ -128,7 +132,7 @@ describe('Header', () => {
     beforeEach(() => {
       // Mock mobile viewport
       window.matchMedia = jest.fn().mockImplementation((query) => ({
-        matches: query === '(max-width: 959px)' ? true : false,
+        matches: query === '(max-width: 959px)',
         media: query,
         onchange: null,
         addListener: jest.fn(),
@@ -262,7 +266,7 @@ describe('Header', () => {
     it('hamburger button has accessible label', async () => {
       // Set to mobile
       window.matchMedia = jest.fn().mockImplementation((query) => ({
-        matches: query === '(max-width: 959px)' ? true : false,
+        matches: query === '(max-width: 959px)',
         media: query,
         onchange: null,
         addListener: jest.fn(),
@@ -282,7 +286,7 @@ describe('Header', () => {
     it('close drawer button has accessible label', async () => {
       // Set to mobile
       window.matchMedia = jest.fn().mockImplementation((query) => ({
-        matches: query === '(max-width: 959px)' ? true : false,
+        matches: query === '(max-width: 959px)',
         media: query,
         onchange: null,
         addListener: jest.fn(),
