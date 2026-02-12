@@ -273,8 +273,8 @@ function AboutPage() {
                 About Jeff Maxwell - React & Node.js Developer
               </Typography>
               <Typography
-                variant="h5"
-                component="h2"
+                variant="body1"
+                component="p"
                 color="text.secondary"
                 style={{
                   maxWidth: 700,
