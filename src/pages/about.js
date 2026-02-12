@@ -277,7 +277,7 @@ function AboutPage() {
                 component="p"
                 color="text.secondary"
                 style={{
-                  maxWidth: 700,
+                  maxWidth: 960,
                   margin: '0 auto',
                   fontSize: '1.375rem',
                   lineHeight: 1.5,

@@ -316,20 +316,20 @@ const pulse = keyframes`
 const LiveBadge = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
   color: #48bb78;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
 `;
 
 const LiveDot = styled.span`
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #48bb78;
-  box-shadow: 0 0 6px #48bb78;
+  box-shadow: 0 0 8px #48bb78;
   animation: ${pulse} 2s infinite;
   display: inline-block;
 `;
