@@ -555,10 +555,10 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = React.useState(() => false);
   const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM);
 
-  // Detect whether we're on Netlify (el-jefe.me) or K8s (portfolio.el-jefe.me)
-  // Guard against SSR where window.location may not exist (gatsby-ssr.js mocks window without location)
-  const isNetlify =
-    typeof window === 'undefined' || !window.location || window.location.hostname === 'el-jefe.me';
+  // Build-time env var determines contact form submission mode.
+  // Docker build (K8s) sets GATSBY_CONTACT_FORM_MODE=graphql.
+  // Netlify build defaults to 'netlify' for Netlify Forms.
+  const isNetlify = (process.env.GATSBY_CONTACT_FORM_MODE || 'netlify') === 'netlify';
 
   const handleChange = (e) => {
     setFormData({
