@@ -581,19 +581,15 @@ const StyledContainer = styled.div`
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 120px 24px 0;
+  padding: 0 24px;
   box-sizing: border-box;
 
-  @media (max-width: 959px) {
-    padding-top: 84px;
-  }
-
   @media (max-width: 600px) {
-    padding: 84px 16px 0;
+    padding: 0 16px;
   }
 
   @media (max-width: 360px) {
-    padding: 84px 12px 0;
+    padding: 0 12px;
   }
 `;
 
@@ -1001,7 +997,7 @@ const Projects = ({ data }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <StyledBox as="section" mb={6} textAlign="center">
+            <StyledBox as="section" mb={6} textAlign="center" style={{ paddingTop: '40px' }}>
               <GradientText as="h1" variant="h1" align="center" gutterBottom>
                 React & Node.js Developer Portfolio - JavaScript Projects
               </GradientText>

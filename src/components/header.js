@@ -431,10 +431,8 @@ function Header() {
                   indexName="el-jefe-me"
                   apiKey="e036cac75dbca995c2c61173f72c05e2"
                   askAi={{
-                    indexName: 'el-jefe-me-askai',
-                    apiKey: 'e036cac75dbca995c2c61173f72c05e2',
-                    appId: 'E2O1YZJVJI',
                     assistantId: 'g2MyPVDcN5aX',
+                    indexName: 'el-jefe-me-askai',
                   }}
                 />
               </Suspense>

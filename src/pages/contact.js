@@ -745,7 +745,8 @@ function Contact() {
               style={{
                 fontSize: '1.375rem',
                 fontWeight: 400,
-                maxWidth: '600px',
+                fontFamily: "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif",
+                maxWidth: '800px',
                 margin: '0 auto',
                 lineHeight: 1.5,
                 color: 'var(--text-secondary-color)',

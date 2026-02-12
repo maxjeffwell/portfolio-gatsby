@@ -26,7 +26,7 @@ const StyledHeader = styled.div`
   background-color: #f5f5f5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     background-color: #424242;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
@@ -85,7 +85,7 @@ const StyledTypography = styled.div`
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     color: ${(props) => {
       if (props.color === 'primary') return '#90caf9';
       if (props.color === 'secondary') return '#f48fb1';
@@ -119,7 +119,7 @@ const StyledIconButton = styled.button`
     background-color: rgba(0, 0, 0, 0.04);
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     color: rgba(255, 255, 255, 0.7);
 
     &:hover {
@@ -145,7 +145,7 @@ const StyledPaper = styled.div`
     0px 1px 1px 0px rgba(0, 0, 0, 0.14),
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     background-color: #424242;
     color: rgba(255, 255, 255, 0.87);
   }
