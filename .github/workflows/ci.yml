@@ -47,6 +47,19 @@ jobs:
           restore-keys: |
             gatsby-cache-${{ runner.os }}-
 
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@v3
+
+      - name: Get Sentry secrets from Doppler
+        id: sentry
+        env:
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+        run: |
+          echo "dsn=$(doppler secrets get SENTRY_DSN --plain)" >> $GITHUB_OUTPUT
+          echo "auth_token=$(doppler secrets get SENTRY_AUTH_TOKEN --plain)" >> $GITHUB_OUTPUT
+          echo "org=$(doppler secrets get SENTRY_ORG --plain)" >> $GITHUB_OUTPUT
+          echo "project=$(doppler secrets get SENTRY_PROJECT --plain)" >> $GITHUB_OUTPUT
+
       - name: Build Gatsby site
         run: NODE_ENV=production npm run build
         env:
@@ -55,6 +68,10 @@ jobs:
           GATSBY_PARALLEL_BUILD_COUNT: 2
           GATSBY_TELEMETRY_DISABLED: 1
           CI: true
+          SENTRY_DSN: ${{ steps.sentry.outputs.dsn }}
+          SENTRY_AUTH_TOKEN: ${{ steps.sentry.outputs.auth_token }}
+          SENTRY_ORG: ${{ steps.sentry.outputs.org }}
+          SENTRY_PROJECT: ${{ steps.sentry.outputs.project }}
 
       - name: Verify build output
         run: |
@@ -90,7 +107,7 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --exclude-mail public/
+          args: --no-progress public/
           fail: false
 
       - name: Upload build artifacts
