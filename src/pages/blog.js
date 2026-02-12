@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import BlogCard from '../components/blogCard';
+import PageTransition from '../components/PageTransition';
+import SocialShare from '../components/SocialShare';
 import { useTheme } from '../context/ThemeContext';
 
 const PageContainer = styled.div`
@@ -17,10 +19,12 @@ const PageContainer = styled.div`
 `;
 
 const PageTitle = styled.h1`
-  font-size: 2.5rem;
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 700;
   margin-bottom: 16px;
   text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   background: ${(props) =>
     props.theme?.mode === 'dark'
       ? 'linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%)'
@@ -29,10 +33,6 @@ const PageTitle = styled.h1`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: background 0.3s ease;
-
-  @media (max-width: 600px) {
-    font-size: 2rem;
-  }
 `;
 
 const PageDescription = styled.p`
@@ -78,32 +78,44 @@ function BlogPage({ data }) {
 
   return (
     <Layout>
-      <PageContainer>
-        <PageTitle theme={theme}>K8s Cluster Journal</PageTitle>
-        <PageDescription theme={theme}>
-          Documenting my Kubernetes homelab journey - from initial cluster setup to running
-          production workloads with GPUs, GitOps, and self-hosted AI.
-        </PageDescription>
+      <PageTransition>
+        <PageContainer>
+          <PageTitle theme={theme}>K8s Cluster Journal</PageTitle>
+          <PageDescription theme={theme}>
+            Documenting my Kubernetes homelab journey - from initial cluster setup to running
+            production workloads with GPUs, GitOps, and self-hosted AI.
+          </PageDescription>
 
-        {posts.length > 0 ? (
-          <PostsGrid>
-            {posts.map((post) => (
-              <BlogCard
-                key={post.fields.slug}
-                title={post.frontmatter.title}
-                date={post.frontmatter.date}
-                excerpt={post.frontmatter.excerpt || post.excerpt}
-                tags={post.frontmatter.tags || []}
-                slug={post.fields.slug}
-              />
-            ))}
-          </PostsGrid>
-        ) : (
-          <EmptyState theme={theme}>
-            <p>No posts yet. Check back soon!</p>
-          </EmptyState>
-        )}
-      </PageContainer>
+          {posts.length > 0 ? (
+            <PostsGrid>
+              {posts.map((post) => (
+                <BlogCard
+                  key={post.fields.slug}
+                  title={post.frontmatter.title}
+                  date={post.frontmatter.date}
+                  excerpt={post.frontmatter.excerpt || post.excerpt}
+                  tags={post.frontmatter.tags || []}
+                  slug={post.fields.slug}
+                />
+              ))}
+            </PostsGrid>
+          ) : (
+            <EmptyState theme={theme}>
+              <p>No posts yet. Check back soon!</p>
+            </EmptyState>
+          )}
+
+          <SocialShare
+            url={
+              typeof window !== 'undefined' && window.location
+                ? window.location.href
+                : 'https://el-jefe.me/blog/'
+            }
+            title="K8s Cluster Journal - Jeff Maxwell"
+            description="Documenting my Kubernetes homelab journey - cluster setup, GitOps, GPU workloads, and self-hosted AI."
+          />
+        </PageContainer>
+      </PageTransition>
     </Layout>
   );
 }
