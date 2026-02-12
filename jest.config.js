@@ -87,7 +87,7 @@ module.exports = {
 
   // Transform ignore patterns - allow Gatsby modules to be transformed
   transformIgnorePatterns: [
-    'node_modules/(?!(gatsby|gatsby-script|gatsby-link)/)',
+    'node_modules/(?!(gatsby|gatsby-script|gatsby-link|@docsearch)/)',
   ],
 
   // Global setup

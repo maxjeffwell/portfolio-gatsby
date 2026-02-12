@@ -24,6 +24,7 @@ describe('DarkModeToggle', () => {
   beforeEach(() => {
     window.localStorage.clear();
     jest.clearAllMocks();
+    document.documentElement.classList.remove('dark-mode');
     mockMatchMedia(false); // Default to light mode
   });
 
@@ -53,6 +54,7 @@ describe('DarkModeToggle', () => {
 
     it('has correct aria-label for dark mode', async () => {
       mockLocalStorage({ 'portfolio-theme': 'dark' });
+      document.documentElement.classList.add('dark-mode');
 
       renderWithTheme(<DarkModeToggle />);
 
@@ -118,6 +120,7 @@ describe('DarkModeToggle', () => {
 
     it('shows correct toggle option in menu for dark mode', async () => {
       mockLocalStorage({ 'portfolio-theme': 'dark' });
+      document.documentElement.classList.add('dark-mode');
 
       renderWithTheme(<DarkModeToggle />);
 
@@ -195,6 +198,7 @@ describe('DarkModeToggle', () => {
 
     it('has tooltip with correct text for dark mode', async () => {
       mockLocalStorage({ 'portfolio-theme': 'dark' });
+      document.documentElement.classList.add('dark-mode');
 
       renderWithTheme(<DarkModeToggle />);
 
