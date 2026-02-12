@@ -198,6 +198,7 @@ const StyledDrawer = styled.div`
   height: 100%;
   width: 80%;
   max-width: 300px;
+  overflow-y: auto;
   background-color: var(--paper-color);
   color: var(--text-color);
   box-shadow:
