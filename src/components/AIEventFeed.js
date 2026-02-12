@@ -100,7 +100,7 @@ function timeAgo(ts) {
 export default function AIEventFeed() {
   const [events, setEvents] = useState([]);
 
-  const { data: recentData } = useQuery(RECENT_AI_EVENTS_QUERY);
+  const { data: recentData, loading, error } = useQuery(RECENT_AI_EVENTS_QUERY);
   const { data: subData } = useSubscription(AI_EVENT_SUBSCRIPTION);
 
   useEffect(() => {
@@ -115,8 +115,16 @@ export default function AIEventFeed() {
     }
   }, [subData]);
 
+  if (loading) {
+    return <EmptyText>Loading AI events...</EmptyText>;
+  }
+
+  if (error) {
+    return <EmptyText>Unable to connect to gateway — AI events unavailable</EmptyText>;
+  }
+
   return events.length === 0 ? (
-    <EmptyText>Waiting for AI events...</EmptyText>
+    <EmptyText>No recent AI events — listening for new activity</EmptyText>
   ) : (
     <FeedContainer>
       {events.map((ev) => (

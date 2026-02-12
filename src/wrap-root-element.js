@@ -1,10 +1,9 @@
 import React from 'react';
-import { ApolloProvider } from '@apollo/client/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
-import apolloClient from './lib/apolloClient';
+import GlobalStyles from './components/GlobalStyles';
 
 // Client-only PerformanceMonitor wrapper
 const ClientOnlyPerformanceMonitor = () => {
@@ -38,6 +37,7 @@ const ThemedWrapper = ({ children }) => {
 
   return (
     <StyledThemeProvider theme={theme}>
+      <GlobalStyles />
       <ClientOnlyPerformanceMonitor />
       {children}
     </StyledThemeProvider>
@@ -47,12 +47,10 @@ const ThemedWrapper = ({ children }) => {
 // Wrap the root element with providers
 export const wrapRootElement = ({ element }) => (
   <ErrorBoundary>
-    <ApolloProvider client={apolloClient}>
-      <HelmetProvider>
-        <ThemeProvider>
-          <ThemedWrapper>{element}</ThemedWrapper>
-        </ThemeProvider>
-      </HelmetProvider>
-    </ApolloProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <ThemedWrapper>{element}</ThemedWrapper>
+      </ThemeProvider>
+    </HelmetProvider>
   </ErrorBoundary>
 );

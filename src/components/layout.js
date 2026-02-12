@@ -8,7 +8,6 @@ import ProtectedEmail from './ProtectedEmail';
 
 import Header from './header';
 // ThirdPartyScripts will be loaded client-side only
-import GlobalStyles from './GlobalStyles';
 import { useTheme } from '../context/ThemeContext';
 
 const GET_SITE_METADATA = graphql`
@@ -362,7 +361,6 @@ function ThemedLayout({ children, _data }) {
 
   return (
     <>
-      <GlobalStyles />
       {/* <Analytics /> - Disabled - using gatsby-plugin-google-gtag instead */}
       <ClientOnlyAnimatedCursor isDarkMode={isDarkMode} />
       <Header />

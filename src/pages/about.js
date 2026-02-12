@@ -71,7 +71,12 @@ const getTypographyLineHeight = (variant) => {
 
 const Typography = styled.div`
   margin: 0;
-  font-family: inherit;
+  font-family: ${(props) => {
+    if (props.variant?.startsWith('h')) {
+      return "'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif";
+    }
+    return "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif";
+  }};
   font-weight: ${(props) => getTypographyFontWeight(props.variant)};
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};

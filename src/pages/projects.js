@@ -60,7 +60,12 @@ const getTypographyLineHeight = (variant) => {
 // Simple Typography replacement
 const Typography = styled.div`
   margin: 0;
-  font-family: inherit;
+  font-family: ${(props) => {
+    if (props.variant?.startsWith('h')) {
+      return "'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif";
+    }
+    return "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif";
+  }};
   font-weight: ${(props) => getTypographyFontWeight(props.variant)};
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
@@ -576,15 +581,19 @@ const StyledContainer = styled.div`
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 120px 24px 0;
   box-sizing: border-box;
 
+  @media (max-width: 959px) {
+    padding-top: 84px;
+  }
+
   @media (max-width: 600px) {
-    padding: 0 16px;
+    padding: 84px 16px 0;
   }
 
   @media (max-width: 360px) {
-    padding: 0 12px;
+    padding: 84px 12px 0;
   }
 `;
 
@@ -634,7 +643,7 @@ const GradientText = styled(Typography)`
   }
 
   .dark-mode & {
-    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-image: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
     color: #90caf9;
 
     @supports (background-clip: text) or (-webkit-background-clip: text) {

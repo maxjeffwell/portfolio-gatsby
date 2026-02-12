@@ -114,9 +114,14 @@ export function ThemeProvider({ children }) {
       metaThemeColor.setAttribute('content', isDarkMode ? '#0a0a0a' : '#1976d2');
     }
 
-    // Apply theme classes to document body for CSS variables
-    document.body.classList.remove('light-mode', 'dark-mode');
-    document.body.classList.add(isDarkMode ? 'dark-mode' : 'light-mode');
+    // Apply theme classes to both html and body for CSS variables
+    // Pre-body script sets classes on <html>; keep them in sync after toggle
+    const mode = isDarkMode ? 'dark-mode' : 'light-mode';
+    const stale = isDarkMode ? 'light-mode' : 'dark-mode';
+    document.documentElement.classList.remove(stale);
+    document.documentElement.classList.add(mode);
+    document.body.classList.remove(stale);
+    document.body.classList.add(mode);
   }, [isDarkMode, isHydrated]);
 
   const toggleTheme = useCallback(() => {

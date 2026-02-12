@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useQuery, useSubscription } from '@apollo/client/react';
+import { ApolloProvider, useQuery, useSubscription } from '@apollo/client/react';
+import apolloClient from '../lib/apolloClient';
 import {
   CLUSTER_METRICS_QUERY,
   CLUSTER_METRICS_SUBSCRIPTION,
@@ -566,35 +567,37 @@ const ClusterDashboard = () => {
 // ── Page Component (SSR-safe) ───────────────────────────────────
 
 const ClusterPage = () => (
-  <Layout>
-    <PageTransition>
-      <SEO
-        title="K8s Cluster Dashboard | Jeff Maxwell"
-        description="Live Kubernetes cluster status showing application health, resource usage, and recent deployments across the portfolio infrastructure."
-        pathname="/cluster/"
-      />
-      <Container>
-        <MotionWrapper
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <PageTitle>K8s Cluster</PageTitle>
-            <PageSubtitle>
-              Live status of the Kubernetes cluster powering the portfolio applications
-            </PageSubtitle>
-            <LiveBadge>
-              <LiveDot /> Live
-            </LiveBadge>
-          </div>
-        </MotionWrapper>
+  <ApolloProvider client={apolloClient}>
+    <Layout>
+      <PageTransition>
+        <SEO
+          title="K8s Cluster Dashboard | Jeff Maxwell"
+          description="Live Kubernetes cluster status showing application health, resource usage, and recent deployments across the portfolio infrastructure."
+          pathname="/cluster/"
+        />
+        <Container>
+          <MotionWrapper
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <PageTitle>K8s Cluster</PageTitle>
+              <PageSubtitle>
+                Live status of the Kubernetes cluster powering the portfolio applications
+              </PageSubtitle>
+              <LiveBadge>
+                <LiveDot /> Live
+              </LiveBadge>
+            </div>
+          </MotionWrapper>
 
-        <ClusterDashboard />
-      </Container>
-      <div style={{ height: '80px' }} />
-    </PageTransition>
-  </Layout>
+          <ClusterDashboard />
+        </Container>
+        <div style={{ height: '80px' }} />
+      </PageTransition>
+    </Layout>
+  </ApolloProvider>
 );
 
 export default ClusterPage;

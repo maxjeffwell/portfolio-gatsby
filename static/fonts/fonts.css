@@ -5,7 +5,7 @@
   src: url('HelveticaNeueLTStd-Bd.woff2') format('woff2'),
        url('HelveticaNeueLTStd-Bd.woff') format('woff'),
        url('HelveticaNeueLTStd-Bd.svg') format('svg');
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -15,7 +15,7 @@
   src: url('HelveticaNeueLTStd-Roman.woff2') format('woff2'),
        url('HelveticaNeueLTStd-Roman.woff') format('woff'),
        url('HelveticaNeueLTStd-Roman.svg') format('svg');
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -25,7 +25,7 @@
   src: url('AvenirLTStd-Roman.woff2') format('woff2'),
        url('AvenirLTStd-Roman.woff') format('woff'),
        url('AvenirLTStd-Roman.svg') format('svg');
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -35,7 +35,7 @@
   src: url('SabonLTStd-Roman.woff2') format('woff2'),
        url('SabonLTStd-Roman.woff') format('woff'),
        url('SabonLTStd-Roman.svg') format('svg');
-  font-display: optional;
+  font-display: swap;
 }
 
 /* Adjusted fallback fonts - metrics matched to custom fonts to prevent CLS during font swap */

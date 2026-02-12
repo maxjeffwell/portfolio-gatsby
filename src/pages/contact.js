@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useMutation } from '@apollo/client/react';
+import { ApolloProvider, useMutation } from '@apollo/client/react';
+import apolloClient from '../lib/apolloClient';
 import ProtectedEmail from '../components/ProtectedEmail';
 import { SUBMIT_CONTACT_FORM } from '../graphql/gateway';
 
@@ -119,7 +120,12 @@ const getTypographyLetterSpacing = (variant) => {
 
 const Typography = styled.div`
   margin: 0;
-  font-family: inherit;
+  font-family: ${(props) => {
+    if (props.variant?.startsWith('h')) {
+      return "'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif";
+    }
+    return "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif";
+  }};
   font-weight: ${(props) => getTypographyFontWeight(props.variant)};
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
@@ -718,6 +724,7 @@ function Contact() {
           >
             <Typography
               as="h1"
+              variant="h1"
               id="contact-header"
               style={{
                 fontSize: 'clamp(2.5rem, 8vw, 4rem)',
@@ -780,6 +787,7 @@ function Contact() {
             >
               <Typography
                 as="h3"
+                variant="h3"
                 style={{
                   fontSize: '1.75rem',
                   fontWeight: 600,
@@ -1027,6 +1035,7 @@ function Contact() {
             >
               <Typography
                 as="h3"
+                variant="h3"
                 style={{
                   fontSize: '1.75rem',
                   fontWeight: 600,
@@ -1444,4 +1453,12 @@ function Contact() {
   );
 }
 
-export default Contact;
+function ContactPage() {
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Contact />
+    </ApolloProvider>
+  );
+}
+
+export default ContactPage;

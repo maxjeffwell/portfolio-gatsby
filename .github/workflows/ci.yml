@@ -85,11 +85,16 @@ jobs:
           fi
           echo "Build verification successful"
 
+      - name: Remove unused build artifacts
+        run: |
+          rm -rf public/~partytown/debug
+          rm -f public/workbox-v4.3.1/*.dev.js
+
       - name: Check bundle size
         run: |
           echo "=== Build Size Report ==="
           echo "Total build: $(du -sh public/ | cut -f1)"
-          JS_BYTES=$(find public -name '*.js' -not -path '*/storybook/*' -exec cat {} + 2>/dev/null | wc -c)
+          JS_BYTES=$(find public -name '*.js' -not -path '*/storybook/*' -not -path '*/~partytown/debug/*' -not -name '*.dev.js' -exec cat {} + 2>/dev/null | wc -c)
           CSS_BYTES=$(find public -name '*.css' -not -path '*/storybook/*' -exec cat {} + 2>/dev/null | wc -c)
           HTML_BYTES=$(find public -name '*.html' -exec cat {} + 2>/dev/null | wc -c)
           echo "JavaScript: $((JS_BYTES / 1024))KB"
