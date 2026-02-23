@@ -7,7 +7,7 @@
 **A lightning-fast, modern portfolio deployed on its own self-hosted Kubernetes platform**
 
 [![CI](https://img.shields.io/github/actions/workflow/status/maxjeffwell/portfolio-gatsby/ci.yml?branch=master&label=CI&style=flat-square&logo=github)](https://github.com/maxjeffwell/portfolio-gatsby/actions/workflows/ci.yml)
-[![Docker Build](https://img.shields.io/github/actions/workflow/status/maxjeffwell/portfolio-gatsby/docker-build-push.yml?branch=master&label=Docker%20Build&style=flat-square&logo=docker)](https://github.com/maxjeffwell/portfolio-gatsby/actions/workflows/docker-build-push.yml)
+[![Docker Image Size](https://img.shields.io/docker/image-size/maxjeffwell/portfolio-gatsby/latest?style=flat-square&logo=docker&label=Image%20Size)](https://hub.docker.com/r/maxjeffwell/portfolio-gatsby)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/54a79ae3-eb7d-47a5-b7a0-ece69d629199/deploy-status?style=flat-square)](https://app.netlify.com/sites/jovial-chandrasekhar-b8b6b4/deploys)
 [![License: MIT](https://img.shields.io/badge/License-MIT-326CE5?style=flat-square)](https://lbesson.mit-license.org/)
 [![Gatsby](https://img.shields.io/badge/Gatsby-5.14.5-663399?style=flat-square&logo=gatsby)](https://www.gatsbyjs.com/)
