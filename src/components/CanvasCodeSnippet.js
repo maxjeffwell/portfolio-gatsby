@@ -153,6 +153,8 @@ const StyledPaper = styled.div`
 
 const CanvasContainer = styled.div`
   padding: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #f8f9fa;
   color: #2d3748;
 
