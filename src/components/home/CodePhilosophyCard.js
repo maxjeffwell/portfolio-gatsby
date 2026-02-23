@@ -42,10 +42,9 @@ const CodePhilosophyCard = () => {
         <br />
         My development workflow incorporates modern tooling including ESLint and Prettier for code
         consistency, and comprehensive testing with Jest and React Testing Library. I implement
-        responsive design with CSS-in-JS solutions like Styled
-        Components and Emotion, ensuring cross-browser compatibility and mobile-first approaches
-        that deliver exceptional user experiences across all devices and screen sizes. Learn more
-        about my{' '}
+        responsive design with CSS-in-JS solutions like Styled Components and Emotion, ensuring
+        cross-browser compatibility and mobile-first approaches that deliver exceptional user
+        experiences across all devices and screen sizes. Learn more about my{' '}
         <Link
           to="/about/"
           title="Discover my development workflow and methodologies"
