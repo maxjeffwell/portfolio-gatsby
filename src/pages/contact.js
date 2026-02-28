@@ -151,7 +151,9 @@ const PageTitle = styled.h1`
   line-height: 1.2;
   margin-bottom: 24px;
   letter-spacing: -0.02em;
-  font-family: 'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif;
+  font-family:
+    'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback',
+    sans-serif;
   background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
   background-clip: text;
   -webkit-background-clip: text;
