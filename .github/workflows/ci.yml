@@ -128,7 +128,7 @@ jobs:
           fail: false
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: gatsby-build
           path: |
@@ -174,7 +174,7 @@ jobs:
         run: npx playwright test --project="$PW_PROJECT" --update-snapshots
 
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: playwright-report-${{ matrix.project }}
@@ -184,7 +184,7 @@ jobs:
           retention-days: 7
 
       - name: Upload visual snapshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: visual-snapshots-${{ matrix.project }}
@@ -219,7 +219,7 @@ jobs:
           npx cypress run
 
       - name: Upload Cypress screenshots on failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: cypress-screenshots
