@@ -6,7 +6,11 @@ import MyLogo from './myLogo';
 import SSRSafeDarkModeToggle from './SSRSafeDarkModeToggle';
 import ClientOnlyIcon from './ClientOnlyIcon';
 
-const DocSearch = lazy(() => import('@docsearch/react').then(mod => ({ default: mod.DocSearch })));
+const DocSearch = lazy(() =>
+  Promise.all([import('@docsearch/react'), import('@docsearch/css')]).then(([mod]) => ({
+    default: mod.DocSearch,
+  }))
+);
 
 // Simple icon components using Unicode symbols
 
@@ -196,6 +200,7 @@ const StyledDrawer = styled.div`
   height: 100%;
   width: 80%;
   max-width: 300px;
+  overflow-y: auto;
   background-color: var(--paper-color);
   color: var(--text-color);
   box-shadow:
@@ -360,12 +365,7 @@ function Header() {
         p={2}
       >
         {primaryItems.map((item) => (
-          <MobileNavButton
-            key={item.text}
-            as={Link}
-            to={item.to}
-            onClick={handleDrawerToggle}
-          >
+          <MobileNavButton key={item.text} as={Link} to={item.to} onClick={handleDrawerToggle}>
             {item.text}
           </MobileNavButton>
         ))}
@@ -434,10 +434,8 @@ function Header() {
                   indexName="el-jefe-me"
                   apiKey="e036cac75dbca995c2c61173f72c05e2"
                   askAi={{
-                    indexName: 'el-jefe-me-askai',
-                    apiKey: 'e036cac75dbca995c2c61173f72c05e2',
-                    appId: 'E2O1YZJVJI',
                     assistantId: 'g2MyPVDcN5aX',
+                    indexName: 'el-jefe-me-askai',
                   }}
                 />
               </Suspense>
@@ -451,7 +449,8 @@ function Header() {
           </StyledToolbar>
           <SecondaryNavBar>
             {secondaryItems.map((item) => {
-              const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
+              const isGatsbyPage =
+                !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
               return (
                 <SecondaryNavLink
                   key={item.text}
@@ -468,9 +467,7 @@ function Header() {
       {mobileOpen && (
         <>
           <DrawerBackdrop open={mobileOpen} onClick={handleDrawerToggle} />
-          <StyledDrawer open={mobileOpen}>
-            {drawer}
-          </StyledDrawer>
+          <StyledDrawer open={mobileOpen}>{drawer}</StyledDrawer>
         </>
       )}
       <ToolbarSpacer />

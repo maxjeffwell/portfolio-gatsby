@@ -60,25 +60,6 @@ const getSystemPreference = () => {
   return 'light'; // Default to light theme on the server
 };
 
-// Get stored preference or system preference
-const getInitialTheme = () => {
-  if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
-    return 'light'; // Default to light theme on the server
-  }
-
-  try {
-    const stored = localStorage.getItem('portfolio-theme');
-    if (stored && (stored === 'light' || stored === 'dark')) {
-      return stored;
-    }
-  } catch (e) {
-    // localStorage might not be available
-    // Silently handle - localStorage unavailable during SSR is expected
-  }
-
-  return getSystemPreference();
-};
-
 // Theme Provider Component
 export function ThemeProvider({ children }) {
   // Initialize theme synchronously from pre-body script's class on <html>
@@ -133,9 +114,14 @@ export function ThemeProvider({ children }) {
       metaThemeColor.setAttribute('content', isDarkMode ? '#0a0a0a' : '#1976d2');
     }
 
-    // Apply theme classes to document body for CSS variables
-    document.body.classList.remove('light-mode', 'dark-mode');
-    document.body.classList.add(isDarkMode ? 'dark-mode' : 'light-mode');
+    // Apply theme classes to both html and body for CSS variables
+    // Pre-body script sets classes on <html>; keep them in sync after toggle
+    const mode = isDarkMode ? 'dark-mode' : 'light-mode';
+    const stale = isDarkMode ? 'light-mode' : 'dark-mode';
+    document.documentElement.classList.remove(stale);
+    document.documentElement.classList.add(mode);
+    document.body.classList.remove(stale);
+    document.body.classList.add(mode);
   }, [isDarkMode, isHydrated]);
 
   const toggleTheme = useCallback(() => {

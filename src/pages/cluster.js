@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useQuery, useSubscription } from '@apollo/client/react';
+import { ApolloProvider, useQuery, useSubscription } from '@apollo/client/react';
+import apolloClient from '../lib/apolloClient';
 import {
   CLUSTER_METRICS_QUERY,
   CLUSTER_METRICS_SUBSCRIPTION,
@@ -77,16 +78,16 @@ const StatCard = styled.div`
   transition: all 0.3s ease;
 
   .dark-mode & {
-    background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(30, 30, 50, 0.9) 100%);
   }
 
   &:hover {
     border-color: var(--primary-color);
     transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(25,118,210,0.12);
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.12);
 
     .dark-mode & {
-      box-shadow: 0 8px 32px rgba(144,202,249,0.15);
+      box-shadow: 0 8px 32px rgba(144, 202, 249, 0.15);
     }
   }
 `;
@@ -128,7 +129,7 @@ const UsageBarFill = styled.div`
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   background: ${(props) => props.color || '#1976d2'};
   width: ${(props) => props.percent || 0}%;
-  box-shadow: 0 0 12px ${(props) => (props.color || '#1976d2')}66;
+  box-shadow: 0 0 12px ${(props) => props.color || '#1976d2'}66;
 `;
 
 const UsageDetail = styled.div`
@@ -158,10 +159,10 @@ const AppRow = styled.div`
   &:hover {
     border-color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(25,118,210,0.08);
+    box-shadow: 0 4px 20px rgba(25, 118, 210, 0.08);
 
     .dark-mode & {
-      box-shadow: 0 4px 20px rgba(144,202,249,0.1);
+      box-shadow: 0 4px 20px rgba(144, 202, 249, 0.1);
     }
   }
 
@@ -196,7 +197,7 @@ const Badge = styled.span`
   border-radius: 6px;
   color: #fff;
   background: ${(props) => props.bg || '#666'};
-  box-shadow: 0 2px 8px ${(props) => (props.bg || '#666')}44;
+  box-shadow: 0 2px 8px ${(props) => props.bg || '#666'}44;
 `;
 
 const DeploymentList = styled.div`
@@ -228,7 +229,7 @@ const Indicator = styled.div`
   border-radius: 50%;
   flex-shrink: 0;
   background: ${(props) => props.color || '#666'};
-  box-shadow: 0 0 8px ${(props) => (props.color || '#666')}88;
+  box-shadow: 0 0 8px ${(props) => props.color || '#666'}88;
 `;
 
 const DeploymentInfo = styled.div`
@@ -270,10 +271,10 @@ const ViewLink = styled.a`
   transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(25,118,210,0.12);
+    background: rgba(25, 118, 210, 0.12);
 
     .dark-mode & {
-      background: rgba(144,202,249,0.16);
+      background: rgba(144, 202, 249, 0.16);
     }
   }
 `;
@@ -298,12 +299,12 @@ const ErrorText = styled.div`
   padding: 24px;
   color: #d32f2f;
   font-size: 15px;
-  background: rgba(211,47,47,0.05);
+  background: rgba(211, 47, 47, 0.05);
   border-radius: 12px;
 
   .dark-mode & {
     color: #f48fb1;
-    background: rgba(244,143,177,0.08);
+    background: rgba(244, 143, 177, 0.08);
   }
 `;
 
@@ -315,20 +316,20 @@ const pulse = keyframes`
 const LiveBadge = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
   color: #48bb78;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
 `;
 
 const LiveDot = styled.span`
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #48bb78;
-  box-shadow: 0 0 6px #48bb78;
+  box-shadow: 0 0 8px #48bb78;
   animation: ${pulse} 2s infinite;
   display: inline-block;
 `;
@@ -371,20 +372,21 @@ const conclusionColors = {
 const ClusterDashboard = () => {
   // Cluster metrics: subscription (30s) with query fallback
   const { data: subMetrics } = useSubscription(CLUSTER_METRICS_SUBSCRIPTION);
-  const { data: queryMetrics, loading: metricsLoading, error: metricsError } =
-    useQuery(CLUSTER_METRICS_QUERY);
+  const {
+    data: queryMetrics,
+    loading: metricsLoading,
+    error: metricsError,
+  } = useQuery(CLUSTER_METRICS_QUERY);
   const metrics = subMetrics?.clusterMetricsStream || queryMetrics?.clusterMetrics;
 
   // ArgoCD apps: subscription (60s) with query fallback
   const { data: subApps } = useSubscription(ARGOCD_APPS_SUBSCRIPTION);
-  const { data: queryApps, loading: appsLoading, error: appsError } =
-    useQuery(ARGOCD_APPS_QUERY);
+  const { data: queryApps, loading: appsLoading, error: appsError } = useQuery(ARGOCD_APPS_QUERY);
   const apps = subApps?.argoCDAppsStream || queryApps?.argoCDApplications || [];
 
   // GitHub runs: subscription (60s) with query fallback
   const { data: subRuns } = useSubscription(GITHUB_RUNS_SUBSCRIPTION);
-  const { data: queryRuns, loading: runsLoading, error: runsError } =
-    useQuery(GITHUB_RUNS_QUERY);
+  const { data: queryRuns, loading: runsLoading, error: runsError } = useQuery(GITHUB_RUNS_QUERY);
   const deployments = subRuns?.githubRunsStream || queryRuns?.recentGitHubRuns || [];
 
   const cluster = metrics
@@ -412,76 +414,68 @@ const ClusterDashboard = () => {
       >
         <DashboardSection>
           <SectionTitle>Cluster Resources</SectionTitle>
-          {metricsError && !metrics ? (
-            <ErrorText>{metricsError.message}</ErrorText>
-          ) : metricsLoading && !cluster ? (
-            <LoadingText>Loading cluster metrics...</LoadingText>
-          ) : hasCluster ? (
-            <StatsGrid>
-              <StatCard>
-                <StatLabel>Nodes</StatLabel>
-                <StatValue>{cluster.totalNodes}</StatValue>
-              </StatCard>
-              <StatCard>
-                <StatLabel>Pods</StatLabel>
-                <StatValue>{cluster.totalPods}</StatValue>
-              </StatCard>
-              <StatCard>
-                <StatLabel>CPU Usage</StatLabel>
-                <StatValue>
-                  {parseFloat(cluster.cpuUsage).toFixed(1)}
-                  <StatUnit>cores</StatUnit>
-                </StatValue>
-                {(() => {
-                  const pct = cluster.totalCpuCores
-                    ? Math.min(
-                        (parseFloat(cluster.cpuUsage) / cluster.totalCpuCores) * 100,
-                        100
-                      )
-                    : 0;
-                  return (
-                    <>
-                      <UsageBarTrack>
-                        <UsageBarFill
-                          color="var(--primary-color)"
-                          percent={pct}
-                        />
-                      </UsageBarTrack>
-                      <UsageDetail>{pct.toFixed(0)}% of capacity</UsageDetail>
-                    </>
-                  );
-                })()}
-              </StatCard>
-              <StatCard>
-                <StatLabel>Memory Usage</StatLabel>
-                <StatValue>
-                  {formatBytes(cluster.memoryUsage)}
-                  <StatUnit>GB</StatUnit>
-                </StatValue>
-                {(() => {
-                  const pct = cluster.totalMemoryBytes
-                    ? Math.min(
-                        (cluster.memoryUsage / cluster.totalMemoryBytes) * 100,
-                        100
-                      )
-                    : 0;
-                  return (
-                    <>
-                      <UsageBarTrack>
-                        <UsageBarFill
-                          color="var(--accent-purple)"
-                          percent={pct}
-                        />
-                      </UsageBarTrack>
-                      <UsageDetail>{pct.toFixed(0)}% of capacity</UsageDetail>
-                    </>
-                  );
-                })()}
-              </StatCard>
-            </StatsGrid>
-          ) : (
-            <LoadingText>No cluster metrics available</LoadingText>
-          )}
+          {(() => {
+            if (metricsError && !metrics) return <ErrorText>{metricsError.message}</ErrorText>;
+            if (metricsLoading && !cluster)
+              return <LoadingText>Loading cluster metrics...</LoadingText>;
+            if (hasCluster)
+              return (
+                <StatsGrid>
+                  <StatCard>
+                    <StatLabel>Nodes</StatLabel>
+                    <StatValue>{cluster.totalNodes}</StatValue>
+                  </StatCard>
+                  <StatCard>
+                    <StatLabel>Pods</StatLabel>
+                    <StatValue>{cluster.totalPods}</StatValue>
+                  </StatCard>
+                  <StatCard>
+                    <StatLabel>CPU Usage</StatLabel>
+                    <StatValue>
+                      {parseFloat(cluster.cpuUsage).toFixed(1)}
+                      <StatUnit>cores</StatUnit>
+                    </StatValue>
+                    {(() => {
+                      const pct = cluster.totalCpuCores
+                        ? Math.min(
+                            (parseFloat(cluster.cpuUsage) / cluster.totalCpuCores) * 100,
+                            100
+                          )
+                        : 0;
+                      return (
+                        <>
+                          <UsageBarTrack>
+                            <UsageBarFill color="var(--primary-color)" percent={pct} />
+                          </UsageBarTrack>
+                          <UsageDetail>{pct.toFixed(0)}% of capacity</UsageDetail>
+                        </>
+                      );
+                    })()}
+                  </StatCard>
+                  <StatCard>
+                    <StatLabel>Memory Usage</StatLabel>
+                    <StatValue>
+                      {formatBytes(cluster.memoryUsage)}
+                      <StatUnit>GB</StatUnit>
+                    </StatValue>
+                    {(() => {
+                      const pct = cluster.totalMemoryBytes
+                        ? Math.min((cluster.memoryUsage / cluster.totalMemoryBytes) * 100, 100)
+                        : 0;
+                      return (
+                        <>
+                          <UsageBarTrack>
+                            <UsageBarFill color="var(--accent-purple)" percent={pct} />
+                          </UsageBarTrack>
+                          <UsageDetail>{pct.toFixed(0)}% of capacity</UsageDetail>
+                        </>
+                      );
+                    })()}
+                  </StatCard>
+                </StatsGrid>
+              );
+            return <LoadingText>No cluster metrics available</LoadingText>;
+          })()}
         </DashboardSection>
       </MotionWrapper>
 
@@ -493,29 +487,28 @@ const ClusterDashboard = () => {
       >
         <DashboardSection>
           <SectionTitle>Application Status</SectionTitle>
-          {appsError && !hasApps ? (
-            <ErrorText>{appsError.message}</ErrorText>
-          ) : appsLoading && !hasApps ? (
-            <LoadingText>Loading application status...</LoadingText>
-          ) : hasApps ? (
-            <AppGrid>
-              {apps.map((app) => (
-                <AppRow key={app.name}>
-                  <AppName>{app.name}</AppName>
-                  <BadgeGroup>
-                    <Badge bg={healthColors[app.healthStatus] || '#9f7aea'}>
-                      {app.healthStatus}
-                    </Badge>
-                    <Badge bg={syncColors[app.syncStatus] || '#9f7aea'}>
-                      {app.syncStatus}
-                    </Badge>
-                  </BadgeGroup>
-                </AppRow>
-              ))}
-            </AppGrid>
-          ) : (
-            <LoadingText>No applications found</LoadingText>
-          )}
+          {(() => {
+            if (appsError && !hasApps) return <ErrorText>{appsError.message}</ErrorText>;
+            if (appsLoading && !hasApps)
+              return <LoadingText>Loading application status...</LoadingText>;
+            if (hasApps)
+              return (
+                <AppGrid>
+                  {apps.map((app) => (
+                    <AppRow key={app.name}>
+                      <AppName>{app.name}</AppName>
+                      <BadgeGroup>
+                        <Badge bg={healthColors[app.healthStatus] || '#9f7aea'}>
+                          {app.healthStatus}
+                        </Badge>
+                        <Badge bg={syncColors[app.syncStatus] || '#9f7aea'}>{app.syncStatus}</Badge>
+                      </BadgeGroup>
+                    </AppRow>
+                  ))}
+                </AppGrid>
+              );
+            return <LoadingText>No applications found</LoadingText>;
+          })()}
         </DashboardSection>
       </MotionWrapper>
 
@@ -527,37 +520,34 @@ const ClusterDashboard = () => {
       >
         <DashboardSection>
           <SectionTitle>Recent Deployments</SectionTitle>
-          {runsError && !hasDeployments ? (
-            <ErrorText>{runsError.message}</ErrorText>
-          ) : runsLoading && !hasDeployments ? (
-            <LoadingText>Loading recent deployments...</LoadingText>
-          ) : hasDeployments ? (
-            <DeploymentList>
-              {deployments.map((run) => (
-                <DeploymentItem key={run.runId}>
-                  <Indicator color={conclusionColors[run.conclusion] || '#fbbf24'} />
-                  <DeploymentInfo>
-                    <DeploymentName>{run.name}</DeploymentName>
-                    <DeploymentMeta>
-                      <DeploymentRepo>{run.repoDisplayName}</DeploymentRepo>
-                      <span>{timeAgo(run.createdAt)}</span>
-                    </DeploymentMeta>
-                  </DeploymentInfo>
-                  {run.htmlUrl && (
-                    <ViewLink
-                      href={run.htmlUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View
-                    </ViewLink>
-                  )}
-                </DeploymentItem>
-              ))}
-            </DeploymentList>
-          ) : (
-            <LoadingText>No recent deployments</LoadingText>
-          )}
+          {(() => {
+            if (runsError && !hasDeployments) return <ErrorText>{runsError.message}</ErrorText>;
+            if (runsLoading && !hasDeployments)
+              return <LoadingText>Loading recent deployments...</LoadingText>;
+            if (hasDeployments)
+              return (
+                <DeploymentList>
+                  {deployments.map((run) => (
+                    <DeploymentItem key={run.runId}>
+                      <Indicator color={conclusionColors[run.conclusion] || '#fbbf24'} />
+                      <DeploymentInfo>
+                        <DeploymentName>{run.name}</DeploymentName>
+                        <DeploymentMeta>
+                          <DeploymentRepo>{run.repoDisplayName}</DeploymentRepo>
+                          <span>{timeAgo(run.createdAt)}</span>
+                        </DeploymentMeta>
+                      </DeploymentInfo>
+                      {run.htmlUrl && (
+                        <ViewLink href={run.htmlUrl} target="_blank" rel="noopener noreferrer">
+                          View
+                        </ViewLink>
+                      )}
+                    </DeploymentItem>
+                  ))}
+                </DeploymentList>
+              );
+            return <LoadingText>No recent deployments</LoadingText>;
+          })()}
         </DashboardSection>
       </MotionWrapper>
 
@@ -577,6 +567,7 @@ const ClusterDashboard = () => {
 // ── Page Component (SSR-safe) ───────────────────────────────────
 
 const ClusterPage = () => (
+  <ApolloProvider client={apolloClient}>
     <Layout>
       <PageTransition>
         <SEO
@@ -590,7 +581,7 @@ const ClusterPage = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <div style={{ textAlign: 'center', paddingTop: '40px', marginBottom: '48px' }}>
               <PageTitle>K8s Cluster</PageTitle>
               <PageSubtitle>
                 Live status of the Kubernetes cluster powering the portfolio applications
@@ -606,6 +597,7 @@ const ClusterPage = () => (
         <div style={{ height: '80px' }} />
       </PageTransition>
     </Layout>
+  </ApolloProvider>
 );
 
 export default ClusterPage;

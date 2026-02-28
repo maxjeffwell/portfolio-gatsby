@@ -25,7 +25,7 @@ const EventCard = styled.div`
   transition: border-color 0.2s ease;
 
   .dark-mode & {
-    background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(30,30,50,0.9) 100%);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(30, 30, 50, 0.9) 100%);
   }
 
   &:hover {
@@ -100,7 +100,7 @@ function timeAgo(ts) {
 export default function AIEventFeed() {
   const [events, setEvents] = useState([]);
 
-  const { data: recentData } = useQuery(RECENT_AI_EVENTS_QUERY);
+  const { data: recentData, loading, error } = useQuery(RECENT_AI_EVENTS_QUERY);
   const { data: subData } = useSubscription(AI_EVENT_SUBSCRIPTION);
 
   useEffect(() => {
@@ -115,8 +115,16 @@ export default function AIEventFeed() {
     }
   }, [subData]);
 
+  if (loading) {
+    return <EmptyText>Loading AI events...</EmptyText>;
+  }
+
+  if (error) {
+    return <EmptyText>Unable to connect to gateway — AI events unavailable</EmptyText>;
+  }
+
   return events.length === 0 ? (
-    <EmptyText>Waiting for AI events...</EmptyText>
+    <EmptyText>No recent AI events — listening for new activity</EmptyText>
   ) : (
     <FeedContainer>
       {events.map((ev) => (
@@ -133,9 +141,7 @@ export default function AIEventFeed() {
             {ev.fromCache && <Badge bg="#d4a017">cached</Badge>}
             {ev.model && (
               <Badge bg="#888">
-                {ev.model.length > 25
-                  ? ev.model.substring(0, 25) + '...'
-                  : ev.model}
+                {ev.model.length > 25 ? `${ev.model.substring(0, 25)}...` : ev.model}
               </Badge>
             )}
           </BadgeRow>

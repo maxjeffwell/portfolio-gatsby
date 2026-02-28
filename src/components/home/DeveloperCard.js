@@ -22,8 +22,8 @@ const DeveloperCard = () => {
         building solutions that scale gracefully.
         <br />
         <br />
-        I&#39;m passionate about continuous learning, whether it&#39;s exploring emerging
-        frameworks like Next.js and Astro, optimizing performance bottlenecks with advanced webpack
+        I&#39;m passionate about continuous learning, whether it&#39;s exploring emerging frameworks
+        like Next.js and Astro, optimizing performance bottlenecks with advanced webpack
         configurations, or contributing to open-source projects that benefit the developer
         community. My experience spans across various industries, from e-learning platforms and
         social networking applications to enterprise-level APIs and microservices architectures.

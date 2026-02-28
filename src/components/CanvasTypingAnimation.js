@@ -135,7 +135,8 @@ const CanvasTypingAnimationInner = React.memo(
 
           animationRef.current = requestAnimationFrame(animate);
           return;
-        } else if (state.isPaused) {
+        }
+        if (state.isPaused) {
           // Resume: adjust timers to account for paused time
           const pauseDuration = currentTime - state.pausedTime;
           state.nextActionTime += pauseDuration;
@@ -282,7 +283,7 @@ const CanvasTypingAnimationInner = React.memo(
 CanvasTypingAnimationInner.displayName = 'CanvasTypingAnimationInner';
 
 // Client-side only wrapper to handle SSR properly
-const CanvasTypingAnimation = (props) => {
+const CanvasTypingAnimation = ({ fontSize, fontFamily, color, texts, ...otherProps }) => {
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => {
@@ -295,22 +296,30 @@ const CanvasTypingAnimation = (props) => {
       <span
         style={{
           display: 'inline-block',
-          fontSize: `${props.fontSize || 64}px`,
-          fontFamily: props.fontFamily || 'inherit',
-          color: props.color || '#2196f3',
-          minHeight: `${(props.fontSize || 64) * 1.4}px`,
+          fontSize: `${fontSize || 64}px`,
+          fontFamily: fontFamily || 'inherit',
+          color: color || '#2196f3',
+          minHeight: `${(fontSize || 64) * 1.4}px`,
           background: 'inherit',
           backgroundClip: 'inherit',
           WebkitBackgroundClip: 'inherit',
           WebkitTextFillColor: 'inherit',
         }}
       >
-        {props.texts?.[0] || 'React Specialist'}
+        {texts?.[0] || 'React Specialist'}
       </span>
     );
   }
 
-  return <CanvasTypingAnimationInner {...props} />;
+  return (
+    <CanvasTypingAnimationInner
+      fontSize={fontSize}
+      fontFamily={fontFamily}
+      color={color}
+      texts={texts}
+      {...otherProps}
+    />
+  );
 };
 
 CanvasTypingAnimation.displayName = 'CanvasTypingAnimation';

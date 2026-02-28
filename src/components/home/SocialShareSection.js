@@ -4,9 +4,7 @@ import { Container, ContentSection } from './styles';
 
 const SocialShareSection = () => {
   const url =
-    typeof window !== 'undefined' && window.location
-      ? window.location.href
-      : 'https://el-jefe.me';
+    typeof window !== 'undefined' && window.location ? window.location.href : 'https://el-jefe.me';
 
   return (
     <ContentSection as="section" aria-labelledby="social-share" id="share">

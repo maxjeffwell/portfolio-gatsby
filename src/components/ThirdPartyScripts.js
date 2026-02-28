@@ -22,9 +22,9 @@ const ThirdPartyScripts = () => {
 
       // Configure GA
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        window.dataLayer.push(arguments);
-      }
+      const gtag = (...args) => {
+        window.dataLayer.push(args);
+      };
       window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', process.env.GATSBY_GA_TRACKING_ID, {
@@ -53,8 +53,9 @@ const ThirdPartyScripts = () => {
       window.addEventListener('scroll', trackScrollDepth);
     }
 
-    // Hotjar
+    // Hotjar — vendor snippet, disable lint rules for it
     if (process.env.GATSBY_HOTJAR_ID) {
+      /* eslint-disable no-inner-declarations, prefer-rest-params, radix, prefer-destructuring, no-param-reassign */
       (function (h, o, t, j, a, r) {
         h.hj =
           h.hj ||
@@ -68,6 +69,7 @@ const ThirdPartyScripts = () => {
         r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
         a.appendChild(r);
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+      /* eslint-enable no-inner-declarations, prefer-rest-params, radix, prefer-destructuring, no-param-reassign */
     }
 
     // Plausible Analytics

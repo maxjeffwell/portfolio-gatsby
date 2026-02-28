@@ -108,9 +108,7 @@ function BlogCard({ title, date, excerpt, tags, slug }) {
         {tags && tags.length > 0 && (
           <TagsContainer>
             {tags.map((tag) => (
-              <Tag key={tag}>
-                {tag}
-              </Tag>
+              <Tag key={tag}>{tag}</Tag>
             ))}
           </TagsContainer>
         )}

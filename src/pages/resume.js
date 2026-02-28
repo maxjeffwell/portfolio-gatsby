@@ -56,7 +56,9 @@ const ResumeLink = styled.a`
   border-radius: 8px;
   font-weight: 600;
   font-size: 1.125rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   box-shadow: 0px 4px 12px rgba(21, 101, 192, 0.2);
 
   &:hover {

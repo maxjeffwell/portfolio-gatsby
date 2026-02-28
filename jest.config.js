@@ -14,6 +14,8 @@ module.exports = {
   moduleNameMapper: {
     // Handle CSS modules and styled-components
     '\\.css$': 'identity-obj-proxy',
+    // Mock @docsearch/css package (package name doesn't end in .css)
+    '^@docsearch/css$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|gif|webp|svg|avif)$': '<rootDir>/__mocks__/fileMock.js',
 
     // Mock Gatsby modules
@@ -87,7 +89,7 @@ module.exports = {
 
   // Transform ignore patterns - allow Gatsby modules to be transformed
   transformIgnorePatterns: [
-    'node_modules/(?!(gatsby|gatsby-script|gatsby-link)/)',
+    'node_modules/(?!(gatsby|gatsby-script|gatsby-link|@docsearch)/)',
   ],
 
   // Global setup

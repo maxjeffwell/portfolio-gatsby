@@ -3,11 +3,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import SimpleTypingAnimation from '../SimpleTypingAnimation';
 import StaggeredAnimation from '../StaggeredAnimation';
-import {
-  Container,
-  QuoteBox,
-  GradientTypingWrapper,
-} from './styles';
+import { Container, QuoteBox, GradientTypingWrapper } from './styles';
 
 const HeroSectionWrapper = styled.section`
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);

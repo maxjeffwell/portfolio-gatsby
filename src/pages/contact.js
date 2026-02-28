@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useMutation } from '@apollo/client/react';
+import { ApolloProvider, useMutation } from '@apollo/client/react';
+import apolloClient from '../lib/apolloClient';
 import ProtectedEmail from '../components/ProtectedEmail';
 import { SUBMIT_CONTACT_FORM } from '../graphql/gateway';
 
@@ -119,7 +120,12 @@ const getTypographyLetterSpacing = (variant) => {
 
 const Typography = styled.div`
   margin: 0;
-  font-family: inherit;
+  font-family: ${(props) => {
+    if (props.variant?.startsWith('h')) {
+      return "'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif";
+    }
+    return "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif";
+  }};
   font-weight: ${(props) => getTypographyFontWeight(props.variant)};
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
@@ -137,6 +143,27 @@ const Typography = styled.div`
     if (props.paragraph) return '16px';
     return '0';
   }};
+`;
+
+const PageTitle = styled.h1`
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  font-family:
+    'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback',
+    sans-serif;
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -549,10 +576,10 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = React.useState(() => false);
   const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM);
 
-  // Detect whether we're on Netlify (el-jefe.me) or K8s (portfolio.el-jefe.me)
-  // Guard against SSR where window.location may not exist (gatsby-ssr.js mocks window without location)
-  const isNetlify =
-    typeof window === 'undefined' || !window.location || window.location.hostname === 'el-jefe.me';
+  // Build-time env var determines contact form submission mode.
+  // Docker build (K8s) sets GATSBY_CONTACT_FORM_MODE=graphql.
+  // Netlify build defaults to 'netlify' for Netlify Forms.
+  const isNetlify = (process.env.GATSBY_CONTACT_FORM_MODE || 'netlify') === 'netlify';
 
   const handleChange = (e) => {
     setFormData({
@@ -635,9 +662,7 @@ function Contact() {
         });
 
         if (!data?.submitContactForm?.success) {
-          throw new Error(
-            data?.submitContactForm?.message || 'Failed to send message.'
-          );
+          throw new Error(data?.submitContactForm?.message || 'Failed to send message.');
         }
       }
 
@@ -652,9 +677,7 @@ function Contact() {
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
         setErrorMessage('Network error: Please check your internet connection and try again.');
       } else if (error.message.includes('Netlify form handler not found')) {
-        setErrorMessage(
-          'Form configuration error. Please contact me directly at jeff@el-jefe.me.'
-        );
+        setErrorMessage('Form configuration error. Please contact me directly at jeff@el-jefe.me.');
       } else if (error.message.includes('Server error')) {
         setErrorMessage(
           'Server error occurred. Please try again in a few minutes or contact me directly.'
@@ -663,8 +686,7 @@ function Contact() {
         setErrorMessage('Too many attempts. Please wait a moment before trying again.');
       } else {
         setErrorMessage(
-          error.message ||
-            'An unexpected error occurred. Please try again or contact me directly.'
+          error.message || 'An unexpected error occurred. Please try again or contact me directly.'
         );
       }
 
@@ -721,29 +743,17 @@ function Contact() {
             mb={8}
             style={{ textAlign: 'center', paddingTop: '40px' }}
           >
-            <Typography
-              as="h1"
-              id="contact-header"
-              style={{
-                fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-                fontWeight: 700,
-                lineHeight: 1.2,
-                marginBottom: '24px',
-                background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em',
-              }}
-            >
+            <PageTitle id="contact-header">
               Hire React & Node.js Developer - Let&apos;s Connect
-            </Typography>
+            </PageTitle>
             <Typography
               variant="h5"
               style={{
                 fontSize: '1.375rem',
                 fontWeight: 400,
-                maxWidth: '600px',
+                fontFamily:
+                  "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif",
+                maxWidth: '960px',
                 margin: '0 auto',
                 lineHeight: 1.5,
                 color: 'var(--text-secondary-color)',
@@ -785,6 +795,7 @@ function Contact() {
             >
               <Typography
                 as="h3"
+                variant="h3"
                 style={{
                   fontSize: '1.75rem',
                   fontWeight: 600,
@@ -1032,6 +1043,7 @@ function Contact() {
             >
               <Typography
                 as="h3"
+                variant="h3"
                 style={{
                   fontSize: '1.75rem',
                   fontWeight: 600,
@@ -1449,4 +1461,12 @@ function Contact() {
   );
 }
 
-export default Contact;
+function ContactPage() {
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Contact />
+    </ApolloProvider>
+  );
+}
+
+export default ContactPage;

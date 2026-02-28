@@ -17,14 +17,6 @@ export default function HTML(props) {
         <meta charSet="utf-8" />
         <meta name="algolia-site-verification" content="620E7268392C7F85" />
         <title>Jeff Maxwell Developer Portfolio</title>
-        {/* Critical CSS inlined for faster mobile loading */}
-        <style>{`
-          body{font-family:system-ui,-apple-system,sans-serif}
-          *{box-sizing:border-box}
-          .gatsby-image-wrapper{max-width:100%;height:auto}
-          [data-gatsby-image-wrapper]{max-width:100%}
-        `}</style>
-        {/* styled-components handles SSR automatically */}
         {headComponents}
       </head>
       <body {...bodyAttributes}>
@@ -33,7 +25,7 @@ export default function HTML(props) {
           <input type="hidden" name="form-name" value="contact" />
           <input type="text" name="name" />
           <input type="email" name="email" />
-          <textarea name="message"></textarea>
+          <textarea name="message" />
           <input type="text" name="bot-field" />
         </form>
         {preBodyComponents}

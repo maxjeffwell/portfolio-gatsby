@@ -9,6 +9,9 @@ describe('ThemeContext', () => {
     window.localStorage.clear();
     jest.clearAllMocks();
 
+    // Reset HTML class to light mode (ThemeProvider reads classList on init)
+    document.documentElement.classList.remove('dark-mode');
+
     // Default to light mode system preference
     mockMatchMedia(false);
   });
@@ -24,8 +27,10 @@ describe('ThemeContext', () => {
     });
 
     it('hydrates theme from localStorage when "dark" is stored', async () => {
-      // Set up localStorage before rendering
+      // Set up localStorage and HTML class before rendering
+      // (ThemeProvider reads classList, not localStorage, for initial state)
       mockLocalStorage({ 'portfolio-theme': 'dark' });
+      document.documentElement.classList.add('dark-mode');
 
       const wrapper = ({ children }) => <ThemeProvider>{children}</ThemeProvider>;
       const { result } = renderHook(() => useTheme(), { wrapper });
@@ -41,8 +46,9 @@ describe('ThemeContext', () => {
     });
 
     it('respects system dark mode preference when no localStorage value', async () => {
-      // Mock system preference as dark
+      // Mock system preference as dark and set HTML class
       mockMatchMedia(true);
+      document.documentElement.classList.add('dark-mode');
 
       const wrapper = ({ children }) => <ThemeProvider>{children}</ThemeProvider>;
       const { result } = renderHook(() => useTheme(), { wrapper });
@@ -75,6 +81,12 @@ describe('ThemeContext', () => {
 
   describe('toggleTheme', () => {
     it('toggles from light to dark mode', async () => {
+      // Add meta theme-color so the update-meta branch is covered
+      const meta = document.createElement('meta');
+      meta.setAttribute('name', 'theme-color');
+      meta.setAttribute('content', '#1976d2');
+      document.head.appendChild(meta);
+
       const wrapper = ({ children }) => <ThemeProvider>{children}</ThemeProvider>;
       const { result } = renderHook(() => useTheme(), { wrapper });
 
@@ -94,10 +106,16 @@ describe('ThemeContext', () => {
       expect(result.current.theme.mode).toBe('dark');
       expect(result.current.isSystemPreference).toBe(false);
       expect(window.localStorage.setItem).toHaveBeenCalledWith('portfolio-theme', 'dark');
+
+      // meta theme-color should update to dark
+      expect(meta.getAttribute('content')).toBe('#0a0a0a');
+
+      document.head.removeChild(meta);
     });
 
     it('toggles from dark to light mode', async () => {
       mockLocalStorage({ 'portfolio-theme': 'dark' });
+      document.documentElement.classList.add('dark-mode');
 
       const wrapper = ({ children }) => <ThemeProvider>{children}</ThemeProvider>;
       const { result } = renderHook(() => useTheme(), { wrapper });
@@ -121,6 +139,7 @@ describe('ThemeContext', () => {
   describe('resetToSystemPreference', () => {
     it('resets to system preference and clears localStorage', async () => {
       mockLocalStorage({ 'portfolio-theme': 'dark' });
+      document.documentElement.classList.add('dark-mode');
       mockMatchMedia(false); // System prefers light
 
       const wrapper = ({ children }) => <ThemeProvider>{children}</ThemeProvider>;
@@ -189,6 +208,7 @@ describe('ThemeContext', () => {
 
     it('provides correct dark theme colors', async () => {
       mockLocalStorage({ 'portfolio-theme': 'dark' });
+      document.documentElement.classList.add('dark-mode');
 
       const wrapper = ({ children }) => <ThemeProvider>{children}</ThemeProvider>;
       const { result } = renderHook(() => useTheme(), { wrapper });

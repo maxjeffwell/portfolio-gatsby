@@ -29,5 +29,16 @@ module.exports = {
         },
       },
     ],
+    [
+      'babel-plugin-styled-components',
+      {
+        ssr: true,
+        displayName: process.env.NODE_ENV !== 'production',
+        fileName: process.env.NODE_ENV !== 'production',
+        pure: true,
+        minify: process.env.NODE_ENV === 'production',
+        transpileTemplateLiterals: process.env.NODE_ENV === 'production',
+      },
+    ],
   ],
 };

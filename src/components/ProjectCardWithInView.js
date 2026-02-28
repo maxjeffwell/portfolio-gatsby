@@ -23,28 +23,28 @@ function ProjectCardWithInView(props) {
   const ref = useRef(null);
   const [isClient, setIsClient] = useState(false);
   const [MotionDiv, setMotionDiv] = useState(null);
-  const [useInView, setUseInView] = useState(null);
+  const [inViewFn, setInViewFn] = useState(null);
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
     // Dynamically import motion to avoid SSR issues
-    import('motion/react').then(({ motion, useInView: useInViewHook }) => {
+    import('motion/react').then(({ motion, useInView: inViewHook }) => {
       setMotionDiv(() => motion.div);
-      setUseInView(() => useInViewHook);
+      setInViewFn(() => inViewHook);
     });
   }, []);
 
   useEffect(() => {
-    if (useInView && ref.current) {
-      const inView = useInView(ref, {
+    if (inViewFn && ref.current) {
+      const inView = inViewFn(ref, {
         once: true,
         margin: '-50px',
         amount: 0.1,
       });
       setIsInView(inView);
     }
-  }, [useInView]);
+  }, [inViewFn]);
 
   // Return static div during SSR or while loading motion
   if (!isClient || !MotionDiv) {

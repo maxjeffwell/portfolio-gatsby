@@ -185,8 +185,8 @@ function NotFoundPage() {
               </Description>
 
               <QuoteBox>
-                &#34;The best error messages are the ones that help you fix the problem.&#34; — Here are
-                some helpful options to continue exploring.
+                &#34;The best error messages are the ones that help you fix the problem.&#34; — Here
+                are some helpful options to continue exploring.
               </QuoteBox>
 
               <ButtonGroup>

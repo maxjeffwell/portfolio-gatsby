@@ -1,7 +1,7 @@
 // Empty module replacement for MUI imports during webpack build
 // This prevents webpack from processing MUI files entirely
 
-const React = require('react');
+require('react');
 
 // Empty component that renders nothing
 const EmptyComponent = () => null;
@@ -83,7 +83,7 @@ const muiExports = {
   Delete: EmptyComponent,
   Search: EmptyComponent,
   Close: EmptyComponent,
-  Menu: EmptyComponent,
+  MenuIcon: EmptyComponent,
   Home: EmptyComponent,
   Settings: EmptyComponent,
   Info: EmptyComponent,

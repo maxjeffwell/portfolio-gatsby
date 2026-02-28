@@ -263,9 +263,7 @@ function BlogPostTemplate({ data }) {
         }}
       />
       <ArticleContainer>
-        <BackLink to="/blog/">
-          Back to all posts
-        </BackLink>
+        <BackLink to="/blog/">Back to all posts</BackLink>
 
         <ArticleHeader>
           <ArticleTitle>{post.frontmatter.title}</ArticleTitle>
@@ -277,9 +275,7 @@ function BlogPostTemplate({ data }) {
           {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
             <TagsContainer>
               {post.frontmatter.tags.map((tag) => (
-                <Tag key={tag}>
-                  {tag}
-                </Tag>
+                <Tag key={tag}>{tag}</Tag>
               ))}
             </TagsContainer>
           )}

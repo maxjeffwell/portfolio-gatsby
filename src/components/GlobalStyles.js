@@ -1,4 +1,3 @@
-import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
@@ -333,14 +332,76 @@ const GlobalStyles = createGlobalStyle`
 
   /* DocSearch button styling to match nav */
   .DocSearch-Button {
+    background-color: var(--nav-bg) !important;
+    color: var(--text-color) !important;
+    border: none !important;
     border-radius: 10px !important;
     font-family: inherit !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    padding: 8px 16px !important;
     margin: 0 !important;
+    height: auto !important;
+    transition: background-color 0.2s ease !important;
+
+    &:hover {
+      background-color: var(--nav-hover-bg) !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .DocSearch-Button .DocSearch-Search-Icon {
+    color: var(--text-secondary-color) !important;
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .DocSearch-Button-Placeholder {
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    color: var(--text-secondary-color) !important;
+  }
+
+  .DocSearch-Button-Keys {
+    display: flex !important;
+    gap: 2px !important;
+  }
+
+  .DocSearch-Button-Key {
+    background: var(--hover-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+    color: var(--text-muted-color) !important;
+    font-size: 0.7rem !important;
+    padding: 1px 5px !important;
+    border-radius: 4px !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
   }
 
   /* Ensure modal renders above header */
   .DocSearch-Container {
     z-index: 1400 !important;
+  }
+
+  /* Fix modal theme after dark/light mode toggle */
+  .dark-mode .DocSearch-Container {
+    --docsearch-modal-background: #1a1a1a;
+    --docsearch-searchbox-background: #2a2a2a;
+    --docsearch-searchbox-focus-background: #333;
+    --docsearch-hit-background: #2a2a2a;
+    --docsearch-hit-color: #f5f5f5;
+    --docsearch-footer-background: #1a1a1a;
+  }
+
+  .light-mode .DocSearch-Container {
+    --docsearch-modal-background: #fff;
+    --docsearch-searchbox-background: #eee;
+    --docsearch-searchbox-focus-background: #fff;
+    --docsearch-hit-background: #fff;
+    --docsearch-hit-color: #212121;
+    --docsearch-footer-background: #fff;
   }
 
 `;

@@ -74,7 +74,7 @@ function generateCSPForFiles() {
     "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
     "font-src 'self' fonts.gstatic.com data:",
     "img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com",
-    "connect-src 'self' https://showcase.el-jefe.me https://gateway.el-jefe.me https://podrick.el-jefe.me *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com *.posthog.com plausible.io",
+    "connect-src 'self' https://showcase.el-jefe.me https://gateway.el-jefe.me https://podrick.el-jefe.me *.algolia.net *.algolianet.com https://askai.algolia.com *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.hotjar.com *.clarity.ms *.facebook.com *.linkedin.com *.posthog.com plausible.io",
     "manifest-src 'self'",
     "frame-src https://showcase.el-jefe.me *.hotjar.com *.clarity.ms 'self'",
     "object-src 'none'",

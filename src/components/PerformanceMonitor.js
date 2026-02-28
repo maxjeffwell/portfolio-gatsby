@@ -93,7 +93,7 @@ const PerformanceMonitor = () => {
 
         // Check supported entry types before observing
         const supportedEntryTypes = PerformanceObserver.supportedEntryTypes || [];
-        
+
         try {
           if (supportedEntryTypes.includes('largest-contentful-paint')) {
             lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });

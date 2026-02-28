@@ -71,7 +71,12 @@ const getTypographyLineHeight = (variant) => {
 
 const Typography = styled.div`
   margin: 0;
-  font-family: inherit;
+  font-family: ${(props) => {
+    if (props.variant?.startsWith('h')) {
+      return "'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif";
+    }
+    return "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif";
+  }};
   font-weight: ${(props) => getTypographyFontWeight(props.variant)};
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
@@ -81,6 +86,27 @@ const Typography = styled.div`
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
   text-align: ${(props) => props.align || 'inherit'};
+`;
+
+const PageTitle = styled.h1`
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+  font-family:
+    'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback',
+    sans-serif;
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
 `;
 
 const StyledContainer = styled.div`
@@ -249,31 +275,15 @@ function AboutPage() {
             style={{ textAlign: 'center', paddingTop: '40px' }}
           >
             <div>
-              <Typography
-                as="h1"
-                variant="h1"
-                id="about-header"
-                style={{
-                  fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-                  fontWeight: 700,
-                  lineHeight: 1.2,
-                  marginBottom: '32px',
-                  background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  letterSpacing: '-0.02em',
-                }}
-              >
+              <PageTitle id="about-header">
                 About Jeff Maxwell - React & Node.js Developer
-              </Typography>
+              </PageTitle>
               <Typography
-
-                variant="h5"
-                component="h2"
+                variant="body1"
+                component="p"
                 color="text.secondary"
                 style={{
-                  maxWidth: 700,
+                  maxWidth: 960,
                   margin: '0 auto',
                   fontSize: '1.375rem',
                   lineHeight: 1.5,
@@ -358,8 +368,7 @@ function AboutPage() {
                 <GridItem>
                   <div
                     style={{
-                      background:
-                        'var(--paper-color)',
+                      background: 'var(--paper-color)',
                       borderRadius: '16px',
                       padding: '32px 24px',
                       display: 'flex',
@@ -367,8 +376,7 @@ function AboutPage() {
                       alignItems: 'center',
                       textAlign: 'center',
                       height: '100%',
-                      boxShadow:
-                        '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                      boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                       transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                       '&:hover': {
                         transform: 'translateY(-2px)',
@@ -379,8 +387,7 @@ function AboutPage() {
                     <div
                       style={{
                         fontSize: '4rem',
-                        color:
-                          'var(--primary-color)',
+                        color: 'var(--primary-color)',
                         marginBottom: '24px',
                         display: 'flex',
                         alignItems: 'center',
@@ -399,7 +406,6 @@ function AboutPage() {
                     </div>
                     <StyledBox>
                       <Typography
-        
                         variant="h3"
                         component="h3"
                         style={{
@@ -414,7 +420,6 @@ function AboutPage() {
                         React Development & Clean Code Philosophy
                       </Typography>
                       <Typography
-        
                         variant="body2"
                         style={{
                           lineHeight: 1.5,
@@ -439,8 +444,7 @@ function AboutPage() {
                 <GridItem>
                   <div
                     style={{
-                      background:
-                        'var(--paper-color)',
+                      background: 'var(--paper-color)',
                       borderRadius: '16px',
                       padding: '32px 24px',
                       display: 'flex',
@@ -448,16 +452,14 @@ function AboutPage() {
                       alignItems: 'center',
                       textAlign: 'center',
                       height: '100%',
-                      boxShadow:
-                        '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                      boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                       transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                     }}
                   >
                     <div
                       style={{
                         fontSize: '4rem',
-                        color:
-                          'var(--primary-color)',
+                        color: 'var(--primary-color)',
                         marginBottom: '24px',
                         display: 'flex',
                         alignItems: 'center',
@@ -476,7 +478,6 @@ function AboutPage() {
                     </div>
                     <StyledBox>
                       <Typography
-        
                         variant="h3"
                         component="h3"
                         style={{
@@ -491,7 +492,6 @@ function AboutPage() {
                         Coffee & Code Culture
                       </Typography>
                       <Typography
-        
                         variant="body2"
                         style={{
                           lineHeight: 1.5,
@@ -516,8 +516,7 @@ function AboutPage() {
                 <GridItem>
                   <div
                     style={{
-                      background:
-                        'var(--paper-color)',
+                      background: 'var(--paper-color)',
                       borderRadius: '16px',
                       padding: '32px 24px',
                       display: 'flex',
@@ -525,16 +524,14 @@ function AboutPage() {
                       alignItems: 'center',
                       textAlign: 'center',
                       height: '100%',
-                      boxShadow:
-                        '0px 2px 8px rgba(0, 0, 0, 0.06)',
+                      boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
                       transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease',
                     }}
                   >
                     <div
                       style={{
                         fontSize: '4rem',
-                        color:
-                          'var(--primary-color)',
+                        color: 'var(--primary-color)',
                         marginBottom: '24px',
                         display: 'flex',
                         alignItems: 'center',
@@ -553,7 +550,6 @@ function AboutPage() {
                     </div>
                     <StyledBox>
                       <Typography
-        
                         variant="h3"
                         component="h3"
                         style={{
@@ -568,7 +564,6 @@ function AboutPage() {
                         Dog Parent & Developer Balance
                       </Typography>
                       <Typography
-        
                         variant="body2"
                         style={{
                           lineHeight: 1.5,
@@ -618,8 +613,7 @@ function AboutPage() {
                 borderRadius: '24px',
                 padding: '48px',
                 marginBottom: '32px',
-                boxShadow:
-                  '0px 8px 24px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.08)',
                 transition: 'background 0.3s ease',
               }}
             >
@@ -835,7 +829,6 @@ function AboutPage() {
                 JavaScript Technology Stack & Development Tools
               </Typography>
               <Typography
-
                 variant="body1"
                 color="text.secondary"
                 style={{
@@ -876,23 +869,17 @@ function AboutPage() {
                     />
                   </div>
                   <Typography
-    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
-                    customColor={
-                      'var(--text-color)'
-                    }
+                    customColor="var(--text-color)"
                   >
                     JetBrains WebStorm JavaScript Development Environment
                   </Typography>
                   <Typography
-    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
-                    customColor={
-                      'var(--text-secondary-color)'
-                    }
+                    customColor="var(--text-secondary-color)"
                   >
                     My primary IDE for JavaScript and React development, featuring intelligent code
                     completion, advanced debugging capabilities, and seamless Git integration. The
@@ -925,23 +912,17 @@ function AboutPage() {
                     <SiMozilla aria-label="Firefox web browser development tool icon" role="img" />
                   </div>
                   <Typography
-    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
-                    customColor={
-                      'var(--text-color)'
-                    }
+                    customColor="var(--text-color)"
                   >
                     Firefox Web Development
                   </Typography>
                   <Typography
-    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
-                    customColor={
-                      'var(--text-secondary-color)'
-                    }
+                    customColor="var(--text-secondary-color)"
                   >
                     My preferred browser for web development and testing, offering excellent
                     developer tools for debugging JavaScript, analyzing performance, and ensuring
@@ -976,23 +957,17 @@ function AboutPage() {
                     <SiDebian aria-label="Debian Linux operating system icon" role="img" />
                   </div>
                   <Typography
-    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
-                    customColor={
-                      'var(--text-color)'
-                    }
+                    customColor="var(--text-color)"
                   >
                     Debian Linux
                   </Typography>
                   <Typography
-    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
-                    customColor={
-                      'var(--text-secondary-color)'
-                    }
+                    customColor="var(--text-secondary-color)"
                   >
                     My development environment of choice, providing a stable and secure foundation
                     for Node.js applications. The package management system and command-line tools
@@ -1026,23 +1001,17 @@ function AboutPage() {
                     <SiGit aria-label="Git version control system icon" role="img" />
                   </div>
                   <Typography
-    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
-                    customColor={
-                      'var(--text-color)'
-                    }
+                    customColor="var(--text-color)"
                   >
                     Git
                   </Typography>
                   <Typography
-    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
-                    customColor={
-                      'var(--text-secondary-color)'
-                    }
+                    customColor="var(--text-secondary-color)"
                   >
                     Essential for collaborative development and code management. I follow Git best
                     practices including meaningful commit messages, feature branch workflows, and
@@ -1076,23 +1045,17 @@ function AboutPage() {
                     <SiAnthropic aria-label="Anthropic AI company logo" role="img" />
                   </div>
                   <Typography
-    
                     variant="h3"
                     component="h3"
                     style={{ fontWeight: 600, marginBottom: '8px', fontSize: '1.125rem' }}
-                    customColor={
-                      'var(--text-color)'
-                    }
+                    customColor="var(--text-color)"
                   >
                     Anthropic Claude AI Assistant
                   </Typography>
                   <Typography
-    
                     variant="body2"
                     style={{ lineHeight: 1.4, fontSize: '0.875rem' }}
-                    customColor={
-                      'var(--text-secondary-color)'
-                    }
+                    customColor="var(--text-secondary-color)"
                   >
                     Advanced AI assistant for code review, documentation, and development workflow
                     optimization. Provides intelligent suggestions for architecture decisions,

@@ -60,7 +60,12 @@ const getTypographyLineHeight = (variant) => {
 // Simple Typography replacement
 const Typography = styled.div`
   margin: 0;
-  font-family: inherit;
+  font-family: ${(props) => {
+    if (props.variant?.startsWith('h')) {
+      return "'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif";
+    }
+    return "'AvenirLTStd-Roman', 'AvenirFallback', 'HelveticaNeueLTStd-Roman', 'HelveticaNeueRomanFallback', sans-serif";
+  }};
   font-weight: ${(props) => getTypographyFontWeight(props.variant)};
   font-size: ${(props) => getTypographyFontSize(props.variant)};
   line-height: ${(props) => getTypographyLineHeight(props.variant)};
@@ -634,7 +639,7 @@ const GradientText = styled(Typography)`
   }
 
   .dark-mode & {
-    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-image: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
     color: #90caf9;
 
     @supports (background-clip: text) or (-webkit-background-clip: text) {
@@ -833,9 +838,7 @@ function LazyProjectList({ projects }) {
           videoSrcPath2={project.videoSrcPath2}
         />
       ))}
-      {visibleCount < projects.length && (
-        <div ref={sentinelRef} style={{ height: '1px' }} />
-      )}
+      {visibleCount < projects.length && <div ref={sentinelRef} style={{ height: '1px' }} />}
     </div>
   );
 }
@@ -921,34 +924,30 @@ const Projects = ({ data }) => {
       }
 
       // Find image files (remove video extensions for matching)
-      const screenshot1File =
-        project.screenshots.screenshot1
-          ? Array.from(imageMap.entries()).find(([path]) =>
-              path.includes(project.screenshots.screenshot1.replace('.webm', '').replace('.mp4', ''))
-            )
-          : null;
+      const screenshot1File = project.screenshots.screenshot1
+        ? Array.from(imageMap.entries()).find(([path]) =>
+            path.includes(project.screenshots.screenshot1.replace('.webm', '').replace('.mp4', ''))
+          )
+        : null;
 
-      const screenshot2File =
-        project.screenshots.screenshot2
-          ? Array.from(imageMap.entries()).find(([path]) =>
-              path.includes(project.screenshots.screenshot2.replace('.webm', '').replace('.mp4', ''))
-            )
-          : null;
+      const screenshot2File = project.screenshots.screenshot2
+        ? Array.from(imageMap.entries()).find(([path]) =>
+            path.includes(project.screenshots.screenshot2.replace('.webm', '').replace('.mp4', ''))
+          )
+        : null;
 
       // Find video files
-      const videoFile1 =
-        project.screenshots.screenshot1
-          ? Array.from(videoMap.entries()).find(([path]) =>
-              path.includes(project.screenshots.screenshot1)
-            )
-          : null;
+      const videoFile1 = project.screenshots.screenshot1
+        ? Array.from(videoMap.entries()).find(([path]) =>
+            path.includes(project.screenshots.screenshot1)
+          )
+        : null;
 
-      const videoFile2 =
-        project.screenshots.screenshot2
-          ? Array.from(videoMap.entries()).find(([path]) =>
-              path.includes(project.screenshots.screenshot2)
-            )
-          : null;
+      const videoFile2 = project.screenshots.screenshot2
+        ? Array.from(videoMap.entries()).find(([path]) =>
+            path.includes(project.screenshots.screenshot2)
+          )
+        : null;
 
       return {
         ...project,
@@ -998,12 +997,11 @@ const Projects = ({ data }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <StyledBox as="section" mb={6} textAlign="center">
+            <StyledBox as="section" mb={6} textAlign="center" style={{ paddingTop: '40px' }}>
               <GradientText as="h1" variant="h1" align="center" gutterBottom>
                 React & Node.js Developer Portfolio - JavaScript Projects
               </GradientText>
               <Typography
-
                 variant="h2"
                 component="h2"
                 align="center"
@@ -1017,7 +1015,6 @@ const Projects = ({ data }) => {
                 JavaScript & React Development Project Showcase
               </Typography>
               <Typography
-
                 variant="body1"
                 align="center"
                 color="text.secondary"
@@ -1061,7 +1058,6 @@ const Projects = ({ data }) => {
           >
             <StyledBox mb={2}>
               <Typography
-
                 variant="h3"
                 component="h3"
                 style={{
@@ -1078,7 +1074,6 @@ const Projects = ({ data }) => {
             <StyledBox display="flex" alignItems="center" justifyContent="flex-end" mb={3}>
               <CustomSelectContainer ref={dropdownRef}>
                 <CustomSelectButton
-  
                   open={dropdownOpen}
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   aria-label="Filter projects by technology"
@@ -1091,82 +1086,43 @@ const Projects = ({ data }) => {
                     <CustomSelectOption onClick={() => handleTechnologyChange('')}>
                       All Projects
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('JavaScript')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('JavaScript')}>
                       JavaScript
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('React')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('React')}>
                       React
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Context API')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Context API')}>
                       Context API
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Node.js')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Node.js')}>
                       Node.js
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Express')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Express')}>
                       Express
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('GraphQL')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('GraphQL')}>
                       GraphQL
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('MongoDB')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('MongoDB')}>
                       MongoDB
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('PostgreSQL')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('PostgreSQL')}>
                       PostgreSQL
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Redis')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Redis')}>
                       Redis
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('WebSocket')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('WebSocket')}>
                       WebSocket
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Apollo Client')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Apollo Client')}>
                       Apollo Client
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Apollo Server')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Apollo Server')}>
                       Apollo Server
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Redux')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Redux')}>
                       Redux
                     </CustomSelectOption>
                     <CustomSelectOption onClick={() => handleTechnologyChange('JWT')}>
@@ -1175,22 +1131,13 @@ const Projects = ({ data }) => {
                     <CustomSelectOption onClick={() => handleTechnologyChange('Git')}>
                       Git
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Docker')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Docker')}>
                       Docker
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Vercel')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Vercel')}>
                       Vercel
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Firebase')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Firebase')}>
                       Firebase
                     </CustomSelectOption>
                     <CustomSelectOption onClick={() => handleTechnologyChange('NPM')}>
@@ -1199,148 +1146,76 @@ const Projects = ({ data }) => {
                     <CustomSelectOption onClick={() => handleTechnologyChange('CSS')}>
                       CSS
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Emotion')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Emotion')}>
                       Emotion
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Google Cloud')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Google Cloud')}>
                       Google Cloud
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Neon')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Neon')}>
                       Neon
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('OpenAI')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('OpenAI')}>
                       OpenAI
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Kubernetes')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Kubernetes')}>
                       Kubernetes
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('LangChain')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('LangChain')}>
                       LangChain
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Material-UI')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Material-UI')}>
                       Material-UI
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Socket.io')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Socket.io')}>
                       Socket.io
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Helm')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Helm')}>
                       Helm
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Prometheus')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Prometheus')}>
                       Prometheus
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Grafana')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Grafana')}>
                       Grafana
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Vite')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Vite')}>
                       Vite
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Tailwind CSS')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Tailwind CSS')}>
                       Tailwind CSS
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Algolia')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Algolia')}>
                       Algolia
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Puppeteer')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Puppeteer')}>
                       Puppeteer
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Firestore')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Firestore')}>
                       Firestore
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('GitHub Actions')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('GitHub Actions')}>
                       GitHub Actions
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Argo CD')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Argo CD')}>
                       Argo CD
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Nginx Ingress')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Nginx Ingress')}>
                       Nginx Ingress
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Triton')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Triton')}>
                       Triton
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('TensorFlow.js')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('TensorFlow.js')}>
                       TensorFlow.js
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('WebGPU')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('WebGPU')}>
                       WebGPU
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('InfluxDB')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('InfluxDB')}>
                       InfluxDB
                     </CustomSelectOption>
-                    <CustomSelectOption
-      
-                      onClick={() => handleTechnologyChange('Kafka')}
-                    >
+                    <CustomSelectOption onClick={() => handleTechnologyChange('Kafka')}>
                       Kafka
                     </CustomSelectOption>
                   </CustomSelectDropdown>
@@ -1351,7 +1226,7 @@ const Projects = ({ data }) => {
 
           <StyledBox mb={3}>
             <Typography
-                           variant="h2"
+              variant="h2"
               component="h2"
               style={{
                 fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
@@ -1367,12 +1242,7 @@ const Projects = ({ data }) => {
           <StyledBox as="section">
             {filteredProjects.length === 0 ? (
               <StyledBox textAlign="center" style={{ paddingTop: '48px', paddingBottom: '48px' }}>
-                <Typography
-  
-                  variant="body1"
-                  color="text.secondary"
-                  sx={{ fontSize: '1.125rem' }}
-                >
+                <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.125rem' }}>
                   No projects match your current filters. Try adjusting your search criteria.
                 </Typography>
               </StyledBox>

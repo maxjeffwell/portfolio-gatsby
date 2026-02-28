@@ -153,7 +153,7 @@ export const InfoCard = styled.div`
     font-weight: 600;
     color: var(--accent-pink);
     margin: 0 0 16px 0;
-      line-height: 1.3;
+    line-height: 1.3;
     word-wrap: break-word;
   }
 
@@ -168,7 +168,7 @@ export const InfoCard = styled.div`
       gap: 8px;
       margin-bottom: 12px;
       color: var(--text-color);
-          font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
       line-height: 1.5;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -176,7 +176,7 @@ export const InfoCard = styled.div`
       svg {
         color: var(--accent-pink);
         flex-shrink: 0;
-              margin-top: 2px;
+        margin-top: 2px;
       }
     }
   }

@@ -8,7 +8,6 @@ import ProtectedEmail from './ProtectedEmail';
 
 import Header from './header';
 // ThirdPartyScripts will be loaded client-side only
-import GlobalStyles from './GlobalStyles';
 import { useTheme } from '../context/ThemeContext';
 
 const GET_SITE_METADATA = graphql`
@@ -295,8 +294,7 @@ const ClientOnlyAnimatedCursor = ({ isDarkMode }) => {
 
     // Only load on desktop devices with mouse support
     const isDesktopDevice =
-      window.innerWidth >= 1024 &&
-      !window.matchMedia('(pointer: coarse)').matches;
+      window.innerWidth >= 1024 && !window.matchMedia('(pointer: coarse)').matches;
 
     setIsDesktop(isDesktopDevice);
 
@@ -322,7 +320,7 @@ const ClientOnlyAnimatedCursor = ({ isDarkMode }) => {
       innerScale={0.7}
       outerScale={5}
       trailingSpeed={4}
-      showSystemCursor={true}
+      showSystemCursor
       clickables={[
         'a',
         'input[type="text"]',
@@ -363,13 +361,10 @@ function ThemedLayout({ children, _data }) {
 
   return (
     <>
-      <GlobalStyles />
       {/* <Analytics /> - Disabled - using gatsby-plugin-google-gtag instead */}
       <ClientOnlyAnimatedCursor isDarkMode={isDarkMode} />
       <Header />
-      <StyledMain>
-        {children}
-      </StyledMain>
+      <StyledMain>{children}</StyledMain>
       <StyledFooter as="footer" role="contentinfo">
         <StyledContainer style={{ textAlign: 'center' }}>
           <Typography

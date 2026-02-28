@@ -26,7 +26,7 @@ const StyledHeader = styled.div`
   background-color: #f5f5f5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     background-color: #424242;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
@@ -85,7 +85,7 @@ const StyledTypography = styled.div`
   }};
   margin-bottom: ${(props) => (props.gutterBottom ? '0.35em' : '0')};
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     color: ${(props) => {
       if (props.color === 'primary') return '#90caf9';
       if (props.color === 'secondary') return '#f48fb1';
@@ -119,7 +119,7 @@ const StyledIconButton = styled.button`
     background-color: rgba(0, 0, 0, 0.04);
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     color: rgba(255, 255, 255, 0.7);
 
     &:hover {
@@ -145,7 +145,7 @@ const StyledPaper = styled.div`
     0px 1px 1px 0px rgba(0, 0, 0, 0.14),
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
-  @media (prefers-color-scheme: dark) {
+  .dark-mode & {
     background-color: #424242;
     color: rgba(255, 255, 255, 0.87);
   }
@@ -153,6 +153,8 @@ const StyledPaper = styled.div`
 
 const CanvasContainer = styled.div`
   padding: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #f8f9fa;
   color: #2d3748;
 
@@ -279,10 +281,10 @@ const CanvasCodeSnippetInner = React.memo(
       ctx.textBaseline = 'top';
       ctx.textAlign = 'left';
 
-      // Read text color from CSS variables for theme-aware rendering
-      const computedColor = getComputedStyle(document.documentElement)
-        .getPropertyValue('--text-color').trim();
-      ctx.fillStyle = computedColor || '#2d3748';
+      // Use theme object directly — reading CSS variables here would race
+      // with ThemeProvider's effect that toggles the dark-mode class,
+      // because React fires child effects before parent effects.
+      ctx.fillStyle = theme.colors.text;
 
       // Animation state tracking
       let startTime = null;
@@ -421,9 +423,7 @@ const CanvasCodeSnippetInner = React.memo(
               </StyledTooltip>
             )}
           </StyledHeader>
-          <FallbackPre>
-            {code}
-          </FallbackPre>
+          <FallbackPre>{code}</FallbackPre>
         </StyledPaper>
       );
     }
@@ -473,7 +473,7 @@ const CanvasCodeSnippetInner = React.memo(
 CanvasCodeSnippetInner.displayName = 'CanvasCodeSnippetInner';
 
 // Client-side only wrapper to handle SSR properly
-const CanvasCodeSnippet = (props) => {
+const CanvasCodeSnippet = ({ code, title, showCopyButton, ...otherProps }) => {
   const [isClient, setIsClient] = React.useState(false);
   const [useCanvas, setUseCanvas] = React.useState(false);
 
@@ -505,15 +505,15 @@ const CanvasCodeSnippet = (props) => {
               fontWeight: 'bold',
             }}
           >
-            {props.title || 'Code Example'}
+            {title || 'Code Example'}
           </StyledTypography>
-          {props.showCopyButton !== false && isClient && (
+          {showCopyButton !== false && isClient && (
             <StyledTooltip>
               <StyledIconButton
                 size="small"
                 onClick={async () => {
                   try {
-                    await navigator.clipboard.writeText(props.code);
+                    await navigator.clipboard.writeText(code);
                   } catch (err) {
                     console.warn('Copy failed:', err);
                   }
@@ -529,14 +529,19 @@ const CanvasCodeSnippet = (props) => {
             </StyledTooltip>
           )}
         </StyledHeader>
-        <FallbackPre>
-          {props.code}
-        </FallbackPre>
+        <FallbackPre>{code}</FallbackPre>
       </StyledPaper>
     );
   }
 
-  return <CanvasCodeSnippetInner {...props} />;
+  return (
+    <CanvasCodeSnippetInner
+      code={code}
+      title={title}
+      showCopyButton={showCopyButton}
+      {...otherProps}
+    />
+  );
 };
 
 CanvasCodeSnippet.displayName = 'CanvasCodeSnippet';

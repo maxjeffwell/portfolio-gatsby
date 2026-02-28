@@ -22,6 +22,10 @@ RUN --mount=type=cache,target=/root/.npm \
 # Copy application code
 COPY . .
 
+# Contact form mode: 'graphql' for K8s, 'netlify' for Netlify Forms
+ARG GATSBY_CONTACT_FORM_MODE=graphql
+ENV GATSBY_CONTACT_FORM_MODE=${GATSBY_CONTACT_FORM_MODE}
+
 # Build Gatsby site, Storybook, and Docusaurus docs
 RUN npm run build:all
 

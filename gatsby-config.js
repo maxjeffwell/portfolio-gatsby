@@ -136,7 +136,7 @@ module.exports = {
           'https://fonts.googleapis.com',
           'https://fonts.gstatic.com',
           'https://www.google-analytics.com',
-          'https://www.googletagmanager.com'
+          'https://www.googletagmanager.com',
         ],
         crossOrigin: true,
       },
@@ -194,10 +194,9 @@ module.exports = {
           }
         `,
         resolveSiteUrl: () => siteMetadata.siteUrl,
-        serialize: ({ path, modifiedGmt }, { site }) => {
+        serialize: ({ path, modifiedGmt }) => {
           // Use current date for more accurate freshness signals
           const currentDate = new Date().toISOString();
-          const buildTime = site?.buildTime || currentDate.split('T')[0];
 
           const pageMetadata = {
             '/': {
@@ -245,8 +244,21 @@ module.exports = {
         precachePages: [`/`, `/about/`, `/projects/`, `/contact/`],
         appendScript: `${__dirname}/sw-bypass-subapps.js`,
         workboxConfig: {
-          globPatterns: ['*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}', 'page-data/**', 'static/**'],
+          // Activate new SW immediately — don't wait for all tabs to close.
+          // Critical for atomic asset updates (e.g. font path migrations).
+          skipWaiting: true,
+          clientsClaim: true,
+          globPatterns: [
+            '*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}',
+            'page-data/**',
+            'static/**',
+          ],
           runtimeCaching: [
+            {
+              // Cache local font files — immutable assets served from /fonts/.
+              urlPattern: /\/fonts\/.*\.(?:woff2?|ttf|eot|otf)$/,
+              handler: 'CacheFirst',
+            },
             {
               // Bypass SW for Storybook assets — Storybook manages its own
               // caching; the default StaleWhileRevalidate catch-all serves

@@ -147,6 +147,26 @@ module.exports = {
       files: ['gatsby-*.js'],
       rules: {
         'import/no-extraneous-dependencies': 'off',
+        'import/first': 'off',
+        'global-require': 'off',
+        'no-bitwise': 'off',
+        'no-new': 'off',
+        'no-plusplus': 'off',
+        'prefer-const': 'warn',
+        'react/no-danger': 'off',
+      },
+    },
+    {
+      files: ['src/polyfills/**/*.js'],
+      rules: {
+        'no-bitwise': 'off',
+        'no-plusplus': 'off',
+      },
+    },
+    {
+      files: ['src/test-utils.js', 'src/**/__tests__/**/*.js'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
       },
     },
   ],
