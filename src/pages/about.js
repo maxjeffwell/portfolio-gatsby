@@ -88,6 +88,25 @@ const Typography = styled.div`
   text-align: ${(props) => props.align || 'inherit'};
 `;
 
+const PageTitle = styled.h1`
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+  font-family: 'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif;
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+`;
+
 const StyledContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -254,24 +273,9 @@ function AboutPage() {
             style={{ textAlign: 'center', paddingTop: '40px' }}
           >
             <div>
-              <Typography
-                as="h1"
-                variant="h1"
-                id="about-header"
-                style={{
-                  fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-                  fontWeight: 700,
-                  lineHeight: 1.2,
-                  marginBottom: '32px',
-                  background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  letterSpacing: '-0.02em',
-                }}
-              >
+              <PageTitle id="about-header">
                 About Jeff Maxwell - React & Node.js Developer
-              </Typography>
+              </PageTitle>
               <Typography
                 variant="body1"
                 component="p"

@@ -145,6 +145,25 @@ const Typography = styled.div`
   }};
 `;
 
+const PageTitle = styled.h1`
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  font-family: 'HelveticaNeueLTStd-Bd', 'HelveticaNeueBdFallback', 'AvenirLTStd-Roman', 'AvenirFallback', sans-serif;
+  background: linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  .dark-mode & {
+    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 50%, #f48fb1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+`;
+
 const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -722,24 +741,9 @@ function Contact() {
             mb={8}
             style={{ textAlign: 'center', paddingTop: '40px' }}
           >
-            <Typography
-              as="h1"
-              variant="h1"
-              id="contact-header"
-              style={{
-                fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-                fontWeight: 700,
-                lineHeight: 1.2,
-                marginBottom: '24px',
-                background: 'linear-gradient(135deg, #1565c0 0%, #9c27b0 50%, #e91e63 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em',
-              }}
-            >
+            <PageTitle id="contact-header">
               Hire React & Node.js Developer - Let&apos;s Connect
-            </Typography>
+            </PageTitle>
             <Typography
               variant="h5"
               style={{
