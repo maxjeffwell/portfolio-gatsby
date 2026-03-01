@@ -34,6 +34,9 @@ RUN npm run build:all
 # ============================================
 FROM nginx:alpine AS production
 
+# Patch CVE-2026-25646 (libpng heap buffer overflow in png_set_quantize)
+RUN apk update && apk upgrade --no-cache
+
 # Copy custom nginx configuration and header snippets
 RUN mkdir -p /etc/nginx/snippets
 COPY nginx-snippets/ /etc/nginx/snippets/
