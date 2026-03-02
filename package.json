@@ -107,7 +107,7 @@
     "buffer": "^6.0.3",
     "cheerio": "^1.1.2",
     "crypto-browserify": "^3.12.1",
-    "cypress": "^15.10.0",
+    "cypress": "^15.11.0",
     "cypress-axe": "^1.7.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
