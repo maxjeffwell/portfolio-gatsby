@@ -79,6 +79,10 @@ TenantFlow uses PostgreSQL with tenant isolation:
 
 ## MongoDB
 
+:::info Resource Configuration
+MongoDB StatefulSets run without CPU limits to avoid CFS throttling, which can cause crash loops under bursty write workloads. Memory limits are still enforced. Health probe timeouts are set wider than defaults (10-15s) to account for MongoDB's startup time and journal recovery.
+:::
+
 ### educationELLy / educationELLy GraphQL
 
 Both applications share a MongoDB instance for:

@@ -77,3 +77,26 @@ This tells ArgoCD to ignore the `spec.replicas` field when computing drift, prev
 - ArgoCD shows "OutOfSync" status with "successfully synced" message
 - Pods constantly recycling (terminate → create → terminate)
 - ArgoCD sync history shows rapid successive syncs
+
+## PodDisruptionBudgets
+
+HPA-managed and multi-replica applications have PodDisruptionBudgets (PDBs) to protect availability during voluntary disruptions like node drains, cluster upgrades, or rolling updates.
+
+The library chart includes a `_pdb.tpl` template, with each app including a thin `pdb.yaml` wrapper:
+
+```yaml
+# bookmarked/templates/pdb.yaml
+{{- include "portfolio-common.pdb" . }}
+```
+
+### Applications with PDBs
+
+| Application | Why |
+|------------|-----|
+| bookmarked | HPA-enabled, multi-replica |
+| educationelly | HPA-enabled, multi-replica |
+| educationelly-graphql | HPA-enabled, multi-replica |
+| intervalai | HPA-enabled, multi-replica |
+| portfolio-gatsby | Multi-replica static site |
+
+PDBs ensure the cluster maintains minimum available pods when a node is drained for maintenance. On a 3-node cluster, this is critical — draining one node moves ~33% of workloads, and without PDBs, all replicas of a service could be evicted simultaneously.

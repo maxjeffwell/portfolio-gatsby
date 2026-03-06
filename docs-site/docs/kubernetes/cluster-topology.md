@@ -5,7 +5,41 @@ title: Cluster Topology
 
 # K3s Cluster Topology
 
-The platform runs on a K3s cluster — a lightweight, certified Kubernetes distribution optimized for edge and single-node deployments.
+The platform runs on a **3-node K3s cluster** — a lightweight, certified Kubernetes distribution. The cluster consists of 1 server (control plane) node and 2 worker nodes.
+
+## Node Architecture
+
+```mermaid
+graph TB
+    subgraph server["Server Node (Control Plane)"]
+        API[K8s API Server]
+        ETCD[Embedded etcd]
+        SCHED[Scheduler]
+        CCM[Controller Manager]
+    end
+
+    subgraph worker1["Worker Node 1"]
+        W1K[kubelet]
+        W1P[App Pods]
+    end
+
+    subgraph worker2["Worker Node 2"]
+        W2K[kubelet]
+        W2P[App Pods]
+    end
+
+    API --- W1K
+    API --- W2K
+```
+
+## Scheduling & Availability
+
+The cluster uses several mechanisms to distribute workloads and maintain availability across the 3 nodes:
+
+- **Soft node affinity**: Applications use `preferredDuringSchedulingIgnoredDuringExecution` instead of hard `nodeSelector`, allowing the scheduler flexibility when nodes are under pressure
+- **Topology spread constraints**: Multi-replica deployments spread pods across nodes using `topologySpreadConstraints` with `maxSkew: 1`
+- **PriorityClasses**: Cluster-wide priority classes ensure critical workloads (databases, ingress, monitoring) are scheduled before lower-priority pods during resource contention
+- **Resource quotas**: Namespace-level resource quotas prevent any single namespace from consuming all cluster resources
 
 ## Namespace Layout
 

@@ -12,7 +12,7 @@ A self-hosted Kubernetes platform running **9 full-stack applications** on a K3s
 
 | Layer | Technology |
 |-------|-----------|
-| **Cluster** | K3s (lightweight Kubernetes) |
+| **Cluster** | K3s 3-node cluster (1 server + 2 workers) |
 | **GitOps** | ArgoCD with automated sync, prune, and self-heal |
 | **CI/CD** | GitHub Actions → Docker Hub → ArgoCD |
 | **Ingress** | Traefik with Cloudflare DNS proxy |
@@ -44,27 +44,26 @@ graph TB
         CF[Cloudflare DNS + Proxy]
     end
 
-    subgraph K3s Cluster
-        TK[Traefik Ingress Controller]
-        CM[cert-manager]
+    subgraph K3s Cluster — 3 Nodes
+        subgraph server["Server Node (Control Plane)"]
+            TK[Traefik Ingress Controller]
+            CM[cert-manager]
+            AC[ArgoCD Server]
+        end
 
-        subgraph ns-default["default namespace"]
+        subgraph worker1["Worker Node 1"]
             BK[bookmarked]
             ED[educationelly]
             EG[educationelly-graphql]
             IA[intervalai]
             CT[code-talk]
+        end
+
+        subgraph worker2["Worker Node 2"]
             TF[tenantflow]
             PR[podrick]
             PF[pop-portfolio]
             UI[k8s-ui-library]
-        end
-
-        subgraph argocd namespace
-            AC[ArgoCD Server]
-        end
-
-        subgraph monitoring namespace
             PM[Prometheus]
             GF[Grafana]
         end
@@ -76,6 +75,10 @@ graph TB
     PM --> GF
     AC -->|sync| BK & ED & EG & IA & CT & TF & PR & PF & UI
 ```
+
+:::note
+Pod placement across worker nodes is dynamic — the diagram shows a representative distribution. Topology spread constraints and soft node affinity ensure pods are distributed evenly across the cluster.
+:::
 
 ## Live Dashboards
 

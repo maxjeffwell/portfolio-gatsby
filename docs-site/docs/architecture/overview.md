@@ -32,14 +32,14 @@ All deployment state lives in the `devops-portfolio-manager` repository. Applica
 
 ### Shared Library Chart
 
-The `portfolio-common` Helm library chart provides standardized templates for Deployments, Services, Ingresses, HPAs, and ServiceMonitors. Each application's Helm chart is a thin wrapper:
+The `portfolio-common` Helm library chart provides standardized templates for Deployments, Services, Ingresses, HPAs, PodDisruptionBudgets, and ServiceMonitors. Each application's Helm chart is a thin wrapper:
 
 ```yaml
 # Example: bookmarked/templates/deployment.yaml
 {{- include "portfolio-common.deployment" (dict "component" "client" "context" $) }}
 ```
 
-This ensures consistency across all 9 applications while allowing per-app overrides via `values.yaml`.
+This ensures consistency across all 9 applications while allowing per-app overrides via `values.yaml`. The library chart handles health probes (liveness, readiness, startup), resource requests/limits, PriorityClasses, scheduling constraints (soft affinity, topology spread), and PodDisruptionBudgets.
 
 ### Image Tagging Strategy
 
