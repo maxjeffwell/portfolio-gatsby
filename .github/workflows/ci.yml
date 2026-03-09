@@ -361,7 +361,7 @@ jobs:
           echo "crawler_api_key=$(doppler secrets get ALGOLIA_CRAWLER_API_KEY --plain)" >> $GITHUB_OUTPUT
 
       - name: Trigger Algolia re-crawl
-        uses: cssnr/algolia-crawler-action@v1
+        uses: cssnr/algolia-crawler-action@v2
         with:
           crawler_id: ${{ steps.algolia.outputs.crawler_id }}
           crawler_user_id: ${{ steps.algolia.outputs.crawler_user_id }}
