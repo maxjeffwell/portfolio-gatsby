@@ -165,6 +165,71 @@ const SecondaryNavLink = styled.a`
   }
 `;
 
+const DropdownContainer = styled.div`
+  position: relative;
+  display: inline-flex;
+`;
+
+const DropdownTrigger = styled.button`
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  opacity: 0.75;
+
+  &:hover {
+    background-color: var(--hover-bg);
+    opacity: 1;
+  }
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: var(--paper-color);
+  border: 1px solid var(--secondary-nav-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1200;
+  padding: 4px 0;
+  opacity: ${(props) => (props.$open ? 1 : 0)};
+  visibility: ${(props) => (props.$open ? 'visible' : 'hidden')};
+  transform: translateY(${(props) => (props.$open ? '4px' : '-4px')});
+  transition: all 0.2s ease;
+`;
+
+const DropdownItem = styled.a`
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+
+  &:link,
+  &:visited {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: var(--hover-bg);
+  }
+`;
+
 const StyledIconButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -344,11 +409,14 @@ function Header() {
     { text: 'Contact', to: '/contact' },
   ];
 
-  const secondaryItems = [
-    { text: 'Live Cluster', to: '/cluster/' },
+  const clusterItems = [
+    { text: 'Dashboard', to: '/cluster/' },
+    { text: 'Network Visualization', to: '/cluster/network/' },
     { text: 'Storybook', to: '/storybook/' },
     { text: 'Infrastructure', to: '/docs/' },
   ];
+
+  const [clusterDropdownOpen, setClusterDropdownOpen] = useState(false);
 
   const drawer = (
     <StyledBox textAlign="center">
@@ -370,8 +438,8 @@ function Header() {
           </MobileNavButton>
         ))}
         <MobileNavDivider />
-        <MobileNavLabel>Tools</MobileNavLabel>
-        {secondaryItems.map((item) => {
+        <MobileNavLabel>Cluster</MobileNavLabel>
+        {clusterItems.map((item) => {
           const isGatsbyPage = !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
           return (
             <MobileNavButton
@@ -448,18 +516,28 @@ function Header() {
             </StyledBox>
           </StyledToolbar>
           <SecondaryNavBar>
-            {secondaryItems.map((item) => {
-              const isGatsbyPage =
-                !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
-              return (
-                <SecondaryNavLink
-                  key={item.text}
-                  {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
-                >
-                  {item.text}
-                </SecondaryNavLink>
-              );
-            })}
+            <DropdownContainer
+              onMouseEnter={() => setClusterDropdownOpen(true)}
+              onMouseLeave={() => setClusterDropdownOpen(false)}
+            >
+              <DropdownTrigger>
+                Cluster &#9662;
+              </DropdownTrigger>
+              <DropdownMenu $open={clusterDropdownOpen}>
+                {clusterItems.map((item) => {
+                  const isGatsbyPage =
+                    !item.to.startsWith('/storybook') && !item.to.startsWith('/docs');
+                  return (
+                    <DropdownItem
+                      key={item.text}
+                      {...(isGatsbyPage ? { as: Link, to: item.to } : { href: item.to })}
+                    >
+                      {item.text}
+                    </DropdownItem>
+                  );
+                })}
+              </DropdownMenu>
+            </DropdownContainer>
           </SecondaryNavBar>
         </StyledContainer>
       </StyledAppBar>
