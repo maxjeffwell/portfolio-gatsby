@@ -53,6 +53,7 @@
     "@docsearch/react": "^4.5.4",
     "@sentry/gatsby": "^10.38.0",
     "babel-plugin-styled-components": "^2.1.4",
+    "d3-force": "^3.0.0",
     "gatsby": "^5.14.5",
     "gatsby-adapter-netlify": "^1.2.0",
     "gatsby-plugin-google-gtag": "^5.14.0",

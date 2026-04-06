@@ -130,3 +130,63 @@ export const SUBMIT_CONTACT_FORM = gql`
     }
   }
 `;
+
+const NETWORK_TOPOLOGY_FIELDS = `
+  nodes {
+    id
+    hostname
+    displayName
+    type
+    zone
+    wireguardIp
+    health
+    services {
+      name
+      status
+      port
+    }
+    metrics {
+      cpuPercent
+      memoryPercent
+      memoryUsedMb
+      memoryTotalMb
+      storageUsedGb
+      storageTotalGb
+      uptime
+    }
+  }
+  links {
+    source
+    target
+    type
+    status
+    bandwidthBps
+    latencyMs
+    metadata {
+      lastHandshake
+      transferRxBytes
+      transferTxBytes
+      targetIqn
+      partitionsShared
+      exportPath
+      mountPoint
+    }
+  }
+  lastUpdated
+`;
+
+export const NETWORK_TOPOLOGY_QUERY = gql`
+  query NetworkTopology {
+    networkTopology {
+      ${NETWORK_TOPOLOGY_FIELDS}
+    }
+  }
+`;
+
+export const NETWORK_TOPOLOGY_SUBSCRIPTION = gql`
+  subscription NetworkTopologyStream {
+    networkTopologyStream {
+      ${NETWORK_TOPOLOGY_FIELDS}
+    }
+  }
+`;
