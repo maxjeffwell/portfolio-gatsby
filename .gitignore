@@ -130,3 +130,6 @@ storybook-static/
 # Lighthouse CI
 .lighthouseci/
 
+
+# Claude superpowers skill tool state (brainstorm/plans/etc., per-developer)
+.superpowers/
