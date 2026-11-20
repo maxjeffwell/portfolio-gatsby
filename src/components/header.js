@@ -390,6 +390,7 @@ function Header() {
     { text: 'Databases', to: '/cluster/databases/' },
     { text: 'DNS', to: '/cluster/dns/' },
     { text: 'Monitoring', to: '/cluster/monitoring/' },
+    { text: 'LLMs', to: '/cluster/llm/' },
     { text: 'Storybook', to: '/storybook/' },
     { text: 'Infrastructure', to: '/docs/' },
   ];
