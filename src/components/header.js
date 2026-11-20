@@ -387,6 +387,7 @@ function Header() {
   const clusterItems = [
     { text: 'Dashboard', to: '/cluster/' },
     { text: 'Network Visualization', to: '/cluster/network/' },
+    { text: 'Databases', to: '/cluster/databases/' },
     { text: 'Storybook', to: '/storybook/' },
     { text: 'Infrastructure', to: '/docs/' },
   ];
