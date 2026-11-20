@@ -14,6 +14,7 @@ export const COLORS = {
   blue: '#4d9fff',
   pink: '#ff66c4',
   orange: '#ff7a3d',
+  white: '#dfe7f5',
   gray: '#888888',
 };
 
@@ -42,6 +43,7 @@ export const NODE_COLORS = {
 export const LINK_STYLES = {
   TAILSCALE: { color: COLORS.pink, width: 1.5, dashArray: null },
   WIREGUARD: { color: COLORS.cyan, width: 2, dashArray: '6 3' },
+  ETHERNET: { color: COLORS.white, width: 1.6, dashArray: null },
   BACKHAUL: { color: COLORS.blue, width: 2.5, dashArray: '10 3' },
   NVME_OF: { color: COLORS.amber, width: 2.5, dashArray: null },
   ISCSI: { color: COLORS.red, width: 3, dashArray: '8 4' },
