@@ -226,3 +226,41 @@ export const DATABASE_TOPOLOGY_QUERY = gql`
     }
   }
 `;
+
+export const DNS_TOPOLOGY_QUERY = gql`
+  query DnsTopology {
+    dnsTopology {
+      resolvers {
+        id
+        displayName
+        location
+        role
+        health
+        stat
+      }
+      clients {
+        id
+        displayName
+        detail
+      }
+      nameKinds {
+        id
+        label
+        example
+      }
+      paths {
+        client
+        nameKind
+        resolves
+        summary
+        hops {
+          from
+          to
+          note
+          fallback
+        }
+      }
+      lastUpdated
+    }
+  }
+`;
