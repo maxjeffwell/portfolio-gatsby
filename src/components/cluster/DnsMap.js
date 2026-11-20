@@ -54,7 +54,7 @@ Box.propTypes = {
 
 Box.defaultProps = { subtitle: '', health: null, stat: null };
 
-export default function DnsMap({ resolvers, client, hops }) {
+export default function DnsMap({ resolvers, client, hops, unresolved }) {
   const used = new Set(['client']);
   hops.forEach((hop) => {
     used.add(hop.from);
@@ -150,6 +150,28 @@ export default function DnsMap({ resolvers, client, hops }) {
           );
         })}
 
+        {unresolved && (
+          <g>
+            <path
+              d={`M ${positionOf('client').x + positionOf('client').w} ${
+                positionOf('client').y + positionOf('client').h / 2
+              } h 34`}
+              stroke={COLORS.red}
+              strokeWidth={2.2}
+              strokeDasharray="5 4"
+            />
+            <text
+              x={positionOf('client').x + positionOf('client').w + 44}
+              y={positionOf('client').y + positionOf('client').h / 2 + 5}
+              fill={COLORS.red}
+              fontSize={15}
+              fontWeight={700}
+            >
+              {'\u2715 no route'}
+            </text>
+          </g>
+        )}
+
         <Box
           box={positionOf('client')}
           title="Who is asking"
@@ -183,4 +205,7 @@ DnsMap.propTypes = {
   client: PropTypes.shape({ displayName: PropTypes.string }).isRequired,
   hops: PropTypes.arrayOf(PropTypes.shape({ from: PropTypes.string, to: PropTypes.string }))
     .isRequired,
+  unresolved: PropTypes.bool,
 };
+
+DnsMap.defaultProps = { unresolved: false };
