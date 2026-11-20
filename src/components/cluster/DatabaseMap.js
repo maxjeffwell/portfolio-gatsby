@@ -18,7 +18,14 @@ const KIND_COLORS = {
   backup: COLORS.orange,
 };
 
-const ENGINE_LABELS = { POSTGRES: 'PG', MONGODB: 'MONGO', REDIS: 'REDIS', QDRANT: 'QDRANT' };
+const ENGINE_LABELS = {
+  POSTGRES: 'PG',
+  MONGODB: 'MONGO',
+  REDIS: 'REDIS',
+  QDRANT: 'QDRANT',
+  INFLUXDB: 'INFLUX',
+  KAFKA: 'KAFKA',
+};
 const COLUMN_TITLES = [
   { x: 16, text: 'APPLICATIONS' },
   { x: 420, text: 'DATABASES' },

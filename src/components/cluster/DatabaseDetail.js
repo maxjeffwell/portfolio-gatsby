@@ -59,6 +59,7 @@ const STORAGE_TEXT = {
   MAYASTOR: 'Mayastor volumes (replicated across servers)',
   LVM_LOCAL: 'Node-local volumes (one per instance)',
   HOST_DISK: 'Server disks (outside Kubernetes)',
+  NONE: 'None: a cache that keeps nothing across restarts',
 };
 
 const TARGET_TEXT = {
@@ -120,6 +121,11 @@ export default function DatabaseDetail({ database, apps }) {
       </Row>
 
       <SectionTitle>BACKUPS</SectionTitle>
+      {database.backups.length === 0 && (
+        <Row>
+          <span>Not backed up (nothing to keep)</span>
+        </Row>
+      )}
       {database.backups.map((backup) => (
         <Row key={`${backup.name}-${backup.target}`}>
           <span>
@@ -131,6 +137,11 @@ export default function DatabaseDetail({ database, apps }) {
       ))}
 
       <SectionTitle>USED BY</SectionTitle>
+      {usedBy.length === 0 && (
+        <Row>
+          <span>No application points at this database</span>
+        </Row>
+      )}
       {usedBy.map((app) => (
         <Row key={app.id}>
           <span>{app.displayName}</span>

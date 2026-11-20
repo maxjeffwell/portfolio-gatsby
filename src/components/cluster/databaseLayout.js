@@ -17,6 +17,7 @@ const STORAGE_LABELS = {
   MAYASTOR: 'Mayastor volumes',
   LVM_LOCAL: 'Node-local volumes',
   HOST_DISK: 'Server disks',
+  NONE: 'No persistent storage',
 };
 
 const BACKUP_LABELS = {
