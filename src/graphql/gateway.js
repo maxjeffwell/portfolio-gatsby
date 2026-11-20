@@ -190,3 +190,38 @@ export const NETWORK_TOPOLOGY_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const DATABASE_TOPOLOGY_QUERY = gql`
+  query DatabaseTopology {
+    databaseTopology {
+      apps {
+        id
+        displayName
+        databases
+      }
+      databases {
+        id
+        displayName
+        engine
+        manager
+        health
+        expectedInstances
+        instances {
+          name
+          role
+          machineId
+          machineName
+          ready
+        }
+        storage
+        backups {
+          name
+          target
+          status
+          lastSuccess
+        }
+      }
+      lastUpdated
+    }
+  }
+`;
