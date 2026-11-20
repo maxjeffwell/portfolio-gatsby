@@ -2,20 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS, NODE_COLORS, LINK_STYLES, healthColorFor, formatBandwidth } from './networkStyles';
 
+// Sits beside the map, not over it: opening it narrows the map so no node is
+// ever hidden behind it. On narrow screens it drops below the map instead.
 const Panel = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 280px;
+  position: relative;
+  flex: 0 0 300px;
+  align-self: stretch;
   background: rgba(10, 14, 23, 0.95);
-  border-left: 1px solid ${COLORS.border};
+  border: 1px solid ${COLORS.border};
+  border-radius: 8px;
   padding: 16px;
-  z-index: 20;
   overflow-y: auto;
   font-family: 'JetBrains Mono', monospace;
-  transform: translateX(${(props) => (props.$open ? '0' : '100%')});
-  transition: transform 0.3s ease;
+
+  @media (max-width: 900px) {
+    flex: 1 1 auto;
+  }
 `;
 
 const CloseBtn = styled.button`
@@ -119,7 +121,7 @@ const ConnType = styled.span`
 `;
 
 export default function DetailPanel({ node, nodes, links, onClose }) {
-  if (!node) return <Panel $open={false} />;
+  if (!node) return null;
 
   const color = NODE_COLORS[node.type] || COLORS.cyan;
   const m = node.metrics;
@@ -128,7 +130,7 @@ export default function DetailPanel({ node, nodes, links, onClose }) {
   const nodeLinks = links?.filter((l) => l.source === node.id || l.target === node.id) || [];
 
   return (
-    <Panel $open={!!node}>
+    <Panel>
       <CloseBtn onClick={onClose}>&times;</CloseBtn>
       <Title style={{ color }}>{node.displayName}</Title>
       <PanelSubtitle>
