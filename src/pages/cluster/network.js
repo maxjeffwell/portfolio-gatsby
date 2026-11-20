@@ -101,7 +101,8 @@ function NetworkView() {
         <div
           style={{
             display: 'flex',
-            gap: '24px',
+            gap: '12px 24px',
+            flexWrap: 'wrap',
             marginTop: '12px',
             fontSize: '12px',
             color: COLORS.muted,

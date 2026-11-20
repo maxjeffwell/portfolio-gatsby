@@ -1,13 +1,14 @@
 import React from 'react';
 import { NODE_COLORS, COLORS, healthColorFor } from './networkStyles';
+import { NODE_WIDTH, NODE_HEIGHT as BOX_HEIGHT } from './layout';
 
-const NODE_WIDTH = 160;
+// Height of the title area; the service badges sit below it.
 const NODE_HEIGHT = 70;
 const BADGE_HEIGHT = 14;
 const BADGE_SLOTS = 3;
 const BADGE_WIDTH = 44;
 
-export default function NetworkNode({ node, x, y, onHover, onClick }) {
+export default function NetworkNode({ node, x, y, dimmed, onHover, onClick }) {
   const color = NODE_COLORS[node.type] || COLORS.cyan;
   const healthColor = healthColorFor(node.health);
 
@@ -18,19 +19,21 @@ export default function NetworkNode({ node, x, y, onHover, onClick }) {
     services.length > BADGE_SLOTS
       ? [...services.slice(0, BADGE_SLOTS - 1), { name: `+${services.length - (BADGE_SLOTS - 1)}` }]
       : services;
-  const totalHeight = NODE_HEIGHT + (badges.length > 0 ? BADGE_HEIGHT + 8 : 0);
 
   return (
     <g
-      transform={`translate(${x - NODE_WIDTH / 2}, ${y - NODE_HEIGHT / 2})`}
+      transform={`translate(${x - NODE_WIDTH / 2}, ${y - BOX_HEIGHT / 2})`}
       style={{ cursor: 'pointer' }}
+      opacity={dimmed ? 0.3 : 1}
       onMouseEnter={(e) => onHover?.(node, e)}
       onMouseLeave={() => onHover?.(null)}
       onClick={() => onClick?.(node)}
     >
+      {/* Solid backing so links pass behind the node instead of through its text. */}
+      <rect width={NODE_WIDTH} height={BOX_HEIGHT} rx={6} fill={COLORS.mapBg} />
       <rect
         width={NODE_WIDTH}
-        height={totalHeight}
+        height={BOX_HEIGHT}
         rx={6}
         fill={`${color}14`}
         stroke={`${color}4D`}

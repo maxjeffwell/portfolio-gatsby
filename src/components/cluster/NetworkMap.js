@@ -1,24 +1,21 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
-import { MapContainer, COLORS, ZONE_BOUNDS } from './networkStyles';
+import { MapContainer, COLORS } from './networkStyles';
 import NetworkNode from './NetworkNode';
 import NetworkLink from './NetworkLink';
 import NetworkTooltip from './NetworkTooltip';
 import ParticleAnimation from './ParticleAnimation';
-import layoutNodes from './layout';
+import layoutNodes, { assignBends } from './layout';
 
 const MAP_WIDTH = 1000;
-const MAP_HEIGHT = 700;
+// Wider than this and the map only gets taller, not clearer.
+const MAP_MAX_WIDTH_PX = 1150;
+const MAP_MIN_WIDTH_PX = 720;
 
-const ZONES = [
-  { key: 'CLOUD', label: '\u2601 CLOUD', color: COLORS.cyan, ...ZONE_BOUNDS.CLOUD },
-  {
-    key: 'HOME_NETWORK',
-    label: '\u2302 HOME NETWORK',
-    color: COLORS.amber,
-    ...ZONE_BOUNDS.HOME_NETWORK,
-  },
-  { key: 'STORAGE', label: '\u25C6 STORAGE', color: COLORS.green, ...ZONE_BOUNDS.STORAGE },
-];
+const ZONE_STYLES = {
+  CLOUD: { label: '\u2601 CLOUD', color: COLORS.cyan },
+  HOME_NETWORK: { label: '\u2302 HOME NETWORK', color: COLORS.amber },
+  STORAGE: { label: '\u25C6 STORAGE', color: COLORS.green },
+};
 
 export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) {
   const [hoveredNode, setHoveredNode] = useState(null);
@@ -29,9 +26,9 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
   const links = topology?.links || [];
 
   // Positions depend only on which nodes exist, not on each data refresh.
-  const layoutKey = nodes.map((n) => `${n.id}:${n.zone}`).join('|');
-  const positions = useMemo(
-    () => layoutNodes(nodes, { width: MAP_WIDTH, height: MAP_HEIGHT }),
+  const layoutKey = nodes.map((n) => `${n.id}:${n.zone}:${n.type}`).join('|');
+  const { positions, zones, height } = useMemo(
+    () => layoutNodes(nodes, { width: MAP_WIDTH }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [layoutKey]
   );
@@ -42,6 +39,21 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
   }
 
   const filteredLinks = links.filter((l) => visibleLinkTypes.has(l.type));
+  const bends = assignBends(filteredLinks);
+
+  // Hovering a node brings its links and neighbours forward and fades the rest.
+  const focusId = hoveredNode?.id ?? null;
+  const neighbours = new Set(focusId ? [focusId] : []);
+  if (focusId) {
+    filteredLinks.forEach((l) => {
+      if (l.source === focusId) neighbours.add(l.target);
+      if (l.target === focusId) neighbours.add(l.source);
+    });
+  }
+  const emphasisOf = (link) => {
+    if (!focusId) return 'normal';
+    return link.source === focusId || link.target === focusId ? 'focus' : 'dim';
+  };
 
   const handleHover = useCallback((node, event) => {
     setHoveredNode(node);
@@ -58,72 +70,80 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
 
   return (
     <MapContainer ref={containerRef}>
-      <svg
-        viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
-        width="100%"
-        height="100%"
-        style={{ position: 'absolute', inset: 0 }}
-      >
-        {/* Zone backgrounds and labels */}
-        {ZONES.map((zone) => (
-          <g key={zone.key}>
-            <rect
-              x={0}
-              y={zone.yMin * MAP_HEIGHT}
-              width={MAP_WIDTH}
-              height={(zone.yMax - zone.yMin) * MAP_HEIGHT}
-              fill={`${zone.color}05`}
-            />
-            <line
-              x1={0}
-              y1={zone.yMax * MAP_HEIGHT}
-              x2={MAP_WIDTH}
-              y2={zone.yMax * MAP_HEIGHT}
-              stroke="rgba(255,255,255,0.05)"
-            />
-            <text
-              x={12}
-              y={zone.yMin * MAP_HEIGHT + 20}
-              fill={zone.color}
-              fontSize="12"
-              fontFamily="'JetBrains Mono', monospace"
-              letterSpacing="1.5"
-              opacity="0.3"
-            >
-              {zone.label}
-            </text>
-          </g>
-        ))}
+      {/* On narrow screens the map keeps a readable size and scrolls sideways. */}
+      <div style={{ overflowX: 'auto' }}>
+        <svg
+          viewBox={`0 0 ${MAP_WIDTH} ${height}`}
+          width="100%"
+          style={{
+            display: 'block',
+            minWidth: MAP_MIN_WIDTH_PX,
+            maxWidth: MAP_MAX_WIDTH_PX,
+            margin: '0 auto',
+          }}
+        >
+          {/* Zone backgrounds and labels */}
+          {zones.map((zone) => {
+            const style = ZONE_STYLES[zone.key];
+            return (
+              <g key={zone.key}>
+                <rect
+                  x={8}
+                  y={zone.y}
+                  width={MAP_WIDTH - 16}
+                  height={zone.height}
+                  rx={8}
+                  fill={`${style.color}08`}
+                  stroke={`${style.color}26`}
+                />
+                <text
+                  x={22}
+                  y={zone.y + 21}
+                  fill={style.color}
+                  fontSize="12"
+                  fontFamily="'JetBrains Mono', monospace"
+                  letterSpacing="1.5"
+                  opacity="0.55"
+                >
+                  {style.label}
+                </text>
+              </g>
+            );
+          })}
 
-        {/* Links */}
-        {filteredLinks.map((link, i) => (
-          <NetworkLink
-            key={`${link.source}-${link.target}-${link.type}-${i}`}
-            link={link}
-            sourcePos={posMap[link.source]}
-            targetPos={posMap[link.target]}
-          />
-        ))}
-
-        {/* Particles */}
-        <ParticleAnimation links={filteredLinks} posMap={posMap} />
-
-        {/* Nodes */}
-        {nodes.map((node) => {
-          const pos = posMap[node.id];
-          if (!pos) return null;
-          return (
-            <NetworkNode
-              key={node.id}
-              node={node}
-              x={pos.x}
-              y={pos.y}
-              onHover={handleHover}
-              onClick={onNodeClick}
+          {/* Links */}
+          {filteredLinks.map((link, i) => (
+            <NetworkLink
+              key={`${link.source}-${link.target}-${link.type}-${i}`}
+              link={link}
+              sourcePos={posMap[link.source]}
+              targetPos={posMap[link.target]}
+              bend={bends.get(link)}
+              emphasis={emphasisOf(link)}
             />
-          );
-        })}
-      </svg>
+          ))}
+
+          {/* Particles */}
+          <ParticleAnimation links={filteredLinks} posMap={posMap} bends={bends} />
+
+          {/* Nodes */}
+          {nodes.map((node) => {
+            const pos = posMap[node.id];
+            if (!pos) return null;
+            return (
+              <NetworkNode
+                key={node.id}
+                node={node}
+                x={pos.x}
+                y={pos.y}
+                dimmed={Boolean(focusId) && !neighbours.has(node.id)}
+                onHover={handleHover}
+                onClick={onNodeClick}
+              />
+            );
+          })}
+        </svg>
+      </div>
 
       {hoveredNode && <NetworkTooltip node={hoveredNode} x={tooltipPos.x} y={tooltipPos.y} />}
     </MapContainer>
