@@ -11,6 +11,7 @@ export const COLORS = {
   amber: '#ffaa00',
   red: '#ff4444',
   purple: '#aa66ff',
+  blue: '#4d9fff',
   gray: '#888888',
 };
 
@@ -22,6 +23,12 @@ const HEALTH_COLORS = {
 // Anything that is not explicitly healthy or degraded renders as red.
 export const healthColorFor = (status) => HEALTH_COLORS[status] || COLORS.red;
 
+// 2500000000 -> "2.5 Gb/s". Returns null when the speed is unknown.
+export const formatBandwidth = (bps) => {
+  if (!bps) return null;
+  return bps >= 1e9 ? `${+(bps / 1e9).toFixed(1)} Gb/s` : `${Math.round(bps / 1e6)} Mb/s`;
+};
+
 export const NODE_COLORS = {
   K8S_NODE: COLORS.cyan,
   NAS: COLORS.green,
@@ -31,6 +38,7 @@ export const NODE_COLORS = {
 
 export const LINK_STYLES = {
   WIREGUARD: { color: COLORS.cyan, width: 2, dashArray: null },
+  BACKHAUL: { color: COLORS.blue, width: 2.5, dashArray: '10 3' },
   NVME_OF: { color: COLORS.amber, width: 2.5, dashArray: null },
   ISCSI: { color: COLORS.red, width: 3, dashArray: '8 4' },
   GARAGE_REPLICATION: { color: COLORS.green, width: 1.5, dashArray: '3 3' },
