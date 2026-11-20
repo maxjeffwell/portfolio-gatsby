@@ -59,6 +59,7 @@ const LiveDot = styled.div`
 const FILTER_OPTIONS = [
   { type: 'TAILSCALE', label: 'Tailscale' },
   { type: 'WIREGUARD', label: 'WireGuard' },
+  { type: 'ETHERNET', label: 'Ethernet' },
   { type: 'BACKHAUL', label: 'Ethernet backhaul' },
   { type: 'NVME_OF', label: 'NVMe-oF' },
   { type: 'ISCSI', label: 'iSCSI' },

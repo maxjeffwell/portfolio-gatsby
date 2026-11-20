@@ -102,7 +102,15 @@ const ConnRow = styled.div`
   justify-content: space-between;
 `;
 
+const ConnVia = styled.div`
+  color: ${COLORS.muted};
+  font-size: 9px;
+  padding-left: 14px;
+`;
+
 const ConnType = styled.span`
+  align-self: flex-start;
+  white-space: nowrap;
   padding: 1px 4px;
   border-radius: 2px;
   font-size: 9px;
@@ -198,7 +206,10 @@ export default function DetailPanel({ node, nodes, links, onClose }) {
             const speed = formatBandwidth(link.bandwidthBps);
             return (
               <ConnRow key={`${peer}-${link.type}-${i}`}>
-                <span>&rarr; {nameOf(peer)}</span>
+                <span>
+                  &rarr; {nameOf(peer)}
+                  {link.metadata?.via && <ConnVia>{link.metadata.via}</ConnVia>}
+                </span>
                 <ConnType $color={style?.color || COLORS.cyan}>
                   {link.type.replace(/_/g, ' ')}
                   {speed && ` · ${speed}`}
