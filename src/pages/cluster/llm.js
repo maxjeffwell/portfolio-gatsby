@@ -21,6 +21,7 @@ const SIGNAL_STYLES = {
   EMBED: { color: COLORS.purple, label: 'Embeddings' },
   RERANK: { color: COLORS.pink, label: 'Reranking' },
   PREDICT: { color: COLORS.lime, label: 'Prediction' },
+  VISION: { color: COLORS.orange, label: 'Vision' },
   TRACE: { color: COLORS.green, label: 'Traces' },
   STORE: { color: COLORS.slate, label: 'Stored' },
 };
