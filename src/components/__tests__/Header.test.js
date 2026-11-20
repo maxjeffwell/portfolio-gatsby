@@ -329,4 +329,21 @@ describe('Header', () => {
       });
     });
   });
+
+  describe('cluster dropdown', () => {
+    it('opens on hover and closes when the pointer leaves', async () => {
+      renderWithTheme(<Header />);
+
+      const trigger = await screen.findByText(/^Cluster/);
+      const menu = screen.getByText('Network Visualization').parentElement;
+
+      expect(menu).toHaveStyle('visibility: hidden');
+
+      fireEvent.mouseEnter(trigger.parentElement);
+      expect(menu).toHaveStyle('visibility: visible');
+
+      fireEvent.mouseLeave(trigger.parentElement);
+      expect(menu).toHaveStyle('visibility: hidden');
+    });
+  });
 });

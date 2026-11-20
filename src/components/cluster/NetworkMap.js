@@ -122,13 +122,7 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
         })}
       </svg>
 
-      {hoveredNode && (
-        <NetworkTooltip
-          node={hoveredNode}
-          x={tooltipPos.x}
-          y={tooltipPos.y}
-        />
-      )}
+      {hoveredNode && <NetworkTooltip node={hoveredNode} x={tooltipPos.x} y={tooltipPos.y} />}
     </MapContainer>
   );
 }

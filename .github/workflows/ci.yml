@@ -137,7 +137,9 @@ jobs:
           retention-days: 7
 
   e2e-tests:
-    runs-on: ubuntu-latest
+    # Playwright 1.58 cannot install browsers on ubuntu-26.04 (what ubuntu-latest
+    # now resolves to). Unpin when Playwright is upgraded.
+    runs-on: ubuntu-24.04
     needs: test
 
     strategy:

@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import { ApolloProvider } from '@apollo/client/react';
+import apolloClient from '../../lib/apolloClient';
 import Layout from '../../components/layout';
 import Seo from '../../components/seo';
 import {
@@ -15,7 +17,7 @@ import useNetworkTopology from '../../hooks/useNetworkTopology';
 
 const ALL_LINK_TYPES = new Set(Object.keys(LINK_STYLES));
 
-export default function NetworkPage() {
+function NetworkView() {
   const { topology, loading, error, lastUpdated } = useNetworkTopology();
   const [visibleLinkTypes, setVisibleLinkTypes] = useState(ALL_LINK_TYPES);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -42,8 +44,7 @@ export default function NetworkPage() {
       <PageWrapper>
         <PageTitle>Network Visualization</PageTitle>
         <Subtitle>
-          Live infrastructure topology &mdash; K3s cluster, NAS, routers, and
-          all connections
+          Live infrastructure topology &mdash; K3s cluster, NAS, routers, and all connections
         </Subtitle>
 
         {loading && !topology && (
@@ -131,5 +132,14 @@ export default function NetworkPage() {
         )}
       </PageWrapper>
     </Layout>
+  );
+}
+
+// Apollo hooks need a client in context; like cluster.js, this page provides its own.
+export default function NetworkPage() {
+  return (
+    <ApolloProvider client={apolloClient}>
+      <NetworkView />
+    </ApolloProvider>
   );
 }

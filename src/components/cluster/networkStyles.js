@@ -14,6 +14,14 @@ export const COLORS = {
   gray: '#888888',
 };
 
+const HEALTH_COLORS = {
+  HEALTHY: COLORS.green,
+  DEGRADED: COLORS.amber,
+};
+
+// Anything that is not explicitly healthy or degraded renders as red.
+export const healthColorFor = (status) => HEALTH_COLORS[status] || COLORS.red;
+
 export const NODE_COLORS = {
   K8S_NODE: COLORS.cyan,
   NAS: COLORS.green,
@@ -52,10 +60,8 @@ export const MapContainer = styled.div`
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(
-        rgba(0, 240, 255, 0.03) 1px,
-        transparent 1px
-      ),
+    background-image:
+      linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
