@@ -1,13 +1,13 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { MapContainer, COLORS, ZONE_BOUNDS } from './networkStyles';
 import NetworkNode from './NetworkNode';
 import NetworkLink from './NetworkLink';
 import NetworkTooltip from './NetworkTooltip';
 import ParticleAnimation from './ParticleAnimation';
-import useForceSimulation from '../../hooks/useForceSimulation';
+import layoutNodes from './layout';
 
 const MAP_WIDTH = 1000;
-const MAP_HEIGHT = 600;
+const MAP_HEIGHT = 700;
 
 const ZONES = [
   { key: 'CLOUD', label: '\u2601 CLOUD', color: COLORS.cyan, ...ZONE_BOUNDS.CLOUD },
@@ -28,10 +28,13 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
   const nodes = topology?.nodes || [];
   const links = topology?.links || [];
 
-  const positions = useForceSimulation(nodes, links, {
-    width: MAP_WIDTH,
-    height: MAP_HEIGHT,
-  });
+  // Positions depend only on which nodes exist, not on each data refresh.
+  const layoutKey = nodes.map((n) => `${n.id}:${n.zone}`).join('|');
+  const positions = useMemo(
+    () => layoutNodes(nodes, { width: MAP_WIDTH, height: MAP_HEIGHT }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [layoutKey]
+  );
 
   const posMap = {};
   for (const p of positions) {

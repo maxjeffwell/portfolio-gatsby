@@ -30,6 +30,7 @@ export const NODE_COLORS = {
 
 export const LINK_STYLES = {
   WIREGUARD: { color: COLORS.cyan, width: 2, dashArray: null },
+  NVME_OF: { color: COLORS.amber, width: 2.5, dashArray: null },
   ISCSI: { color: COLORS.red, width: 3, dashArray: '8 4' },
   GARAGE_REPLICATION: { color: COLORS.green, width: 1.5, dashArray: '3 3' },
   LOKI: { color: COLORS.purple, width: 1, dashArray: null },
@@ -37,9 +38,9 @@ export const LINK_STYLES = {
 };
 
 export const ZONE_BOUNDS = {
-  CLOUD: { yMin: 0.05, yMax: 0.3 },
-  HOME_NETWORK: { yMin: 0.35, yMax: 0.65 },
-  STORAGE: { yMin: 0.7, yMax: 0.95 },
+  CLOUD: { yMin: 0.03, yMax: 0.2 },
+  HOME_NETWORK: { yMin: 0.24, yMax: 0.68 },
+  STORAGE: { yMin: 0.72, yMax: 0.96 },
 };
 
 export const pulse = keyframes`
@@ -52,7 +53,7 @@ export const MapContainer = styled.div`
   background: ${COLORS.mapBg};
   border: 1px solid ${COLORS.border};
   border-radius: 8px;
-  height: 600px;
+  height: 700px;
   overflow: hidden;
   font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
