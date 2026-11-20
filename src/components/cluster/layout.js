@@ -12,7 +12,15 @@ export const NODE_HEIGHT = 92;
 
 const ZONE_ORDER = ['CLOUD', 'HOME_NETWORK', 'STORAGE'];
 // Within a zone: network gear first, then machines, then logical services.
-const TYPE_ORDER = ['ROUTER', 'SWITCH', 'K8S_NODE', 'NAS', 'REPLICATED_STORAGE', 'OFFSITE_BACKUP'];
+const TYPE_ORDER = [
+  'ROUTER',
+  'SWITCH',
+  'K8S_NODE',
+  'NAS',
+  'REPLICATED_STORAGE',
+  'LOCAL_STORAGE',
+  'OFFSITE_BACKUP',
+];
 
 const MAX_PER_ROW = 4;
 const ROW_PITCH = 132;

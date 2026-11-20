@@ -63,6 +63,7 @@ const FILTER_OPTIONS = [
   { type: 'MOCA', label: 'MoCA coax' },
   { type: 'BACKHAUL', label: 'Ethernet backhaul' },
   { type: 'NVME_OF', label: 'NVMe-oF' },
+  { type: 'LOCAL_VOLUME', label: 'Local volumes' },
   { type: 'ISCSI', label: 'iSCSI' },
   { type: 'GARAGE_REPLICATION', label: 'Garage S3' },
   { type: 'LOKI', label: 'Loki' },
