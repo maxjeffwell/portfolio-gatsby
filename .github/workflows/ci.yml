@@ -60,7 +60,7 @@ jobs:
             gatsby-cache-${{ runner.os }}-
 
       - name: Install Doppler CLI
-        uses: dopplerhq/cli-action@v3
+        uses: dopplerhq/cli-action@v4
 
       - name: Get Sentry secrets from Doppler
         id: sentry
@@ -254,7 +254,7 @@ jobs:
 
       - name: Install Doppler CLI
         if: github.event_name != 'pull_request'
-        uses: dopplerhq/cli-action@v3
+        uses: dopplerhq/cli-action@v4
 
       - name: Get DockerHub credentials from Doppler
         if: github.event_name != 'pull_request'
@@ -323,7 +323,7 @@ jobs:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
     steps:
       - name: Install Doppler CLI
-        uses: dopplerhq/cli-action@v3
+        uses: dopplerhq/cli-action@v4
 
       - name: Get deploy PAT from Doppler
         id: doppler
@@ -351,7 +351,7 @@ jobs:
     needs: [trigger-k8s-deploy]
     steps:
       - name: Install Doppler CLI
-        uses: dopplerhq/cli-action@v3
+        uses: dopplerhq/cli-action@v4
 
       - name: Get Algolia crawler credentials from Doppler
         id: algolia
@@ -363,7 +363,7 @@ jobs:
           echo "crawler_api_key=$(doppler secrets get ALGOLIA_CRAWLER_API_KEY --plain)" >> $GITHUB_OUTPUT
 
       - name: Trigger Algolia re-crawl
-        uses: cssnr/algolia-crawler-action@v1
+        uses: cssnr/algolia-crawler-action@v2
         with:
           crawler_id: ${{ steps.algolia.outputs.crawler_id }}
           crawler_user_id: ${{ steps.algolia.outputs.crawler_user_id }}
