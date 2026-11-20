@@ -164,6 +164,7 @@ const NETWORK_TOPOLOGY_FIELDS = `
     latencyMs
     metadata {
       lastHandshake
+      via
       transferRxBytes
       transferTxBytes
       targetIqn
