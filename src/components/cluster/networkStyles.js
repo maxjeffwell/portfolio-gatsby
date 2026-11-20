@@ -13,6 +13,7 @@ export const COLORS = {
   purple: '#aa66ff',
   blue: '#4d9fff',
   pink: '#ff66c4',
+  orange: '#ff7a3d',
   gray: '#888888',
 };
 
@@ -36,6 +37,7 @@ export const NODE_COLORS = {
   ROUTER: COLORS.amber,
   REPLICATED_STORAGE: COLORS.purple,
   OVERLAY_CONTROL: COLORS.pink,
+  OFFSITE_BACKUP: COLORS.orange,
 };
 
 export const LINK_STYLES = {
@@ -47,6 +49,7 @@ export const LINK_STYLES = {
   GARAGE_REPLICATION: { color: COLORS.green, width: 1.5, dashArray: '3 3' },
   LOKI: { color: COLORS.purple, width: 1, dashArray: null },
   NFS: { color: COLORS.gray, width: 1, dashArray: '4 4' },
+  OFFSITE_BACKUP: { color: COLORS.orange, width: 2, dashArray: '2 4' },
 };
 
 export const ZONE_BOUNDS = {

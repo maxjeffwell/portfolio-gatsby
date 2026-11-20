@@ -45,7 +45,8 @@ function NetworkView() {
     <PageWrapper>
       <PageTitle>Network Visualization</PageTitle>
       <Subtitle>
-        Live infrastructure topology &mdash; K3s cluster, NAS, routers, and all connections
+        Live infrastructure topology &mdash; K3s cluster, storage, overlay networks, and off-site
+        backup
       </Subtitle>
 
       {loading && !topology && (

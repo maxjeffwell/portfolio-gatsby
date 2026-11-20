@@ -64,6 +64,7 @@ const FILTER_OPTIONS = [
   { type: 'GARAGE_REPLICATION', label: 'Garage S3' },
   { type: 'LOKI', label: 'Loki' },
   { type: 'NFS', label: 'NFS' },
+  { type: 'OFFSITE_BACKUP', label: 'Off-site backup' },
 ];
 
 export default function FilterControls({ visibleLinkTypes, onToggle, lastUpdated }) {
