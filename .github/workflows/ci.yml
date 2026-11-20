@@ -14,6 +14,13 @@ permissions:
   packages: write
   security-events: write
 
+# One run per branch or pull request at a time. A new commit on a pull request
+# cancels that PR's older run. Runs on master are never cancelled (they
+# deploy); a newer one waits for the one in progress.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   DOCKER_IMAGE: maxjeffwell/portfolio-gatsby
   GHCR_IMAGE: ghcr.io/maxjeffwell/portfolio-gatsby
@@ -141,6 +148,9 @@ jobs:
     # now resolves to). Unpin when Playwright is upgraded.
     runs-on: ubuntu-24.04
     needs: test
+    # A normal run takes about 6 minutes. WebKit occasionally hangs, and
+    # without a limit a hung job runs for 6 hours.
+    timeout-minutes: 20
 
     strategy:
       fail-fast: false
