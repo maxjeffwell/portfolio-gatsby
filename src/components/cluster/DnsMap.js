@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { COLORS, healthColorFor } from './networkStyles';
-import { WIDTH, HEIGHT, ROWS, positionOf, hopPath } from './dnsLayout';
+import { WIDTH, HEIGHT, ROWS, ROW_LABEL_X, positionOf, hopPath, shortStat } from './dnsLayout';
 
 const FONT = "'JetBrains Mono', 'Fira Code', monospace";
-const ROW_LABEL_Y = { 0: 34, 1: 132, 3: 328 };
 
 // Fit text to a box; the full text is listed under the map.
 const shorten = (text, max) => (text.length > max ? `${text.slice(0, max - 1)}…` : text);
@@ -22,16 +21,16 @@ function Box({ box, title, subtitle, color, active, health, stat }) {
         strokeWidth={active ? 1.6 : 1}
         strokeOpacity={active ? 0.9 : 0.5}
       />
-      {health && <circle cx={13} cy={17} r={4} fill={healthColorFor(health)} />}
-      <text x={health ? 24 : 12} y={21} fill={color} fontSize={12.5} fontWeight={700}>
+      {health && <circle cx={15} cy={21} r={4.5} fill={healthColorFor(health)} />}
+      <text x={health ? 27 : 12} y={26} fill={color} fontSize={13.5} fontWeight={700}>
         {title}
       </text>
-      <text x={12} y={37} fill={COLORS.text} fontSize={9.5} opacity={0.65}>
+      <text x={12} y={44} fill={COLORS.text} fontSize={11} opacity={0.7}>
         {subtitle}
       </text>
       {stat && (
-        <text x={12} y={50} fill={COLORS.muted} fontSize={8.5}>
-          {shorten(stat, 34)}
+        <text x={12} y={60} fill={COLORS.text} fontSize={10.5} opacity={0.45}>
+          {shortStat(stat)}
         </text>
       )}
     </g>
@@ -63,10 +62,10 @@ export default function DnsMap({ resolvers, client, hops }) {
   });
 
   return (
-    <div style={{ overflowX: 'auto' }}>
+    <div>
       <svg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-        style={{ width: '100%', minWidth: 780, display: 'block', fontFamily: FONT }}
+        style={{ width: '100%', display: 'block', fontFamily: FONT }}
         role="img"
         aria-label="The resolvers a DNS query passes through for the selected client and name"
       >
@@ -76,8 +75,8 @@ export default function DnsMap({ resolvers, client, hops }) {
             viewBox="0 0 10 10"
             refX="9"
             refY="5"
-            markerWidth="7"
-            markerHeight="7"
+            markerWidth="5"
+            markerHeight="5"
             orient="auto"
           >
             <path d="M 0 0 L 10 5 L 0 10 z" fill={COLORS.cyan} />
@@ -87,8 +86,8 @@ export default function DnsMap({ resolvers, client, hops }) {
             viewBox="0 0 10 10"
             refX="9"
             refY="5"
-            markerWidth="7"
-            markerHeight="7"
+            markerWidth="5"
+            markerHeight="5"
             orient="auto"
           >
             <path d="M 0 0 L 10 5 L 0 10 z" fill={COLORS.gray} />
@@ -98,10 +97,11 @@ export default function DnsMap({ resolvers, client, hops }) {
         {ROWS.map((row) => (
           <text
             key={row.label}
-            x={232}
-            y={ROW_LABEL_Y[row.row]}
-            fill={COLORS.muted}
-            fontSize={10}
+            x={ROW_LABEL_X}
+            y={row.y}
+            fill={COLORS.text}
+            opacity={0.45}
+            fontSize={11}
             letterSpacing={1.5}
           >
             {row.label}
@@ -126,12 +126,19 @@ export default function DnsMap({ resolvers, client, hops }) {
               />
               {hop.step && (
                 <>
-                  <circle cx={mid.x} cy={mid.y} r={9} fill={COLORS.bg} stroke={color} />
+                  <circle
+                    cx={mid.x}
+                    cy={mid.y}
+                    r={11}
+                    fill={COLORS.bg}
+                    stroke={color}
+                    strokeWidth={1.5}
+                  />
                   <text
                     x={mid.x}
-                    y={mid.y + 3.5}
+                    y={mid.y + 4}
                     fill={color}
-                    fontSize={10}
+                    fontSize={12}
                     fontWeight={700}
                     textAnchor="middle"
                   >
@@ -146,7 +153,7 @@ export default function DnsMap({ resolvers, client, hops }) {
         <Box
           box={positionOf('client')}
           title="Who is asking"
-          subtitle={shorten(client.displayName, 30)}
+          subtitle={shorten(client.displayName, 26)}
           color={COLORS.amber}
           active
         />
@@ -158,7 +165,7 @@ export default function DnsMap({ resolvers, client, hops }) {
               key={r.id}
               box={box}
               title={r.displayName}
-              subtitle={shorten(r.location, 30)}
+              subtitle={shorten(r.location, 26)}
               color={r.location === 'Internet' ? COLORS.slate : COLORS.green}
               active={used.has(r.id)}
               health={r.health}
