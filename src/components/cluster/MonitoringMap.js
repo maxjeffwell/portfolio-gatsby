@@ -26,7 +26,18 @@ const shorten = (text, max) => (text.length > max ? `${text.slice(0, max - 1)}â€
 // Only what fits in a box; the full figure is in the detail panel.
 const shortStat = (stat) => (stat ? shorten(stat.split(' Â· ')[0], 28) : null);
 
-export default function MonitoringMap({ topology, visibleSignals, selectedId, onSelect }) {
+// Also draws the LLM map, which has the same shape (stages, boxes, typed
+// flows) with its own colour key.
+export default function MonitoringMap({
+  topology,
+  visibleSignals,
+  selectedId,
+  onSelect,
+  signalStyles,
+  stageColors,
+  relayStage,
+  ariaLabel,
+}) {
   const [hoveredId, setHoveredId] = useState(null);
   const { width, height, columns, boxes, edges } = useMemo(
     () => layoutMonitoring(topology),
@@ -37,8 +48,8 @@ export default function MonitoringMap({ topology, visibleSignals, selectedId, on
   const shown = edges.filter((e) => visibleSignals.has(e.signal));
   // Collectors relay each signal unchanged; see lineage().
   const relays = useMemo(
-    () => new Set(boxes.filter((b) => b.stage === 'COLLECT').map((b) => b.id)),
-    [boxes]
+    () => new Set(boxes.filter((b) => b.stage === relayStage).map((b) => b.id)),
+    [boxes, relayStage]
   );
   const focus = lineage(hoveredId || selectedId, shown, relays);
   const nodeOn = (id) => !focus || focus.nodes.has(id);
@@ -57,14 +68,14 @@ export default function MonitoringMap({ topology, visibleSignals, selectedId, on
         viewBox={`0 0 ${width} ${height}`}
         style={{ width: '100%', minWidth: 900, display: 'block', fontFamily: FONT }}
         role="img"
-        aria-label="Telemetry flowing from sources through collectors into stores, then to dashboards and alerting"
+        aria-label={ariaLabel}
       >
         {columns.map((col) => (
           <text
             key={col.id}
             x={col.x}
             y={22}
-            fill={STAGE_COLORS[col.id] || COLORS.text}
+            fill={stageColors[col.id] || COLORS.text}
             opacity={0.75}
             fontSize={12}
             letterSpacing={1.5}
@@ -77,7 +88,7 @@ export default function MonitoringMap({ topology, visibleSignals, selectedId, on
           const a = boxById.get(edge.from);
           const b = boxById.get(edge.to);
           if (!a || !b) return null;
-          const { color } = SIGNAL_STYLES[edge.signal] || { color: COLORS.gray };
+          const { color } = signalStyles[edge.signal] || { color: COLORS.gray };
           const on = edgeOn(i);
           const d = flowPath(a, b, edge.lane);
           const key = `${edge.from}>${edge.to}>${edge.signal}`;
@@ -104,7 +115,7 @@ export default function MonitoringMap({ topology, visibleSignals, selectedId, on
         })}
 
         {boxes.map((box) => {
-          const color = STAGE_COLORS[box.stage] || COLORS.text;
+          const color = stageColors[box.stage] || COLORS.text;
           const on = nodeOn(box.id) && carries.has(box.id);
           const selected = box.id === selectedId;
           return (
@@ -161,6 +172,17 @@ MonitoringMap.propTypes = {
   visibleSignals: PropTypes.instanceOf(Set).isRequired,
   selectedId: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
+  signalStyles: PropTypes.objectOf(PropTypes.shape({ color: PropTypes.string })),
+  stageColors: PropTypes.objectOf(PropTypes.string),
+  relayStage: PropTypes.string,
+  ariaLabel: PropTypes.string,
 };
 
-MonitoringMap.defaultProps = { selectedId: null };
+MonitoringMap.defaultProps = {
+  selectedId: null,
+  signalStyles: SIGNAL_STYLES,
+  stageColors: STAGE_COLORS,
+  relayStage: 'COLLECT',
+  ariaLabel:
+    'Telemetry flowing from sources through collectors into stores, then to dashboards and alerting',
+};

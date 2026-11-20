@@ -292,3 +292,30 @@ export const MONITORING_TOPOLOGY_QUERY = gql`
     }
   }
 `;
+
+export const LLM_TOPOLOGY_QUERY = gql`
+  query LlmTopology {
+    llmTopology {
+      stages {
+        id
+        label
+      }
+      nodes {
+        id
+        stage
+        displayName
+        location
+        role
+        health
+        stat
+      }
+      flows {
+        from
+        to
+        signal
+        note
+      }
+      lastUpdated
+    }
+  }
+`;
