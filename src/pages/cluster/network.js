@@ -42,8 +42,7 @@ export default function NetworkPage() {
       <PageWrapper>
         <PageTitle>Network Visualization</PageTitle>
         <Subtitle>
-          Live infrastructure topology &mdash; K3s cluster, NAS, routers, and
-          all connections
+          Live infrastructure topology &mdash; K3s cluster, NAS, routers, and all connections
         </Subtitle>
 
         {loading && !topology && (

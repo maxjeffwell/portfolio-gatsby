@@ -63,11 +63,7 @@ const FILTER_OPTIONS = [
   { type: 'NFS', label: 'NFS' },
 ];
 
-export default function FilterControls({
-  visibleLinkTypes,
-  onToggle,
-  lastUpdated,
-}) {
+export default function FilterControls({ visibleLinkTypes, onToggle, lastUpdated }) {
   const secondsAgo = lastUpdated
     ? Math.round((Date.now() - new Date(lastUpdated).getTime()) / 1000)
     : null;

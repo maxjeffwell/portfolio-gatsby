@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS, NODE_COLORS, LINK_STYLES } from './networkStyles';
+import { COLORS, NODE_COLORS, LINK_STYLES, healthColorFor } from './networkStyles';
 
 const Panel = styled.div`
   position: absolute;
@@ -91,12 +91,7 @@ const HealthDot = styled.span`
   height: 6px;
   border-radius: 50%;
   margin-right: 4px;
-  background: ${(props) =>
-    props.$status === 'HEALTHY'
-      ? COLORS.green
-      : props.$status === 'DEGRADED'
-        ? COLORS.amber
-        : COLORS.red};
+  background: ${(props) => healthColorFor(props.$status)};
 `;
 
 const ConnRow = styled.div`
@@ -121,18 +116,14 @@ export default function DetailPanel({ node, links, onClose }) {
   const color = NODE_COLORS[node.type] || COLORS.cyan;
   const m = node.metrics;
 
-  const nodeLinks =
-    links?.filter(
-      (l) => l.source === node.id || l.target === node.id,
-    ) || [];
+  const nodeLinks = links?.filter((l) => l.source === node.id || l.target === node.id) || [];
 
   return (
     <Panel $open={!!node}>
       <CloseBtn onClick={onClose}>&times;</CloseBtn>
       <Title style={{ color }}>{node.displayName}</Title>
       <PanelSubtitle>
-        {node.wireguardIp || ''} &middot; Zone:{' '}
-        {node.zone.replace('_', ' ')} &middot; {node.health}
+        {node.wireguardIp || ''} &middot; Zone: {node.zone.replace('_', ' ')} &middot; {node.health}
       </PanelSubtitle>
 
       {m && (
@@ -154,8 +145,7 @@ export default function DetailPanel({ node, links, onClose }) {
               <MetricRow>
                 <span>Memory</span>
                 <MetricValue>
-                  {(m.memoryUsedMb / 1024).toFixed(1)} /{' '}
-                  {(m.memoryTotalMb / 1024).toFixed(1)} GB
+                  {(m.memoryUsedMb / 1024).toFixed(1)} / {(m.memoryTotalMb / 1024).toFixed(1)} GB
                 </MetricValue>
               </MetricRow>
               <UsageBar>
@@ -172,9 +162,7 @@ export default function DetailPanel({ node, links, onClose }) {
                 </MetricValue>
               </MetricRow>
               <UsageBar>
-                <UsageFill
-                  $percent={(m.storageUsedGb / m.storageTotalGb) * 100}
-                />
+                <UsageFill $percent={(m.storageUsedGb / m.storageTotalGb) * 100} />
               </UsageBar>
             </>
           )}
@@ -204,8 +192,7 @@ export default function DetailPanel({ node, links, onClose }) {
         <Section>
           <SectionTitle>Connections</SectionTitle>
           {nodeLinks.map((link, i) => {
-            const peer =
-              link.source === node.id ? link.target : link.source;
+            const peer = link.source === node.id ? link.target : link.source;
             const style = LINK_STYLES[link.type];
             return (
               <ConnRow key={`${peer}-${link.type}-${i}`}>

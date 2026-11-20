@@ -140,31 +140,6 @@ const SecondaryNavBar = styled.div`
   }
 `;
 
-const SecondaryNavLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 16px;
-  text-decoration: none;
-  color: var(--text-color);
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-  opacity: 0.75;
-
-  &:link,
-  &:visited {
-    color: var(--text-color);
-    text-decoration: none;
-  }
-
-  &:hover {
-    background-color: var(--hover-bg);
-    opacity: 1;
-  }
-`;
-
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-flex;
@@ -520,9 +495,7 @@ function Header() {
               onMouseEnter={() => setClusterDropdownOpen(true)}
               onMouseLeave={() => setClusterDropdownOpen(false)}
             >
-              <DropdownTrigger>
-                Cluster &#9662;
-              </DropdownTrigger>
+              <DropdownTrigger>Cluster &#9662;</DropdownTrigger>
               <DropdownMenu $open={clusterDropdownOpen}>
                 {clusterItems.map((item) => {
                   const isGatsbyPage =

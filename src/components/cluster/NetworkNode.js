@@ -1,5 +1,5 @@
 import React from 'react';
-import { NODE_COLORS, COLORS } from './networkStyles';
+import { NODE_COLORS, COLORS, healthColorFor } from './networkStyles';
 
 const NODE_WIDTH = 160;
 const NODE_HEIGHT = 70;
@@ -7,12 +7,7 @@ const BADGE_HEIGHT = 14;
 
 export default function NetworkNode({ node, x, y, onHover, onClick }) {
   const color = NODE_COLORS[node.type] || COLORS.cyan;
-  const healthColor =
-    node.health === 'HEALTHY'
-      ? COLORS.green
-      : node.health === 'DEGRADED'
-        ? COLORS.amber
-        : COLORS.red;
+  const healthColor = healthColorFor(node.health);
 
   const badges = node.services?.slice(0, 4) || [];
   const totalHeight = NODE_HEIGHT + (badges.length > 0 ? BADGE_HEIGHT + 8 : 0);
@@ -35,12 +30,7 @@ export default function NetworkNode({ node, x, y, onHover, onClick }) {
       />
 
       <circle cx={12} cy={16} r={4} fill={healthColor}>
-        <animate
-          attributeName="opacity"
-          values="1;0.4;1"
-          dur="2s"
-          repeatCount="indefinite"
-        />
+        <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite" />
       </circle>
 
       <text

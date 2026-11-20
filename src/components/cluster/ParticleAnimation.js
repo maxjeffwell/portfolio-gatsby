@@ -3,10 +3,7 @@ import { LINK_STYLES } from './networkStyles';
 
 export default function ParticleAnimation({ links, posMap }) {
   const animatedLinks = links
-    .filter(
-      (l) =>
-        l.status === 'HEALTHY' && posMap[l.source] && posMap[l.target],
-    )
+    .filter((l) => l.status === 'HEALTHY' && posMap[l.source] && posMap[l.target])
     .slice(0, 8);
 
   return (
@@ -27,11 +24,7 @@ export default function ParticleAnimation({ links, posMap }) {
             fill={style?.color || '#00f0ff'}
             opacity={0.8}
           >
-            <animateMotion
-              dur={`${dur}s`}
-              repeatCount="indefinite"
-              path={path}
-            />
+            <animateMotion dur={`${dur}s`} repeatCount="indefinite" path={path} />
           </circle>
         );
       })}
