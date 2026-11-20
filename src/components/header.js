@@ -388,6 +388,7 @@ function Header() {
     { text: 'Dashboard', to: '/cluster/' },
     { text: 'Network Visualization', to: '/cluster/network/' },
     { text: 'Databases', to: '/cluster/databases/' },
+    { text: 'DNS', to: '/cluster/dns/' },
     { text: 'Storybook', to: '/storybook/' },
     { text: 'Infrastructure', to: '/docs/' },
   ];
