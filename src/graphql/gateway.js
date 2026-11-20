@@ -264,3 +264,31 @@ export const DNS_TOPOLOGY_QUERY = gql`
     }
   }
 `;
+
+export const MONITORING_TOPOLOGY_QUERY = gql`
+  query MonitoringTopology {
+    monitoringTopology {
+      stages {
+        id
+        label
+      }
+      nodes {
+        id
+        stage
+        displayName
+        location
+        role
+        health
+        stat
+        inferred
+      }
+      flows {
+        from
+        to
+        signal
+        note
+      }
+      lastUpdated
+    }
+  }
+`;
