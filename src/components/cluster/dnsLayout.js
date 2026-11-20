@@ -3,17 +3,19 @@
 // the right, one row per place a resolver lives.
 
 export const WIDTH = 1080;
-export const HEIGHT = 440;
-export const BOX = { w: 184, h: 58 };
+export const HEIGHT = 500;
+export const BOX = { w: 196, h: 70 };
 
-const COLUMN_X = [16, 232, 448, 664, 880];
-const ROW_Y = [46, 144, 242, 340];
+const COLUMN_X = [12, 226, 440, 654, 872];
+const ROW_Y = [44, 156, 268, 392];
 
+// Labels sit just above the first row of each group.
 export const ROWS = [
-  { label: 'CLUSTER', row: 0 },
-  { label: 'HOME LAN', row: 1 },
-  { label: 'TAILNET AND INTERNET', row: 3 },
+  { label: 'CLUSTER', y: ROW_Y[0] - 12 },
+  { label: 'HOME LAN', y: ROW_Y[1] - 12 },
+  { label: 'TAILNET AND INTERNET', y: ROW_Y[3] - 12 },
 ];
+export const ROW_LABEL_X = COLUMN_X[1];
 
 // [column, row]; a fractional row sits between two rows.
 const GRID = {
@@ -53,7 +55,7 @@ export function hopPath(a, b) {
     const x = a.x + a.w / 2;
     const y1 = down ? a.y + a.h : a.y;
     const y2 = down ? b.y : b.y + b.h;
-    const bow = 46;
+    const bow = 52;
     return {
       d: `M ${x} ${y1} C ${x + bow} ${y1}, ${x + bow} ${y2}, ${x} ${y2}`,
       mid: { x: x + bow * 0.75, y: (y1 + y2) / 2 },
@@ -80,4 +82,21 @@ export function numberHops(hops) {
     n += 1;
     return { ...hop, step: n };
   });
+}
+
+// The resolvers of a path in the order the main route visits them, for a
+// compact one-line view on screens too narrow for the map.
+export function mainRoute(hops) {
+  const route = ['client'];
+  (hops || []).forEach((hop) => {
+    if (!hop.fallback && !route.includes(hop.to)) route.push(hop.to);
+  });
+  return route;
+}
+
+// "7/7 nodes · 58 queries/s · 88% from cache" -> "7/7 nodes · 58 q/s": what
+// fits inside a box. The full figure is listed under the map.
+export function shortStat(stat) {
+  if (!stat) return null;
+  return stat.split(' \u00b7 ').slice(0, 2).join(' \u00b7 ').replace('queries/s', 'q/s');
 }
