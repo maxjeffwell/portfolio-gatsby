@@ -60,6 +60,13 @@ const STORAGE_TEXT = {
   LVM_LOCAL: 'Node-local volumes (one per instance)',
   HOST_DISK: 'Server disks (outside Kubernetes)',
   NONE: 'None: a cache that keeps nothing across restarts',
+  EXTERNAL: 'Hosted by the provider, outside the cluster',
+};
+
+// Why a store has no backups listed, where the reason is known.
+const NO_BACKUP_TEXT = {
+  NONE: 'Not backed up (nothing to keep)',
+  EXTERNAL: 'Kept by the provider; no backup is taken from this cluster',
 };
 
 const TARGET_TEXT = {
@@ -93,18 +100,28 @@ export default function DatabaseDetail({ database, apps }) {
 
   const usedBy = apps.filter((app) => app.databases.includes(database.id));
   const ready = database.instances.filter((i) => i.ready).length;
+  const hosted = database.storage === 'EXTERNAL';
 
   return (
     <Card>
       <Title>{database.displayName}</Title>
       <Meta>
         {database.engine} &middot; {database.manager} &middot;{' '}
-        <Value $color={healthColorFor(database.health)}>{database.health}</Value>
+        {hosted ? (
+          <Value $color={COLORS.gray}>NOT MONITORED</Value>
+        ) : (
+          <Value $color={healthColorFor(database.health)}>{database.health}</Value>
+        )}
       </Meta>
 
       <SectionTitle>
-        INSTANCES ({ready}/{database.expectedInstances} READY)
+        {hosted ? 'INSTANCES' : `INSTANCES (${ready}/${database.expectedInstances} READY)`}
       </SectionTitle>
+      {hosted && (
+        <Row>
+          <span>A hosted service: nothing runs in this cluster</span>
+        </Row>
+      )}
       {database.instances.map((inst) => (
         <Row key={inst.name}>
           <span>
@@ -123,7 +140,7 @@ export default function DatabaseDetail({ database, apps }) {
       <SectionTitle>BACKUPS</SectionTitle>
       {database.backups.length === 0 && (
         <Row>
-          <span>Not backed up (nothing to keep)</span>
+          <span>{NO_BACKUP_TEXT[database.storage] || 'Not backed up'}</span>
         </Row>
       )}
       {database.backups.map((backup) => (

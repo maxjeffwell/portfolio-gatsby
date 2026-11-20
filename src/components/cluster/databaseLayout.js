@@ -18,6 +18,7 @@ const STORAGE_LABELS = {
   LVM_LOCAL: 'Node-local volumes',
   HOST_DISK: 'Server disks',
   NONE: 'No persistent storage',
+  EXTERNAL: 'Hosted outside the cluster',
 };
 
 const BACKUP_LABELS = {
