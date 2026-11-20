@@ -17,6 +17,7 @@ export const COLORS = {
   white: '#dfe7f5',
   lime: '#b8f400',
   slate: '#8fa3c8',
+  teal: '#2dd4bf',
   gray: '#888888',
 };
 
@@ -40,6 +41,7 @@ export const NODE_COLORS = {
   ROUTER: COLORS.amber,
   SWITCH: COLORS.slate,
   REPLICATED_STORAGE: COLORS.purple,
+  LOCAL_STORAGE: COLORS.teal,
   OFFSITE_BACKUP: COLORS.orange,
 };
 
@@ -50,6 +52,7 @@ export const LINK_STYLES = {
   MOCA: { color: COLORS.lime, width: 2.5, dashArray: '2 5' },
   BACKHAUL: { color: COLORS.blue, width: 2.5, dashArray: '10 3' },
   NVME_OF: { color: COLORS.amber, width: 2.5, dashArray: null },
+  LOCAL_VOLUME: { color: COLORS.teal, width: 2, dashArray: null },
   ISCSI: { color: COLORS.red, width: 3, dashArray: '8 4' },
   GARAGE_REPLICATION: { color: COLORS.green, width: 1.5, dashArray: '3 3' },
   LOKI: { color: COLORS.purple, width: 1, dashArray: null },
