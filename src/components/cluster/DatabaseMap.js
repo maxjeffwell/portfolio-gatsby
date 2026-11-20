@@ -25,6 +25,8 @@ const ENGINE_LABELS = {
   QDRANT: 'QDRANT',
   INFLUXDB: 'INFLUX',
   KAFKA: 'KAFKA',
+  PROMETHEUS: 'PROM',
+  FIRESTORE: 'FIRESTORE',
 };
 const COLUMN_TITLES = [
   { x: 16, text: 'APPLICATIONS' },
@@ -151,7 +153,16 @@ export default function DatabaseMap({ topology, visibleRelations, selectedId, on
                 strokeOpacity={selected ? 1 : 0.5}
               />
               {node.database && (
-                <circle cx={14} cy={node.h / 2} r={4} fill={healthColorFor(node.database.health)} />
+                <circle
+                  cx={14}
+                  cy={node.h / 2}
+                  r={4}
+                  fill={
+                    node.database.storage === 'EXTERNAL'
+                      ? COLORS.gray
+                      : healthColorFor(node.database.health)
+                  }
+                />
               )}
               <text
                 x={node.database ? 26 : 12}
