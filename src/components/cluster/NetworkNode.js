@@ -4,12 +4,20 @@ import { NODE_COLORS, COLORS, healthColorFor } from './networkStyles';
 const NODE_WIDTH = 160;
 const NODE_HEIGHT = 70;
 const BADGE_HEIGHT = 14;
+const BADGE_SLOTS = 3;
+const BADGE_WIDTH = 44;
 
 export default function NetworkNode({ node, x, y, onHover, onClick }) {
   const color = NODE_COLORS[node.type] || COLORS.cyan;
   const healthColor = healthColorFor(node.health);
 
-  const badges = node.services?.slice(0, 4) || [];
+  // Three badge slots fit inside the node. With more services than slots,
+  // the last slot becomes a "+N" counter; the detail panel lists them all.
+  const services = node.services || [];
+  const badges =
+    services.length > BADGE_SLOTS
+      ? [...services.slice(0, BADGE_SLOTS - 1), { name: `+${services.length - (BADGE_SLOTS - 1)}` }]
+      : services;
   const totalHeight = NODE_HEIGHT + (badges.length > 0 ? BADGE_HEIGHT + 8 : 0);
 
   return (
@@ -58,9 +66,12 @@ export default function NetworkNode({ node, x, y, onHover, onClick }) {
       )}
 
       {badges.map((svc, i) => (
-        <g key={svc.name} transform={`translate(${12 + i * 52}, ${NODE_HEIGHT - 14})`}>
+        <g
+          key={svc.name}
+          transform={`translate(${12 + i * (BADGE_WIDTH + 2)}, ${NODE_HEIGHT - 14})`}
+        >
           <rect
-            width={48}
+            width={BADGE_WIDTH}
             height={BADGE_HEIGHT}
             rx={3}
             fill={`${color}26`}
@@ -68,7 +79,7 @@ export default function NetworkNode({ node, x, y, onHover, onClick }) {
             strokeWidth={1}
           />
           <text
-            x={24}
+            x={BADGE_WIDTH / 2}
             y={10}
             fill={color}
             fontSize="8"

@@ -110,12 +110,13 @@ const ConnType = styled.span`
   color: ${(props) => props.$color};
 `;
 
-export default function DetailPanel({ node, links, onClose }) {
+export default function DetailPanel({ node, nodes, links, onClose }) {
   if (!node) return <Panel $open={false} />;
 
   const color = NODE_COLORS[node.type] || COLORS.cyan;
   const m = node.metrics;
 
+  const nameOf = (id) => nodes?.find((n) => n.id === id)?.displayName || id;
   const nodeLinks = links?.filter((l) => l.source === node.id || l.target === node.id) || [];
 
   return (
@@ -123,7 +124,7 @@ export default function DetailPanel({ node, links, onClose }) {
       <CloseBtn onClick={onClose}>&times;</CloseBtn>
       <Title style={{ color }}>{node.displayName}</Title>
       <PanelSubtitle>
-        {node.wireguardIp || ''} &middot; Zone: {node.zone.replace('_', ' ')} &middot; {node.health}
+        Zone: {node.zone.replace('_', ' ')} &middot; {node.health}
       </PanelSubtitle>
 
       {m && (
@@ -196,7 +197,7 @@ export default function DetailPanel({ node, links, onClose }) {
             const style = LINK_STYLES[link.type];
             return (
               <ConnRow key={`${peer}-${link.type}-${i}`}>
-                <span>&rarr; {peer}</span>
+                <span>&rarr; {nameOf(peer)}</span>
                 <ConnType $color={style?.color || COLORS.cyan}>
                   {link.type.replace(/_/g, ' ')}
                 </ConnType>

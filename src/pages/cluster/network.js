@@ -87,6 +87,7 @@ function NetworkView() {
             />
             <DetailPanel
               node={selectedNode}
+              nodes={topology.nodes}
               links={topology.links}
               onClose={() => setSelectedNode(null)}
             />
