@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import { ApolloProvider } from '@apollo/client/react';
 import apolloClient from '../../lib/apolloClient';
@@ -142,6 +142,32 @@ const Choice = styled.button`
   }
 `;
 
+const Asking = styled.div`
+  color: ${COLORS.text};
+  font-size: 14px;
+  margin: 2px 0 8px;
+
+  strong {
+    color: ${COLORS.amber};
+    font-weight: 600;
+  }
+
+  code {
+    color: ${COLORS.cyan};
+    font-family: inherit;
+  }
+`;
+
+const SameRoute = styled.div`
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  border: 1px solid ${COLORS.border};
+  border-left: 3px solid ${COLORS.amber};
+  border-radius: 4px;
+  color: ${COLORS.text};
+  font-size: 12px;
+`;
+
 const Summary = styled.p`
   color: ${(props) => props.$color};
   font-size: 15px;
@@ -188,8 +214,20 @@ const Message = styled.div`
 // <Layout> so data updates never re-render the header while it hydrates.
 function DnsView() {
   const { topology, loading, error } = useDnsTopology();
-  const [clientId, setClientId] = useState('pod');
-  const [kindId, setKindId] = useState('cluster');
+  // Opens on a home.arpa name: the one case where a query crosses from the
+  // cluster to the LAN, and where the choices on the left differ most.
+  const [selection, setSelection] = useState({ clientId: 'pod', kindId: 'home', previous: null });
+  const { clientId, kindId, previous } = selection;
+
+  // Remember what was showing before each click, so the page can say when a
+  // new choice leads to the very same route instead of appearing to ignore it.
+  const choose = useCallback((change) => {
+    setSelection((current) => {
+      const next = { ...current, ...change };
+      if (next.clientId === current.clientId && next.kindId === current.kindId) return current;
+      return { ...next, previous: { clientId: current.clientId, kindId: current.kindId } };
+    });
+  }, []);
 
   const nameOf = useMemo(() => {
     const names = { client: 'The asker' };
@@ -202,6 +240,15 @@ function DnsView() {
   const client = topology?.clients.find((c) => c.id === clientId) || topology?.clients[0];
   const path = topology?.paths.find((p) => p.client === client?.id && p.nameKind === kindId);
   const hops = numberHops(path?.hops);
+  const kind = topology?.nameKinds.find((k) => k.id === kindId);
+
+  const signature = (p) => (p ? p.hops.map((h) => `${h.from}>${h.to}`).join('|') : null);
+  const previousPath =
+    previous &&
+    topology?.paths.find((p) => p.client === previous.clientId && p.nameKind === previous.kindId);
+  const previousClient = previous && topology?.clients.find((c) => c.id === previous.clientId);
+  const sameAsBefore =
+    path && previousPath && path.resolves && signature(path) === signature(previousPath);
   const roles = (topology?.resolvers || []).filter((r) =>
     hops.some((h) => h.from === r.id || h.to === r.id)
   );
@@ -229,7 +276,7 @@ function DnsView() {
                   $active={c.id === client.id}
                   $color={COLORS.amber}
                   aria-pressed={c.id === client.id}
-                  onClick={() => setClientId(c.id)}
+                  onClick={() => choose({ clientId: c.id })}
                 >
                   {c.displayName}
                   {c.detail && <small>{c.detail}</small>}
@@ -245,7 +292,7 @@ function DnsView() {
                   $active={k.id === kindId}
                   $color={COLORS.cyan}
                   aria-pressed={k.id === kindId}
-                  onClick={() => setKindId(k.id)}
+                  onClick={() => choose({ kindId: k.id })}
                 >
                   {k.label}
                   <small>{k.example}</small>
@@ -256,8 +303,29 @@ function DnsView() {
 
           <div>
             <Card>
+              <Asking>
+                <strong>{client.displayName}</strong> looks up <code>{kind?.example}</code>
+              </Asking>
+              {path && (
+                <Summary $color={path.resolves ? COLORS.green : COLORS.red}>
+                  {path.resolves ? '' : 'Cannot be resolved from here. '}
+                  {path.summary}
+                </Summary>
+              )}
+              {sameAsBefore && (
+                <SameRoute>
+                  Same route as &ldquo;{previousClient?.displayName}&rdquo;
+                  {previous.kindId !== kindId ? ' with the previous kind of name' : ''}: for this
+                  lookup it makes no difference which of the two is asking.
+                </SameRoute>
+              )}
               <MapOnly>
-                <DnsMap resolvers={topology.resolvers} client={client} hops={hops} />
+                <DnsMap
+                  resolvers={topology.resolvers}
+                  client={client}
+                  hops={hops}
+                  unresolved={path ? !path.resolves : false}
+                />
               </MapOnly>
               <RouteOnly aria-label="The resolvers on this path, in order">
                 {mainRoute(hops).map((id) => {
@@ -273,11 +341,12 @@ function DnsView() {
             </Card>
 
             <Card style={{ marginTop: 16 }}>
-              {path && (
-                <Summary $color={path.resolves ? COLORS.green : COLORS.red}>
-                  {path.resolves ? '' : 'Does not resolve. '}
-                  {path.summary}
-                </Summary>
+              <Label>STEP BY STEP</Label>
+              {hops.length === 0 && (
+                <Step as="div" $alt>
+                  <span />
+                  <span>No steps: the query has nowhere to go.</span>
+                </Step>
               )}
               <ol style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                 {hops.map((hop) => (
