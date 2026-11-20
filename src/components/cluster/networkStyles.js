@@ -15,6 +15,8 @@ export const COLORS = {
   pink: '#ff66c4',
   orange: '#ff7a3d',
   white: '#dfe7f5',
+  lime: '#b8f400',
+  slate: '#8fa3c8',
   gray: '#888888',
 };
 
@@ -36,6 +38,7 @@ export const NODE_COLORS = {
   K8S_NODE: COLORS.cyan,
   NAS: COLORS.green,
   ROUTER: COLORS.amber,
+  SWITCH: COLORS.slate,
   REPLICATED_STORAGE: COLORS.purple,
   OFFSITE_BACKUP: COLORS.orange,
 };
@@ -44,6 +47,7 @@ export const LINK_STYLES = {
   TAILSCALE: { color: COLORS.pink, width: 1.5, dashArray: null },
   WIREGUARD: { color: COLORS.cyan, width: 2, dashArray: '6 3' },
   ETHERNET: { color: COLORS.white, width: 1.6, dashArray: null },
+  MOCA: { color: COLORS.lime, width: 2.5, dashArray: '2 5' },
   BACKHAUL: { color: COLORS.blue, width: 2.5, dashArray: '10 3' },
   NVME_OF: { color: COLORS.amber, width: 2.5, dashArray: null },
   ISCSI: { color: COLORS.red, width: 3, dashArray: '8 4' },
