@@ -56,7 +56,8 @@ const LiveDot = styled.div`
 `;
 
 const FILTER_OPTIONS = [
-  { type: 'WIREGUARD', label: 'WireGuard overlay' },
+  { type: 'TAILSCALE', label: 'Tailscale' },
+  { type: 'WIREGUARD', label: 'WireGuard' },
   { type: 'BACKHAUL', label: 'Mesh backhaul' },
   { type: 'NVME_OF', label: 'NVMe-oF' },
   { type: 'ISCSI', label: 'iSCSI' },

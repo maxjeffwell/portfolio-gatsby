@@ -12,6 +12,7 @@ export const COLORS = {
   red: '#ff4444',
   purple: '#aa66ff',
   blue: '#4d9fff',
+  pink: '#ff66c4',
   gray: '#888888',
 };
 
@@ -34,10 +35,12 @@ export const NODE_COLORS = {
   NAS: COLORS.green,
   ROUTER: COLORS.amber,
   REPLICATED_STORAGE: COLORS.purple,
+  OVERLAY_CONTROL: COLORS.pink,
 };
 
 export const LINK_STYLES = {
-  WIREGUARD: { color: COLORS.cyan, width: 2, dashArray: null },
+  TAILSCALE: { color: COLORS.pink, width: 1.5, dashArray: null },
+  WIREGUARD: { color: COLORS.cyan, width: 2, dashArray: '6 3' },
   BACKHAUL: { color: COLORS.blue, width: 2.5, dashArray: '10 3' },
   NVME_OF: { color: COLORS.amber, width: 2.5, dashArray: null },
   ISCSI: { color: COLORS.red, width: 3, dashArray: '8 4' },
