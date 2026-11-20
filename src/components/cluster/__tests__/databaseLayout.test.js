@@ -114,3 +114,35 @@ describe('connectedTo', () => {
     expect(connectedTo(null, edges)).toBeNull();
   });
 });
+
+describe('backup boxes', () => {
+  const db = (backups, storage = 'MAYASTOR') => ({
+    apps: [],
+    databases: [{ id: 'x', displayName: 'X', storage, instances: [], backups }],
+  });
+
+  it('gives Velero copies their own boxes, separate from other backups to the same place', () => {
+    const { nodes, edges } = layoutDatabases(
+      db([
+        { name: 'Base backup + WAL archive', target: 'BACKBLAZE_B2', status: 'HEALTHY' },
+        { name: 'Velero weekly off-site copy', target: 'BACKBLAZE_B2', status: 'OFFLINE' },
+        { name: 'Velero daily volume copy', target: 'GARAGE', status: 'HEALTHY' },
+      ])
+    );
+    const labels = Object.fromEntries(nodes.map((n) => [n.id, n.label]));
+    expect(labels['backup:BACKBLAZE_B2']).toBe('Backblaze B2');
+    expect(labels['backup:VELERO_BACKBLAZE_B2']).toBe('Velero \u2192 Backblaze B2');
+    expect(labels['backup:VELERO_GARAGE']).toBe('Velero \u2192 Garage S3');
+
+    const status = (target) => edges.find((e) => e.target === target).status;
+    expect(status('backup:BACKBLAZE_B2')).toBe('HEALTHY');
+    expect(status('backup:VELERO_BACKBLAZE_B2')).toBe('OFFLINE');
+  });
+
+  it('labels external storage, and makes a readable label for a value it does not know', () => {
+    const label = (storage) =>
+      layoutDatabases(db([], storage)).nodes.find((n) => n.id === `storage:${storage}`).label;
+    expect(label('EXTERNAL')).toBe('External');
+    expect(label('SOME_NEW_KIND')).toBe('Some new kind');
+  });
+});

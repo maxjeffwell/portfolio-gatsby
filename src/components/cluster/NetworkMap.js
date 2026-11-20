@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
-import { MapContainer, COLORS } from './networkStyles';
+import { MapContainer, COLORS, LINK_STYLES } from './networkStyles';
 import NetworkNode from './NetworkNode';
 import NetworkLink from './NetworkLink';
 import NetworkTooltip from './NetworkTooltip';
@@ -38,7 +38,10 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
     posMap[p.id] = p;
   }
 
-  const filteredLinks = links.filter((l) => visibleLinkTypes.has(l.type));
+  // A link type without a filter button cannot be switched off, so it is shown.
+  const filteredLinks = links.filter(
+    (l) => !(l.type in LINK_STYLES) || visibleLinkTypes.has(l.type)
+  );
   const bends = assignBends(filteredLinks);
 
   // Hovering a node brings its links and neighbours forward and fades the rest.

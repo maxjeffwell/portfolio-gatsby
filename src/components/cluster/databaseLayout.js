@@ -6,6 +6,8 @@
 // Pure: same input, same positions. Returns node boxes and the edges between
 // them; the component only draws.
 
+import { humanize } from './networkStyles';
+
 export const RELATIONS = {
   USES: { label: 'App uses database' },
   PLACEMENT: { label: 'Runs on' },
@@ -18,7 +20,7 @@ const STORAGE_LABELS = {
   LVM_LOCAL: 'Node-local volumes',
   HOST_DISK: 'Server disks',
   NONE: 'No persistent storage',
-  EXTERNAL: 'Hosted outside the cluster',
+  EXTERNAL: 'External',
 };
 
 const BACKUP_LABELS = {
@@ -38,6 +40,8 @@ const COLUMNS = {
   database: { x: 420, w: 250 },
   target: { x: 874, w: 210 },
 };
+
+const isVelero = (backup) => /^velero\b/i.test(backup.name || '');
 
 // Worst backup status first, so one stale backup is not hidden by a fresh one.
 const BACKUP_SEVERITY = { OFFLINE: 2, UNKNOWN: 1, HEALTHY: 0 };
@@ -116,23 +120,32 @@ export default function layoutDatabases(topology) {
     if (!storage.has(db.storage)) {
       storage.set(db.storage, {
         id: `storage:${db.storage}`,
-        label: STORAGE_LABELS[db.storage] ?? db.storage,
+        label: STORAGE_LABELS[db.storage] ?? humanize(db.storage),
       });
     }
     edges.push({ source: `db:${db.id}`, target: `storage:${db.storage}`, relation: 'STORAGE' });
 
+    // Velero copies get their own boxes: they are a different mechanism (a
+    // file-level copy of the volume) from the database's own backups, even
+    // when both end up in the same place.
     const byTarget = new Map();
     for (const backup of db.backups) {
-      const worst = byTarget.get(backup.target);
+      const key = isVelero(backup) ? `VELERO_${backup.target}` : backup.target;
+      const worst = byTarget.get(key)?.status;
       if (!worst || BACKUP_SEVERITY[backup.status] > BACKUP_SEVERITY[worst]) {
-        byTarget.set(backup.target, backup.status);
+        byTarget.set(key, {
+          status: backup.status,
+          target: backup.target,
+          velero: isVelero(backup),
+        });
       }
     }
-    for (const [target, status] of byTarget) {
-      if (!backups.has(target)) {
-        backups.set(target, { id: `backup:${target}`, label: BACKUP_LABELS[target] ?? target });
+    for (const [key, { status, target, velero }] of byTarget) {
+      if (!backups.has(key)) {
+        const place = BACKUP_LABELS[target] ?? humanize(target);
+        backups.set(key, { id: `backup:${key}`, label: velero ? `Velero \u2192 ${place}` : place });
       }
-      edges.push({ source: `db:${db.id}`, target: `backup:${target}`, relation: 'BACKUP', status });
+      edges.push({ source: `db:${db.id}`, target: `backup:${key}`, relation: 'BACKUP', status });
     }
   }
 

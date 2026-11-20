@@ -45,6 +45,19 @@ export const NODE_COLORS = {
   OFFSITE_BACKUP: COLORS.orange,
 };
 
+// Drawn for a link type this build does not know yet (the gateway is deployed
+// ahead of the page), so a new kind of link is visible instead of dropped.
+export const DEFAULT_LINK_STYLE = { color: COLORS.gray, width: 1.5, dashArray: null };
+
+// "BACKBLAZE_B2" -> "Backblaze b2": a readable stand-in for a value this build
+// has no label for.
+export const humanize = (value) => {
+  const text = String(value ?? '')
+    .replace(/_/g, ' ')
+    .toLowerCase();
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
 export const LINK_STYLES = {
   TAILSCALE: { color: COLORS.pink, width: 1.5, dashArray: null },
   WIREGUARD: { color: COLORS.cyan, width: 2, dashArray: '6 3' },
