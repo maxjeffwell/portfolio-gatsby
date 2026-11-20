@@ -225,6 +225,10 @@ jobs:
         run: npx storybook build -o storybook-static
 
       - name: Run Cypress against Storybook
+        # Cypress checks it can start before running anything and gives up
+        # after 30 s by default; a slow runner can take longer.
+        env:
+          CYPRESS_VERIFY_TIMEOUT: 100000
         run: |
           npx http-server storybook-static -p 6007 --silent &
           npx wait-on http://localhost:6007 --timeout 30000
