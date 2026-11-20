@@ -4,7 +4,8 @@ import { COLORS, LINK_STYLES, pulse } from './networkStyles';
 
 const Bar = styled.div`
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   align-items: center;
   padding: 10px 16px;
   background: rgba(13, 18, 32, 0.9);

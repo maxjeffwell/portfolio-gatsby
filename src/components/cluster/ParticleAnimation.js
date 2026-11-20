@@ -1,7 +1,8 @@
 import React from 'react';
 import { LINK_STYLES } from './networkStyles';
+import { linkPath } from './layout';
 
-export default function ParticleAnimation({ links, posMap }) {
+export default function ParticleAnimation({ links, posMap, bends }) {
   const animatedLinks = links
     .filter((l) => l.status === 'HEALTHY' && posMap[l.source] && posMap[l.target])
     .slice(0, 8);
@@ -15,7 +16,7 @@ export default function ParticleAnimation({ links, posMap }) {
 
         const style = LINK_STYLES[link.type];
         const dur = 3 + (i % 3);
-        const path = `M${src.x},${src.y} L${tgt.x},${tgt.y}`;
+        const path = linkPath(src, tgt, bends?.get(link) ?? 0);
 
         return (
           <circle

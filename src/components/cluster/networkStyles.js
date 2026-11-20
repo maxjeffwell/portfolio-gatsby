@@ -36,7 +36,6 @@ export const NODE_COLORS = {
   NAS: COLORS.green,
   ROUTER: COLORS.amber,
   REPLICATED_STORAGE: COLORS.purple,
-  OVERLAY_CONTROL: COLORS.pink,
   OFFSITE_BACKUP: COLORS.orange,
 };
 
@@ -52,12 +51,6 @@ export const LINK_STYLES = {
   OFFSITE_BACKUP: { color: COLORS.orange, width: 2, dashArray: '2 4' },
 };
 
-export const ZONE_BOUNDS = {
-  CLOUD: { yMin: 0.03, yMax: 0.2 },
-  HOME_NETWORK: { yMin: 0.24, yMax: 0.68 },
-  STORAGE: { yMin: 0.72, yMax: 0.96 },
-};
-
 export const pulse = keyframes`
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
@@ -68,7 +61,6 @@ export const MapContainer = styled.div`
   background: ${COLORS.mapBg};
   border: 1px solid ${COLORS.border};
   border-radius: 8px;
-  height: 700px;
   overflow: hidden;
   font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
