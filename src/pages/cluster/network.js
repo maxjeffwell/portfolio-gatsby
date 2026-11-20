@@ -17,6 +17,9 @@ import useNetworkTopology from '../../hooks/useNetworkTopology';
 
 const ALL_LINK_TYPES = new Set(Object.keys(LINK_STYLES));
 
+// Holds the data hooks. It must stay INSIDE <Layout>: when these hooks lived
+// above it, every topology update re-rendered the header while its lazy
+// components were still hydrating (React error #421).
 function NetworkView() {
   const { topology, loading, error, lastUpdated } = useNetworkTopology();
   const [visibleLinkTypes, setVisibleLinkTypes] = useState(ALL_LINK_TYPES);
@@ -39,100 +42,97 @@ function NetworkView() {
   }, []);
 
   return (
-    <Layout>
-      <Seo title="Network Visualization" />
-      <PageWrapper>
-        <PageTitle>Network Visualization</PageTitle>
-        <Subtitle>
-          Live infrastructure topology &mdash; K3s cluster, NAS, routers, and all connections
-        </Subtitle>
+    <PageWrapper>
+      <PageTitle>Network Visualization</PageTitle>
+      <Subtitle>
+        Live infrastructure topology &mdash; K3s cluster, NAS, routers, and all connections
+      </Subtitle>
 
-        {loading && !topology && (
-          <div
-            style={{
-              color: COLORS.muted,
-              padding: '40px',
-              textAlign: 'center',
-              fontFamily: "'JetBrains Mono', monospace",
-            }}
-          >
-            Connecting to gateway...
-          </div>
-        )}
+      {loading && !topology && (
+        <div
+          style={{
+            color: COLORS.muted,
+            padding: '40px',
+            textAlign: 'center',
+            fontFamily: "'JetBrains Mono', monospace",
+          }}
+        >
+          Connecting to gateway...
+        </div>
+      )}
 
-        {error && !topology && (
-          <div
-            style={{
-              color: COLORS.red,
-              padding: '40px',
-              textAlign: 'center',
-              fontFamily: "'JetBrains Mono', monospace",
-            }}
-          >
-            Failed to load topology: {error.message}
-          </div>
-        )}
+      {error && !topology && (
+        <div
+          style={{
+            color: COLORS.red,
+            padding: '40px',
+            textAlign: 'center',
+            fontFamily: "'JetBrains Mono', monospace",
+          }}
+        >
+          Failed to load topology: {error.message}
+        </div>
+      )}
 
-        {topology && (
-          <div style={{ position: 'relative' }}>
-            <FilterControls
-              visibleLinkTypes={visibleLinkTypes}
-              onToggle={handleToggleFilter}
-              lastUpdated={lastUpdated}
-            />
-            <NetworkMap
-              topology={topology}
-              visibleLinkTypes={visibleLinkTypes}
-              onNodeClick={handleNodeClick}
-            />
-            <DetailPanel
-              node={selectedNode}
-              nodes={topology.nodes}
-              links={topology.links}
-              onClose={() => setSelectedNode(null)}
-            />
-          </div>
-        )}
+      {topology && (
+        <div style={{ position: 'relative' }}>
+          <FilterControls
+            visibleLinkTypes={visibleLinkTypes}
+            onToggle={handleToggleFilter}
+            lastUpdated={lastUpdated}
+          />
+          <NetworkMap
+            topology={topology}
+            visibleLinkTypes={visibleLinkTypes}
+            onNodeClick={handleNodeClick}
+          />
+          <DetailPanel
+            node={selectedNode}
+            nodes={topology.nodes}
+            links={topology.links}
+            onClose={() => setSelectedNode(null)}
+          />
+        </div>
+      )}
 
-        {/* Legend */}
-        {topology && (
-          <div
-            style={{
-              display: 'flex',
-              gap: '24px',
-              marginTop: '12px',
-              fontSize: '12px',
-              color: COLORS.muted,
-              fontFamily: "'JetBrains Mono', monospace",
-            }}
-          >
-            {Object.entries(LINK_STYLES).map(([type, style]) => (
-              <span
-                key={type}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}
-              >
-                <svg width="20" height="4">
-                  <line
-                    x1="0"
-                    y1="2"
-                    x2="20"
-                    y2="2"
-                    stroke={style.color}
-                    strokeWidth={style.width}
-                    strokeDasharray={style.dashArray || undefined}
-                  />
-                </svg>
-                {type.replace(/_/g, ' ')}
-              </span>
-            ))}
-          </div>
-        )}
-      </PageWrapper>
-    </Layout>
+      {/* Legend */}
+      {topology && (
+        <div
+          style={{
+            display: 'flex',
+            gap: '24px',
+            marginTop: '12px',
+            fontSize: '12px',
+            color: COLORS.muted,
+            fontFamily: "'JetBrains Mono', monospace",
+          }}
+        >
+          {Object.entries(LINK_STYLES).map(([type, style]) => (
+            <span
+              key={type}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <svg width="20" height="4">
+                <line
+                  x1="0"
+                  y1="2"
+                  x2="20"
+                  y2="2"
+                  stroke={style.color}
+                  strokeWidth={style.width}
+                  strokeDasharray={style.dashArray || undefined}
+                />
+              </svg>
+              {type.replace(/_/g, ' ')}
+            </span>
+          ))}
+        </div>
+      )}
+    </PageWrapper>
   );
 }
 
@@ -140,7 +140,10 @@ function NetworkView() {
 export default function NetworkPage() {
   return (
     <ApolloProvider client={apolloClient}>
-      <NetworkView />
+      <Layout>
+        <Seo title="Network Visualization" />
+        <NetworkView />
+      </Layout>
     </ApolloProvider>
   );
 }
