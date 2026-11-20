@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
 import { ApolloProvider } from '@apollo/client/react';
 import apolloClient from '../../lib/apolloClient';
 import Layout from '../../components/layout';
@@ -14,6 +15,18 @@ import NetworkMap from '../../components/cluster/NetworkMap';
 import FilterControls from '../../components/cluster/FilterControls';
 import DetailPanel from '../../components/cluster/DetailPanel';
 import useNetworkTopology from '../../hooks/useNetworkTopology';
+
+// The map and, when a node is selected, its detail panel side by side.
+const MapAndPanel = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+`;
 
 const ALL_LINK_TYPES = new Set(Object.keys(LINK_STYLES));
 
@@ -82,17 +95,21 @@ function NetworkView() {
             onToggle={handleToggleFilter}
             lastUpdated={lastUpdated}
           />
-          <NetworkMap
-            topology={topology}
-            visibleLinkTypes={visibleLinkTypes}
-            onNodeClick={handleNodeClick}
-          />
-          <DetailPanel
-            node={selectedNode}
-            nodes={topology.nodes}
-            links={topology.links}
-            onClose={() => setSelectedNode(null)}
-          />
+          <MapAndPanel>
+            <div style={{ flex: '1 1 0', minWidth: 0 }}>
+              <NetworkMap
+                topology={topology}
+                visibleLinkTypes={visibleLinkTypes}
+                onNodeClick={handleNodeClick}
+              />
+            </div>
+            <DetailPanel
+              node={selectedNode}
+              nodes={topology.nodes}
+              links={topology.links}
+              onClose={() => setSelectedNode(null)}
+            />
+          </MapAndPanel>
         </div>
       )}
 
