@@ -26,6 +26,7 @@ export const NODE_COLORS = {
   K8S_NODE: COLORS.cyan,
   NAS: COLORS.green,
   ROUTER: COLORS.amber,
+  REPLICATED_STORAGE: COLORS.purple,
 };
 
 export const LINK_STYLES = {
