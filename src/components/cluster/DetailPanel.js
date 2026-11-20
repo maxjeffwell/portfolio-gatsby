@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS, NODE_COLORS, LINK_STYLES, healthColorFor } from './networkStyles';
+import { COLORS, NODE_COLORS, LINK_STYLES, healthColorFor, formatBandwidth } from './networkStyles';
 
 const Panel = styled.div`
   position: absolute;
@@ -195,11 +195,13 @@ export default function DetailPanel({ node, nodes, links, onClose }) {
           {nodeLinks.map((link, i) => {
             const peer = link.source === node.id ? link.target : link.source;
             const style = LINK_STYLES[link.type];
+            const speed = formatBandwidth(link.bandwidthBps);
             return (
               <ConnRow key={`${peer}-${link.type}-${i}`}>
                 <span>&rarr; {nameOf(peer)}</span>
                 <ConnType $color={style?.color || COLORS.cyan}>
                   {link.type.replace(/_/g, ' ')}
+                  {speed && ` · ${speed}`}
                 </ConnType>
               </ConnRow>
             );

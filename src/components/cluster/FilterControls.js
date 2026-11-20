@@ -56,12 +56,15 @@ const LiveDot = styled.div`
 `;
 
 const FILTER_OPTIONS = [
-  { type: 'WIREGUARD', label: 'WireGuard overlay' },
+  { type: 'TAILSCALE', label: 'Tailscale' },
+  { type: 'WIREGUARD', label: 'WireGuard' },
+  { type: 'BACKHAUL', label: 'Mesh backhaul' },
   { type: 'NVME_OF', label: 'NVMe-oF' },
   { type: 'ISCSI', label: 'iSCSI' },
   { type: 'GARAGE_REPLICATION', label: 'Garage S3' },
   { type: 'LOKI', label: 'Loki' },
   { type: 'NFS', label: 'NFS' },
+  { type: 'OFFSITE_BACKUP', label: 'Off-site backup' },
 ];
 
 export default function FilterControls({ visibleLinkTypes, onToggle, lastUpdated }) {
