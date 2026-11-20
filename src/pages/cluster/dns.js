@@ -158,6 +158,13 @@ const Asking = styled.div`
   }
 `;
 
+// Marks the sentence as the case being walked through, so it does not read as
+// a statement about what the cluster is doing right now.
+const AskingPrefix = styled.span`
+  margin-right: 6px;
+  opacity: 0.6;
+`;
+
 const SameRoute = styled.div`
   margin: 0 0 12px;
   padding: 8px 10px;
@@ -304,6 +311,7 @@ function DnsView() {
           <div>
             <Card>
               <Asking>
+                <AskingPrefix>Scenario:</AskingPrefix>
                 <strong>{client.displayName}</strong> looks up <code>{kind?.example}</code>
               </Asking>
               {path && (
