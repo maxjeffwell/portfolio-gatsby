@@ -1,12 +1,12 @@
 import React from 'react';
-import { LINK_STYLES } from './networkStyles';
+import { LINK_STYLES, DEFAULT_LINK_STYLE } from './networkStyles';
 import { linkPath } from './layout';
 
 // `emphasis` is 'normal', 'focus' (touches the hovered node) or 'dim'.
 const OPACITY = { normal: 0.45, focus: 0.95, dim: 0.06 };
 
 export default function NetworkLink({ link, sourcePos, targetPos, bend, emphasis }) {
-  const style = LINK_STYLES[link.type] || LINK_STYLES.WIREGUARD;
+  const style = LINK_STYLES[link.type] || DEFAULT_LINK_STYLE;
   const healthy = link.status === 'HEALTHY';
 
   if (!sourcePos || !targetPos) return null;

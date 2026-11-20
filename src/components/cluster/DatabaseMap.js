@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { COLORS, healthColorFor } from './networkStyles';
+import { COLORS, healthColorFor, humanize } from './networkStyles';
 import layoutDatabases, { connectedTo } from './databaseLayout';
 
 export const RELATION_STYLES = {
@@ -176,7 +176,7 @@ export default function DatabaseMap({ topology, visibleRelations, selectedId, on
               {node.database && (
                 <>
                   <text x={26} y={32} fill={COLORS.muted} fontSize={9.5}>
-                    {ENGINE_LABELS[node.database.engine] || node.database.engine} &middot;{' '}
+                    {ENGINE_LABELS[node.database.engine] || humanize(node.database.engine)} &middot;{' '}
                     {node.database.manager}
                   </text>
                   <InstanceDots database={node.database} x={node.w - 12} y={14} />

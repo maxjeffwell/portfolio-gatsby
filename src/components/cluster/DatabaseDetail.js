@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { COLORS, healthColorFor } from './networkStyles';
+import { COLORS, healthColorFor, humanize } from './networkStyles';
 
 const Card = styled.div`
   background: rgba(13, 18, 32, 0.9);
@@ -60,7 +60,7 @@ const STORAGE_TEXT = {
   LVM_LOCAL: 'Node-local volumes (one per instance)',
   HOST_DISK: 'Server disks (outside Kubernetes)',
   NONE: 'None: a cache that keeps nothing across restarts',
-  EXTERNAL: 'Hosted by the provider, outside the cluster',
+  EXTERNAL: 'External: hosted by the provider, outside the cluster',
 };
 
 // Why a store has no backups listed, where the reason is known.
@@ -134,7 +134,7 @@ export default function DatabaseDetail({ database, apps }) {
 
       <SectionTitle>STORAGE</SectionTitle>
       <Row>
-        <span>{STORAGE_TEXT[database.storage] || database.storage}</span>
+        <span>{STORAGE_TEXT[database.storage] || humanize(database.storage)}</span>
       </Row>
 
       <SectionTitle>BACKUPS</SectionTitle>
@@ -147,7 +147,7 @@ export default function DatabaseDetail({ database, apps }) {
         <Row key={`${backup.name}-${backup.target}`}>
           <span>
             <Dot $color={BACKUP_COLORS[backup.status]} />
-            {backup.name} &rarr; {TARGET_TEXT[backup.target] || backup.target}
+            {backup.name} &rarr; {TARGET_TEXT[backup.target] || humanize(backup.target)}
           </span>
           <Value $color={BACKUP_COLORS[backup.status]}>{backupText(backup)}</Value>
         </Row>
