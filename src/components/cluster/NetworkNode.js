@@ -87,7 +87,7 @@ export default function NetworkNode({ node, x, y, onHover, onClick }) {
             fontFamily="'JetBrains Mono', monospace"
             letterSpacing="0.3"
           >
-            {svc.name.length > 7 ? svc.name.substring(0, 7) : svc.name}
+            {svc.name.length > 7 ? `${svc.name.substring(0, 6)}\u2026` : svc.name}
           </text>
         </g>
       ))}
