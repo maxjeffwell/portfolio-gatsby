@@ -108,13 +108,6 @@ export const onRouteUpdate = ({ location }) => {
   }
 };
 
-// Service Worker update handling — reload automatically when a new SW activates.
-// With skipWaiting + clientsClaim in workbox config, the new SW takes over
-// immediately. Reload ensures the page uses the new precache manifest.
-export const onServiceWorkerUpdateReady = () => {
-  window.location.reload();
-};
-
 // Optimize font loading and apply TextEncoder polyfill
 export const onInitialClientRender = () => {
   // Apply TextEncoder polyfill immediately when page loads
