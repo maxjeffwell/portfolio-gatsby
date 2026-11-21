@@ -130,7 +130,8 @@ function Detail({ node, topology }) {
         <div style={{ fontSize: 13, lineHeight: 1.5, opacity: 0.75 }}>
           Requests move left to right; the moving dashes show the direction. Pick a kind of request
           above to follow just that one, or select any box to see what it calls and what calls it.
-          Local models run on OpenVINO Model Server, on the Intel graphics of two laptops.
+          Select an app to read which models it uses. Local models run on OpenVINO Model Server, on
+          the Intel graphics of two laptops.
         </div>
       </Card>
     );
