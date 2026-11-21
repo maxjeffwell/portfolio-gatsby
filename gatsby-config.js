@@ -237,53 +237,15 @@ module.exports = {
         createLinkInHead: true,
       },
     },
-    // Service worker for offline functionality and performance
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/`, `/about/`, `/projects/`, `/contact/`],
-        appendScript: `${__dirname}/sw-bypass-subapps.js`,
-        workboxConfig: {
-          // Activate new SW immediately — don't wait for all tabs to close.
-          // Critical for atomic asset updates (e.g. font path migrations).
-          skipWaiting: true,
-          clientsClaim: true,
-          globPatterns: [
-            '*.{js,css,html,png,jpg,jpeg,gif,svg,webp,avif}',
-            'page-data/**',
-            'static/**',
-          ],
-          runtimeCaching: [
-            {
-              // Cache local font files — immutable assets served from /fonts/.
-              urlPattern: /\/fonts\/.*\.(?:woff2?|ttf|eot|otf)$/,
-              handler: 'CacheFirst',
-            },
-            {
-              // Bypass SW for Storybook assets — Storybook manages its own
-              // caching; the default StaleWhileRevalidate catch-all serves
-              // stale JS/CSS after deploys, breaking Composition refs.
-              urlPattern: /\/storybook\//,
-              handler: 'NetworkOnly',
-            },
-            {
-              // Bypass SW for Storybook Composition ref (showcase.el-jefe.me).
-              // The cross-origin index.json fetch must always hit the network
-              // so the sidebar reflects the latest stories.
-              urlPattern: /^https:\/\/showcase\.el-jefe\.me\//,
-              handler: 'NetworkOnly',
-            },
-            {
-              urlPattern: /^https:\/\/fonts\.googleapis\.com/,
-              handler: 'StaleWhileRevalidate',
-            },
-            {
-              urlPattern: /^https:\/\/fonts\.gstatic\.com/,
-              handler: 'CacheFirst',
-            },
-          ],
-        },
-      },
-    },
+    // No service worker (2026-11-21). The site used gatsby-plugin-offline, but
+    // its worker had not installed for anyone since 2026-02: the script appended
+    // to it began with `(` right after a plugin line with no semicolon, so the
+    // whole worker threw on evaluation. Nothing was missed in nine months, and
+    // the cluster pages show live data, where a cache between the visitor and a
+    // new deploy only gets in the way.
+    // This plugin ships a tiny /sw.js that unregisters itself, so a browser
+    // still holding a worker from before February drops it. Keep it: without a
+    // /sw.js to fetch, such a browser would keep its old worker indefinitely.
+    `gatsby-plugin-remove-serviceworker`,
   ],
 };

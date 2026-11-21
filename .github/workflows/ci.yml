@@ -113,7 +113,6 @@ jobs:
       - name: Remove unused build artifacts
         run: |
           rm -rf public/~partytown/debug
-          rm -f public/workbox-v4.3.1/*.dev.js
 
       - name: Check bundle size
         run: |
