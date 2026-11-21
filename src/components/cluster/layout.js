@@ -158,3 +158,51 @@ export function linkPath(source, target, bend = 0) {
   const cy = (source.y + target.y) / 2 + (dx / length) * offset;
   return `M${source.x},${source.y} Q${cx},${cy} ${target.x},${target.y}`;
 }
+
+// Link types that are a whole optional layer of the map, not just a kind of
+// connection: the second network has devices of its own, and they come and go
+// with it.
+export const LAYER_LINK_TYPES = ['SECOND_NETWORK'];
+// Physical cabling. A device with none of it outside a layer belongs to that
+// layer; a machine with a leg on both networks does not.
+const CABLE_LINK_TYPES = ['ETHERNET', 'MOCA', 'BACKHAUL'];
+
+// What the map draws for the current filters.
+//   - A link is drawn when its type is switched on. A type this build does not
+//     know (`knownTypes`) has no switch, so it is drawn.
+//   - A device cabled only into a layer that is switched off is not drawn, and
+//     neither is any link to it (its tailnet link, for instance).
+// Switching an ordinary link type off never removes a device.
+// `layerOf` maps each such device to its layer, shown or not, so the map can
+// mark it as belonging to the other network.
+export function visibleTopology(nodes, links, visibleLinkTypes, knownTypes) {
+  const known = new Set(knownTypes);
+  const hidden = new Set();
+  const layerOf = {};
+
+  LAYER_LINK_TYPES.forEach((layer) => {
+    const inLayer = new Set();
+    const cabledElsewhere = new Set();
+    links.forEach((l) => {
+      const ends = [l.source, l.target];
+      if (l.type === layer) ends.forEach((id) => inLayer.add(id));
+      else if (CABLE_LINK_TYPES.includes(l.type)) ends.forEach((id) => cabledElsewhere.add(id));
+    });
+    inLayer.forEach((id) => {
+      if (cabledElsewhere.has(id)) return;
+      layerOf[id] = layer;
+      if (!visibleLinkTypes.has(layer)) hidden.add(id);
+    });
+  });
+
+  return {
+    layerOf,
+    nodes: nodes.filter((n) => !hidden.has(n.id)),
+    links: links.filter(
+      (l) =>
+        (!known.has(l.type) || visibleLinkTypes.has(l.type)) &&
+        !hidden.has(l.source) &&
+        !hidden.has(l.target)
+    ),
+  };
+}

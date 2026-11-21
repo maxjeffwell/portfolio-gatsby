@@ -15,6 +15,7 @@ import NetworkMap from '../../components/cluster/NetworkMap';
 import FilterControls from '../../components/cluster/FilterControls';
 import DetailPanel from '../../components/cluster/DetailPanel';
 import useNetworkTopology from '../../hooks/useNetworkTopology';
+import { LAYER_LINK_TYPES } from '../../components/cluster/layout';
 
 // The map and, when a node is selected, its detail panel side by side.
 const MapAndPanel = styled.div`
@@ -28,14 +29,18 @@ const MapAndPanel = styled.div`
   }
 `;
 
-const ALL_LINK_TYPES = new Set(Object.keys(LINK_STYLES));
+// Everything is shown at first except the optional layers: the second network
+// carries no cluster traffic, so it appears only when its filter is switched on.
+const INITIAL_LINK_TYPES = new Set(
+  Object.keys(LINK_STYLES).filter((type) => !LAYER_LINK_TYPES.includes(type))
+);
 
 // Holds the data hooks. It must stay INSIDE <Layout>: when these hooks lived
 // above it, every topology update re-rendered the header while its lazy
 // components were still hydrating (React error #421).
 function NetworkView() {
   const { topology, loading, error, lastUpdated } = useNetworkTopology();
-  const [visibleLinkTypes, setVisibleLinkTypes] = useState(ALL_LINK_TYPES);
+  const [visibleLinkTypes, setVisibleLinkTypes] = useState(INITIAL_LINK_TYPES);
   const [selectedNode, setSelectedNode] = useState(null);
 
   const handleToggleFilter = useCallback((type) => {

@@ -7,8 +7,16 @@ const NODE_HEIGHT = 70;
 const BADGE_HEIGHT = 14;
 const BADGE_SLOTS = 3;
 const BADGE_WIDTH = 44;
+// The title starts after the health dot; a name longer than fits at full
+// width is squeezed into the box instead of running out of it.
+const TITLE_X = 22;
+const TITLE_MAX_WIDTH = NODE_WIDTH - TITLE_X - 8;
+const TITLE_CHARS_THAT_FIT = 17;
 
-export default function NetworkNode({ node, x, y, dimmed, onHover, onClick }) {
+// `layerStyle`: line style of the optional layer this device belongs to (the
+// second network). Its box is outlined in that style, so it reads as part of
+// the other network and not as one more homelab router or switch.
+export default function NetworkNode({ node, x, y, dimmed, layerStyle, onHover, onClick }) {
   const color = NODE_COLORS[node.type] || COLORS.cyan;
   const healthColor = healthColorFor(node.health);
 
@@ -36,8 +44,9 @@ export default function NetworkNode({ node, x, y, dimmed, onHover, onClick }) {
         height={BOX_HEIGHT}
         rx={6}
         fill={`${color}14`}
-        stroke={`${color}4D`}
-        strokeWidth={1}
+        stroke={layerStyle ? layerStyle.color : `${color}4D`}
+        strokeWidth={layerStyle ? 1.5 : 1}
+        strokeDasharray={layerStyle?.dashArray || undefined}
       />
 
       <circle cx={12} cy={16} r={4} fill={healthColor}>
@@ -45,12 +54,16 @@ export default function NetworkNode({ node, x, y, dimmed, onHover, onClick }) {
       </circle>
 
       <text
-        x={22}
+        x={TITLE_X}
         y={20}
         fill={color}
         fontSize="13"
         fontWeight="700"
         fontFamily="'JetBrains Mono', monospace"
+        {...(node.displayName.length > TITLE_CHARS_THAT_FIT && {
+          textLength: TITLE_MAX_WIDTH,
+          lengthAdjust: 'spacingAndGlyphs',
+        })}
       >
         {node.displayName}
       </text>

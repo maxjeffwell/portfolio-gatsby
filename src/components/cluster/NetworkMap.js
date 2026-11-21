@@ -4,7 +4,7 @@ import NetworkNode from './NetworkNode';
 import NetworkLink from './NetworkLink';
 import NetworkTooltip from './NetworkTooltip';
 import ParticleAnimation from './ParticleAnimation';
-import layoutNodes, { assignBends } from './layout';
+import layoutNodes, { assignBends, visibleTopology } from './layout';
 
 const MAP_WIDTH = 1000;
 // Wider than this and the map only gets taller, not clearer.
@@ -22,8 +22,18 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
 
-  const nodes = topology?.nodes || [];
-  const links = topology?.links || [];
+  // Devices of a layer that is switched off are left out before layout, so the
+  // map closes up instead of showing gaps.
+  const {
+    nodes,
+    links: filteredLinks,
+    layerOf,
+  } = visibleTopology(
+    topology?.nodes || [],
+    topology?.links || [],
+    visibleLinkTypes,
+    Object.keys(LINK_STYLES)
+  );
 
   // Positions depend only on which nodes exist, not on each data refresh.
   const layoutKey = nodes.map((n) => `${n.id}:${n.zone}:${n.type}`).join('|');
@@ -38,10 +48,6 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
     posMap[p.id] = p;
   }
 
-  // A link type without a filter button cannot be switched off, so it is shown.
-  const filteredLinks = links.filter(
-    (l) => !(l.type in LINK_STYLES) || visibleLinkTypes.has(l.type)
-  );
   const bends = assignBends(filteredLinks);
 
   // Hovering a node brings its links and neighbours forward and fades the rest.
@@ -139,6 +145,7 @@ export default function NetworkMap({ topology, visibleLinkTypes, onNodeClick }) 
                 node={node}
                 x={pos.x}
                 y={pos.y}
+                layerStyle={LINK_STYLES[layerOf[node.id]]}
                 dimmed={Boolean(focusId) && !neighbours.has(node.id)}
                 onHover={handleHover}
                 onClick={onNodeClick}
