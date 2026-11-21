@@ -1,4 +1,10 @@
-import layoutNodes, { assignBends, linkPath, NODE_WIDTH, NODE_HEIGHT } from '../layout';
+import layoutNodes, {
+  assignBends,
+  linkPath,
+  visibleTopology,
+  NODE_WIDTH,
+  NODE_HEIGHT,
+} from '../layout';
 
 const SIZE = { width: 1000 };
 
@@ -88,5 +94,73 @@ describe('link geometry', () => {
     const b = { x: 100, y: 0 };
     expect(linkPath(a, b, 0)).not.toEqual(linkPath(a, b, 1));
     expect(linkPath(a, b, 1)).toMatch(/^M0,0 Q.* 100,0$/);
+  });
+});
+
+describe('visibleTopology', () => {
+  const nodes = [
+    'router',
+    'switch',
+    'machine',
+    'second-router',
+    'second-switch',
+    'ap',
+    'volumes',
+  ].map((id) => ({ id }));
+  const link = (source, target, type) => ({ source, target, type });
+  const links = [
+    link('machine', 'switch', 'ETHERNET'),
+    link('switch', 'router', 'MOCA'),
+    link('machine', 'volumes', 'NVME_OF'),
+    link('machine', 'second-switch', 'SECOND_NETWORK'),
+    link('second-switch', 'second-router', 'SECOND_NETWORK'),
+    link('second-switch', 'ap', 'SECOND_NETWORK'),
+    // The access point is also a tailnet member.
+    link('machine', 'ap', 'TAILSCALE'),
+  ];
+  const known = ['ETHERNET', 'MOCA', 'NVME_OF', 'SECOND_NETWORK', 'TAILSCALE'];
+  const ids = (list) => list.map((n) => n.id);
+  const show = (...types) => visibleTopology(nodes, links, new Set(types), known);
+
+  it('shows everything when every link type is on', () => {
+    const out = show(...known);
+    expect(ids(out.nodes)).toEqual(ids(nodes));
+    expect(out.links).toHaveLength(links.length);
+  });
+
+  it('hides devices cabled only into the second network when that layer is off', () => {
+    const out = show('ETHERNET', 'MOCA', 'NVME_OF', 'TAILSCALE');
+    expect(ids(out.nodes)).toEqual(['router', 'switch', 'machine', 'volumes']);
+    // A machine with a leg on both networks stays; only that leg goes.
+    expect(out.links.map((l) => l.type)).toEqual(['ETHERNET', 'MOCA', 'NVME_OF']);
+  });
+
+  it('drops links that would point at a hidden device, whatever their type', () => {
+    const out = show('ETHERNET', 'MOCA', 'NVME_OF', 'TAILSCALE');
+    expect(out.links.some((l) => l.target === 'ap')).toBe(false);
+  });
+
+  it('names the devices that belong to the second network, whether it is shown or not', () => {
+    const expected = {
+      'second-router': 'SECOND_NETWORK',
+      'second-switch': 'SECOND_NETWORK',
+      ap: 'SECOND_NETWORK',
+    };
+    expect(show(...known).layerOf).toEqual(expected);
+    expect(show('ETHERNET').layerOf).toEqual(expected);
+    // A machine with a leg on both networks belongs to neither layer.
+    expect(show(...known).layerOf.machine).toBeUndefined();
+  });
+
+  it('keeps every device when an ordinary link type is switched off', () => {
+    const out = show('NVME_OF', 'SECOND_NETWORK', 'TAILSCALE');
+    expect(ids(out.nodes)).toEqual(ids(nodes));
+    expect(out.links.some((l) => l.type === 'ETHERNET' || l.type === 'MOCA')).toBe(false);
+  });
+
+  it('shows a link type this build does not know, since it has no switch to turn it off', () => {
+    const extra = [...links, link('machine', 'router', 'BRAND_NEW')];
+    const out = visibleTopology(nodes, extra, new Set(['ETHERNET']), known);
+    expect(out.links.map((l) => l.type)).toEqual(['ETHERNET', 'BRAND_NEW']);
   });
 });

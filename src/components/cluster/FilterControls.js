@@ -62,6 +62,7 @@ const FILTER_OPTIONS = [
   { type: 'ETHERNET', label: 'Ethernet' },
   { type: 'MOCA', label: 'MoCA coax' },
   { type: 'BACKHAUL', label: 'Ethernet backhaul' },
+  { type: 'SECOND_NETWORK', label: 'Second network' },
   { type: 'NVME_OF', label: 'NVMe-oF' },
   { type: 'LOCAL_VOLUME', label: 'Local volumes' },
   { type: 'ISCSI', label: 'iSCSI' },

@@ -18,6 +18,7 @@ export const COLORS = {
   lime: '#b8f400',
   slate: '#8fa3c8',
   teal: '#2dd4bf',
+  indigo: '#8b8cff',
   gray: '#888888',
 };
 
@@ -64,6 +65,8 @@ export const LINK_STYLES = {
   ETHERNET: { color: COLORS.white, width: 1.6, dashArray: null },
   MOCA: { color: COLORS.lime, width: 2.5, dashArray: '2 5' },
   BACKHAUL: { color: COLORS.blue, width: 2.5, dashArray: '10 3' },
+  // A separate network with its own router. Off until asked for (network.js).
+  SECOND_NETWORK: { color: COLORS.indigo, width: 2, dashArray: '7 3 1 3' },
   NVME_OF: { color: COLORS.amber, width: 2.5, dashArray: null },
   LOCAL_VOLUME: { color: COLORS.teal, width: 2, dashArray: null },
   ISCSI: { color: COLORS.red, width: 3, dashArray: '8 4' },
