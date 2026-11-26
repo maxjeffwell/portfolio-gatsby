@@ -118,6 +118,20 @@ function NetworkView() {
         </div>
       )}
 
+      {topology && (
+        <p
+          style={{
+            margin: '12px 0 0',
+            fontSize: '12px',
+            color: COLORS.muted,
+            fontFamily: "'JetBrains Mono', monospace",
+          }}
+        >
+          A moving dot is measured traffic: more dots, moving faster, mean more data. A link without
+          one is idle or has no counter to read.
+        </p>
+      )}
+
       {/* Legend */}
       {topology && (
         <div

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLORS, NODE_COLORS, LINK_STYLES, healthColorFor, formatBandwidth } from './networkStyles';
+import { formatTraffic } from './traffic';
 
 // Sits beside the map, not over it: opening it narrows the map so no node is
 // ever hidden behind it. On narrow screens it drops below the map instead.
@@ -206,6 +207,7 @@ export default function DetailPanel({ node, nodes, links, onClose }) {
             const peer = link.source === node.id ? link.target : link.source;
             const style = LINK_STYLES[link.type];
             const speed = formatBandwidth(link.bandwidthBps);
+            const traffic = formatTraffic(link.throughputBps);
             return (
               <ConnRow key={`${peer}-${link.type}-${i}`}>
                 <span>
@@ -215,6 +217,7 @@ export default function DetailPanel({ node, nodes, links, onClose }) {
                 <ConnType $color={style?.color || COLORS.cyan}>
                   {link.type.replace(/_/g, ' ')}
                   {speed && ` · ${speed}`}
+                  {traffic && ` · ${traffic === 'idle' ? 'idle' : `now ${traffic}`}`}
                 </ConnType>
               </ConnRow>
             );

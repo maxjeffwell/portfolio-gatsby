@@ -161,6 +161,7 @@ const NETWORK_TOPOLOGY_FIELDS = `
     type
     status
     bandwidthBps
+    throughputBps
     latencyMs
     metadata {
       lastHandshake
