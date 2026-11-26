@@ -22,9 +22,6 @@ const STAGE_COLORS = {
 };
 
 const FONT = "'JetBrains Mono', 'Fira Code', monospace";
-const shorten = (text, max) => (text.length > max ? `${text.slice(0, max - 1)}…` : text);
-// Only what fits in a box; the full figure is in the detail panel.
-const shortStat = (stat) => (stat ? shorten(stat.split(' · ')[0], 28) : null);
 
 // Also draws the LLM map, which has the same shape (stages, boxes, typed
 // flows) with its own colour key.
@@ -148,15 +145,43 @@ export default function MonitoringMap({
                   strokeWidth={box.inferred ? 2 : 0}
                 />
               )}
-              <text x={box.health ? 26 : 12} y={24} fill={color} fontSize={13.5} fontWeight={700}>
-                {shorten(box.displayName, 22)}
-              </text>
-              <text x={12} y={41} fill={COLORS.text} fontSize={10.5} opacity={0.65}>
-                {shorten(box.location, 30)}
-              </text>
-              {box.stat && (
-                <text x={12} y={54} fill={COLORS.text} fontSize={10} opacity={0.45}>
-                  {shortStat(box.stat)}
+              {/* The layout has already wrapped the text and sized the box to it. */}
+              <title>
+                {[box.displayName, box.location, box.stat].filter(Boolean).join(' \u2014 ')}
+              </title>
+              {box.text.title.map((line) => (
+                <text
+                  key={`t${line.y}`}
+                  x={line.x}
+                  y={line.y}
+                  fill={color}
+                  fontSize={13.5}
+                  fontWeight={700}
+                >
+                  {line.text}
+                </text>
+              ))}
+              {box.text.location.map((line) => (
+                <text
+                  key={`l${line.y}`}
+                  x={line.x}
+                  y={line.y}
+                  fill={COLORS.text}
+                  fontSize={10.5}
+                  opacity={0.65}
+                >
+                  {line.text}
+                </text>
+              ))}
+              {box.text.stat && (
+                <text
+                  x={box.text.stat.x}
+                  y={box.text.stat.y}
+                  fill={COLORS.text}
+                  fontSize={10}
+                  opacity={0.45}
+                >
+                  {box.text.stat.text}
                 </text>
               )}
             </g>

@@ -1,4 +1,11 @@
-import { layoutMonitoring, flowPath, lineage, WIDTH } from '../monitoringLayout';
+import {
+  layoutMonitoring,
+  flowPath,
+  lineage,
+  wrapText,
+  WIDTH,
+  BOX_WIDTH,
+} from '../monitoringLayout';
 
 const topology = {
   stages: [
@@ -106,5 +113,127 @@ describe('lineage', () => {
 
     // Selecting the collector itself shows everything it handles.
     expect(lineage('alloy', flows, relays).nodes.size).toBe(6);
+  });
+});
+
+describe('wrapText', () => {
+  it('leaves text that fits on one line', () => {
+    expect(wrapText('Prometheus', 22)).toEqual(['Prometheus']);
+  });
+
+  it('breaks between words, never inside one that fits', () => {
+    expect(wrapText('Routers, NAS units, UPS, Garage, WireGuard', 30)).toEqual([
+      'Routers, NAS units, UPS,',
+      'Garage, WireGuard',
+    ]);
+  });
+
+  it('splits a single word that is longer than a line', () => {
+    expect(wrapText('kube-state-metrics-and-more', 12)).toEqual(['kube-state-m', 'etrics-and-…']);
+  });
+
+  it('ends the last line with an ellipsis only when the text still does not fit', () => {
+    const lines = wrapText('one two three four five six seven eight nine ten', 10, 2);
+    expect(lines).toHaveLength(2);
+    expect(lines[1].endsWith('…')).toBe(true);
+    lines.forEach((line) => expect(line.length).toBeLessThanOrEqual(10));
+  });
+
+  it('returns nothing for no text', () => {
+    expect(wrapText(undefined, 20)).toEqual([]);
+    expect(wrapText('', 20)).toEqual([]);
+  });
+});
+
+describe('box sizing', () => {
+  const sized = layoutMonitoring({
+    stages: [
+      { id: 'SOURCE', label: 'Sources' },
+      { id: 'STORE', label: 'Stores' },
+    ],
+    nodes: [
+      {
+        id: 'gear',
+        stage: 'SOURCE',
+        displayName: 'Network & storage gear',
+        location: 'Routers, NAS units, UPS, Garage, WireGuard',
+        stat: '9/9 targets up',
+        health: 'HEALTHY',
+      },
+      { id: 'hosts', stage: 'SOURCE', displayName: 'Hosts', location: 'Seven nodes' },
+      {
+        id: 'net',
+        stage: 'SOURCE',
+        displayName: 'IntervalAI neural network',
+        location: 'OpenVINO server · GPU Worker 2',
+        stat: '19 requests in 7 days',
+        health: 'HEALTHY',
+      },
+      {
+        id: 'prom',
+        stage: 'STORE',
+        displayName: 'Prometheus',
+        location: 'In the cluster, 15 days',
+        stat: '1/1 running · 206/206 targets up · 14k samples/s · 588k series',
+        health: 'HEALTHY',
+      },
+    ],
+    flows: [],
+  });
+  const box = (id) => sized.boxes.find((b) => b.id === id);
+  const lastBaseline = (b) =>
+    Math.max(
+      ...[...b.text.title, ...b.text.location, ...(b.text.stat ? [b.text.stat] : [])].map(
+        (l) => l.y
+      )
+    );
+
+  it('shows a long description in full on two lines instead of cutting it off', () => {
+    expect(box('gear').text.location.map((l) => l.text)).toEqual([
+      'Routers, NAS units, UPS,',
+      'Garage, WireGuard',
+    ]);
+    expect(box('gear').text.title.map((l) => l.text)).toEqual(['Network & storage gear']);
+  });
+
+  it('wraps a title that is too long for one line', () => {
+    expect(
+      box('net')
+        .text.title.map((l) => l.text)
+        .join(' ')
+    ).toBe('IntervalAI neural network');
+    expect(box('net').text.title.length).toBe(2);
+  });
+
+  it('makes a box as tall as its text needs, and no taller', () => {
+    expect(box('gear').h).toBeGreaterThan(box('hosts').h);
+    expect(box('net').h).toBeGreaterThan(box('hosts').h);
+    sized.boxes.forEach((b) => {
+      expect(lastBaseline(b)).toBeLessThan(b.h);
+      expect(b.h - lastBaseline(b)).toBeLessThanOrEqual(12);
+      expect(b.w).toBe(BOX_WIDTH);
+    });
+  });
+
+  it('keeps every line inside the box width', () => {
+    // JetBrains Mono advances 0.6 em per character.
+    const fits = (line, size, x) => x + line.text.length * size * 0.6 <= BOX_WIDTH - 6;
+    sized.boxes.forEach((b) => {
+      b.text.title.forEach((l) => expect(fits(l, 13.5, l.x)).toBe(true));
+      b.text.location.forEach((l) => expect(fits(l, 10.5, l.x)).toBe(true));
+      if (b.text.stat) expect(fits(b.text.stat, 10, b.text.stat.x)).toBe(true);
+    });
+  });
+
+  it('shows only the first figure of a long statistic', () => {
+    expect(box('prom').text.stat.text).toBe('1/1 running');
+  });
+
+  it('stacks boxes of different heights without overlap, inside the canvas', () => {
+    const sources = ['gear', 'hosts', 'net'].map(box);
+    for (let i = 1; i < sources.length; i += 1) {
+      expect(sources[i].y).toBeGreaterThan(sources[i - 1].y + sources[i - 1].h);
+    }
+    sized.boxes.forEach((b) => expect(b.y + b.h).toBeLessThanOrEqual(sized.height));
   });
 });
