@@ -165,7 +165,7 @@ describe('box sizing', () => {
         id: 'net',
         stage: 'SOURCE',
         displayName: 'IntervalAI neural network',
-        location: 'OpenVINO server · GPU Worker 2',
+        location: 'KServe + OpenVINO · GPU Worker 2',
         stat: '19 requests in 7 days',
         health: 'HEALTHY',
       },
