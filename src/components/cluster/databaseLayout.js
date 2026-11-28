@@ -26,6 +26,7 @@ const STORAGE_LABELS = {
 const BACKUP_LABELS = {
   GARAGE: 'Garage S3',
   BACKBLAZE_B2: 'Backblaze B2',
+  CLOUDFLARE_R2: 'Cloudflare R2',
   VOLUME_SNAPSHOT: 'Volume snapshots',
 };
 

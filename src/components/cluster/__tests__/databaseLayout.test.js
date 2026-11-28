@@ -139,6 +139,17 @@ describe('backup boxes', () => {
     expect(status('backup:VELERO_BACKBLAZE_B2')).toBe('OFFLINE');
   });
 
+  it('names Cloudflare R2, the second off-site copy, as its own target', () => {
+    const { nodes } = layoutDatabases(
+      db([
+        { name: 'Base backup + WAL archive', target: 'BACKBLAZE_B2', status: 'HEALTHY' },
+        { name: 'Daily copy of the B2 backups', target: 'CLOUDFLARE_R2', status: 'HEALTHY' },
+      ])
+    );
+    const labels = Object.fromEntries(nodes.map((n) => [n.id, n.label]));
+    expect(labels['backup:CLOUDFLARE_R2']).toBe('Cloudflare R2');
+  });
+
   it('labels external storage, and makes a readable label for a value it does not know', () => {
     const label = (storage) =>
       layoutDatabases(db([], storage)).nodes.find((n) => n.id === `storage:${storage}`).label;
