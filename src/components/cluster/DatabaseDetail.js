@@ -72,6 +72,7 @@ const NO_BACKUP_TEXT = {
 const TARGET_TEXT = {
   GARAGE: 'Garage S3',
   BACKBLAZE_B2: 'Backblaze B2',
+  CLOUDFLARE_R2: 'Cloudflare R2',
   VOLUME_SNAPSHOT: 'Volume snapshot',
 };
 
